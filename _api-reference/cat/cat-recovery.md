@@ -132,3 +132,7 @@ index | shard | time | type | stage | source_host | source_node | target_host | 
 movies | 0 | 117ms | empty_store | done | n/a | n/a | 172.18.0.4 | odfe-node1 | n/a | n/a | 0 | 0 | 0.0% | 0 | 0 | 0 | 0.0% | 0 | 0 | 0 | 100.0%
 movies | 0 | 382ms | peer | done | 172.18.0.4 | odfe-node1 | 172.18.0.3 | odfe-node2 | n/a | n/a | 1 | 1 |  100.0% | 1 | 208 | 208 | 100.0% | 208 | 1 | 1 | 100.0%
 ```
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:monitor/recovery`.

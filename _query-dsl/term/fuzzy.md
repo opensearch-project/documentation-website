@@ -80,7 +80,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 `value` | String | The term to search for in the field specified in `<field>`.
 `boost` | Floating-point | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field’s relevance. Values between 0.0 and 1.0 decrease the field’s relevance. Default is 1.0.
-`fuzziness` | `AUTO`, `0`, or a positive integer | The number of character edits (insert, delete, substitute) needed to change one word to another when determining whether a term matched a value. For example, the distance between `wined` and `wind` is 1. The default, `AUTO`, chooses a value based on the length of each term and is a good choice for most use cases.
+`fuzziness` | `AUTO`, `0`, or a positive integer | The maximum number of edits allowed when matching the term, specified as `0`, `1`, `2`, `AUTO`, or `AUTO:<low>,<high>`. Default is `AUTO`. For more information, see [Fuzziness]({{site.url}}{{site.baseurl}}/query-dsl/fuzziness/).
 `max_expansions` | Positive integer |  The maximum number of terms to which the query can expand. Fuzzy queries “expand to” a number of matching terms that are within the distance specified in `fuzziness`. Then OpenSearch tries to match those terms. Default is `50`.
 `prefix_length` | Non-negative integer | The number of leading characters that are not considered in fuzziness. Default is `0`.
 `rewrite` | String | Determines how OpenSearch rewrites and scores multi-term queries. Valid values are `constant_score`, `scoring_boolean`, `constant_score_boolean`, `top_terms_N`, `top_terms_boost_N`, and `top_terms_blended_freqs_N`. Default is `constant_score`.

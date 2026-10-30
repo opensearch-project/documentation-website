@@ -7,11 +7,13 @@ nav_order: 40
 
 # Conditional execution
 
-In ingest pipelines, you can control whether a processor runs by using the optional `if` parameter. This allows for conditional execution of processors based on the incoming document contents. The condition is written as a Painless script and evaluated against the document context (`ctx`).
+In ingest pipelines, you can control whether a processor runs by using the optional `if` parameter. This allows for conditional execution of processors based on the incoming document contents. The condition is written as a Painless script and evaluated against the document context (`ctx`). For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/).
 
 ## Basic conditional execution
 
 Each processor can include an `if` clause. If the condition evaluates to `true`, the processor runs; otherwise, it's skipped.
+
+In the condition, `ctx` is read-only. A condition can read document fields but can't add, change, or remove them. To modify a document conditionally, put the modification in the processor and use the condition only to decide whether the processor runs.
 
 ### Example: Drop debug-level logs
 
@@ -80,7 +82,7 @@ PUT _ingest/pipeline/drop_debug_env
 ```
 {% include copy-curl.html %}
 
-If the null-safe `?.` operator is not configured, indexing any document that doesn't contain the `app.env` field will trigger the following null pointer exception:
+If the null-safe `?.` operator is not configured, indexing any document that doesn't contain the `app` object triggers the following null pointer exception:
 
 ```json
 {
@@ -114,7 +116,19 @@ PUT _ingest/pipeline/drop_debug_env
 
 ## Safe method calls in conditions
 
-Avoid calling methods on potential null values. Use constants or null checks instead:
+The `?.` operator returns `null` if the object is `null`, and the `==` operator handles `null` values, so conditions such as `ctx.app?.env == 'debug'` are null safe. However, calling a method on a `null` value causes a null pointer exception. For example, `ctx.app?.env.equalsIgnoreCase('debug')` fails for documents that don't contain the `app.env` field because `ctx.app?.env` returns `null`.
+
+To make a method call null safe, call the method on a constant, which is never `null`, and pass the field as the argument:
+
+```json
+{
+  "drop": {
+    "if": "'debug'.equalsIgnoreCase(ctx.app?.env)"
+  }
+}
+```
+
+If no method can be called on a constant, check for `null` explicitly before calling the method:
 
 ```json
 {
@@ -129,7 +143,7 @@ Avoid calling methods on potential null values. Use constants or null checks ins
 The following ingest pipeline uses three processors:
 
 1. `set`: If no value is provided in the `user` field, sets the `user` field to `guest`.
-2. `set`: If the `status_code` is provided and is higher than `400`, sets the `error` field to `true`.
+2. `set`: If the `status_code` is provided and is greater than or equal to `400`, sets the `error` field to `true`.
 3. `drop`: If the `app.env` field is equal to `debug`, drops the entire document.
 
 ```json

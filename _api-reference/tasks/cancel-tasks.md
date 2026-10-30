@@ -2,7 +2,7 @@
 layout: default
 title: Cancel tasks
 parent: Tasks APIs
-nav_order: 30
+nav_order: 40
 ---
 
 # Cancel Tasks API
@@ -146,3 +146,6 @@ The following response shows that a bulk write and update task were canceled wit
 }
 ```
 
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/tasks/cancel`.

@@ -3,7 +3,7 @@ layout: default
 title: Search configurations
 nav_order: 5
 parent: Search Relevance Workbench
-grand_parent: Search relevance
+grand_parent: Optimizing search quality
 has_children: false
 ---
 
@@ -27,8 +27,9 @@ The following table lists the available input parameters.
 
 Field | Data type |  Description
 :---  | :--- | :---
-`name` | String |	The name of the search configuration.
-`query` | Object | Defines the query in OpenSearch query DSL. Use `%SearchText%` as a placeholder for the user query. Needs to be escaped.
+`name` | String | The name of the search configuration.
+`description` | String | Description of the search configuration.
+`query` | Object | Defines the query in OpenSearch query DSL, provided as a JSON string with the inner quotation marks escaped (for example, `"query": "{\"query\":{\"multi_match\":{...}}}"`). Use the `%queryText%` placeholder or [Mustache](https://mustache.github.io/) template variables (such as {% raw %}`{{queryText}}`{% endraw %}) to substitute query set values at runtime. For more information, see [Using Mustache templates](#using-mustache-templates).
 `index` | String | The target index queried by this search configuration.
 `searchPipeline` | String | Specifies an existing search pipeline. Optional.
 
@@ -38,10 +39,38 @@ Field | Data type |  Description
 PUT _plugins/_search_relevance/search_configurations
 {
   "name": "baseline",
-  "query": "{\"query\":{\"multi_match\":{\"query\":\"%SearchText%\",\"fields\":[\"id\",\"title\",\"category\",\"bullets\",\"description\",\"attrs.Brand\",\"attrs.Color\"]}}}",
+  "query": "{\"query\":{\"multi_match\":{\"query\":\"%queryText%\",\"fields\":[\"id\",\"title\",\"category\",\"bullets\",\"description\",\"attrs.Brand\",\"attrs.Color\"]}}}",
+  "description": "Current production algorithm",
   "index": "ecommerce"
 }
 ```
+
+### Using Mustache templates
+
+Instead of the `%queryText%` placeholder, you can use [Mustache](https://mustache.github.io/) template variables in a query. If the `query` parameter contains double curly braces ({% raw %}`{{}}`{% endraw %}), OpenSearch renders the `query` as a Mustache template; otherwise, OpenSearch substitutes the `%queryText%` placeholder. Existing `%queryText%` configurations continue to work unchanged.
+
+When OpenSearch renders a template, the following variables are available:
+
+- {% raw %}`{{queryText}}`{% endraw %}: The `queryText` value from the current query set entry.
+- {% raw %}`{{<field_name>}}`{% endraw %}: Any custom field from the query set entry, referenced by its field name (for example, {% raw %}`{{category}}`{% endraw %}). For more information, see [Query sets]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/query-sets/).
+
+OpenSearch automatically escapes substituted values, so query text that contains quotation marks or other special characters remains valid in JSON.
+
+Mustache partials ({% raw %}`{{>...}}`{% endraw %}) are not supported and cause the query to be rejected.
+{: .note}
+
+For example, the following request creates a search configuration that matches the user query against the `title` field and filters the results by the `category` custom field from each query set entry:
+
+```json
+PUT _plugins/_search_relevance/search_configurations
+{
+  "name": "mustache_filter",
+  "query": "{\"query\":{\"bool\":{\"must\":[{\"match\":{\"title\":\"{% raw %}{{queryText}}{% endraw %}\"}}],\"filter\":[{\"term\":{\"category\":\"{% raw %}{{category}}{% endraw %}\"}}]}}}",
+  "description": "Title match filtered by a category custom field",
+  "index": "ecommerce"
+}
+```
+{% include copy-curl.html %}
 
 ## Managing search configurations
 
@@ -55,9 +84,8 @@ You can retrieve or delete configurations using the following APIs.
 
 ```json
 GET _plugins/_search_relevance/search_configurations
-GET _plugins/_search_relevance/search_configurations/<search_configuration_id>
+GET _plugins/_search_relevance/search_configurations/{search_configuration_id}
 ```
-{% include copy-curl.html %}
 
 #### Example response
 
@@ -85,9 +113,10 @@ GET _plugins/_search_relevance/search_configurations/<search_configuration_id>
         "_source": {
           "id": "92810080-9c5a-470f-a0ff-0eb85e7b818c",
           "name": "baseline",
+          "description": "Current production algorithm",
           "timestamp": "2025-06-12T08:23:03.305Z",
           "index": "ecommerce",
-          "query": """{"query":{"multi_match":{"query":"%SearchText%","fields":["id","title","category","bullets","description","attrs.Brand","attrs.Color"]}}}""",
+          "query": """{"query":{"multi_match":{"query":"%queryText%","fields":["id","title","category","bullets","description","attrs.Brand","attrs.Color"]}}}""",
           "searchPipeline": ""
         },
         "sort": [
@@ -114,7 +143,7 @@ You can delete a search configuration using the search configuration ID.
 #### Endpoint
 
 ```json
-DELETE _plugins/_search_relevance/search_configurations/<search_configuration_id>
+DELETE _plugins/_search_relevance/search_configurations/{search_configuration_id}
 ```
 
 #### Example request
@@ -140,5 +169,125 @@ DELETE _plugins/_search_relevance/search_configurations/bb45c4c4-48ce-461b-acbc-
   },
   "_seq_no": 9,
   "_primary_term": 1
+}
+```
+
+### Search for a search configuration
+
+You can search for available search configurations using query DSL.
+
+#### Endpoint
+
+```json
+GET _plugins/_search_relevance/search_configurations/_search
+POST _plugins/_search_relevance/search_configurations/_search
+```
+
+#### Example request: Searching for all search configurations
+
+```json
+GET _plugins/_search_relevance/search_configurations/_search
+{
+  "query":
+  {
+    "match_all": {}
+  }
+}
+```
+{% include copy-curl.html %}
+
+#### Example request: Searching for a search configuration by name
+
+```json
+GET _plugins/_search_relevance/search_configurations/_search
+{
+  "query": {
+    "match": {
+      "name": "baseline"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Note that the index storing the search configurations contains several fields of the type `keyword` that require exact matching.
+{: .note}
+
+#### Example request: Searching for a search configuration using multiple criteria
+
+Search for a search configuration by a specific target index and query pattern:  
+
+```json
+GET _plugins/_search_relevance/search_configurations/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "index": "ecommerce"
+          }
+        },
+        {
+          "match": {
+            "query": "multi_match"
+          }
+        }
+      ]
+    }
+  },
+  "size": 10
+}
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
+{
+  "took": 1,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
+    },
+    "max_score": 1.2086178,
+    "hits": [
+      {
+        "_index": "search-relevance-search-config",
+        "_id": "c86af6ed-a91e-450d-a630-aa2a3c525618",
+        "_score": 1.2086178,
+        "_source": {
+          "id": "c86af6ed-a91e-450d-a630-aa2a3c525618",
+          "name": "baseline",
+          "description": "Current production algorithm",
+          "timestamp": "2026-01-26T12:11:47.657Z",
+          "index": "ecommerce",
+          "query": """{"query":{"multi_match":{"query":"%queryText%","fields":["asin","title","category","bullet_points","description","brand","color"]}}}""",
+          "searchPipeline": ""
+        }
+      },
+      {
+        "_index": "search-relevance-search-config",
+        "_id": "a4697191-744e-404a-b869-bbefb7e753ed",
+        "_score": 1.2015147,
+        "_source": {
+          "id": "a4697191-744e-404a-b869-bbefb7e753ed",
+          "name": "baseline with title weight",
+          "timestamp": "2026-01-26T12:11:48.199Z",
+          "index": "ecommerce",
+          "query": """{"query":{"multi_match":{"query":"%queryText%","fields":["asin","title^25","category","bullet_points","description","brand","color"]}}}""",
+          "searchPipeline": ""
+        }
+      }
+    ]
+  }
 }
 ```

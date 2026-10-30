@@ -566,26 +566,26 @@ The `GET _script_context` request returns the following response fields:
 
 | Field | Data type | Description | 
 :--- | :--- | :---
-| contexts | List | A list of all contexts. See [Script object](#script-context).  |
+| `contexts` | List | A list of all contexts. See [Script object](#script-context).  |
 
 #### Script context
 
 | Field | Data type | Description | 
 :--- | :--- | :---
-| name | String | The context name. |
-|  methods | List | List of the context's allowable methods. See [Script object](#context-methods). |
+| `name` | String | The context name. |
+| `methods` | List | List of the context's allowable methods. See [Script object](#context-methods). |
 
 #### Context methods
 
 | Field | Data type | Description | 
 :--- | :--- | :---
-| name | String | Method name. |
-| name | String | Type that the method returns (`boolean`, `object`, `number`, and so on). |
-| params | List | List of the parameters accepted by the method. See [Script object](#method-parameters). |
+| `name` | String | Method name. |
+| `name` | String | Type that the method returns (`boolean`, `object`, `number`, and so on). |
+| `params` | List | List of the parameters accepted by the method. See [Script object](#method-parameters). |
 
 #### Method parameters 
 
 | Field | Data type | Description | 
 :--- | :--- | :---
-| type | String | Parameter data type. | 
-| name | String | Parameter name. |
+| `type` | String | Parameter data type. | 
+| `name` | String | Parameter name. |

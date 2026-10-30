@@ -7,11 +7,11 @@ parent: User-defined search processors
 grand_parent: Search pipelines
 ---
 
-# Script processor
+# Script search processor
 Introduced 2.8
 {: .label .label-purple }
 
-The `script` search request processor intercepts a search request and adds an inline Painless script that is run on incoming requests. The script can only run on the following request fields:
+The `script` search request processor intercepts a search request and adds an inline [Painless]({{site.url}}{{site.baseurl}}/scripting/painless/) script that is run on incoming requests. The script can only run on the following request fields:
 
 - `from` 
 - `size` 

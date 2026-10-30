@@ -10,7 +10,7 @@ redirect_from:
 
 # Semantic search using Amazon Bedrock Titan in another account
 
-Starting with OpenSearch version 2.15, you must configure a connector to an Amazon Bedrock model hosted in a different account than the account hosting Amazon OpenSearch Service. This tutorial shows you how to implement semantic search in [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) using the [Amazon Bedrock Titan embedding model](https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html) hosted in another account. For more information, see [Semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/semantic-search/).
+You can configure a connector to an Amazon Bedrock model hosted in a different account than the account hosting Amazon OpenSearch Service. This tutorial shows you how to implement semantic search in [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) using the [Amazon Bedrock Titan embedding model](https://docs.aws.amazon.com/bedrock/latest/userguide/titan-embedding-models.html) hosted in another account. For more information, see [Semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/semantic-search/).
 
 Amazon Bedrock has a [quota limit](https://docs.aws.amazon.com/bedrock/latest/userguide/quotas.html). For more information about increasing this limit, see [Increase model invocation capacity with Provisioned Throughput in Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/prov-throughput.html).
 {: .warning}
@@ -18,7 +18,7 @@ Amazon Bedrock has a [quota limit](https://docs.aws.amazon.com/bedrock/latest/us
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
 
-# Overview
+## Cross-account setup
 
 In this tutorial, you'll use two AWS accounts: Account A (hosting Amazon OpenSearch Service) and Account B (hosting an Amazon Bedrock model).
 
@@ -27,7 +27,7 @@ To invoke a model hosted in a different account than the account hosting Amazon 
 - `roleArn`: The role in Account A that is used to assume the external account role in Account B.
 - `externalAccountRoleArn`: The role in Account B that is used to invoke the Amazon Bedrock model.
 
-In this tutorial , you'll use the following role names:
+In this tutorial, you'll use the following role names:
 
 - Account A: `my_cross_account_role_accountA`
 
@@ -68,6 +68,9 @@ Go to the IAM console, create a new IAM role named `my_invoke_bedrock_role_accou
 ```
 {% include copy.html %}
 
+A trust policy can only reference a role that already exists. Create the `my_cross_account_role_accountA` role in Account A ([Step 2.1](#step-21-create-an-iam-role-for-assuming-externalaccountrolearn)) before you create this role.
+{: .note}
+
 - Permissions:
 
 ```json
@@ -88,7 +91,7 @@ Go to the IAM console, create a new IAM role named `my_invoke_bedrock_role_accou
 
 Note the role ARN; you'll use it in the following steps.
 
-## 2. Create an IAM role in Account A
+## Step 2: Create an IAM role in Account A
 
 Follow these steps to configure an IAM role in Amazon OpenSearch Service.
 
@@ -174,7 +177,7 @@ You'll use the `your_iam_user_arn` IAM user to assume the role in Step 3.
         {
             "Effect": "Allow",
             "Action": "es:ESHttpPost",
-            "Resource": "your_opensearch_domain_arn_created"
+            "Resource": "your_opensearch_domain_arn_created/*"
         }
     ]
 }
@@ -375,7 +378,7 @@ Follow these steps to configure semantic search.
 
 ### Step 5.1: Create an ingest pipeline
 
-First, create an [ingest pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/) that uses the model in Amazon SageMaker to create embeddings from the input text:
+First, create an [ingest pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/) that uses the model on Amazon Bedrock to create embeddings from the input text:
 
 ```json
 PUT /_ingest/pipeline/my_bedrock_embedding_pipeline
@@ -404,7 +407,6 @@ PUT my_index
 {
   "settings": {
     "index": {
-      "knn.space_type": "cosinesimil",
       "default_pipeline": "my_bedrock_embedding_pipeline",
       "knn": "true"
     }
@@ -413,7 +415,8 @@ PUT my_index
     "properties": {
       "text_knn": {
         "type": "knn_vector",
-        "dimension": 1536
+        "dimension": 1536,
+        "space_type": "cosinesimil"
       }
     }
   }
@@ -454,3 +457,10 @@ POST /my_index/_search
 }
 ```
 {% include copy-curl.html %}
+
+## Related documentation
+
+- [Semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/semantic-search/)
+- [Connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/)
+- [Text embedding processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-embedding/)
+- [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/)

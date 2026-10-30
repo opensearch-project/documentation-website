@@ -3,7 +3,7 @@ layout: default
 title: Pretrained models
 parent: Using ML models within OpenSearch
 grand_parent: Integrating ML models
-nav_order: 120
+nav_order: 10
 ---
 
 # OpenSearch-provided pretrained models
@@ -23,7 +23,10 @@ Running local models on the CentOS 7 operating system is not supported. Moreover
 
 Sentence transformer models map sentences and paragraphs across a dimensional dense vector space. The number of vectors depends on the type of model. You can use these models for use cases such as clustering or semantic search.
 
-The following table provides a list of sentence transformer models and artifact links you can use to download them. Note that you must prefix the model name with `huggingface/`, as shown in the **Model name** column. 
+The following table provides a list of sentence transformer models and artifact links you can use to download them. Note that you must prefix the model name with `huggingface/`, as shown in the **Model name** column.
+
+**Token limits and truncation**: Text embedding models have maximum token limits (typically 512 tokens for BERT-based models). When a document exceeds this limit, the model automatically truncates the text, and the truncated content is not represented in the embeddings. This can significantly impact search relevance because documents may not be returned in search results if the relevant content was truncated. To avoid this issue, split long documents into smaller chunks before generating embeddings. 
+{: .warning}
 
 | Model name | Version | Vector dimensions | Auto-truncation | TorchScript artifact | ONNX artifact |
 |:---|:---|:---|:---|:---|:---|
@@ -44,7 +47,7 @@ The following table provides a list of sentence transformer models and artifact 
 **Introduced 2.11**
 {: .label .label-purple }
 
-Sparse encoding models transfer text into a sparse vector and convert the vector to a list of `<token: weight>` pairs representing the text entry and its corresponding weight in the sparse vector. You can use these models for use cases such as clustering or sparse neural search.
+Sparse encoding models transfer text into a sparse vector and convert the vector to a list of `<token: weight>` pairs representing the text entry and its corresponding weight in the sparse vector. You can use these models for use cases such as clustering or neural sparse search.
 
 We recommend the following combinations for optimal performance:
 
@@ -60,14 +63,14 @@ The following table provides a list of sparse encoding models and artifact links
 
 | Model name | Version | Auto-truncation | TorchScript artifact | Description |
 |:---|:---|:---|:---|:---|
-| `amazon/neural-sparse/opensearch-neural-sparse-encoding-v1` | 1.0.1 | Yes | - [model_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-v1/1.0.1/torch_script/neural-sparse_opensearch-neural-sparse-encoding-v1-1.0.1-torch_script.zip)<br>- [config_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-v1/1.0.1/torch_script/config.json) | A neural sparse encoding model. The model transforms text into a sparse vector, identifies the indices of non-zero elements in the vector, and then converts the vector into `<entry, weight>` pairs, where each entry corresponds to a non-zero element index. To experiment with this model using transformers and the PyTorch API, see the [Hugging Face documentation](https://huggingface.co/opensearch-project/opensearch-neural-sparse-encoding-v1). |
-| `amazon/neural-sparse/opensearch-neural-sparse-encoding-v2-distill` | 1.0.0 | Yes | - [model_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-v2-distill/1.0.0/torch_script/neural-sparse_opensearch-neural-sparse-encoding-v2-distill-1.0.0-torch_script.zip)<br>- [config_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-v2-distill/1.0.0/torch_script/config.json) | A neural sparse encoding model. The model transforms text into a sparse vector, identifies the indices of non-zero elements in the vector, and then converts the vector into `<entry, weight>` pairs, where each entry corresponds to a non-zero element index. To experiment with this model using transformers and the PyTorch API, see the [Hugging Face documentation](https://huggingface.co/opensearch-project/opensearch-neural-sparse-encoding-v2-distill). |
-| `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1` | 1.0.1 | Yes | - [model_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1/1.0.1/torch_script/neural-sparse_opensearch-neural-sparse-encoding-doc-v1-1.0.1-torch_script.zip)<br>- [config_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1/1.0.1/torch_script/config.json) | A neural sparse encoding model. The model transforms text into a sparse vector, identifies the indices of non-zero elements in the vector, and then converts the vector into `<entry, weight>` pairs, where each entry corresponds to a non-zero element index. To experiment with this model using transformers and the PyTorch API, see the [Hugging Face documentation](https://huggingface.co/opensearch-project/opensearch-neural-sparse-encoding-doc-v1). |
-| `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-distill` | 1.0.0 | Yes | - [model_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-distill/1.0.0/torch_script/neural-sparse_opensearch-neural-sparse-encoding-doc-v2-distill-1.0.0-torch_script.zip)<br>- [config_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-distill/1.0.0/torch_script/config.json) | A neural sparse encoding model. The model transforms text into a sparse vector, identifies the indices of non-zero elements in the vector, and then converts the vector into `<entry, weight>` pairs, where each entry corresponds to a non-zero element index. To experiment with this model using transformers and the PyTorch API, see the [Hugging Face documentation](https://huggingface.co/opensearch-project/opensearch-neural-sparse-encoding-doc-v2-distill). |
-| `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-mini` | 1.0.0 | Yes | - [model_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-mini/1.0.0/torch_script/neural-sparse_opensearch-neural-sparse-encoding-doc-v2-mini-1.0.0-torch_script.zip)<br>- [config_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-mini/1.0.0/torch_script/config.json) | A neural sparse encoding model. The model transforms text into a sparse vector, identifies the indices of non-zero elements in the vector, and then converts the vector into `<entry, weight>` pairs, where each entry corresponds to a non-zero element index. To experiment with this model using transformers and the PyTorch API, see the [Hugging Face documentation](https://huggingface.co/opensearch-project/opensearch-neural-sparse-encoding-doc-v2-mini). |
-| `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v3-distill` | 1.0.0 | Yes | - [model_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v3-distill/1.0.0/torch_script/neural-sparse_opensearch-neural-sparse-encoding-doc-v3-distill-1.0.0-torch_script.zip)<br>- [config_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v3-distill/1.0.0/torch_script/config.json) | A neural sparse encoding model. The model transforms text into a sparse vector, identifies the indices of non-zero elements in the vector, and then converts the vector into `<entry, weight>` pairs, where each entry corresponds to a non-zero element index. To experiment with this model using transformers and the PyTorch API, see the [Hugging Face documentation](https://huggingface.co/opensearch-project/opensearch-neural-sparse-encoding-doc-v3-distill). |
+| `amazon/neural-sparse/opensearch-neural-sparse-encoding-v1` | 1.0.1 | Yes | - [model_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-v1/1.0.1/torch_script/neural-sparse_opensearch-neural-sparse-encoding-v1-1.0.1-torch_script.zip)<br>- [config_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-v1/1.0.1/torch_script/config.json) | A neural sparse encoding model. The model transforms text into a sparse vector, identifies the indexes of non-zero elements in the vector, and then converts the vector into `<entry, weight>` pairs, where each entry corresponds to a non-zero element index. To experiment with this model using transformers and the PyTorch API, see the [Hugging Face documentation](https://huggingface.co/opensearch-project/opensearch-neural-sparse-encoding-v1). |
+| `amazon/neural-sparse/opensearch-neural-sparse-encoding-v2-distill` | 1.0.0 | Yes | - [model_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-v2-distill/1.0.0/torch_script/neural-sparse_opensearch-neural-sparse-encoding-v2-distill-1.0.0-torch_script.zip)<br>- [config_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-v2-distill/1.0.0/torch_script/config.json) | A neural sparse encoding model. The model transforms text into a sparse vector, identifies the indexes of non-zero elements in the vector, and then converts the vector into `<entry, weight>` pairs, where each entry corresponds to a non-zero element index. To experiment with this model using transformers and the PyTorch API, see the [Hugging Face documentation](https://huggingface.co/opensearch-project/opensearch-neural-sparse-encoding-v2-distill). |
+| `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1` | 1.0.1 | Yes | - [model_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1/1.0.1/torch_script/neural-sparse_opensearch-neural-sparse-encoding-doc-v1-1.0.1-torch_script.zip)<br>- [config_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v1/1.0.1/torch_script/config.json) | A neural sparse encoding model. The model transforms text into a sparse vector, identifies the indexes of non-zero elements in the vector, and then converts the vector into `<entry, weight>` pairs, where each entry corresponds to a non-zero element index. To experiment with this model using transformers and the PyTorch API, see the [Hugging Face documentation](https://huggingface.co/opensearch-project/opensearch-neural-sparse-encoding-doc-v1). |
+| `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-distill` | 1.0.0 | Yes | - [model_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-distill/1.0.0/torch_script/neural-sparse_opensearch-neural-sparse-encoding-doc-v2-distill-1.0.0-torch_script.zip)<br>- [config_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-distill/1.0.0/torch_script/config.json) | A neural sparse encoding model. The model transforms text into a sparse vector, identifies the indexes of non-zero elements in the vector, and then converts the vector into `<entry, weight>` pairs, where each entry corresponds to a non-zero element index. To experiment with this model using transformers and the PyTorch API, see the [Hugging Face documentation](https://huggingface.co/opensearch-project/opensearch-neural-sparse-encoding-doc-v2-distill). |
+| `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-mini` | 1.0.0 | Yes | - [model_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-mini/1.0.0/torch_script/neural-sparse_opensearch-neural-sparse-encoding-doc-v2-mini-1.0.0-torch_script.zip)<br>- [config_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v2-mini/1.0.0/torch_script/config.json) | A neural sparse encoding model. The model transforms text into a sparse vector, identifies the indexes of non-zero elements in the vector, and then converts the vector into `<entry, weight>` pairs, where each entry corresponds to a non-zero element index. To experiment with this model using transformers and the PyTorch API, see the [Hugging Face documentation](https://huggingface.co/opensearch-project/opensearch-neural-sparse-encoding-doc-v2-mini). |
+| `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v3-distill` | 1.0.0 | Yes | - [model_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v3-distill/1.0.0/torch_script/neural-sparse_opensearch-neural-sparse-encoding-doc-v3-distill-1.0.0-torch_script.zip)<br>- [config_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v3-distill/1.0.0/torch_script/config.json) | A neural sparse encoding model. The model transforms text into a sparse vector, identifies the indexes of non-zero elements in the vector, and then converts the vector into `<entry, weight>` pairs, where each entry corresponds to a non-zero element index. To experiment with this model using transformers and the PyTorch API, see the [Hugging Face documentation](https://huggingface.co/opensearch-project/opensearch-neural-sparse-encoding-doc-v3-distill). |
 | `amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v3-gte` | 1.0.0 | Yes | - [model_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v3-gte/1.0.0/torch_script/neural-sparse_opensearch-neural-sparse-encoding-doc-v3-gte-1.0.0-torch_script.zip)<br>- [config_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-doc-v3-gte/1.0.0/torch_script/config.json) | A neural sparse encoding model. The model transforms text into a sparse vector, identifies the indexes of non-zero elements in the vector, and then converts the vector into `<entry, weight>` pairs, where each entry corresponds to a non-zero element index. To experiment with this model using transformers and the PyTorch API, see the [Hugging Face documentation](https://huggingface.co/opensearch-project/opensearch-neural-sparse-encoding-doc-v3-gte). |
-| `amazon/neural-sparse/opensearch-neural-sparse-encoding-multilingual-v1` | 1.0.0 | Yes | - [model_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-multilingual-v1/1.0.0/torch_script/neural-sparse_opensearch-neural-sparse-encoding-multilingual-v1-1.0.0-torch_script.zip)<br>- [config_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-multilingual-v1/1.0.0/torch_script/config.json) | A multilingual neural sparse encoding model. The model transforms text into a sparse vector, identifies the indices of non-zero elements in the vector, and then converts the vector into `<entry, weight>` pairs, where each entry corresponds to a non-zero element index. To experiment with this model using transformers and the PyTorch API, see the [Hugging Face documentation](https://huggingface.co/opensearch-project/opensearch-neural-sparse-encoding-multilingual-v1). |
+| `amazon/neural-sparse/opensearch-neural-sparse-encoding-multilingual-v1` | 1.0.0 | Yes | - [model_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-multilingual-v1/1.0.0/torch_script/neural-sparse_opensearch-neural-sparse-encoding-multilingual-v1-1.0.0-torch_script.zip)<br>- [config_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-encoding-multilingual-v1/1.0.0/torch_script/config.json) | A multilingual neural sparse encoding model. The model transforms text into a sparse vector, identifies the indexes of non-zero elements in the vector, and then converts the vector into `<entry, weight>` pairs, where each entry corresponds to a non-zero element index. To experiment with this model using transformers and the PyTorch API, see the [Hugging Face documentation](https://huggingface.co/opensearch-project/opensearch-neural-sparse-encoding-multilingual-v1). |
 | `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1` | 1.0.1 | Yes | - [model_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1/1.0.1/torch_script/neural-sparse_opensearch-neural-sparse-tokenizer-v1-1.0.1-torch_script.zip)<br>- [config_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1/1.0.1/torch_script/config.json) | A neural sparse tokenizer. The tokenizer splits text into tokens and assigns each token a predefined weight, which is the token's inverse document frequency (IDF). If the IDF file is not provided, the weight defaults to 1. For more information, see [Preparing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom-local-models/#preparing-a-model). |
 | `amazon/neural-sparse/opensearch-neural-sparse-tokenizer-multilingual-v1` | 1.0.0 | Yes | - [model_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-tokenizer-multilingual-v1/1.0.0/torch_script/neural-sparse_opensearch-neural-sparse-tokenizer-multilingual-v1-1.0.0-torch_script.zip)<br>- [config_url](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-tokenizer-multilingual-v1/1.0.0/torch_script/config.json) | A multilingual neural sparse tokenizer. The tokenizer splits text into tokens and assigns each token a predefined weight, which is the token's inverse document frequency (IDF). If the IDF file is not provided, the weight defaults to 1. For more information, see [Preparing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom-local-models/#preparing-a-model). |
 
@@ -92,7 +95,7 @@ Semantic sentence highlighting models are specifically designed to work with the
 
 For a tutorial on using these models with the semantic highlighter, see [Using semantic highlighting]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-highlighting-tutorial/).
 
-The following table provides a list of semantic sentence highlighting models and artifact links you can use to download them. Note that you must prefix the model name with `opensearch/`, as shown in the **Model name** column.
+The following table provides a list of semantic sentence highlighting models and artifact links you can use to download them. Note that you must prefix the model name with `amazon/`, as shown in the **Model name** column.
 
 | Model name | Version | TorchScript artifact | Description |
 |:---|:---|:---|:---|
@@ -157,7 +160,7 @@ POST /_plugins/_ml/models/_register
 {
   "name": "huggingface/sentence-transformers/msmarco-distilbert-base-tas-b",
   "version": "1.0.3",
-  "model_group_id": "Z1eQf4oB5Vm0Tdw8EIP2",
+  "model_group_id": "wlcnb4kBJ1eYAeTMHlV6",
   "model_format": "TORCH_SCRIPT"
 }
 ```
@@ -172,9 +175,9 @@ OpenSearch returns the task ID of the register operation:
 }
 ```
 
-To check the status of the operation, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
+To check the status of the operation, provide the task ID to the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
-```bash
+```json
 GET /_plugins/_ml/tasks/cVeMb4kBJ1eYAeTMFFgj
 ```
 {% include copy-curl.html %}
@@ -192,7 +195,7 @@ When the operation is complete, the state changes to `COMPLETED`:
   ],
   "create_time": 1689793598499,
   "last_update_time": 1689793598530,
-  "is_async": false
+  "is_async": true
 }
 ```
 
@@ -202,9 +205,9 @@ Take note of the returned `model_id` because you'll need it to deploy the model.
 
 The deploy operation reads the model's chunks from the model index and then creates an instance of the model to load into memory. The bigger the model, the more chunks the model is split into and longer it takes for the model to load into memory.
 
-To deploy the registered model, provide its model ID from step 3 in the following request:
+To deploy the registered model, provide its model ID from step 2 in the following request:
 
-```bash
+```json
 POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_deploy
 ```
 {% include copy-curl.html %}
@@ -214,13 +217,14 @@ The response contains the task ID that you can use to check the status of the de
 ```json
 {
   "task_id": "vVePb4kBJ1eYAeTM7ljG",
+  "task_type": "DEPLOY_MODEL",
   "status": "CREATED"
 }
 ```
 
-As in the previous step, check the status of the operation by calling the Tasks API:
+As in the previous step, check the status of the operation by calling the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
-```bash
+```json
 GET /_plugins/_ml/tasks/vVePb4kBJ1eYAeTM7ljG
 ```
 {% include copy-curl.html %}
@@ -242,7 +246,7 @@ When the operation is complete, the state changes to `COMPLETED`:
 }
 ```
 
-If a cluster or node is restarted, then you need to redeploy the model. To learn how to set up automatic redeployment, see [Enable auto redeploy]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/#enable-auto-redeploy).
+If a cluster or node is restarted, then you need to redeploy the model. To learn how to set up automatic redeployment, see [Model deployment settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/#model-deployment-settings).
 {: .tip} 
 
 ## Step 4 (Optional): Test the model
@@ -320,9 +324,12 @@ The response contains the extracted tokens and their corresponding weights:
                 "bright": 0.1756877,
                 ...
               }
+            ]
           }
         }
+      ]
     }
+  ]
 }
 ```
 
@@ -347,6 +354,7 @@ The response contains the token IDs and their corresponding token weights:
     {
       "output": [
         {
+          "name": "output",
           "dataAsMap": {
             "response": [
               {
@@ -367,7 +375,7 @@ The response contains the token IDs and their corresponding token weights:
 For a cross-encoder model, send the following request:
 
 ```json
-POST _plugins/_ml/models/<model_id>/_predict
+POST _plugins/_ml/models/{model_id}/_predict
 {
     "query_text": "today is sunny",
     "text_docs": [

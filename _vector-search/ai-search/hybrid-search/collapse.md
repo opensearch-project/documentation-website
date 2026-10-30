@@ -17,7 +17,8 @@ The `collapse` parameter is compatible with other hybrid query search options, s
 
 When using `collapse` in a hybrid query, note the following considerations:
 
-- Performance may be impacted when working with large result sets.  Starting with OpenSearch 3.2, the index-level [`index.neural_search.hybrid_collapse_docs_per_group_per_subquery`]({{site.url}}{{site.baseurl}}/vector-search/settings/#hybrid-collapse-docs-per-group) setting controls how many documents are stored per group per subquery. 
+- The `index.neural_search.hybrid_collapse_docs_per_group_per_subquery` setting is deprecated and has no effect. If this setting exists in your index configuration, you can safely remove it. Search results are entirely controlled by the `size` parameter in the search request.
+- By default, when a hybrid query includes a `collapse` parameter, OpenSearch deduplicates the top `size` documents. As a result, the response can contain fewer than `size` groups if multiple top-scoring documents belong to the same group. To return up to `size` distinct groups, enable the `index.neural_search.hybrid_collapse_distinct_groups_enabled` setting. For more information, see [Returning distinct groups](#returning-distinct-groups).
 - Aggregations run on pre-collapsed results, not the final output.
 - Pagination behavior changes: Because `collapse` reduces the total number of results, it can affect how results are distributed across pages. To retrieve more results, consider increasing the pagination depth.
 - Results may differ from those returned by the [`collapse` response processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/collapse-processor/), which applies collapse logic after the query is executed.
@@ -151,7 +152,7 @@ The response returns the collapsed search results:
       {
         "_index": "bakery-items",
         "_id": "whRPZZcB49c_2-1rYmO7",
-        "_score": 0.5005,
+        "_score": 0.5,
         "_source": {
           "item": "Vanilla Cake",
           "category": "cakes",
@@ -167,6 +168,138 @@ The response returns the collapsed search results:
     ]
   }
 ```
+
+## Returning distinct groups
+**Introduced 3.10**
+{: .label .label-purple }
+
+By default, when a hybrid query includes a `collapse` parameter, OpenSearch keeps the top `size` documents and then deduplicates them by the field specified in the `collapse` parameter. Scores match those returned by the same hybrid query when the `collapse` parameter is not provided. However, the response can contain fewer than `size` groups if multiple top-scoring documents belong to the same group.
+
+For example, search the `bakery-items` index from the [preceding example](#example), requesting two results:
+
+```json
+GET /bakery-items/_search?search_pipeline=norm-pipeline
+{
+  "size": 2,
+  "query": {
+    "hybrid": {
+      "queries": [
+        {
+          "match": {
+            "item": "Chocolate Cake"
+          }
+        },
+        {
+          "bool": {
+            "must": {
+              "match": {
+                "category": "cakes"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "collapse": {
+    "field": "item"
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains only one result, even though the request specifies `"size": 2` and two groups exist. Both of the top two documents belong to the `Chocolate Cake` group, so deduplication leaves a single group:
+
+```json
+"hits": {
+    "total": {
+      "value": 5,
+      "relation": "eq"
+    },
+    "max_score": 1.0,
+    "hits": [
+      {
+        "_index": "bakery-items",
+        "_id": "_w1VyqAB-8qXmeJq0uk4",
+        "_score": 1.0,
+        "_source": {
+          "item": "Chocolate Cake",
+          "category": "cakes",
+          "price": 15,
+          "baked_date": "2023-07-01T00:00:00Z"
+        },
+        "fields": {
+          "item": [
+            "Chocolate Cake"
+          ]
+        }
+      }
+    ]
+  }
+```
+
+To return the top `size` distinct groups instead, enable the `index.neural_search.hybrid_collapse_distinct_groups_enabled` setting on the index:
+
+```json
+PUT /bakery-items/_settings
+{
+  "index.neural_search.hybrid_collapse_distinct_groups_enabled": true
+}
+```
+{% include copy-curl.html %}
+
+Running the same search now returns one result for each of the top two distinct groups:
+
+```json
+"hits": {
+    "total": {
+      "value": 5,
+      "relation": "eq"
+    },
+    "max_score": 1.0,
+    "hits": [
+      {
+        "_index": "bakery-items",
+        "_id": "_w1VyqAB-8qXmeJq0uk4",
+        "_score": 1.0,
+        "_source": {
+          "item": "Chocolate Cake",
+          "category": "cakes",
+          "price": 15,
+          "baked_date": "2023-07-01T00:00:00Z"
+        },
+        "fields": {
+          "item": [
+            "Chocolate Cake"
+          ]
+        }
+      },
+      {
+        "_index": "bakery-items",
+        "_id": "AQ1VyqAB-8qXmeJq0uo4",
+        "_score": 0.5,
+        "_source": {
+          "item": "Vanilla Cake",
+          "category": "cakes",
+          "price": 12,
+          "baked_date": "2023-07-02T00:00:00Z"
+        },
+        "fields": {
+          "item": [
+            "Vanilla Cake"
+          ]
+        }
+      }
+    ]
+  }
+```
+
+When the `index.neural_search.hybrid_collapse_distinct_groups_enabled` setting is enabled, each returned document represents its group. For each subquery, OpenSearch assigns the returned document the best score among all documents in its group. The best scores for different subqueries can belong to different documents in the same group. The best score is the highest score when results are sorted by score in descending order (the default) and the lowest score when they are sorted by score in ascending order.
+
+Normalization runs on the representative documents. As a result, scores can differ from those returned by the same hybrid query when the `collapse` parameter is not provided.
+
+The `index.neural_search.hybrid_collapse_distinct_groups_enabled` setting is dynamic and is read on every request, so changing it between pages of a paginated search produces inconsistent pages. Don't search indexes that have different values for this setting in the same request.
+{: .note}
 
 ## Collapse and sort results
 
@@ -340,7 +473,7 @@ The response contains detailed information about the scoring process for each se
                 "_node": "Jlu8P9EaQCy3C1BxaFMa_g",
                 "_index": "bakery-items",
                 "_id": "35ILepcBheX09_dPt8TD",
-                "_score": 0.5005,
+                "_score": 0.5,
                 "_source": {
                     "item": "Vanilla Cake",
                     "category": "cakes",
@@ -432,9 +565,9 @@ POST /bakery-items-pagination/_bulk
 { "index": {} }
 { "item": "Red Velvet Cake", "category": "cakes", "price": 29, "baked_date": "2023-07-30T00:00:00Z" }
 { "index": {} }
-{ "item": "Cheesecake", "category": "cakes", "price": 27. "baked_date": "2023-07-09T00:00:00Z" }
+{ "item": "Cheesecake", "category": "cakes", "price": 27, "baked_date": "2023-07-09T00:00:00Z" }
 { "index": {} }
-{ "item": "Cheesecake", "category": "cakes", "price": 34. "baked_date": "2023-07-21T00:00:00Z" }
+{ "item": "Cheesecake", "category": "cakes", "price": 34, "baked_date": "2023-07-21T00:00:00Z" }
 { "index": {} }
 { "item": "Coffee Cake", "category": "cakes", "price": 42, "baked_date": "2023-07-09T00:00:00Z" }
 { "index": {} }
@@ -443,7 +576,6 @@ POST /bakery-items-pagination/_bulk
 { "item": "Cocunut Cake", "category": "cakes", "price": 23, "baked_date": "2023-07-09T00:00:00Z" }
 { "index": {} }
 { "item": "Cocunut Cake", "category": "cakes", "price": 32, "baked_date": "2023-07-12T00:00:00Z" }
-// Additional documents omitted for brevity
 ```
 {% include copy-curl.html %}
 
@@ -482,12 +614,12 @@ GET /bakery-items-pagination/_search?search_pipeline=norm-pipeline
 ```
 {% include copy-curl.html %}
 
-
+The response contains the sixth and seventh groups of the collapsed results:
 
 ```json
 "hits": {
         "total": {
-            "value": 70,
+            "value": 16,
             "relation": "eq"
         },
         "max_score": 1.0,
@@ -495,32 +627,32 @@ GET /bakery-items-pagination/_search?search_pipeline=norm-pipeline
             {
                 "_index": "bakery-items-pagination",
                 "_id": "gDayepcBIkxlgFKYda0p",
-                "_score": 0.5005,
+                "_score": 0.5,
                 "_source": {
-                    "item": "Red Velvet Cake",
+                    "item": "Carrot Cake",
                     "category": "cakes",
-                    "price": 29,
-                    "baked_date": "2023-07-30T00:00:00Z"
+                    "price": 26,
+                    "baked_date": "2023-07-21T00:00:00Z"
                 },
                 "fields": {
                     "item": [
-                        "Red Velvet Cake"
+                        "Carrot Cake"
                     ]
                 }
             },
             {
                 "_index": "bakery-items-pagination",
                 "_id": "aTayepcBIkxlgFKYca15",
-                "_score": 0.5005,
+                "_score": 0.5,
                 "_source": {
-                    "item": "Vanilla Cake",
+                    "item": "Cheesecake",
                     "category": "cakes",
-                    "price": 12,
-                    "baked_date": "2023-07-02T00:00:00Z"
+                    "price": 27,
+                    "baked_date": "2023-07-09T00:00:00Z"
                 },
                 "fields": {
                     "item": [
-                        "Vanilla Cake"
+                        "Cheesecake"
                     ]
                 }
             }
@@ -626,7 +758,7 @@ In the response, the main `hits` contain the top-scoring document from each coll
                     "baked_date": "2023-07-01T00:00:00Z"
                   },
                   "sort": [
-                    15
+                    15.0
                   ]
                 },
                 {
@@ -640,7 +772,7 @@ In the response, the main `hits` contain the top-scoring document from each coll
                     "baked_date": "2023-07-04T00:00:00Z"
                   },
                   "sort": [
-                    18
+                    18.0
                   ]
                 }
               ]
@@ -651,7 +783,7 @@ In the response, the main `hits` contain the top-scoring document from each coll
       {
         "_index": "bakery-items",
         "_id": "boe6e5gBAB5HT6ixTd4F",
-        "_score": 0.5005,
+        "_score": 0.5,
         "_source": {
           "item": "Vanilla Cake",
           "category": "cakes",
@@ -683,7 +815,7 @@ In the response, the main `hits` contain the top-scoring document from each coll
                     "baked_date": "2023-07-02T00:00:00Z"
                   },
                   "sort": [
-                    12
+                    12.0
                   ]
                 },
                 {
@@ -697,7 +829,7 @@ In the response, the main `hits` contain the top-scoring document from each coll
                     "baked_date": "2023-07-03T00:00:00Z"
                   },
                   "sort": [
-                    16
+                    16.0
                   ]
                 }
               ]

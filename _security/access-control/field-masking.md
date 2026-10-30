@@ -2,17 +2,33 @@
 layout: default
 title: Field masking
 parent: Access control
-nav_order: 95
+nav_order: 100
 redirect_from:
- - /security/access-control/field-masking/
  - /security-plugin/access-control/field-masking/
 ---
 
 # Field masking
 
-If you don't want to remove fields from a document using [field-level security]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security/), you can mask their values. Currently, field masking is only available for string-based fields and replaces the field's value with a cryptographic hash.
+If you don't want to remove fields from a document using [field-level security]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security/), you can mask their values. Field masking is only available for string-based fields and replaces the field's value with a cryptographic hash.
 
-Field masking works alongside field-level security on the same per-role, per-index basis. You can allow certain roles to see sensitive fields in plain text and mask them for others. A search result with a masked field might look like the following:
+Field masking works alongside field-level security on the same per-role, per-index basis. You can allow certain roles to see sensitive fields in plain text and mask them for others.
+
+## Important limitation: Search functionality
+
+**Fields with masking applied cannot be searched.** When you apply field masking to a field, you will not be able to search for terms within that field, even if the terms are not masked by your pattern. This occurs because field masking is applied after indexing, while search operations rely on the inverted index created during the indexing process.
+{: .warning}
+
+For example, if you have a field `message` with the value `"User john.doe@example.com accessed the system"` and apply pattern-based masking to hide email addresses, the displayed result might show `"User ***@***.*** accessed the system"`. However, you will not be able to search for `"User"`, `"accessed"`, or `"system"` in this field, even though these terms are not masked.
+
+### Workarounds
+
+If you need to maintain search functionality on partially masked fields, consider these alternatives:
+
+- **Use separate fields**: Split your data into separate fields—one for searchable content and another for sensitive data that needs masking.
+- **Index transformation**: Create a separate index with pre-applied masking transformations rather than using dynamic field masking.
+- **Field-level security**: Instead of masking, use [field-level security]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security/) to completely hide sensitive fields from unauthorized users.
+
+A search result with a masked field might appear similar to the following:
 
 ```json
 {
@@ -72,12 +88,15 @@ someonerole:
 
 ### REST API
 
-See [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role).
+See [Create role]({{site.url}}{{site.baseurl}}/security/api/roles/create-role/).
 
 
 ## (Advanced) Use an alternative hash algorithm
 
 By default, the Security plugin uses the BLAKE2b algorithm, but you can use any hashing algorithm that your JVM provides. This list typically includes MD5, SHA-1, SHA-384, and SHA-512.
+
+BLAKE2b and several other commonly available algorithms, such as MD5 and SHA-1, are not approved for use in FIPS 140-3-compliant environments. If your deployment requires FIPS compliance, configure the plugin to use a FIPS-approved algorithm, such as SHA-256 or SHA-512, and make sure that the underlying cryptographic provider (for example, Bouncy Castle FIPS or another FIPS-validated JCE provider) is installed and configured correctly.
+{: .note}
 
 You can override the default algorithm in `opensearch.yml` using the optional default masking algorithm setting `plugins.security.masked_fields.algorithm.default`, as shown in the following example:
 
@@ -137,3 +156,7 @@ The `title` statement changes each character in the field to `*`, so you can sti
 ## Effect on audit logging
 
 The read history feature lets you track read access to sensitive fields in your documents. For example, you might track access to the email field of your customer records. Access to masked fields are excluded from read history, because the user only saw the hash value, not the clear text value of the field.
+
+## Updating documents using scripts
+
+The Security plugin blocks the update by script operation (`POST <index>/_update/<id>`) when field-level security, document-level security, or field masking is active. To update documents, use the index operation (`PUT <index>/_doc/<id>`).

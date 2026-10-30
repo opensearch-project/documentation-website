@@ -1,12 +1,13 @@
 ---
 layout: default
-title: Recovery
-parent: Index APIs
-nav_order: 110
+title: Index recovery
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 50
 ---
 
-# Recovery API
-Introduced 1.0
+# Index Recovery API
+**Introduced 1.0**
 {: .label .label-purple }
 
 The Recovery API provides information about any completed or ongoing shard recoveries for one or more indexes. If a data stream is listed, the API returns information about that data stream's backing indexes. 
@@ -28,7 +29,7 @@ The Recovery API reports solely on completed recoveries for shard copies present
 
 ```json
 GET /_recovery
-GET /<index>/_recovery/
+GET /{index}/_recovery/
 ```
 
 ## Path parameters
@@ -341,4 +342,8 @@ Parameter | Data type | Description
 `target` | Object | The destination node. 
 `index` | Object | Statistics about the physical index recovery. 
 `translog` | Object | Statistics about the translog recovery. 
- `start` | Object | Statistics about the amount of time taken to open and start the index. 
+ `start` | Object | Statistics about the amount of time taken to open and start the index.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:monitor/recovery`.

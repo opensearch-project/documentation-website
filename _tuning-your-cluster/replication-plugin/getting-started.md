@@ -13,13 +13,15 @@ With cross-cluster replication, you index data to a leader index, and OpenSearch
 
 ## Prerequisites
 
-Cross-cluster replication has the following prerequisites:
+Before configuring cross-cluster replication, ensure that the following prerequisites are met:
+
 - Both the leader and follower cluster must have the replication plugin installed.
-- If you've overridden `node.roles` in `opensearch.yml` on the follower cluster, make sure it also includes the `remote_cluster_client` role:
+- If you've overridden `node.roles` in `opensearch.yml` for any node in the follower cluster, ensure that the `node.roles` setting includes the `remote_cluster_client` role:
 
    ```yaml
    node.roles: [<other_roles>, remote_cluster_client]
    ```
+   {% include copy.html %}
 
 ## Permissions
 
@@ -76,7 +78,6 @@ services:
       - opensearch-data2:/usr/share/opensearch/data
     ports:
       - 9201:9200
-      - 9700:9600 # required for Performance Analyzer
     networks:
       - opensearch-net
   replication-node2:
@@ -95,7 +96,6 @@ services:
       - opensearch-data1:/usr/share/opensearch/data
     ports:
       - 9200:9200
-      - 9600:9600 # required for Performance Analyzer
     networks:
       - opensearch-net
 
@@ -130,8 +130,8 @@ To get the IP address for the leader cluster, first identify its container ID:
 ```bash
 docker ps
 CONTAINER ID    IMAGE                                       PORTS                                                      NAMES
-3b8cdc698be5    opensearchproject/opensearch:{{site.opensearch_version}}   0.0.0.0:9200->9200/tcp, 0.0.0.0:9600->9600/tcp, 9300/tcp   replication-node2
-731f5e8b0f4b    opensearchproject/opensearch:{{site.opensearch_version}}   9300/tcp, 0.0.0.0:9201->9200/tcp, 0.0.0.0:9700->9600/tcp   replication-node1
+3b8cdc698be5    opensearchproject/opensearch:{{site.opensearch_version}}   0.0.0.0:9200->9200/tcp, 9600/tcp, 9300/tcp   replication-node2
+731f5e8b0f4b    opensearchproject/opensearch:{{site.opensearch_version}}   9300/tcp, 0.0.0.0:9201->9200/tcp, 9600/tcp   replication-node1
 ```
 
 Then get that container's IP address:
@@ -212,7 +212,7 @@ curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-passwo
 If the Security plugin is disabled, omit the `use_roles` parameter. If it's enabled, however, you must specify the leader and follower cluster roles that OpenSearch will use to authenticate the request. This example uses `all_access` for simplicity, but we recommend creating a replication user on each cluster and [mapping it accordingly]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles).
 {: .tip }
 
-This command creates an identical read-only index named `follower-01` on the follower cluster that continuously stays updated with changes to the `leader-01` index on the leader cluster. Starting replication creates a follower index from scratch -- you can't convert an existing index to a follower index. 
+This command creates an identical read-only index named `follower-01` on the follower cluster that continuously stays updated with changes to the `leader-01` index on the leader cluster. Starting replication creates a new follower index---you can't convert an existing index to a follower index. 
 
 ## Confirm replication
 
@@ -262,7 +262,7 @@ curl -XGET -k -u 'admin:<custom-admin-password>' 'https://localhost:9200/followe
   }]
 }
 ```
-### `.replication-metadata-store` index
+### The `.replication-metadata-store` index
 
 The `.replication-metadata-store` index is a persistent data store for replication-related metadata and auto-follow rules inside of a cluster. It stores the replication metadata of each index being replicated from the leader cluster to the follower cluster.
 
@@ -301,7 +301,7 @@ curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:<custom-admin-passw
 
 When replication resumes, the follower index picks up any changes that were made to the leader index while replication was paused.
 
-Note that you can't resume replication after it's been paused for more than 12 hours. You must [stop replication]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication), delete the follower index, and restart replication of the leader.
+You can't resume replication after it's been paused longer than the retention lease period because the retention lease expires. To recover, use force-resume, which restores the follower index from a snapshot of the leader. For more information, see [Force-resume replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/force-resume/).
 
 ## Stop replication
 

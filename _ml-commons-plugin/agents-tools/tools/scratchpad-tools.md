@@ -65,7 +65,7 @@ POST /_plugins/_ml/models/_register?deploy=true
     "parameters": {
       "region": "us-east-1",
       "service_name": "bedrock",
-      "model": "anthropic.claude-3-5-sonnet-20241022-v2:0"
+      "model": "us.anthropic.claude-sonnet-4-6"
     },
     "credential": {
       "access_key": "${AWS_ACCESS_KEY_ID}",
@@ -80,7 +80,7 @@ POST /_plugins/_ml/models/_register?deploy=true
         "headers": {
           "content-type": "application/json"
         },
-        "request_body": """{"system": [{"text": "${parameters.system_prompt}"}], "messages": ${parameters.messages}, "inferenceConfig": {"maxTokens": 8000, "temperature": 0}}"""
+        "request_body": """{"system": [{"text": "${parameters.system_prompt}"}], "messages": [${parameters._chat_history:-}{"role":"user","content":[{"text":"${parameters.prompt}"}]}${parameters._interactions:-}]${parameters.tool_configs:-}, "inferenceConfig": {"maxTokens": 8000, "temperature": 0}}"""
       }
     ]
   }
@@ -100,7 +100,7 @@ POST /_plugins/_ml/agents/_register
     "description": "Research assistant with persistent scratchpad memory",
     "app_type": "rag",
     "llm": {
-        "model_id": "your-model-id",
+        "model_id": "<your-model-id>",
         "parameters": {
             "max_iteration": 50,
             "system_prompt": "You are a sophisticated research assistant with access to OpenSearch indices and a persistent scratchpad for note-taking.\n\nYour Research Workflow:\n1. Check Scratchpad: Before starting a new research task, check your scratchpad to see if you have any relevant information already saved\n2. Create Research Plan: Create a structured research plan\n3. Write to Scratchpad: Save the research plan and any important information to your scratchpad\n4. Use Search: Gather information using OpenSearch search queries\n5. Update Scratchpad: After each search, update your scratchpad with new findings\n6. Iterate: Repeat searching and updating until you have comprehensive information\n7. Complete Task: Provide a thorough response based on your accumulated research\n\nRemember: Your scratchpad is temporary memory for this execution session only. Use it to organize your thoughts and findings during this task.",
@@ -144,7 +144,7 @@ POST /_plugins/_ml/agents/_register
 Execute the agent with a research question:
 
 ```json
-POST /_plugins/_ml/agents/<your-agent-id>/_execute?async=true
+POST /_plugins/_ml/agents/{your-agent-id}/_execute?async=true
 {
     "parameters": {
         "question": "How many residents are in New York?"
@@ -160,7 +160,22 @@ The agent will:
 3. Execute searches and update the scratchpad with findings.
 4. Provide a comprehensive answer based on accumulated research.
 
-When using the `agents/<your-agent-id>/_execute` API, you will get a `parent_interaction_id` and `memory_id` in the response. Note the `parent_interaction_id` for later tracing steps. For more information, see [Viewing scratchpad activity](#viewing-scratchpad-activity).
+Because the request specifies `async=true`, OpenSearch returns a task ID without waiting for the agent to finish. The response also contains the `memory_id` and `parent_interaction_id`:
+
+```json
+{
+  "task_id": "pfztP6EBqoCArR_TRGp7",
+  "status": "RUNNING",
+  "response": {
+    "memory_id": "o_ztP6EBqoCArR_TRGpJ",
+    "parent_interaction_id": "pPztP6EBqoCArR_TRGpo"
+  }
+}
+```
+
+Note the `parent_interaction_id` for later tracing steps. For more information, see [Viewing scratchpad activity](#viewing-scratchpad-activity).
+
+To get the agent's answer, send a [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/) request using the `task_id`. When the task `state` is `COMPLETED`, the task `response` contains the agent's `inference_results`.
 
 ## Tool parameters
 
@@ -178,7 +193,7 @@ The following are the **execution parameters** used when calling the tool direct
 
 Parameter | Type | Required/Optional | Description
 :--- | :--- |:------------------| :---
-`persistent_notes` | String | Required          | Initial notes or instructions to store in the scratchpad.
+`persistent_notes` | String | Optional          | Initial notes or instructions to store in the scratchpad.
 
 ### WriteToScratchPadTool
 
@@ -326,7 +341,7 @@ The response contains the full scratchpad content:
 You can monitor how the agent uses the scratchpad by examining the execution traces:
 
 ```json
-GET /_plugins/_ml/memory/message/<parent_interaction_id>/traces?next_token=0
+GET /_plugins/_ml/memory/message/{parent_interaction_id}/traces?next_token=0
 ```
 {% include copy-curl.html %}
 

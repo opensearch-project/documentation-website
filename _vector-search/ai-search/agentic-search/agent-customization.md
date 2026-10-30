@@ -57,7 +57,11 @@ Set the `<llm_interface>` to the interface for your provider (for example, `open
 
 The following OpenAI GPT models are supported.
 
+<!-- vale off -->
+
 #### GPT-5 (Recommended)
+
+<!-- vale on -->
 
 GPT-5 provides advanced reasoning capabilities and is recommended for production use cases.
 
@@ -110,7 +114,9 @@ As you select higher reasoning modes, overall latency increases. Choose the lowe
 
 Anthropic Claude models are available through Amazon Bedrock integration and provide analytical capabilities for complex search scenarios.
 
+<!-- vale off -->
 #### Claude 4 Sonnet
+<!-- vale on -->
 
 **Amazon Bedrock connector setup**:
 
@@ -165,7 +171,7 @@ The [`QueryPlanningTool`]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-
 
 ### Additional tools
 
-You can configure additional [tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/) to extend your agent's functionality.
+Beyond the required `QueryPlanningTool`, you can configure additional tools to extend your agent's functionality. OpenSearch provides built-in tools for various use cases, including search operations, data analysis, anomaly detection, and web integration. For a complete list of all available tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 
 The conversational agent automatically selects and orchestrates the appropriate tools based on the query context.
 
@@ -411,3 +417,5 @@ The default user prompt template passes the natural language question and availa
 ## Next steps
 
 - For a comprehensive example of using customized agents in practice, see [Inspecting agentic search and continuing conversations]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agent-converse/). 
+
+- For a list of available tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).

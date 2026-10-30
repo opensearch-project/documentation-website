@@ -9,15 +9,15 @@ redirect_from:
 
 # ML inference processor
 
-The `ml_inference` processor is used to invoke machine learning (ML) models registered in the [OpenSearch ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/). The model outputs are added as new fields to the ingested documents.
+The `ml_inference` processor invokes [machine learning (ML) models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/) registered in OpenSearch. The model outputs are added as new fields to the ingested documents.
 
 **PREREQUISITE**<br>
-Before using the `ml_inference` processor, you must have either a local ML model hosted on your OpenSearch cluster or an externally hosted model connected to your OpenSearch cluster through the ML Commons plugin. For more information about local models, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/). For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). 
+Before using the `ml_inference` processor, you must have either a local ML model hosted on your OpenSearch cluster or an externally hosted model connected to your OpenSearch cluster. For more information about local models, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/). For more information about externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/). 
 {: .note}
 
 ## Syntax
 
-The following is the syntax for the `ml-inference` processor:
+The following is the syntax for the `ml_inference` processor:
 
 ```json
 {
@@ -45,9 +45,9 @@ The following is the syntax for the `ml-inference` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
-The following table lists the required and optional parameters for the `ml-inference` processor.
+The following table lists the required and optional parameters for the `ml_inference` processor.
 
 | Parameter | Data type | Required/Optional | Description |
 |:--- | :--- | :--- | :--- |
@@ -67,7 +67,9 @@ The following table lists the required and optional parameters for the `ml-infer
 | `override` | Boolean   | Optional   | Relevant if an ingested document already contains a field with the name specified in `<new_document_field>`. If `override` is `false`, then the input field is skipped. If `true`, then the existing field value is overridden by the new model output. Default is `false`. |
 | `max_prediction_tasks`  | Integer   | Optional  | The maximum number of concurrent model invocations that can run during document ingestion. Default is `10`. |
 | `description` | String    | Optional  | A brief description of the processor. |
-| `tag` | String    | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
+| `if` | String containing a Boolean expression | Optional | A condition for running the processor. |
+| `on_failure` | List | Optional | A list of processors to run if the processor fails. |
+| `tag` | String    | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging). |
 
 The `input_map` and `output_map` mappings support standard [JSON path](https://github.com/json-path/JsonPath) notation for specifying complex data structures. 
 {: .note}
@@ -84,7 +86,7 @@ For remote models, the `model_input` field is optional, and its default value is
 
 The following example configures an `ml_inference` processor with an externally hosted model.
 
-**Step 1: Create a pipeline**
+#### Step 1: Create a pipeline
 
 The following example creates an ingest pipeline for an externally hosted text embedding model. The model requires an `input` field and generates results in a `data` field. It converts the text in the `passage_text` field into text embeddings and stores the embeddings in the `passage_embedding` field. The `function_name` is not explicitly specified in the processor configuration, so it defaults to `remote`, signifying an externally hosted model:
 
@@ -138,7 +140,7 @@ When specifying the `input_map` for an externally hosted model, you can directly
 ]
 ```
 
-**Step 2 (Optional): Test the pipeline**
+#### Step 2 (Optional): Test the pipeline
 
 It is recommended that you test your pipeline before you ingest documents.
 {: .tip}
@@ -160,8 +162,6 @@ POST _ingest/pipeline/ml_inference_pipeline/_simulate
 }
 ```
 {% include copy-curl.html %}
-
-#### Response
 
 The response confirms that the processor has generated text embeddings in the `passage_embedding` field. The document now contains both the `passage_text` and `passage_embedding` fields:
 
@@ -198,7 +198,7 @@ Once you have created an ingest pipeline, you need to create an index for ingest
 
 The following example configures an `ml_inference` processor with a local model.
 
-**Step 1: Create a pipeline**
+#### Step 1: Create a pipeline
 
 The following example creates an ingest pipeline for the `huggingface/sentence-transformers/all-distilroberta-v1` local model. The model is a sentence transformer [pretrained model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sentence-transformers) hosted in your OpenSearch cluster. 
 
@@ -288,7 +288,7 @@ The model generates embeddings in the `$.inference_results.*.output.*.data` fiel
 ]
 ```
 
-To configure an `ml_inference` processor with a local model, specify the `function_name` explicitly. In this example, `function_name` is `text_embedding`. For information about valid `function_name` values, see [Configuration parameters](#configuration-parameters).
+To configure an `ml_inference` processor with a local model, specify the `function_name` explicitly. In this example, `function_name` is `text_embedding`. For information about valid `function_name` values, see [Parameters](#parameters).
 
 In this example, the final configuration of the `ml_inference` processor with the local model is as follows:
 
@@ -326,7 +326,7 @@ PUT /_ingest/pipeline/ml_inference_pipeline_local
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline**
+#### Step 2 (Optional): Test the pipeline
 
 To test the pipeline, run the following query:
 
@@ -374,8 +374,6 @@ POST _ingest/pipeline/ml_inference_pipeline/_simulate
 }
 ```
 {% include copy-curl.html %}
-
-#### Response
 
 The response confirms that the processor has generated text embeddings in the `context_embedding` field. The document now contains both the `context` and `context_embedding` fields at the same path:
 
@@ -454,3 +452,9 @@ The response confirms that the processor has generated text embeddings in the `c
 
 Once you have created an ingest pipeline, you need to create an index for ingestion and ingest documents into the index.
 {: .note}
+
+## Next steps
+
+- For a complete example of generating text and image embeddings during ingestion, see [Multimodal search using ML inference processors]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-search/multimodal-search-ml-inference/).
+- For a complete example of detecting document language during ingestion, see [Identifying document language for multilingual search]({{site.url}}{{site.baseurl}}/tutorials/language-identification/).
+- For a complete example of generating embeddings for text chunks, see [Semantic search using text chunking]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-search/long-document/).

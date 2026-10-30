@@ -1,0 +1,18 @@
+extends: script
+message: "Pages with 'has_children: true' generate a Related documentation section automatically. Remove this section or set 'has_toc: false' in the front matter."
+level: error
+scope: raw
+script: |
+  text := import("text")
+  matches := []
+  fm := text.re_find(`(?s)\A---\r?\n(.*?)\r?\n---`, scope, 1)
+  if fm != undefined {
+    front := fm[0][1].text
+    hasChildren := text.re_match(`(?m)^has_children:\s*true\s*$`, front)
+    noToc := text.re_match(`(?m)^has_toc:\s*false\s*$`, front)
+    if hasChildren && !noToc {
+      for h in text.re_find(`(?mi)^#{1,6}[ \t]+Related documentation[ \t]*$`, scope, -1) {
+        matches = append(matches, {begin: h[0].begin, end: h[0].end})
+      }
+    }
+  }

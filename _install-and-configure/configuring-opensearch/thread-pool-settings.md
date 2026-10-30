@@ -2,14 +2,14 @@
 layout: default
 title: Thread pool settings
 parent: Configuring OpenSearch
-nav_order: 90
+nav_order: 110
 ---
 
 # Thread pool settings
 
 OpenSearch uses several thread pools to manage memory consumption and handle different types of operations efficiently. Thread pools can be configured to optimize performance based on your cluster's workload patterns.
 
-To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+To learn how to apply these settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 ## Node processor settings
 
@@ -31,6 +31,8 @@ OpenSearch supports the following fixed thread pools:
 - `analyze`: For Analyze API requests (fixed type)
 - `write`: For indexing, deletion, update, and bulk operations (fixed type)
 - `force_merge`: For force merge operations (fixed type)
+- `search`: For search operations (fixed type)
+- `search_throttled`: For throttled search operations (fixed type)
 
 Fixed thread pools support the following settings:
 
@@ -65,7 +67,7 @@ Scaling thread pools support the following settings:
 **Introduced 3.2**
 {: .label .label-purple }
 
-Fork-join thread pools use the Java `ForkJoinPool` to provide efficient parallelism for workloads that benefit from work stealing and task splitting. This is useful for compute-intensive operations. In OpenSearch, fork-join thread pools support features that rely on parallel computation, such as the [OpenSearch jVector plugin](https://github.com/opensearch-project/opensearch-jvector), which accelerates index builds.
+Fork-join thread pools use the Java `ForkJoinPool` to provide efficient parallelism for workloads that benefit from work stealing and task splitting. This is useful for compute-intensive operations. In OpenSearch, fork-join thread pools support features that rely on parallel computation, such as the [`opensearch-jvector` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/), which accelerates index builds.
 
 Fork-join thread pools support the following settings:
 
@@ -113,7 +115,32 @@ node.processors: 8
 ```
 {% include copy.html %}
 
+## Thread pool timing settings
+
+OpenSearch supports the following thread pool timing settings:
+
+- `thread_pool.estimated_time_interval` (Static, time unit): Sets the time interval for updating cached time values used by thread pools and other time-sensitive operations. This setting controls how frequently OpenSearch updates its internal time cache to reduce the overhead of frequent system time calls. A smaller interval provides more accurate time measurements but increases CPU overhead from more frequent time updates. Setting this to `0` disables caching and calls system time directly on each request (typically used for testing). Default is `200ms`. Minimum is `0ms`.
+
+## Cluster-level thread pool settings
+
+OpenSearch supports cluster-level dynamic settings that allow you to override thread pool configurations across all nodes in the cluster:
+
+- `cluster.thread_pool.generic.max` (Dynamic, integer): Sets the maximum size of the generic thread pool across all nodes in the cluster. This overrides the default thread pool configuration specified in `opensearch.yml`. The generic thread pool handles lightweight operations and background tasks. Use this setting to dynamically adjust thread pool sizes without restarting nodes.
+
+- `cluster.thread_pool.snapshot.max` (Dynamic, integer): Sets the maximum size of the snapshot thread pool across all nodes in the cluster. This overrides the default thread pool configuration for snapshot operations. The snapshot thread pool handles snapshot creation and restoration operations. Use this setting to adjust snapshot concurrency during high-load periods.
+
+- `cluster.thread_pool.<fixed-threadpool>.size` (Dynamic, integer): Controls the sizes of both the fixed and resizable queue thread pools. Overrides the defaults provided in `opensearch.yml`.
+
+- `cluster.thread_pool.<scaling-threadpool>.max` (Dynamic, integer): Sets the maximum size of the scaling thread pool. Overrides the default provided in `opensearch.yml`.
+
+- `cluster.thread_pool.<scaling-threadpool>.core` (Dynamic, integer): Specifies the core size of the scaling thread pool. Overrides the default provided in `opensearch.yml`.
+
+Before tuning thread pool settings dynamically, note that these are expert-level settings that can potentially destabilize your cluster. Modifying thread pool settings applies the same thread pool size to all nodes, so it's not recommended for clusters with different hardware for the same roles. Similarly, avoid tuning thread pools shared by both data nodes and cluster manager nodes. After making these changes, we recommend monitoring your cluster to ensure that it remains stable and performs as expected.
+{: .warning}
+
 ## Best practices
+
+When updating thread pool settings, follow these best practices:
 
 - Monitor thread pool usage: Use the [Nodes Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/) to monitor thread pool metrics.
 - Avoid over-provisioning: Setting thread pool sizes too high can lead to memory pressure and context switching overhead.

@@ -2,7 +2,7 @@
 layout: default
 title: Delete controller
 parent: Controller APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 50
 ---
 
@@ -15,7 +15,7 @@ Use this API to delete a controller for a model based on the `model_id`.
 ## Endpoints
 
 ```json
-DELETE /_plugins/_ml/controllers/<model_id>
+DELETE /_plugins/_ml/controllers/{model_id}
 ```
 
 ## Path parameters
@@ -41,6 +41,7 @@ DELETE /_plugins/_ml/controllers/MzcIJX8BA7mbufL6DOwl
   "_id" : "MzcIJX8BA7mbufL6DOwl",
   "_version" : 2,
   "result" : "deleted",
+  "forced_refresh" : true,
   "_shards" : {
     "total" : 2,
     "successful" : 2,
@@ -48,6 +49,34 @@ DELETE /_plugins/_ml/controllers/MzcIJX8BA7mbufL6DOwl
   },
   "_seq_no" : 27,
   "_primary_term" : 18
+}
+```
+
+## Error responses
+
+If you attempt to delete a controller that doesn't exist, OpenSearch returns a 404 Not Found error. The following error is returned when the controller index doesn't exist:
+
+```json
+{
+  "error": {
+    "root_cause": [
+      {
+        "type": "index_not_found_exception",
+        "reason": "no such index [.plugins-ml-controller]",
+        "index": ".plugins-ml-controller",
+        "resource.id": ".plugins-ml-controller",
+        "resource.type": "index_expression",
+        "index_uuid": "_na_"
+      }
+    ],
+    "type": "index_not_found_exception",
+    "reason": "no such index [.plugins-ml-controller]",
+    "index": ".plugins-ml-controller",
+    "resource.id": ".plugins-ml-controller",
+    "resource.type": "index_expression",
+    "index_uuid": "_na_"
+  },
+  "status": 404
 }
 ```
 

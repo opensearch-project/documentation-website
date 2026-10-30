@@ -7,7 +7,7 @@ nav_order: 340
 
 # Predicate token filter
 
-The `predicate_token_filter` evaluates whether tokens should be kept or discarded, depending on the conditions defined in a custom script. The tokens are evaluated in the analysis predicate context. This filter supports only inline Painless scripts.
+The `predicate_token_filter` evaluates whether tokens should be kept or discarded, depending on the conditions defined in a custom script. The tokens are evaluated in the analysis predicate context. This filter supports only inline Painless scripts. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/).
 
 ## Parameters
 

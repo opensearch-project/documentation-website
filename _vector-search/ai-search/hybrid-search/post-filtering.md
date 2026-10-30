@@ -13,76 +13,302 @@ nav_order: 40
 
 You can perform post-filtering on hybrid search results by providing the `post_filter` parameter in your query.
 
-The `post_filter` clause is applied after the search results have been retrieved. Post-filtering is useful for applying additional filters to the search results without impacting the scoring or the order of the results. 
+The `post_filter` clause is applied after the search results have been retrieved. Post-filtering is useful for applying additional filters to the search results. Because the normalization processor runs on the filtered results, their scores are normalized again. For more information, see [How post-filtering affects search results and scoring](#how-post-filtering-affects-search-results-and-scoring).
 
-Post-filtering does not impact document relevance scores or aggregation results.
+Post-filtering does not impact aggregation results.
 {: .note}
 
-## Example
+To filter all subqueries during query execution instead of filtering the final results, use a common filter. For more information, see [Hybrid search with pre-filtering]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/pre-filtering/).
 
-The following example request combines two query clauses---a `term` query and a `match` query---and contains a `post_filter`:
+## Example: Faceted search with post-filtering
+
+Post-filtering is commonly used in faceted search, in which the UI displays aggregation counts (such as brand, color, and size filters) alongside search results. Using a `post_filter` keeps the aggregation counts based on the full unfiltered query while filtering only the displayed hits.
+
+First, ingest product documents into an index:
 
 ```json
-GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
+POST /_bulk
+{ "index": { "_index": "products", "_id": "1" } }
+{ "name": "Nike Air Max", "brand": "Nike", "color": "Red", "size": 10, "price": 120, "category": "Running Shoes", "description": "Cushioned running shoes for daily training" }
+{ "index": { "_index": "products", "_id": "2" } }
+{ "name": "Nike Pegasus", "brand": "Nike", "color": "Black", "size": 9, "price": 130, "category": "Running Shoes", "description": "Responsive shoes for road running" }
+{ "index": { "_index": "products", "_id": "3" } }
+{ "name": "Adidas Adizero", "brand": "Adidas", "color": "White", "size": 10, "price": 160, "category": "Running Shoes", "description": "Lightweight racing shoes" }
+{ "index": { "_index": "products", "_id": "4" } }
+{ "name": "Puma Velocity", "brand": "Puma", "color": "Black", "size": 8, "price": 110, "category": "Running Shoes", "description": "Cushioned shoes for long runs" }
+{ "index": { "_index": "products", "_id": "5" } }
+{ "name": "Adidas Ultraboost", "brand": "Adidas", "color": "Black", "size": 9, "price": 180, "category": "Running Shoes", "description": "Running shoes with responsive cushioning" }
+{ "index": { "_index": "products", "_id": "6" } }
+{ "name": "Nike Pegasus Trail", "brand": "Nike", "color": "White", "size": 10, "price": 140, "category": "Trail Running Shoes", "description": "Trail running shoes with a grippy outsole" }
+{ "index": { "_index": "products", "_id": "7" } }
+{ "name": "Merrell Moab", "brand": "Merrell", "color": "Brown", "size": 10, "price": 130, "category": "Hiking Boots", "description": "Waterproof boots for mountain trails" }
+```
+{% include copy-curl.html %}
+
+The following searches use a search pipeline named `nlp-search-pipeline` that contains a `normalization-processor` with the `min_max` normalization technique and the `arithmetic_mean` combination technique. For more information, see [Configure a search pipeline]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/#step-3-configure-a-search-pipeline).
+
+A user searches for "running shoes", and the application constructs a hybrid query that matches the text in the `category` and `description` fields. The query contains aggregations for brand, color, and size:
+
+```json
+GET /products/_search?search_pipeline=nlp-search-pipeline
 {
   "query": {
-    "hybrid":{
-      "queries":[
+    "hybrid": {
+      "queries": [
         {
-          "match":{
-            "passage_text": "hello"
+          "match": {
+            "category": "running shoes"
           }
         },
         {
-          "term":{
-            "passage_text":{
-              "value":"planet"
-            }
+          "match": {
+            "description": "running shoes"
           }
         }
       ]
     }
-
   },
-  "post_filter":{
-    "match": { "passage_text": "world" }
+  "aggs": {
+    "brands": {
+      "terms": { "field": "brand.keyword" }
+    },
+    "colors": {
+      "terms": { "field": "color.keyword" }
+    },
+    "sizes": {
+      "terms": { "field": "size" }
+    }
   }
 }
 ```
 {% include copy-curl.html %}
 
-Compare the results to the results in the [example without post-filtering]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/#example-combining-a-match-query-and-a-term-query). In the example without post-filtering, the response contains two documents. In this example, the response contains one document because the second document is filtered out:
+The response returns hits from all brands that match the query. The aggregations include counts for every brand, color, and size in the matching documents:
+
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
 
 ```json
 {
-  "took": 18,
-  "timed_out": false,
-  "_shards": {
-    "total": 2,
-    "successful": 2,
-    "skipped": 0,
-    "failed": 0
-  },
+  ...
   "hits": {
     "total": {
-      "value": 1,
+      "value": 6,
       "relation": "eq"
     },
-    "max_score": 0.3,
+    "max_score": 1.0,
     "hits": [
       {
-        "_index": "my-nlp-index",
-        "_id": "1",
-        "_score": 0.3,
+        "_index": "products",
+        "_id": "2",
+        "_score": 1.0,
         "_source": {
-          "id": "s1",
-          "passage_text": "Hello world"
+          "name": "Nike Pegasus",
+          "brand": "Nike",
+          ...
+        }
+      },
+      {
+        "_index": "products",
+        "_id": "5",
+        "_score": 1.0,
+        "_source": {
+          "name": "Adidas Ultraboost",
+          "brand": "Adidas",
+          ...
+        }
+      },
+      {
+        "_index": "products",
+        "_id": "1",
+        "_score": 0.9290604,
+        "_source": {
+          "name": "Nike Air Max",
+          "brand": "Nike",
+          ...
+        }
+      },
+      {
+        "_index": "products",
+        "_id": "6",
+        "_score": 0.56825376,
+        "_source": {
+          "name": "Nike Pegasus Trail",
+          "brand": "Nike",
+          ...
+        }
+      },
+      {
+        "_index": "products",
+        "_id": "3",
+        "_score": 0.34844735,
+        "_source": {
+          "name": "Adidas Adizero",
+          "brand": "Adidas",
+          ...
+        }
+      },
+      {
+        "_index": "products",
+        "_id": "4",
+        "_score": 0.3007,
+        "_source": {
+          "name": "Puma Velocity",
+          "brand": "Puma",
+          ...
         }
       }
     ]
+  },
+  "aggregations": {
+    "brands": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        { "key": "Nike", "doc_count": 3 },
+        { "key": "Adidas", "doc_count": 2 },
+        { "key": "Puma", "doc_count": 1 }
+      ]
+    },
+    "colors": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        { "key": "Black", "doc_count": 3 },
+        { "key": "White", "doc_count": 2 },
+        { "key": "Red", "doc_count": 1 }
+      ]
+    },
+    "sizes": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        { "key": 10, "doc_count": 3 },
+        { "key": 9, "doc_count": 2 },
+        { "key": 8, "doc_count": 1 }
+      ]
+    }
   }
 }
 ```
+</details>
+
+The aggregations are typically displayed as facet filters in the UI. When a user selects a specific brand (for example, `Nike`) to filter results, using a pre-filter would exclude non-Nike documents before aggregations are computed, causing other brands to disappear from the facet counts.
+
+With `post_filter`, the query and aggregations run on the full result set. The filter is applied only to the displayed hits:
+
+```json
+GET /products/_search?search_pipeline=nlp-search-pipeline
+{
+  "query": {
+    "hybrid": {
+      "queries": [
+        {
+          "match": {
+            "category": "running shoes"
+          }
+        },
+        {
+          "match": {
+            "description": "running shoes"
+          }
+        }
+      ]
+    }
+  },
+  "aggs": {
+    "brands": {
+      "terms": { "field": "brand.keyword" }
+    },
+    "colors": {
+      "terms": { "field": "color.keyword" }
+    }
+  },
+  "post_filter": {
+    "term": { "brand.keyword": "Nike" }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The hits contain only Nike products, but the aggregations still reflect the full unfiltered query. The hit scores are normalized again over the filtered hits, as described in [How post-filtering affects search results and scoring](#how-post-filtering-affects-search-results-and-scoring):
+
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  ...
+  "hits": {
+    "total": {
+      "value": 3,
+      "relation": "eq"
+    },
+    "max_score": 1.0,
+    "hits": [
+      {
+        "_index": "products",
+        "_id": "2",
+        "_score": 1.0,
+        "_source": {
+          "name": "Nike Pegasus",
+          "brand": "Nike",
+          ...
+        }
+      },
+      {
+        "_index": "products",
+        "_id": "1",
+        "_score": 0.62393653,
+        "_source": {
+          "name": "Nike Air Max",
+          "brand": "Nike",
+          ...
+        }
+      },
+      {
+        "_index": "products",
+        "_id": "6",
+        "_score": 0.001,
+        "_source": {
+          "name": "Nike Pegasus Trail",
+          "brand": "Nike",
+          ...
+        }
+      }
+    ]
+  },
+  "aggregations": {
+    "brands": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        { "key": "Nike", "doc_count": 3 },
+        { "key": "Adidas", "doc_count": 2 },
+        { "key": "Puma", "doc_count": 1 }
+      ]
+    },
+    "colors": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        { "key": "Black", "doc_count": 3 },
+        { "key": "White", "doc_count": 2 },
+        { "key": "Red", "doc_count": 1 }
+      ]
+    }
+  }
+}
+```
+</details>
+
+All brand options remain visible in the facet, allowing the user to switch brands or compare counts without removing the filter.
 
 ## How post-filtering affects search results and scoring
 

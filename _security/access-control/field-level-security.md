@@ -2,17 +2,16 @@
 layout: default
 title: Field-level security
 parent: Access control
-nav_order: 90
+nav_order: 95
 redirect_from:
- - /security/access-control/field-level-security/
  - /security-plugin/access-control/field-level-security/
 ---
 
 # Field-level security
 
-Field-level security lets you control which document fields a user can see. Just like [document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/), you control access by index within a role.
+Field-level security (FLS) controls the document fields that a role can read in an index. It applies only to read operations, such as search and get, and does not prevent users with write or delete permissions from indexing, updating, or deleting data in those fields. Similarly to [document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/), you configure FLS per index within a role.
 
-The easiest way to get started with document- and field-level security is open OpenSearch Dashboards and choose **Security**. Then choose **Roles**, create a new role, and review the **Index permissions** section.
+The easiest way to get started with FLS is to open OpenSearch Dashboards and choose **Security**. Then choose **Roles**, create a new role, and review the **Index permissions** section.
 
 ---
 
@@ -96,7 +95,7 @@ someonerole:
 
 ### REST API
 
-See [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role).
+See [Create role]({{site.url}}{{site.baseurl}}/security/api/roles/create-role/).
 
 
 ## Interaction with multiple roles
@@ -122,3 +121,7 @@ For example, in the `movies` index, if you include `actors`, `title`, and `year`
 ## Interaction with document-level security
 
 [Document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/) relies on OpenSearch queries, which means that all fields in the query must be visible in order for it to work properly. If you use field-level security in conjunction with document-level security, make sure you don't restrict access to the fields that document-level security uses.
+
+## Updating documents using scripts
+
+The Security plugin blocks the update by script operation (`POST <index>/_update/<id>`) when field-level security, document-level security, or field masking is active. To update documents, use the index operation (`PUT <index>/_doc/<id>`).

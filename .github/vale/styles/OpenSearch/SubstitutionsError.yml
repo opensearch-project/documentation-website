@@ -5,9 +5,15 @@ level: error
 action:
   name: replace
 swap:
+  'AOSS': Amazon OpenSearch Serverless
+  'allowlist': allow list
+  'autoscaling': auto scaling
   'command-line interface': command line interface
+  'coordinator node': coordinating node
+  'coordinator nodes': coordinating nodes
   'data are': data is
   'data set': dataset
+  'ecommerce': e-commerce
   'for information on': for information about
   'for more information on': for more information about
   'geo distance': geodistance
@@ -38,20 +44,22 @@ swap:
   'premigration': pre-migration
   're-enable': reenable
   'retrieval augmented generation': retrieval-augmented generation
-  'screen shot': screenshot
   'sample request': example request
   'sample response': example response
+  'screen shot': screenshot
   'stacktrace': stack trace
   'stand-alone': standalone
-  'timeframe': time frame
+  'sub-aggregation': subaggregation
   'time series data': time-series data
   'time stamp': timestamp
+  'filepath': file path
+  'threadpool': thread pool
+  'timeframe': time frame
   'timezone': time zone
   'tradeoff': trade-off
   'trust store': truststore
   'U.S.': US
+  'user interface \(UI\)': UI
   'web page': webpage
   'web site': website
   'whitespace': white space
-  'user interface \(UI\)': UI
-  'judgement': judgment

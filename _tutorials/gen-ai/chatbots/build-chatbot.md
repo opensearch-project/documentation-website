@@ -9,13 +9,9 @@ nav_order: 170
 redirect_from:
   - /ml-commons-plugin/tutorials/build-chatbot/
   - /vector-search/tutorials/chatbots/build-chatbot/
-  - /tutorials/gen-ai/chatbots/build-chatbot/ 
 ---
 
 # Build your own chatbot
-
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/ml-commons/issues/1161).    
-{: .warning}
 
 Sometimes a large language model (LLM) cannot answer a question right away. For example, an LLM can't tell you how many errors there are in your log index for last week because its knowledge base does not contain your proprietary data. In this case, you need to provide additional information to an LLM in a subsequent call. You can use an agent to solve such complex problems. The agent can run tools to obtain more information from configured data sources and send the additional information to the LLM as context.
 
@@ -64,13 +60,13 @@ PUT test_stock_price_data
       },
       "stock_price_history_embedding": {
         "type": "knn_vector",
-        "dimension": 384
+        "dimension": 384,
+        "space_type": "cosinesimil"
       }
     }
   },
   "settings": {
     "index": {
-      "knn.space_type": "cosinesimil",
       "default_pipeline": "test_stock_price_data_pipeline",
       "knn": "true"
     }
@@ -107,36 +103,28 @@ Create a connector for the model:
 ```json
 POST /_plugins/_ml/connectors/_create
 {
-  "name": "BedRock Claude instant-v1 Connector ",
+  "name": "Bedrock Claude Sonnet 4.6",
   "description": "The connector to BedRock service for claude model",
   "version": 1,
   "protocol": "aws_sigv4",
   "parameters": {
     "region": "us-east-1",
     "service_name": "bedrock",
-    "anthropic_version": "bedrock-2023-05-31",
-    "max_tokens_to_sample": 8000,
-    "temperature": 0.0001,
-    "response_filter": "$.completion",
-    "stop_sequences": ["\n\nHuman:","\nObservation:","\n\tObservation:","\nObservation","\n\tObservation","\n\nQuestion"]
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "response_filter": "$.output.message.content[0].text"
   },
   "credential": {
     "access_key": "your_aws_access_key",
     "secret_key": "your_aws_secret_key",
     "session_token": "your_aws_session_token"
   },
-  "actions": [
-    {
-      "action_type": "predict",
-      "method": "POST",
-      "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/anthropic.claude-instant-v1/invoke",
-      "headers": {
-        "content-type": "application/json",
-        "x-amz-content-sha256": "required"
-      },
-      "request_body": "{\"prompt\":\"${parameters.prompt}\", \"stop_sequences\": ${parameters.stop_sequences}, \"max_tokens_to_sample\":${parameters.max_tokens_to_sample}, \"temperature\":${parameters.temperature},  \"anthropic_version\":\"${parameters.anthropic_version}\" }"
-    }
-  ]
+  "actions": [{
+    "action_type": "predict",
+    "method": "POST",
+    "url": "https://bedrock-runtime.${parameters.region}.amazonaws.com/model/${parameters.model}/converse",
+    "headers": { "content-type": "application/json" },
+    "request_body": "{\"system\": [{\"text\": \"${parameters.system_prompt:-You are a helpful assistant.}\"}], \"messages\": [${parameters._chat_history:-}{\"role\":\"user\",\"content\":[{\"text\":\"${parameters.prompt:-}\"}]}${parameters._interactions:-}]${parameters.tool_configs:-}}"
+  }]
 }
 ```
 {% include copy-curl.html %}
@@ -148,9 +136,9 @@ Register the model:
 ```json
 POST /_plugins/_ml/models/_register
 {
-    "name": "Bedrock Claude Instant model",
+    "name": "Bedrock Claude Sonnet 4.6 model",
     "function_name": "remote",
-    "description": "Bedrock Claude instant-v1 model",
+    "description": "Bedrock Claude Sonnet 4.6 model",
     "connector_id": "your_connector_id"
 }
 ```
@@ -171,7 +159,7 @@ Test the model:
 POST /_plugins/_ml/models/your_LLM_model_id/_predict
 {
   "parameters": {
-    "prompt": "\n\nHuman: how are you? \n\nAssistant:"
+    "prompt": "how are you?"
   }
 }
 ```
@@ -190,7 +178,7 @@ The agent is configured with the following information:
 - Meta information: `name`, `type`, `description`.
 - LLM information: The agent uses an LLM to reason and select the next step, including choosing an appropriate tool and preparing the tool input.
 - Tools: A tool is a function that can be executed by the agent. Each tool can define its own `name`, `description`, and `parameters`.
-- Memory: Stores chat messages. Currently, OpenSearch only supports one memory type: `conversation_index`.
+- Memory: Stores chat messages. OpenSearch supports one memory type: `conversation_index`.
 
 The agent contains the following parameters:
 
@@ -198,14 +186,18 @@ The agent contains the following parameters:
 - `app_type`: Specify this parameter for reference purposes in order to differentiate between multiple agents.
 - `llm`: Defines the LLM configuration:
    - `"max_iteration": 5`:  The agent runs the LLM a maximum of five times.
-   - `"response_filter": "$.completion"`: Needed to retrieve the LLM answer from the Bedrock Claude model response.
+   - `"response_filter": "$"`: Passes the full model response to the agent so that the agent can read the tool calls in it. This setting overrides the connector's `response_filter`, which the Predict API and the `PPLTool` use to obtain only the answer text.
+   - `"prompt": "${parameters.question}"`: Sends the user question to the LLM as the user message.
    - `"message_history_limit": 5`: The agent retrieves a maximum of the five most recent historical messages and adds them to the LLM context. Set this parameter to `0` to omit message history in the context.
    - `disable_trace`: If `true`, then the agent does not store trace data in memory. Trace data is included in each message and provides a detailed recount of steps performed while generating the message.
-- `memory`: Defines how to store messages. Currently, OpenSearch only supports the `conversation_index` memory, which stores messages in a memory index.
+- `memory`: Defines how to store messages. OpenSearch only supports the `conversation_index` memory, which stores messages in a memory index.
+- `parameters`: Defines agent parameters:
+   - `"_llm_interface": "bedrock/converse/claude"`: Uses the tool calling (function calling) interface of the Amazon Bedrock Converse API for Claude models. The agent sends the tool definitions to the LLM in the `toolConfig` field of the request and reads the tool calls from the LLM response.
 - Tools: 
    - An LLM will reason to decide which tool to run and will prepare the tool's input. 
    - To include the tool's output in the response, specify `"include_output_in_agent_response": true`. In this tutorial, you will include the `PPLTool` output in the response (see the example response in [Test the agent](#test-the-agent)). 
    - By default, the tool's `name` is the same as the tool's `type`, and each tool has a default description. You can override the tool's `name` and `description`.
+   - The LLM uses each tool's input schema to prepare the tool input. If a tool doesn't define a default input schema, provide one in `attributes.input_schema`. In this tutorial, the request provides an input schema for the `PPLTool` and the anomaly detection and alerting search tools.
    - Each tool in the `tools` list must have a unique name. For example, the following demo agent defines two tools of the `VectorDBTool` type with different names (`population_data_knowledge_base` and `stock_price_data_knowledge_base`). Each tool has a custom description so that the LLM can easily understand what the tool does.
    
    For more information about tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
@@ -226,13 +218,17 @@ POST _plugins/_ml/agents/_register
     "model_id": "your_llm_model_id_from_step2",
     "parameters": {
       "max_iteration": 5,
-      "response_filter": "$.completion",
+      "response_filter": "$",
+      "prompt": "${parameters.question}",
       "message_history_limit": 5,
       "disable_trace": false
     }
   },
   "memory": {
     "type": "conversation_index"
+  },
+  "parameters": {
+    "_llm_interface": "bedrock/converse/claude"
   },
   "tools": [
     {
@@ -241,6 +237,22 @@ POST _plugins/_ml/agents/_register
         "model_id": "your_llm_model_id_from_step2",
         "model_type": "CLAUDE",
         "execute": true
+      },
+      "attributes": {
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "question": {
+              "type": "string",
+              "description": "The natural language question to translate into PPL"
+            },
+            "index": {
+              "type": "string",
+              "description": "The index to query"
+            }
+          },
+          "required": ["question", "index"]
+        }
       },
       "include_output_in_agent_response": true
     },
@@ -286,13 +298,54 @@ POST _plugins/_ml/agents/_register
       "description": "Use this tool to get OpenSearch index information: (health, status, index, uuid, primary count, replica count, docs.count, docs.deleted, store.size, primary.store.size). \nIt takes 2 optional arguments named `index` which is a comma-delimited list of one or more indices to get information from (default is an empty list meaning all indices), and `local` which means whether to return information from the local node only instead of the cluster manager node (default is false)."
     },
     {
-      "type": "SearchAnomalyDetectorsTool"
+      "type": "SearchAnomalyDetectorsTool",
+      "attributes": {
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "detectorName": {
+              "type": "string",
+              "description": "The detector name"
+            },
+            "indices": {
+              "type": "string",
+              "description": "The index that the detector monitors"
+            }
+          }
+        }
+      }
     },
     {
-      "type": "SearchAnomalyResultsTool"
+      "type": "SearchAnomalyResultsTool",
+      "attributes": {
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "detectorId": {
+              "type": "string",
+              "description": "The detector ID"
+            }
+          }
+        }
+      }
     },
     {
-      "type": "SearchMonitorsTool"
+      "type": "SearchMonitorsTool",
+      "attributes": {
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "monitorName": {
+              "type": "string",
+              "description": "The monitor name"
+            },
+            "indices": {
+              "type": "string",
+              "description": "The index that the monitor monitors"
+            }
+          }
+        }
+      }
     },
     {
       "type": "SearchAlertsTool"
@@ -365,10 +418,10 @@ Because you specified `"include_output_in_agent_response": true` for the `PPLToo
         {
           "name": "response",
           "dataAsMap": {
-            "response": "The tool response from the PPLTool shows that there were 3812 orders in the opensearch_dashboards_sample_data_ecommerce index within the last week.",
+            "response": "There were **3,536 orders** placed in the last week in the `opensearch_dashboards_sample_data_ecommerce` index.\n\nThe query filtered records where the `order_date` falls within the last 7 days and then counted the total number of matching orders.",
             "additional_info": {
               "PPLTool.output": [
-                """{"ppl":"source\u003dopensearch_dashboards_sample_data_ecommerce| where order_date \u003e DATE_SUB(NOW(), INTERVAL 1 WEEK) | stats COUNT() AS count","executionResult":"{\n  \"schema\": [\n    {\n      \"name\": \"count\",\n      \"type\": \"integer\"\n    }\n  ],\n  \"datarows\": [\n    [\n      3812\n    ]\n  ],\n  \"total\": 1,\n  \"size\": 1\n}"}"""
+                """{"ppl":"source=opensearch_dashboards_sample_data_ecommerce | where order_date > DATE_SUB(NOW(), INTERVAL 1 WEEK) | stats COUNT() AS count","executionResult":"{\n  \"schema\": [\n    {\n      \"name\": \"count\",\n      \"type\": \"bigint\"\n    }\n  ],\n  \"datarows\": [\n    [\n      3536\n    ]\n  ],\n  \"total\": 1,\n  \"size\": 1\n}"}"""
               ]
             }
           }
@@ -421,22 +474,16 @@ The response contains the execution steps:
         },
         {
           "name": "response",
-          "result": """{
-  "thought": "Let me check the population data tool",
-  "action": "population_data_knowledge_base",
-  "action_input": "{'question': 'What is the population increase of Seattle from 2021 to 2023?', 'cities': ['Seattle']}"
-}"""
+          "result": """{"metrics":{"latencyMs":1351},"output":{"message":{"content":[{"text":"I'll look up the population data for Seattle for both 2021 and 2023 simultaneously!"},{"toolUse":{"input":{"input":"Seattle population 2021"},"name":"population_data_knowledge_base","toolUseId":"tooluse_Otp7WQDMey0VbuxrfcncmJ","type":"tool_use"}},{"toolUse":{"input":{"input":"Seattle population 2023"},"name":"population_data_knowledge_base","toolUseId":"tooluse_UshSIkOhmmek3dD1Xv2jcl","type":"tool_use"}}],"role":"assistant"}},"stopReason":"tool_use","usage":{...}}"""
         },
         {
           "name": "response",
-          "result": """{"_index":"test_population_data","_source":{"population_description":"Chart and table of population level and growth rate for the Seattle metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\\nThe current metro area population of Seattle in 2023 is 3,519,000, a 0.86% increase from 2022.\\nThe metro area population of Seattle in 2022 was 3,489,000, a 0.81% increase from 2021.\\nThe metro area population of Seattle in 2021 was 3,461,000, a 0.82% increase from 2020.\\nThe metro area population of Seattle in 2020 was 3,433,000, a 0.79% increase from 2019."},"_id":"9EJsyI0Bn3OCesyvU-B7","_score":0.75154537}
-{"_index":"test_population_data","_source":{"population_description":"Chart and table of population level and growth rate for the Austin metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\\nThe current metro area population of Austin in 2023 is 2,228,000, a 2.39% increase from 2022.\\nThe metro area population of Austin in 2022 was 2,176,000, a 2.79% increase from 2021.\\nThe metro area population of Austin in 2021 was 2,117,000, a 3.12% increase from 2020.\\nThe metro area population of Austin in 2020 was 2,053,000, a 3.43% increase from 2019."},"_id":"80JsyI0Bn3OCesyvU-B7","_score":0.6689899}
-{"_index":"test_population_data","_source":{"population_description":"Chart and table of population level and growth rate for the New York City metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\\nThe current metro area population of New York City in 2023 is 18,937,000, a 0.37% increase from 2022.\\nThe metro area population of New York City in 2022 was 18,867,000, a 0.23% increase from 2021.\\nThe metro area population of New York City in 2021 was 18,823,000, a 0.1% increase from 2020.\\nThe metro area population of New York City in 2020 was 18,804,000, a 0.01% decline from 2019."},"_id":"8EJsyI0Bn3OCesyvU-B7","_score":0.66782206}
-"""
+          "result": """{"_index":"test_population_data","_source":{"population_description":"Chart and table of population level and growth rate for the Seattle metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\\nThe current metro area population of Seattle in 2023 is 3,519,000, a 0.86% increase from 2022.\\nThe metro area population of Seattle in 2022 was 3,489,000, a 0.81% increase from 2021.\\nThe metro area population of Seattle in 2021 was 3,461,000, a 0.82% increase from 2020.\\nThe metro area population of Seattle in 2020 was 3,433,000, a 0.79% increase from 2019."},"_id":"9EJsyI0Bn3OCesyvU-B7","_score":0.87160504}
+..."""
         },
         {
           "name": "response",
-          "result": "According to the population data tool, the population of Seattle increased by approximately 28,000 people from 2021 to 2023, which is a 0.82% increase from 2021 to 2022 and a 0.86% increase from 2022 to 2023."
+          "result": "Based on the data retrieved, here is the population information for the **Seattle metro area**:\n\n| Year | Population |\n|------|------------|\n| 2021 | 3,461,000  |\n| 2023 | 3,519,000  |\n\n**Population Increase from 2021 to 2023:**\n- **Absolute Increase:** 3,519,000 − 3,461,000 = **58,000 people**\n- **Percentage Increase:** approximately **1.68%** over two years\n\nThis growth was driven by a consistent annual increase of roughly 0.81–0.86% per year during that period."
         }
       ]
     }
@@ -467,7 +514,7 @@ POST _plugins/_ml/agents/your_agent_id/_execute
 ```
 {% include copy-curl.html %}
 
-In the response, note that the `population_data_knowledge_base` doesn't return the population of Seattle. Instead, the agent learns the population of Seattle by referencing historical messages:
+The agent sends the previous question and answer from the memory to the LLM as chat history. The response contains the execution steps for the new question:
 
 ```json
 {
@@ -484,22 +531,16 @@ In the response, note that the `population_data_knowledge_base` doesn't return t
         },
         {
           "name": "response",
-          "result": """{
-  "thought": "Let me check the population data tool first",
-  "action": "population_data_knowledge_base",
-  "action_input": "{\"city\":\"Austin\",\"year\":2023}"
-}"""
+          "result": """{"metrics":{"latencyMs":1307},"output":{"message":{"content":[{"text":"I'll fetch the population data for both Austin and Seattle in 2023 at the same time!"},{"toolUse":{"input":{"input":"Austin population 2023"},"name":"population_data_knowledge_base","toolUseId":"tooluse_MOjGyUAKYgL2o9LjKcCxAu","type":"tool_use"}},{"toolUse":{"input":{"input":"Seattle population 2023"},"name":"population_data_knowledge_base","toolUseId":"tooluse_Iwa8FuZPB0Uy1U0kH97Gms","type":"tool_use"}}],"role":"assistant"}},"stopReason":"tool_use","usage":{...}}"""
         },
         {
           "name": "response",
-          "result": """{"_index":"test_population_data","_source":{"population_description":"Chart and table of population level and growth rate for the Austin metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\\nThe current metro area population of Austin in 2023 is 2,228,000, a 2.39% increase from 2022.\\nThe metro area population of Austin in 2022 was 2,176,000, a 2.79% increase from 2021.\\nThe metro area population of Austin in 2021 was 2,117,000, a 3.12% increase from 2020.\\nThe metro area population of Austin in 2020 was 2,053,000, a 3.43% increase from 2019."},"_id":"BhF5vo0BubpYKX5ER0fT","_score":0.69129956}
-{"_index":"test_population_data","_source":{"population_description":"Chart and table of population level and growth rate for the Austin metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\\nThe current metro area population of Austin in 2023 is 2,228,000, a 2.39% increase from 2022.\\nThe metro area population of Austin in 2022 was 2,176,000, a 2.79% increase from 2021.\\nThe metro area population of Austin in 2021 was 2,117,000, a 3.12% increase from 2020.\\nThe metro area population of Austin in 2020 was 2,053,000, a 3.43% increase from 2019."},"_id":"6zrZvo0BVR2NrurbRIAE","_score":0.69129956}
-{"_index":"test_population_data","_source":{"population_description":"Chart and table of population level and growth rate for the New York City metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\\nThe current metro area population of New York City in 2023 is 18,937,000, a 0.37% increase from 2022.\\nThe metro area population of New York City in 2022 was 18,867,000, a 0.23% increase from 2021.\\nThe metro area population of New York City in 2021 was 18,823,000, a 0.1% increase from 2020.\\nThe metro area population of New York City in 2020 was 18,804,000, a 0.01% decline from 2019."},"_id":"AxF5vo0BubpYKX5ER0fT","_score":0.61015373}
-"""
+          "result": """{"_index":"test_population_data","_source":{"population_description":"Chart and table of population level and growth rate for the Austin metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\\nThe current metro area population of Austin in 2023 is 2,228,000, a 2.39% increase from 2022.\\nThe metro area population of Austin in 2022 was 2,176,000, a 2.79% increase from 2021.\\nThe metro area population of Austin in 2021 was 2,117,000, a 3.12% increase from 2020.\\nThe metro area population of Austin in 2020 was 2,053,000, a 3.43% increase from 2019."},"_id":"BhF5vo0BubpYKX5ER0fT","_score":0.85916364}
+..."""
         },
         {
           "name": "response",
-          "result": "According to the population data tool, the population of Austin in 2023 is approximately 2,228,000 people, a 2.39% increase from 2022. This is lower than the population of Seattle in 2023 which is approximately 3,519,000 people, a 0.86% increase from 2022."
+          "result": "Here's a comparison of **Austin vs. Seattle** metro area populations in 2023:\n\n| City | Population (2023) |\n|------|------------------|\n| Seattle | 3,519,000 |\n| Austin | 2,228,000 |\n| **Difference** | **1,291,000** |\n\n### Key Takeaways:\n- **Seattle** is significantly larger than Austin, with a population **~57.9% higher** than Austin's in 2023.\n- However, **Austin** is growing at a much faster rate — **2.39% growth** in 2023 compared to Seattle's more modest growth rate.\n- If Austin maintains its strong growth trajectory, it could continue to close the gap with Seattle over the coming years."
         }
       ]
     }
@@ -523,7 +564,9 @@ GET _plugins/_ml/memory/message/00J6yI0Bn3OCesyvIuGZ/traces
 
 ## Step 4 (Optional): Create an agent with a custom prompt 
 
-All agents have the following default prompt:
+The agent in Step 3 uses tool calling, so it sends the user question to the LLM as the user message and sends its instructions as a system prompt. To customize the instructions, set the `system_prompt` parameter in `llm.parameters`. The connector passes `system_prompt` to the LLM in the `system` field of the request body. If you don't set `system_prompt`, the agent uses `You are a helpful assistant.` For an example, see [Example 1](#example-1-customize-system_prompt).
+
+Agents that don't set `_llm_interface` build a text prompt from a template, as shown in [Example 2](#example-2-openai-model-with-a-custom-prompt). The default prompt template is the following:
 
 ```json
 "prompt": """
@@ -578,9 +621,9 @@ The `prompt.suffix` consists of the following placeholders:
 
 The following examples demonstrate how to customize the prompt.
 
-#### Example 1: Customize `prompt.prefix`
+#### Example 1: Customize `system_prompt`
 
-Register an agent with a custom `prompt.prefix`:
+Register an agent with a custom `system_prompt`:
 
 ```json
 POST _plugins/_ml/agents/_register
@@ -593,12 +636,16 @@ POST _plugins/_ml/agents/_register
     "model_id": "P0L8xI0Bn3OCesyvPsif",
     "parameters": {
       "max_iteration": 3,
-      "response_filter": "$.completion",
-      "prompt.prefix": "Assistant is a professional data analyst. You will always answer question based on the tool response first. If you don't know the answer, just say don't know.\n"
+      "response_filter": "$",
+      "prompt": "${parameters.question}",
+      "system_prompt": "You are a professional data analyst. You will always answer questions based on the tool response first. If you don't know the answer, just say you don't know."
     }
   },
   "memory": {
     "type": "conversation_index"
+  },
+  "parameters": {
+    "_llm_interface": "bedrock/converse/claude"
   },
   "tools": [
     {
@@ -651,17 +698,17 @@ POST _plugins/_ml/agents/o0LDyI0Bn3OCesyvr-Zq/_execute
 
 #### Example 2: OpenAI model with a custom prompt
 
-Create a connector for the OpenAI `gpt-3.5-turbo` model:
+Create a connector for the OpenAI `gpt-4o-mini` model:
 
 ```json
 POST _plugins/_ml/connectors/_create
 {
-  "name": "My openai connector: gpt-3.5-turbo",
+  "name": "My openai connector: gpt-4o-mini",
   "description": "The connector to openai chat model",
   "version": 1,
   "protocol": "http",
   "parameters": {
-    "model": "gpt-3.5-turbo",
+    "model": "gpt-4o-mini",
     "response_filter": "$.choices[0].message.content",
     "stop": ["\n\nHuman:","\nObservation:","\n\tObservation:","\n\tObservation","\n\nQuestion"],
     "system_instruction": "You are an Assistant which can answer kinds of questions."
@@ -715,7 +762,7 @@ Create an agent with a custom `system_instruction` and `prompt`. The `prompt` cu
 ```json
 POST _plugins/_ml/agents/_register
 {
-  "name": "My Chat Agent with OpenAI GPT 3.5",
+  "name": "My Chat Agent with OpenAI gpt-4o-mini",
   "type": "conversational",
   "description": "this is a test agent",
   "app_type": "os_chat",
@@ -910,8 +957,15 @@ Go to your OpenSearch Dashboards config folder (`$OSD_HOME/config`) and edit `op
 
 Restart OpenSearch Dashboards and then select the chat icon in the upper-right corner, shown in the following image.
 
-<img width="300" src="{{site.url}}{{site.baseurl}}/images/dashboards/os-assistant-icon.png" alt="OpenSearch Assistant icon">
+![OpenSearch Assistant icon]({{site.url}}{{site.baseurl}}/images/dashboards/os-assistant-icon.png){: width="300" }
 
 You can now chat in OpenSearch Dashboards, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/os-assistant-chat.png" alt="OpenSearch Assistant chat">
+![OpenSearch Assistant chat]({{site.url}}{{site.baseurl}}/images/dashboards/os-assistant-chat.png)
+
+## Related documentation
+
+- [OpenSearch Assistant for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/)
+- [Conversational agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/conversational/)
+- [Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/)
+- [Vector DB tool]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/vector-db-tool/)

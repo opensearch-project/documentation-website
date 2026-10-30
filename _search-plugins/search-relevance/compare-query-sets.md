@@ -3,7 +3,7 @@ layout: default
 title: Comparing query sets
 nav_order: 12
 parent: Search Relevance Workbench
-grand_parent: Search relevance
+grand_parent: Optimizing search quality
 has_children: false
 ---
 
@@ -64,7 +64,7 @@ Use the following API to retrieve the result of a specific experiment.
 
 ```json
 GET _plugins/_search_relevance/experiments
-GET _plugins/_search_relevance/experiments/<experiment_id>
+GET _plugins/_search_relevance/experiments/{experiment_id}
 ```
 
 #### Path parameters

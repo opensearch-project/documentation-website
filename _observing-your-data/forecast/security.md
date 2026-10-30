@@ -10,6 +10,8 @@ has_children: false
 
 Forecasting uses the same security framework as anomaly detection. This page explains how to configure permissions for users to create, run, and view forecasters; how to restrict access to system indexes; and how to isolate forecast results across teams.
 
+To control access to individual forecasters using resource sharing, see [Forecaster access control]({{site.url}}{{site.baseurl}}/observing-your-data/forecast/forecaster-access-control/).
+
 In all examples, replace credentials, index names, and role names with values appropriate for your environment.
 {: .note}
 
@@ -24,7 +26,7 @@ The following table describes the indexes used by the Forecasting API and their 
 | `.opensearch-forecast-state` | Stores task metadata for real-time and run-once forecasting. | No |
 | `opensearch-forecast-result*` | Stores forecast results from both backtests and real-time forecasting. | Yes |
 
-Users do not need direct access to `.opensearch-forecast-checkpoints`; it is used internally by the plugin.  
+Users do not need direct access to `.opensearch-forecast-checkpoints`; it is used internally by forecasting.  
 
 To view `.opensearch-forecasters`, use the [Get forecaster]({{site.url}}{{site.baseurl}}/observing-your-data/forecast/api/#get-forecaster) or [Search forecasters]({{site.url}}{{site.baseurl}}/observing-your-data/forecast/api/#search-forecasters) APIs.
 
@@ -41,11 +43,11 @@ Each Forecasting API route maps to a specific cluster-level permission, as shown
 | `PUT /_plugins/_forecast/forecasters/{id}` | `cluster:admin/plugin/forecast/forecaster/write` |
 | `POST /_plugins/_forecast/forecasters/_validate` | `cluster:admin/plugin/forecast/forecaster/validate` |
 | `POST /_plugins/_forecast/forecasters/_suggest/{types}` | `cluster:admin/plugin/forecast/forecaster/suggest` |
-| `GET /_plugins/_forecast/forecasters/{id}` <br>`GET /_plugins/_forecast/forecasters/{id}?task=true` | `cluster:admin/plugin/forecast/forecaster/get` |
+| `GET /_plugins/_forecast/forecasters/{id}` <br>`GET /_plugins/_forecast/forecasters/{id}?task=true` | `cluster:admin/plugin/forecast/forecasters/get` |
 | `DELETE /_plugins/_forecast/forecasters/{id}` | `cluster:admin/plugin/forecast/forecaster/delete` |
 | `POST /_plugins/_forecast/forecasters/{id}/_start` <br>`POST /_plugins/_forecast/forecasters/{id}/_stop` | `cluster:admin/plugin/forecast/forecaster/jobmanagement` |
 | `POST /_plugins/_forecast/forecasters/{id}/_run_once` | `cluster:admin/plugin/forecast/forecaster/runOnce` |
-| `POST /_plugins/_forecast/forecasters/_search` <br>`GET /_plugins/_forecast/forecasters/_search` | `cluster:admin/plugin/forecast/forecaster/search` |
+| `POST /_plugins/_forecast/forecasters/_search` <br>`GET /_plugins/_forecast/forecasters/_search` | `cluster:admin/plugin/forecast/forecasters/search` |
 | `GET /_plugins/_forecast/forecasters/tasks/_search` | `cluster:admin/plugin/forecast/tasks/search` |
 | `POST /_plugins/_forecast/forecasters/{id}/results/_topForecasts` | `cluster:admin/plugin/forecast/result/topForecasts` |
 | `GET /_plugins/_forecast/forecasters/{id}/_profile` | `cluster:admin/plugin/forecast/forecasters/profile` |
@@ -93,7 +95,7 @@ forecast_read_access:
     - 'cluster:admin/plugin/forecast/forecaster/suggest'
     - 'cluster:admin/plugin/forecast/forecaster/validate'
     - 'cluster:admin/plugin/forecast/forecasters/get'
-    - 'cluster:admin/plugin/forecast/forecasters/info'
+    - 'cluster:admin/plugin/forecast/forecaster/info'
     - 'cluster:admin/plugin/forecast/forecasters/search'
     - 'cluster:admin/plugin/forecast/result/topForecasts'
     - 'cluster:admin/plugin/forecast/tasks/search'
@@ -150,7 +152,7 @@ PUT _plugins/_security/api/roles/data_source_read
 
 You can modify the `index_patterns` to match your actual data source.
 
-### `Result‑read` role
+### Result-read role
 
 The `forecast_result_read` role allows users to view forecast results and configure Alerting monitors that query those results.
 
@@ -340,7 +342,7 @@ curl -XPUT -k -u 'admin:<custom-admin-password>' \
   -H 'Content-Type: application/json' \
   -d '{"password":"password"}'
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 Using the following command, map the new user to the `forecast_full_access` role:
 
@@ -350,7 +352,7 @@ curl -XPUT -k -u 'admin:<custom-admin-password>' \
   -H 'Content-Type: application/json' \
   -d '{"users":["forecastuser"]}'
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 In the remote cluster, create the same user and map `forecast_full_access` to that role, as shown in the following command:
 
@@ -439,7 +441,7 @@ curl -X PUT "https://localhost:9200/_cluster/settings" \
     }
   }'
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 
 - Replace `127.0.0.1` with the remote node's transport layer IP if it's located on a different host.
@@ -461,7 +463,7 @@ When a user creates a forecaster—either in OpenSearch Dashboards or by calling
 - `indices:data/write/index` – Required to write forecast results to the index (single-stream forecasters).
 - `indices:data/read/search` – Required to search the custom index when displaying forecast results.
 - `indices:data/write/delete` – Required to delete older forecast results and manage disk usage.
-- `indices:data/write/bulk*` – Required because the plugin writes results using the Bulk API.
+- `indices:data/write/bulk*` – Required because forecasting writes results using the Bulk API.
 
 ## Next step
 

@@ -8,6 +8,9 @@ has_toc: false
 redirect_from:
   - /search-plugins/knn/knn-vector-quantization/
 outside_cards:
+  - heading: "Half-float vectors"
+    description: "Store vectors natively in the 16-bit floating-point format"
+    link: "/mappings/supported-field-types/knn-memory-optimized/#half-float-vectors"
   - heading: "Byte vectors"
     description: "Quantize vectors into byte vectors"
     link: "/mappings/supported-field-types/knn-memory-optimized/#byte-vectors"
@@ -18,9 +21,12 @@ inside_cards:
   - heading: "Lucene scalar quantization"
     description: "Use built-in scalar quantization for the Lucene engine"
     link: "/vector-search/optimizing-storage/lucene-scalar-quantization/"
-  - heading: "Faiss 16-bit scalar quantization"
+  - heading: "Faiss scalar quantization"
     description: "Use built-in scalar quantization for the Faiss engine"
-    link: "/vector-search/optimizing-storage/faiss-16-bit-quantization/"
+    link: "/vector-search/optimizing-storage/faiss-scalar-quantization/"
+  - heading: "Exact search using scalar quantization"
+    description: "Use scalar quantization with the flat method for exact search"
+    link: "/vector-search/optimizing-storage/exact-search-scalar-quantization/"
   - heading: "Faiss product quantization"
     description: "Use built-in product quantization for the Faiss engine"
     link: "/vector-search/optimizing-storage/faiss-product-quantization/"

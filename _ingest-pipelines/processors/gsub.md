@@ -2,10 +2,12 @@
 layout: default
 title: gsub
 parent: Ingest processors
-nav_order: 130
+nav_order: 125
 ---
 
+<!-- vale off -->
 # Gsub processor
+<!-- vale on -->
 
 The `gsub` processor performs a regular expression search-and-replace operation on string fields in incoming documents. If the field contains an array of strings, the operation is applied to all elements in the array. However, if the field contains non-string values, the processor throws an exception. Use cases for the `gsub` processor include removing sensitive information from log messages or user-generated content, normalizing data formats or conventions (for example, converting date formats, removing special characters), and extracting or transforming substrings from field values for further processing or analysis.
 
@@ -20,7 +22,7 @@ The following is the syntax for the `gsub` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `gsub` processor.
 
@@ -30,11 +32,12 @@ Parameter | Required/Optional | Description |
 `pattern` | Required | The pattern to be replaced.
 `replacement` | Required | The string that will replace the matching patterns.
 `target_field` | Optional | The name of the field in which to store the parsed data. If `target_field` is not specified, the parsed data replaces the original data in the `field` field. Default is `field`.
+`description` | Optional | A brief description of the processor.
 `if` | Optional | A condition for running the processor.
-`ignore_missing` | Optional | Specifies whether the processor should ignore documents that do not contain the specified field. Default is `false`.
+`ignore_missing` | Optional | Specifies whether the processor should ignore documents that do not contain the specified field or in which the field is `null`. Default is `false`.
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, then failures are ignored. Default is `false`.
 `on_failure` | Optional | A list of processors to run if the processor fails.
-`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type.
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging).
 
 ## Using the processor
 
@@ -82,8 +85,6 @@ POST _ingest/pipeline/gsub_pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Response
-
 The following response confirms that the pipeline is working as expected:
 
 ```json
@@ -104,9 +105,8 @@ The following response confirms that the pipeline is working as expected:
   ]
 }
 ```
-{% include copy-curl.html %}
 
-### Step 3: Ingest a document 
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `logs`:
 
@@ -117,8 +117,6 @@ PUT logs/_doc/1?pipeline=gsub_pipeline
 }
 ```
 {% include copy-curl.html %}
-
-#### Response
 
 The following response shows that the request indexed the document into the index named `logs` and that the `gsub` processor replaced all occurrences of the word `error` with the word `warning` in the `message` field:
 
@@ -137,7 +135,6 @@ The following response shows that the request indexed the document into the inde
   "_primary_term": 1
 }
 ```
-{% include copy-curl.html %}
 
 ### Step 4 (Optional): Retrieve the document
 
@@ -148,23 +145,4 @@ GET logs/_doc/1
 ```
 {% include copy-curl.html %}
 
-#### Response
-
-The following response shows the document with the modified `message` field value:
-
-```json
-{
-  "_index": "logs",
-  "_id": "1",
-  "_version": 1,
-  "_seq_no": 0,
-  "_primary_term": 1,
-  "found": true,
-  "_source": {
-    "message": "This is an warning message"
-  }
-}
-```
-{% include copy-curl.html %}
-
-
+The response contains the ingested document, transformed as shown in the response in Step 2.

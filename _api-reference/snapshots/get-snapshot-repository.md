@@ -2,10 +2,10 @@
 layout: default
 title: Get snapshot repository
 parent: Snapshot APIs
-nav_order: 2
+nav_order: 20
 ---
 
-# Get Snapshot Repository. API
+# Get Snapshot Repository API
 **Introduced 1.0**
 {: .label .label-purple }
 
@@ -19,21 +19,25 @@ You can also get details about a snapshot during and after snapshot creation. Se
 ## Endpoints
 
 ```json
-GET /_snapshot/<repository>
+GET /_snapshot/{repository}
 ```
 
 ## Path parameters
 
+The following table lists the available path parameters. All path parameters are optional.
+
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| repository | String | A comma-separated list of snapshot repository names to retrieve. Wildcard (`*`) expressions are supported including combining wildcards with exclude patterns starting with `-`. |
+| `repository` | String | A comma-separated list of snapshot repository names to retrieve. Wildcard (`*`) expressions are supported including combining wildcards with exclude patterns starting with `-`. |
 
 ## Query parameters
 
+The following table lists the available query parameters. All query parameters are optional.
+
 | Parameter | Data type | Description | 
 :--- | :--- | :---
-| local | Boolean | Whether to get information from the local node. Optional, defaults to `false`.|
-| cluster_manager_timeout | Time | Amount of time to wait for a connection to the cluster manager node. Optional, defaults to 30 seconds. |
+| `local` | Boolean | Whether to get information from the local node. Optional, defaults to `false`.|
+| `cluster_manager_timeout` | Time | Amount of time to wait for a connection to the cluster manager node. Optional, defaults to 30 seconds. |
 
 ## Example request
 
@@ -79,8 +83,14 @@ Upon success, the response returns repositry information. This sample is for an 
 
 ## Response body fields
 
+The following table lists all response body fields.
+
 | Field | Data type | Description |
 | :--- | :--- | :--- | 
-| type | string | Bucket type: `fs` (file system) or `s3` (s3 bucket) |
-| bucket | string | S3 bucket name. |
-| base_path | string | Folder within the bucket where snapshots are stored. |
+| `type` | String | Bucket type: `fs` (file system) or `s3` (s3 bucket) |
+| `bucket` | String | S3 bucket name. |
+| `base_path` | String | Folder within the bucket where snapshots are stored. |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/repository/get`.

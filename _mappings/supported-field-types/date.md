@@ -49,16 +49,17 @@ The following table lists the parameters accepted by date field types. All param
 
 Parameter | Description 
 :--- | :--- 
-`boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0. Dynamically updatable.
-`doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `false`.
-`format` | The format for parsing dates. Default is `strict_date_time_no_millis||strict_date_optional_time||epoch_millis`.
-`ignore_malformed` | A Boolean value that specifies to ignore malformed values and not to throw an exception. Default is `false`. Dynamically updatable.
-`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`.
+`boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0. Dynamically updatable. For more information, see [Boost]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/boost/).
+`doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `true`. For more information, see [Doc values]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/doc-values/).
+`format` | The format for parsing dates. Default is `strict_date_optional_time. For more information, see [Format]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/format/).||epoch_millis`.
+`ignore_malformed` | A Boolean value that specifies to ignore malformed values and not to throw an exception. Default is `false`. Dynamically updatable. For more information, see [Ignore malformed]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/ignore-malformed/).
+`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`. For indexes that use a pluggable data format, the default is `false`, and `true` is not supported. For more information, see [Pluggable data format indexes]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/index-parameter/#pluggable-data-format-indexes).
 `locale` | A region- and language-specific way of representing the date. Default is [`ROOT`](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html#ROOT) (a region- and language-neutral locale).
-`meta` | Accepts metadata for this field.
+`meta` | Accepts metadata for this field. For more information, see [Meta]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/meta/).
 [`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
+`print_format` | The format in which OpenSearch returns dates in the `fields` and `docvalue_fields` sections of search responses, in aggregation keys, and in derived source. Does not affect dates in `_source`, which are returned as originally provided. Default is the first format specified in `format`.
 `skip_list` | A Boolean value that specifies whether to enable skip list indexing for doc values. When enabled, OpenSearch creates indexed doc values that can improve performance for `range` queries by allowing the query engine to skip irrelevant document ranges. Skip list indexing is automatically enabled for the `@timestamp` field and fields used for index sorting. For all other fields, the default is `false`.
-`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the _source field. Default is `false`. 
+`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the `_source` field. Default is `false`. For more information, see [Store]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/store/).
 
 ## Formats
 
@@ -66,7 +67,7 @@ OpenSearch has built-in date formats, but you can also create your own custom fo
 
 ## Default format
 
-As of OpenSearch 2.12, you can to choose to use an experimental default date format, `strict_date_time_no_millis||strict_date_optional_time||epoch_millis`. To use the experimental default, set the `opensearch.experimental.optimization.datetime_formatter_caching.enabled` feature flag to `true`. For more information about enabling and disabling feature flags, see [Enabling experimental features]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
+You can choose to use an experimental default date format, `strict_date_time_no_millis||strict_date_optional_time||epoch_millis`. To use the experimental default, set the `opensearch.experimental.optimization.datetime_formatter_caching.enabled` feature flag to `true`. For more information about enabling and disabling feature flags, see [Enabling experimental features]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/experimental/).
 
 ## Built-in formats
 
@@ -103,23 +104,23 @@ Components of basic date formats are not separated by a delimiter. For example, 
 Format name and description | Pattern and examples
 :--- | :---
 **Dates**| 
-`basic_date_time` <br> A basic date and time separated by `T`. | `"yyyyMMdd`T`HHmmss.SSSZ"`<br>`"20190323T213446.123-04:00"`
-`basic_date_time_no_millis` <br> A basic date and time without milliseconds, separated by `T`. | `"yyyyMMdd`T`HHmmssZ"`<br>`"20190323T213446-04:00"`
-`basic_date` <br> A date with a four-digit year, two-digit month, and two-digit day. | `"yyyyMMdd"<br>"20190323"` 
+`basic_date_time` <br> A basic date and time separated by `T`. | `"yyyyMMdd'T'HHmmss.SSSZ"`<br>`"20190323T213446.123-04:00"`
+`basic_date_time_no_millis` <br> A basic date and time without milliseconds, separated by `T`. | `"yyyyMMdd'T'HHmmssZ"`<br>`"20190323T213446-04:00"`
+`basic_date` <br> A date with a four-digit year, two-digit month, and two-digit day. | `"yyyyMMdd"`<br>`"20190323"` 
 **Times** |
 `basic_time` <br> A time with a two-digit hour, two-digit minute, two-digit second, three-digit millisecond, and time zone offset. |`"HHmmss.SSSZ"` <br> `"213446.123-04:00"`
 `basic_time_no_millis` <br> A basic time without milliseconds. | `"HHmmssZ"` <br> `"213446-04:00"`
 **T times** | 
-`basic_t_time` <br> A basic time preceded by `T`. | `"`T`HHmmss.SSSZ"` <br> `"T213446.123-04:00"`
-`basic_t_time_no_millis` <br> A basic time without milliseconds, preceded by `T`. | `"`T`HHmmssZ"` <br> `"T213446-04:00"`
+`basic_t_time` <br> A basic time preceded by `T`. | `"'T'HHmmss.SSSZ"` <br> `"T213446.123-04:00"`
+`basic_t_time_no_millis` <br> A basic time without milliseconds, preceded by `T`. | `"'T'HHmmssZ"` <br> `"T213446-04:00"`
 **Ordinal dates** |
-`basic_ordinal_date_time` <br> A full ordinal date and time. | `"yyyyDDD`T`HHmmss.SSSZ"`<br>`"2019082T213446.123-04:00"`
-`basic_ordinal_date_time_no_millis` <br> A full ordinal date and time without milliseconds. | `"yyyyDDD`T`HHmmssZ"`<br>`"2019082T213446-04:00"`
+`basic_ordinal_date_time` <br> A full ordinal date and time. | `"yyyyDDD'T'HHmmss.SSSZ"`<br>`"2019082T213446.123-04:00"`
+`basic_ordinal_date_time_no_millis` <br> A full ordinal date and time without milliseconds. | `"yyyyDDD'T'HHmmssZ"`<br>`"2019082T213446-04:00"`
 `basic_ordinal_date` <br> A date with a four-digit year and three-digit ordinal day of the year. | `"yyyyDDD"` <br> `"2019082"`
 **Week-based dates** | 
-`basic_week_date_time` <br> `strict_basic_week_date_time` <br> A full week-based date and time separated by `T`. | `"YYYY`W`wwe`T`HHmmss.SSSZ"` <br> `"2019W126213446.123-04:00"`
-`basic_week_date_time_no_millis` <br> `strict_basic_week_date_time_no_millis` <br> A basic week-based year date and time without milliseconds, separated by `T`. | `"YYYY`W`wwe`T`HHmmssZ"` <br> "2019W126213446-04:00"
-`basic_week_date` <br> `strict_basic_week_date` <br> A full week-based date with a four-digit week-based year, two-digit ordinal week of the year, and one-digit ordinal day of the week separated by `W`. | `"YYYY`W`wwe"` <br> `"2019W126"`
+`basic_week_date_time` <br> `strict_basic_week_date_time` <br> A full week-based date and time separated by `T`. | `"YYYY'W'wwe'T'HHmmss.SSSZ"` <br> `"2019W126T213446.123-04:00"`
+`basic_week_date_time_no_millis` <br> `strict_basic_week_date_time_no_millis` <br> A basic week-based year date and time without milliseconds, separated by `T`. | `"YYYY'W'wwe'T'HHmmssZ"` <br> `"2019W126T213446-04:00"`
+`basic_week_date` <br> `strict_basic_week_date` <br> A full week-based date with a four-digit week-based year, two-digit ordinal week of the year, and one-digit ordinal day of the week separated by `W`. | `"YYYY'W'wwe"` <br> `"2019W126"`
 
 ### Full date formats
 
@@ -128,15 +129,15 @@ Components of full date formats are separated by a `-` delimiter for date and `:
 Format name and description | Pattern and examples
 :--- | :---
 **Dates** |
-`date_optional_time`<br>`strict_date_optional_time` <br> A generic full date and time. Year is required. Month, day, and time are optional. Time is separated from date by `T`. | Multiple patterns. <br>`"2019--03--23T21:34:46.123456789--04:00"` <br> `"2019-03-23T21:34:46"` <br> `"2019-03-23T21:34"` <br> `"2019"`
+`date_optional_time`<br>`strict_date_optional_time` <br> A generic full date and time. Year is required. Month, day, and time are optional. Time is separated from date by `T`. | Multiple patterns. <br>`"2019-03-23T21:34:46.123456789-04:00"` <br> `"2019-03-23T21:34:46"` <br> `"2019-03-23T21:34"` <br> `"2019"`
 `strict_date_optional_time_nanos` <br>A generic full date and time. Year is required. Month, day, and time are optional. If time is specified, it must contain hours, minutes, and seconds, but fraction of a second is optional. Fraction of a second is one to nine digits long and has nanosecond resolution. Time is separated from date by `T`. | Multiple patterns. <br> `"2019-03-23T21:34:46.123456789-04:00"` <br> `"2019-03-23T21:34:46"` <br> `"2019"` 
-`date_time` <br> `strict_date_time` <br> A full date and time separated by `T`. | `"yyyy-MM-dd`T`HH:mm:ss.SSSZ"` <br> `"2019-03-23T21:34:46.123-04:00"`
+`date_time` <br> `strict_date_time` <br> A full date and time separated by `T`. | `"yyyy-MM-dd'T'HH:mm:ss.SSSZ"` <br> `"2019-03-23T21:34:46.123-04:00"`
 `date_time_no_millis` <br> `strict_date_time_no_millis` <br> A full date and time without milliseconds, separated by `T`. | `"yyyy-MM-dd'T'HH:mm:ssZ"` <br> `"2019-03-23T21:34:46-04:00"` 
-`date_hour_minute_second_fraction` <br> `strict_date_hour_minute_second_fraction` <br> A full date, two-digit hour, two-digit minute, two-digit second, and one- to nine-digit fraction of a second separated by `T`. | `"yyyy-MM-dd`T`HH:mm:ss.SSSSSSSSS"`<br>`"2019-03-23T21:34:46.123456789"` <br> `"2019-03-23T21:34:46.1"`
-`date_hour_minute_second_millis` <br> `strict_date_hour_minute_second_millis` <br> A full date, two-digit hour, two-digit minute, two-digit second, and three-digit millisecond separated by `T`. | `"yyyy-MM-dd`T`HH:mm:ss.SSS"` <br> `"2019-03-23T21:34:46.123"` 
-`date_hour_minute_second` <br> `strict_date_hour_minute_second` <br> A full date, two-digit hour, two-digit minute, and two-digit second separated by `T`.| `"yyyy-MM-dd`T`HH:mm:ss"`<br>`"2019-03-23T21:34:46"`
-`date_hour_minute` <br> `strict_date_hour_minute` <br> A full date, two-digit hour, and two-digit minute. | `"yyyy-MM-dd`T`HH:mm"` <br> `"2019-03-23T21:34"`
-`date_hour` <br> `strict_date_hour` <br> A full date and two-digit hour, separated by `T`. | `"yyyy-MM-dd`T`HH"` <br> `"2019-03-23T21"` 
+`date_hour_minute_second_fraction` <br> `strict_date_hour_minute_second_fraction` <br> A full date, two-digit hour, two-digit minute, two-digit second, and one- to nine-digit fraction of a second separated by `T`. | `"yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS"`<br>`"2019-03-23T21:34:46.123456789"` <br> `"2019-03-23T21:34:46.1"`
+`date_hour_minute_second_millis` <br> `strict_date_hour_minute_second_millis` <br> A full date, two-digit hour, two-digit minute, two-digit second, and three-digit millisecond separated by `T`. | `"yyyy-MM-dd'T'HH:mm:ss.SSS"` <br> `"2019-03-23T21:34:46.123"` 
+`date_hour_minute_second` <br> `strict_date_hour_minute_second` <br> A full date, two-digit hour, two-digit minute, and two-digit second separated by `T`. | `"yyyy-MM-dd'T'HH:mm:ss"`<br>`"2019-03-23T21:34:46"`
+`date_hour_minute` <br> `strict_date_hour_minute` <br> A full date, two-digit hour, and two-digit minute. | `"yyyy-MM-dd'T'HH:mm"` <br> `"2019-03-23T21:34"`
+`date_hour` <br> `strict_date_hour` <br> A full date and two-digit hour, separated by `T`. | `"yyyy-MM-dd'T'HH"` <br> `"2019-03-23T21"` 
 `date` <br> `strict_date` <br> A four-digit year, two-digit month, and two-digit day. | `"yyyy-MM-dd"` <br> `"2019-03-23"` 
 `year_month_day` <br> `strict_year_month_day` <br> A four-digit year, two-digit month, and two-digit day. | `"yyyy-MM-dd"` <br> `"2019-03-23"` 
 `year_month` <br> `strict_year_month` <br> A four-digit year and two-digit month. | `"yyyy-MM"` <br> `"2019-03"` 
@@ -151,18 +152,18 @@ Format name and description | Pattern and examples
 `hour_minute` <br> `strict_hour_minute` <br> A two-digit hour and two-digit minute. | `"HH:mm"` <br> `"21:34"` 
 `hour` <br> `strict_hour` <br> A two-digit hour. | `"HH"` <br> `"21"` 
 **T times** |
-`t_time` <br> `strict_t_time` <br> A two-digit hour, two-digit minute, two-digit second, one- to nine-digit fraction of a second, and time zone offset, preceded by `T`. | `"`T`HH:mm:ss.SSSSSSSSSZ"<br>"T21:34:46.123456789-04:00"` <br> `"T21:34:46.1-04:00"`
-`t_time_no_millis` <br> `strict_t_time_no_millis` <br> A two-digit hour, two-digit minute, two-digit second, and time zone offset, preceded by `T`. | `"`T`HH:mm:ssZ"` <br> `"T21:34:46-04:00"`
+`t_time` <br> `strict_t_time` <br> A two-digit hour, two-digit minute, two-digit second, one- to nine-digit fraction of a second, and time zone offset, preceded by `T`. | `"'T'HH:mm:ss.SSSSSSSSSZ"`<br>`"T21:34:46.123456789-04:00"` <br> `"T21:34:46.1-04:00"`
+`t_time_no_millis` <br> `strict_t_time_no_millis` <br> A two-digit hour, two-digit minute, two-digit second, and time zone offset, preceded by `T`. | `"'T'HH:mm:ssZ"` <br> `"T21:34:46-04:00"`
 **Ordinal dates** |
-`ordinal_date_time` <br> `strict_ordinal_date_time` <br> A full ordinal date and time separated by `T`. | `"yyyy-DDD`T`HH:mm:ss.SSSZ"` <br> `"2019-082T21:34:46.123-04:00"` 
-`ordinal_date_time_no_millis` <br> `strict_ordinal_date_time_no_millis` <br> A full ordinal date and time without milliseconds, separated by `T`. | `"yyyy-DDD`T`HH:mm:ssZ"` <br> `"2019-082T21:34:46-04:00"`
+`ordinal_date_time` <br> `strict_ordinal_date_time` <br> A full ordinal date and time separated by `T`. | `"yyyy-DDD'T'HH:mm:ss.SSSZ"` <br> `"2019-082T21:34:46.123-04:00"` 
+`ordinal_date_time_no_millis` <br> `strict_ordinal_date_time_no_millis` <br> A full ordinal date and time without milliseconds, separated by `T`. | `"yyyy-DDD'T'HH:mm:ssZ"` <br> `"2019-082T21:34:46-04:00"`
 `ordinal_date` <br> `strict_ordinal_date`<br> A full ordinal date with a four-digit year and three-digit ordinal day of the year. | `"yyyy-DDD"` <br> `"2019-082"`
 **Week-based dates** |
-`week_date_time` <br> `strict_week_date_time` <br> A full week-based date and time separated by `T`. Week date is a four-digit week-based year, two-digit ordinal week of the year, and one-digit ordinal day of the week. Time is a two-digit hour, two-digit minute, two-digit second, one- to nine-digit fraction of a second, and a time zone offset. | `"YYYY-`W`ww-e`T`HH:mm:ss.SSSSSSSSSZ"` <br> `"2019-W12-6T21:34:46.1-04:00"` <br> `"2019-W12-6T21:34:46.123456789-04:00"`
-`week_date_time_no_millis` <br> `strict_week_date_time_no_millis` <br> A full week-based date and time without milliseconds, separated by `T`. Week date is a four-digit week-based year, two-digit ordinal week of the year, and one-digit ordinal day of the week. Time is a two-digit hour, two-digit minute, two-digit second, and time zone offset. | `"YYYY-`W`ww-e`T`HH:mm:ssZ"` <br> `"2019-W12-6T21:34:46-04:00"`
-`week_date` <br> `strict_week_date` <br> A full week-based date with a four-digit week-based year, two-digit ordinal week of the year, and one-digit ordinal day of the week. | `"YYYY-`W`ww-e"` <br> `"2019-W12-6"`
+`week_date_time` <br> `strict_week_date_time` <br> A full week-based date and time separated by `T`. Week date is a four-digit week-based year, two-digit ordinal week of the year, and one-digit ordinal day of the week. Time is a two-digit hour, two-digit minute, two-digit second, one- to nine-digit fraction of a second, and a time zone offset. | `"YYYY-'W'ww-e'T'HH:mm:ss.SSSSSSSSSZ"` <br> `"2019-W12-6T21:34:46.1-04:00"` <br> `"2019-W12-6T21:34:46.123456789-04:00"`
+`week_date_time_no_millis` <br> `strict_week_date_time_no_millis` <br> A full week-based date and time without milliseconds, separated by `T`. Week date is a four-digit week-based year, two-digit ordinal week of the year, and one-digit ordinal day of the week. Time is a two-digit hour, two-digit minute, two-digit second, and time zone offset. | `"YYYY-'W'ww-e'T'HH:mm:ssZ"` <br> `"2019-W12-6T21:34:46-04:00"`
+`week_date` <br> `strict_week_date` <br> A full week-based date with a four-digit week-based year, two-digit ordinal week of the year, and one-digit ordinal day of the week. | `"YYYY-'W'ww-e"` <br> `"2019-W12-6"`
 `weekyear_week_day` <br> `strict_weekyear_week_day` <br> A four-digit week-based year, two-digit ordinal week of the year, and one digit day of the week. | `"YYYY-'W'ww-e"` <br> `"2019-W12-6"` 
-`weekyear_week` <br> `strict_weekyear_week` <br> A four-digit week-based year and two-digit ordinal week of the year. | `"YYYY-`W`ww"` <br> `"2019-W12"` 
+`weekyear_week` <br> `strict_weekyear_week` <br> A four-digit week-based year and two-digit ordinal week of the year. | `"YYYY-'W'ww"` <br> `"2019-W12"` 
 `weekyear` <br> `strict_weekyear` <br> A four-digit week-based year. | `"YYYY"` <br> `"2019"` 
 
 ## Custom formats
@@ -359,5 +360,49 @@ The response contains both documents:
       }
     ]
   }
+}
+```
+
+## Derived source
+
+When an index uses [derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source), OpenSearch may sort values in multi-value date fields during source reconstruction. Derived source returns dates in the format specified in `print_format`. If `print_format` is not specified and `format` contains multiple date formats separated by `||`, derived source returns dates in the first format.
+
+Create an index that enables derived source and configures a `date` field with multiple formats:
+
+```json
+PUT sample-index1
+{
+  "settings": {
+    "index": {
+      "derived_source": {
+        "enabled": true
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "date": {
+        "type": "date",
+        "format": "strict_date_time_no_millis||strict_date_optional_time||epoch_millis"
+      }
+    }
+  }
+}
+```
+
+Index a document with mixed date formats into the index:
+
+```json
+PUT sample-index1/_doc/1
+{
+  "date": [1758504860, "2025-09-22T00:34", "2025-09-22T01:34:20Z"]
+}
+```
+
+After OpenSearch reconstructs `_source`, all dates are in the `strict_date_time_no_millis` format:
+
+```json
+{
+  "date": ["1970-01-21T08:28:24Z", "2025-09-22T00:34:00Z", "2025-09-22T01:34:20Z"]
 }
 ```

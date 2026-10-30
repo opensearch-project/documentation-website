@@ -1,8 +1,8 @@
 ---
 layout: default
-parent: Search options
+parent: Customizing search results
 title: Retrieve specific fields
-nav_order: 80
+nav_order: 50
 ---
 
 # Retrieve specific fields
@@ -61,7 +61,9 @@ The `_source` can also be disabled in index mappings by using the following conf
 }
 ```
 
-If `_source` is disabled in the index mappings, [searching with docvalue fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-docvalue_fields) and [searching with stored fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-stored_fields) become extremely useful.
+<!-- vale off -->
+If `_source` is disabled in the index mappings, [searching with docvalue fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-doc-value-fields) and [searching with stored fields]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-stored-fields) become extremely useful.
+<!-- vale on -->
 
 ## Specifying the fields to retrieve
 
@@ -147,21 +149,25 @@ GET /my_index/_search
   "query": {
     "match_all": {}
   },
-  "fields": {
-    "date": {
+  "fields": [
+    {
+      "field": "date",
       "format": "yyyy-MM-dd"
     }
-  },
+  ],
   "_source": false
 }
 ```
 {% include copy-curl.html %}
 
 Additionally, you can use [most fields]({{site.url}}{{site.baseurl}}/query-dsl/full-text/multi-match/#most-fields) and [field aliases]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/alias/) in the `fields` parameter because it queries both the document `_source` and `_mappings` of the index.
-<!-- vale off -->
-## Searching with docvalue_fields
-<!-- vale on -->
+
+## Searching with doc value fields
+
 To retrieve specific fields from the index, you can also use the `docvalue_fields` parameter. This parameter works slightly differently as compared to the `fields` parameter. It retrieves information from doc values rather than from the `_source` field, which is more efficient for fields that are not analyzed, like keyword, date, and numeric fields. Doc values have a columnar storage format optimized for efficient sorting and aggregations. It stores the values on disk in a way that is easy to read. When you use `docvalue_fields`, OpenSearch reads the values directly from this optimized storage format. It is useful for retrieving values of fields that are primarily used for sorting, aggregations, and for use in scripts.
+
+Because `text` fields do not have doc values, OpenSearch rejects a `docvalue_fields` request for a `text` field unless [field data]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/field-data/) is enabled for that field. If field data is enabled, OpenSearch loads the field's terms into the field data cache in heap memory to return them, which increases memory use. The returned values are the analyzed terms, for example, `["great", "tent"]`, not the original text. To return the original text of a `text` field, use the `fields` parameter or `_source`.
+{: .warning}
 
 The following example demonstrates how to use the `docvalue_fields` parameter.
 
@@ -254,9 +260,239 @@ The response contains the `author` and `publication_date` fields:
   }
 }
 ```
+### Using wildcards and custom formats with doc value fields
+
+The `docvalue_fields` parameter accepts wildcard patterns, such as `*_date`, that match several fields. To format the returned values, specify an object containing the `field` and a `format`. For `date` fields, the format is a [date format]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/date/#formats). For numeric fields, the format is a [Java `DecimalFormat`](https://docs.oracle.com/javase/8/docs/api/java/text/DecimalFormat.html) pattern, such as `#.00`.
+
+For example, create an index containing an order with two date fields and a numeric total:
+
+```json
+PUT /orders-dv
+{
+  "mappings": {
+    "properties": {
+      "order_date": { "type": "date" },
+      "ship_date": { "type": "date" },
+      "total": { "type": "double" }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT /orders-dv/_doc/1?refresh=true
+{
+  "order_date": "2026-10-01T09:30:00Z",
+  "ship_date": "2026-10-03",
+  "total": 42.5
+}
+```
+{% include copy-curl.html %}
+
+The following request returns both date fields formatted as `yyyy-MM-dd` and the total with two decimal places:
+
+```json
+GET /orders-dv/_search
+{
+  "_source": false,
+  "docvalue_fields": [
+    {
+      "field": "*_date",
+      "format": "yyyy-MM-dd"
+    },
+    {
+      "field": "total",
+      "format": "#.00"
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+The response contains the formatted values:
+
+```json
+{
+  ...
+  "hits": {
+    ...
+    "hits": [
+      {
+        "_index": "orders-dv",
+        "_id": "1",
+        "_score": 1,
+        "fields": {
+          "order_date": [
+            "2026-10-01"
+          ],
+          "total": [
+            "42.50"
+          ],
+          "ship_date": [
+            "2026-10-03"
+          ]
+        }
+      }
+    ]
+  }
+}
+```
+
+<!-- vale off -->
+### Retrieving vector fields using docvalue_fields
+<!-- vale on -->
+**Introduced 3.7**
+{: .label .label-purple }
+
+You can retrieve `knn_vector` fields using `docvalue_fields` instead of the `_source`. This is faster because OpenSearch reads the vector directly from `doc_values` rather than parsing the full `_source` document.
+
+Retrieving `knn_vector` fields from `doc_values` supports all vector data types (`float`, `byte`, and `binary`), all compression levels, and all k-NN engines (Lucene, Faiss, and NMSLIB). You can use it on existing indexes without reindexing.
+
+For performance tuning guidance, see [Retrieve vectors using doc values]({{site.url}}{{site.baseurl}}/vector-search/performance-tuning-search/#retrieve-vectors-using-doc-values).
+
+The following output formats are supported.
+
+| Format | Description |
+| :--- | :--- |
+| `binary` (Default) | Returns vectors as Base64-encoded little-endian byte strings. Provides approximately 2x throughput improvement over the `array` format for JSON transport and reduces response payload size by 30--40%. |
+| `array` | Returns vectors as JSON numeric arrays. |
+
+To retrieve a vector field using `docvalue_fields`, follow these steps:
+
+1. Create an index with a `knn_vector` field:
+
+    ```json
+    PUT /my_vector_index
+    {
+      "settings": {
+        "index.knn": true
+      },
+      "mappings": {
+        "properties": {
+          "my_vector": {
+            "type": "knn_vector",
+            "dimension": 4
+          },
+          "title": {
+            "type": "text"
+          }
+        }
+      }
+    }
+    ```
+    {% include copy-curl.html %}
+
+2. Index a document:
+
+    ```json
+    POST /my_vector_index/_doc/1
+    {
+      "my_vector": [1.0, 2.0, 3.0, 4.0],
+      "title": "Sample document"
+    }
+    ```
+    {% include copy-curl.html %}
+
+3. Retrieve the vector using `docvalue_fields` using the default `binary` format:
+
+    ```json
+    POST /my_vector_index/_search
+    {
+      "_source": false,
+      "docvalue_fields": ["my_vector"],
+      "query": {
+        "knn": {
+          "my_vector": {
+            "vector": [1.0, 2.0, 3.0, 4.0],
+            "k": 5
+          }
+        }
+      }
+    }
+    ```
+    {% include copy-curl.html %}
+
+    The response returns the vector as a Base64-encoded string:
+
+    ```json
+    {
+      "hits": {
+        "hits": [
+          {
+            "_id": "1",
+            "_score": 1.0,
+            "fields": {
+              "my_vector": ["AACAPwAAAEAAAEBAAACAQA=="]
+            }
+          }
+        ]
+      }
+    }
+    ```
+
+4. To retrieve the vector as a JSON numeric array, specify the `array` format:
+
+    ```json
+    POST /my_vector_index/_search
+    {
+      "_source": false,
+      "docvalue_fields": [{"field": "my_vector", "format": "array"}],
+      "query": {
+        "knn": {
+          "my_vector": {
+            "vector": [1.0, 2.0, 3.0, 4.0],
+            "k": 5
+          }
+        }
+      }
+    }
+    ```
+    {% include copy-curl.html %}
+
+    The response returns the vector as a numeric array:
+
+    ```json
+    {
+      "hits": {
+        "hits": [
+          {
+            "_id": "1",
+            "_score": 1.0,
+            "fields": {
+              "my_vector": [[1.0, 2.0, 3.0, 4.0]]
+            }
+          }
+        ]
+      }
+    }
+    ```
+
+To retrieve other document fields from the `_source` while retrieving vectors using `doc_values`, exclude the vector field from the `_source`:
+
+```json
+POST /my_vector_index/_search
+{
+  "_source": {
+    "excludes": ["my_vector"]
+  },
+  "docvalue_fields": [{"field": "my_vector", "format": "array"}],
+  "query": {
+    "knn": {
+      "my_vector": {
+        "vector": [1.0, 2.0, 3.0, 4.0],
+        "k": 5
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
 <!-- vale off -->
 ### Using docvalue_fields with nested objects
 <!-- vale on -->
+
 In OpenSearch, if you want to retrieve doc values for nested objects, you cannot directly use the `docvalue_fields` parameter because it will return an empty array. Instead, you should use the `inner_hits` parameter with its own `docvalue_fields` property, as shown in the following example.
 
 1. Define the index mappings:
@@ -398,9 +634,9 @@ The following is the expected response:
   }
 }
 ```
-<!-- vale off -->
-## Searching with stored_fields
-<!-- vale on -->
+
+## Searching with stored fields
+
 By default, OpenSearch stores the entire document in the `_source` field and uses it to return document contents in search results. However, you might also want to store certain fields separately for more efficient retrieval. You can explicitly store and retrieve specific document fields separately from the `_source` field by using `stored_fields`. 
 
 Unlike `_source`, `stored_fields` must be explicitly defined in the mappings for fields you want to store separately. It can be useful if you frequently need to retrieve only a small subset of fields and want to avoid retrieving the entire `_source` field. The following example demonstrates how to use the `stored_fields` parameter.
@@ -504,11 +740,18 @@ The following is the expected response:
 }
 ```
 
-The `stored_fields` parameter can be disabled completely by setting `stored_fields` to `_none_`.
+Note the following behavior of the `stored_fields` parameter:
+
+- To return all stored fields, set `stored_fields` to `"*"`.
+- To return only the hit metadata, such as `_index` and `_id`, without `_source` or any stored fields, set `stored_fields` to an empty array (`[]`).
+- If you request a field that is not stored, OpenSearch omits it from the response without an error.
+- Stored field values are returned as arrays. Metadata fields, such as `_routing`, are returned as single values.
+- You can request only leaf fields, such as `address.city`. OpenSearch rejects a request that specifies an object field, such as `address`.
+
+To disable stored fields completely, set `stored_fields` to `_none_`. Each hit then contains no stored fields, no `_source`, and no `_id`. OpenSearch rejects requests that set `stored_fields` to `_none_` and also request `_source`.
 {: .note}
-<!-- vale off -->
-### Searching stored_fields with nested objects
-<!-- vale on -->
+### Searching stored fields with nested objects
+
 In OpenSearch, if you want to retrieve `stored_fields` for nested objects, you cannot directly use the `stored_fields` parameter because no data will be returned. Instead, you should use the `inner_hits` parameter with its own `stored_fields` property, as shown in the following example.
 
 1. Create an index with the following mappings:
@@ -740,7 +983,7 @@ The following is the expected response:
 
 ### Including and excluding fields in the same search
 
-In some cases, both the `include` and `exclude` parameters may be necessary. The following examples demonstrate how to include and exclude fields in the same search.
+In some cases, both the `include` and `exclude` parameters may be necessary. When a field matches a pattern in both lists, OpenSearch omits the field because `excludes` takes precedence over `includes`. The following examples demonstrate how to include and exclude fields in the same search.
 
 Consider a `products` index containing the following document:
 
@@ -836,6 +1079,12 @@ The following is the expected response:
 }
 ```
 
+### Source filtering limitations
+
+Source filtering matches the field names in the original JSON document, so it cannot return values that OpenSearch derives during indexing. Multi-fields, [field aliases]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/alias/), and fields populated by `copy_to` are not part of the source, and a request for those fields returns an empty `_source` object.
+
+OpenSearch loads and parses the entire source document even when the request asks for only a few fields, so source filtering reduces network transfer but not disk reads. To read individual fields directly from the index, use [`docvalue_fields`](#searching-with-doc-value-fields) or [`stored_fields`](#searching-with-stored-fields).
+
 ## Using scripted fields
 
 The `script_fields` parameter allows you to include custom fields whose values are computed using scripts in your search results. This can be useful for calculating values dynamically based on the document data. You can also retrieve `derived fields` by using a similar approach. For more information, see [Retrieving fields]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/derived/#retrieving-fields).
@@ -908,5 +1157,35 @@ You should receive the following response:
       }
     ]
   }
+}
+```
+
+Scripts can access field values in two ways:
+
+- `doc['<field>'].value` reads the value from doc values. This is fast but works only for fields that have doc values, such as `keyword`, numeric, and `date` fields, or for `text` fields that have field data enabled.
+- `params['_source']['<field>']` reads the value from the document `_source`. This works for any field, including `text` fields, but is slower because OpenSearch must load and parse the source of each document.
+
+For example, the `name` field in the preceding example is mapped as `text`, so `doc['name']` is not available. The following request calculates the length of the product name using `params['_source']`:
+
+```json
+GET /products/_search
+{
+  "_source": false,
+  "script_fields": {
+    "name_length": {
+      "script": {
+        "source": "params['_source']['name'].length()"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains the length of `Smartphone`:
+
+```json
+"fields": {
+  "name_length": [10]
 }
 ```

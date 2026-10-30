@@ -43,13 +43,15 @@ The following tables describe the configuration options for the `dynamodb` sourc
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-`aws` | Yes | AWS | The AWS configuration. See [aws](#aws) for more information.
+`aws` | Yes | AWS | The AWS configuration. See [`aws`](#aws) for more information.
 `acknowledgments` | No | Boolean  | When `true`, enables `s3` sources to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) when events are received by OpenSearch sinks.
 `shared_acknowledgement_timeout` | No | Duration | The amount of time that elapses before the data read from a DynamoDB stream expires when used with acknowledgements. Default is 10 minutes.
 `s3_data_file_acknowledgment_timeout` | No | Duration | The amount of time that elapses before the data read from a DynamoDB export expires when used with acknowledgments. Default is 5 minutes.
 `tables` | Yes | List | The configuration for the DynamoDB table. See [tables](#tables) for more information.
 
+<!-- vale off -->
 ### aws
+<!-- vale on -->
 
 Use the following options in the AWS configuration.
 
@@ -60,7 +62,9 @@ Option | Required | Type | Description
 `aws_sts_header_overrides` | No | Map | A map of header overrides that the AWS Identity and Access Management (IAM) role assumes for the sink plugin.
 
 
+<!-- vale off -->
 ### tables
+<!-- vale on -->
 
 Use the following options with the `tables` configuration.
 
@@ -102,6 +106,7 @@ The following metadata will be added to each event that is processed by the `dyn
 * `opensearch_action`: A default value for mapping DynamoDB event actions to OpenSearch actions. This action will be `index` for export items, and `INSERT` or `MODIFY` for stream events, and `REMOVE` stream events when the OpenSearch action is `delete`.
 * `dynamodb_event_name`: The exact event type for the item. Will be `null` for export items and either `INSERT`, `MODIFY`, or `REMOVE` for stream events.
 * `table_name`: The name of the DynamoDB table that an event came from.
+* `ttl_delete`: A Boolean value indicating whether a `REMOVE` event was triggered by DynamoDB Time-To-Live (TTL). The `ttl_delete` attribute is `true` for TTL-based deletions and `false` for all other events. This metadata can be used with conditional routing or filtering to handle TTL deletions differently from manual deletions.
 
 
 ## Permissions
@@ -175,6 +180,12 @@ The following are the minimum required permissions for running DynamoDB as a sou
 When performing an export, the `"Sid": "allowReadFromStream"` section is not required. If only reading from DynamoDB streams, the 
 `"Sid": "allowReadAndWriteToS3ForExport"`, `"Sid": "allowCheckExportjob"`, and ` "Sid": "allowRunExportJob"` sections are not required.
 
+## Limitations
+
+Note the following limitations:
+
+* Each Data Prepper instance can process up to 150 DynamoDB stream shards in parallel. To prevent high latency and data loss, set the number of Data Prepper instances to the maximum number of open shards divided by 150 (rounded up to the nearest integer).
+
 ## Metrics
 
 The `dynamodb` source includes the following metrics.
@@ -192,6 +203,11 @@ The `dynamodb` source includes the following metrics.
 * `changeEventsProcessingErrors`: The number of processing errors for change events from DynamoDB streams.
 * `shardProgress`: The incremented shard progress when DynamoDB streams are being read correctly. This being`0` for any significant amount of time means there is a problem with the pipeline that has streams enabled.
 
+### Gauges
 
+The `dynamodb` source includes the following gauges:
+
+* `totalOpenShards`: The number of open shards in the DynamoDB stream. Open shards are shards that are not assigned an `EndingSequenceNumber`.
+* `activeShardsInProcessing`: The number of shards currently being processed by Data Prepper.
 
 

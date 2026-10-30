@@ -1,13 +1,13 @@
 ---
 layout: default
 title: Reranking search results
-parent: Search relevance
+parent: Optimizing search quality
 has_children: true
-nav_order: 65
+nav_order: 50
 ---
 
 # Reranking search results
-Introduced 2.12
+**Introduced 2.12**
 {: .label .label-purple }
 
 You can rerank search results using a [`rerank` processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/) in order to improve search relevance. To implement reranking, you need to configure a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline intercepts search results and applies the `rerank` processor to them. The `rerank` processor evaluates the search results and sorts them based on the new scores.
@@ -18,6 +18,12 @@ You can rerank results in the following ways:
 - [By a document field]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field/)
 - [By a field using a cross-encoder]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field-cross-encoder/)
 - [By a field using a late interaction model]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field-late-interaction/)
+
+For tutorials that rerank results using models hosted on Amazon Bedrock, Amazon SageMaker, and Cohere, see [Reranking search results tutorials]({{site.url}}{{site.baseurl}}/tutorials/reranking/).
+
+## Reranking in agentic search
+
+If you're using agentic search, see [Reranking agentic search results]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/rerank-agentic-search-results/) for information about reranking search results within agentic search pipelines.
 
 ## Using rerank and normalization processors together
 

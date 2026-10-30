@@ -13,12 +13,12 @@ When running a natural language processing (NLP) model in your OpenSearch cluste
 
 ## Supported GPUs
 
-Currently, ML nodes support the following GPU instances:
+ML nodes support the following GPU instances:
 
 - [NVIDIA instances with CUDA 11.6](https://aws.amazon.com/nvidia/)
 - [AWS Inferentia](https://aws.amazon.com/machine-learning/inferentia/)
 
-If you need GPU power, you can provision GPU instances through [Amazon Elastic Compute Cloud (Amazon EC2)](https://aws.amazon.com/ec2/). For more information on how to provision a GPU instance, see [Recommended GPU Instances](https://docs.aws.amazon.com/dlami/latest/devguide/gpu.html).
+If you need GPU power, you can provision GPU instances through [Amazon Elastic Compute Cloud (Amazon EC2)](https://aws.amazon.com/ec2/). For more information about how to provision a GPU instance, see [Recommended GPU Instances](https://docs.aws.amazon.com/dlami/latest/devguide/gpu.html).
 
 ## Supported images
 
@@ -26,7 +26,7 @@ You can use GPU acceleration with both [Docker images](https://gitlab.com/nvidia
 
 ## PyTorch
 
-GPU-accelerated ML nodes require [PyTorch](https://pytorch.org/docs/stable/index.html) 1.12.1 work with ML models.
+GPU-accelerated ML nodes require [PyTorch](https://pytorch.org/docs/stable/index.html) 1.12.1 to work with ML models.
 
 ## Setting up a GPU-accelerated ML node
 
@@ -38,7 +38,7 @@ NVIDIA uses CUDA to increase node performance. In order to take advantage of CUD
 
 If the `nvidia-uvm` kernel does not exist, run `nvidia-uvm-init.sh`:
 
-```
+```bash
 #!/bin/bash
 ## Script to initialize nvidia device nodes.
 ## https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#runfile-verifications
@@ -89,7 +89,7 @@ To start, [download and install OpenSearch]({{site.url}}{{site.baseurl}}/install
 
 Then export OpenSearch and set up your environment variables. This example exports OpenSearch into the directory `opensearch-2.5.0`, so `OPENSEARCH_HOME` = `opensearch-2.5.0`:
 
-```
+```bash
 echo "export OPENSEARCH_HOME=~/opensearch-2.5.0" | tee -a ~/.bash_profile
 echo "export PYTORCH_VERSION=1.12.1" | tee -a ~/.bash_profile
 source ~/.bash_profile
@@ -107,7 +107,7 @@ GPU acceleration has only been tested on Ubuntu 20.04 and Amazon Linux 2. Howeve
 
 #### Ubuntu 20.04
 
-```
+```bash
 . /etc/os-release
 sudo tee /etc/apt/sources.list.d/neuron.list > /dev/null <<EOF
 deb https://apt.repos.neuron.amazonaws.com ${VERSION_CODENAME} main
@@ -176,7 +176,7 @@ sudo sysctl -w vm.max_map_count=262144
 
 #### Amazon Linux 2
 
-```
+```bash
 # Configure Linux for Neuron repository updates
 sudo tee /etc/yum.repos.d/neuron.repo > /dev/null <<EOF
 [neuron]
@@ -243,17 +243,17 @@ OpenSearch should now be running inside your GPU-accelerated cluster. However, i
 
 If the previous two scripts do not provision your GPU-accelerated node properly, you can install the drivers for AWS Inferentia manually:
 
-1. Deploy an AWS accelerator instance based on your chosen Linux operating system. For instructions, see [Deploy on AWS accelerator instance](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuron/setup/pytorch-install.html#deploy-on-aws-ml-accelerator-instance).
+1. Deploy an AWS accelerator instance based on your chosen Linux operating system. For instructions, see [PyTorch Neuron Setup](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-setup.html#pytorch-neuron-setup).
 
 2. Copy the Neuron library into OpenSearch. The following command uses a directory named `opensearch-2.5.0`:
 
-   ```
+   ```bash
    OPENSEARCH_HOME=~/opensearch-2.5.0
    ```
 
 3. Set the `PYTORCH_EXTRA_LIBRARY_PATH` path. In this example, we create a `pytorch` virtual environment in the OPENSEARCH_HOME folder:
 
-   ```
+   ```bash
    PYTORCH_NEURON_LIB_PATH=~/pytorch_venv/lib/python3.7/site-packages/torch_neuron/lib/
 
 
@@ -261,27 +261,27 @@ If the previous two scripts do not provision your GPU-accelerated node properly,
    export PYTORCH_EXTRA_LIBRARY_PATH=$OPENSEARCH_HOME/lib/torch_neuron/lib/libtorchneuron.so
   ```
 
-4. (Optional) To monitor the GPU usage of your accelerator instance, install [Neuron tools](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/tools/index.html), which allows models to be used inside your instance:
+4. (Optional) To monitor the GPU usage of your accelerator instance, install [Neuron tools](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/tools/neuron-sys-tools/index.html), which allows models to be used inside your instance:
 
-   ```
+   ```bash
    # Install Neuron Tools
    sudo apt-get install aws-neuronx-tools -y
    ```
 
-   ```
+   ```bash
    # Add Neuron tools your PATH
    export PATH=/opt/aws/neuron/bin:$PATH
    ```
   
-   ```
+   ```bash
    # Test Neuron tools
    neuron-top
    ```
 
 
-5. To make sure you have enough memory to upload a model, increase the JVM stack size to `>+2MB`:
+5. To make sure you have enough memory to upload a model, increase the JVM stack size to at least 2 MB:
 
-   ```
+   ```bash
    echo "-Xss2m" | sudo tee -a $OPENSEARCH_HOME/config/jvm.options
    ```
 
@@ -291,24 +291,24 @@ If the previous two scripts do not provision your GPU-accelerated node properly,
 
 Due to the amount of data required to work with ML models, you might encounter the following `max file descriptors` or `vm.max_map_count` errors when trying to run OpenSearch in a your cluster: 
 
-```
+```bash
 [1]: max file descriptors [8192] for opensearch process is too low, increase to at least [65535]
 [2]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
 ```
 
 To troubleshoot the max file descriptors error, run the following command:
 
-```
+```bash
 echo "$(whoami) - nofile 65535" | sudo tee -a /etc/security/limits.conf
 ```
 
-To fix the `vm.max_map_count` error, run this command to increase the count to `262114`:
+To fix the `vm.max_map_count` error, run this command to increase the count to `262144`:
 
-```
+```bash
 sudo sysctl -w vm.max_map_count=262144
 ```
 
 ## Next steps
 
-If you want to try a GPU-accelerated cluster using AWS Inferentia with a pretrained HuggingFace model, see [Compiling and Deploying HuggingFace Pretrained BERT](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/src/examples/pytorch/bert_tutorial/tutorial_pretrained_bert.html).
+If you want to try a GPU-accelerated cluster using AWS Inferentia with a pretrained Hugging Face model, see the [Pretrained BERT Tutorial](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/src/examples/pytorch/bert_tutorial/tutorial_pretrained_bert.html).
 

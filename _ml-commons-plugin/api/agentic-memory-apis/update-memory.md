@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Update memory
+title: Update agentic memory
 parent: Agentic memory APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 52
 ---
 
-# Update Memory API
+# Update Agentic Memory API
 **Introduced 3.3**
 {: .label .label-purple }
 
@@ -15,7 +15,7 @@ Use this API to update a specific memory by its type and ID. This unified API su
 ## Endpoints
 
 ```json
-PUT /_plugins/_ml/memory_containers/<memory_container_id>/memories/<type>/<id>
+PUT /_plugins/_ml/memory_containers/{memory_container_id}/memories/{type}/{id}
 ```
 
 ## Path parameters
@@ -30,7 +30,7 @@ The following table lists the available path parameters.
 
 ## Request fields
 
-The request fields vary depending on the memory type being updated. All request fields are optional.
+The request fields vary depending on the memory type being updated. All request fields are optional, but the request body must contain at least one field. Each field that you provide replaces the existing value of that field. For example, providing `tags` replaces all existing tags.
 
 ### Session memory request fields
 
@@ -42,6 +42,7 @@ The following table lists all session memory request body fields.
 | `metadata` | Object   | Additional metadata for the memory (for example, `status`, `branch`, or custom fields). |
 | `agents`   | Object   | Additional information about the agents. |
 | `additional_info` | Object | Additional metadata to associate with the session. |
+| `pinned` | Boolean | Whether to pin the session so that it is exempt from the container's retention policy. Requires `plugins.ml_commons.memory.retention_enabled` to be `true`. For more information, see [Agentic memory retention]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory-retention/). |
 
 ### Working memory request fields
 
@@ -51,7 +52,8 @@ The following table lists all working memory request body fields.
 | :--- | :--- | :--- |
 | `messages` | Array | Updated conversation messages (for conversation type). Optional. |
 | `structured_data` | Object | Updated structured data content (for `data` memory payloads). |
-| `binary_data` | Object | Updated binary data content (for `data` memory payloads). Optional.           |
+| `structured_data_blob` | Object | Updated structured data that is stored but not indexed. |
+| `binary_data` | String | Updated Base64-encoded binary data content (for `data` memory payloads). Optional. |
 | `tags` | Object | Updated tags for categorization.                       |
 | `metadata` | Object  | Additional metadata for the memory (for example, `status`, `branch`, or custom fields).
 
@@ -63,6 +65,9 @@ The following table lists all long-term memory request body fields.
 | :--- | :--- | :--- |
 | `memory` | String | The updated memory content. Optional. |
 | `tags` | Object | Updated tags for categorization. Optional. |
+| `pinned` | Boolean | Whether to pin the memory so that it is exempt from the container's retention policy. Requires `plugins.ml_commons.memory.retention_enabled` to be `true`. Optional. |
+
+When you update the `memory` field, OpenSearch regenerates the memory embedding.
 
 ## Example request: Update a session
 
@@ -108,14 +113,18 @@ PUT /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/long-term/Dcxj
 
 ```json
 {
-  "result": "updated",
+  "_index": ".plugins-ml-am-default-memory-sessions",
   "_id": "N2CDipkB2Mtr6INFFcX8",
   "_version": 2,
+  "result": "updated",
+  "forced_refresh": true,
   "_shards": {
-    "total": 2,
+    "total": 1,
     "successful": 1,
     "failed": 0
-  }
+  },
+  "_seq_no": 11,
+  "_primary_term": 1
 }
 ```
 
@@ -125,7 +134,11 @@ The following table lists all response body fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
+| `_index` | String | The name of the index that stores the memory. |
 | `result` | String | The result of the update operation. |
 | `_id` | String | The ID of the updated memory. |
 | `_version` | Integer | The version number of the updated memory. |
+| `forced_refresh` | Boolean | Whether a refresh was forced after the operation. |
 | `_shards` | Object | Information about the shards involved in the operation. |
+| `_seq_no` | Long | The sequence number assigned to the update operation. |
+| `_primary_term` | Long | The primary term of the index. |

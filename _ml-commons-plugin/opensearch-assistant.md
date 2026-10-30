@@ -3,7 +3,7 @@ layout: default
 title: OpenSearch Assistant Toolkit
 has_children: false
 has_toc: false
-nav_order: 70
+nav_order: 50
 ---
 
 # OpenSearch Assistant Toolkit
@@ -13,8 +13,8 @@ nav_order: 70
 The OpenSearch Assistant Toolkit helps you create AI-powered assistants for OpenSearch Dashboards. The toolkit includes the following elements:
 
 - [**Agents and tools**]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/): _Agents_ interface with a large language model (LLM) and execute high-level tasks, such as summarization or generating Piped Processing Language (PPL) queries from natural language. The agent's high-level tasks consist of low-level tasks called _tools_, which can be reused by multiple agents.
-- [**Configuration automation**]({{site.url}}{{site.baseurl}}/automating-configurations/index/): Uses templates to set up infrastructure for artificial intelligence and machine learning (AI/ML) applications. For example, you can automate configuring agents to be used for chat or generating PPL queries from natural language.
-- [**OpenSearch Assistant for OpenSearch Dashboards**]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/index/): This is the OpenSearch Dashboards UI for the AI-powered assistant. The assistant's workflow is configured with various agents and tools.
+- [**AI search workflows**]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/index/): Uses templates to set up infrastructure for artificial intelligence and machine learning (AI/ML) applications. For example, you can create the model, ingest pipeline, and vector index for semantic search in a single request.
+- [**OpenSearch Assistant for OpenSearch Dashboards**]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/index/): This is the OpenSearch Dashboards web-based interface for the AI-powered assistant. The assistant's workflow is configured with various agents and tools.
  
 ## Enabling OpenSearch Assistant
 

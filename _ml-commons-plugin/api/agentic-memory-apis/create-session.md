@@ -2,20 +2,20 @@
 layout: default
 title: Create session
 parent: Agentic memory APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 40
 ---
 
-# Create session
+# Create Session API
 **Introduced 3.3**
 {: .label .label-purple }
 
 Use this API to create a new session in a memory container. Sessions represent distinct interaction contexts between users and agents. 
 
-## Path and HTTP methods
+## Endpoints
 
 ```json
-POST /_plugins/_ml/memory_containers/<memory_container_id>/memories/sessions
+POST /_plugins/_ml/memory_containers/{memory_container_id}/memories/sessions
 ```
 
 ## Path parameters
@@ -36,6 +36,8 @@ The following table lists the available request body fields.
 | `summary` | String | Optional | A session summary or description. |
 | `metadata` | Object | Optional | Additional metadata for the session provided as key-value pairs. |
 | `namespace` | Object | Optional | Namespace information for organizing the session. |
+| `agents` | Object | Optional | Information about the agents that participate in the session, provided as key-value pairs. |
+| `additional_info` | Object | Optional | Additional information about the session, provided as key-value pairs. |
 
 ## Example request: Create a session with a custom ID
 
@@ -48,6 +50,7 @@ POST /_plugins/_ml/memory_containers/SdjmmpgBOh0h20Y9kWuN/memories/sessions
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Example response: Custom session ID
 
@@ -90,4 +93,4 @@ The following table lists all response body fields.
 | Field | Data type | Description |
 | :--- | :--- | :--- |
 | `session_id` | String | The ID of the created session (either provided or auto-generated). |
-| `status` | String | The status of the creation operation. |
+| `status` | String | The status of the creation operation. Returned values are `created` if a new session was created or `exists` if a session with the specified `session_id` already exists. |

@@ -2,23 +2,26 @@
 layout: default
 title: Ingest data
 nav_order: 40
+description: "Get started with ingesting data into OpenSearch, including bulk indexing multiple documents, and experiment with sample data."
 ---
 
 # Ingest your data into OpenSearch
 
-There are several ways to ingest data into OpenSearch:
+Adding a document to an index is called *ingesting* or *indexing* the document. Although the terms are often used interchangeably, they have slightly different meanings: *ingesting* data means adding it to OpenSearch, while *indexing* means organizing that data so that it can be searched. When you add a document to an index, OpenSearch automatically indexes the document.
 
-- Ingest individual documents. For more information, see [Indexing documents]({{site.url}}{{site.baseurl}}/getting-started/communicate/#indexing-documents).
-- Index multiple documents in bulk. For more information, see [Bulk indexing](#bulk-indexing).
-- Use Data Prepper---an OpenSearch server-side data collector that can enrich data for downstream analysis and visualization. For more information, see [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/). 
-- Use other ingestion tools. For more information, see [OpenSearch tools]({{site.url}}{{site.baseurl}}/tools/).
+In [Add and manage your data]({{site.url}}{{site.baseurl}}/getting-started/manage-data/), you added documents one at a time. Because sending a separate request for every document isn't practical for a real dataset, OpenSearch provides the [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/), which indexes many documents in a single request.
 
 ## Bulk indexing
 
-To index documents in bulk, you can use the [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/). For example, if you want to index several documents into the `students` index, send the following request:
+These examples assume that the `students` index doesn't exist. If you didn't delete it at the end of [Add and manage your data]({{site.url}}{{site.baseurl}}/getting-started/manage-data/), send a `DELETE /students` request first.
+{: .note}
+
+To index several documents into the `students` index in one request, send the following request:
 
 ```json
 POST _bulk
+{ "create": { "_index": "students", "_id": "1" } }
+{ "name": "John Doe", "gpa": 3.89, "grad_year": 2022 }
 { "create": { "_index": "students", "_id": "2" } }
 { "name": "Jonathan Powers", "gpa": 3.85, "grad_year": 2025 }
 { "create": { "_index": "students", "_id": "3" } }
@@ -26,86 +29,30 @@ POST _bulk
 ```
 {% include copy-curl.html %}
 
-## Experiment with sample data
+Each document takes two lines: an action line naming the index and document ID, followed by the document itself. The `create` action fails if a document with that ID already exists; use `index` instead to overwrite existing documents.
 
-OpenSearch provides a fictitious e-commerce dataset that you can use to experiment with REST API requests and OpenSearch Dashboards visualizations. You can create an index and define field mappings by downloading the corresponding dataset and mapping files. 
+To index your own data from a file, send the file to the `_bulk` endpoint. For more information, see [Submitting bulk requests using cURL]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/#submitting-bulk-requests-using-curl).
 
-### Create a sample index
+## Choosing an ingestion method
 
-Use the following steps to create a sample index and define field mappings for the document fields:
+The Bulk API works well for loading a dataset once. For data that arrives continuously or comes from another system, choose a method based on where your data is. The following table lists the ingestion methods for common data sources.
 
-1. Download [ecommerce-field_mappings.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce-field_mappings.json). This file defines a [mapping]({{site.url}}{{site.baseurl}}/opensearch/mappings/) for the sample data you will use.
-    
-    To use cURL, send the following request:
+| Data source | Ingestion method |
+| :--- | :--- |
+| Your application | An OpenSearch language client, which sends requests in the language that your application is written in. For more information, see [Language clients]({{site.url}}{{site.baseurl}}/clients/). |
+| Log files on your hosts | A log collector such as Fluent Bit that forwards logs to [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/), a server-side data collector. For more information, see [Getting started with log analytics]({{site.url}}{{site.baseurl}}/observing-your-data/log-ingestion/). |
+| Applications instrumented using OpenTelemetry | The Data Prepper OTLP source, which receives logs, metrics, and traces. For more information, see [OTLP source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otlp-source/). To monitor service performance using this data, see [Application Performance Monitoring]({{site.url}}{{site.baseurl}}/observing-your-data/apm/configuring-telemetry-ingestion/). |
+| A collector that you already run, such as Jaeger, Logstash, or Beats | Configure Jaeger to use OpenSearch as its storage backend, install the OpenSearch output plugin for Logstash, or use a compatible version of Beats. For more information, see [Analyzing Jaeger trace data]({{site.url}}{{site.baseurl}}/observing-your-data/trace/trace-analytics-jaeger/), [Logstash]({{site.url}}{{site.baseurl}}/tools/logstash/), and [Agents and ingestion tools]({{site.url}}{{site.baseurl}}/tools/#agents-and-ingestion-tools). |
+| Streams in Apache Kafka or Amazon Kinesis | Pull-based ingestion, in which OpenSearch reads directly from the stream. For more information, see [Pull-based ingestion]({{site.url}}{{site.baseurl}}/api-reference/document-apis/pull-based-ingestion/). |
+| Objects in Amazon S3 | The Data Prepper S3 source. For more information, see [S3 source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/). |
+| Databases and applications such as Atlassian Confluence or Jira | A Data Prepper source for that system. For more information, see [Sources]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/sources/). |
 
-    ```bash
-    curl -O https://raw.githubusercontent.com/opensearch-project/documentation-website/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce-field_mappings.json
-    ```
-    {% include copy.html %}
+After ingesting data from a common source, such as NGINX or Amazon VPC Flow logs, you can install an OpenSearch Dashboards integration that provides mappings and visualizations for that source. For more information, see [Integrations]({{site.url}}{{site.baseurl}}/dashboards/integrations/index/).
 
-    To use wget, send the following request:
+## Transforming data during ingestion
 
-    ```
-    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce-field_mappings.json
-    ```
-    {% include copy.html %}
-
-1. Download [ecommerce.ndjson](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce.ndjson). This file contains the index data formatted so that it can be ingested by the Bulk API:
-    
-    To use cURL, send the following request:
-
-    ```bash
-    curl -O https://raw.githubusercontent.com/opensearch-project/documentation-website/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce.ndjson
-    ```
-    {% include copy.html %}
-
-    To use wget, send the following request:
-
-    ```
-    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce.ndjson
-    ```
-    {% include copy.html %}
-
-1. Define the field mappings provided in the mapping file:
-    ```bash
-    curl -H "Content-Type: application/json" -X PUT "https://localhost:9200/ecommerce" -ku admin:<custom-admin-password> --data-binary "@ecommerce-field_mappings.json"
-    ```
-    {% include copy.html %}
-
-1. Upload the documents using the Bulk API:
-
-    ```bash
-    curl -H "Content-Type: application/x-ndjson" -X PUT "https://localhost:9200/ecommerce/_bulk" -ku admin:<custom-admin-password> --data-binary "@ecommerce.ndjson"
-    ```
-    {% include copy.html %}
-
-### Query the data
-
-Query the data using the Search API. The following query searches for documents in which `customer_first_name` is `Sonya`:
-
-```json
-GET ecommerce/_search
-{
-  "query": {
-    "match": {
-      "customer_first_name": "Sonya"
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-### Visualize the data
-
-To learn how to use OpenSearch Dashboards to visualize the data, see the [OpenSearch Dashboards quickstart guide]({{site.url}}{{site.baseurl}}/dashboards/quickstart/).
-
-## Further reading
-
-- For information about Data Prepper, see [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/).
-- For information about ingestion tools, see [OpenSearch tools]({{site.url}}{{site.baseurl}}/tools/).
-- For information about OpenSearch Dashboards, see [OpenSearch Dashboards quickstart guide]({{site.url}}{{site.baseurl}}/dashboards/quickstart/).
-- For information about bulk indexing, see [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/).
+To parse, transform, or enrich documents during ingestion, use an [ingest pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/) or [Data Prepper processors]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/). For more information, see [Ingest pipelines compared to Data Prepper]({{site.url}}{{site.baseurl}}/ingest-pipelines/#ingest-pipelines-compared-to-data-prepper).
 
 ## Next steps
 
-- See [Search your data]({{site.url}}{{site.baseurl}}/getting-started/search-data/) to learn about search options.
+- To query the documents that you indexed, see [Search your data]({{site.url}}{{site.baseurl}}/getting-started/search-data/).

@@ -1,40 +1,56 @@
 ---
 layout: default
 title: Index aliases
-nav_order: 5
+nav_order: 20
 redirect_from:
   - /opensearch/index-alias/
 ---
 
 # Index aliases
 
-An alias is a virtual index name that can point to one or more indexes.
+An alias is a virtual index name that points to one or more indexes. Query the alias and OpenSearch resolves it to the indexes behind it, so your clients can keep using one stable name while the indexes it covers change.
 
-If your data is spread across multiple indexes, rather than keeping track of which indexes to query, you can create an alias and query it instead.
+For example, if you store logs in monthly indexes and you usually query the last two months, create a `last_2_months` alias and update the indexes it points to each month. The queries in your application never change.
 
-For example, if you’re storing logs into indexes based on the month and you frequently query the logs for the previous two months, you can create a `last_2_months` alias and update the indexes it points to each month.
+Aliases are also how you do the following:
 
-Because you can change the indexes an alias points to at any time, referring to indexes using aliases in your applications allows you to reindex your data without any downtime.
+- Switch from one index to another with no downtime, such as when you reindex into a new mapping and cut over once the copy is complete.
+- Serve different views of the same data by attaching a filter to the alias.
+- Keep environment-specific names, such as `production-data` and `staging-data`, independent of the indexes they resolve to.
+- Route the requests that go through the alias to specific shards, so that a search reads fewer shards. For more information, see [Manage aliases]({{site.url}}{{site.baseurl}}/api-reference/alias/aliases-api/#example-basic-routing).
+- Roll over time-series indexes behind a single write target. See [Rolling over an index]({{site.url}}{{site.baseurl}}/im-plugin/index-maintenance/#rolling-over-an-index).
 
-## Create aliases
+Aliases have the following characteristics:
 
-To create an alias, use a POST request:
+- Alias changes are atomic. An alias never points to an unintended set of indexes, even for a moment.
+- A wildcard pattern is resolved when the alias is created. Indexes created later that match the pattern are not added automatically.
+- To write to an alias that points to more than one index, designate one of them as the write index.
+- The filter on a filtered alias applies to all search, count, and delete-by-query operations through that alias.
+
+## Creating an alias
+
+The examples in this section use two indexes, which you can create with the following requests:
 
 ```json
-POST _aliases
+PUT /logs-2024-01
 ```
 {% include copy-curl.html %}
 
-Use the `actions` method to specify the list of actions that you want to perform. This command creates an alias named `alias1` and adds `index-1` to this alias:
+```json
+PUT /logs-2024-02
+```
+{% include copy-curl.html %}
+
+The most basic alias points to a single index:
 
 ```json
-POST _aliases
+POST /_aliases
 {
   "actions": [
     {
       "add": {
-        "index": "index-1",
-        "alias": "alias1"
+        "index": "logs-2024-01",
+        "alias": "current-logs"
       }
     }
   ]
@@ -42,62 +58,37 @@ POST _aliases
 ```
 {% include copy-curl.html %}
 
-The following response is returned:
+You can also attach aliases when you create the index:
 
 ```json
+PUT /logs-2024-03
 {
-   "acknowledged": true
+  "aliases": {
+    "current-logs": {},
+    "all-logs": {}
+  }
 }
 ```
 {% include copy-curl.html %}
 
-If the request fails, make sure the index that you're adding to the alias already exists.
+## Switching an alias to a different index
 
-You can also create an alias using one of the following requests:
-
-```json
-PUT <index>/_aliases/<alias name>
-POST <index>/_aliases/<alias name>
-PUT <index>/_alias/<alias name>
-POST <index>/_alias/<alias name>
-```
-{% include copy-curl.html %}
-
-The `<index>` in the above requests can be an index name, a comma-separated list of index names, or a wildcard expression. Use `_all` to refer to all indexes.
-
-To check if `alias1` refers to `index-1`, run one of the following commands:
+Combine `remove` and `add` in one request so that the alias moves between indexes in a single atomic step:
 
 ```json
-GET /_alias/alias1
-GET /index-1/_alias/alias1
-```
-{% include copy-curl.html %}
-
-To get the indexes' mappings and settings information referenced by the alias, run the following command:
-
-```json
-GET alias1
-```
-{% include copy-curl.html %}
-
-## Add or remove indexes
-
-You can perform multiple actions using the same `_aliases` operation. For example, the following command removes `index-1` and adds `index-2` to `alias1`:
-
-```json
-POST _aliases
+POST /_aliases
 {
   "actions": [
     {
       "remove": {
-        "index": "index-1",
-        "alias": "alias1"
+        "index": "logs-2024-01",
+        "alias": "current-logs"
       }
     },
     {
       "add": {
-        "index": "index-2",
-        "alias": "alias1"
+        "index": "logs-2024-02",
+        "alias": "current-logs"
       }
     }
   ]
@@ -105,16 +96,18 @@ POST _aliases
 ```
 {% include copy-curl.html %}
 
-The `add` and `remove` actions occur atomically, which means that at no point will `alias1` point to both `index-1` and `index-2`. You can also add indexes based on an index pattern, as shown in the following POST request:
+## Pointing an alias to multiple indexes
+
+Use the `indices` field to cover several indexes with one alias:
 
 ```json
-POST _aliases
+POST /_aliases
 {
   "actions": [
     {
       "add": {
-        "index": "index*",
-        "alias": "alias1"
+        "indices": ["logs-2024-01", "logs-2024-02"],
+        "alias": "recent-logs"
       }
     }
   ]
@@ -122,19 +115,25 @@ POST _aliases
 ```
 {% include copy-curl.html %}
 
-The `remove` action also supports the `must_exist` parameter. If the parameter is set to `true` and the specified alias does not exist, an exception is thrown. If the parameter is set to `false`, then no action is taken if the specified alias does not exist. The default value for `must_exist` is `null`. An exception will be thrown only if none of the specified aliases exist. 
+## Designating a write index
 
-The following POST request uses the `remove` action with the `must_exist` parameter set to `true`:
+An alias that points to multiple indexes rejects indexing requests until one of those indexes is marked as the write index:
 
 ```json
-POST _aliases
+POST /_aliases
 {
   "actions": [
     {
-      "remove": {
-        "index": "index-1",
-        "alias": "alias1",
-        "must_exist": true
+      "add": {
+        "index": "logs-2024-02",
+        "alias": "active-logs",
+        "is_write_index": true
+      }
+    },
+    {
+      "add": {
+        "index": "logs-2024-01",
+        "alias": "active-logs"
       }
     }
   ]
@@ -142,95 +141,37 @@ POST _aliases
 ```
 {% include copy-curl.html %}
 
-## Manage aliases
+## Filtering an alias
 
-To list the mapping of aliases to indexes, run the following command:
-
-```json
-GET _cat/aliases?v
-```
-{% include copy-curl.html %}
-
-#### Example response
+Attach a filter to an alias to expose a subset of an index under its own name. Create an index with a `level` field to filter on:
 
 ```json
-alias     index   filter    routing.index   routing.search
-alias1    index-1   *             -                 -
-```
-{% include copy-curl.html %}
-
-To check which indexes an alias points to, run the following command:
-
-```json
-GET _alias/alias1
-```
-{% include copy-curl.html %}
-
-#### Example response
-
-```json
+PUT /application-logs
 {
-  "index-2": {
-    "aliases": {
-      "alias1": {}
+  "mappings": {
+    "properties": {
+      "level": {
+        "type": "keyword"
+      }
     }
   }
 }
 ```
 {% include copy-curl.html %}
 
-Conversely, to find which alias points to a specific index, run the following command:
+The following alias returns only the documents in `application-logs` whose `level` field is `ERROR`:
 
 ```json
-GET /index-2/_alias/*
-```
-{% include copy-curl.html %}
-
-To get all index names and their aliases, run the following command:
-
-```json
-GET /_alias
-```
-{% include copy-curl.html %}
-
-To check if an alias exists, run one of the following commands:
-
-```json
-HEAD /alias1/_alias/
-HEAD /_alias/alias1/
-HEAD index-1/_alias/alias1/
-```
-{% include copy-curl.html %}
-
-## Add aliases at index creation
-
-You can add an index to an alias as you create the index, as shown in the following PUT request:
-
-```json
-PUT index-1
-{
-  "aliases": {
-    "alias1": {}
-  }
-}
-```
-{% include copy-curl.html %}
-
-## Create filtered aliases
-
-You can create a filtered alias to access a subset of documents or fields in the underlying indexes. This command adds only a specific timestamp field to `alias1`. The following shows an example POST request:
-
-```json
-POST _aliases
+POST /_aliases
 {
   "actions": [
     {
       "add": {
-        "index": "index-1",
-        "alias": "alias1",
+        "index": "application-logs",
+        "alias": "error-logs",
         "filter": {
           "term": {
-            "timestamp": "1574641891142"
+            "level": "ERROR"
           }
         }
       }
@@ -240,35 +181,66 @@ POST _aliases
 ```
 {% include copy-curl.html %}
 
-## Index alias options
+## Inspecting and querying aliases
 
-You can specify the options shown in the following table.
+The following table lists common alias requests.
 
-Option | Valid values | Description | Required
-:--- | :--- | :---
-`index` | String | The name of the index that the alias points to. | Yes
-`alias` | String | The name of the alias. | No
-`filter` | Object | Add a filter to the alias. | No
-`routing` | String | Limit search to an associated shard value. You can specify `search_routing` and `index_routing` independently. | No
-`is_write_index` | String | Specify the index that accepts any write operations to the alias. If this value is not specified, then no write operations are allowed. | No
+| Task | Request |
+| :--- | :--- |
+| List all aliases | `GET /_cat/aliases?v` |
+| Get one alias | `GET /_alias/current-logs` |
+| Check whether an alias exists | `HEAD /_alias/current-logs` |
+| Search through an alias | `GET /current-logs/_search` |
 
-## Delete aliases
+For all alias operations and their parameters, see [Alias APIs]({{site.url}}{{site.baseurl}}/api-reference/alias/).
 
-To delete one or more aliases from an index, use the following request:
+## Index aliases in OpenSearch Dashboards
 
-```json
-DELETE <index>/_alias/<alias>
-DELETE <index>/_aliases/<alias>
-```
-{% include copy-curl.html %}
+To navigate to the **Index Management** page, go to **Management > Index Management** on the top menu. Select **Aliases** to list the aliases in your cluster, with the write index and the indexes of each one.
 
-Both `<index>` and `<alias>` in the above request support comma-separated lists and wildcard expressions. Use `_all` in place of `<alias>` to delete all aliases for the indexes listed in `<index>`.
+The following image shows the **Aliases** page.
 
-For example, if `alias1` refers to `index-1` and `index-2`, you can run the following command to remove `alias1` from `index-1`:
+![Aliases page]({{site.url}}{{site.baseurl}}/images/admin-ui-index/aliases-list.png)
 
-```json
-DELETE index-1/_alias/alias1
-```
-{% include copy-curl.html %}
+### Creating an alias
 
-After running the request, `alias1` no longer refers to `index-1` but still refers to `index-2`.
+An alias covers at least one index, so create the indexes before the alias. To create an index, see [Creating an index]({{site.url}}{{site.baseurl}}/im-plugin/index-operations/#creating-an-index-1).
+
+1. In **Index Management**, select **Aliases**, and then select **Create alias**.
+1. Enter a name for the alias.
+1. In **Indexes or index patterns**, select or enter the indexes and index patterns that the alias covers.
+1. Select **Create alias**.
+
+### Editing an alias
+
+1. In **Index Management**, select **Aliases**.
+1. Select the alias name in the **Alias name** column.
+1. In **Indexes or index patterns**, add or remove indexes and index patterns. You cannot rename an existing alias.
+1. Select **Save changes**.
+
+### Deleting an alias
+
+1. In **Index Management**, select **Aliases**.
+1. Select the checkbox next to each alias that you want to delete.
+1. Select **Actions**, and then select **Delete**.
+1. Enter `delete` in the confirmation dialog, and then select **Delete**.
+
+Deleting an alias does not delete the indexes behind it.
+
+### Rolling over an alias
+
+1. In **Index Management**, select **Aliases**.
+1. Select **Actions**, and then select **Roll over**.
+1. In **Configure source**, select the alias to roll over. Its current write index is displayed as **Assigned source index**.
+1. In **Configure new rollover index**, enter a name for the new write index, then enter its definition, settings, and mappings. To reuse the configuration of the current write index, select **Import from old write index**.
+1. Select **Roll over**.
+
+The **Write index** column shows the new write index, and the **Index name** column lists all of the indexes in the alias.
+
+Refresh, flush, clear cache, and force merge are also available from the **Aliases** page and apply to the open backing indexes of the selected aliases. For those procedures, see [Index maintenance in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/im-plugin/index-maintenance/#index-maintenance-in-opensearch-dashboards).
+
+## Related documentation
+
+- [Alias APIs]({{site.url}}{{site.baseurl}}/api-reference/alias/)
+- [Data streams]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/)
+- [Index maintenance]({{site.url}}{{site.baseurl}}/im-plugin/index-maintenance/)

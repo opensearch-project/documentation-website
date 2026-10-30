@@ -15,7 +15,7 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple }
 
-A geoshape field type contains a geographic shape, such as a polygon or a collection of geographic points. To index a geoshape, OpenSearch tesselates the shape into a triangular mesh and stores each triangle in a BKD tree. This provides a 10<sup>-7</sup>decimal degree of precision, which represents near-perfect spatial resolution. Performance of this process is mostly impacted by the number of vertices in a polygon you are indexing.
+A geoshape field type contains a geographic shape, such as a polygon or a collection of geographic points. To index a geoshape, OpenSearch tessellates the shape into a triangular mesh and stores each triangle in a BKD tree. This provides a 10<sup>-7</sup> decimal degree of precision, which represents near-perfect spatial resolution. Performance of this process is mostly impacted by the number of vertices in a polygon you are indexing.
 
 ## Example
 
@@ -51,7 +51,7 @@ The following table describes the possible geoshape types and their relationship
 
 OpenSearch type | GeoJSON type | WKT type | Description 
 :--- | :--- | :--- | :--- 
-[`point`](#point) | Point | POINT | A geographic point specified by latitude and longitude. OpenSearch uses World Geodetic System (WGS84) coordinates.
+[`point`](#point) | Point | POINT | A geographic point specified by latitude and longitude. OpenSearch uses the World Geodetic System 1984 (WGS84) coordinate system, also known as EPSG:4326.
 [`linestring`](#linestring) | LineString | LINESTRING | A line specified by two or more points. May be a straight line or a path of connected line segments.
 [`polygon`](#polygon) | Polygon | POLYGON | A polygon specified by a list of vertices in coordinate form. The polygon must be closed, meaning the last point must be the same as the first point. Therefore, to create an n-gon, n+1 vertices are required. The minimum number of vertices is four, which creates a triangle.
 [`multipoint`](#multipoint) | MultiPoint | MULTIPOINT | An array of discrete related points that are not connected.
@@ -411,7 +411,8 @@ The following table lists the parameters accepted by geoshape field types. All p
 
 Parameter | Description 
 :--- | :--- 
-`coerce` | A Boolean value that specifies whether to automatically close unclosed linear rings. Default is `false`.
-`ignore_malformed` | A Boolean value that specifies to ignore malformed GeoJSON or WKT geoshapes and not to throw an exception. Default is `false` (throw an exception when geoshapes are malformed).
+`coerce` | A Boolean value that specifies whether to automatically close unclosed linear rings. Default is `false`. For more information, see [Coerce]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/coerce/).
+`doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `true`. For more information, see [Doc values]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/doc-values/).
+`ignore_malformed` | A Boolean value that specifies to ignore malformed GeoJSON or WKT geoshapes and not to throw an exception. Default is `false` (throw an exception when geoshapes are malformed). For more information, see [Ignore malformed]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/ignore-malformed/).
 `ignore_z_value` | Specific to points with three coordinates. If `ignore_z_value` is `true`, then the third coordinate is not indexed but is still stored in the `_source` field. If `ignore_z_value` is `false`, then an exception is thrown. Default is `true`.
 `orientation` | Specifies the traversal order of the vertices in the geoshape's list of coordinates. `orientation` takes the following values: <br> 1. RIGHT: counterclockwise. Specify RIGHT orientation by using one of the following strings (uppercase or lowercase): `right`, `counterclockwise`, `ccw`. <br> 2. LEFT: clockwise. Specify LEFT orientation by using one of the following strings (uppercase or lowercase): `left`, `clockwise`, `cw`.  This value can be overridden by individual documents.<br> Default is `RIGHT`.

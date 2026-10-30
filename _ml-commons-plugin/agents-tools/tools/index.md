@@ -6,9 +6,9 @@ has_children: true
 has_toc: false
 nav_order: 20
 redirect_from: 
-  - /ml-commons-plugin/extensibility/index/
   - /ml-commons-plugin/agents-tools/tools/
   - /ml-commons-plugin/agents-tools/tools/cat-index-tool/
+  - /ml-commons-plugin/agents-tools/tools/dynamic-tool/
 ---
 
 # Tools

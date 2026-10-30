@@ -2,7 +2,7 @@
 layout: default
 title: k-NN query explain
 parent: k-NN
-grand_parent: Specialized queries
+grand_parent: AI and vector search queries
 nav_order: 10
 ---
 
@@ -18,8 +18,8 @@ You can provide the `explain` parameter to understand how scores are calculated,
 You can provide the `explain` parameter in a URL when running a complete `knn` query for the Faiss engine using the following syntax:
 
 ```json
-GET <index>/_search?explain=true
-POST <index>/_search?explain=true
+GET {index}/_search?explain=true
+POST {index}/_search?explain=true
 ```
 
 `explain` for k-NN search for all types of queries with the Lucene engine does not return a detailed explanation as with the Faiss engine.

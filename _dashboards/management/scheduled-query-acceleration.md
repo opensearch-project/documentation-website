@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Scheduled Query Acceleration
-parent: Data sources
-nav_order: 18
+parent: Connecting data sources
+nav_order: 50
 has_children: false
 ---
 
@@ -39,7 +39,7 @@ Before configuring SQA, familiarize yourself with the following topics:
 Before configuring SQA, verify that the following requirements are met:
 
 - Ensure you're running OpenSearch version 2.17 or later.
-- Ensure you have the SQL plugin installed. The SQL plugin is included in most OpenSearch distributions. For more information, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
+- Ensure you have the SQL plugin installed. The SQL plugin is included in most OpenSearch distributions. For more information, see [Managing OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
 - Ensure you have configured a data source (in this example, Amazon S3): Configure a skipping index, covering index, or materialized view. These secondary data sources are additional data structures that improve query performance by optimizing queries sent to external data sources, such as Amazon S3. For more information, see [Optimizing query performance using OpenSearch indexing]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/).
 - Configure Amazon EMR Serverless (needed for access to Apache Spark). 
 
@@ -106,7 +106,7 @@ When creating indexes using an accelerated query, you can specify the following 
 |:--- | :--- | 
 | `auto_refresh`      | Enables automatic refresh for the index. If `true`, the index refreshes automatically at the specified interval. If `false`, the refresh operation must be triggered manually using the `REFRESH` statement. Default is `false`.   |
 | `refresh_interval`  | Defines the amount of time between index refresh operations for the index, which determines how frequently new data is ingested into the index. This is applicable only when `auto_refresh` is enabled. The interval determines how frequently new data is integrated and can be specified in formats like `1 minute` or `10 seconds`. For valid time units, see [Time units](#time-units).| 
-| `scheduler_mode`    | Specifies the scheduling mode for auto-refresh (internal or external scheduling). The external scheduler requires a `checkpoint_location` (a path for refresh job checkpoints) for state management. For more information, see [Starting streaming queries](https://spark.apache.org/docs/3.5.1/structured-streaming-programming-guide.html#starting-streaming-queries). Valid values are `internal` and `external`.| 
+| `scheduler_mode`    | Specifies the scheduling mode for auto-refresh (internal or external scheduling). The external scheduler requires a `checkpoint_location` (a path for refresh job checkpoints) for state management. For more information, see [Starting streaming queries](https://spark.apache.org/docs/latest/streaming/apis-on-dataframes-and-datasets.html#starting-streaming-queries). Valid values are `internal` and `external`.| 
 
 For more information and additional available parameters, see [Flint index refresh](https://github.com/opensearch-project/opensearch-spark/blob/main/docs/index.md#flint-index-refresh).
 

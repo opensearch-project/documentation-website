@@ -7,7 +7,7 @@ redirect_from:
 ---
 
 
-# JSON Web Token
+# JSON Web Token authentication
 
 JSON Web Tokens (JWTs) are JSON-based access tokens that assert one or more claims. They are commonly used to implement single sign-on (SSO) solutions and fall in the category of token-based authentication systems. The basic information-transmission and identity-verification lifecycle for a JWT is described in the following steps:
 
@@ -20,7 +20,7 @@ JSON Web Tokens (JWTs) are JSON-based access tokens that assert one or more clai
 1. The service verifies the token and grants or denies access.
 1. With granted access, the user has access until the expiration time of the token. The expiration time is typically set by the issuer in the token's payload.
 
-A JWT is self-contained in the sense that it carries within it all of the information necessary to verify a user. The tokens are base64-encoded, signed JSON objects.
+A JWT is self-contained in the sense that it carries within it all of the information necessary to verify a user. The tokens are Base64 encoded, signed JSON objects.
 
 
 ## JWT elements
@@ -52,7 +52,7 @@ The payload of a JWT contains the [JWT claims](https://auth0.com/docs/secure/tok
 
 There are three types of claims:
 
-* [Registered claims](https://www.iana.org/assignments/jwt/jwt.xhtml#claims) are defined by the JWT specification and comprise a set of standard claims with reserved names. Some examples of these claims include token issuer (iss), expiration time (exp), and subject (sub).
+* [Registered claims](https://www.iana.org/assignments/jwt/jwt.xhtml#claims) are defined by the JWT specification and comprise a set of standard claims with reserved names. Some examples of these claims include token issuer (`iss`), expiration time (`exp`), and subject (`sub`).
 * Public claims, on the other hand, are defined at the will of the parties sharing the token. They can contain arbitrary information, such as the username and the roles of the user. As a precaution, the specification advises either registering the name or, at least, ensuring that the name is [collision resistant](https://www.rfc-editor.org/rfc/rfc7519#section-4.2) with other claims.
 * Private claims provide another option for assigning custom information to the payload: for example, an email address. As such, they are also referred to as _custom_ claims. The two parties sharing the token must agree on their use because they are considered to be neither registered nor public claims. 
 
@@ -69,7 +69,7 @@ The following example shows these JSON properties as name-value pairs:
 
 ### Signature
 
-The issuer of the token generates the token's signature by applying a cryptographic hash function to the base64-encoded header and payload. The client receiving the JWT decrypts and validates this signature in the final step of transmission.
+The issuer of the token generates the token's signature by applying a cryptographic hash function to the Base64-encoded header and payload. The client receiving the JWT decrypts and validates this signature in the final step of transmission.
 
 These three parts---header, payload, and signature---are concatenated using periods to form a complete JWT:
 
@@ -131,7 +131,7 @@ Because JWTs are self-contained and the user is authenticated at the HTTP level,
 
 ### Symmetric key algorithms: HMAC
 
-Hash-based message authentication codes (HMACs) are a group of algorithms that provide a way of signing messages by means of a shared key. The key is shared between the authentication server and the Security plugin. It must be configured as a base64-encoded value in the `signing_key` setting:
+Hash-based message authentication codes (HMACs) are a group of algorithms that provide a way of signing messages by means of a shared key. The key is shared between the authentication server and the Security plugin. It must be configured as a Base64-encoded value in the `signing_key` setting:
 
 ```yml
 jwt_auth_domain:
@@ -148,7 +148,7 @@ RSA and ECDSA are asymmetric encryption and digital signature algorithms that us
 
 Because you cannot issue new tokens with the public key---and because you can make valid assumptions about the creator of the token---RSA and ECDSA are considered to be more secure than HMAC.
 
-To use RS256, you need to configure only the (non-base64-encoded) public RSA key as the `signing_key` in the JWT configuration:
+To use RS256, you need to configure only the (non-Base64-encoded) public RSA key as the `signing_key` in the JWT configuration:
 
 ```yml
 jwt_auth_domain:
@@ -196,9 +196,9 @@ As with HTTP basic authentication, you should use HTTPS instead of HTTP.
 
 The following registered claims are validated automatically:
 
-* "iat" (Issued At) Claim
-* "nbf" (Not Before) Claim
-* "exp" (Expiration Time) Claim
+* `iat` (Issued At) Claim
+* `nbf` (Not Before) Claim
+* `exp` (Expiration Time) Claim
 
 
 ### Supported formats and algorithms
@@ -276,7 +276,9 @@ Name | Description | Default
 `refresh_rate_limit_count` | The maximum number of JWKS refresh requests allowed within the time window. | `10`
 `refresh_rate_limit_time_window_ms` | The time window for rate limiting JWKS refresh requests, in milliseconds. | `10000` (10 seconds)
 
+<!-- vale off -->
 ### JWT header with Key ID
+<!-- vale on -->
 
 When using JWKS, your JWT header must include a key ID (`kid`) that identifies the specific key to use for verification:
 
@@ -331,7 +333,154 @@ JWT authentication supports direct JWKS endpoint configuration starting with Ope
 - You can switch between static keys and JWKS by updating the configuration.
 - When both `jwks_uri` and `signing_key` are configured, `jwks_uri` takes precedence and `signing_key` is ignored.
 
+<!-- vale off -->
+## Using JWT with Teleport
+<!-- vale on -->
 
+You can use JWT tokens issued by Teleport to authenticate users in OpenSearch Dashboards. This integration maps Teleport roles to OpenSearch backend roles for access control.
+
+### Teleport configuration
+
+In Teleport, you need to create a role that has the same name as a backend role from your OpenSearch instance:
+
+```yaml
+apiVersion: resources.teleport.dev/v1
+kind: TeleportRoleV7
+metadata:
+  name: admin # Match Opensearch "Backend roles" names
+spec:
+  allow:
+    # App
+    app_labels_expression: |
+      regexp.match(labels["hostname"], "^(.*)opensearch(.*)$")
+```
+{% include copy.html %}
+
+Then apply this role to users you want to use the role.
+
+### OpenSearch Dashboards configuration
+
+To configure OpenSearch for using Teleport, perform these actions.
+
+#### Teleport configuration
+
+In the agent configuration file (typically located at `/etc/teleport.yaml`), configure the application service to automatically include the JWT in a request header:
+
+```yaml
+# [...]
+app_service:
+  enabled: "yes"
+  apps:
+  - name: opensearch-dashboard
+    uri: "https://127.0.0.1:5601"
+    insecure_skip_verify: true
+    rewrite:
+      headers:
+      - "Authorization: {% raw %}{{internal.jwt}}{% endraw %}"
+    labels:
+      # [...]
+```
+{% include copy.html %}
+
+Then apply the new configuration by running this command:
+
+```bash
+systemctl restart teleport
+```
+{% include copy.html %}
+
+#### OpenSearch Dashboards configuration
+
+In the OpenSearch Dashboards configuration file (typically located at `/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml`), enable JWT authentication and retain basic HTTP authentication as a fallback method:
+
+```yaml
+opensearch_security.auth.multiple_auth_enabled: true
+opensearch_security.auth.type: ["basicauth", "jwt"]
+```
+{% include copy.html %}
+
+Then apply the new configuration by running this command:
+
+```bash
+systemctl restart dashboards
+```
+{% include copy.html %}
+
+### Security node configuration
+
+On the node where you run the `securityadmin.sh` script, update the Security plugin configuration file (for example, `/usr/share/opensearch/config/opensearch-security/config.yml`) to configure both authentication methods:
+
+```yaml
+_meta:
+  type: "config"
+  config_version: 2
+
+config:
+  dynamic:
+    authc:
+      basic_internal_auth_domain:
+        description: "Authenticate via HTTP Basic against internal users database"
+        http_enabled: true
+        transport_enabled: true
+        order: 1
+        http_authenticator:
+            type: basic
+            challenge: true
+        authentication_backend:
+            type: internal
+
+      jwt_auth_domain:
+        description: "Authenticate via Json Web Token provide by Teleport"
+        http_enabled: true
+        transport_enabled: true
+        order: 0
+        http_authenticator:
+            type: jwt
+            challenge: false
+            config:
+                signing_key: null
+                jwks_uri: "https://example.com/.well-known/jwks.json" # URL of the Teleport's leaf the machine is in, not the root
+                jwt_header: "Authorization"
+                jwt_url_parameter: null
+                jwt_clock_skew_tolerance_seconds: 30
+                subject_key: "sub"
+                roles_key: "roles"
+        authentication_backend:
+            type: noop
+```
+{% include copy.html %}
+
+Ensure that the basic authentication is configured using `order: 1` and `challenge: true` and that the JWT authentication is configured using `order: 0` and `challenge: false`. Otherwise, direct API calls will fail unless the JWT header is explicitly included.
+
+To apply the new configuration, run the following command:
+
+```bash
+{% raw %}
+export JAVA_HOME="[OPENSEARCH_INSTALL_DIR]/jdk"
+
+bash [OPENSEARCH_INSTALL_DIR]/plugins/opensearch-security/tools/securityadmin.sh \
+-cacert [PATH_TO_ROOT_CA] \
+-cert [PATH_TO_ADMIN_CERT_PEM] \
+-key [PATH_TO_ADMIN_CERT_KEY] \
+-cd [PATH_TO_OPENSEARCH_SECURITY_CONFIG_DIR] \
+-nhnv -icl \
+-h 127.0.0.1
+{% endraw %}
+```
+{% include copy.html %}
+
+## Using JWT authentication with gRPC
+**Introduced 3.5**
+{: .label .label-purple }
+
+JWT authentication is supported over the gRPC transport. The gRPC transport shares the same authentication domains as the HTTP layer, so JWT tokens are validated against the same authentication backend configuration. You can provide the same JWT headers over gRPC as you would when using the REST API.
+
+When transmitting JWTs over gRPC, you must enable TLS. For information about configuring TLS for gRPC, see [Configuring TLS certificates for gRPC]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-tls-certificates-for-grpc).
+
+Note the following limitations:
+
+- Superuser authentication (client certificate authentication) is not supported over gRPC. Configuration changes requiring superuser privileges must use the REST API.
+- Anonymous authentication is not supported over gRPC. Requests with anonymous authentication headers are rejected as unauthorized.
 
 ## Troubleshooting common issues
 

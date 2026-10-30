@@ -5,7 +5,7 @@ parent: Pipeline aggregations
 nav_order: 180
 ---
 
-# Serial differencing aggregations
+# Serial differencing aggregation
 
 The `serial_diff` aggregation is a parent pipeline aggregation that calculates the difference between metric values in the current bucket and a previous bucket. It stores the result in the current bucket.
 

@@ -28,10 +28,11 @@ dissect-pipeline:
   sink:
     - stdout:
 ```
+{% include copy.html %}
 
 Then create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with the path of a file containing the following JSON data:
 
-```
+```json
 {"log": "07-25-2023 10:00:00 ERROR: error message"}
 ```
 
@@ -39,7 +40,7 @@ The `dissect` processor will retrieve the fields (`Date`, `Time`, `Log_Type`, an
 
 After running the pipeline, you should receive the following standard output:
 
-```
+```json
 {
     "log" : "07-25-2023 10:00:00 ERROR: Some error",
     "Date" : "07-25-2023"

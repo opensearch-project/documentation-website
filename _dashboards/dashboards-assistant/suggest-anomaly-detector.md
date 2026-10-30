@@ -2,7 +2,7 @@
 layout: default
 title: Anomaly detector suggestions
 parent: OpenSearch Assistant for OpenSearch Dashboards
-nav_order: 1
+nav_order: 20
 has_children: false
 ---
 
@@ -63,7 +63,7 @@ This example demonstrates a system index. In security-enabled domains, only supe
 You can verify that the agent was created successfully by calling the agent with an example payload:
 
 ```json
-POST /_plugins/_ml/agents/<SUGGEST_ANOMALY_DETECTOR_AGENT_ID>/_execute
+POST /_plugins/_ml/agents/{SUGGEST_ANOMALY_DETECTOR_AGENT_ID}/_execute
 {
   "parameters": {
     "index":"sample_weblogs_test"
@@ -82,8 +82,8 @@ To view anomaly detector suggestions in OpenSearch Dashboards, use the following
 
 1. Select the **AI assistant** dropdown list and then select **Suggest anomaly detector**, as shown in the following image.
 
-    <img width="420px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/suggestAD-button.png" alt="Click the Suggest anomaly detector action">
+    ![Click the Suggest anomaly detector action]({{site.url}}{{site.baseurl}}/images/dashboards-assistant/suggestAD-button.png){: width="420px" }
 
 1. Wait for the LLM to populate the **Suggest anomaly detector** fields that will be used to create an anomaly detector for the index pattern. Then select the **Create detector** button to create an anomaly detector, as shown in the following image.
 
-    <img width="800px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/suggestAD-UI.png" alt="Suggested anomaly detector">
+    ![Suggested anomaly detector]({{site.url}}{{site.baseurl}}/images/dashboards-assistant/suggestAD-UI.png){: width="800px" }

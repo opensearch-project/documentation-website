@@ -72,6 +72,10 @@ PUT /greek-index
           "type": "stop",
           "stopwords": "_greek_"
         },
+        "greek_lowercase": {
+          "type": "lowercase",
+          "language": "greek"
+        },
         "greek_stemmer": {
           "type": "stemmer",
           "language": "greek"
@@ -86,7 +90,7 @@ PUT /greek-index
           "type": "custom",
           "tokenizer": "standard",
           "filter": [
-            "lowercase",
+            "greek_lowercase",
             "greek_stop",
             "greek_keywords",
             "greek_stemmer"
@@ -125,15 +129,62 @@ The response contains the generated tokens:
 ```json
 {
   "tokens": [
-    {"token": "φοιτητές","start_offset": 3,"end_offset": 11,"type": "<ALPHANUM>","position": 1},
-    {"token": "σπουδάζ","start_offset": 12,"end_offset": 22,"type": "<ALPHANUM>","position": 2},
-    {"token": "στα","start_offset": 23,"end_offset": 26,"type": "<ALPHANUM>","position": 3},
-    {"token": "ελληνικά","start_offset": 27,"end_offset": 35,"type": "<ALPHANUM>","position": 4},
-    {"token": "πανεπιστήμ","start_offset": 36,"end_offset": 48,"type": "<ALPHANUM>","position": 5},
-    {"token": "αριθμοί","start_offset": 53,"end_offset": 60,"type": "<ALPHANUM>","position": 7},
-    {"token": "τους","start_offset": 61,"end_offset": 65,"type": "<ALPHANUM>","position": 8},
-    {"token": "είνα","start_offset": 66,"end_offset": 71,"type": "<ALPHANUM>","position": 9},
-    {"token": "123456","start_offset": 72,"end_offset": 78,"type": "<NUM>","position": 10}
+    {
+      "token": "φοιτητ",
+      "start_offset": 3,
+      "end_offset": 11,
+      "type": "<ALPHANUM>",
+      "position": 1
+    },
+    {
+      "token": "σπουδαζ",
+      "start_offset": 12,
+      "end_offset": 22,
+      "type": "<ALPHANUM>",
+      "position": 2
+    },
+    {
+      "token": "στα",
+      "start_offset": 23,
+      "end_offset": 26,
+      "type": "<ALPHANUM>",
+      "position": 3
+    },
+    {
+      "token": "ελλην",
+      "start_offset": 27,
+      "end_offset": 35,
+      "type": "<ALPHANUM>",
+      "position": 4
+    },
+    {
+      "token": "πανεπιστημ",
+      "start_offset": 36,
+      "end_offset": 48,
+      "type": "<ALPHANUM>",
+      "position": 5
+    },
+    {
+      "token": "αριθμ",
+      "start_offset": 53,
+      "end_offset": 60,
+      "type": "<ALPHANUM>",
+      "position": 7
+    },
+    {
+      "token": "τ",
+      "start_offset": 61,
+      "end_offset": 65,
+      "type": "<ALPHANUM>",
+      "position": 8
+    },
+    {
+      "token": "123456",
+      "start_offset": 72,
+      "end_offset": 78,
+      "type": "<NUM>",
+      "position": 10
+    }
   ]
 }
 ```

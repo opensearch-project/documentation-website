@@ -15,21 +15,32 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple }
 
-A join field type establishes a parent/child relationship between documents in the same index. 
+A `join` field type defines a parent/child relationship between documents within the same index. It performs the following to record how documents are related so that queries can connect related documents:
+
+- Defines the relationship names: Specifies the names for the parent and child types (for example, `brand` and `product`).
+- Stores relationship metadata: Identifies which documents are parents, which are children, and how they are connected.
+- Enables parent/child queries: Supports `join` queries that find parents by children or children by parents.
 
 ## Example
 
-Create a mapping to establish a parent/child relationship between products and their brands:
+The following example creates an index in which brands are parents and products are children. 
+
+### Step 1: Create the mapping
+
+Create a mapping to establish a parent/child relationship between products and their brands. The `name` field stores product or brand names. The `product_to_brand` field is a `join` field that defines a `"brand": "product"` relation, indicating that `brand` documents can have `product` children:
 
 ```json
 PUT testindex1
 {
   "mappings": {
     "properties": {
-      "product_to_brand": { 
+      "name": {
+        "type": "text"
+      },
+      "product_to_brand": {
         "type": "join",
         "relations": {
-          "brand": "product" 
+          "brand": "product"
         }
       }
     }
@@ -38,7 +49,9 @@ PUT testindex1
 ```
 {% include copy-curl.html %}
 
-Then, index a parent document with a join field type:
+### Step 2: Index parent documents (brands)
+
+Index a parent document representing a brand and define its role in a parent/child relationship (`"brand"`) in the `product_to_brand` field:
 
 ```json
 PUT testindex1/_doc/1
@@ -62,9 +75,13 @@ PUT testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-When indexing child documents, you need to specify the `routing` query parameter because parent and child documents in the same parent/child hierarchy must be indexed on the same shard. For more information, see [Routing]({{site.url}}{{site.baseurl}}/mappings/metadata-fields/routing/). Each child document refers to its parent's ID in the `parent` field.
+### Step 3: Index child documents (products)
 
-Index two child documents, one for each parent:
+When indexing child documents, you must specify the `routing` query parameter because parent and child documents in the same parent/child hierarchy must be indexed on the same shard. For more information, see [Routing]({{site.url}}{{site.baseurl}}/mappings/metadata-fields/routing/).
+
+Each child document refers to its parent's ID in the `parent` field of the `join` field.
+
+Index two child documents representing products. Define each document's role in the parent/child relationship (`"product"`) in the `product_to_brand` field, specifying that they belong to the brand with ID `1`:
 
 ```json
 PUT testindex1/_doc/3?routing=1
@@ -83,12 +100,21 @@ PUT testindex1/_doc/4?routing=1
 {
   "name": "Product 2",
   "product_to_brand": {
-    "name": "product", 
-    "parent": "1" 
+    "name": "product",
+    "parent": "1"
   }
 }
 ```
 {% include copy-curl.html %}
+
+After this step, the index contains three documents with this structure.
+
+| Document ID | Document type | `name` field | `product_to_brand` field |
+|-------------|---------------|--------------|--------------------------|
+| 1 | Parent (brand) | "Brand 1" | `{"name": "brand"}` |
+| 3 | Child (product) | "Product 1" | `{"name": "product", "parent": "1"}` |
+| 4 | Child (product) | "Product 2" | `{"name": "product", "parent": "1"}` |
+
 
 ## Querying a join field
 
@@ -321,11 +347,11 @@ PUT testindex1
 ```
 {% include copy-curl.html %}
 
-## Join field type notes 
+## Join field type notes
 
 - There can only be one join field mapping in an index.
 - You need to provide the routing parameter when retrieving, updating, or deleting a child document. This is because parent and child documents in the same relation have to be indexed on the same shard.
-- Multiple parents are not supported. 
+- Multiple parents are not supported.
 - You can add a child document to an existing document only if the existing document is already marked as a parent.
 - You can add a new relation to an existing join field.
 

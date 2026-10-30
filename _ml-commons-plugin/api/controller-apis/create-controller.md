@@ -2,7 +2,7 @@
 layout: default
 title: Create controller
 parent: Controller APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 10
 ---
 
@@ -12,20 +12,19 @@ nav_order: 10
 
 Use this API to create or update a controller for a model. A model may be shared by multiple users. A controller sets rate limits for the number of [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) calls users can make on the model. A controller consists of a set of rate limiters for different users.  
 
-You can only create a controller for a model once you have registered the model and received a model ID.
+You can only create a controller for a model once you have registered the model and received a model ID. Controllers are supported only for text embedding models and externally hosted (remote) models.
 {: .tip}
 
-The POST method creates a new controller. The PUT method updates an existing controller. 
+The POST method creates a new controller or overwrites an existing one. The PUT method updates an existing controller. If no controller exists for the model, a PUT request fails with a 409 Conflict error.
 
 To learn how to set rate limits at the model level for all users, see [Update Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/update-model/). The rate limit is set to either the model-level limit or the user-level limit, whichever is more restrictive. For example, if the model-level limit is 2 requests per minute and the user-level limit is 4 requests per minute, the overall limit will be set to 2 requests per minute.
 
 ## Endpoints
 
 ```json
-POST /_plugins/_ml/controllers/<model_id>
-PUT /_plugins/_ml/controllers/<model_id>
+POST /_plugins/_ml/controllers/{model_id}
+PUT /_plugins/_ml/controllers/{model_id}
 ```
-{% include copy-curl.html %}
 
 ## Path parameters
 
@@ -168,18 +167,8 @@ This will overwrite the controller with the new information:
 
 ```json
 {
-  "_index": ".plugins-ml-controller",
-  "_id": "mtw-ZI0B_1JGmyB068C0",
-  "_version": 2,
-  "result": "updated",
-  "forced_refresh": true,
-  "_shards": {
-    "total": 2,
-    "successful": 2,
-    "failed": 0
-  },
-  "_seq_no": 1,
-  "_primary_term": 1
+  "model_id": "mtw-ZI0B_1JGmyB068C0",
+  "status": "UPDATED"
 }
 ```
 

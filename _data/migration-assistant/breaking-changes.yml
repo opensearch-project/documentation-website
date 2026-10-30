@@ -90,5 +90,5 @@ breaking_changes:
     comp: []
   - title: "Elasticsearch 2.0 - 2.4 Breaking Changes"
     url: "https://www.elastic.co/guide/en/elasticsearch/reference/2.4/breaking-changes.html"
-    introducedIn: "Elasticsearch 2.x"
+    introducedIn: "Elasticsearch 1.x–2.x"
     comp: []

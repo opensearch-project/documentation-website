@@ -1,47 +1,57 @@
 ---
 layout: default
 title: Data streams
-nav_order: 10
+nav_order: 25
 redirect_from:
   - /opensearch/data-streams/
+  - /dashboards/im-dashboards/datastream/
+  - /dashboards/admin-ui-index/datastream/
 ---
 
 # Data streams
 
-If you're ingesting continuously generated time-series data such as logs, events, and metrics into OpenSearch, you're likely in a scenario where the number of documents grows rapidly and you don't need to update older documents.
+A data stream is a single name that you write to and search, backed by a series of hidden indexes that OpenSearch rolls over for you. Indexing requests go to the current write index, and search requests go to all of the backing indexes.
 
-A typical workflow to manage time-series data involves multiple steps, such as creating a rollover index alias, defining a write index, and defining common mappings and settings for the backing indexes.
+Data streams are for continuously generated time-series data, such as logs, events, and metrics, where documents accumulate quickly and older documents are never updated. Managing that data as plain indexes means creating a rollover alias, designating a write index, and repeating the same mappings and settings for each new index. A data stream does this from one index template.
 
-Data streams simplify this process and enforce a setup that best suits time-series data, such as being designed primarily for append-only data and ensuring that each document has a timestamp field.
+Data streams have the following characteristics:
 
-A data stream is internally composed of multiple backing indexes. Search requests are routed to all the backing indexes, while indexing requests are routed to the latest write index. [ISM]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) policies let you automatically handle index rollovers or deletions.
+- Every document must contain a timestamp field. A document without one is rejected.
+- A data stream is append-only. Indexing requests sent to the data stream name can only create new documents. To update or delete existing documents, use an update by query or delete by query request, or send the request to the backing index that contains the document. For more information, see [Updating and deleting documents in a data stream](#updating-and-deleting-documents-in-a-data-stream).
+- Backing indexes are named `.ds-<data-stream>-<generation>` and are hidden. The generation number increases with each rollover.
+- A data stream can only be created from an index template that contains a `data_stream` object.
 
+Attach an [Index State Management (ISM)]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) policy to automate rollover and deletion of the backing indexes based on their age, size, or document count. The policy is applied to each backing index when it is created, so attaching a policy to a data stream affects only its future backing indexes. You do not need to provide the `rollover_alias` setting because the policy takes that information from the backing index.
 
-## Get started with data streams
+To define granular permissions for a data stream, use its name as you would an index name. For more information, see [Permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/).
 
-### Step 1: Create an index template
+## Creating an index template for a data stream
 
-To create a data stream, you first need to create an index template that configures a set of indexes as a data stream. The `data_stream` object indicates that it’s a data stream and not a regular index template. The index pattern matches with the name of the data stream:
+A data stream is defined by an index template that contains a `data_stream` object. The template's index patterns must match the names of the data streams that you intend to create:
 
 ```json
 PUT _index_template/logs-template
 {
   "index_patterns": [
-    "my-data-stream",
     "logs-*"
   ],
   "data_stream": {},
   "priority": 100
 }
 ```
+{% include copy-curl.html %}
 
-In this case, each ingested document must have an `@timestamp` field.
-You also have the ability to define your own custom timestamp field as a property in the `data_stream` object. You can also add index mappings and other settings here, just as you would for a regular index template.
+A data stream template claims its index patterns exclusively. While this template exists, creating a regular index whose name starts with `logs-` fails with `cannot create index with name [...], because it matches with template [logs-template] that creates data streams only`. Choose patterns narrow enough that they do not overlap with your regular indexes.
+{: .note}
+
+Documents indexed into a data stream created from this template must contain an `@timestamp` field. To use a different field name, specify it in `timestamp_field`. The `template` object accepts the same settings, mappings, and aliases as a regular index template and applies them to each backing index:
 
 ```json
-PUT _index_template/logs-template-nginx
+PUT _index_template/logs-nginx-template
 {
-  "index_patterns": "logs-nginx",
+  "index_patterns": [
+    "logs-nginx"
+  ],
   "data_stream": {
     "timestamp_field": {
       "name": "request_time"
@@ -56,22 +66,20 @@ PUT _index_template/logs-template-nginx
   }
 }
 ```
+{% include copy-curl.html %}
 
-In this case, `logs-nginx` index matches both the `logs-template` and `logs-template-nginx` templates. When you have a tie, OpenSearch selects the matching index template with the higher priority value.
+The name `logs-nginx` matches both templates. OpenSearch applies `logs-nginx-template` because it has the higher priority. For more information, see [Index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/).
 
-### Step 2: Create a data stream
+## Creating a data stream
 
-After you create an index template, you can create a data stream.
-You can use the Data Stream API to explicitly create a data stream. The Data Stream API initializes the first backing index:
+Create the data stream explicitly to initialize its first backing index:
 
 ```json
 PUT _data_stream/logs-redis
-PUT _data_stream/logs-nginx
 ```
+{% include copy-curl.html %}
 
-You can also directly start ingesting data without creating a data stream.
-
-Because we have a matching index template with a data_stream object, OpenSearch automatically creates the data stream:
+You can also skip this step and start indexing. Because a matching template contains a `data_stream` object, OpenSearch creates the data stream on the first indexing request:
 
 ```json
 POST logs-staging/_doc
@@ -80,90 +88,50 @@ POST logs-staging/_doc
   "@timestamp": "2013-03-01T00:00:00"
 }
 ```
+{% include copy-curl.html %}
 
-To see information about a specific data stream:
+## Ingesting data into a data stream
 
-```json
-GET _data_stream/logs-nginx
-```
-
-#### Example response
+Index documents into a data stream by name, using the same [Document APIs]({{site.url}}{{site.baseurl}}/api-reference/document-apis/index/) that you use for a regular index. Each document must contain the timestamp field defined by the template:
 
 ```json
-{
-  "data_streams" : [
-    {
-      "name" : "logs-nginx",
-      "timestamp_field" : {
-        "name" : "request_time"
-      },
-      "indices" : [
-        {
-          "index_name" : ".ds-logs-nginx-000001",
-          "index_uuid" : "-VhmuhrQQ6ipYCmBhn6vLw"
-        }
-      ],
-      "generation" : 1,
-      "status" : "GREEN",
-      "template" : "logs-template-nginx"
-    }
-  ]
-}
-```
-
-You can see the name of the timestamp field, the list of the backing indexes, and the template that's used to create the data stream. You can also see the health of the data stream, which represents the lowest status of all its backing indexes.
-
-To see more insights about the data stream, use the `_stats` endpoint:
-
-```json
-GET _data_stream/logs-nginx/_stats
-```
-
-#### Example response
-
-```json
-{
-  "_shards" : {
-    "total" : 1,
-    "successful" : 1,
-    "failed" : 0
-  },
-  "data_stream_count" : 1,
-  "backing_indices" : 1,
-  "total_store_size_bytes" : 208,
-  "data_streams" : [
-    {
-      "data_stream" : "logs-nginx",
-      "backing_indices" : 1,
-      "store_size_bytes" : 208,
-      "maximum_timestamp" : 0
-    }
-  ]
-}
-```
-
-To see information about all data streams, use the following request:
-
-```json
-GET _data_stream
-```
-
-### Step 3: Ingest data into the data stream
-
-To ingest data into a data stream, you can use the regular indexing APIs. Make sure every document that you index has a timestamp field. If you try to ingest a document that doesn't have a timestamp field, you get an error.
-
-```json
-POST logs-redis/_doc
+POST logs-redis/_doc?refresh=true
 {
   "message": "login attempt",
   "@timestamp": "2013-03-01T00:00:00"
 }
 ```
+{% include copy-curl.html %}
 
-### Step 4: Searching a data stream
+The `refresh=true` parameter makes the document searchable immediately, so that the search in the next section returns it. Omit it in production, where the [refresh interval]({{site.url}}{{site.baseurl}}/im-plugin/index-maintenance/) handles this.
 
-You can search a data stream just like you search a regular index or an index alias.
-The search operation applies to all of the backing indexes (all data present in the stream).
+A data stream accepts only write requests for which the operation type is `create`. A `POST <data-stream>/_doc` request with an automatically generated document ID is a `create` operation. To specify a document ID, use the `_create` endpoint or set the `op_type=create` query parameter. A `PUT <data-stream>/_doc/<id>` request without `op_type=create` is an `index` operation and is rejected. The following request creates a document with the ID `1`:
+
+```json
+PUT logs-redis/_create/1?refresh=true
+{
+  "message": "logout",
+  "@timestamp": "2013-03-01T00:05:00"
+}
+```
+{% include copy-curl.html %}
+
+In a [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) request, use the `create` action for each document. The `index` action is rejected for data streams:
+
+```json
+POST _bulk?refresh=true
+{ "create": { "_index": "logs-redis", "_id": "2" } }
+{ "message": "session expired", "@timestamp": "2013-03-01T00:10:00" }
+{ "create": { "_index": "logs-redis", "_id": "3" } }
+{ "message": "password reset", "@timestamp": "2013-03-01T00:15:00" }
+```
+{% include copy-curl.html %}
+
+Each item in the response shows the backing index that stores the document, for example, `"_index": ".ds-logs-redis-000001"`.
+
+## Searching a data stream
+
+Search a data stream as you would an index or an alias. The request covers all of the backing indexes:
 
 ```json
 GET logs-redis/_search
@@ -175,34 +143,119 @@ GET logs-redis/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
-#### Example response
+The `_index` field of each hit contains the name of the backing index that holds the document:
+
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
 
 ```json
 {
-  "took" : 514,
-  "timed_out" : false,
-  "_shards" : {
-    "total" : 5,
-    "successful" : 5,
-    "skipped" : 0,
-    "failed" : 0
+  "took": 1,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
   },
-  "hits" : {
-    "total" : {
-      "value" : 1,
-      "relation" : "eq"
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
     },
-    "max_score" : 0.2876821,
-    "hits" : [
+    "max_score": 0.13076457,
+    "hits": [
       {
-        "_index" : ".ds-logs-redis-000001",
-        "_type" : "_doc",
-        "_id" : "-rhVmXoBL6BAVWH3mMpC",
-        "_score" : 0.2876821,
-        "_source" : {
-          "message" : "login attempt",
-          "@timestamp" : "2013-03-01T00:00:00"
+        "_index": ".ds-logs-redis-000001",
+        "_id": "iCnxtaABPpBDXMo4kFWl",
+        "_score": 0.13076457,
+        "_source": {
+          "message": "login attempt",
+          "@timestamp": "2013-03-01T00:00:00"
+        }
+      }
+    ]
+  }
+}
+```
+</details>
+
+You can also query a data stream using [asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/index/), [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/), or [PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/), and build visualizations on it as you would on an index or an alias.
+
+## Updating and deleting documents in a data stream
+
+Single-document update and delete requests sent to the data stream name are rejected. To change documents in a data stream, use one of the following methods.
+
+### Updating or deleting documents by query
+
+The [Update by Query]({{site.url}}{{site.baseurl}}/api-reference/document-apis/update-by-query/) and [Delete by Query]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-by-query/) APIs accept a data stream name and process the matching documents in all of its backing indexes. The following request changes the message of the document that contains `expired`:
+
+```json
+POST logs-redis/_update_by_query?refresh=true
+{
+  "query": {
+    "match": {
+      "message": "expired"
+    }
+  },
+  "script": {
+    "source": "ctx._source.message = \"session timed out\""
+  }
+}
+```
+{% include copy-curl.html %}
+
+The following request deletes the document that contains `password`:
+
+```json
+POST logs-redis/_delete_by_query?refresh=true
+{
+  "query": {
+    "match": {
+      "message": "password"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Updating or deleting a single document
+
+To update or delete a single document, send the request to the backing index that contains it. To find the backing index, search the data stream for the document. The following request returns the document with the ID `1`, along with its sequence number and primary term:
+
+```json
+GET logs-redis/_search?seq_no_primary_term=true
+{
+  "query": {
+    "ids": {
+      "values": ["1"]
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The `_index` field of the hit contains the name of the backing index:
+
+```json
+{
+  ...
+  "hits": {
+    "hits": [
+      {
+        "_index": ".ds-logs-redis-000001",
+        "_id": "1",
+        "_seq_no": 1,
+        "_primary_term": 1,
+        "_score": 1.0,
+        "_source": {
+          "message": "logout",
+          "@timestamp": "2013-03-01T00:05:00"
         }
       }
     ]
@@ -210,64 +263,181 @@ GET logs-redis/_search
 }
 ```
 
-### Step 5: Rollover a data stream
+Send the update to the backing index. To prevent overwriting a change made after your search, include the `if_seq_no` and `if_primary_term` values from the search response:
 
-A rollover operation creates a new backing index that becomes the data stream’s new write index.
+```json
+POST .ds-logs-redis-000001/_update/1?if_seq_no=1&if_primary_term=1&refresh=true
+{
+  "doc": {
+    "message": "logout requested"
+  }
+}
+```
+{% include copy-curl.html %}
 
-To perform manual rollover operation on the data stream:
+Similarly, to delete the document, send the request to the backing index:
+
+```json
+DELETE .ds-logs-redis-000001/_doc/1?refresh=true
+```
+{% include copy-curl.html %}
+
+## Rolling over a data stream
+
+A rollover creates a new backing index and makes it the write index of the data stream. Roll over manually with the following request:
 
 ```json
 POST logs-redis/_rollover
 ```
+{% include copy-curl.html %}
 
-#### Example response
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
 
 ```json
 {
-  "acknowledged" : true,
-  "shards_acknowledged" : true,
-  "old_index" : ".ds-logs-redis-000001",
-  "new_index" : ".ds-logs-redis-000002",
-  "rolled_over" : true,
-  "dry_run" : false,
-  "conditions" : { }
+  "acknowledged": true,
+  "shards_acknowledged": true,
+  "old_index": ".ds-logs-redis-000001",
+  "new_index": ".ds-logs-redis-000002",
+  "rolled_over": true,
+  "dry_run": false,
+  "conditions": {}
 }
 ```
+</details>
 
-If you now perform a `GET` operation on the `logs-redis` data stream, you see that the generation ID is incremented from 1 to 2.
+The generation number of the data stream increases with each rollover. For rollover conditions and parameters, see [Roll Over API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/rollover/). To roll over automatically, use an [ISM policy]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/).
 
-You can also set up an [Index State Management (ISM) policy]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/) to automate the rollover process for the data stream.
-The ISM policy is applied to the backing indexes at the time of their creation. When you associate a policy to a data stream, it only affects the future backing indexes of that data stream.
+## Inspecting data streams
 
-You also don’t need to provide the `rollover_alias` setting, because the ISM policy infers this information from the backing index.
+The following table lists common data stream requests. The response to a get request contains the timestamp field name, the backing indexes, the generation number, the template that created the data stream, and its status, which is the lowest status of its backing indexes.
 
-### Step 6: Manage data streams in OpenSearch Dashboards
+| Task | Request |
+| :--- | :--- |
+| List all data streams | `GET _data_stream` |
+| Get one data stream | `GET _data_stream/logs-redis` |
+| Get statistics for a data stream | `GET _data_stream/logs-redis/_stats` |
+| Delete a data stream and its backing indexes | `DELETE _data_stream/logs-redis` |
 
-To manage data streams from OpenSearch Dashboards, open **OpenSearch Dashboards**, choose **Index Management**, select **Indices** or **Policy managed indices**.
-
-You see a toggle switch for data streams that you can use to show or hide indexes belonging to a data stream.
-
-When you enable this switch, you see a data stream multi-select dropdown menu that you can use for filtering data streams.
-You also see a data stream column that shows you the name of the data stream the index is contained in.
-
-![data stream toggle]({{site.url}}{{site.baseurl}}/images/data_streams_toggle.png)
-
-You can select one or more data streams and apply an ISM policy on them. You can also apply a policy on any individual backing index.
-
-You can performing visualizations on a data stream just like you would on a regular index or index alias.
-
-### Step 7: Delete a data stream
-
-The delete operation first deletes the backing indexes of a data stream and then deletes the data stream itself.
-
-To delete a data stream and all of its hidden backing indexes:
+For example, the following request returns the `logs-redis` data stream after one rollover:
 
 ```json
-DELETE _data_stream/<name_of_data_stream>
+GET _data_stream/logs-redis
 ```
+{% include copy-curl.html %}
 
-You can use wildcards to delete more than one data stream.
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
 
-We recommend deleting data from a data stream using an ISM policy.
+```json
+{
+  "data_streams": [
+    {
+      "name": "logs-redis",
+      "timestamp_field": {
+        "name": "@timestamp"
+      },
+      "indices": [
+        {
+          "index_name": ".ds-logs-redis-000001",
+          "index_uuid": "Xq04oCQ-TiCjIL81Q_ZL9g"
+        },
+        {
+          "index_name": ".ds-logs-redis-000002",
+          "index_uuid": "UBX0UhE9TFKTi-jB5mB7tQ"
+        }
+      ],
+      "generation": 2,
+      "status": "YELLOW",
+      "template": "logs-template"
+    }
+  ]
+}
+```
+</details>
 
-You can also use [asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/index/), [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/), and [PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) to query your data stream directly. You can also use the Security plugin to define granular permissions for the data stream name.
+You can use wildcards to address more than one data stream. Deleting a data stream deletes its backing indexes and cannot be undone; to remove data on a schedule, use an ISM policy instead.
+{: .warning}
+
+For all data stream operations and their parameters, see [Data stream APIs]({{site.url}}{{site.baseurl}}/api-reference/data-stream/).
+
+## Modifying the backing indexes of a data stream
+
+Add or remove the backing indexes of an existing data stream using the [Modify Data Stream API]({{site.url}}{{site.baseurl}}/api-reference/data-stream/modify-data-stream/). This is a metadata-only operation, so you can migrate an existing regular index into a data stream, or detach a backing index without deleting its data. To attach a restored backing index to a data stream during a snapshot restore, set `attach_to_data_stream` to `true` in the [Restore Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/restore-snapshot/).
+
+## Data streams in OpenSearch Dashboards
+
+To navigate to the **Index Management** page, go to **Management > Index Management** on the top menu. Select **Data streams** to list the data streams in your cluster.
+
+The **Data streams** table contains the following columns.
+
+| Column | Description |
+| :--- | :--- |
+| **Data stream name** | The name of the data stream. |
+| **Status** | The lowest health status of the data stream's backing indexes: green if all primary and replica shards are assigned, yellow if at least one replica shard is unassigned, and red if at least one primary shard is unassigned. |
+| **Template** | The index template that created the data stream. |
+| **Backing indexes count** | The number of backing indexes that hold the data. |
+| **Total size** | The storage used by the data stream across all primary and replica shards. |
+
+The following image shows the **Data streams** page.
+
+![Data streams page]({{site.url}}{{site.baseurl}}/images/admin-ui-index/data-streams-list.png)
+
+### Viewing a data stream
+
+Select the data stream in the **Data stream name** column. **Data stream details** shows its name, status, template, number of backing indexes, and timestamp field name. **Backing indexes** lists each backing index with its health, status, size, document counts, shard counts, whether it is the write index, and whether an ISM policy manages it. Select a backing index to see its details in the same form as a regular index. For more information, see [Viewing index details]({{site.url}}{{site.baseurl}}/im-plugin/index-operations/#viewing-index-details).
+
+### Viewing backing indexes in the Indexes list
+
+Backing indexes are hidden from the **Indexes** table by default:
+
+1. In **Index Management**, select **Indexes**.
+1. Select **Show data stream indexes**. A **Data stream** column is added to the table, showing which data stream each backing index belongs to, and a **Data streams** list is added to the table header.
+1. Optionally, select one or more data streams from the **Data streams** list to show only their backing indexes.
+
+### Creating a data stream
+
+A data stream can only be created from an index template whose type is **Data streams**. To create one, see [Creating an index template]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/#creating-an-index-template-1).
+
+1. In **Index Management**, select **Data streams**, and then select **Create data stream**.
+1. In **Data stream name**, start entering a name. As you type, a list of matching index patterns and their index templates appears.
+1. Select an index pattern from the list, and then complete the name so that it matches the pattern.
+
+   **Matching template** shows the index template that contains the pattern. The values in **Inherited settings from template** are read-only.
+
+1. Select **Create data stream**.
+
+### Deleting a data stream
+
+1. In **Index Management**, select **Data streams**.
+1. Select the checkbox next to each data stream that you want to delete.
+1. Select **Actions**, and then select **Delete**.
+1. Enter `delete` in the confirmation dialog, and then select **Delete**.
+
+Deleting a data stream deletes its backing indexes. The data cannot be recovered.
+{: .warning}
+
+### Rolling over a data stream
+
+1. In **Index Management**, select **Data streams**.
+1. Select **Actions**, and then select **Roll over**.
+1. In **Configure source**, select the data stream to roll over.
+1. Select **Roll over**.
+
+The **Backing indexes** table on the details page of the data stream contains the new write index.
+
+Refresh, flush, clear cache, and force merge are also available from the **Data streams** page and apply to the backing indexes of the selected data streams. For those procedures, see [Index maintenance in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/im-plugin/index-maintenance/#index-maintenance-in-opensearch-dashboards).
+
+## Related documentation
+
+- [Data stream APIs]({{site.url}}{{site.baseurl}}/api-reference/data-stream/)
+- [Index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/)
+- [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/)
+- [Index maintenance]({{site.url}}{{site.baseurl}}/im-plugin/index-maintenance/)

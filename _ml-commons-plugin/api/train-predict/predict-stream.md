@@ -2,7 +2,7 @@
 layout: default
 title: Predict stream
 parent: Model APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 65
 ---
 
@@ -15,14 +15,17 @@ This is an experimental feature and is not recommended for use in a production e
 
 The Predict Stream API provides the same functionality as the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) but returns responses in a streaming format, delivering data in chunks as it becomes available. This streaming approach is particularly beneficial for large language model interactions with lengthy responses, allowing you to see partial results immediately rather than waiting for the complete response.
 
-This API currently supports the following remote model types:
+Alternatively, you can stream predictions over gRPC. For more information, see [gRPC Predict Model Stream API]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/predict-model-stream/).
+{: .note}
+
+This API supports the following remote model types:
 - [OpenAI Chat Completion](https://platform.openai.com/docs/api-reference/completions)
 - [Amazon Bedrock Converse Stream](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_ConverseStream.html)
 
 ## Endpoint
 
 ```json
-POST /_plugins/_ml/models/<model_id>/_predict/stream
+POST /_plugins/_ml/models/{model_id}/_predict/stream
 ```
 
 ## Prerequisites
@@ -35,14 +38,15 @@ Follow these steps to set up your cluster.
 
 #### Step 1: Install the required plugins
 
-The Execute Stream Agent API depends on the following plugins, which are included in the OpenSearch distribution but must be explicitly installed as follows:
+The Predict Stream API depends on the following plugins, which are included in the OpenSearch distribution but must be explicitly installed as follows:
 
 ```bash
 bin/opensearch-plugin install transport-reactor-netty4
+bin/opensearch-plugin install arrow-base
 bin/opensearch-plugin install arrow-flight-rpc
 ```
 
-For more information, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
+For more information, see [Managing OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
 
 #### Step 2: Configure OpenSearch settings
 
@@ -110,17 +114,17 @@ To register an OpenAI Chat Completion model, send the following request:
 ```json
 POST /_plugins/_ml/models/_register
 {
-    "name": "OpenAI gpt 3.5 turbo",
+    "name": "OpenAI gpt-4o-mini",
     "function_name": "remote",
     "description": "OpenAI model",
     "connector": {
         "name": "OpenAI Chat Connector",
-        "description": "The connector to OpenAI model service for GPT 3.5",
+        "description": "The connector to OpenAI model service for gpt-4o-mini",
         "version": 1,
         "protocol": "http",
         "parameters": {
             "endpoint": "api.openai.com",
-            "model": "gpt-3.5-turbo"
+            "model": "gpt-4o-mini"
         },
         "credential": {
             "openAI_key": "<your_api_key>"
@@ -164,7 +168,7 @@ POST /_plugins/_ml/models/_register
             "region": "<your_aws_region>",
             "service_name": "bedrock",
             "response_filter": "$.output.message.content[0].text",
-            "model": "us.anthropic.claude-3-7-sonnet-20250219-v1:0"
+            "model": "us.anthropic.claude-sonnet-4-6"
         },
         "actions": [
             {
@@ -191,7 +195,7 @@ To use the Predict Stream API, you must include the `_llm_interface` parameter t
 For OpenAI Chat Completion, send the following request:
 
 ```json
-POST /_plugins/_ml/models/<model_id>/_predict/stream
+POST /_plugins/_ml/models/{model_id}/_predict/stream
 {
   "parameters": {
     "messages": [
@@ -213,7 +217,7 @@ POST /_plugins/_ml/models/<model_id>/_predict/stream
 For Amazon Bedrock Converse Stream, send the following request:
 
 ```json
-POST /_plugins/_ml/models/<model_id>/_predict/stream
+POST /_plugins/_ml/models/{model_id}/_predict/stream
 {
   "parameters": {
     "inputs": "Can you summarize Prince Hamlet of William Shakespeare in around 1000 words?",

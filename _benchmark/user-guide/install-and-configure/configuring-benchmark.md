@@ -34,6 +34,8 @@ You can customize `--client-options` with the following settings.
 | :---- | :---- | :---- |
 | `timeout` | Integer | Sets the request timeout value in seconds. |
 | `verify_certs` | Boolean | Determines whether to verify SSL certificates when connecting to the OpenSearch cluster. |
+| `basic_auth_user` | String | The username used to authenticate with the OpenSearch cluster (if authentication is enabled). |
+| `basic_auth_password` | String | The password used to authenticate with the OpenSearch cluster (if authentication is enabled). |
 
 This example runs a benchmark with a 2-minute timeout and disabled certificate verification:
 
@@ -64,8 +66,8 @@ This section contains global information for the current benchmark environment. 
 | Parameter | Type | Description |
 | :---- | :---- | :---- |
 | `env.name` | String | The name of the benchmark environment used as metadata in metrics documents when an OpenSearch metrics store is configured. Only alphanumeric characters are allowed. Default is `local`. |
-| `available.cores` | Integer | Determines the number of available CPU cores. OpenSearch Benchmark aims to create one asyncio event loop per core and distributes it to clients evenly across event loops. Defaults to the number of logical CPU cores for your cluster. |
-| `async.debug` | Boolean | Enables debug mode on OpenSearch Benchmark's asyncio event loop. Default is `false`. |
+| `available.cores` | Integer | Determines the number of available CPU cores. OpenSearch Benchmark aims to create one `asyncio` event loop per core and distributes it to clients evenly across event loops. Defaults to the number of logical CPU cores for your cluster. |
+| `async.debug` | Boolean | Enables debug mode on OpenSearch Benchmark's `asyncio` event loop. Default is `false`. |
 | `passenv` | String | A comma-separated list of environment variable names that should be passed to OpenSearch for processing. |
 
 <!-- vale off -->
@@ -124,15 +126,15 @@ When `datastore.type` is set to `opensearch`, the following reporting settings c
 | Parameter | Type | Description |
 | :---- | :---- | :---- |
 | `datastore.host` | IP address | The hostname of the metrics store, for example, `124.340.200.22`. |
-| datastore.port| Port | The port number of the metrics store, for example, `9200`. |
+| `datastore.port`| Port | The port number of the metrics store, for example, `9200`. |
 | `datastore.secure` | Boolean | If set to `false`, OpenSearch assumes an HTTP connection. If set to true, it assumes an HTTPS connection. |
 | `datastore.ssl.verification_mode` | String | When set to the default `full`, the metrics store’s SSL certificate is checked. To disable certificate verification, set this value to `none`. |
 | `datastore.ssl.certificate_authorities` | String | Determines the local file system path to the certificate authority’s signing certificate.
 | `datastore.user` | Username | Sets the username for the metrics store |
 | `datastore.password` | String | Sets the password for the metrics store. Alternatively, this password can be configured using the `OSB_DATASTORE_PASSWORD` environment variable, which avoids storing credentials in a plain text file. The environment variable takes precedence over the config file if both define a password. |
 | `datastore.probe.cluster_version` | String | Enables automatic detection of the metrics store’s version. Default is `true`. |
-| `datastore.number_of_shards` | Integer | The number of primary shards that the `opensearch-*` indexes should have. Any updates to this setting after initial index creation will only be applied to new `opensearch-*` indexes. Default is the [OpenSearch static index value]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#static-index-level-index-settings). |
-| `datastore.number_of_replicas` | Integer | The number of replicas each primary shard in the datastore contains. Any updates to this setting after initial index creation will only be applied to new `opensearch-* `indexes. Default is the [OpenSearch static index value]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#static-index-level-index-settings). |
+| `datastore.number_of_shards` | Integer | The number of primary shards that the `opensearch-*` indexes should have. Any updates to this setting after initial index creation will only be applied to new `opensearch-*` indexes. Default is the [OpenSearch static index value]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#static-index-settings). |
+| `datastore.number_of_replicas` | Integer | The number of replicas each primary shard in the datastore contains. Any updates to this setting after initial index creation will only be applied to new `opensearch-* `indexes. Default is the [OpenSearch static index value]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#static-index-settings). |
 
 ### Examples
 

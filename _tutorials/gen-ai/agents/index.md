@@ -20,12 +20,19 @@ flows:
     description: "Learn how to build a powerful <i>plan-execute-reflect</i> agent for solving complex problems"
     list: 
       - "<b>Platform:</b> OpenSearch"
-      - "<b>Model:</b> Anthropic Claude 3.7 Sonnet"  
+      - "<b>Model:</b> Anthropic Claude Sonnet 4.6"  
+      - "<b>Deployment:</b> Amazon Bedrock"
+  - heading: "Using agentic memory with Strands Agents"
+    link: /tutorials/gen-ai/agents/agentic-memory-strands/
+    description: "Learn how to give a Strands Agents agent long-term memory using OpenSearch agentic memory"
+    list: 
+      - "<b>Platform:</b> OpenSearch, Strands Agents"
+      - "<b>Model:</b> Anthropic Claude Sonnet 4.6, Amazon Titan Text Embeddings V2"  
       - "<b>Deployment:</b> Amazon Bedrock"
 ---
 
 # Agentic AI tutorials
 
-The following tutorials show you how to build agents and chatbots using OpenSearch.
+Learn how to build AI agents that use OpenSearch as a knowledge base and tool provider, enabling autonomous query planning, retrieval, and response generation.
 
 {% include cards.html cards=page.flows %}

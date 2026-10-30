@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Sort results
-parent: Search options
+parent: Customizing search results
 nav_order: 30
 redirect_from:
   - /opensearch/search/sort/
@@ -12,7 +12,7 @@ redirect_from:
 Sorting allows your users to sort results in a way that’s most meaningful to them.
 
 By default, full-text queries sort results by the relevance score.
-You can choose to sort the results by any field value in either ascending or descending order by setting the `order` parameter to `asc` or `desc`.
+You can choose to sort the results by any field value in either ascending or descending order by setting the `order` parameter to `asc` or `desc`. If you don't specify `order`, results are sorted in descending order when you sort by `_score` and in ascending order when you sort by any other field.
 
 For example, to sort results by descending order of a `line_id` value, use the following query:
 
@@ -35,6 +35,7 @@ GET shakespeare/_search
   ]
 }
 ```
+{% include copy-curl.html %}
 
 The results are sorted by `line_id` in descending order:
 
@@ -258,8 +259,9 @@ GET shakespeare/_search
   ]
 }
 ```
+{% include copy-curl.html %}
 
-You can continue to sort by any number of field values to get the results in just the right order. It doesn’t have to be a numerical value&mdash;you can also sort by date or timestamp fields:
+You can continue to sort by any number of field values to get the results in the right order. It doesn’t have to be a numerical value&mdash;you can also sort by date or timestamp fields:
 
 ```json
 "sort": [
@@ -270,6 +272,7 @@ You can continue to sort by any number of field values to get the results in jus
     }
   ]
 ```
+{% include copy-curl.html %}
 
 A text field that is analyzed cannot be used to sort documents, because the inverted index only contains the individual tokenized terms and not the entire string. So you cannot sort by the `play_name`, for example.
 
@@ -294,6 +297,7 @@ GET shakespeare/_search
   ]
 }
 ```
+{% include copy-curl.html %}
 
 The results are sorted by the `play_name` field in alphabetical order.
 
@@ -331,6 +335,7 @@ GET shakespeare/_search
   ]
 }
 ```
+{% include copy-curl.html %}
 
 ## Sort mode
 
@@ -348,17 +353,21 @@ PUT students/_doc/1
    "name": "John Doe",
    "grades": [70, 90]
 }
+```
+{% include copy-curl.html %}
 
+```json
 PUT students/_doc/2
 {
    "name": "Mary Major",
    "grades": [80, 100]
 }
 ```
+{% include copy-curl.html %}
 
 Sort all students by highest grade average using the `avg` mode:
 
-```
+```json
 GET students/_search
 {
    "query" : {
@@ -369,6 +378,7 @@ GET students/_search
    ]
 }
 ```
+{% include copy-curl.html %}
 
 The response contains students sorted by `grades` in descending order:
 
@@ -424,9 +434,248 @@ The response contains students sorted by `grades` in descending order:
 }
 ```
 
+## Sorting numeric fields across indexes
+
+When you search several indexes, the same field can be mapped as a different numeric or date type in each index. Use the `numeric_type` option to convert the sort values from all indexes to one type. Valid values are `double`, `long`, `date`, and `date_nanos`.
+
+For example, the `prices-eu` index maps `price` as `double`, and the `prices-us` index maps it as `long`:
+
+```json
+PUT /prices-eu
+{
+  "mappings": {
+    "properties": {
+      "product": { "type": "keyword" },
+      "price": { "type": "double" }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT /prices-us
+{
+  "mappings": {
+    "properties": {
+      "product": { "type": "keyword" },
+      "price": { "type": "long" }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Index documents into both indexes:
+
+```json
+POST /_bulk?refresh=true
+{ "index": { "_index": "prices-eu", "_id": "1" } }
+{ "product": "tent", "price": 129.5 }
+{ "index": { "_index": "prices-eu", "_id": "2" } }
+{ "product": "lantern", "price": 24.99 }
+{ "index": { "_index": "prices-us", "_id": "1" } }
+{ "product": "stove", "price": 60 }
+{ "index": { "_index": "prices-us", "_id": "2" } }
+{ "product": "backpack", "price": 95 }
+```
+{% include copy-curl.html %}
+
+Without `numeric_type`, each hit's sort value keeps the type of its index, for example, `24.99` from `prices-eu` and `60` from `prices-us`. The following request converts all sort values to `double`:
+
+```json
+GET /prices-eu,prices-us/_search
+{
+  "sort": [
+    {
+      "price": {
+        "order": "asc",
+        "numeric_type": "double"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+The sort values of the `prices-us` documents are returned as `60.0` and `95.0`:
+
+```json
+{
+  ...
+  "hits": {
+    ...
+    "hits": [
+      {
+        "_index": "prices-eu",
+        "_id": "2",
+        "_score": null,
+        "_source": {
+          "product": "lantern",
+          "price": 24.99
+        },
+        "sort": [
+          24.99
+        ]
+      },
+      {
+        "_index": "prices-us",
+        "_id": "1",
+        "_score": null,
+        "_source": {
+          "product": "stove",
+          "price": 60
+        },
+        "sort": [
+          60.0
+        ]
+      },
+      {
+        "_index": "prices-us",
+        "_id": "2",
+        "_score": null,
+        "_source": {
+          "product": "backpack",
+          "price": 95
+        },
+        "sort": [
+          95.0
+        ]
+      },
+      {
+        "_index": "prices-eu",
+        "_id": "1",
+        "_score": null,
+        "_source": {
+          "product": "tent",
+          "price": 129.5
+        },
+        "sort": [
+          129.5
+        ]
+      }
+    ]
+  }
+}
+```
+
+If you specify `long`, decimal values are truncated. For example, `129.5` and `24.99` are returned as `129` and `24`, and documents that differ only in their decimal part sort as equal.
+
+### Sorting date and date nanosecond fields
+
+A `date` field stores values in milliseconds, while a `date_nanos` field stores values in nanoseconds. If the sort field is mapped as `date` in one index and as `date_nanos` in another, OpenSearch compares the raw values without converting them to the same resolution. As a result, documents from the `date_nanos` index sort after all documents from the `date` index in ascending order, regardless of their timestamps.
+
+For example, create an `events-ms` index that maps `ts` as `date` and an `events-ns` index that maps it as `date_nanos`:
+
+```json
+PUT /events-ms
+{
+  "mappings": {
+    "properties": {
+      "ts": { "type": "date" }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT /events-ns
+{
+  "mappings": {
+    "properties": {
+      "ts": { "type": "date_nanos" }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Index three events. The `upload` event in `events-ns` occurred at 11:00, between the `login` (10:00) and `logout` (12:00) events in `events-ms`:
+
+```json
+POST /_bulk?refresh=true
+{ "index": { "_index": "events-ms", "_id": "1" } }
+{ "event": "login", "ts": "2026-10-13T10:00:00Z" }
+{ "index": { "_index": "events-ms", "_id": "2" } }
+{ "event": "logout", "ts": "2026-10-13T12:00:00Z" }
+{ "index": { "_index": "events-ns", "_id": "1" } }
+{ "event": "upload", "ts": "2026-10-13T11:00:00.123456789Z" }
+```
+{% include copy-curl.html %}
+
+A default ascending sort on `ts` returns `login`, `logout`, and then `upload`.
+
+To sort the events in chronological order, set `numeric_type` to `date` or `date_nanos`. The `date` value converts all values to milliseconds, and `date_nanos` converts them to nanoseconds:
+
+```json
+GET /events-ms,events-ns/_search
+{
+  "_source": ["event"],
+  "sort": [
+    {
+      "ts": {
+        "order": "asc",
+        "numeric_type": "date_nanos"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+The response returns the events in chronological order:
+
+```json
+{
+  ...
+  "hits": {
+    ...
+    "hits": [
+      {
+        "_index": "events-ms",
+        "_id": "1",
+        "_score": null,
+        "_source": {
+          "event": "login"
+        },
+        "sort": [
+          1791885600000000000
+        ]
+      },
+      {
+        "_index": "events-ns",
+        "_id": "1",
+        "_score": null,
+        "_source": {
+          "event": "upload"
+        },
+        "sort": [
+          1791889200123456789
+        ]
+      },
+      {
+        "_index": "events-ms",
+        "_id": "2",
+        "_score": null,
+        "_source": {
+          "event": "logout"
+        },
+        "sort": [
+          1791892800000000000
+        ]
+      }
+    ]
+  }
+}
+```
+
+Nanosecond values can represent only dates between 1970 and 2262. If a `date` field contains a value outside this range, converting it using `date_nanos` fails for the shard containing that document. The search then returns partial results, and the failure is reported in the `_shards.failures` array of the response. To sort data containing such dates, use `"numeric_type": "date"`.
+{: .warning}
+
 ## Sorting nested objects
 
-When sorting [nested]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/nested) objects, provide the `path` parameter specifying the path to the field on which to sort. 
+When sorting [nested]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/nested/) objects, provide the `path` parameter specifying the path to the field on which to sort. 
 
 For example, in the index `students`, map the variable `first_sem` as `nested`:
 
@@ -442,6 +691,7 @@ PUT students
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index two documents with nested fields:
 
@@ -453,7 +703,10 @@ PUT students/_doc/1
      "grades": [70, 90]
    }
 }
+```
+{% include copy-curl.html %}
 
+```json
 PUT students/_doc/2
 {
   "name": "Mary Major",
@@ -462,6 +715,7 @@ PUT students/_doc/2
   }
 }
 ```
+{% include copy-curl.html %}
 
 When sorting by grade average, provide the path to the nested field:
 
@@ -483,6 +737,106 @@ GET students/_search
  ]
 }
 ```
+{% include copy-curl.html %}
+
+The `nested` object accepts the following parameters.
+
+Parameter | Description
+:--- | :---
+`path` | The path to the nested object that contains the sort field. Required.
+`filter` | A query that selects the nested objects whose values are used for sorting. Nested objects that don't match the filter are ignored. Typically, you repeat the nested condition of the search query here so that documents are sorted by the values of the matching nested objects only.
+`max_children` | The maximum number of nested objects per document to consider when calculating the sort value. By default, all nested objects are considered.
+`nested` | A `nested` object for sorting on a field inside a nested object that is itself inside a nested object. Specify the inner `path` and, optionally, its own `filter` and `max_children`.
+
+For example, in the following index, each product contains a nested `offers` object with a region and price, and each offer contains a nested `discounts` object:
+
+```json
+PUT sort-offers
+{
+  "mappings": {
+    "properties": {
+      "product": { "type": "keyword" },
+      "offers": {
+        "type": "nested",
+        "properties": {
+          "region": { "type": "keyword" },
+          "price": { "type": "double" },
+          "discounts": {
+            "type": "nested",
+            "properties": {
+              "percent": { "type": "integer" }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Index two products:
+
+```json
+POST _bulk?refresh=true
+{ "index": { "_index": "sort-offers", "_id": "1" } }
+{ "product": "tent", "offers": [ { "region": "eu", "price": 120, "discounts": [ { "percent": 5 }, { "percent": 15 } ] }, { "region": "us", "price": 90, "discounts": [ { "percent": 10 } ] } ] }
+{ "index": { "_index": "sort-offers", "_id": "2" } }
+{ "product": "stove", "offers": [ { "region": "eu", "price": 100, "discounts": [ { "percent": 20 } ] }, { "region": "us", "price": 140, "discounts": [ { "percent": 0 } ] } ] }
+```
+{% include copy-curl.html %}
+
+The following request sorts the products by their lowest price in the `eu` region. The `filter` excludes the `us` offers, so the `tent` is sorted by its `eu` price of 120, not by its lower `us` price of 90:
+
+```json
+GET sort-offers/_search
+{
+  "_source": ["product"],
+  "sort": [
+    {
+      "offers.price": {
+        "order": "asc",
+        "mode": "min",
+        "nested": {
+          "path": "offers",
+          "filter": {
+            "term": { "offers.region": "eu" }
+          }
+        }
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+The `stove` is returned first, with a sort value of `100.0`, followed by the `tent`, with a sort value of `120.0`.
+
+To sort on a field in a multi-level nested object, specify a `nested` object inside the outer `nested` object. The following request sorts the products by their highest discount in any offer:
+
+```json
+GET sort-offers/_search
+{
+  "_source": ["product"],
+  "sort": [
+    {
+      "offers.discounts.percent": {
+        "order": "desc",
+        "mode": "max",
+        "nested": {
+          "path": "offers",
+          "nested": {
+            "path": "offers.discounts"
+          }
+        }
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+The `stove` is returned first, with a sort value of `20`, followed by the `tent`, with a sort value of `15`.
 
 ## Handling missing values
 
@@ -496,12 +850,16 @@ PUT students/_doc/1
    "name": "John Doe",
    "average": 80
 }
+```
+{% include copy-curl.html %}
 
+```json
 PUT students/_doc/2
 {
    "name": "Mary Major"
 }
 ```
+{% include copy-curl.html %}
 
 Sort the documents, ordering the document with a missing field first:
 
@@ -521,6 +879,7 @@ GET students/_search
   ]
 }
 ```
+{% include copy-curl.html %}
 
 The response lists document 2 first:
 
@@ -582,6 +941,7 @@ PUT students/_doc/1
    "average": 80
 }
 ```
+{% include copy-curl.html %}
 
 Index a document that does not contain an `average` field in the second index:
 
@@ -591,6 +951,7 @@ PUT students_no_map/_doc/2
    "name": "Mary Major"
 }
 ```
+{% include copy-curl.html %}
 
 Search for all documents in both indexes and sort them by the `average` field:
 
@@ -609,6 +970,7 @@ GET students*/_search
   ]
 }
 ```
+{% include copy-curl.html %}
 
 By default, the second index produces an error because the `average` field is not mapped:
 
@@ -677,6 +1039,7 @@ GET students*/_search
   ]
 }
 ```
+{% include copy-curl.html %}
 
 The response contains both documents:
 
@@ -725,6 +1088,103 @@ The response contains both documents:
 }
 ```
 
+## Sorting using a script
+
+To sort by a value that is not stored in a single field, calculate the value using a script. In the `sort` array, specify a `_script` object. The `_script` object accepts the following parameters.
+
+Parameter | Description
+:--- | :---
+`type` | The type of the value returned by the script. Valid values are `number` and `string`. Required.
+`script` | The script that calculates the sort value. For more information, see [How to use scripts]({{site.url}}{{site.baseurl}}/scripting/using-scripts/).
+`order` | The sort order. Valid values are `asc` and `desc`. Default is `asc`.
+`mode` | The value to use for sorting if the script returns multiple values. For more information, see [Sort mode](#sort-mode).
+`nested` | The nested object in which to run the script when the script reads fields of [nested]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/nested/) objects. Specify the path to the nested object in `nested.path`. For more information, see [Sorting nested objects](#sorting-nested-objects).
+
+The following request sorts products by price converted to another currency using an exchange rate passed in `params`:
+
+```json
+GET /prices-eu,prices-us/_search
+{
+  "_source": ["product", "price"],
+  "sort": {
+    "_script": {
+      "type": "number",
+      "script": {
+        "source": "doc['price'].value * params.exchange_rate",
+        "params": {
+          "exchange_rate": 0.92
+        }
+      },
+      "order": "desc"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The `sort` array of each hit contains the value calculated by the script:
+
+```json
+{
+  ...
+  "hits": {
+    ...
+    "hits": [
+      {
+        "_index": "prices-eu",
+        "_id": "1",
+        "_score": null,
+        "_source": {
+          "product": "tent",
+          "price": 129.5
+        },
+        "sort": [
+          119.14
+        ]
+      },
+      {
+        "_index": "prices-us",
+        "_id": "2",
+        "_score": null,
+        "_source": {
+          "product": "backpack",
+          "price": 95
+        },
+        "sort": [
+          87.4
+        ]
+      },
+      {
+        "_index": "prices-us",
+        "_id": "1",
+        "_score": null,
+        "_source": {
+          "product": "stove",
+          "price": 60
+        },
+        "sort": [
+          55.2
+        ]
+      },
+      {
+        "_index": "prices-eu",
+        "_id": "2",
+        "_score": null,
+        "_source": {
+          "product": "lantern",
+          "price": 24.99
+        },
+        "sort": [
+          22.9908
+        ]
+      }
+    ]
+  }
+}
+```
+
+Script-based sorting runs the script for every matching document, so it is slower than sorting by a field. If you sort by the same calculated value often, consider calculating it at index time and storing it in a field.
+
 ## Tracking scores
 
 By default, scores are not computed when sorting on a field. You can set `track_scores` to `true` to compute and track scores:
@@ -745,34 +1205,57 @@ GET students/_search
   "track_scores": true
 }
 ```
+{% include copy-curl.html %}
 
-## Sorting by geo distance
+## Sorting by geodistance
 
 You can sort documents by `_geo_distance`. The following parameters are supported.
 
 Parameter | Description
 :--- | :---
-distance_type | Specifies the method of computing the distance. Valid values are `arc` and `plane`. The `plane` method is faster but less accurate for long distances or close to the poles. Default is `arc`.
-mode | Specifies how to handle a field with several geopoints. By default, documents are sorted by the shortest distance when the sort order is ascending and by the longest distance when the sort order is descending. Valid values are `min`, `max`, `median`, and `avg`.
-unit | Specifies the units used to compute sort values. Default is meters (`m`).
-ignore_unmapped | Specifies how to treat an unmapped field. Set `ignore_unmapped` to `true` to ignore unmapped fields. Default is `false` (produce an error when encountering an unmapped field).
+`distance_type` | Specifies the method of computing the distance. Valid values are `arc` and `plane`. The `plane` method is faster but less accurate for long distances or close to the poles. Default is `arc`.
+`mode` | Specifies how to handle a field with several geopoints. By default, documents are sorted by the shortest distance when the sort order is ascending and by the longest distance when the sort order is descending. Valid values are `min`, `max`, `median`, and `avg`.
+`unit` | Specifies the units used to compute sort values. Default is meters (`m`).
+`ignore_unmapped` | Specifies how to treat an unmapped field. Set `ignore_unmapped` to `true` to ignore unmapped fields, which has the same effect as setting `unmapped_type` in a field sort. Default is `false` (produce an error when encountering an unmapped field). For more information, see [Ignoring unmapped fields](#ignoring-unmapped-fields).
+
+You can specify the reference point in any [geopoint format]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/geo-point/#formats), for example, as an object containing `lat` and `lon`, a `"lat,lon"` string, a geohash, or a `[lon, lat]` array.
 
 The `_geo_distance` parameter does not support `missing_values`. The distance is always considered to be `infinity` when a document does not contain the field used for computing distance.
 {: .note}
 
-For example, index two documents with geopoints:
+For example, create an index and map the `point` field as a `geo_point`:
+
+```json
+PUT testindex1
+{
+  "mappings": {
+    "properties": {
+      "point": {
+        "type": "geo_point"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Index two documents containing geopoints:
 
 ```json
 PUT testindex1/_doc/1
 {
   "point": [74.00, 40.71] 
 }
+```
+{% include copy-curl.html %}
 
+```json
 PUT testindex1/_doc/2
 {
   "point": [73.77, -69.63] 
 }
 ```
+{% include copy-curl.html %}
 
 Search for all documents and sort them by the distance from the provided point:
 
@@ -796,6 +1279,7 @@ GET testindex1/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The response contains the sorted documents:
 
@@ -849,7 +1333,7 @@ The response contains the sorted documents:
 }
 ```
 
-You can provide coordinates in any format supported by the geopoint field type. For a description of all formats, see the [geopoint field type documentation]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point).
+You can provide coordinates in any format supported by the geopoint field type. For a description of all formats, see the [geopoint field type documentation]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/).
 {: .note}
 
 To pass multiple geopoints to `_geo_distance`, use an array:
@@ -874,12 +1358,13 @@ GET testindex1/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 For each document, the sorting distance is calculated as the minimum, maximum, or average (as specified by the `mode`) of the distances from all points provided in the search to all points in the document.
 
 ## Performance considerations
 
-Sorted field values are loaded into memory for sorting. Therefore, for minimum overhead we recommend mapping [numeric types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric) to the smallest acceptable types, like `short`, `integer`, and `float`. [String types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/string) should not have the sorted field analyzed or tokenized.
+Sorted field values are loaded into memory for sorting. Therefore, for minimum overhead we recommend mapping [numeric types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) to the smallest acceptable types, like `short`, `integer`, and `float`. [String types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/string/) should not have the sorted field analyzed or tokenized.
 
 The `_id` field is restricted from use in sorting operations. If you need to sort by document ID, consider duplicating the ID value into another field with `doc_values` enabled. For more information about `_id` field limitations, see [ID field type]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/id/).
 {: .note}

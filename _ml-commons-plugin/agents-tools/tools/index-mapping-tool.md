@@ -52,7 +52,7 @@ OpenSearch responds with an agent ID:
 
 ## Step 2: Run the agent
 
-Before you run the agent, make sure that you add the sample OpenSearch Dashboards `Sample eCommerce orders` dataset. To learn more, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart#adding-sample-data).
+Before you run the agent, make sure that you add the sample OpenSearch Dashboards `Sample eCommerce orders` dataset. To learn more, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/#add-sample-data).
 
 Then, run the agent by sending the following request and providing the index name and the question:
 
@@ -107,7 +107,7 @@ The following table lists all tool parameters that are available when registerin
 Parameter | Type | Required/Optional | Description
 :--- | :--- | :--- | :---
 `input` | String | Required | The user input used to return index information.
-`index` | Array | Required | A comma-delimited list of one or more indexes for which to obtain mapping and setting information. Default is an empty list, which means all indexes.
+`index` | Array | Required | A comma-delimited list of one or more indexes for which to obtain mapping and setting information. If the list is empty, the tool returns a message stating that no results were found.
 `local` | Boolean | Optional | Whether to return information from the local node only instead of the cluster manager node (default is `false`).
 
 ## Execute parameters
@@ -117,7 +117,7 @@ The following table lists all tool parameters that are available when running th
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
 `question` | String | Required | The natural language question to send to the LLM. 
-`index` | Array | Optional | A comma-delimited list of one or more indexes for which to obtain mapping and setting information. Default is an empty list, which means all indexes.
+`index` | Array | Optional | A comma-delimited list of one or more indexes for which to obtain mapping and setting information. If the list is empty, the tool returns a message stating that no results were found.
 
 ## Testing the tool
 

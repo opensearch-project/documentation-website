@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Alerts and findings APIs
-parent: API tools
+parent: Security Analytics APIs
 nav_order: 50
 ---
 
@@ -87,12 +87,12 @@ State | Description
 
 ## Acknowledge alerts
 
-Sends an acknowledgement when an alert is triggered.
+Sends an acknowledgment when an alert is triggered.
 
 ### Example request
 
 ```json
-POST /_plugins/_security_analytics/detectors/<detector_id>/_acknowledge/alerts
+POST /_plugins/_security_analytics/detectors/{detector_id}/_acknowledge/alerts
 
 {"alerts":["4dc7f5a9-2c82-4786-81ca-433a209d5205"]}
 ```

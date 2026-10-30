@@ -5,7 +5,7 @@ parent: Supported log types
 nav_order: 60
 ---
 
-# NetFlow
+# NetFlow log type
 
 The `netflow` log type records NetFlow events used during integration testing.
 

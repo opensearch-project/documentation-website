@@ -48,11 +48,17 @@ conversational_search:
     - "<b>Platform:</b> OpenSearch"
     - "<b>Model:</b> Anthropic Claude"  
     - "<b>Deployment:</b> Amazon Bedrock API"  
+  - heading: Conversational search using Ollama
+    link: /tutorials/gen-ai/rag/conversational-search-ollama/
+    list:
+    - "<b>Platform:</b> OpenSearch"
+    - "<b>Model:</b> Qwen3 (or another model hosted locally)"
+    - "<b>Deployment:</b> Ollama or another local OpenAI-compatible server"
 ---
 
 # RAG tutorials
 
-The following machine learning (ML) tutorials show you how to implement retrieval-augmeted generation (RAG).
+Learn how to implement retrieval-augmented generation (RAG) with OpenSearch, combining vector search retrieval with large language models to generate grounded, context-aware responses.
 
 {% include cards.html cards=page.rag %}
 

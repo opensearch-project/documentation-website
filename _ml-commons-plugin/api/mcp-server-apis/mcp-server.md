@@ -2,7 +2,7 @@
 layout: default
 title: MCP Streamable HTTP Server
 parent: MCP server APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 50
 ---
 
@@ -10,228 +10,32 @@ nav_order: 50
 **Introduced 3.3**
 {: .label .label-purple }
 
-The MCP server is exposed via the `/_plugins/_ml/mcp` endpoint and implements the Streamable HTTP transport defined by the Model Context Protocol (MCP). It allows agents or clients to connect to OpenSearch and discover or invoke available tools.
+The in-cluster Model Context Protocol (MCP) server is exposed through the `/_plugins/_ml/mcp` endpoint and implements the [Streamable HTTP transport](https://modelcontextprotocol.io/specification/2025-03-26/basic/transports). MCP clients use this endpoint to discover and call the tools registered in your cluster.
 
-This server does not open a persistent SSE connection with the client; all communication happens over stateless HTTP calls.
-If a client sends a `GET` request (typically, to establish an SSE connection), the server returns a `405 Method Not Allowed` response, allowing the client to continue using `POST` communication.
+The server is stateless: all communication happens over individual HTTP `POST` requests, and the server does not open Server-Sent Events (SSE) streams. If a client sends a `GET` request, the server returns a `405 Method Not Allowed` response.
 
+To use this endpoint, enable the `plugins.ml_commons.mcp_server_enabled` setting. For setup instructions and example requests, see [Using the in-cluster MCP server]({{site.url}}{{site.baseurl}}/ml-commons-plugin/mcp/in-cluster-mcp-server/).
 
-To learn more about the transport, see the [official MCP documentation](https://modelcontextprotocol.io/specification/2025-03-26/basic/transports).
-{: .note }
-
-## Prerequisites
-
-Before you can connect to the MCP server endpoint, you need to enable the MCP server functionality in your cluster:
-
-```json
-PUT /_cluster/settings
-{
-  "persistent": {
-    "plugins.ml_commons.mcp_server_enabled": "true"
-  }
-}
-```
-{% include copy-curl.html %}
-
-Optionally, you can register tools so clients can discover and call them. See [Register MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/register-mcp-tools/).
-
-## Connecting to the MCP server
-
-You can connect to the MCP server using any client that supports the Streamable HTTP transport. 
-
-### Connecting using an MCP client
-
-The following example uses `fastmcp` to initialize a connection, list tools, and call a tool:
-
-```python
-import asyncio, logging
-from fastmcp import Client
-
-
-async def main():
-    async with Client("http://localhost:9200/_plugins/_ml/mcp") as client:
-        for t in await client.list_tools():
-            print(t.name)
-        r = await client.call_tool("ListIndexTool", {})
-        print("result: ", r)
-
-asyncio.run(main())
-```
-{% include copy.html %}
-
-### Invoking the MCP server manually (for debugging)
-
-While not required for normal usage, you can manually invoke the MCP server using JSON-RPC calls over HTTP. The following example presents typical MCP client behavior.
-
-#### Step 1 (Optional): Register custom tools
-
-Before connecting to the MCP server, you can register custom tools using the [Register MCP Tools API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/register-mcp-tools/). For example, to register a [List Index tool]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/list-index-tool/), send the following request :
-
-```json
-POST /_plugins/_ml/mcp/register
-{
-    "tools": [
-        {
-            "name": "ListIndexTool",
-            "type": "ListIndexTool",
-            "description": "This tool returns information about indices in the OpenSearch cluster along with the index `health`, `status`, `index`, `uuid`, `pri`, `rep`, `docs.count`, `docs.deleted`, `store.size`, `pri.store. size `, `pri.store.size`, `pri.store`. Optional arguments: 1. `indices`, a comma-delimited list of one or more indices to get information from (default is an empty list meaning all indices). Use only valid index names. 2. `local`, whether to return information from the local node only instead of the cluster manager node (Default is false)",
-            "inputSchema": {
-                "type": "object",
-                "properties": {
-                    "indices": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        },
-                        "description": "OpenSearch index name list, separated by comma. for example: [\"index1\", \"index2\"], use empty array [] to list all indices in the cluster"
-                    }
-                },
-                "additionalProperties": false
-            }
-        }
-    ]
-}
-```
-{% include copy-curl.html %}
-
-The server responds with confirmation that the tool was registered:
-
-```json
-200 OK
-{
-  "message": "Tool 'ListIndexTool' registered successfully"
-}
-```
-
-#### Step 2: Initialize a connection
-
-Send an `initialize` method with your client information and capabilities. Note that the `protocolVersion` must match the MCP specification version:
+## Endpoints
 
 ```json
 POST /_plugins/_ml/mcp
-{
-  "jsonrpc": "2.0",
-  "id": 1,
-  "method": "initialize",
-  "params": {
-    "protocolVersion": "2025-03-26",
-    "capabilities": {
-      "roots": {
-        "listChanged": true
-      },
-      "sampling": {}
-    },
-    "clientInfo": {
-      "name": "test-client",
-      "version": "1.0.0"
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-The server responds with its capabilities and server information. The `tools.listChanged` indicates that the server supports dynamic tool discovery:
-
-```json
-200 OK
-{
-  "jsonrpc": "2.0",
-  "id": 1,
-  "result": {
-    "protocolVersion": "2025-03-26",
-    "capabilities": {
-      "logging": {},
-      "prompts": {
-        "listChanged": false
-      },
-      "resources": {
-        "subscribe": false,
-        "listChanged": false
-      },
-      "tools": {
-        "listChanged": true
-      }
-    },
-    "serverInfo": {
-      "name": "OpenSearch-MCP-Stateless-Server",
-      "version": "0.1.0"
-    },
-    "instructions": "OpenSearch MCP Stateless Server - provides access to ML tools without sessions"
-  }
-}
 ```
 
-#### Step 3: Send an initialization complete notification
+## Request body fields
 
-Send a notification to indicate that initialization is complete. This notification does not expect a response payload:
+The request body is a [JSON-RPC 2.0](https://www.jsonrpc.org/specification) message. The following table lists the request body fields.
 
-```json
-POST /_plugins/_ml/mcp
-{
-  "jsonrpc": "2.0",
-  "method": "notifications/initialized",
-  "params": {}
-}
-```
-{% include copy-curl.html %}
+| Field | Data type | Required/Optional | Description |
+| :--- | :--- | :--- | :--- |
+| `jsonrpc` | String | Required | The JSON-RPC version. Must be `2.0`. |
+| `id` | Integer or string | Optional | The request ID, which the server returns in the response. Omit the ID for notifications. |
+| `method` | String | Required | The MCP method. Clients use `initialize` and `notifications/initialized` to establish a connection, `tools/list` to discover tools, and `tools/call` to call a tool. The server also responds to `ping` and returns empty lists for `prompts/list` and `resources/list` because it provides only tools. |
+| `params` | Object | Optional | The method parameters. For example, a `tools/call` request provides the tool `name` and `arguments`. |
 
-The server acknowledges the notification with a `202 Accepted` status:
+## Example request
 
-```json
-202 Accepted
-```
-
-#### Step 4: List available tools
-
-Use the `tools/list` method to discover available tools:
-
-```json
-POST /_plugins/_ml/mcp
-{
-  "jsonrpc": "2.0",
-  "id": 2,
-  "method": "tools/list",
-  "params": {}
-}
-```
-{% include copy-curl.html %}
-
-For a dedicated API, see [List MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/mcp-server-apis/list-mcp-tools/).
-
-The server returns an array of available tools with their names, descriptions, and input schemas. Notice how each tool includes a detailed `inputSchema` that describes the expected parameters:
-
-```json
-200 OK
-{
-  "jsonrpc": "2.0",
-  "id": 2,
-  "result": {
-    "tools": [
-      {
-        "name": "ListIndexTool",
-        "description": "This tool returns information about indices in the OpenSearch cluster along with the index `health`, `status`, `index`, `uuid`, `pri`, `rep`, `docs.count`, `docs.deleted`, `store.size`, `pri.store. size `, `pri.store.size`, `pri.store`. Optional arguments: 1. `indices`, a comma-delimited list of one or more indices to get information from (default is an empty list meaning all indices). Use only valid index names. 2. `local`, whether to return information from the local node only instead of the cluster manager node (Default is false)",
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "indices": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "description": "OpenSearch index name list, separated by comma. for example: [\"index1\", \"index2\"], use empty array [] to list all indices in the cluster"
-            }
-          },
-          "additionalProperties": false
-        }
-      }
-    ]
-  }
-}
-```
-
-#### Step 5: Call a tool
-
-Use the `tools/call` method to invoke a specific tool. Provide the tool name and arguments that match the tool's input schema:
+The following request calls the `ListIndexTool` tool:
 
 ```json
 POST /_plugins/_ml/mcp
@@ -242,17 +46,18 @@ POST /_plugins/_ml/mcp
   "params": {
     "name": "ListIndexTool",
     "arguments": {
-      "indices": []
+      "indices": ["opensearch_dashboards_sample_data_ecommerce"]
     }
   }
 }
 ```
 {% include copy-curl.html %}
 
-The server executes the tool and returns the result in the `content` array. The `isError` field indicates whether the tool execution was successful:
+## Example response
+
+The server returns the tool output in the `content` array:
 
 ```json
-200 OK
 {
   "jsonrpc": "2.0",
   "id": 3,
@@ -260,10 +65,17 @@ The server executes the tool and returns the result in the `content` array. The 
     "content": [
       {
         "type": "text",
-        "text": "row,health,status,index,uuid,pri(number of primary shards),rep(number of replica shards),docs.count(number of available documents),docs.deleted(number of deleted documents),store.size(store size of primary and replica shards),pri.store.size(store size of primary shards)\n1,green,open,.plugins-ml-config,nKyzDAupTGCwuybs9S_iBA,1,0,1,0,3.9kb,3.9kb\n2,green,open,.plugins-ml-mcp-tools,k1QwQKmXSeqRexmB2JDJiw,1,0,1,0,5kb,5kb\n"
+        "text": "row,health,status,index,uuid,pri(number of primary shards),rep(number of replica shards),docs.count(number of available documents),docs.deleted(number of deleted documents),store.size(store size of primary and replica shards),pri.store.size(store size of primary shards)\n1,green,open,opensearch_dashboards_sample_data_ecommerce,ryn25tMCTDex530BrUVmfw,1,0,4675,0,4mb,4mb\n"
       }
     ],
-    "isError": false
+    "isError": false,
+    "_meta": {}
   }
 }
 ```
+
+For the full sequence of requests that an MCP client sends, see [Sending MCP requests manually]({{site.url}}{{site.baseurl}}/ml-commons-plugin/mcp/in-cluster-mcp-server/#sending-mcp-requests-manually).
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/opensearch/ml/mcp/server`. Tools run using the permissions of the calling user, so calling a tool that accesses index data also requires the corresponding index permissions. For more information, see [Permissions]({{site.url}}{{site.baseurl}}/ml-commons-plugin/mcp/in-cluster-mcp-server/#permissions).

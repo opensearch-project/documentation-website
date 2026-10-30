@@ -1,19 +1,19 @@
 ---
 layout: default
 title: Advanced settings
-parent: Dashboards Management
-nav_order: 40
+parent: Dashboards management
+nav_order: 10
 ---
 
-# Advanced settings
+# Advanced settings in OpenSearch Dashboards
 
 Use the **Advanced settings** page to modify settings that govern OpenSearch Dashboards behavior. These settings can be used to customize the look and feel of the application, change the behavior of certain features, and more. A view of the interface is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/advanced-settings.png" alt="Advanced settings interface in OpenSearch 2.14" width="700"/>
+![Advanced settings interface in OpenSearch 2.14]({{site.url}}{{site.baseurl}}/images/dashboards/advanced-settings.png){: width="700" }
 
 To access **Advanced settings**, go to **Dashboards Management** and select **Advanced settings**. The page is divided into the following sections: [General](#general-settings), [Appearance](#appearance-settings), [Discover](#discover-settings), [Notifications](#notifications-settings), [Search](#search-settings), [Timeline](#timeline-settings), and [Visualization](#visualization-settings). Each section contains a set of its respective settings. You can modify these settings by editing their fields. Once you've made the changes, select **Save** to apply them.
 
-{::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class="inline-icon" alt="alert icon"/>{:/} **Note**<br>Certain settings require you to modify [the `opensearch_dashboards.yml` file](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml) and restart OpenSearch Dashboards.
+{::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/alert-icon.png" class="inline-icon" alt="alert icon"/>{:/} **Note**<br>Certain settings require you to modify the `opensearch_dashboards.yml` file and restart OpenSearch Dashboards. For more information, see [Configuring OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-dashboards/).
 {: .note}
 
 ## Required permissions
@@ -45,7 +45,7 @@ Setting | Description
 `format:bytes:defaultPattern`  | Defines the default numeral format for the bytes format. Default is `0,0.[0]b`.  |
 `format:currency:defaultPattern` | Defines the default numeral format for the currency format. Default is `($0,0.[00])`.  |
 `format:defaultTypeMap` | Defines the default format name for each field type using a mapping. If the field type isn't specified, then `_default_` is used.  |
-`format:number:defaultLocale`  | Defines the language locale for numerals. Default is `en`.  |
+`format:number:defaultLocale`  | Defines the language locale for numerals. Default is `en`. To change the language of the OpenSearch Dashboards interface, set `i18n.locale` in `opensearch_dashboards.yml`. For more information, see [Language settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-dashboards/#language-settings).  |
 `format:number:defaultPattern`  | Defines the default numeral format for the number format. Default is `0,0.[000]`.  |
 `format:percent:defaultPattern`  | Defines the default numeral format for the percent format. Default is `0,0.[000]%`.  |
 `histogram:barTarget`  |  Defines a specified number of bars for date histograms that use the `auto` interval. Default is `50`.  |

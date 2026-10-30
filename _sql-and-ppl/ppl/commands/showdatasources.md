@@ -1,0 +1,49 @@
+---
+layout: default
+title: show datasources
+parent: Commands
+grand_parent: PPL
+nav_order: 42
+---
+
+<!-- vale off -->
+
+# show datasources command
+
+<!-- vale on -->
+
+The `show datasources` command queries data sources configured in the PPL engine. The `show datasources` command can only be used as the first command in a PPL query.
+
+To use the `show datasources` command, `plugins.calcite.enabled` must be set to `false`.
+{: .note}
+
+## Syntax
+
+The `show datasources` command has the following syntax:
+
+```sql
+show datasources
+```
+
+The `show datasources` command takes no parameters.  
+
+## Example 1: Fetching all Prometheus data sources
+
+The following query fetches all Prometheus data sources:
+  
+```sql
+show datasources
+| where CONNECTOR_TYPE='PROMETHEUS'
+```
+{% include copy.html %}
+  
+The query returns the following results:
+
+<!-- vale off -->
+
+| DATASOURCE_NAME | CONNECTOR_TYPE |
+| --- | --- |
+| my_prometheus | PROMETHEUS |
+
+<!-- vale on -->
+

@@ -2,7 +2,7 @@
 layout: default
 title: Verify snaphot repository
 parent: Snapshot APIs
-nav_order: 4
+nav_order: 40
 ---
 
 # Verify Snapshot Repository API
@@ -19,27 +19,29 @@ If you use the Security plugin, you must have the `manage cluster` privilege.
 ## Endpoints
 
 ```json
-GET _snapshot/<repository>/
+GET _snapshot/{repository}/
 ```
 
 ## Path parameters
 
-Path parameters are optional. 
+The following table lists the available path parameters.
 
 | Parameter | Data type | Description | 
 :--- | :--- | :---
-| repository | String | Name of repository to verify. |
+| `repository` | String | Name of repository to verify. |
 
 ## Query parameters
 
+The following table lists the available query parameters. All query parameters are optional.
+
 | Parameter | Data type | Description | 
 :--- | :--- | :---
-| cluster_manager_timeout | Time | Amount of time to wait for a connection to the cluster manager node. Optional, defaults to `30s`. |
-| timeout | Time | The period of time to wait for a response. If a response is not received before the timeout value, the request fails and returns an error. Defaults to `30s`. |
+| `cluster_manager_timeout` | Time | Amount of time to wait for a connection to the cluster manager node. Optional, defaults to `30s`. |
+| `timeout` | Time | The period of time to wait for a response. If a response is not received before the timeout value, the request fails and returns an error. Defaults to `30s`. |
 
 ## Example request
 
-The following request verifies that the my-opensearch-repo is functional:
+The following request verifies that the `my-opensearch-repo` is functional:
 
 <!-- spec_insert_start
 component: example_code
@@ -66,7 +68,7 @@ response = client.snapshot.verify_repository(
 
 ## Example response
 
-The example that follows corresponds to the request above in the [Example request](#example-request) section.
+The following example corresponds to the preceding [Example request](#example-request).
 
 The `POST /_snapshot/my-opensearch-repo/_verify?timeout=0s&cluster_manager_timeout=50s` request returns the following fields:
 
@@ -96,6 +98,12 @@ In the preceding sample, one node is connected to the snapshot repository. If mo
 
 ## Response body fields
 
+The following table lists all response body fields.
+
 | Field | Data type | Description | 
 :--- | :--- | :---
-| nodes | Object | A list (not an array) of nodes connected to the snapshot repository. Each node itself is a property where the node ID is the key and the name has an ID (Object) and a name (String). |
+| `nodes` | Object | A list (not an array) of nodes connected to the snapshot repository. Each node itself is a property where the node ID is the key and the name has an ID (Object) and a name (String). |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/repository/verify`.

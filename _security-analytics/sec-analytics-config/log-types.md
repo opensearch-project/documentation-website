@@ -22,7 +22,7 @@ To navigate to the **Log types** page, select **Log types** under **Detectors** 
 
 The main **Log types** UI features and actions are shown in the following image. These features are described in the list following the image. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/c-log-type.png" alt="The Log types landing page." width="85%">
+![The Log types landing page.]({{site.url}}{{site.baseurl}}/images/Security/c-log-type.png){: width="85%" }
 
 
 1. Search **Standard** and **Custom** log types. 
@@ -34,7 +34,7 @@ The main **Log types** UI features and actions are shown in the following image.
 
 ## Standard log types
 
-As of OpenSearch 2.11, all standard log types are grouped by the following categories:
+All standard log types are grouped by the following categories:
 
 - **Access Management** includes [AD/LDAP]({{site.url}}{{site.baseurl}}/security-analytics/log-types-reference/ad-ldap/), [Apache Access]({{site.url}}{{site.baseurl}}/security-analytics/log-types-reference/apache-access/), and [Okta]({{site.url}}{{site.baseurl}}/security-analytics/log-types-reference/okta/).
 - **Applications** includes [GitHub]({{site.url}}{{site.baseurl}}/security-analytics/log-types-reference/github/), [Google Workspace]({{site.url}}{{site.baseurl}}/security-analytics/log-types-reference/gworkspace/), and [Microsoft 365]({{site.url}}{{site.baseurl}}/security-analytics/log-types-reference/m365/).

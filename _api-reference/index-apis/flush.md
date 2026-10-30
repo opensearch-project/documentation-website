@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Flush
-parent: Index APIs
-nav_order: 75
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 30
 ---
 
 # Flush API
@@ -13,6 +14,8 @@ nav_order: 75
 The Flush API stores all in-memory operations to segments on disk. Operations flushed to an index segment are no longer needed in transaction logs during a cluster restart because these operations are now stored in the Lucene index. 
 
 OpenSearch automatically performs flushes in the background based on conditions like transaction log size, which is controlled by the `index.translog.flush_threshold_size` setting. Use the Flush API sparingly, for example, for manual restarts or to free up memory.
+
+For more information about how flush relates to the transaction log, refresh, and merge operations, see [Flush]({{site.url}}{{site.baseurl}}/getting-started/concepts/#flush) in OpenSearch concepts.
 
 ## Endpoints
 
@@ -45,9 +48,7 @@ All parameters are optional.
 | `ignore_unavailable` | Boolean | When `true`, OpenSearch ignores missing or closed indexes. If `false`, OpenSearch returns an error if the force merge operation encounters missing or closed indexes. Default is `false`. |
 | `wait_if_ongoing` | Boolean | When `true`, the Flush API does not run while another flush request is active. When `false`, OpenSearch returns an error if another flush request is active. Default is `true`. |
 
-## Example requests
-
-### Flush a specific index
+## Example request: Flushing a specific index
 
 The following example flushes an index named `shakespeare`:
 
@@ -76,7 +77,7 @@ response = client.indices.flush(
 <!-- spec_insert_end -->
 
 
-### Flush all indexes
+## Example request: Flushing all indexes
 
 The following example flushes all indexes in a cluster:
 
@@ -114,4 +115,6 @@ OpenSearch responds with the number of shards that acknowledged the flush reques
 }
 ```
 
+## Required permissions
 
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/flush` and `indices:admin/flush*`.

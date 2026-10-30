@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Workspace for OpenSearch Dashboards
-nav_order: 110
+title: Workspaces
+nav_order: 120
 has_children: true
 ---
 
-# Workspace for OpenSearch Dashboards
-Introduced 2.18
+# Workspaces
+**Introduced 2.18**
 {: .label .label-purple }
 
-The Workspace feature in OpenSearch Dashboards enables you to tailor your environment with use-case-specific configurations. For example, you can create dedicated workspaces for observability scenarios, allowing you to focus on relevant functionalities. Additionally, the Workspace feature enables organization of visual assets, such as dashboards and visualizations, within a workspace with isolated storage.
+Workspaces enable you to tailor your environment with use-case-specific configurations. For example, you can create dedicated workspaces for observability scenarios, allowing you to focus on relevant functionalities. Additionally, you can organize visual assets, such as dashboards and visualizations, within a workspace with isolated storage.
 
 ## Workspace data model
 
-The Workspace data model is defined by the following structure: 
+The workspace data model is defined by the following structure: 
 
 ```typescript
 interface Workspace {
@@ -25,20 +25,20 @@ interface Workspace {
   uiSettings: Record<string, unknown>;
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
-The Workspace data model is composed of the following key attributes:
+The workspace data model is composed of the following key attributes:
 
-- `id`: String type; unique ID for each each workspace.
+- `id`: String type; unique ID for each workspace.
 - `name`: String type; designates the name of the workspace.
 - `description`: Optional string type; provides contextual information for the workspace.
 - `features`: Optional array of strings; contains use case IDs linked to the workspace.
 
 ---
 
-#### Example Workspace object
+#### Example workspace object
 
-The following object shows a typical Workspace configuration:
+The following object shows a typical workspace configuration:
 
 ```typescript
 {
@@ -48,7 +48,7 @@ The following object shows a typical Workspace configuration:
   features: ["use-case-analytics"],
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 The configuration creates the `Analytics team` using the `use-case-observability` feature set. Use cases map to specific feature groups, limiting functionality to the defined set within each workspace. 
 
@@ -77,7 +77,7 @@ The following saved object shows a dashboard object associated with the workspac
   workspaces: ["M5NqCu"]
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 Saved objects support association with multiple workspaces, facilitating cross-team collaboration and resource sharing. This feature is useful when an object is relevant to multiple teams, projects, or use cases. 
 
@@ -90,7 +90,7 @@ The following example shows a data source object linked to multiple workspaces:
   workspaces: ["M5NqCu", "<TeamA-workspace-id>", "<Analytics-workspace-id>"]
 }
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ## Non-workspace saved objects
 
@@ -98,9 +98,9 @@ Not all saved objects in OpenSearch Dashboards are associated with a workspace. 
 
 This dual approach allows OpenSearch Dashboards to balance granular, context-specific customization with overall system consistency. 
 
-## Enabling the Workspace feature
+## Enabling workspaces
 
-In your `opensearch_dashboards.yml` file, set the following option:
+In your `opensearch_dashboards.yml` file, set the following options:
 
 ```yaml
 workspace.enabled: true
@@ -108,11 +108,13 @@ uiSettings:
   overrides:
     "home:useNewHomePage": true
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 If your cluster has the Security plugin installed, then multi-tenancy must be disabled to avoid conflicts with similar workspaces:
 
 ```yaml
 opensearch_security.multitenancy.enabled: false
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
+
+After updating the configuration file, restart OpenSearch Dashboards for the changes to take effect.

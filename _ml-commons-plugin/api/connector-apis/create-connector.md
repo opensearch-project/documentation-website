@@ -2,7 +2,7 @@
 layout: default
 title: Create connector
 parent: Connector APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 10
 ---
 
@@ -18,7 +18,7 @@ POST /_plugins/_ml/connectors/_create
 
 ## Request body fields
 
-For a list of request fields, see [Blueprint configuration parameters]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints#configuration-parameters).
+For a list of request fields, see [Request body fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints#request-body-fields).
 
 ## Example request
 
@@ -28,12 +28,12 @@ To create a standalone connector, send a request to the `connectors/_create` end
 POST /_plugins/_ml/connectors/_create
 {
     "name": "OpenAI Chat Connector",
-    "description": "The connector to public OpenAI model service for GPT 3.5",
+    "description": "The connector to public OpenAI model service for gpt-4o-mini",
     "version": 1,
     "protocol": "http",
     "parameters": {
         "endpoint": "api.openai.com",
-        "model": "gpt-3.5-turbo"
+        "model": "gpt-4o-mini"
     },
     "credential": {
         "openAI_key": "..."

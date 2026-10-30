@@ -91,7 +91,7 @@ This module does not require installation; it is available by default.
 
 Character filters: `pattern_replace`, `mapping`
 
-Token filters: `arabic_normalization`, `asciifolding`, `bengali_normalization`, `cjk_width`, `decimal_digit`, `elision`, `german_normalization`, `hindi_normalization`, `indic_normalization`, `lowercase`, `persian_normalization`, `scandinavian_folding`, `scandinavian_normalization`, `serbian_normalization`, `sorani_normalization`, `trim`, `uppercase`
+Token filters: `arabic_normalization`, `asciifolding`, `bengali_normalization`, `cjk_width`, `decimal_digit`, `elision`, `german_normalization`, `hindi_normalization`, `indic_normalization`, `lowercase`, `persian_normalization`, `scandinavian_folding`, `scandinavian_normalization`, `serbian_normalization`, `sorani_normalization`, `trim`, `truncate`, `uppercase`
 
 ### The `analysis-icu` plugin
 
@@ -101,11 +101,7 @@ Token filters: `icu_normalizer`, `icu_folding`, `icu_transform`
 
 ### The `analysis-kuromoji` plugin
 
-Character filters: `normalize_kanji`, `normalize_kana`
-
-### The `analysis-nori` plugin
-
-Character filters: `normalize_kanji`, `normalize_kana`
+Character filters: `kuromoji_iteration_mark`
 
 These lists of filters include only analysis components found in the [additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#additional-plugins) that are part of the core OpenSearch repository.
 {: .note}

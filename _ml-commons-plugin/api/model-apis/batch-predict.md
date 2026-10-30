@@ -2,13 +2,13 @@
 layout: default
 title:  Batch predict
 parent: Model APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 70
 ---
 
 # Batch Predict API
 
-ML Commons can perform inference on large datasets in an offline asynchronous mode using a model deployed on external model servers. To use the Batch Predict API, you must provide the `model_id` for an externally hosted model. Amazon SageMaker, Cohere, and OpenAI are currently the only verified external servers that support this API.
+Runs inference on a large dataset offline and asynchronous mode using a model deployed on external model servers. To use the Batch Predict API, provide the `model_id` of an externally hosted model. Amazon SageMaker, Cohere, and OpenAI are the only verified external servers that support this API.
 
 For information about user access for this API, see [Model access control considerations]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations).
 
@@ -23,7 +23,7 @@ For instructions on how set up batch inference and connector blueprints, see the
 ## Endpoints
 
 ```json
-POST /_plugins/_ml/models/<model_id>/_batch_predict
+POST /_plugins/_ml/models/{model_id}/_batch_predict
 ```
 
 ## Prerequisites
@@ -124,7 +124,7 @@ The response contains the task ID for the register operation:
 }
 ```
 
-To check the status of the operation, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). Once the registration is complete, the task `state` changes to `COMPLETED`.
+To check the status of the operation, provide the task ID to the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). Once the registration is complete, the task `state` changes to `COMPLETED`.
 
 ## Example request
 
@@ -151,7 +151,7 @@ The response contains the task ID for the batch predict operation:
 }
 ```
 
-To check the status of the batch predict job, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). You can find the job details in the `remote_job` field in the task. Once the prediction is complete, the task `state` changes to `COMPLETED`.
+To check the status of the batch predict job, provide the task ID to the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). You can find the job details in the `remote_job` field in the task. Once the prediction is complete, the task `state` changes to `COMPLETED`.
 
 ## Example request
 
@@ -215,7 +215,7 @@ You can also cancel the batch predict operation running on the remote platform u
 ## Example request
 
 ```json
-POST /_plugins/_ml/tasks/KYZSv5EBqL2d0mFvs80C/_cancel_batch
+POST /_plugins/_ml/tasks/KYZSv5EBqL2d0mFvs80C/_cancel
 ```
 {% include copy-curl.html %}
 

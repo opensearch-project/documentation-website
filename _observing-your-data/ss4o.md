@@ -1,9 +1,9 @@
 ---
 layout: default
 title: Simple Schema for Observability
-nav_order: 120
+nav_order: 170
 redirect_from:
-- /observing-your-data/ssfo/ 
+- /observing-your-data/ssfo/
 ---
 
 # Simple Schema for Observability
@@ -14,9 +14,6 @@ Introduced 2.6
 
 The Simple Schema for Observability is inspired by both [OpenTelemetry](https://opentelemetry.io/docs/) and the Elastic Common Schema (ECS) and uses Amazon Elastic Container Service ([Amazon ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_cwe_events.html)) event logs and OpenTelemetry (OTel) metadata.
 
-Alerts will be supported in a future release.
-{: .note }
-
 ## Use cases
 
 Use cases for the Simple Schema for Observability include:
@@ -25,12 +22,12 @@ Use cases for the Simple Schema for Observability include:
 * Moving from proprietary configurations that are non-transferable to a consolidated, sharable observability solution that allows users to ingest and display an analysis of any type of telemetry data from any type of provider.
 * Conforming dashboards to the schema to align with the data structure so that you can design and organize the dashboard components and visualizations in a way that effectively represents your data.
 
-Data Prepper conforms to the schema for metrics and will gradually support traces and logs. Data Prepper's [trace mapping]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/) currently provides `service-map` data in a different way than `ss4o` traces. To make the trace mapping compatible with Observability, it will be integrated with the `ss4o` traces schema and will introduce `service-map` as an enriched field.
+Data Prepper's [trace analytics pipelines]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/) write spans and service map data to the `otel-v1-apm-span` and `otel-v1-apm-service-map` indexes, which do not use the `ss4o` index naming convention. To write metrics using the schema, use an index template that follows the `ss4o` metrics schema, as shown in the Data Prepper pipeline example in [Metric analytics]({{site.url}}{{site.baseurl}}/observing-your-data/prometheusmetrics/).
 {: .note }
 
 ## Traces and metrics
 
-Schema definitions for traces and metrics are defined and supported by the Observability plugin. These schema definitions include:
+Schema definitions for traces and metrics are defined and supported by Observability. These schema definitions include:
 
 - The index structure (mapping).
 - The [index naming conventions](https://github.com/opensearch-project/observability/issues/1405).

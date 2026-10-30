@@ -3,6 +3,8 @@ layout: default
 title: Applying changes to configuration files
 parent: Configuration
 nav_order: 25
+has_children: true
+has_toc: false
 redirect_from:
   - /security-plugin/configuration/security-admin/
 ---
@@ -12,7 +14,7 @@ redirect_from:
 On **Windows**, use **securityadmin.bat** in place of **securityadmin.sh**. For more information, see [Windows usage](#windows-usage).
 {: .note}
 
-The Security plugin stores its configuration—including users, roles, permissions, and backend settings—in a [system index]({{site.url}}{{site.baseurl}}/security/configuration/system-indices) on the OpenSearch cluster. Storing these settings in an index lets you change settings without restarting the cluster and eliminates the need to edit configuration files on every individual node. This is accomplished by running the `securityadmin.sh` script.
+The Security plugin stores its configuration—including users, roles, permissions, and backend settings—in a [system index]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/) on the OpenSearch cluster. Storing these settings in an index lets you change settings without restarting the cluster and eliminates the need to edit configuration files on every individual node. This is accomplished by running the `securityadmin.sh` script.
 
 The first job of the script is to initialize the `.opendistro_security` index. This loads your initial configuration into the index using the configuration files in `/config/opensearch-security`. After the `.opendistro_security` index is initialized, you can use OpenSearch Dashboards or the REST API to manage your users, roles, and permissions.
 
@@ -43,6 +45,8 @@ To avoid this situation, back up your current configuration before making change
   -cert ../../../config/kirk.pem \
   -key ../../../config/kirk-key.pem
 ```
+
+You can also have OpenSearch keep a history of the security configuration so that you can restore an earlier version after an unintended change. For more information, see [Security configuration version APIs]({{site.url}}{{site.baseurl}}/security/api/configuration-versions/).
 
 If you use the `-f` argument rather than `-cd`, you can load a single YAML file into the index rather than the entire directory of YAML files. For example, if you create ten new roles, you can safely load `internal_users.yml` into the index without losing your roles; only the internal users get overwritten.
 
@@ -240,11 +244,11 @@ If you want to push a single configuration file, use this:
 
 The file type must be one of the following:
 
-* config
-* roles
-* rolesmapping
-* internalusers
-* actiongroups
+* `config`
+* `roles`
+* `rolesmapping`
+* `internalusers`
+* `actiongroups`
 
 
 ### Cipher settings
@@ -300,6 +304,7 @@ Name | Description
 Name | Description
 :--- | :---
 `-dci` | Delete the Security plugin configuration index and exit. This option is useful if the cluster state is red due to a corrupted Security plugin index.
+`-dg,--diagnose` | Log a diagnostic trace to a file. The script prints the location of the generated file.
 `-esa` | Enable shard allocation and exit. This option is useful if you disabled shard allocation while performing a full cluster restart and need to recreate the Security plugin index.
 `-w` | Displays information about the used admin certificate.
 `-rl` | By default, the Security plugin caches authenticated users, along with their roles and permissions, for one hour. This option reloads the current Security plugin configuration stored in your cluster, invalidating any cached users, roles, and permissions.
@@ -331,3 +336,7 @@ For example, to load your initial configuration (all YAML files), use the follow
   -cert ..\..\..\config\kirk.pem ^
   -key ..\..\..\config\kirk-key.pem
 ```
+
+## Troubleshooting
+
+- For solutions to common `securityadmin.sh` configuration issues, see [Troubleshooting securityadmin.sh]({{site.url}}{{site.baseurl}}/security/configuration/troubleshoot-security-admin/).

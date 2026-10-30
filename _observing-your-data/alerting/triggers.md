@@ -6,7 +6,7 @@ grand_parent: Alerting
 parent: Monitors
 ---
 
-# Triggers
+# Alerting triggers
 
 How you create a trigger differs depending on the monitor method selected when the monitor was created. The monitor methods are **Visual editor**, **Extraction query editor**, and **Anomaly detector**. Learn more about each type in the following sections.
 
@@ -15,7 +15,9 @@ How you create a trigger differs depending on the monitor method selected when t
 To create a trigger:
 
 1. In the **Create monitor** window, select **Add trigger**.
+<!-- vale off -->
 2. Enter the trigger name, severity level, and trigger condition. Severity levels, which range from 1 (highest) to 5 (lowest) help manage alerts. For example, a trigger with a high severity level (for example, 1 or 2) may notify a specific individual, whereas a trigger with a low severity level (4 or 5) might notify a chat room. Trigger conditions include "IS ABOVE," "IS BELOW," and "IS EXACTLY."
+<!-- vale on -->
 
 Query-level monitors run your trigger's script once against the query's results, and bucket-level monitors run your trigger's script on each bucket. Create a trigger that best fits the monitor method. To run multiple scripts, you must create multiple triggers.
 {: .note}
@@ -38,7 +40,7 @@ Now you can create the trigger condition and specify the tag name. This creates 
 
 ## Extraction query editor
 
-For a query-level monitor, specify a Painless script that returns `true` or `false`. Painless is the default OpenSearch scripting language and has a syntax similar to Groovy.
+For a query-level monitor, specify a Painless script that returns `true` or `false`. Painless is the default OpenSearch scripting language and has a syntax similar to Groovy. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/).
 
 Trigger condition scripts revolve around the `ctx.results[0]` variable, which corresponds to the extraction query response. For example, the script might reference `ctx.results[0].hits.total.value` or `ctx.results[0].hits.hits[i]._source.error_code`.
 
@@ -113,19 +115,19 @@ if (score > 99) {
 #### Trigger variables
 
 Variable | Data type | Description
-:--- | :--- | : ---
+:--- | :--- | :---
 `ctx.trigger.id` | String | The trigger ID.
 `ctx.trigger.name` | String | The trigger name.
 `ctx.trigger.severity` | String | The trigger severity.
 `ctx.trigger.condition`| Object | Contains the Painless script used when the monitor was created.
-`ctx.trigger.condition.script.source` | String | The language used to define the script. Must be Painless.
-`ctx.trigger.condition.script.lang` | String | The script used to define the trigger.
+`ctx.trigger.condition.script.source` | String | The script used to define the trigger.
+`ctx.trigger.condition.script.lang` | String | The language used to define the script. Must be Painless.
 `ctx.trigger.actions`| Array | An array with one element that contains information about the action the monitor needs to trigger.
 
 #### Other variables
 
 Variable | Data type | Description
-:--- | :--- | : ---
+:--- | :--- | :---
 `ctx.results` | Array | An array with one element (`ctx.results.0`). Contains the query results. This variable is empty if the trigger is unable to retrieve results. See `ctx.error`.
 `ctx.last_update_time` | Milliseconds | Unix epoch time of when the monitor was last updated.
 `ctx.periodStart` | String | Unix timestamp for the beginning of the period during which the alert was triggered. For example, if a monitor runs every 10 minutes, a period might begin at 10:40 and end at 10:50.
@@ -133,7 +135,7 @@ Variable | Data type | Description
 `ctx.error` | String | The error message displayed if the trigger was unable to retrieve results or could not be evaluated, typically due to a compile error or null pointer exception. Null otherwise.
 `ctx.alert` | Object | The current, active alert (if it exists). Includes `ctx.alert.id`, `ctx.alert.version`, and `ctx.alert.isAcknowledged`. Null if no alert is active. Only available with query-level monitors.
 `ctx.alerts` | Array | Newly created alerts. Includes the `ctx.alerts.0.finding_ids` that triggered the alert and the `ctx.alerts.0.related_doc_ids` associated with the findings. Only available with document-level monitors.
-`ctx.dedupedAlerts` | Array | Triggered alerts. OpenSearch keeps the existing alert to prevent the plugin from perpetually creating the same alert. Only available with bucket-level monitors.
+`ctx.dedupedAlerts` | Array | Triggered alerts. OpenSearch keeps the existing alert to prevent the monitor from repeatedly creating the same alert. Only available with bucket-level monitors.
 `ctx.newAlerts` | Array | Newly created alerts. Only available with bucket-level monitors.
 `ctx.completedAlerts` | Array | Completed or expired alerts. Only available with bucket-level monitors.
 `bucket_keys` | String | A comma-separated list of the monitor's bucket key values. Available only for `ctx.dedupedAlerts`, `ctx.newAlerts`, and `ctx.completedAlerts`. Accessed through the `ctx.dedupedAlerts.0.bucket_keys` variable.
@@ -145,13 +147,13 @@ Variable | Data type | Description
 
 Per bucket and per document monitors support printing sample documents in notification messages. Per document monitors support printing the list of queries that triggered the creation of the finding associated with the alert. When the monitor runs, it adds each new alert to the `ctx` variables, for example, `newAlerts` for per bucket monitors and `alerts` for per document monitors. Each alert has its own list of `sample_documents`, and each per document monitor alert has its own list of `associated_queries`. The message template can be formatted to iterate through the list of alerts, the list of `associated_queries`, and the `sample_documents` for each alert.
 
-An alerting monitor uses the permissions of the user that created it. Be mindful of the Notifications plugin channel to which alert messages are sent and the content of the message mustache template. To learn more about security in the Alerting plugin, see [Alerting security]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/security/).
+An alerting monitor uses the permissions of the user that created it. Be mindful of the Notifications channel to which alert messages are sent and the content of the message mustache template. To learn more about alerting security, see [Alerting security]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/security/).
 {: .note}
 
 #### Sample document variables
 
 Variable | Data type | Description
-:--- | :--- | : ---
+:--- | :--- | :---
 `_index` | String | The index containing the sample document.
 `_id` | String | The sample document ID.
 `_score` | Float | A positive 32-bit floating-point number illustrating the relevance of the returned document.
@@ -177,7 +179,7 @@ Alerts:
 #### Associated query variables
 
 Variable | Data type | Description
-:--- | :--- | : ---
+:--- | :--- | :---
 `id` | String | The ID of the document-level query.
 `name` | String | The name of the document-level query.
 `tags` | Array | An array of tags (each of type String) configured for the document-level query.

@@ -2,16 +2,18 @@
 layout: default
 title: Plugin settings
 parent: Configuring OpenSearch
-nav_order: 110
+nav_order: 140
 ---
 
 # Plugin settings
 
 The following settings are related to OpenSearch plugins.
 
+To learn how to apply these settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+
 ## Alerting plugin settings
 
-For information about alerting settings, see [Alerting settings]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/settings/#alerting-settings).
+For information about alerting settings, see [Alerting settings]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/settings/).
 
 ## Anomaly Detection plugin settings
 
@@ -27,11 +29,13 @@ For information about cross-cluster replication settings, see [Replication setti
 
 ## Flow Framework plugin settings
 
-For information about automatic workflow settings, see [Workflow settings]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-settings/).
+For information about automatic workflow settings, see [Workflow settings]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-settings/).
 
 ## Geospatial plugin settings
 
 For information about the Geospatial plugin's IP2Geo processor settings, see [Cluster settings]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/ip2geo/#cluster-settings).
+
+For information about the Geospatial plugin's GeoJSON complexity settings, see [Configuring GeoJSON complexity]({{site.url}}{{site.baseurl}}/dashboards/visualize/geojson-regionmaps/#configuring-geojson-complexity).
 
 ## Index Management plugin settings
 
@@ -43,7 +47,7 @@ For information about index rollup settings, see [Index rollup settings]({{site.
 
 ## Job Scheduler plugin settings
 
-For information about the Job Scheduler plugin settings, see [Job Scheduler cluster settings]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/job-scheduler/index/#job-scheduler-cluster-settings).
+For information about the Job Scheduler plugin settings, see [Scheduled job settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/scheduled-jobs/index/#scheduled-job-settings).
 
 ## k-NN plugin settings
 
@@ -81,9 +85,14 @@ The Notifications plugin supports the following settings. All settings in this l
 
 - `opensearch.notifications.general.filter_by_backend_roles` (Boolean): Enables filtering by backend roles (role-based access control for the notification channels). Default is `false`.
 
+- `opensearch.notifications.general.filter_by_backend_roles_access_strategy` (String): Controls filtering by backend roles (role-based access control for the notification channels). Valid values are:
+  - `intersect` (Default) -- Users have access to notifications objects if they share at least one backend role with the user who created the object.
+  - `exact` -- Users have access to notifications objects if they have exactly the same (with no additional) backend roles as the user who created the object.
+  - `all` -- Users have access to notifications objects if their backend roles contain all of the backend roles of the user who created the object.
+
 ## Query Insights plugin settings
 
-For information about Query Insights plugin settings, see [Query Insights features and settings]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/index#query-insights-features-and-settings).
+For information about Query Insights plugin settings, see [Query Insights features and settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/query-insights/index#query-insights-features-and-settings).
 
 ## Security plugin settings
 
@@ -91,7 +100,7 @@ For information about the Security plugin settings, see [Security settings]({{si
 
 ## Security Analytics plugin settings
 
-For information about security analytics settings, see [Security Analytics settings]({{site.url}}{{site.baseurl}}/security-analytics/settings/).
+For information about the Security Analytics plugin settings, see [Security Analytics settings]({{site.url}}{{site.baseurl}}/security-analytics/settings/).
 
 ## SQL plugin settings
 
@@ -99,7 +108,7 @@ For information about settings related to SQL and PPL, see [SQL settings]({{site
 
 ## Workload Management plugin settings
 
-For information about workload management settings, see [Workload management settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/wlm-feature-overview/#workload-management-settings).
+For information about workload management settings, see [Workload management settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/wlm-feature-overview/#workload-management-settings).
 
 ## General plugin settings
 

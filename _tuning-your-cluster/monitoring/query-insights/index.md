@@ -1,0 +1,46 @@
+---
+layout: default
+title: Query insights
+parent: Monitoring your cluster
+nav_order: 20
+has_children: true
+has_toc: false
+redirect_from:
+  - /query-insights/
+  - /observing-your-data/query-insights/
+  - /tuning-your-cluster/monitoring/query-insights/
+---
+
+# Query insights
+**Introduced 2.12**
+{: .label .label-purple }
+
+To monitor and analyze the search queries within your OpenSearch cluster, you can obtain query insights. With minimal performance impact, query insights features aim to provide comprehensive insights into search query execution, enabling you to better understand search query characteristics, patterns, and system behavior during query execution stages. Query insights facilitate enhanced detection, diagnosis, and prevention of query performance issues, ultimately improving query processing performance, user experience, and overall system resilience.
+
+Typical use cases for query insights features include the following:
+
+- Identify the slowest or most resource-intensive queries impacting your cluster.
+- Debug latency spikes and understand query performance patterns.
+- Analyze common slow query structures to find optimization opportunities.
+- Monitor live, in-flight queries to diagnose immediate search performance issues.
+
+Query insights features are provided by the Query Insights plugin, which is included by default in the OpenSearch distribution. At a high level, these features comprise the following components:
+
+* _Collectors_: Gather performance-related data points at various stages of search query execution.
+* _Processors_: Perform lightweight aggregation and processing on data collected by the collectors.
+* _Exporters_: Export the data into different sinks.
+
+
+## Query insights features and settings
+
+Query Insights provides several ways to monitor and analyze your search queries:
+
+-   **[Top N queries]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/query-insights/top-n-queries/)**: Identify the most resource-intensive or slowest queries over specific time frames based on various performance metrics.
+-   **[Grouping top N queries]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/query-insights/grouping-top-n-queries/)**: Discover patterns and analyze similar slow queries by grouping them based on query source structure.
+-   **[Live queries monitoring]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/query-insights/live-queries/)**: Get real-time visibility into search queries currently executing within your cluster to identify and debug queries that are currently long running or resource heavy.
+-   **[Query insights dashboards]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/query-insights/query-insights-dashboard/)**: Visualize and configure top query insights interactively in OpenSearch Dashboards.
+-   **[Query metrics]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/query-insights/query-metrics/)**: Understand the specific performance metrics per query type.
+
+## Query Insights plugin health
+
+For information about monitoring the health of the Query Insights plugin, see [Query Insights plugin health]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/query-insights/health/).

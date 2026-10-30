@@ -12,7 +12,7 @@ grand_parent: Agents and tools
 **Introduced 2.13**
 {: .label .label-purple }
 
-The `PPLTool` translates natural language into a PPL query. The tool provides an `execute` flag to specify whether to run the query. If you set the flag to `true`, the `PPLTool` runs the query and returns the query and the results.
+The `PPLTool` translates natural language into a Piped Processing Language (PPL) query. The tool provides an `execute` flag to specify whether to run the query. If you set the flag to `true`, the `PPLTool` runs the query and returns the query and the results.
 
 ## Prerequisite
 
@@ -99,9 +99,6 @@ POST /_plugins/_ml/agents/_register
   "name": "Test_Agent_For_PPL",
   "type": "flow",
   "description": "this is a test agent",
-  "memory": {
-    "type": "demo"
-  },
   "tools": [
     {
       "type": "PPLTool",
@@ -130,7 +127,7 @@ OpenSearch responds with an agent ID:
 
 ## Step 4: Run the agent
 
-Before you run the agent, make sure that you add the sample OpenSearch Dashboards `Sample web logs` dataset. To learn more, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/quickstart#adding-sample-data).
+Before you run the agent, make sure that you add the sample OpenSearch Dashboards `Sample web logs` dataset. To learn more, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/#add-sample-data).
 
 Then, run the agent by sending the following request:
 
@@ -187,7 +184,7 @@ The following table lists all tool parameters that are available when registerin
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
 `model_id` | String | Required | The model ID of the large language model (LLM) to use for translating text into a PPL query.
-`model_type` | String | Optional | The model type. Valid values are `CLAUDE` (Anthropic Claude model), `OPENAI` (OpenAI models), and `FINETUNE` (custom fine-tuned model). 
+`model_type` | String | Optional | The model type. Valid values are `CLAUDE` (Anthropic Claude model), `OPENAI` (OpenAI models), and `FINETUNE` (custom fine-tuned model). Default is `CLAUDE`.
 `prompt` | String | Optional | The prompt to provide to the LLM.
 `execute` | Boolean | Optional | Specifies whether to run the PPL query. Default is `true`.
 `input` | Object | Optional | Contains two parameters that specify the index to search and the question for the LLM. For example, `"input": "{\"index\": \"${parameters.index}\", \"question\": ${parameters.question} }"`.

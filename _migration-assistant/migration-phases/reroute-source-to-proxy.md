@@ -1,91 +1,106 @@
 ---
 layout: default
-title: Reroute client traffic
-nav_order: 3
-parent: Migration phases
-grand_parent: Migration Assistant for OpenSearch
+title: Reroute client traffic to capture proxy
+nav_order: 30
+parent: Migration workflows
 permalink: /migration-assistant/migration-phases/reroute-source-to-proxy/
 ---
 
-# Reroute client traffic to the Traffic Capture Proxy
+# Reroute client traffic to the capture proxy
 
-**Note**: This page is only relevant if you are using Capture and Replay to avoid downtime during a migration. If you are only performing backfill migration, you can skip this step.
-{: .note}
+The following information applies only to zero-downtime migrations that use Capture and Replay.
+{: .note }
 
-## Capture Proxy data replication
+Capture must start before snapshot backfill if you want to preserve writes that happen during the migration window.
 
-If you're interested in capturing live traffic during your migration, Migration Assistant includes an Application Load Balancer for routing traffic to the Capture Proxy and target cluster. Upstream client traffic must be routed through the Capture Proxy in order to replay the requests later. Before using the Capture Proxy, remember the following:
+## Workflow-created resources
 
-* The layer upstream from the Application Load Balancer is compatible with the certificate for the Application Load Balancer listener, whether it's for clients or a Network Load Balancer. The `albAcmCertArn` in the `cdk.context.json` may need to be provided to ensure that clients trust the Application Load Balancer certificate.
-* If a Network Load Balancer is used directly upstream of the Application Load Balancer, it must use a TLS listener.
-* Upstream resources and security groups must allow network access to the Migration Assistant Application Load Balancer.
+When your workflow includes a `traffic.proxies` section, Migration Assistant creates:
 
-To set up the Capture Proxy, go to the AWS Management Console and navigate to **EC2 > Load Balancers > Migration Assistant Application Load Balancer**. Copy the Application Load Balancer URL. With the URL copied, you can use one of the following options.
+- Capture proxy pods.
+- A Kubernetes Service resource in front of those pods.
+- Apache Kafka configuration so captured traffic can be replayed later.
 
+Client traffic is sent to the proxy Kubernetes Service. The proxy forwards requests to the source cluster and records them for later replay.
 
+## Kubernetes and EKS compared
 
-### If you are using **Network Load Balancer → Application Load Balancer → Cluster**
+The migration engine is the same on both Kubernetes and Amazon Elastic Kubernetes Service (EKS) platforms. The practical difference is how the Kubernetes Service is exposed and integrated into your environment:
 
-1. Ensure that ingress is provided directly to the Application Load Balancer for the Capture Proxy.
-2. Create a target group for the Migration Assistant Application Load Balancer on port `9200` and set the health check to `HTTPS`.
-3. Associate this target group with your existing Network Load Balancer on a new listener for testing.
-4. Verify that the health check is successful and perform smoke testing with some clients through the new listener port.
-5. Once you are ready to migrate all clients, detach the Migration Assistant Application Load Balancer target group from the testing Network Load Balancer listener and modify the existing Network Load Balancer listener to direct traffic to this target group.
-6. Now client requests will be routed through the proxy (once they establish a new connection). Verify the application metrics.
+- On **generic Kubernetes**, you provide the networking pattern that routes clients to the proxy Kubernetes Service.
+- On **Amazon EKS**, the Kubernetes Service can be backed by AWS load-balancer infrastructure, and the bootstrap path automates more of the platform configuration.
 
-### If you are using **Network Load Balancer → Cluster**
+## Configure the proxy in the workflow
 
-If you do not want to modify application logic, add an Application Load Balancer in front of your cluster and follow the **Network Load Balancer → Application Load Balancer → Cluster** steps. Otherwise:
-
-1. Create a target group for the Application Load Balancer on port `9200` and set the health check to `HTTPS`.
-2. Associate this target group with your existing Network Load Balancer on a new listener.
-3. Verify that the health check is successful, and perform smoke testing with some clients through the new listener port.
-4. Once you are ready to migrate all clients, deploy a change so that clients hit the new listener.
-   
-
-### If you are **not using a Network Load Balancer**
-
-If you're only using backfill as your migration technique, make a client/DNS change to route clients to the Migration Assistant Application Load Balancer on port `9200`.
-
-
-### Apache Kafka connection
-
-After you have routed the client based on your use case, test adding records against HTTP requests using the following steps.
-
-In the migration console, run the following command:
+Always start from the current sample:
 
 ```bash
-console kafka describe-topic-records
-```
-{% include copy.html %}
-   
-Note the records in the logging topic.
-   
-After a short period, re-execute the same command again and compare the increased number of records against the expected HTTP requests.
-
-## Backfilling documents to the source cluster
-
-From your source cluster snapshot, you can begin backfilling documents into the target cluster. Once you have started this process, a fleet of workers will spin up to read the snapshot and reindex documents into the target cluster. This fleet of workers can be scaled to increase the speed at which documents are reindexed into the target cluster.
-
-### Checking the starting state of the clusters
-
-You can check the indexes and document counts of the source and target clusters by running the `cat-indices` command. This can be used to monitor the difference between the source and target for any migration scenario. Check the indexes of both clusters using the following command:
-
-```shell
-console clusters cat-indices
+workflow configure sample --load
+workflow configure edit
 ```
 {% include copy.html %}
 
-You should receive the following response:
+In the proxy configuration, important fields include:
 
-```shell
-SOURCE CLUSTER
-health status index       uuid                   pri rep docs.count docs.deleted store.size pri.store.size
-green  open   my-index WJPVdHNyQ1KMKol84Cy72Q   1   0          8            0     44.7kb         44.7kb
+- `listenPort`
+- `podReplicas`
+- `internetFacing` when you need external exposure on EKS.
+- `tls`
+- `setHeader`
 
-TARGET CLUSTER
-health status index                        uuid                   pri rep docs.count docs.deleted store.size pri.store.size
-green  open   .opendistro_security         N3uy88FGT9eAO7FTbLqqqA   1   0         10            0     78.3kb         78.3kb
+## TLS behavior
+
+The proxy is secure by default. If you do not configure TLS explicitly, the workflow provisions a self-signed certificate for the proxy.
+
+If you intentionally want plain text HTTP, set the proxy TLS mode to `plaintext`.
+
+## Host and header overrides
+
+If your source uses host-based routing, add a static header in the proxy configuration.
+
+Use the `setHeader` field with entries in `Header-Name: value` format, for example:
+
+```json
+{
+  "setHeader": ["Host: source.example.com"]
+}
 ```
+{% include copy.html %}
+
+## Find the proxy endpoint
+
+After you submit the workflow, inspect the Services in the `ma` namespace and identify the one created for the proxy:
+
+```bash
+kubectl get svc -n ma
+```
+{% include copy.html %}
+
+Then update your application, DNS, or load balancer to send traffic to that proxy endpoint instead of directly to the source.
+
+## Verify capture before proceeding
+
+Before you proceed to metadata migration and backfill, confirm that:
+
+- The proxy pods are running.
+- The Kubernetes Service is reachable.
+- Application traffic is flowing through the proxy.
+- The workflow shows the traffic components as healthy.
+
+Useful commands:
+
+```bash
+workflow status
+workflow manage
+```
+{% include copy.html %}
+
+## Next steps
+
+Once capture is live, keep traffic flowing through the proxy while you perform the following steps:
+
+1. Migrate metadata
+2. Backfill historical documents
+3. Replay the captured traffic to catch the target up
 
 {% include migration-phase-navigation.html %}

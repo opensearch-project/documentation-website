@@ -13,17 +13,15 @@ The following is the syntax for the `user_agent` processor:
 
 ```json
 {
-  "processor": {
-    "user_agent": {
-      "field": "user_agent",
-      "target_field": "user_agent_info"
-    }
+  "user_agent": {
+    "field": "user_agent",
+    "target_field": "user_agent_info"
   }
 }
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `user_agent` processor.
 
@@ -31,14 +29,14 @@ Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
 `field` | Required | The field containing the user agent string.
 `target_field` | Optional | The field in which to store the extracted user agent information. If not specified, then the information is stored in the `user_agent` field.
-`ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not contain the specified `field`. If set to `true`, the processor does not modify the document if the `field` does not exist. Default is `false`. |
-`regex_file` | Optional | A file containing regular expression patterns used to parse the user agent string. This file should be located in the `config/ingest-user-agent` directory within the OpenSearch package. If not specified, then the default file `regexes.yaml` is used.
-`properties` | Optional | A list of properties to be extracted from the user agent string and added to the `target_field`. If not specified, then the default properties are `name`, `major`, `minor`, `patch`, `build`, `os`, `os_name`, `os_major`, `os_minor`, and `device`.
+`ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not contain the specified `field`. If set to `true`, the processor does not modify the document if the `field` does not exist or is `null`. Default is `false`. |
+`regex_file` | Optional | The name of a file containing regular expression patterns used to parse the user agent string, for example, `custom-regexes.yml`. The file must be located in the `config/ingest-user-agent` directory. If not specified, then the processor uses the regular expressions bundled with OpenSearch. For more information, see [Using a custom regex file](#using-a-custom-regex-file).
+`properties` | Optional | A list of properties to be extracted from the user agent string and added to the `target_field`. Valid values are `name`, `version`, `os`, `device`, and `original`. If not specified, then all of these properties are extracted.
 `description`  | Optional  | A brief description of the processor.  |
 `if` | Optional | A condition for running the processor. |
 `ignore_failure` | Optional | Specifies whether the processor continues to run even if it encounters an error. If set to `true`, then failures are ignored. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
-`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging). |
 
 ## Using the processor
 
@@ -74,7 +72,6 @@ To test the pipeline, run the following query:
 ```json
 POST _ingest/pipeline/user_agent_pipeline/_simulate
 {
-  "pipeline": "user_agent_pipeline",
   "docs": [
     {
       "_source": {
@@ -85,8 +82,6 @@ POST _ingest/pipeline/user_agent_pipeline/_simulate
 }
 ```
 {% include copy-curl.html %}
-
-#### Response
 
 The following example response confirms that the pipeline is working as expected:
 
@@ -122,21 +117,19 @@ The following example response confirms that the pipeline is working as expected
 }
 ```
 
-### Step 3: Ingest a document 
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `testindex1`:
 
 ```json
 PUT testindex1/_doc/1?pipeline=user_agent_pipeline
 {
-  "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
 }
 ```
 {% include copy-curl.html %}
 
-#### Response
-
-The preceding request parses the `user_agent` string into its components and indexes the document, along with all documents containing those components, into the `testindex1` index, as shown in the following response:
+The preceding request parses the `user_agent` string into its components and indexes the document, including the parsed components, into the `testindex1` index, as shown in the following response:
 
 ```json
 {
@@ -163,33 +156,20 @@ GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-#### Response
+The response contains the ingested document, transformed as shown in the response in Step 2.
 
-The response includes the original `user_agent` field and the parsed `user_agent_info` field containing the device, operating system, and browser information: 
+## Using a custom regex file
 
-```json
-{
-  "_index": "testindex1",
-  "_id": "1",
-  "_version": 66,
-  "_seq_no": 65,
-  "_primary_term": 47,
-  "found": true,
-  "_source": {
-    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36",
-    "user_agent_info": {
-      "original": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36",
-      "os": {
-        "name": "Mac OS X",
-        "version": "10.15.7",
-        "full": "Mac OS X 10.15.7"
-      },
-      "name": "Chrome",
-      "device": {
-        "name": "Mac"
-      },
-      "version": "90.0.4430.212"
-    }
-  }
-}
-```
+To parse user agent strings using your own regular expressions, create a regex file and specify its name in the `regex_file` parameter. The file must meet the following requirements:
+
+- The file has a `.yml` extension.
+- The file is located in the `config/ingest-user-agent` directory on every node.
+- The file exists when the node starts. OpenSearch loads regex files only at startup, so changes to existing files and new files take effect only after you restart the node.
+
+The bundled regular expressions are based on the [`regexes.yaml`](https://github.com/ua-parser/uap-core/blob/master/regexes.yaml) file from the uap-core project. A custom regex file is typically a newer or modified version of this file.
+
+## Settings
+
+The `user_agent` processor caches parsing results. All `user_agent` processors on a node share one cache. You can configure the cache using the following static setting in `opensearch.yml`:
+
+- `ingest.user_agent.cache_size` (Static, long): The maximum number of parsing results to cache. Default is `1000`.

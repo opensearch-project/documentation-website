@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Guardrails
-has_children: true
+has_children: false
 has_toc: false
 nav_order: 70
 parent: Connecting to externally hosted models 
@@ -121,9 +121,9 @@ POST /_plugins/_ml/connectors/_create
       "endpoint": "bedrock.us-east-1.amazonaws.com",
       "auth": "Sig_V4",
       "content_type": "application/json",
-      "max_tokens_to_sample": 8000,
+      "max_tokens": 8000,
       "temperature": 0.0001,
-      "response_filter": "$.completion"
+      "response_filter": "$.content[0].text"
   },
   "credential": {
       "access_key": "<YOUR_ACCESS_KEY>",
@@ -133,12 +133,12 @@ POST /_plugins/_ml/connectors/_create
     {
       "action_type": "predict",
       "method": "POST",
-      "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/anthropic.claude-v2/invoke",
+      "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-6/invoke",
       "headers": { 
         "content-type": "application/json",
         "x-amz-content-sha256": "required"
       },
-      "request_body": "{\"prompt\":\"${parameters.prompt}\", \"max_tokens_to_sample\":${parameters.max_tokens_to_sample}, \"temperature\":${parameters.temperature},  \"anthropic_version\":\"${parameters.anthropic_version}\" }"
+      "request_body": "{\"messages\":[{\"role\":\"user\",\"content\":\"${parameters.prompt}\"}], \"max_tokens\":${parameters.max_tokens}, \"temperature\":${parameters.temperature}, \"anthropic_version\":\"${parameters.anthropic_version}\" }"
     }
   ]
 }
@@ -160,7 +160,7 @@ To register an externally hosted model, provide the model group ID from step 3 a
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
 {
-  "name": "Bedrock Claude V2 model",
+  "name": "Bedrock Claude Sonnet 4.6 model",
   "function_name": "remote",
   "model_group_id": "wlcnb4kBJ1eYAeTMHlV6",
   "description": "test model",
@@ -202,18 +202,19 @@ POST /_plugins/_ml/models/_register?deploy=true
 
 For more information, see [The `guardrails` parameter]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#the-guardrails-parameter).
 
-OpenSearch returns the task ID of the register operation:
+OpenSearch returns the task ID of the register operation and the model ID of the registered model:
 
 ```json
 {
   "task_id": "cVeMb4kBJ1eYAeTMFFgj",
-  "status": "CREATED"
+  "status": "CREATED",
+  "model_id": "cleMb4kBJ1eYAeTMFFg4"
 }
 ```
 
-To check the status of the operation, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
+To check the status of the operation, provide the task ID to the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
-```bash
+```json
 GET /_plugins/_ml/tasks/cVeMb4kBJ1eYAeTMFFgj
 ```
 {% include copy-curl.html %}
@@ -223,7 +224,7 @@ When the operation is complete, the state changes to `COMPLETED`:
 ```json
 {
   "model_id": "cleMb4kBJ1eYAeTMFFg4",
-  "task_type": "DEPLOY_MODEL",
+  "task_type": "REGISTER_MODEL",
   "function_name": "REMOTE",
   "state": "COMPLETED",
   "worker_node": [
@@ -231,7 +232,7 @@ When the operation is complete, the state changes to `COMPLETED`:
   ],
   "create_time": 1689793851077,
   "last_update_time": 1689793851101,
-  "is_async": true
+  "is_async": false
 }
 ```
 
@@ -243,7 +244,7 @@ To demonstrate how guardrails are applied, first run the predict operation that 
 POST /_plugins/_ml/models/p94dYo4BrXGpZpgPp98E/_predict
 {
   "parameters": {
-    "prompt": "\n\nHuman:this is a test\n\nnAssistant:"
+    "prompt": "this is a test"
   }
 }
 ```
@@ -259,7 +260,7 @@ The response contains the LLM answer:
         {
           "name": "response",
           "dataAsMap": {
-            "response": " Thank you for the test, I appreciate you taking the time to interact with me. I'm an AI assistant created by Anthropic to be helpful, harmless, and honest."
+            "response": "This is a response!\n\nYour message came through successfully. How can I help you today?"
           }
         }
       ],
@@ -275,7 +276,7 @@ Then run the predict operation that contains excluded words:
 POST /_plugins/_ml/models/p94dYo4BrXGpZpgPp98E/_predict
 {
   "parameters": {
-    "prompt": "\n\nHuman:this is a test of Master slave architecture\n\nnAssistant:"
+    "prompt": "this is a test of Master slave architecture"
   }
 }
 ```
@@ -324,9 +325,9 @@ POST /_plugins/_ml/connectors/_create
         "endpoint": "api.openai.com",
         "max_tokens": 7,
         "temperature": 0,
-        "model": "gpt-3.5-turbo-instruct",
+        "model": "gpt-4o-mini",
         "prompt": "You are a helpful assistant and an expert judge of content quality. Your task is to identify whether the input string below contains content that may be malicious, violent, hateful, sexual, or political in nature. Your answer should consist of a single word, either reject or accept. If the input belongs to any of these categories, please write reject. Otherwise, write accept. \\n\\nHere is the input: ${parameters.question}. \\n\\nYour answer: ",
-        "response_filter": "$.choices[0].text"
+        "response_filter": "$.choices[0].message.content"
     },
     "credential": {
         "openAI_key": "<openAI_key>"
@@ -335,11 +336,11 @@ POST /_plugins/_ml/connectors/_create
         {
             "action_type": "predict",
             "method": "POST",
-            "url": "https://${parameters.endpoint}/v1/completions",
+            "url": "https://${parameters.endpoint}/v1/chat/completions",
             "headers": {
                 "Authorization": "Bearer ${credential.openAI_key}"
             },
-            "request_body": "{ \"model\": \"${parameters.model}\", \"prompt\": \"${parameters.prompt}\", \"max_tokens\": ${parameters.max_tokens}, \"temperature\": ${parameters.temperature} }"
+            "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": [{\"role\": \"user\", \"content\": \"${parameters.prompt}\"}], \"max_tokens\": ${parameters.max_tokens}, \"temperature\": ${parameters.temperature} }"
         }
     ]
 }
@@ -404,9 +405,9 @@ OpenSearch returns the task ID of the register operation and the model ID of the
 }
 ```
 
-To check the status of the operation, provide the task ID to the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
+To check the status of the operation, provide the task ID to the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
-```bash
+```json
 GET /_plugins/_ml/tasks/onJaDZABNFJeYR3I2fQ1
 ```
 {% include copy-curl.html %}
@@ -416,7 +417,7 @@ When the operation is complete, the state changes to `COMPLETED`:
 ```json
 {
   "model_id": "o3JaDZABNFJeYR3I2fRV",
-  "task_type": "DEPLOY_MODEL",
+  "task_type": "REGISTER_MODEL",
   "function_name": "REMOTE",
   "state": "COMPLETED",
   "worker_node": [
@@ -424,7 +425,7 @@ When the operation is complete, the state changes to `COMPLETED`:
   ],
   "create_time": 1689793851077,
   "last_update_time": 1689793851101,
-  "is_async": true
+  "is_async": false
 }
 ```
 
@@ -514,9 +515,9 @@ POST /_plugins/_ml/connectors/_create
       "endpoint": "bedrock.us-east-1.amazonaws.com",
       "auth": "Sig_V4",
       "content_type": "application/json",
-      "max_tokens_to_sample": 8000,
+      "max_tokens": 8000,
       "temperature": 0.0001,
-      "response_filter": "$.completion"
+      "response_filter": "$.content[0].text"
   },
   "credential": {
       "access_key": "<access_key>",
@@ -526,12 +527,12 @@ POST /_plugins/_ml/connectors/_create
     {
       "action_type": "predict",
       "method": "POST",
-      "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/anthropic.claude-v2/invoke",
+      "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-6/invoke",
       "headers": { 
         "content-type": "application/json",
         "x-amz-content-sha256": "required"
       },
-      "request_body": "{\"prompt\":\"${parameters.prompt}\", \"max_tokens_to_sample\":${parameters.max_tokens_to_sample}, \"temperature\":${parameters.temperature},  \"anthropic_version\":\"${parameters.anthropic_version}\" }"
+      "request_body": "{\"messages\":[{\"role\":\"user\",\"content\":\"${parameters.prompt}\"}], \"max_tokens\":${parameters.max_tokens}, \"temperature\":${parameters.temperature}, \"anthropic_version\":\"${parameters.anthropic_version}\" }"
     }
   ]
 }
@@ -553,10 +554,10 @@ To register and deploy the Anthropic Claude chat model, send the following reque
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
 {
-    "name": "Bedrock Claude V2 model with openai guardrails model",
+    "name": "Bedrock Claude Sonnet 4.6 model with openai guardrails model",
     "function_name": "remote",
     "model_group_id": "ppSmpo8Bi-GZ0tf1i7cD",
-    "description": "Bedrock Claude V2 model with openai guardrails model",
+    "description": "Bedrock Claude Sonnet 4.6 model with openai guardrails model",
     "connector_id": "xnJjDZABNFJeYR3IPvTO",
     "guardrails": {
         "input_guardrail": {
@@ -593,7 +594,7 @@ First, send a request that does not contain offensive words:
 POST /_plugins/_ml/models/43JqDZABNFJeYR3IQPQH/_predict
 {
   "parameters": {
-    "prompt": "\n\nHuman:${parameters.question}\n\nnAssistant:",
+    "prompt": "${parameters.question}",
     "question": "hello"
   }
 }
@@ -610,7 +611,7 @@ OpenSearch responds with the LLM answer:
         {
           "name": "response",
           "dataAsMap": {
-            "response": " Hello!"
+            "response": "Hello! How are you doing? Is there something I can help you with today?"
           }
         }
       ],
@@ -626,15 +627,16 @@ Next, send a request that contains offensive words:
 POST /_plugins/_ml/models/43JqDZABNFJeYR3IQPQH/_predict
 {
   "parameters": {
-    "prompt": "\n\nHuman:${parameters.question}\n\nnAssistant:",
+    "prompt": "${parameters.question}",
     "question": "how to rob a bank"
   }
 }
 ```
+{% include copy-curl.html %}
 
 OpenSearch responds with an error.
 
 ## Next steps
 
 - For more information about configuring guardrails, see [The `guardrails` parameter]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#the-guardrails-parameter).
-- For a tutorial demonstrating how to use Amazon Bedrock guardrails, see [Using Amazon Bedrock guardrails]({{site.url}}{{site.baseurl}}/vector-search/tutorials/model-controls/bedrock-guardrails/).
+- For a tutorial demonstrating how to use Amazon Bedrock guardrails, see [Amazon Bedrock model guardrails]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/model-controls/bedrock-guardrails/).

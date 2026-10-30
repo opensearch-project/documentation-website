@@ -2,7 +2,7 @@
 layout: default
 title: Data summary
 parent: OpenSearch Assistant for OpenSearch Dashboards
-nav_order: 1
+nav_order: 30
 has_children: false
 ---
 
@@ -64,7 +64,7 @@ POST /_plugins/_flow_framework/workflow?provision=true
           "previous_node_inputs": {},
           "user_inputs": {
             "version": "1",
-            "name": "Claude instant runtime Connector",
+            "name": "Claude Sonnet 4.6 runtime Connector",
             "protocol": "aws_sigv4",
             "description": "The connector to BedRock service for Claude model",
             "actions": [
@@ -74,9 +74,9 @@ POST /_plugins/_flow_framework/workflow?provision=true
                   "content-type": "application/json"
                 },
                 "method": "POST",
-                "request_body": "{\"prompt\":\"${parameters.prompt}\", \"max_tokens_to_sample\":${parameters.max_tokens_to_sample}, \"temperature\":${parameters.temperature},  \"anthropic_version\":\"${parameters.anthropic_version}\" }",
+                "request_body": "{\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"${parameters.prompt}\"}]}],\"anthropic_version\":\"${parameters.anthropic_version}\",\"max_tokens\":${parameters.max_tokens},\"temperature\":${parameters.temperature}}",
                 "action_type": "predict",
-                "url": "https://bedrock-runtime.us-west-2.amazonaws.com/model/anthropic.claude-instant-v1/invoke"
+                "url": "https://bedrock-runtime.us-west-2.amazonaws.com/model/us.anthropic.claude-sonnet-4-6/invoke"
               }
             ],
             "credential": {
@@ -89,10 +89,10 @@ POST /_plugins/_flow_framework/workflow?provision=true
               "endpoint": "bedrock-runtime.us-west-2.amazonaws.com",
               "content_type": "application/json",
               "auth": "Sig_V4",
-              "max_tokens_to_sample": "8000",
+              "max_tokens": "8000",
               "service_name": "bedrock",
               "temperature": "0.0001",
-              "response_filter": "$.completion",
+              "response_filter": "$.content[0].text",
               "anthropic_version": "bedrock-2023-05-31"
             }
           }
@@ -106,7 +106,7 @@ POST /_plugins/_flow_framework/workflow?provision=true
           "user_inputs": {
             "description": "Claude model",
             "deploy": true,
-            "name": "claude-instant"
+            "name": "claude-sonnet-4-6"
           }
         },
         {
@@ -117,7 +117,7 @@ POST /_plugins/_flow_framework/workflow?provision=true
           },
           "user_inputs": {
             "parameters": {
-              "prompt": "Human: You are an assistant that helps to summarize the data and provide data insights.\nThe data are queried from OpenSearch index through user's question which was translated into PPL query.\nHere is a sample PPL query: `source=<index> | where <field> = <value>`.\nNow you are given ${parameters.sample_count} sample data out of ${parameters.total_count} total data.\nThe user's question is `${parameters.question}`, the translated PPL query is `${parameters.ppl}` and sample data are:\n```\n${parameters.sample_data}\n```\nCould you help provide a summary of the sample data and provide some useful insights with precise wording and in plain text format, do not use markdown format.\nYou don't need to echo my requirements in response.\n\nAssistant:"
+              "prompt": "You are an assistant that helps to summarize the data and provide data insights.\nThe data are queried from OpenSearch index through user's question which was translated into PPL query.\nHere is a sample PPL query: `source=<index> | where <field> = <value>`.\nNow you are given ${parameters.sample_count} sample data out of ${parameters.total_count} total data.\nThe user's question is `${parameters.question}`, the translated PPL query is `${parameters.ppl}` and sample data are:\n```\n${parameters.sample_data}\n```\nCould you help provide a summary of the sample data and provide some useful insights with precise wording and in plain text format, do not use markdown format.\nYou don't need to echo my requirements in response."
             },
             "name": "MLModelTool",
             "type": "MLModelTool"
@@ -149,7 +149,7 @@ For sample agent templates, see [Flow Framework sample templates](https://github
 
 ### Step 3: Create a root agent
 
-Next, create a [root agent]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-tutorial/#root_agent) for the data summary agent created in the previous step:
+Next, create a [root agent]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-tutorial/#root_agent) for the data summary agent created in the previous step:
 
 ```json
 POST /.plugins-ml-config/_doc/os_data2summary
@@ -170,7 +170,7 @@ This example demonstrates a system index. In security-enabled domains, only supe
 You can verify that the data summary agent was created successfully by calling the agent with an example payload:
 
 ```json
-POST /_plugins/_ml/agents/<DATA_SUMMARY_AGENT_ID>/_execute
+POST /_plugins/_ml/agents/{DATA_SUMMARY_AGENT_ID}/_execute
 {
   "parameters": {
 	"sample_data":"'[{\"_index\":\"90943e30-9a47-11e8-b64d-95841ca0b247\",\"_source\":{\"referer\":\"http://twitter.com/success/gemini-9a\",\"request\":\"/beats/metricbeat/metricbeat-6.3.2-amd64.deb\",\"agent\":\"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)\",\"extension\":\"deb\",\"memory\":null,\"ip\":\"239.67.210.53\",\"index\":\"opensearch_dashboards_sample_data_logs\",\"message\":\"239.67.210.53 - - [2018-08-30T15:29:01.686Z] \\\"GET /beats/metricbeat/metricbeat-6.3.2-amd64.deb HTTP/1.1\\\" 404 2633 \\\"-\\\" \\\"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)\\\"\",\"url\":\"https://artifacts.opensearch.org/downloads/beats/metricbeat/metricbeat-6.3.2-amd64.deb\",\"tags\":\"success\",\"geo\":{\"srcdest\":\"CN:PL\",\"src\":\"CN\",\"coordinates\":{\"lat\":44.91167028,\"lon\":-108.4455092},\"dest\":\"PL\"},\"utc_time\":\"2024-09-05 15:29:01.686\",\"bytes\":2633,\"machine\":{\"os\":\"win xp\",\"ram\":21474836480},\"response\":\"404\",\"clientip\":\"239.67.210.53\",\"host\":\"artifacts.opensearch.org\",\"event\":{\"dataset\":\"sample_web_logs\"},\"phpmemory\":null,\"timestamp\":\"2024-09-05 15:29:01.686\"}}]'",
@@ -216,4 +216,4 @@ To view alert insights in OpenSearch Dashboards, use the following steps:
 
 1. From the query language dropdown list, select **PPL**. You will see the generated data summary after the query text, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/data-summary.png" alt="data summary">
+    ![data summary]({{site.url}}{{site.baseurl}}/images/dashboards-assistant/data-summary.png)

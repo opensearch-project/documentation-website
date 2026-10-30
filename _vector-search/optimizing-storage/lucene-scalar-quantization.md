@@ -10,58 +10,16 @@ has_math: true
 
 # Lucene scalar quantization
 
-Starting with version 2.16, OpenSearch supports built-in scalar quantization for the Lucene engine. Unlike [byte vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#byte-vectors), which require you to quantize vectors before ingesting documents, the Lucene scalar quantizer quantizes input vectors in OpenSearch during ingestion. The Lucene scalar quantizer converts 32-bit floating-point input vectors into 7-bit integer vectors in each segment using the minimum and maximum quantiles computed based on the [`confidence_interval`](#confidence-interval) parameter. During search, the query vector is quantized in each segment using the segment's minimum and maximum quantiles in order to compute the distance between the query vector and the segment's quantized input vectors. 
+OpenSearch supports built-in scalar quantization for the Lucene engine. Unlike [byte vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#byte-vectors), which require you to quantize vectors before ingesting documents, the Lucene scalar quantizer quantizes input vectors in OpenSearch during ingestion. The quantizer converts 32-bit floating-point input vectors into lower-bit representations in each segment. OpenSearch supports 1-, 2-, 4-, and 7-bit quantization.
 
-Quantization can decrease the memory footprint by a factor of 4 in exchange for some loss in recall. Additionally, quantization slightly increases disk usage because it requires storing both the raw input vectors and the quantized vectors.
+When searching, the query vector is quantized in each segment in order to compute the distance between the query vector and the segment's quantized input vectors. Quantization can decrease the memory footprint in exchange for some loss in recall. Additionally, quantization slightly increases disk usage because it requires storing both the raw input vectors and the quantized vectors.
+
+The `bits` parameter is required when configuring the `sq` encoder.
+{: .important}
 
 ## Using Lucene scalar quantization
 
-To use the Lucene scalar quantizer, set the k-NN vector field's `method.parameters.encoder.name` to `sq` when creating a vector index:
-
-```json
-PUT /test-index
-{
-  "settings": {
-    "index": {
-      "knn": true
-    }
-  },
-  "mappings": {
-    "properties": {
-      "my_vector1": {
-        "type": "knn_vector",
-        "dimension": 2,
-        "space_type": "l2",
-        "method": {
-          "name": "hnsw",
-          "engine": "lucene",
-          "parameters": {
-            "encoder": {
-              "name": "sq"
-            },
-            "ef_construction": 256,
-            "m": 8
-          }
-        }
-      }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-## Confidence interval
-
-Optionally, you can specify the `confidence_interval` parameter in the `method.parameters.encoder` object.
-The `confidence_interval` is used to compute the minimum and maximum quantiles in order to quantize the vectors:
-- If you set the `confidence_interval` to a value in the `0.9` to `1.0` range, inclusive, then the quantiles are calculated statically. For example, setting the `confidence_interval` to `0.9` specifies to compute the minimum and maximum quantiles based on the middle 90% of the vector values, excluding the minimum 5% and maximum 5% of the values. 
-- Setting `confidence_interval` to `0` specifies to compute the quantiles dynamically, which involves oversampling and additional computations performed on the input data.
-- When `confidence_interval` is not set, it is computed based on the vector dimension $$d$$ using the formula $$max(0.9, 1 - \frac{1}{1 + d})$$.
-
-Lucene scalar quantization is applied only to `float` vectors. If you change the default value of the `data_type` parameter from `float` to `byte` or any other type when mapping a [k-NN vector]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/), then the request is rejected.
-{: .warning}
-
-The following example method definition specifies the Lucene `sq` encoder with the `confidence_interval` set to `1.0`. This `confidence_interval` specifies to consider all the input vectors when computing the minimum and maximum quantiles. Vectors are quantized to 7 bits by default:
+To use the Lucene scalar quantizer, set the k-NN vector field's `method.parameters.encoder.name` to `sq` when creating a vector index. You must specify the `bits` parameter in the `method.parameters.encoder.parameters` object:
 
 ```json
 PUT /test-index
@@ -84,6 +42,122 @@ PUT /test-index
             "encoder": {
               "name": "sq",
               "parameters": {
+                "bits": 1
+              }
+            },
+            "ef_construction": 256,
+            "m": 8
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Lucene scalar quantization is applied only to `float` and `half_float` vectors. [Half-float vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#half-float-vectors) do not accept an `encoder` in the `method` mapping; to quantize them to 1 bit per dimension, set `compression_level` to `16x`. If you change the `data_type` parameter to `byte` or any other unsupported type when mapping a [k-NN vector]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/), then the request is rejected.
+{: .warning}
+
+### SQ parameters
+
+The Lucene `sq` encoder supports the following parameters.
+
+Parameter name | Required | Default | Description
+:--- | :--- | :--- | :---
+`bits` | Yes | N/A | The number of bits used to quantize each vector dimension. Valid values are `1`, `2`, `4`, and `7`.
+`confidence_interval` | No | Computed based on vector dimension | The quantile interval used to compute the minimum and maximum values for quantization. Supported for 7-bit quantization only. For more information, see [Confidence interval](#confidence-interval).
+
+The `confidence_interval` parameter is only supported for 7-bit quantization. If you set `bits` to any other value and specify a `confidence_interval`, the request is rejected.
+{: .warning}
+
+## 1-bit, 2-bit, and 4-bit quantization
+
+For the lowest memory footprint, quantize each vector dimension to 1, 2, or 4 bits. These variants support the following bit widths.
+
+Bits | Memory reduction compared to 32-bit vectors | Introduced
+:--- | :--- | :---
+`1` | 32x | 3.6
+`2` | 16x | 3.9
+`4` | 8x | 3.9
+
+Fewer bits per dimension produce a smaller index at the cost of recall. None of these variants support the `confidence_interval` parameter; specifying it causes the request to be rejected.
+
+The following example creates an index that quantizes each `float` vector dimension to 2 bits. To use 1-bit or 4-bit quantization, set `bits` to `1` or `4`:
+
+```json
+PUT /test-index
+{
+  "settings": {
+    "index": {
+      "knn": true
+    }
+  },
+  "mappings": {
+    "properties": {
+      "my_vector1": {
+        "type": "knn_vector",
+        "dimension": 8,
+        "space_type": "l2",
+        "method": {
+          "name": "hnsw",
+          "engine": "lucene",
+          "parameters": {
+            "encoder": {
+              "name": "sq",
+              "parameters": {
+                "bits": 2
+              }
+            },
+            "ef_construction": 256,
+            "m": 8
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+To quantize [`half_float` vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/#half-float-vectors) to 1 bit per dimension, set `compression_level` to `16x` instead of specifying `bits`.
+
+## 7-bit quantization
+
+With 7-bit quantization, the Lucene scalar quantizer converts each 32-bit floating-point vector dimension into a 7-bit integer value using the minimum and maximum quantiles computed based on the [`confidence_interval`](#confidence-interval) parameter. When searching, the query vector is quantized in each segment using the segment's minimum and maximum quantiles.
+
+### Confidence interval
+
+Optionally, you can specify the `confidence_interval` parameter in the `method.parameters.encoder` object.
+The `confidence_interval` is used to compute the minimum and maximum quantiles in order to quantize the vectors:
+- If you set the `confidence_interval` to a value in the `0.9` to `1.0` range, inclusive, then the quantiles are calculated statically. For example, setting the `confidence_interval` to `0.9` specifies that OpenSearch will compute the minimum and maximum quantiles based on the middle 90% of the vector values, excluding the minimum 5% and maximum 5% of the values.
+- Setting `confidence_interval` to `0` specifies that OpenSearch will compute the quantiles dynamically, which involves oversampling and additional computations performed on the input data.
+- When `confidence_interval` is not set, it is computed based on the vector dimension $d$ using the formula $max(0.9, 1 - \frac{1}{1 + d})$.
+
+The following example method definition specifies the Lucene `sq` encoder with 7-bit quantization and the `confidence_interval` set to `1.0`. This `confidence_interval` specifies to use all the input vectors when computing the minimum and maximum quantiles:
+
+```json
+PUT /test-index
+{
+  "settings": {
+    "index": {
+      "knn": true
+    }
+  },
+  "mappings": {
+    "properties": {
+      "my_vector1": {
+        "type": "knn_vector",
+        "dimension": 2,
+        "space_type": "l2",
+        "method": {
+          "name": "hnsw",
+          "engine": "lucene",
+          "parameters": {
+            "encoder": {
+              "name": "sq",
+              "parameters": {
+                "bits": 7,
                 "confidence_interval": 1.0
               }
             },
@@ -98,21 +172,29 @@ PUT /test-index
 ```
 {% include copy-curl.html %}
 
-There are no changes to ingestion or query mapping and no range limitations for the input vectors. 
+## Memory estimation
 
-# Memory estimation
+In the ideal scenario, quantized vectors use the following percentage of the memory that 32-bit vectors require.
 
-In the ideal scenario, 7-bit vectors created by the Lucene scalar quantizer use only 25% of the memory required by 32-bit vectors.
+Bits | Percentage of 32-bit vector memory | Reduction
+:--- | :--- | :---
+`1` | 3.125% | 32x
+`2` | 6.25% | 16x
+`4` | 12.5% | 8x
+`7` | 25% | 4x
 
 ### HNSW memory estimation
 
-The memory required for the Hierarchical Navigable Small World (HNSW) graph can be estimated as `1.1 * (dimension + 8 * m)` bytes/vector, where `m` is the maximum number of bidirectional links created for each element during the construction of the graph.
+The memory required for the Hierarchical Navigable Small World (HNSW) graph can be estimated as `1.1 * (dimension * bits_per_dimension / 8 + 8 * m)` bytes per vector, where `m` is the maximum number of bidirectional links created for each element during the construction of the graph.
 
-As an example, assume that you have 1 million vectors with a dimension of 256 and M of 16. The memory requirement can be estimated as follows:
+For example, assume that you have 1 million vectors with a dimension of 256 and an `m` of 16. The memory requirement for each bit width can be estimated as follows.
 
-```r
-1.1 * (256 + 8 * 16) * 1,000,000 ~= 0.4 GB
-```
+Bits | Estimate | Result
+:--- | :--- | :---
+`1` | `1.1 * (256 * 1 / 8 + 8 * 16) * 1,000,000` | ~0.176 GB
+`2` | `1.1 * (256 * 2 / 8 + 8 * 16) * 1,000,000` | ~0.211 GB
+`4` | `1.1 * (256 * 4 / 8 + 8 * 16) * 1,000,000` | ~0.282 GB
+`7` | `1.1 * (256 * 7 / 8 + 8 * 16) * 1,000,000` | ~0.387 GB
 
 ## Next steps
 

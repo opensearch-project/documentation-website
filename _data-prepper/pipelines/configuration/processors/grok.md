@@ -105,7 +105,7 @@ apache-access-logs-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: "admin_pass"
+        password: "<custom-admin-password>"
         index_type: custom
         index: "apache-logs-%{yyyy.MM.dd}"
 ```
@@ -198,7 +198,7 @@ application-logs-pipeline:
   processor:
     - grok:
         match:
-          message: ['%{TIMESTAMP_ISO8601:timestamp} \[%{LOGLEVEL:level}\] %{DATA:component} - %{GREEDYDATA:details}']
+          message: ['%{TIMESTAMP_ISO8601:timestamp} \\[%{LOGLEVEL:level}\\] %{DATA:component} - %{GREEDYDATA:details}']
         pattern_definitions:
           LOGLEVEL: (?:INFO|WARN|ERROR|DEBUG|TRACE)
         break_on_match: true
@@ -219,7 +219,7 @@ application-logs-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: "admin_pass"
+        password: "<custom-admin-password>"
         index_type: custom
         index: "application-logs-%{yyyy.MM.dd}"
 ```
@@ -332,7 +332,7 @@ network-device-logs-pipeline:
         match:
           message: [
             # syslog-like
-            '%{SYSLOGTIMESTAMP:timestamp} %{SYSLOGHOST:host} %{DATA:program}(?:\[%{POSINT:pid}\])?: %{GREEDYDATA:message}',
+            '%{SYSLOGTIMESTAMP:timestamp} %{SYSLOGHOST:host} %{DATA:program}(?:\\[%{POSINT:pid}\\])?: %{GREEDYDATA:message}',
             # ISO8601 + IP
             '%{TIMESTAMP_ISO8601:timestamp} %{IP:host} %{DATA:program}: %{GREEDYDATA:message}',
             # Cisco style
@@ -369,7 +369,7 @@ network-device-logs-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: "admin_pass"
+        password: "<custom-admin-password>"
         index_type: custom
         index: "network-logs-%{yyyy.MM.dd}"
 ```
@@ -479,4 +479,4 @@ The Grok processor includes the following custom metrics.
 
 ### Timer
 
-* `grokProcessingTime`: The time taken by individual records to match against `match` patterns. The `avg` metric is the most useful metric for this timer because because it provides the average time taken to match records.
+* `grokProcessingTime`: The time taken by individual records to match against `match` patterns. The `avg` metric is the most useful metric for this timer because it provides the average time taken to match records.

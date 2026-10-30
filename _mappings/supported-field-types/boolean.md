@@ -74,12 +74,12 @@ The following table lists the parameters accepted by Boolean field types. All pa
 
 Parameter | Description 
 :--- | :--- 
-`boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0. Dynamically updatable.
-`doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting or scripting. Default is `true`.
-`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`. 
-`meta` | Accepts metadata for this field.
-[`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A  value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
-`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the _source field. Default is `false`. 
+`boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0. Dynamically updatable. For more information, see [Boost]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/boost/).
+`doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting or scripting. Default is `true`. For more information, see [Doc values]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/doc-values/).
+`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`. For indexes that use a pluggable data format, the default is `false`, and `true` is not supported. For more information, see [Pluggable data format indexes]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/index-parameter/#pluggable-data-format-indexes).
+`meta` | Accepts metadata for this field. For more information, see [Meta]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/meta/).
+[`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
+`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the `_source` field. Default is `false`. For more information, see [Store]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/store/).
 
 ## Boolean values in aggregations and scripts
 
@@ -156,5 +156,85 @@ The script returns the value of `a` as `true`, `key` returns the value of `a` as
       ]
     }
   }
+}
+```
+
+## Derived source
+
+When an index uses [derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source), OpenSearch may sort values in a multi-value `boolean` field during source reconstruction. The following example shows how OpenSearch processes mixed `boolean` inputs.
+
+Create an index that enables derived source and configures a `boolean` field named `a`:
+
+```json
+PUT /sample-index1
+{
+  "settings": {
+    "index": {
+      "derived_source": {
+        "enabled": true
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "a":  {"type": "boolean"}
+    }
+  }
+}
+```
+
+Index a document into the index:
+
+```json
+PUT sample-index1/_doc/1
+{
+  "a": [false, "true", "false", true, ""]
+}
+```
+
+After OpenSearch reconstructs `_source`, the derived `_source` is as follows:
+
+```json
+{
+  "a": [false, false, false, true, true]
+}
+```
+
+If the field mapping defines a [`null_value`]({{site.url}}{{site.baseurl}}/field-types/mapping-parameters/null-value/), any ingested null values are replaced with that value during reconstruction. The following example demonstrates how `null_value` affects derived source output.
+
+Create an index that enables derived source and configures a `null_value` for the `boolean` field `a`:
+
+```json
+PUT sample-index2
+{
+  "settings": {
+    "index": {
+      "derived_source": {
+        "enabled": true
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "a":  {"type": "boolean", "null_value": true}
+    }
+  }
+}
+```
+
+Index a document into the index:
+
+```json
+PUT sample-index2/_doc/1
+{
+  "a": [null, true, "false"]
+}
+```
+
+After OpenSearch reconstructs `_source`, the derived `_source` is as follows:
+
+```json
+{
+  "a": [false, true, true]
 }
 ```

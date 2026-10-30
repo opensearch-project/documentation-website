@@ -5,7 +5,7 @@ parent: Pipeline aggregations
 nav_order: 110
 ---
 
-# Minimum bucket aggregations
+# Minimum bucket aggregation
 
 The `min_bucket` aggregation is a sibling aggregation that calculates the minimum of a metric in each bucket of a previous aggregation.
 

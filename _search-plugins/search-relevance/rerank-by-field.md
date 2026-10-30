@@ -2,13 +2,13 @@
 layout: default
 title: Reranking by a field
 parent: Reranking search results
-grand_parent: Search relevance
+grand_parent: Optimizing search quality
 has_children: false
 nav_order: 20
 ---
 
 # Reranking search results by a field
-Introduced 2.18
+**Introduced 2.18**
 {: .label .label-purple }
 
 You can use a `by_field` rerank type to rerank search results by a document field. Reranking search results by a field is useful if a model has already run and produced a numerical score for your documents or if a previous search response processor was applied and you want to rerank documents differently based on an aggregated field.
@@ -46,6 +46,8 @@ PUT /_search/pipeline/rerank_byfield_pipeline
 {% include copy-curl.html %}
 
 For more information about the request fields, see [Request fields]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/#request-body-fields).
+
+When `keep_previous_score` is `true`, the pre-rerank score is stored in `previous_score` by default. Use `previous_score_field` to choose a different field name if `previous_score` already exists in your documents.
 
 ## Step 2: Create an index for ingestion
 
@@ -207,3 +209,4 @@ The response contains documents sorted in descending order based on the `reviews
 
 - Learn more about the [`rerank` processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/).
 - See a comprehensive example of [reranking by a field using an externally hosted cross-encoder model]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field-cross-encoder/).
+- For a tutorial that reranks results by a field using Cohere Rerank, see [Reranking search results by a field using Cohere Rerank]({{site.url}}{{site.baseurl}}/tutorials/reranking/reranking-by-field/).

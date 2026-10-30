@@ -5,7 +5,7 @@ parent: Ingest processors
 nav_order: 70
 ---
 
-This documentation describes using the `drop` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `drop_events` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/drop-events/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.
+This documentation describes using the `drop` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `drop_events` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/drop-events/), which runs outside the OpenSearch cluster, if your use case involves large or complex datasets.
 {: .note}
 
 # Drop processor
@@ -14,7 +14,7 @@ The `drop` processor is used to discard documents without indexing them. This ca
 
 The `drop` processor does not raise any errors when it discards documents, making it useful for preventing indexing problems without cluttering your OpenSearch logs with error messages.
 
-## Syntax example
+## Syntax
 
 The following is the syntax for the `drop` processor:
 
@@ -27,7 +27,7 @@ The following is the syntax for the `drop` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `drop` processor.
 
@@ -37,13 +37,13 @@ Parameter | Required | Description |
 `if` | Optional | A condition for running the processor. |
 `ignore_failure` | Optional | If set to `true`, failures are ignored. Default is `false`. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/) for more information. |
 `on_failure` | Optional | A list of processors to run if the processor fails. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/) for more information. |
-`tag` | Optional | An identifier tag for the processor. Useful for distinguishing between processors of the same type when debugging. |
+`tag` | Optional | An identifier tag for the processor. Useful for distinguishing between processors of the same type when debugging. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging). |
 
 ## Using the processor
 
 Follow these steps to use the processor in a pipeline.
 
-**Step 1: Create a pipeline**
+### Step 1: Create a pipeline
 
 The following query creates a pipeline, named `drop-pii`, that uses the `drop` processor to prevent a document containing personally identifiable information (PII) from being indexed:
 
@@ -62,7 +62,7 @@ PUT /_ingest/pipeline/drop-pii
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline**
+### Step 2 (Optional): Test the pipeline
 
 It is recommended that you test your pipeline before ingesting documents.
 {: .tip}
@@ -85,8 +85,6 @@ POST _ingest/pipeline/drop-pii/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Response
-
 The following example response confirms that the pipeline is working as expected (the document has been dropped):
 
 ```json
@@ -96,9 +94,8 @@ The following example response confirms that the pipeline is working as expected
   ]
 }
 ```
-{% include copy-curl.html %}
 
-**Step 3: Ingest a document**
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `testindex1`:
 
@@ -112,6 +109,7 @@ PUT testindex1/_doc/1?pipeline=drop-pii
 
 The following response confirms that the document with the ID of `1` was not indexed: 
 
+```json
 {
   "_index": "testindex1",
   "_id": "1",
@@ -123,4 +121,4 @@ The following response confirms that the document with the ID of `1` was not ind
     "failed": 0
   }
 }
-{% include copy-curl.html %}
+```

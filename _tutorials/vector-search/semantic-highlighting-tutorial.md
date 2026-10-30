@@ -9,9 +9,9 @@ nav_order: 60
 
 Semantic highlighting enhances search results by identifying and emphasizing the most semantically relevant sentences or passages within documents, based on the query's meaning. Unlike traditional highlighters that rely on exact keyword matches, semantic highlighting uses machine learning (ML) models to understand the context and relevance of text segments. This allows you to pinpoint the most pertinent information within a document, even if the exact search terms aren't present in the highlighted passage. For more information, see [Using the `semantic` highlighter]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight#the-semantic-highlighter).
 
-This tutorial guides you through setting up and using semantic highlighting with a neural search query.
+This tutorial guides you through setting up semantic search and using semantic highlighting on the search results.
 
-Replace the placeholders beginning with the prefix `your_` with your own values.
+Replace the placeholders beginning with the prefix `your-` with your own values.
 {: .note}
 
 ## Prerequisites
@@ -29,6 +29,9 @@ PUT _cluster/settings
 }
 ```
 {% include copy-curl.html %}
+
+When registering a model from a URL, make sure the source is trusted. Loading models from untrusted sources can pose security risks. For more information, see [PyTorch security guidelines for untrusted models](https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models).
+{: .warning}
 
 This example uses a simple setup with no dedicated ML nodes and allows running a model on a non-ML node. On clusters with dedicated ML nodes, specify `"only_run_on_ml_node": "true"` for improved performance. For more information, see [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/).
 
@@ -87,14 +90,14 @@ POST /_plugins/_ml/models/_register?deploy=true
 ```
 {% include copy-curl.html %}
 
-This API returns a `task_id` for the deployment operation. Use the [Tasks API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/) to monitor the deployment status:
+This API returns a `task_id` for the deployment operation. Use the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/) to monitor the deployment status:
 
 ```json
-GET /_plugins/_ml/tasks/<your-task-id>
+GET /_plugins/_ml/tasks/{your-task-id}
 ```
 {% include copy-curl.html %}
 
-Once the `state` changes to `COMPLETED`, the Tasks API returns the model ID for the deployed model. Note the text embedding model ID; you'll use it in the following steps.
+Once the `state` changes to `COMPLETED`, the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/) returns the model ID for the deployed model. Note the text embedding model ID; you'll use it in the following steps.
 
 Next, register a pretrained semantic sentence highlighting model:
 
@@ -109,14 +112,14 @@ POST /_plugins/_ml/models/_register?deploy=true
 ```
 {% include copy-curl.html %}
 
-Monitor the deployment status using the Tasks API. Note the semantic highlighting model ID; you'll use it in the following steps.
+Monitor the deployment status using the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/). Note the semantic highlighting model ID; you'll use it in the following steps.
 
 For production environments, consider using an externally hosted model instead of a locally deployed model. Externally hosted models offer better scalability, resource isolation, and support for advanced features like batch inference. For information about deploying externally hosted models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/).
 {: .tip}
 
-## Step 3 (Optional): Configure an ingest pipeline 
+## Step 3: Configure an ingest pipeline
 
-To automatically generate embeddings during indexing, create an [ingest pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/):
+To generate embeddings during indexing, create an [ingest pipeline]({{site.url}}{{site.baseurl}}/ingest-pipelines/):
 
 ```json
 PUT /_ingest/pipeline/nlp-ingest-pipeline
@@ -125,7 +128,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
   "processors": [
     {
       "text_embedding": {
-        "model_id": "your-text-embedding-model-id",
+        "model_id": "<your-text-embedding-model-id>",
         "field_map": {
           "text": "text_embedding"
         }
@@ -148,7 +151,7 @@ PUT /neural-search-index/_settings
 
 ## Step 4: Index data
 
-Now, index some sample documents. If you configured the ingest pipeline, embeddings will be generated automatically:
+Now, index some sample documents. The ingest pipeline generates the embeddings automatically:
 
 ```json
 POST /neural-search-index/_doc/1
@@ -176,7 +179,7 @@ POST /neural-search-index/_doc/3
 
 ## Step 5: Perform semantic highlighting
 
-Combine a neural search query with the semantic highlighter:
+Run a semantic search using the semantic highlighter:
 
 1.  Use a `neural` query to find documents semantically similar to your query text using the text embedding model.
 2.  Add a `highlight` section.
@@ -185,7 +188,7 @@ Combine a neural search query with the semantic highlighter:
 5.  Add a global `highlight.options` object.
 6.  In `options`, provide the `model_id` of your deployed sentence highlighting model.
 
-Use the following request to retrieve the top five matching documents (specified in the `k` parameter). Replace the placeholder model IDs (`TEXT_EMBEDDING_MODEL_ID` and `SEMANTIC_HIGHLIGHTING_MODEL_ID`) with the model IDs obtained after successful deployment in Step 2:
+Use the following request to retrieve the top two matching documents (specified in the `k` parameter). Replace the placeholder model IDs (`<your-text-embedding-model-id>` and `<your-semantic-highlighting-model-id>`) with the model IDs obtained after successful deployment in Step 2:
 
 ```json
 POST /neural-search-index/_search
@@ -276,3 +279,10 @@ For improved performance when highlighting multiple documents in production envi
 ## Next steps
 
 For more information about semantic highlighting options and configuration, see [Using the semantic highlighter]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight#the-semantic-highlighter).
+
+## Related documentation
+
+- [Semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/semantic-search/)
+- [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/)
+- [Text embedding processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-embedding/)
+- [OpenSearch-provided pretrained models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/)

@@ -65,7 +65,7 @@ The flat object field type supports the following queries:
 The following limitations apply to flat objects in OpenSearch 2.7:
 
 - Flat objects do not support open parameters.
-- Painless scripting and wildcard queries are not supported for retrieving values of subfields.
+- Painless scripting and wildcard queries are not supported for retrieving values of subfields. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/).
 
 This functionality is planned for a future release.
 
@@ -246,3 +246,7 @@ PUT /test-index/
 {% include copy-curl.html %}
 
 Because `issue.number` is not part of the flat object, you can use it to aggregate and sort documents.
+
+## Related documentation
+
+- [Disable objects]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/disable-objects/)

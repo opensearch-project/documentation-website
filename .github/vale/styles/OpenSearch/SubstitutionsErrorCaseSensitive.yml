@@ -1,0 +1,15 @@
+extends: substitution
+message: "Use '%s' instead of '%s'. Note the correct capitalization."
+ignorecase: false
+level: error
+action:
+  name: replace
+swap:
+  'AWS region': AWS Region
+  'Base 64': Base64
+  'Base-64': Base64
+  'base 64': Base64
+  'base-64': Base64
+  'base64': Base64
+  'Retrieval-Augmented Generation': retrieval-augmented generation
+  

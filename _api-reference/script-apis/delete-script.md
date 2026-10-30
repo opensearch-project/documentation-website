@@ -23,14 +23,14 @@ Path parameters are optional.
 
 | Parameter | Data type | Description | 
 :--- | :--- | :---
-| script-id | String | ID of script to delete. |
+| `script-id` | String | ID of script to delete. |
 
 ## Query parameters
 
 | Parameter | Data type | Description | 
 :--- | :--- | :---
-| cluster_manager_timeout | Time | Amount of time to wait for a connection to the cluster manager. Optional, defaults to `30s`. |
-| timeout | Time | The period of time to wait for a response. If a response is not received before the timeout value, the request will be dropped.
+| `cluster_manager_timeout` | Time | Amount of time to wait for a connection to the cluster manager. Optional, defaults to `30s`. |
+| `timeout` | Time | The period of time to wait for a response. If a response is not received before the timeout value, the request will be dropped.
 
 ## Example request
 
@@ -76,4 +76,8 @@ The <HTTP METHOD> <endpoint> request returns the following response fields:
 
 | Field | Data type | Description | 
 :--- | :--- | :---
-| acknowledged | Boolean | Whether the delete script request was received. |
+| `acknowledged` | Boolean | Whether the delete script request was received. |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/script/delete`.

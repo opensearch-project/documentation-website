@@ -2,9 +2,10 @@
 layout: default
 title: Connector blueprints
 has_children: false
-nav_order: 65
-parent: Connecting to externally hosted models 
-grand_parent: Integrating ML models
+nav_order: 10
+parent: Connectors
+grand_parent: Connecting to externally hosted models
+great_grand_parent: Integrating ML models
 redirect_from: 
   - /ml-commons-plugin/extensibility/blueprints/
 ---
@@ -45,55 +46,63 @@ For example, the following blueprint is a specification for an Amazon SageMaker 
   ]
 }
 ```
-{% include copy-curl.html %} 
+{% include copy.html %}
 
-## OpenSearch-provided connector blueprints
+## Finding a blueprint
 
-OpenSearch provides connector blueprints for several machine learning (ML) platforms and models. For a list of all connector blueprints provided by OpenSearch, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/).
+OpenSearch provides connector blueprints for many machine learning (ML) platforms and models. For a list of every platform and model that has a provided blueprint, along with the authentication protocol each one uses, see [OpenSearch-provided connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/).
 
 As an ML developer, you can build connector blueprints for other platforms. Using those blueprints, administrators and data scientists can create connectors for models hosted on those platforms. 
 
-## Configuration parameters
+## Request body fields
+
+The following table lists the fields in a create connector request.
 
 | Field                                            | Data type | Is required | Description                                                                                                                                                                                                                                                                                                                                                                          |
 |:-------------------------------------------------|:---|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `name`                                           | String | Yes         | The name of the connector.                                                                                                                                                                                                                                                                                                                                                           |
-| `description`                                    | String | Yes         | A description of the connector.                                                                                                                                                                                                                                                                                                                                                      |
+| `connector_id`                                   | String | No          | A unique identifier for the connector. If omitted, OpenSearch generates one automatically. |
+| `description`                                    | String | No          | A description of the connector.                                                                                                                                                                                                                                                                                                                                                      |
 | `version`                                        | Integer | Yes         | The connector version.                                                                                                                                                                                                                                                                                                                                                        |
-| `protocol`                                       | String | Yes         | The protocol for the connection. For AWS services, such as Amazon SageMaker and Amazon Bedrock, use `aws_sigv4`. For all other services, use `http`.                                                                                                                                                                                                                                  |
-| `parameters`                                     | JSON object | Yes         | The default connector parameters, including `endpoint`, `model`, and `skip_validating_missing_parameters`. Any parameters indicated in this field can be overridden by parameters specified in a predict request.                                                                                                                                                                     |
-| `credential`                                     | JSON object | Yes         | Defines any credential variables required for connecting to your chosen endpoint. ML Commons uses **AES/GCM/NoPadding** symmetric encryption to encrypt your credentials. When the cluster connection is initiated, OpenSearch creates a random 32-byte encryption key that persists in OpenSearch's system index. Therefore, you do not need to manually set the encryption key. |
+| `protocol`                                       | String | Yes         | The protocol for the connection, which determines how OpenSearch authenticates to the platform. For AWS services, such as Amazon SageMaker and Amazon Bedrock, use `aws_sigv4`. For Google Cloud Vertex AI, use `google_cloud`. For all other platforms, use `http`. For more information, see [Connector authentication]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connector-authentication/).                                                                                                                                                                                                                                  |
+| `parameters`                                     | JSON object | No          | The default connector parameters, including `endpoint`, `model`, and `skip_validating_missing_parameters`. Any parameters indicated in this field can be overridden by parameters specified in a predict request.                                                                                                                                                                     |
+| `credential`                                     | JSON object | Depends on `protocol` | Defines the credential variables that OpenSearch uses to authenticate to your endpoint. Required for all protocols except `google_cloud` in Application Default Credentials mode (`auth_mode` set to `adc`) and the `mcp_sse` and `mcp_streamable_http` protocols, which resolve credentials outside the connector. For every other protocol, including `http`, omitting this object or leaving it empty returns a `400` error. The fields that this object accepts depend on the `protocol`. For more information, see [Connector authentication]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connector-authentication/). OpenSearch uses **AES/GCM/NoPadding** symmetric encryption to encrypt your credentials. When the cluster connection is initiated, OpenSearch creates a random 32-byte encryption key that persists in OpenSearch's system index. Therefore, you do not need to manually set the encryption key. |
 | `actions`                                        | JSON array  | Yes         | Defines the actions that can run within the connector. If you're an administrator creating a connection, add the [blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/) for your desired connection.                                                                                                                                                      |
-| `backend_roles`                                  | JSON array  | Yes         | A list of OpenSearch backend roles. For more information about setting up backend roles, see [Assigning backend roles to users]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#assigning-backend-roles-to-users).                                                                                                                                               |
-| `access_mode`                                    | String | Yes         | Sets the access mode for the model, either `public`, `restricted`, or `private`. Default is `private`. For more information about `access_mode`, see [Model groups]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#model-groups).                                                                                                                               |
-| `add_all_backend_roles`                          | Boolean  | Yes         | When set to `true`, adds all `backend_roles` to the access list, which only a user with admin permissions can adjust. When set to `false`, non-admins can add `backend_roles`.                                                                                                                                                                                                       |
-| `client_config`                                  | JSON object | No          | The client configuration object, which provides settings that control the behavior of the client connections used by the connector. These settings allow you to manage connection limits and timeouts, ensuring efficient and reliable communication.                                                                                                                                |
+| `backend_roles`                                  | JSON array  | No          | A list of OpenSearch backend roles. For more information about setting up backend roles, see [Assigning backend roles to users]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#assigning-backend-roles-to-users).                                                                                                                                               |
+| `access_mode`                                    | String | No          | Sets the access mode for the model, either `public`, `restricted`, or `private`. Default is `private`. For more information about `access_mode`, see [Model groups]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#model-groups).                                                                                                                               |
+| `add_all_backend_roles`                          | Boolean  | No          | If `true`, all backend roles of the user creating the connector are added to the connector. If you set this parameter to `true` without specifying `access_mode`, the access mode is set to `restricted`. Can be used only with the `restricted` access mode, and the user must have at least one backend role. Cannot be specified at the same time as `backend_roles`. Admin users cannot set this parameter to `true`. |
+| `client_config`                                  | JSON object | No          | The client configuration object, which provides settings that control the behavior of the client connections used by the connector. These settings allow you to manage connection limits, timeouts, and TLS options, ensuring efficient and reliable communication.                                                                                                                                |
 | `parameters.skip_validating_missing_parameters`  | Boolean | No          | When set to `true`, this option allows you to send a request using a connector without validating any missing parameters. Default is `false`.                                                                                                                                                                                                                                                            |
+| `provisioned_by`                                     | String | No          | An optional attribution tag identifying the plugin or client that provisioned the connector (for example, `flow-framework`). Included in ML statistics metrics. Set at creation time only; ignored by the Update Connector API.                                                                                                                                                            |
 
 
-The `actions` parameter supports the following options.
+The `actions` object supports the following fields.
 
 | Field | Data type | Description |
 |:---|:---|:---|
-| `action_type` | String | Required. Specifies the ML Commons API operation to use upon connection. As of OpenSearch 2.9, only `predict` is supported. |
+| `action_type` | String | Required. Specifies the ML API operation to use upon connection. Valid values are `predict`, `batch_predict`, `batch_predict_status`, `cancel_batch_predict`, and `execute`. |
 | `method`  | String | Required. Defines the HTTP method for the API call. Supports `POST` and `GET`. |
 | `url` | String      | Required. Specifies the connection endpoint at which the action occurs. This must match the regex expression for the connection used when [adding trusted endpoints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index#adding-trusted-endpoints).|
-| `request_body` | String | Required. Sets the parameters contained in the request body of the action. The parameters must include `\"inputText\`, which specifies how users of the connector should construct the request payload for the `action_type`.  |
-| `pre_process_function`  | String | Optional. A built-in or custom Painless script used to preprocess the input data. OpenSearch provides the following built-in preprocess functions that you can call directly:<br> - `connector.pre_process.cohere.embedding` for [Cohere](https://cohere.com/) embedding models<br> - `connector.pre_process.openai.embedding` for [OpenAI](https://platform.openai.com/docs/guides/embeddings) embedding models <br> - `connector.pre_process.default.embedding`, which you can use to preprocess documents in neural search requests so that they are in the format that ML Commons can process with the default preprocessor (OpenSearch 2.11 or later). For more information, see [Built-in functions](#built-in-pre--and-post-processing-functions). |
-| `post_process_function` | String   | Optional. A built-in or custom Painless script used to post-process the model output data. OpenSearch provides the following built-in post-process functions that you can call directly:<br> - `connector.post_process.cohere.embedding` for [Cohere text embedding models](https://docs.cohere.com/reference/embed)<br> - `connector.post_process.openai.embedding` for [OpenAI text embedding models](https://platform.openai.com/docs/api-reference/embeddings) <br> - `connector.post_process.default.embedding`, which you can use to post-process documents in the model response so that they are in the format that neural search expects (OpenSearch 2.11 or later). For more information, see [Built-in functions](#built-in-pre--and-post-processing-functions). |
+| `request_body` | String | Optional. The request body template that OpenSearch sends to the model endpoint for the action. Use `${parameters.<parameter_name>}` placeholders to insert parameter values, for example, `${parameters.inputText}`. |
+| `pre_process_function`  | String | Optional. A built-in or custom Painless script used to preprocess the input data. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/). OpenSearch provides the following built-in preprocess functions that you can call directly:<br> - `connector.pre_process.cohere.embedding` for [Cohere](https://cohere.com/) embedding models<br> - `connector.pre_process.openai.embedding` for [OpenAI](https://platform.openai.com/docs/guides/embeddings) embedding models <br> - `connector.pre_process.default.embedding` for other text embedding models that accept a list of strings as input (OpenSearch 2.11 or later). For more information, see [Built-in functions](#built-in-pre--and-post-processing-functions). |
+| `post_process_function` | String   | Optional. A built-in or custom Painless script used to post-process the model output data. OpenSearch provides the following built-in post-process functions that you can call directly:<br> - `connector.post_process.cohere.embedding` for [Cohere text embedding models](https://docs.cohere.com/reference/embed)<br> - `connector.post_process.openai.embedding` for [OpenAI text embedding models](https://platform.openai.com/docs/api-reference/embeddings) <br> - `connector.post_process.default.embedding` for other text embedding models that return a two-dimensional float array (OpenSearch 2.11 or later). For more information, see [Built-in functions](#built-in-pre--and-post-processing-functions). |
 | `headers` | JSON object | Specifies the headers used in the request or response body. Default is `ContentType: application/json`. If your third-party ML tool requires access control, define the required `credential` parameters in the `headers` parameter. |
+| `supports_structured_output` | Boolean | Optional. Applies only to `predict` actions of LLM connectors used for [agentic memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/) fact extraction. If `true`, OpenSearch adds a structured output field to the request body during fact extraction so that the model returns the extracted facts in a fixed JSON schema (constrained decoding). OpenSearch selects the field based on the provider in the action `url`: `toolConfig` for the Amazon Bedrock Converse API, `generationConfig` for Google Gemini, and `response_format` for OpenAI, Azure OpenAI, DeepSeek, the Cohere v2 Chat API, and other endpoints whose path contains `/v1/chat/completions`. The field is added only if the `request_body` is a JSON object. If `false`, or if OpenSearch does not recognize the provider, OpenSearch adds format instructions to the fact extraction prompt. Default is `false`. |
 
-The `client_config` parameter supports the following options.
+The `client_config` object supports the following fields.
 
 | Field  | Data type | Description |
 |:---|:---|:---|
 | `max_connection` | Integer   | The maximum number of concurrent connections that the client can establish to the server. Some remote services, like SageMaker, constrain the maximum number of concurrent connections and throw a throttling exception if the number of concurrent connections exceeds the threshold. The maximum number of concurrent OpenSearch connections is `max_connection`*`node_number_for_connector`. To mitigate this issue, try to decrease the value of this parameter and modify the retry settings in `client_config`. Default is `30`. |
-| `connection_timeout` | Integer | The maximum amount of time (in seconds) that the client will wait while trying to establish a connection to the server. A timeout prevents the client from waiting indefinitely and allows the client to recover when it encounters unreachable network endpoints. |
-| `read_timeout` | Integer | The maximum amount of time (in seconds) that the client will wait for a response from the server after sending a request. This is useful when the server is slow to respond or encounters an issue while processing a request. |
+| `connection_timeout` | Integer | The maximum amount of time (in seconds) that the client will wait while trying to establish a connection to the server. A timeout prevents the client from waiting indefinitely and allows the client to recover when it encounters unreachable network endpoints. Default is `30`. |
+| `read_timeout` | Integer | The maximum amount of time (in seconds) that the client will wait for a response from the server after sending a request. This is useful when the server is slow to respond or encounters an issue while processing a request. Default is `30`. |
 | `retry_backoff_policy`  | String   | The backoff policy for retries to the remote connector. This is useful when there is spike in traffic causing throttling exceptions. Supported policies are `constant`, `exponential_equal_jitter`, and `exponential_full_jitter`. Default is `constant`. |
 | `max_retry_times`  | Integer   | The maximum number of times that a single remote inference request will be retried. This is useful when there is a spike in traffic causing throttling exceptions. When set to `0`, retrying is disabled. When set to `-1`, OpenSearch does not limit the number of `retry_times`. Setting this to a positive integer specifies the maximum number of retry attempts. Default is `0`.       |
 | `retry_backoff_millis` | Integer   | The base backoff time in milliseconds for retry policy. The suspend time during two retries is determined by this parameter and `retry_backoff_policy`.  Default is `200`. |
 | `retry_timeout_seconds` | Integer   | The timeout value, in seconds, for the retry. If the retry can not succeed within the specified amount of time, the connector will stop retrying and throw an exception. Default is `30`. |
+| `skip_ssl_verification` | Boolean   | If set to `true`, disables SSL certificate verification for the connector, allowing connections to endpoints with self-signed or otherwise invalid certificates. Use only in development or testing environments. If set to `false`, SSL certificate verification remains enabled (recommended for production). Default is `false`. |
+| `mutual_tls_enabled` | Boolean | If set to `true`, the connector presents a client certificate to the endpoint using mutual TLS (mTLS). Provide the certificate material in the connector's `credential` object. Supported only for connectors that use the `http` protocol. Cannot be enabled together with `skip_ssl_verification`. Default is `false`. For more information, see [Client certificate authentication]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/http-authentication/#client-certificate-authentication). |
+| `keystore_type` | String | The format of the client certificate material supplied in the `credential` object. Valid values are `PEM` and `PKCS12` (not case sensitive). Applies only when `mutual_tls_enabled` is `true`. Default is `PEM`. |
 
 ## Built-in pre- and post-processing functions
 
@@ -106,11 +115,11 @@ OpenSearch provides the following pre- and post-processing functions:
 
 - OpenAI: `connector.pre_process.openai.embedding` and `connector.post_process.openai.embedding`
 - Cohere: `connector.pre_process.cohere.embedding` and `connector.post_process.cohere.embedding`
-- [Amazon SageMaker default functions for neural search](#amazon-sagemaker-default-pre--and-post-processing-functions-for-neural-search): `connector.pre_process.default.embedding` and `connector.post_process.default.embedding`
+- [Amazon SageMaker default functions for semantic search](#amazon-sagemaker-default-pre--and-post-processing-functions-for-semantic-search): `connector.pre_process.default.embedding` and `connector.post_process.default.embedding`
 
-### Amazon SageMaker default pre- and post-processing functions for neural search
+### Amazon SageMaker default pre- and post-processing functions for semantic search
 
-When you perform vector search using [neural search]({{site.url}}{{site.baseurl}}/search-plugins/neural-search/), the neural search request is routed first to ML Commons and then to the model. If the model is one of the [pretrained models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/), it can parse the ML Commons request and return the response in the format that ML Commons expects. However, for a model hosted on an external platform, the expected format may be different from the ML Commons format. The default pre- and post-processing functions translate between the format that the model expects and the format that neural search expects. 
+When you use [semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/semantic-search/), OpenSearch sends text to the model and expects embeddings in return. [Pretrained models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) accept and return these formats. However, a model hosted on an external platform may expect a different format. The default pre- and post-processing functions translate between the two formats.
 
 For the default functions to be applied, the model input and output must be in the format described in the following sections.
 
@@ -138,7 +147,7 @@ POST /_plugins/_ml/connectors/_create
     {
       "action_type": "predict",
       "method": "POST",
-      "url": "sagemaker.ap-northeast-1.amazonaws.com/endpoints/",
+      "url": "https://runtime.sagemaker.ap-northeast-1.amazonaws.com/endpoints/<endpoint_name>/invocations",
       "headers": {
         "content-type": "application/json"
       },
@@ -155,9 +164,9 @@ The `request_body` template must be `${parameters.input}`.
 
 ### Preprocessing function 
 
-The `connector.pre_process.default.embedding` default preprocessing function parses the neural search request and transforms it into the format that the model expects as input.
+The `connector.pre_process.default.embedding` default preprocessing function parses the text input from OpenSearch and transforms it into the format that the model expects as input.
 
-The ML Commons [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) provides parameters in the following format:
+The [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) provides parameters in the following format:
 
 ```json
 {
@@ -175,7 +184,7 @@ The default preprocessing function sends the `input` field contents to the model
 
 ### Post-processing function 
 
-The `connector.post_process.default.embedding` default post-processing function parses the model response and transforms it into the format that neural search expects as input.
+The `connector.post_process.default.embedding` default post-processing function parses the model response and transforms it into the embedding format that OpenSearch expects.
 
 The remote text embedding model output must be a two-dimensional float array, each element of which represents an embedding of a string from the input list. For example, the following two-dimensional array corresponds to the embedding of the list `["hello", "world"]`:
 

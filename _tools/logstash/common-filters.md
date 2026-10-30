@@ -9,15 +9,17 @@ redirect_from:
 
 # Common filter plugins
 
-This page contains a list of common filter plugins.
+Filter plugins modify events as they pass through the pipeline. Use the `mutate` filter to change field values and types and the `grok` filter to parse unstructured text into fields. All filter plugins also support a set of common options for adding and removing fields and tags.
 
+<!-- vale off -->
 ## mutate
+<!-- vale on -->
 
-You can use the `mutate` filter to change the data type of a field. For example, you can use the `mutate` filter if you're sending events to OpenSearch and you need to change the data type of a field to match any existing mappings.
+Use the `mutate` filter to rename, remove, replace, and modify fields. For example, if you send events to OpenSearch and a field's data type doesn't match the existing index mapping, use the `mutate` filter to convert the field to the mapped type.
 
-To convert the `quantity` field from a `string` type to an `integer` type:
+The following pipeline converts the `quantity` field to an integer:
 
-```yml
+```ruby
 input {
   http {
     host => "127.0.0.1"
@@ -27,59 +29,51 @@ input {
 
 filter {
   mutate {
-   convert => {"quantity" => "integer"}
+    convert => { "quantity" => "integer" }
   }
 }
 
 output {
-  file {
-    path => "output.txt"
-  }
+  stdout { }
 }
 ```
+{% include copy.html %}
 
-#### Sample output
+To test the pipeline, start Logstash and send a request in which `quantity` is a string:
 
-You can see that the type of the `quantity` field is changed from a `string` to an `integer`.
+```bash
+curl -XPUT -H "Content-Type: application/json" -d '{"amount": 10, "quantity": "3"}' http://localhost:8080
+```
+{% include copy.html %}
 
-```yml
+In the resulting event, `quantity` is an integer:
+
+```
 {
-  "quantity" => 3,
-  "host" => "127.0.0.1",
-  "@timestamp" => 2021-05-23T19:02:08.026Z,
-  "amount" => 10,
-  "@version" => "1",
-  "headers" => {
-    "request_path" => "/",
-    "connection" => "keep-alive",
-    "content_length" => "41",
-    "http_user_agent" => "PostmanRuntime/7.26.8",
-    "request_method" => "PUT",
-    "cache_control" => "no-cache",
-    "http_accept" => "*/*",
-    "content_type" => "application/json",
-    "http_version" => "HTTP/1.1",
-    "http_host" => "127.0.0.1:8080",
-    "accept_encoding" => "gzip, deflate, br",
-    "postman_token" => "ffd1cdcb-7a1d-4d63-90f8-0f2773069205"
-   }
+      "quantity" => 3,
+        "amount" => 10,
+    "@timestamp" => 2026-10-16T17:57:09.851542204Z,
+      "@version" => "1",
+    ...
 }
 ```
 
-Other data types you can convert to are `float`, `string`, and `boolean` values. If you pass in an array, the `mutate` filter converts all the elements in the array. If you pass a `string` like "world" to cast to an `integer` type, the result is 0 and Logstash continues processing events.
+You can also convert fields to the `float`, `string`, and `boolean` types. If the field contains an array, the filter converts each element of the array. If a value can't be converted, for example, if you convert the string `world` to an integer, the filter leaves the value unchanged, adds the `_mutate_error` tag to the event, and Logstash continues processing the event.
 
-Logstash supports a few common options for all filter plugins:
+## Common options
+
+All filter plugins support the following options.
 
 Option | Description
 :--- | :---
 `add_field` | Adds one or more fields to the event.
 `remove_field` | Removes one or more fields from the event.
-`add_tag` | Adds one or more tags to the event. You can use tags to perform conditional processing on events depending on which tags they contain.
+`add_tag` | Adds one or more tags to the event. Use tags to process events conditionally based on the tags they contain.
 `remove_tag` | Removes one or more tags from the event.
 
-For example, you can remove the `host` field from the event:
+The following pipeline removes the `host` field from each event:
 
-```yml
+```ruby
 input {
   http {
     host => "127.0.0.1"
@@ -89,71 +83,81 @@ input {
 
 filter {
   mutate {
-    remove_field => {"host"}
+    remove_field => ["host"]
   }
 }
 
 output {
-  file {
-    path => "output.txt"
-  }
+  stdout { }
 }
 ```
+{% include copy.html %}
 
+<!-- vale off -->
 ## grok
+<!-- vale on -->
 
-With the `grok` filter, you can parse unstructured data and and structure it into fields. The `grok` filter uses text patterns to match text in your logs. You can think of text patterns as variables containing regular expressions.
+Use the `grok` filter to parse unstructured text into fields. The `grok` filter matches text using patterns, which are named regular expressions.
 
-The format of a text pattern is as follows:
+A `grok` pattern has the following format:
 
-```bash
+```
 %{SYNTAX:SEMANTIC}
 ```
 
-`SYNTAX` is the format a piece of text should be in for the pattern to match. You can enter any of `grok`'s predefined patterns. For example, you can use the email identifier to match an email address from a given piece of text.
+The pattern consists of the following elements:
 
-`SEMANTIC` is an arbitrary name for the matched text. For example, if you're using the email identifier syntax, you can name it “email.”
+- `SYNTAX`: The name of the pattern that the text must match. Use any of the predefined `grok` patterns. For example, the `EMAILADDRESS` pattern matches an email address.
+- `SEMANTIC`: The name of the field in which to store the matched text. For example, if you match an email address, you can name the field `email`.
 
-The following request consists of the IP address of the visitor, name of the visitor, the timestamp of the request, the HTTP verb and URL, the HTTP status code, and the number of bytes:
+To convert the matched text to a number, add `:int` or `:float` after the field name, for example, `%{INT:http_status:int}`.
+
+The following access log line contains the IP address of the client, the identity and user name of the client, the time of the request, the HTTP method and path, the HTTP status code, and the size of the response in bytes:
 
 ```bash
 184.252.108.229 - joe [20/Sep/2017:13:22:22 +0200] GET /products/view/123 200 12798
 ```
 
-To split this request into different fields:
+The following `grok` filter parses this line into fields:
 
-```yml
+```ruby
 filter {
   grok {
-   match => { "message" => " %{IP: ip_address} %{USER:identity}
-                             %{USER:auth} \[%{HTTPDATE:reg_ts}\]
-                             \"%{WORD:http_verb}
-                             %{URIPATHPARAM: req_path}
-                             \" %{INT:http_status:int}
-                             %{INT:num_bytes:int}"}
+    match => { "message" => "%{IP:ip_address} %{USER:identity} %{USER:auth} \[%{HTTPDATE:reg_ts}\] %{WORD:http_verb} %{URIPATHPARAM:req_path} %{INT:http_status:int} %{INT:num_bytes:int}" }
   }
 }
 ```
+{% include copy.html %}
 
-where:
+The pattern doesn't contain spaces inside the `%{...}` expressions. The spaces between expressions must match the spaces in the log line exactly.
 
-- `IP`: matches the IP address field.
-- `USER`: matches the user name.
-- `WORD`: matches the HTTP verb.
-- `URIPATHPARAM`: matches the URI path.
-- `INT`: matches the HTTP status field.
-- `INT`: matches the number of bytes.
+The filter uses the following patterns.
 
-This is what the event looks like after the `grok` filter breaks it down into individual fields:
+Pattern | Matches
+:--- | :---
+`IP` | The client IP address.
+`USER` | The identity of the client (`-` in this example) and the user name.
+`HTTPDATE` | The time of the request.
+`WORD` | The HTTP method.
+`URIPATHPARAM` | The request path.
+`INT` | The HTTP status code and the response size.
 
-```yml
-ip_address: 184.252.108.229
-identity: joe
-reg_ts: 20/Sep/2017:13:22:22 +0200
-http_verb:GET
-req_path: /products/view/123
-http_status: 200
-num_bytes: 12798
+The filter adds the following fields to the event:
+
+```
+{
+     "ip_address" => "184.252.108.229",
+       "identity" => "-",
+           "auth" => "joe",
+         "reg_ts" => "20/Sep/2017:13:22:22 +0200",
+      "http_verb" => "GET",
+       "req_path" => "/products/view/123",
+    "http_status" => 200,
+      "num_bytes" => 12798,
+    ...
+}
 ```
 
-For common log formats, you use the predefined patterns defined here⁠---[Logstash patterns](https://github.com/logstash-plugins/logstash-patterns-core/blob/main/patterns/ecs-v1). You can make any adjustments to the results with the `mutate` filter.
+If the text doesn't match the pattern, the filter adds the `_grokparsefailure` tag to the event.
+
+Logstash includes predefined patterns for common log formats. For the list of patterns, see [Logstash patterns](https://github.com/logstash-plugins/logstash-patterns-core/tree/main/patterns/ecs-v1). To modify the parsed fields, use the `mutate` filter.

@@ -54,9 +54,9 @@ The `galician` analyzer is built using the following components:
 
 - Token filters:
   - lowercase
-  - stop (French)
+  - stop (Galician)
   - keyword
-  - stemmer (French)
+  - stemmer (Galician)
 
 ## Custom Galician analyzer
 

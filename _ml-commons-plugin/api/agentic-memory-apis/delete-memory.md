@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Delete memory
+title: Delete agentic memory
 parent: Agentic memory APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 53
 ---
 
-# Delete Memory API
+# Delete Agentic Memory API
 **Introduced 3.3**
 {: .label .label-purple }
 
@@ -19,7 +19,7 @@ Use this API to delete a memory by type and ID.
 ### Endpoints
 
 ```json
-DELETE /_plugins/_ml/memory_containers/<memory_container_id>/memories/<type>/<id>
+DELETE /_plugins/_ml/memory_containers/{memory_container_id}/memories/{type}/{id}
 ```
 
 ### Path parameters
@@ -64,14 +64,37 @@ DELETE /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/history/eMx
 
 ```json
 {
-  "result": "deleted",
+  "_index": ".plugins-ml-am-default-memory-working",
   "_id": "XyEuiJkBeh2gPPwzjYWM",
   "_version": 2,
+  "result": "deleted",
   "_shards": {
-    "total": 2,
+    "total": 1,
     "successful": 1,
     "failed": 0
-  }
+  },
+  "_seq_no": 6,
+  "_primary_term": 1
+}
+```
+
+### Error responses
+
+If you attempt to delete a memory from a container that doesn't exist, OpenSearch returns a 404 Not Found error. OpenSearch also returns a 404 error if the memory doesn't exist. The following response is returned for a container that doesn't exist:
+
+```json
+{
+  "error": {
+    "root_cause": [
+      {
+        "type": "status_exception",
+        "reason": "Memory container not found"
+      }
+    ],
+    "type": "status_exception",
+    "reason": "Memory container not found"
+  },
+  "status": 404
 }
 ```
 
@@ -81,10 +104,13 @@ The following table lists all response body fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
+| `_index` | String | The name of the index from which the memory was deleted. |
 | `result` | String | The result of the delete operation. |
 | `_id` | String | The ID of the deleted memory. |
 | `_version` | Integer | The version number after deletion. |
 | `_shards` | Object | Information about the shards involved in the operation. |
+| `_seq_no` | Long | The sequence number assigned to the delete operation. |
+| `_primary_term` | Long | The primary term of the index. |
 
 ## Delete memories by query
 
@@ -93,7 +119,7 @@ Use this API to delete multiple memories using a query to match specific criteri
 ### Endpoints
 
 ```json
-POST /_plugins/_ml/memory_containers/<memory_container_id>/memories/<type>/_delete_by_query
+POST /_plugins/_ml/memory_containers/{memory_container_id}/memories/{type}/_delete_by_query
 ```
 
 ### Path parameters

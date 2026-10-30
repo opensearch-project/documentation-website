@@ -4,4 +4,4 @@ nonword: true
 level: error
 scope: heading
 tokens:
-  - '(?::\s)[a-z]+'
+  - '(?::\s)(?!k-NN)[a-z]+'

@@ -1,35 +1,40 @@
 ---
 layout: default
 title: Metric analytics
-nav_order: 40
+parent: Classic observability apps
+nav_order: 30
 ---
 
 # Metric analytics
 Introduced 2.4
 {: .label .label-purple }
 
-With the release of OpenSearch 2.4, you can now ingest and visualize metric data stored directly in OpenSearch using the **Metrics** tool. This equips you with tools to analyze and correlate data across logs, traces, and metrics.
+You can ingest and visualize metric data stored directly in OpenSearch using the **Metrics** tool. This equips you with tools to analyze and correlate data across logs, traces, and metrics.
 
-Before the introduction of this feature, you could only ingest and visualize logs and traces from your monitored environments. With the **Metrics** tool, you can now observe your digital assets with more granularity, gain deeper insight into the health of your infrastructure, and better inform your root cause analysis.
+Metric analytics is a [classic observability app]({{site.url}}{{site.baseurl}}/observing-your-data/classic-observability-apps/). To explore metrics in an Observability workspace, see [Metrics]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/discover-metrics/).
+
+Before the introduction of this feature, you could only ingest and visualize logs and traces from your monitored environments. With the **Metrics** tool, you can observe your digital assets with more granularity, gain deeper insight into the health of your infrastructure, and better inform your root cause analysis.
 
 The **Metrics** tool offers federated visualization capabilities in addition to the following:
 
  - An OpenSearch cluster containing an [OpenTelemetry (OTel)-compatible metrics index](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability/metrics) with OTel-based signals. See [What is OpenTelemetry?](https://opentelemetry.io/docs/what-is-opentelemetry/) for an overview of OTel.
- - An OpenSearch cluster containing a [Prometheus data source](https://github.com/opensearch-project/sql/blob/main/docs/dev/datasource-prometheus.md) connected to a Prometheus server. 
+ - An OpenSearch cluster containing a [Prometheus data source](https://github.com/opensearch-project/sql/blob/{{site.opensearch_major_minor_version}}/docs/dev/datasource-prometheus.md) connected to a Prometheus server. 
 
 The following image displays the flow for retrieving metrics from Prometheus and displaying them on a visualization dashboard.
 
-<img src="{{site.url}}{{site.baseurl}}/images/metrics/prom-metrics.png" alt="Prometheus data source" width="700"/>
+![Prometheus data source]({{site.url}}{{site.baseurl}}/images/metrics/prom-metrics.png){: width="700" }
 
 The following image displays an observability dashboard that visualizes metric data from the OpenSearch index using OTel queries.
 
-<img src="{{site.url}}{{site.baseurl}}/images/metrics/otel-metrics.png" alt="OTel data source" width="700"/>
+![OTel data source]({{site.url}}{{site.baseurl}}/images/metrics/otel-metrics.png){: width="700" }
 
 ---
 
-## Configuring Prometheus to send metric data to OpenSearch
+## Configuring a Prometheus connection using the API
 
-You must first create a connection from [Prometheus](https://prometheus.io/) to OpenSearch using the [SQL plugin](https://github.com/opensearch-project/sql). You can then configure a connection to Prometheus by using the `_datasources` API endpoint. 
+OpenSearch doesn't ingest Prometheus metrics. Instead, the [SQL plugin](https://github.com/opensearch-project/sql) queries [Prometheus](https://prometheus.io/) directly each time you view or query the metrics. To connect OpenSearch to a Prometheus server, create a Prometheus data source using the `_datasources` API endpoint. The Prometheus URI must be reachable from the OpenSearch nodes.
+
+Before you create a data source, set the `plugins.query.datasources.encryption.masterkey` setting on all OpenSearch nodes. For more information, see [Prerequisites]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/#prerequisites). You can also create the connection in OpenSearch Dashboards. For more information, see [Connecting Prometheus to OpenSearch]({{site.url}}{{site.baseurl}}/dashboards/management/connect-prometheus/).
 
 The following example shows a request that configures a Prometheus data source without any authentication:
 
@@ -56,8 +61,8 @@ POST _plugins/_query/_datasources
         "prometheus.uri" : "http://localhost:8080",
         "prometheus.auth.type" : "awssigv4",
         "prometheus.auth.region" : "us-east-1",
-        "prometheus.auth.access_key" : "{{accessKey}}"
-        "prometheus.auth.secret_key" : "{{secretKey}}"
+        "prometheus.auth.access_key" : "<access_key>",
+        "prometheus.auth.secret_key" : "<secret_key>"
     }
 }
 ```
@@ -65,14 +70,14 @@ POST _plugins/_query/_datasources
 
 After configuring the connection, you can view Prometheus metrics in OpenSearch Dashboards by going to the **Observability** > **Metrics** page, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/metrics/metrics1.png" alt="Prometheus metrics displayed on a dashboard" width="700"/>
+![Prometheus metrics displayed on a dashboard]({{site.url}}{{site.baseurl}}/images/metrics/metrics1.png){: width="700" }
 
 ### Developer resources
 
 See the following developer resources for sample code, articles, tutorials, and API references:
 
-* [Datasource Settings](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/datasources.rst), which contains information about authentication and authorization of data source APIs.
-* [Prometheus Connector](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/connectors/prometheus_connector.rst), which contains configuration information.
+* [Data source settings](https://github.com/opensearch-project/sql/blob/{{site.opensearch_major_minor_version}}/docs/user/ppl/admin/datasources.md), which contains information about authentication and authorization of data source APIs.
+* [Prometheus Connector](https://github.com/opensearch-project/sql/blob/{{site.opensearch_major_minor_version}}/docs/user/ppl/admin/connectors/prometheus_connector.md), which contains configuration information.
 * [Simple Schema for Observability](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability), which contains information about the OTel schema and ingest pipeline.
 * [OTel Metrics Source](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/otel-metrics-source), which contains information about the Data Prepper metrics pipeline and ingestion.
 
@@ -109,7 +114,7 @@ To visualize OTel metric data in OpenSearch, follow these steps:
           processors: [batch]
           exporters: [otlp/logs,  opensearch/logs, debug]
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
     
 4. Configure the [Data Prepper pipeline](https://github.com/opensearch-project/opentelemetry-demo/blob/main/src/dataprepper/README.md) to emit the collected metric signals into the OpenSearch metrics index.
 
@@ -144,12 +149,12 @@ To visualize OTel metric data in OpenSearch, follow these steps:
             index: ss4o_metrics-otel-%{yyyy.MM.dd}
             bulk_size: 4
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 5. Ingest metric data into OpenSearch. As the demo starts generating data, the metric signals will be added to the OpenSearch index that supports the OpenTelemetry Metrics schema format.
 6. On the **Metrics** page, choose `Otel-Index` from the **Data sources** dropdown menu and `Simple Schema for Observability Index` from the **OTel index** dropdown menu. A visualization is displayed, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/metrics/otel-metrics.png" alt="OTel metrics dashboard" width="700"/>
+![OTel metrics dashboard]({{site.url}}{{site.baseurl}}/images/metrics/otel-metrics.png){: width="700" }
 
 ---
 
@@ -159,11 +164,11 @@ Introduced 2.14
 
 You can view metrics from remote OpenSearch clusters by using the **Metrics** tool. Select the database icon on the upper-right toolbar and choose a cluster from the **DATA SOURCES** dropdown menu, as shown in the following image. You can switch from a local cluster to a remote cluster.
 
-<img src="{{site.url}}{{site.baseurl}}/images/metrics/remote-cluster-selection.png" alt="Switching clusters using the Metrics analytics tool" width="700"/>
+![Switching clusters using the Metrics analytics tool]({{site.url}}{{site.baseurl}}/images/metrics/remote-cluster-selection.png){: width="700" }
 
 You can also view metric visualizations from other sources alongside local metric visualizations. From the **DATA SOURCES** dropdown menu, choose the remote metric visualization to add it to the group of visualizations already shown on the dashboard. An example dashboard is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/metrics/otel-metrics-remote-cluster-selection.png" alt="Metrics dashboard" width="700"/>
+![Metrics dashboard]({{site.url}}{{site.baseurl}}/images/metrics/otel-metrics-remote-cluster-selection.png){: width="700" }
 
 To learn about multi-cluster support for data sources, see [Enable OpenSearch Dashboards to support multiple OpenSearch clusters](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/1388).
 
@@ -173,31 +178,38 @@ You can create visualizations using the metric data collected by your OpenSearch
 
 To create these visualizations, follow these steps:
 
-1. From the OpenSearch Dashboards main menu, navigate to **Observability** > **Metrics** > **Available Metrics**.
-2. Choose the metrics to add to your visualization and then select **Save**.
-3. When prompted for a **Custom operational dashboards/application**, choose one of the listed options. You can edit the predefined name values in the **Metric Name** field.
-4. Select **Save** to save your visualization. An example visualization is shown in the following image.
+1. On the top menu, go to **Observability** > **Metrics**.
+2. In the **Metrics source** list, select **Prometheus** or **OpenTelemetry**.
+3. In the **Available Metrics** list, select the metrics to add to your visualization. If you have more than one Prometheus connection, each connection's metrics are listed separately. The visualization title shows the connection and metric name, for example, `my_prometheus.go_goroutines`.
+4. Select **Save as visualization**.
+5. Optionally, edit the metric name and select the operational dashboards or applications to which to add the visualization.
+6. Select **Save** to save your visualization. An example visualization is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/metrics/metrics2.png" alt="Metrics analytics dashboard with visualizations" width="700"/>
+![Metrics analytics dashboard with visualizations]({{site.url}}{{site.baseurl}}/images/metrics/metrics2.png){: width="700" }
 
 ## Defining PPL queries for Prometheus metrics
 
-You can define [Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) queries to interact with metrics collected by Prometheus. The following is an example PPL query for a Prometheus metric:
+You can define [Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/index/) queries to interact with metrics collected by Prometheus. The following is an example PPL query for a Prometheus metric:
 
 ```
 source = my_prometheus.prometheus_http_requests_total | stats avg(@value) by span(@timestamp,15s), handler, code
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 ### Creating a custom visualization based on the PPL query
 
 To create a custom visualization based on the PPL query, follow these steps:
 
-1. From the **Logs** page, select > **Event Explorer**.
-2. On the **Explorer** page,  enter your PPL query and select **Run**. Then select **Save**.
-3. When prompted to choose a **Custom Operational Dashboards/Application**, select one of the listed options. Optionally, you can edit the predefined name values in the **Metric Name** fields and can choose to save the visualization as a metric.
-5. Select **Save** to save your custom visualization. 
+1. On the top menu, go to **Observability** > **Logs**, and then select **Event Explorer**.
+2. Enter your PPL query and select **Run**.
+3. Select the **Visualizations** tab, and then select **Save**.
+4. Optionally, in the **Custom operational dashboards/application** list, select the dashboards or applications to which to add the visualization. Enter a **Name** for the visualization. To save the visualization as a metric, turn on **Save as Metric**.
+5. Select **Save** to save your custom visualization.
 
 Only queries that include a time-series visualization and statistics or span information can be saved as a metric, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/metrics/metrics3.png" alt="Saving queries as metrics" width="700"/>
+![Saving queries as metrics]({{site.url}}{{site.baseurl}}/images/metrics/metrics3.png){: width="700" }
+
+## Related documentation
+
+- [Connecting Prometheus to OpenSearch]({{site.url}}{{site.baseurl}}/dashboards/management/connect-prometheus/)

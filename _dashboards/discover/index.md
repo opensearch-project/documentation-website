@@ -1,0 +1,24 @@
+---
+layout: default
+title: Exploring data
+nav_order: 40
+has_children: true
+redirect_from:
+  - /dashboards/discover/
+---
+
+# Exploring data
+
+OpenSearch Dashboards provides several tools for exploring data, enabling everything from basic one-time queries to savable API-equivalent queries. You can do the following:
+
+- Explore data in the **Discover** or **Dashboards** search bar using Dashboards Query Language (DQL), a Dashboards-specific language for basic queries, or Query String Query Language, based on Apache Lucene.
+- Use the **Query Workbench** tool to execute queries in SQL or Piped Processing Language (PPL).
+- Use the **Dev Tools** console to run queries in Query Domain-specific Language (Query DSL). With Query DSL you can run any query as if from the API.
+- Display and save visuals of queried data in the **Discover** and **Visualize** tools.
+
+
+To learn more about   |  Go to | Query languages used
+:-------------------   | :-----                     | :-----
+Exploring data quickly | [Exploring data with Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) | [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/)<br/>or<br/>[Query String Query Language (Lucene)]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/)
+Querying data using the API |[Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index/) | [Query Domain-specific Language (Query DSL)]({{site.url}}{{site.baseurl}}/query-dsl/)
+Querying data | [Using Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/) | [Structured Query Language (SQL)]({{site.url}}{{site.baseurl}}/sql-and-ppl/sql/)<br/>or<br/>[Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/)

@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Configuring the Security backend
+title: Configuring the security backend
 parent: Configuration
-nav_order: 5
+nav_order: 20
 redirect_from:
  - /security-plugin/configuration/configuration/
 ---
 
-# Configuring the Security backend
+# Configuring the security backend
 
 One of the first steps when setting up the Security plugin is deciding which authentication backend to use. The role played by the backend in authentication is covered in [steps 2 and 3 of the authentication flow]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/#authentication-flow). The plugin has an internal user database, but many people prefer to use an existing authentication backend, such as an LDAP server, or some combination of the two.
 
@@ -151,6 +151,12 @@ The following table shows the possible values for the `type` setting under `auth
 
 The default `config/opensearch-security/config.yml` file included in your OpenSearch distribution contains many configuration examples. Use these examples as a starting point and customize them to your needs. 
 
+
+## Authentication and authorization over gRPC
+**Introduced 3.5**
+{: .label .label-purple }
+
+When the Security plugin is enabled and not running in SSL-only mode, requests over gRPC are subject to authentication and authorization. The gRPC transport shares all authentication backends with the HTTP layer and respects the `http_enabled` setting in authentication domains. Only JWT authentication is supported over gRPC. For more information, see [Using JWT authentication with gRPC]({{site.url}}{{site.baseurl}}/security/authentication-backends/jwt/#using-jwt-authentication-with-grpc).
 
 ## Next steps
 

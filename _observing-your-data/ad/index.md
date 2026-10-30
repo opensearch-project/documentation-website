@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Anomaly detection
-nav_order: 80
+nav_order: 120
 has_children: true
 redirect_from:
   - /monitoring-plugins/ad/
@@ -17,7 +17,7 @@ Conventional techniques like visualizations and dashboards can make it difficult
 
 Anomaly detection automatically detects anomalies in your OpenSearch data in near real time using the Random Cut Forest (RCF) algorithm. RCF is an unsupervised machine learning algorithm that models a sketch of your incoming data stream to compute an _anomaly grade_ and _confidence score_ value for each incoming data point. These values are used to differentiate an anomaly from normal variations. For more information about how RCF works, see [Robust Random Cut Forest Based Anomaly Detection on Streams](https://www.semanticscholar.org/paper/Robust-Random-Cut-Forest-Based-Anomaly-Detection-on-Guha-Mishra/ecb365ef9b67cd5540cc4c53035a6a7bd88678f9).
 
-You can pair the Anomaly Detection plugin with the [Alerting plugin]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/) to notify you as soon as an anomaly is detected.
+You can pair anomaly detection with [Alerting]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/index/) to notify you as soon as an anomaly is detected.
 {: .note}
 
 ## Getting started with anomaly detection in OpenSearch Dashboards
@@ -33,7 +33,7 @@ A _detector_ is an individual anomaly detection task. You can define multiple de
 
 3. In the **Select data** pane, specify the data source by selecting one or more sources from the **Index** dropdown menu. You can select indexes, index patterns, or aliases.
 
-   - Detectors can use remote indexes, which you can access using the `cluster-name:index-name` pattern. For more information, see [Cross-cluster search]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/). Starting in OpenSearch Dashboards 2.17, you can also select clusters and indexes directly. If the Security plugin is enabled, see [Selecting remote indexes with fine-grained access control]({{site.url}}{{site.baseurl}}/observing-your-data/ad/security/#selecting-remote-indexes-with-fine-grained-access-control) in the [Anomaly detection security]({{site.url}}{{site.baseurl}}/observing-your-data/ad/security/) documentation.
+   - Detectors can use remote indexes, which you can access using the `cluster-name:index-name` pattern. For more information, see [Cross-cluster search]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/). You can also select clusters and indexes directly. If the Security plugin is enabled, see [Selecting remote indexes with fine-grained access control]({{site.url}}{{site.baseurl}}/observing-your-data/ad/security/#selecting-remote-indexes-with-fine-grained-access-control) in the [Anomaly detection security]({{site.url}}{{site.baseurl}}/observing-your-data/ad/security/) documentation.
 
    - To create a cross-cluster detector in OpenSearch Dashboards, you must have the following [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/): `indices:data/read/field_caps`, `indices:admin/resolve/index`, and `cluster:monitor/remote/info`.
 
@@ -73,7 +73,7 @@ The following example query retrieves documents in which the `urlPath.keyword` f
 
 5. In the **Timestamp** pane, select a field from the **Timestamp field** dropdown list.
 
-6. (Optional) To store anomaly detection results in a custom index, select **Enable custom results index** and provide a name for your index (for example, `abc`). The plugin creates an alias prefixed with `opensearch-ad-plugin-result-` followed by your chosen name (for example, `opensearch-ad-plugin-result-abc`). This alias points to an actual index with a name containing the date and a sequence number, such as `opensearch-ad-plugin-result-abc-history-2024.06.12-000002`, where your results are stored.
+6. (Optional) To store anomaly detection results in a custom index, select **Enable custom results index** and provide a name for your index (for example, `abc`). OpenSearch creates an alias prefixed with `opensearch-ad-plugin-result-` followed by your chosen name (for example, `opensearch-ad-plugin-result-abc`). This alias points to an actual index with a name containing the date and a sequence number, such as `opensearch-ad-plugin-result-abc-history-2024.06.12-000002`, where your results are stored.
 
 You can use `-` to separate the namespace to manage custom results index permissions. For example, if you use `opensearch-ad-plugin-result-financial-us-group1` as the results index, you can create a permission role based on the pattern `opensearch-ad-plugin-result-financial-us-*` to represent the `financial` department at a granular level for the `us` group.
 {: .note }
@@ -82,9 +82,9 @@ You can use `-` to separate the namespace to manage custom results index permiss
 
 When the Security plugin (fine-grained access control) is enabled, the default results index becomes a system index and is no longer accessible through the standard Index or Search APIs. To access its content, you must use the Anomaly Detection RESTful API or the dashboard. As a result, you cannot build customized dashboards using the default results index if the Security plugin is enabled. However, you can create a custom results index in order to build customized dashboards.
 
-If the custom index you specify does not exist, the Anomaly Detection plugin will create it when you create the detector and start your real-time or historical analysis.
+If the custom index you specify does not exist, OpenSearch creates it when you create the detector and start your real-time or historical analysis.
 
-If the custom index already exists, the plugin will verify that the index mapping matches the required structure for anomaly results. In this case, ensure that the custom index has a valid mapping as defined in the [`anomaly-results.json`](https://github.com/opensearch-project/anomaly-detection/blob/main/src/main/resources/mappings/anomaly-results.json) file.
+If the custom index already exists, OpenSearch verifies that the index mapping matches the required structure for anomaly results. In this case, ensure that the custom index has a valid mapping as defined in the [`anomaly-results.json`](https://github.com/opensearch-project/anomaly-detection/blob/main/src/main/resources/mappings/anomaly-results.json) file.
 To use the custom results index option, you must have the following permissions:
 
 - `indices:admin/create` -- The `create` permission is required in order to create and roll over the custom index.
@@ -92,23 +92,23 @@ To use the custom results index option, you must have the following permissions:
 - `indices:data/write/index` -- The `write` permission is required in order to write results into the custom index for a single-entity detector.
 - `indices:data/read/search` -- The `search` permission is required in order to search custom results indexes to show results on the Anomaly Detection interface.
 - `indices:data/write/delete` -- The detector may generate many anomaly results. The `delete` permission is required in order to delete old data and save disk space.
-- `indices:data/write/bulk*` -- The `bulk*` permission is required because the plugin uses the Bulk API to write results into the custom index.
+- `indices:data/write/bulk*` -- The `bulk*` permission is required because anomaly detection uses the Bulk API to write results into the custom index.
 
 #### Flattening nested fields
 
-Custom results index mappings with nested fields pose aggregation and visualization challenges. The **Enable flattened custom result index** option flattens the nested fields in the custom results index. When selecting this option, the plugin creates a separate index prefixed with the custom results index name and detector name. For example, if the detector `Test` uses the custom results index `abc`, a separate index with the alias `opensearch-ad-plugin-result-abc-flattened-test` will store the anomaly detection results with nested fields flattened. 
+Custom results index mappings with nested fields pose aggregation and visualization challenges. The **Enable flattened custom result index** option flattens the nested fields in the custom results index. When selecting this option, OpenSearch creates a separate index prefixed with the custom results index name and detector name. For example, if the detector `Test` uses the custom results index `abc`, a separate index with the alias `opensearch-ad-plugin-result-abc-flattened-test` will store the anomaly detection results with nested fields flattened. 
 
-In addition to creating a separate index, the plugin also sets up an ingest pipeline with a script processor. This pipeline is bound to the separate index and uses a Painless script to flatten all nested fields in the custom results index.
+In addition to creating a separate index, OpenSearch also sets up an ingest pipeline with a script processor. This pipeline is bound to the separate index and uses a Painless script to flatten all nested fields in the custom results index. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/).
 
 Deactivating this option on a running detector removes its flattening ingest pipeline; it also ceases to be the default for the results index.
 When using the flattened custom result option, consider the following:
 
-- The Anomaly Detection plugin constructs the index name based on the custom results index and detector name, and because the detector name is editable, conflicts can occur. If a conflict occurs, the plugin reuses the index name.
+- OpenSearch constructs the index name based on the custom results index and detector name, and because the detector name is editable, conflicts can occur. If a conflict occurs, OpenSearch reuses the index name.
 - When managing the custom results index, consider the following:
-   - The Anomaly Detection dashboard queries all detector results from all custom results indexes. Having too many custom results indexes can impact the plugin's performance.
+   - The Anomaly Detection dashboard queries all detector results from all custom results indexes. Having too many custom results indexes can impact anomaly detection performance.
    - You can use [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) to roll over old results indexes. You can also manually delete or archive any old results indexes. Reusing a custom results index for multiple detectors is recommended.
 
-The plugin rolls over an alias to a new index when the custom results index meets any of the conditions in the following table.
+OpenSearch rolls over an alias to a new index when the custom results index meets any of the conditions in the following table.
 
 Parameter | Description | Type | Unit | Example | Required
 :--- | :--- |:--- |:--- |:--- |:---
@@ -141,7 +141,7 @@ To suppress anomalies for deviations of less than 30% from the expected value, y
 
 The following image shows the pane for a feature named `LogVolume`, where you can set the relative deviation percentage settings:
 
-<img src="{{site.url}}{{site.baseurl}}/images/anomaly-detection/add-feature-with-relative-rules.png" alt="Interface of adding a feature with suppression rules" width="800" height="800">
+![Interface of adding a feature with suppression rules]({{site.url}}{{site.baseurl}}/images/anomaly-detection/add-feature-with-relative-rules.png){: width="800" height="800" }
 
 If you expect that the log volume should differ by at least 10,000 from the expected value before being considered an anomaly, you can set the following absolute thresholds:
 
@@ -150,7 +150,7 @@ If you expect that the log volume should differ by at least 10,000 from the expe
 
 The following image shows the pane for a feature named `LogVolume`, where you can set the absolute threshold settings:
 
-<img src="{{site.url}}{{site.baseurl}}/images/anomaly-detection/add-suppression-rules-absolute.png" alt="Interface of adding suppression rules with absolute rules" width="800" height="800">
+![Interface of adding suppression rules with absolute rules]({{site.url}}{{site.baseurl}}/images/anomaly-detection/add-suppression-rules-absolute.png){: width="800" height="800" }
 
 If no custom suppression rules are set, then the system defaults to a filter that ignores anomalies with deviations of less than 20% from the expected value for each enabled feature.
 
@@ -221,7 +221,7 @@ Specifies the aggregation bucket size (for example, 10 minutes). You should set 
 
 The interval must be large enough that you rarely miss data. The model uses shingling (consecutive, contiguous buckets), and missing buckets degrade data quality and shingle formation.
 
-##### Frequency (Optional)
+##### Frequency (optional)
 
 Specifies how often the job queries, scores, and writes results. Shorter values provide more real-time updates at a higher cost, while longer values reduce load but slow down updates. Frequency must be a multiple of the interval and defaults to the interval value.
 
@@ -241,7 +241,7 @@ If you're unsure, leave this field blank---the job will use the interval value b
    - **Trade-offs**: Less frequent anomaly evaluation.
    - **Best for**: Batch jobs and sporadic log ingestion patterns.
 
-##### Window delay (Optional)
+##### Window delay (optional)
 
 To add extra processing time for data collection, specify a **Window delay** value. This signals to the detector that data is not ingested into OpenSearch in real time but with a certain delay.
 
@@ -258,7 +258,7 @@ Without a window delay, the detector attempts to get data from 1:50–2:00 PM bu
 - Set **Window delay** to the upper limit of expected ingestion delay to avoid missing data.
 - Balance data accuracy with timely detection—too long of a delay hinders real-time anomaly detection.
 
-##### History (Optional)
+##### History (optional)
 
 Sets the number of historical data points used to train the initial (cold-start) model. The maximum is 10,000 data points. More history improves initial model accuracy up to that limit.
 
@@ -293,9 +293,7 @@ Both **frequency** and **window delay** address ingestion delay but work better 
 
 The following diagram illustrates the timing differences between using window delay and using frequency to handle a 1-day ingestion delay. The timeline shows Day-1 ingestion (top), Day-2 processing with `window_delay = 1 day` (middle, continuous band), and a single daily run when `frequency = 1 day` (bottom, vertical bar). Depending on when you start the detector, a daily frequency can fire just after Day-1 ends (best case, minimal extra delay) or much later (worst case, up to ~+1 day). The job runs every day at approximately the time you first started it.
 
-<img src="{{site.url}}{{site.baseurl}}/images/anomaly-detection/window-delay-vs-frequency.png"
-     alt="Timeline showing Day-1 ingestion (top), Day-2 processing with window delay (middle), and a single daily run when frequency = 1 day (bottom)"
-     width="1200" height="350">
+![Timeline showing Day-1 ingestion (top), Day-2 processing with window delay (middle), and a single daily run when frequency = 1 day (bottom)]({{site.url}}{{site.baseurl}}/images/anomaly-detection/window-delay-vs-frequency.png){: width="1200" height="350" }
 
 
 ### Setting a shingle size
@@ -321,7 +319,7 @@ Be cautious when imputing extensively missing data, as excessive gaps can compro
 
 ### Previewing sample anomalies
 
-You can preview anomalies based on sample feature input and adjust the feature settings as needed. The Anomaly Detection plugin selects a small number of data samples---for example, 1 data point every 30 minutes---and uses interpolation to estimate the remaining data points to approximate the actual feature data. The sample dataset is loaded into the detector, which then uses the sample dataset to generate a preview of the anomalies.
+You can preview anomalies based on sample feature input and adjust the feature settings as needed. OpenSearch selects a small number of data samples---for example, 1 data point every 30 minutes---and uses interpolation to estimate the remaining data points to approximate the actual feature data. The sample dataset is loaded into the detector, which then uses the sample dataset to generate a preview of the anomalies.
 
 1. Select **Preview sample anomalies**.
     - If sample anomaly results are not displayed, check the detector interval to verify that 400 or more data points are set for the entities during the preview date range.
@@ -333,7 +331,7 @@ To start a detector to find anomalies in your data in near real time, select **S
 
 Alternatively, if you want to perform historical analysis and find patterns in longer historical data windows (weeks or months), select the **Run historical analysis detection** box and select a date range of at least 128 detection intervals.
 
-Analyzing historical data can help to familiarize you with the Anomaly Detection plugin. For example, you can evaluate the performance of a detector against historical data in order to fine-tune it.
+Analyzing historical data can help to familiarize you with anomaly detection. For example, you can evaluate the performance of a detector against historical data in order to fine-tune it.
 
 You can experiment with historical analysis by using different feature sets and checking the precision before using real-time detectors.
 
@@ -377,7 +375,7 @@ If you set the category field, you see an additional **Heat map** chart. The hea
 
 If you have set multiple category fields, you can select a subset of fields to filter and sort the fields by. Selecting a subset of fields lets you see the top values of one field that share a common value with another field.
 
-For example, if you have a detector with the category fields `ip` and `endpoint`, you can select `endpoint` in the **View by** dropdown menu. Then select a specific cell to overlay the top 20 values of `ip` on the charts. The Anomaly Detection plugin selects the top `ip` by default. You can see a maximum of 5 individual time-series values at the same time.
+For example, if you have a detector with the category fields `ip` and `endpoint`, you can select `endpoint` in the **View by** dropdown menu. Then select a specific cell to overlay the top 20 values of `ip` on the charts. By default, the top `ip` is selected. You can see a maximum of 5 individual time-series values at the same time.
 
 ## Step 6: Set up alerts
 

@@ -2,7 +2,7 @@
 layout: default
 title: Generating self-signed certificates
 parent: Configuration
-nav_order: 20
+nav_order: 30
 redirect_from:
   - /security-plugin/configuration/generate-certificates/
 ---
@@ -41,16 +41,26 @@ You can optionally add the `-aes256` option to encrypt the key using the AES-256
 
 ## Generate a root certificate
 
-Next, use the private key to generate a self-signed certificate for the root CA:
+Next, use the private key to generate a self-signed certificate for the root CA. For proper CA functionality and to avoid potential Java SSL errors, you must include X.509 v3 extensions that define the certificate's role and capabilities:
 
 ```bash
-openssl req -new -x509 -sha256 -key root-ca-key.pem -out root-ca.pem -days 730
+openssl req -new -x509 -sha256 -key root-ca-key.pem -out root-ca.pem -days 730 \
+  -addext 'basicConstraints = critical, CA:TRUE, pathlen:0' \
+  -addext 'keyUsage = critical, keyCertSign, cRLSign' \
+  -addext 'authorityKeyIdentifier = keyid'
 ```
 
 The default `-days` value of 30 is only useful for testing purposes. This sample command specifies 730 (two years) for the certificate expiration date, but use whatever value makes sense for your organization.
 
 - The `-x509` option specifies that you want a self-signed certificate rather than a certificate request.
 - The `-sha256` option sets the hash algorithm to SHA-256. SHA-256 is the default in later versions of OpenSSL, but earlier versions might use SHA-1.
+- The `-addext` options add X.509 v3 extensions to the certificate:
+  - `basicConstraints = critical, CA:TRUE, pathlen:0` marks this as a CA certificate that can sign certificates but cannot sign subordinate CAs (only end-entity certificates).
+  - `keyUsage = critical, keyCertSign, cRLSign` allows the CA to sign certificates and certificate revocation lists.
+  - `authorityKeyIdentifier = keyid` helps identify the CA public key, which is useful for certificate chain validation.
+
+These extensions ensure compliance with X.509 v3 standards and help prevent low-level SSL errors in Java applications. For more information about certificate extensions, see the [OpenSSL x509v3_config documentation](https://docs.openssl.org/master/man5/x509v3_config/).
+{: .note}
 
 Follow the prompts to specify details for your organization. Together, these details form the distinguished name (DN) of your CA.
 
@@ -144,7 +154,10 @@ If you already know the certificate details and don't want to specify them inter
 #!/bin/sh
 # Root CA
 openssl genrsa -out root-ca-key.pem 2048
-openssl req -new -x509 -sha256 -key root-ca-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=root.dns.a-record" -out root-ca.pem -days 730
+openssl req -new -x509 -sha256 -key root-ca-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=root.dns.a-record" -out root-ca.pem -days 730 \
+  -addext 'basicConstraints = critical, CA:TRUE, pathlen:0' \
+  -addext 'keyUsage = critical, keyCertSign, cRLSign' \
+  -addext 'authorityKeyIdentifier = keyid'
 # Admin cert
 openssl genrsa -out admin-key-temp.pem 2048
 openssl pkcs8 -inform PEM -outform PEM -in admin-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out admin-key.pem
@@ -204,7 +217,7 @@ echo "Enter password for keystore.jks"
 keytool -importkeystore -srckeystore admin-cert.p12 -srcstoretype pkcs12 -destkeystore keystore.jks
 
 # Import certificates to truststore
-keytool -importcert -keystore truststore.jks -file root-ca.cer -storepass changeit -trustcacerts -deststoretype pkcs12
+keytool -importcert -keystore truststore.jks -file root-ca.pem -storepass changeit -trustcacerts -deststoretype pkcs12
 
 # Cleanup
 rm combined-admin.pem
@@ -213,7 +226,7 @@ rm combined-node1.pem
 
 ## Add distinguished names to opensearch.yml
 
-You must specify the distinguished names (DNs) for all admin and node certificates in `opensearch.yml` on all nodes. Using the certificates from the sample script above, part of `opensearch.yml` might look like this:
+You must specify the distinguished names (DNs) for all admin and node certificates in `opensearch.yml` on all nodes. Using the certificates from the preceding sample script, part of `opensearch.yml` might look like this:
 
 ```yml
 plugins.security.authcz.admin_dn:
@@ -229,7 +242,7 @@ But if you look at the `subject` of the certificate after creating it, you might
 subject=/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=node1.dns.a-record
 ```
 
-If you compare this string to the ones above, you can see that you need to invert the order of elements and use commas rather than slashes. Enter this command to get the correct string:
+If you compare this string to the preceding ones, you can see that you need to invert the order of elements and use commas rather than slashes. Enter this command to get the correct string:
 
 ```bash
 openssl x509 -subject -nameopt RFC2253 -noout -in node.pem
@@ -256,7 +269,7 @@ On one node, the security configuration portion of `opensearch.yml` might look l
 plugins.security.ssl.transport.pemcert_filepath: node1.pem
 plugins.security.ssl.transport.pemkey_filepath: node1-key.pem
 plugins.security.ssl.transport.pemtrustedcas_filepath: root-ca.pem
-plugins.security.ssl.transport.enforce_hostname_verification: false
+transport.ssl.enforce_hostname_verification: false
 plugins.security.ssl.http.enabled: true
 plugins.security.ssl.http.pemcert_filepath: node1.pem
 plugins.security.ssl.http.pemkey_filepath: node1-key.pem
@@ -272,4 +285,4 @@ For more information about adding and using these certificates in your own setup
 
 ## OpenSearch Dashboards
 
-For information on using your root CA and a client certificate to enable TLS for OpenSearch Dashboards, see [Configure TLS for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tls/).
+For information about using your root CA and a client certificate to enable TLS for OpenSearch Dashboards, see [Configure TLS for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tls/).

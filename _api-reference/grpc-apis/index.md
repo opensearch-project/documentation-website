@@ -3,7 +3,8 @@ layout: default
 title: gRPC APIs
 has_children: true
 has_toc: false
-nav_order: 25
+nav_order: 140
+description: "Reference for the OpenSearch gRPC APIs, including the bulk and k-NN search operations that use protocol buffers for high-performance communication."
 redirect_from:
   - /api-reference/grpc-apis/
 ---
@@ -15,17 +16,19 @@ redirect_from:
 **Bulk and k-NN search generally available 3.2**
 {: .label .label-green }
 
-Starting with OpenSearch version 3.2, the gRPC [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/bulk/) and [k-NN search queries]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/knn/) are generally available. These use [protobuf version 0.19.0](https://github.com/opensearch-project/opensearch-protobufs/releases/tag/0.19.0). However, expect updates to the protobuf structure as the feature matures in upcoming versions. Other gRPC search functionality remains experimental and not recommended for production use. For updates on the progress of these features or to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/16787).
+The gRPC [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/bulk/) and [k-NN search queries]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/knn/) are generally available. These use [protobuf version 1.2.0](https://github.com/opensearch-project/opensearch-protobufs/releases/tag/1.2.0). However, expect updates to the protobuf structure as the feature matures in upcoming versions. Other gRPC search functionality remains experimental and not recommended for production use. For updates on the progress of these features or to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/16787).
 {: .note}
 
 The OpenSearch gRPC functionality provides an alternative, high-performance transport layer using [gRPC](https://grpc.io/) for communication with OpenSearch. It uses protocol buffers over gRPC for lower overhead and faster serialization. This reduces overhead, speeds up serialization, and improves request-side latency, based on initial benchmarking results. For more information, see [Performance Benefits](#grpc-performance-benefits).
 
 ## Supported APIs
 
-The following gRPC APIs are currently supported:
+The following gRPC APIs are supported:
 - [Bulk]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/bulk/) **Generally available 3.2**
 - [k-NN]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/knn/) **Generally available 3.2**
 - [Search]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/search/) (for select query types)
+- [Predict Model Stream]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/predict-model-stream/)
+- [Execute Agent Stream]({{site.url}}{{site.baseurl}}/api-reference/grpc-apis/execute-agent-stream/)
 
 ## How to use gRPC APIs
 
@@ -36,9 +39,9 @@ To use gRPC APIs, follow these steps:
 
 | Language | Distribution method | Instructions |
 | :------- | :------------------ | :----------- |
-| Java | Maven Central repository | Download the `opensearch-protobufs` jar from the [Maven Central repository](https://repo1.maven.org/maven2/org/opensearch/protobufs/0.19.0). |
-| Python | PyPI repository | Download the `opensearch-protobufs` package from the [PyPI repository](https://pypi.org/project/opensearch-protobufs/0.19.0). |
-| Other languages | GitHub repository (raw protobufs) | Download the raw protobuf schema from the [OpenSearch Protobufs GitHub repository (v0.19.0)](https://github.com/opensearch-project/opensearch-protobufs/releases/tag/0.19.0). You can then generate client-side code using the protocol buffer compilers for the [supported languages](https://grpc.io/docs/languages/). |
+| Java | Maven Central repository | Download the `opensearch-protobufs` jar from the [Maven Central repository](https://repo1.maven.org/maven2/org/opensearch/protobufs/1.2.0). |
+| Python | PyPI repository | Download the `opensearch-protobufs` package from the [PyPI repository](https://pypi.org/project/opensearch-protobufs/1.2.0). |
+| Other languages | GitHub repository (raw protobufs) | Download the raw protobuf schema from the [OpenSearch Protobufs GitHub repository (v1.2.0)](https://github.com/opensearch-project/opensearch-protobufs/releases/tag/1.2.0). You can then generate client-side code using the protocol buffer compilers for the [supported languages](https://grpc.io/docs/languages/). |
 
 
 ## gRPC settings
@@ -81,9 +84,9 @@ OpenSearch supports the following advanced settings for gRPC communication. Thes
 | `grpc.netty.worker_count` | The number of Netty worker threads for the gRPC server. Controls concurrency and parallelism. | `2` | Number of processors |
 | `grpc.netty.executor_count` | The number of threads in the fork-join pool for processing gRPC service calls. Controls request processing parallelism. | `32` | `2 * number of processors` |
 | `grpc.netty.max_concurrent_connection_calls` | The maximum number of simultaneous in-flight requests allowed per client connection. | `200` | `100` |
-| `grpc.netty.max_connection_age` | The maximum age a connection can reach before being gracefully closed. Supports time units like `ms`, `s`, or `m`. See [Time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). | `500ms` | Not set (no limit) |
-| `grpc.netty.max_connection_idle` | The maximum duration for which a connection can be idle before being closed. Supports time units like `ms`, `s`, or `m`. See [Time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). | `2m` | Not set (no limit) |
-| `grpc.netty.keepalive_timeout` | The amount of time to wait for `keepalive` ping acknowledgment before closing the connection. Supports [time units]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). | `1s` | Not set |
+| `grpc.netty.max_connection_age` | The maximum age a connection can reach before being gracefully closed. Supports time units like `ms`, `s`, or `m`. See [Time units]({{site.url}}{{site.baseurl}}/api-reference/units/#time-units). | `500ms` | Not set (no limit) |
+| `grpc.netty.max_connection_idle` | The maximum duration for which a connection can be idle before being closed. Supports time units like `ms`, `s`, or `m`. See [Time units]({{site.url}}{{site.baseurl}}/api-reference/units/#time-units). | `2m` | Not set (no limit) |
+| `grpc.netty.keepalive_timeout` | The amount of time to wait for `keepalive` ping acknowledgment before closing the connection. Supports [time units]({{site.url}}{{site.baseurl}}/api-reference/units/#time-units). | `1s` | Not set |
 | `grpc.netty.max_msg_size` | The maximum inbound message size for gRPC requests. Supports units like `b`, `kb`, `mb`, or `gb`. See [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/). | `10mb` or `10485760` | `10mb` |
 
 ### Example configuration

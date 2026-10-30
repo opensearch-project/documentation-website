@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Regular expression syntax
-nav_order: 100
+nav_order: 95
 ---
 
 # Regular expression syntax

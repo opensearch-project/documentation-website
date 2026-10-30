@@ -3,7 +3,7 @@ layout: default
 title: Custom models
 parent: Using ML models within OpenSearch
 grand_parent: Integrating ML models
-nav_order: 120
+nav_order: 20
 ---
 
 # Custom local models
@@ -14,13 +14,12 @@ To use a custom model locally, you can upload it to the OpenSearch cluster.
 
 ## Model support
 
-As of OpenSearch 2.6, OpenSearch supports local text embedding models.
+OpenSearch supports the following types of local models:
 
-As of OpenSearch 2.11, OpenSearch supports local sparse encoding models.
-
-As of OpenSearch 2.12, OpenSearch supports local cross-encoder models.
-
-As of OpenSearch 2.13, OpenSearch supports local question answering models.
+- Text embedding models
+- Sparse encoding models
+- Cross-encoder models
+- Question answering models
 
 Running local models on the CentOS 7 operating system is not supported. Moreover, not all local models can run on all hardware and operating systems.
 {: .important}
@@ -31,11 +30,11 @@ For all the models, you must provide a tokenizer JSON file within the model zip 
 
 For sparse encoding models, make sure your output format is `{"output":<sparse_vector>}` so that ML Commons can post-process the sparse vector.
 
-If you fine-tune a sparse model on your own dataset, you may also want to use your own sparse tokenizer model. It is preferable to provide your own [IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) JSON file in the tokenizer model zip file because this increases query performance when you use the tokenizer model in the query. Alternatively, you can use an OpenSearch-provided generic [IDF from MSMARCO](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1/1.0.0/torch_script/opensearch-neural-sparse-tokenizer-v1-1.0.0.zip). If the IDF file is not provided, the default weight of each token is set to 1, which may influence sparse neural search performance.  
+If you finetune a sparse model on your own dataset, you may also want to use your own sparse tokenizer model. It is preferable to provide your own [IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) JSON file in the tokenizer model zip file because this increases query performance when you use the tokenizer model in the query. Alternatively, you can use an OpenSearch-provided generic [IDF from MSMARCO](https://artifacts.opensearch.org/models/ml-models/amazon/neural-sparse/opensearch-neural-sparse-tokenizer-v1/1.0.0/torch_script/opensearch-neural-sparse-tokenizer-v1-1.0.0.zip). If the IDF file is not provided, the default weight of each token is set to 1, which may influence neural sparse search performance.  
 
 ### Model format
 
-To use a model in OpenSearch, you'll need to export the model into a portable format. As of Version 2.5, OpenSearch only supports the [TorchScript](https://pytorch.org/docs/stable/jit.html) and [ONNX](https://onnx.ai/) formats.
+To use a model in OpenSearch, you must export the model into a portable format. OpenSearch supports only the [TorchScript](https://pytorch.org/docs/stable/jit.html) and [ONNX](https://onnx.ai/) formats.
 
 You must save the model file as zip before uploading it to OpenSearch. To ensure that ML Commons can upload your model, compress your TorchScript file before uploading. For an example, download a TorchScript [model file](https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/all-MiniLM-L6-v2_torchscript_sentence-transformer.zip).
 
@@ -73,6 +72,9 @@ PUT _cluster/settings
 }
 ```
 {% include copy-curl.html %}
+
+When registering a model from a URL, make sure the source is trusted. Loading models from untrusted sources can pose security risks. For more information, see [PyTorch security guidelines for untrusted models](https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models).
+{: .warning}
 
 ## Step 1: Register a model group
 
@@ -126,38 +128,13 @@ POST /_plugins/_ml/models/_register
     "model_type": "distilbert",
     "embedding_dimension": 768,
     "framework_type": "sentence_transformers",
-    "all_config": "{\"_name_or_path\":\"old_models/msmarco-distilbert-base-tas-b/0_Transformer\",\"activation\":\"gelu\",\"architectures\":[\"DistilBertModel\"],\"attention_dropout\":0.1,\"dim\":768,\"dropout\":0.1,\"hidden_dim\":3072,\"initializer_range\":0.02,\"max_position_embeddings\":512,\"model_type\":\"distilbert\",\"n_heads\":12,\"n_layers\":6,\"pad_token_id\":0,\"qa_dropout\":0.1,\"seq_classif_dropout\":0.2,\"sinusoidal_pos_embds\":false,\"tie_weights_\":true,\"transformers_version\":\"4.7.0\",\"vocab_size\":30522}"
-  },
-  "created_time": 1676073973126,
-  "url": "https://artifacts.opensearch.org/models/ml-models/huggingface/sentence-transformers/msmarco-distilbert-base-tas-b/1.0.1/torch_script/sentence-transformers_msmarco-distilbert-base-tas-b-1.0.1-torch_script.zip"
-}
-```
-{% include copy-curl.html %}
-
-Note that in OpenSearch Dashboards, wrapping the `all_config` field contents in triple quotes (`"""`) automatically escapes quotation marks within the field and provides better readability:
-
-```json
-POST /_plugins/_ml/models/_register
-{
-  "name": "huggingface/sentence-transformers/msmarco-distilbert-base-tas-b",
-  "version": "1.0.1",
-  "model_group_id": "wlcnb4kBJ1eYAeTMHlV6",
-  "description": "This is a port of the DistilBert TAS-B Model to sentence-transformers model: It maps sentences & paragraphs to a 768 dimensional dense vector space and is optimized for the task of semantic search.",
-  "function_name": "TEXT_EMBEDDING",
-  "model_format": "TORCH_SCRIPT",
-  "model_content_size_in_bytes": 266352827,
-  "model_content_hash_value": "acdc81b652b83121f914c5912ae27c0fca8fabf270e6f191ace6979a19830413",
-  "model_config": {
-    "model_type": "distilbert",
-    "embedding_dimension": 768,
-    "framework_type": "sentence_transformers",
     "all_config": """{"_name_or_path":"old_models/msmarco-distilbert-base-tas-b/0_Transformer","activation":"gelu","architectures":["DistilBertModel"],"attention_dropout":0.1,"dim":768,"dropout":0.1,"hidden_dim":3072,"initializer_range":0.02,"max_position_embeddings":512,"model_type":"distilbert","n_heads":12,"n_layers":6,"pad_token_id":0,"qa_dropout":0.1,"seq_classif_dropout":0.2,"sinusoidal_pos_embds":false,"tie_weights_":true,"transformers_version":"4.7.0","vocab_size":30522}"""
   },
   "created_time": 1676073973126,
   "url": "https://artifacts.opensearch.org/models/ml-models/huggingface/sentence-transformers/msmarco-distilbert-base-tas-b/1.0.1/torch_script/sentence-transformers_msmarco-distilbert-base-tas-b-1.0.1-torch_script.zip"
 }
 ```
-{% include copy.html %}
+{% include copy-curl.html %}
 
 OpenSearch returns the task ID of the register operation:
 
@@ -170,7 +147,7 @@ OpenSearch returns the task ID of the register operation:
 
 To check the status of the operation, provide the task ID to the [Get task]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
-```bash
+```json
 GET /_plugins/_ml/tasks/cVeMb4kBJ1eYAeTMFFgj
 ```
 {% include copy-curl.html %}
@@ -188,7 +165,7 @@ When the operation is complete, the state changes to `COMPLETED`:
   ],
   "create_time": 1689793598499,
   "last_update_time": 1689793598530,
-  "is_async": false
+  "is_async": true
 }
 ```
 
@@ -198,9 +175,9 @@ Take note of the returned `model_id` because you’ll need it to deploy the mode
 
 The deploy operation reads the model's chunks from the model index and then creates an instance of the model to load into memory. The bigger the model, the more chunks the model is split into and longer it takes for the model to load into memory.
 
-To deploy the registered model, provide its model ID from step 3 in the following request:
+To deploy the registered model, provide its model ID from step 2 in the following request:
 
-```bash
+```json
 POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_deploy
 ```
 {% include copy-curl.html %}
@@ -210,13 +187,14 @@ The response contains the task ID that you can use to check the status of the de
 ```json
 {
   "task_id": "vVePb4kBJ1eYAeTM7ljG",
+  "task_type": "DEPLOY_MODEL",
   "status": "CREATED"
 }
 ```
 
-As in the previous step, check the status of the operation by calling the Tasks API:
+As in the previous step, check the status of the operation by calling the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
-```bash
+```json
 GET /_plugins/_ml/tasks/vVePb4kBJ1eYAeTM7ljG
 ```
 {% include copy-curl.html %}
@@ -238,7 +216,7 @@ When the operation is complete, the state changes to `COMPLETED`:
 }
 ```
 
-If a cluster or node is restarted, then you need to redeploy the model. To learn how to set up automatic redeployment, see [Enable auto redeploy]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/#enable-auto-redeploy).
+If a cluster or node is restarted, then you need to redeploy the model. To learn how to set up automatic redeployment, see [Model deployment settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/#model-deployment-settings).
 {: .tip} 
 
 ## Step 4 (Optional): Test the model
@@ -312,9 +290,12 @@ The response contains the tokens and weights:
                 "bright": 0.1756877,
                 ...
               }
+            ]
           }
         }
+      ]
     }
+  ]
 }
 ```
 
@@ -350,16 +331,16 @@ POST /_plugins/_ml/models/_register
 Then send a request to deploy the model:
 
 ```json
-POST _plugins/_ml/models/<model_id>/_deploy
+POST _plugins/_ml/models/{model_id}/_deploy
 ```
 {% include copy-curl.html %}
 
 To test a question answering model, send the following request. It requires a `question` and the relevant `context` from which the answer will be generated:
 
 ```json
-POST /_plugins/_ml/_predict/question_answering/<model_id>
+POST /_plugins/_ml/_predict/question_answering/{model_id}
 {
-  "question": "Where do I live?"
+  "question": "Where do I live?",
   "context": "My name is John. I live in New York"
 }
 ```
@@ -373,8 +354,10 @@ The response provides the answer based on the context:
     {
       "output": [
         {
-          "result": "New York"
+          "result": "new york"
         }
+      ]
     }
+  ]
 }
 ```

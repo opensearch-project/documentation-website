@@ -1,6 +1,6 @@
 ---
 layout: default
-title: About Security
+title: About security
 nav_order: 1
 has_children: false
 has_toc: false
@@ -10,9 +10,11 @@ redirect_from:
   - /security-plugin/
   - /security-plugin/index/
   - /security/index/
+  - /troubleshoot/
+  - /troubleshoot/index/
 ---
 
-# About Security in OpenSearch
+# About security in OpenSearch
 
 Security in OpenSearch is built around four main features that work together to safeguard data and track activity within a cluster. Separately, these features are:
 
@@ -35,7 +37,14 @@ In transit, Security encrypts data moving to, from, and within the cluster. Open
 
 You can find out more about configuring TLS in the [Configuring TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/) section.
 
-Encryption at rest, on the other hand, protects data stored in the cluster, including indexes, logs, swap files, automated snapshots, and all data in the application directory. This type of encryption is managed by the operating system on each OpenSearch node. For information about enabling encryption at rest, see [Encryption at rest]({{site.url}}{{site.baseurl}}/troubleshoot/index/#encryption-at-rest).
+Encryption at rest, on the other hand, protects data stored in the cluster, including indexes, logs, swap files, automated snapshots, and all data in the application directory. This type of encryption is managed by the operating system on each OpenSearch node. To enable encryption at rest in most Linux distributions, use the `cryptsetup` command:
+
+```bash
+cryptsetup luksFormat --key-file <key> <partition>
+```
+{% include copy.html %}
+
+For full documentation about the command, see [cryptsetup(8) — Linux manual page](https://man7.org/linux/man-pages/man8/cryptsetup.8.html).
 
 ### Authentication
 
@@ -75,8 +84,8 @@ To learn more, see [Cross-cluster search]({{site.url}}{{site.baseurl}}/security/
 
 ## Next steps
 
-The [Best practices for OpenSearch security]({{site.url}}{{site.baseurl}}/security/configuration/best-practices/)  guide covers 10 things to consider when getting started with OpenSearch security.
+- To get started with OpenSearch security, read the [Getting started guide]({{site.url}}{{site.baseurl}}/security/getting-started/).
 
-The [Security configuration]({{site.url}}{{site.baseurl}}/security/configuration/index/) overview provides the basic steps for setting up security in your OpenSearch implementation and includes links to information about customizing security for your business needs. 
+- For practical recommendations, follow the [Best practices for OpenSearch security]({{site.url}}{{site.baseurl}}/security/configuration/best-practices/), which include 10 key considerations.
 
-
+- To configure security in your OpenSearch implementation, use the [Security configuration overview]({{site.url}}{{site.baseurl}}/security/configuration/index/) for step-by-step instructions and links to customization options for your environment.

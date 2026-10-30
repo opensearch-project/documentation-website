@@ -1,12 +1,13 @@
 ---
 layout: default
-title: Query Workbench
-nav_order: 125
+title: Using Query Workbench
+parent: Exploring data
+nav_order: 30
 redirect_from:
   - /search-plugins/sql/workbench/
 ---
 
-# Query Workbench
+# Using Query Workbench
 
 You can use Query Workbench in OpenSearch Dashboards to run on-demand [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/index/) and [PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) queries, translate queries into their equivalent REST API calls, and view and save results in different [response formats]({{site.url}}{{site.baseurl}}/search-plugins/sql/response-formats/).
 

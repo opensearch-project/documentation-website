@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Filter results
-parent: Search options
+parent: Customizing search results
 nav_order: 36
 ---
 
@@ -37,27 +37,13 @@ PUT /electronics
 2. Add documents to the `electronics` index using the following request:
 
 ```json
-PUT /electronics/_doc/1?refresh
-{
-  "brand": "BrandA",
-  "category": "Smartphone",
-  "price": 699.99,
-  "features": ["5G", "Dual Camera"]
-}
-PUT /electronics/_doc/2?refresh
-{
-  "brand": "BrandA",
-  "category": "Laptop",
-  "price": 1199.99,
-  "features": ["Touchscreen", "16GB RAM"]
-}
-PUT /electronics/_doc/3?refresh
-{
-  "brand": "BrandB",
-  "category": "Smartphone",
-  "price": 799.99,
-  "features": ["5G", "Triple Camera"]
-}
+POST /_bulk?refresh
+{ "index": { "_index": "electronics", "_id": "1" } }
+{ "brand": "BrandA", "category": "Smartphone", "price": 699.99, "features": ["5G", "Dual Camera"] }
+{ "index": { "_index": "electronics", "_id": "2" } }
+{ "brand": "BrandA", "category": "Laptop", "price": 1199.99, "features": ["Touchscreen", "16GB RAM"] }
+{ "index": { "_index": "electronics", "_id": "3" } }
+{ "brand": "BrandB", "category": "Smartphone", "price": 799.99, "features": ["5G", "Triple Camera"] }
 ```
 {% include copy-curl.html %}
 
@@ -103,6 +89,8 @@ GET /electronics/_search
 {% include copy-curl.html %}
 
 The result should show `BrandA` smartphones in the search hits and all brands in the aggregations.
+
+To keep facet options visible while users apply filters, combine `post_filter` with filter aggregations. For more information, see [Maintaining facet options during filtering]({{site.url}}{{site.baseurl}}/tutorials/faceted-search/#maintaining-facet-options-during-filtering).
 
 ## Refining aggregations with aggregation-level filtering
 

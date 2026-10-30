@@ -141,11 +141,17 @@ Geopoint coordinates are always rounded down at index time. At query time, the u
 
 ## Specifying the bounding box
 
-You can specify the bounding box by providing any of the following combinations of its vertex coordinates:
+You can specify the bounding box by providing vertex coordinates, a geohash, or a [Well-Known Text (WKT)](https://docs.opengeospatial.org/is/12-063r5/12-063r5.html) string.
+
+### Using vertex coordinates to specify the bounding box
+
+Provide any of the following combinations of vertex coordinates:
 
 - `top_left` and `bottom_right`
 - `top_right` and `bottom_left`
 - `top`, `left`, `bottom`, and `right`
+
+Specify the coordinate values in any [format]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats) that the geopoint field type accepts.
 
 The following example shows how to specify the bounding box using the `top`, `left`, `bottom`, and `right` coordinates:
 
@@ -172,21 +178,6 @@ GET testindex1/_search
 }
 ```
 {% include copy-curl.html %}
-
-## Parameters
-
-Geo-bounding box queries accept the following parameters.
-
-Parameter | Data type | Description
-:--- | :--- | :--- 
-`_name` | String | The name of the filter. Optional.
-`validation_method` | String | The validation method. Valid values are `IGNORE_MALFORMED` (accept geopoints with invalid coordinates), `COERCE` (try to coerce coordinates to valid values), and `STRICT` (return an error when coordinates are invalid). Default is `STRICT`.
-`type` | String | Specifies how to execute the filter. Valid values are `indexed` (index the filter) and `memory` (execute the filter in memory). Default is `memory`.
-`ignore_unmapped` | Boolean | Specifies whether to ignore an unmapped field. If set to `true`, the query does not return any documents that have an unmapped field. If set to `false`, an exception is thrown when the field is unmapped. Default is `false`.
-
-## Accepted formats
-
-You can specify coordinates of the bounding box vertices in any [format]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats) that the geopoint field type accepts.  
 
 ### Using a geohash to specify the bounding box
 
@@ -239,3 +230,42 @@ GET testindex1/_search
 }
 ```
 {% include copy-curl.html %}
+
+### Using WKT to specify the bounding box
+
+To define the bounding box in WKT format, provide the `wkt` parameter with a bounding rectangle in the form `BBOX (minLon, maxLon, maxLat, minLat)`. `BBOX` is the only WKT geometry that a geo-bounding box query accepts.
+
+The following example shows how to use WKT to specify the same bounding box as the previous examples:
+
+```json
+GET testindex1/_search
+{
+  "query": {
+    "bool": {
+      "must": {
+        "match_all": {}
+      },
+      "filter": {
+        "geo_bounding_box": {
+          "point": {
+            "wkt": "BBOX (28, 41, 75, 73)"
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Parameters
+
+Geo-bounding box queries accept the following parameters.
+
+Parameter | Data type | Description
+:--- | :--- | :--- 
+`_name` | String | The name of the filter. Optional.
+`validation_method` | String | The validation method. Valid values are `IGNORE_MALFORMED` (accept geopoints with invalid coordinates), `COERCE` (try to coerce coordinates to valid values), and `STRICT` (return an error when coordinates are invalid). Default is `STRICT`.
+`type` | String | Specifies how to execute the filter. Valid values are `indexed` (index the filter) and `memory` (execute the filter in memory). Default is `memory`.
+`ignore_unmapped` | Boolean | Specifies whether to ignore an unmapped field. If set to `true`, the query does not return any documents that have an unmapped field. If set to `false`, an exception is thrown when the field is unmapped. Default is `false`.
+

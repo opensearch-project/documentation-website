@@ -5,7 +5,7 @@ parent: Bucket aggregations
 nav_order: 15
 ---
 
-# Children
+# Children aggregation
 
 The `children` aggregation is a bucket aggregation that creates a single bucket containing child documents, based on parent-child relationships defined in your index.
 
@@ -150,7 +150,7 @@ The response returns the selected department bucket, finds the `employee` type c
     "acc_employees": {
       "doc_count": 2,
       "avg_salary": {
-        "value": 110000
+        "value": 130000
       }
     }
   }

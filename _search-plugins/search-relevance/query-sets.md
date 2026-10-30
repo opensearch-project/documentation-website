@@ -3,7 +3,7 @@ layout: default
 title: Query sets
 nav_order: 3
 parent: Search Relevance Workbench
-grand_parent: Search relevance
+grand_parent: Optimizing search quality
 has_children: false
 ---
 
@@ -14,7 +14,7 @@ Additionally, Search Relevance Workbench allows you to import a query set.
 
 ## Creating query sets
 
-If you're tracking user behavior with the UBI specification, you can choose from different sampling methods that can create query sets based on real user queries stored in the `ubi_queries` index.
+If you're tracking user behavior with the UBI specification, you can choose from different sampling methods that can create query sets based on real user queries stored in the `ubi_queries` index. Use the `ubiQueriesIndex` parameter to sample from a differently named index.
 
 Search Relevance Workbench supports three sampling methods:
 * Random: Takes a random sample of all queries.
@@ -37,6 +37,7 @@ Field | Data type |  Description
 `description` | String | A short description of the query set. The maximum length is 250 characters.
 `sampling` | String | Defines which sampler to use. Valid values are `pptss` (Probability-Proportional-to-Size-Sampling), `random`, `topn` (most frequent queries), and `manual`.
 `querySetSize` | Integer | The target number of queries in the query set. Depending on the number of unique queries in `ubi_queries`, the resulting query set may contain fewer queries. Must be a positive integer.
+`ubiQueriesIndex` | String | An optional name of the index containing the UBI queries to sample. Default is `ubi_queries`. Specify this parameter when your UBI queries are stored in an index with a different name.
 
 ### Example request: Sampling 20 queries with the Top N sampler
 
@@ -85,6 +86,7 @@ All query sets comprise one or more entries. Each entry is a JSON object contain
 | :--- | :--- | :--- |
 | `queryText` | String | The user query string. Required. |
 | `referenceAnswer` | String | The expected or correct answer to the user query. This field is used for generating judgments, especially with large language models (LLMs). Optional. |
+| Custom fields | String | Any field other than `queryText` and `referenceAnswer` is stored as a custom field in the entry. You can reference a custom field by its name as a [Mustache template variable]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/#using-mustache-templates) in a search configuration. Optional. |
 
 ### Basic query set example
 
@@ -102,7 +104,7 @@ A basic query set contains only the `queryText` field for each entry. It is suit
 
 ### Query set with reference answers example
 
-This format includes the `referenceAnswer` field alongside the `queryText`. It is ideal for evaluating applications designed to provide specific answers, such as chatbots or question-answering systems.
+In this format, each entry pairs a `queryText` with a `referenceAnswer`. Use it to evaluate applications that return a specific answer, such as chatbots or question-answering systems.
 
 #### Example query set with reference answers
 
@@ -114,8 +116,21 @@ This format includes the `referenceAnswer` field alongside the `queryText`. It i
 {"queryText": "When was the first iPhone released?", "referenceAnswer": "June 29, 2007"}
 ```
 
-
 The `referenceAnswer` field is particularly useful when using [LLMs to generate judgments]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/). The LLM can use the reference answer as a ground truth to compare against the retrieved search results, allowing it to accurately score the relevance of the response.
+
+### Query set with custom fields example
+
+In addition to `queryText`, each entry can include custom fields. You can reference these fields as Mustache template variables in a [search configuration]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/search-configurations/#using-mustache-templates) so that one search configuration applies different filters or parameters to each query.
+
+#### Example query set with custom fields
+
+In the following example, each entry includes a `category` custom field. If a search configuration references `{{category}}` in its query, it filters the results for each query by the `category` value in the corresponding entry:
+
+```json
+{"queryText": "phone", "category": "electronics"}
+{"queryText": "steel", "category": "materials"}
+{"queryText": "keyboard", "category": "electronics"}
+```
 
 ## Managing query sets
 
@@ -129,9 +144,8 @@ This API retrieves available query sets.
 
 ```json
 GET _plugins/_search_relevance/query_sets
-GET _plugins/_search_relevance/query_sets/<query_set_id>
+GET _plugins/_search_relevance/query_sets/{query_set_id}
 ```
-{% include copy-curl.html %}
 
 #### Example response
 
@@ -195,7 +209,7 @@ You can delete a query set using the query set ID.
 #### Endpoint
 
 ```json
-DELETE _plugins/_search_relevance/query_sets/<query_set_id>
+DELETE _plugins/_search_relevance/query_sets/{query_set_id}
 ```
 
 #### Example request
@@ -220,5 +234,83 @@ DELETE _plugins/_search_relevance/query_sets/bb45c4c4-48ce-461b-acbc-f154c0a17ec
   },
   "_seq_no": 17,
   "_primary_term": 1
+}
+```
+
+### Search for a query set
+
+You can search for available query sets using query DSL.
+
+#### Endpoints
+
+```json
+GET _plugins/_search_relevance/query_sets/_search
+POST _plugins/_search_relevance/query_sets/_search
+```
+
+#### Example request
+
+Search for query sets containing queries that include the phrase `lamp without cord`:
+
+```json
+GET _plugins/_search_relevance/query_sets/_search
+{
+  "query": {
+    "nested": {
+      "path": "querySetQueries",
+      "query": {
+        "match_phrase": {
+          "querySetQueries.queryText": "lamp without cord"
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+The response contains the matching query set because `wall lamp without cord` contains the partial search term `lamp without cord`: 
+
+```json
+{
+  "took": 1,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "search-relevance-queryset",
+        "_id": "4622775e-9099-4375-af7f-f970dae25f09",
+        "_score": 1,
+        "_source": {
+          "id": "4622775e-9099-4375-af7f-f970dae25f09",
+          "name": "ESCI Queries",
+          "description": "Queries from the ESCI ranking task",
+          "sampling": "manual",
+          "timestamp": "2026-01-20T12:49:35.940Z",
+          "querySetQueries": [
+            {
+              "queryText": "tv"
+            },
+            {
+              "queryText": "wall lamp without cord"
+            }
+          ]
+        }
+      }
+    ]
+  }
 }
 ```

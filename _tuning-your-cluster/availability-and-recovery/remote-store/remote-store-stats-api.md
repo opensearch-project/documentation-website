@@ -18,8 +18,8 @@ Metrics returned from this API only relate to indexes stored on remote-backed no
 ## Endpoints
 
 ```json
-GET _remotestore/stats/<index_name>
-GET _remotestore/stats/<index_name>/<shard_id>
+GET _remotestore/stats/{index_name}
+GET _remotestore/stats/{index_name}/{shard_id}
 ```
 
 ## Path parameters
@@ -38,7 +38,7 @@ Use the following API to get remote store statistics for all index shards.
 #### Example request
 
 ```json
-GET _remotestore/stats/<index_name>
+GET _remotestore/stats/{index_name}
 ```
 {% include copy-curl.html %}
 
@@ -265,7 +265,9 @@ The response body of the Remote Store Stats API is split into three categories:
 * `segment` : Contains statistics related to segment transfers from remote-backed storage
 * `translog` : Contains statistics related to translog transfers from remote-backed storage
 
+<!-- vale off -->
 #### routing
+<!-- vale on -->
 
 The `routing` object contains the following fields.
 
@@ -274,7 +276,9 @@ The `routing` object contains the following fields.
 | `primary` | Denotes whether the shard copy is a primary shard. |
 | `node` | The name of the node to which the shard is assigned. |
 
+<!-- vale off -->
 #### segment
+<!-- vale on -->
 
 The `segment.upload` object contains the following fields.
 
@@ -343,7 +347,7 @@ Use the following API to get remote store statistics for a single shard.
 #### Example request
 
 ```json
-GET _remotestore/stats/<index_name>/<shard_id>
+GET _remotestore/stats/{index_name}/{shard_id}
 ```
 {% include copy-curl.html %}
 
@@ -474,6 +478,6 @@ If you want to fetch only shards present on the node serving a Remote Store Stat
 
 
 ```json
-GET _remotestore/stats/<index_name>?local=true
+GET _remotestore/stats/{index_name}?local=true
 ```
 {% include copy-curl.html %}

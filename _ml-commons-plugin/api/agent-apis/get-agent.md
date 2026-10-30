@@ -2,7 +2,7 @@
 layout: default
 title: Get agent
 parent: Agent APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 30
 ---
 
@@ -15,7 +15,7 @@ You can retrieve agent information using the `agent_id`.
 ## Endpoints
 
 ```json
-GET /_plugins/_ml/agents/<agent_id>
+GET /_plugins/_ml/agents/{agent_id}
 ```
 
 ## Path parameters
@@ -58,22 +58,19 @@ GET /_plugins/_ml/agents/N8AE1osB0jLkkocYjz7D
       "description": "A general tool to answer any question",
       "parameters": {
         "model_id": "ygAzT40Bdo8gePIqxk0H",
-        "prompt": """
+        "prompt": """You are a professional data analyst. You will always answer question based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say don't know. 
 
-Human:You are a professional data analyst. You will always answer question based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say don't know. 
-
- Context:
+Context:
 ${parameters.VectorDBTool.output}
 
-Human:${parameters.question}
-
-Assistant:"""
+Question: ${parameters.question}"""
       },
       "include_output_in_agent_response": false
     }
   ],
   "created_time": 1706821658743,
-  "last_updated_time": 1706821658743
+  "last_updated_time": 1706821658743,
+  "is_hidden": false
 }
 ```
 

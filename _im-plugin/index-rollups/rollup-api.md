@@ -2,7 +2,7 @@
 layout: default
 title: Index rollups API
 parent: Index rollups
-nav_order: 9
+nav_order: 10
 ---
 
 # Index rollups API
@@ -19,17 +19,17 @@ Use the index rollup operations to programmatically work with index rollup jobs.
 ---
 
 ## Create or update an index rollup job
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
-Creates or updates an index rollup job.
-You must provide the `seq_no` and `primary_term` parameters.
+Creates or updates an index rollup job. To update an existing job, provide the `if_seq_no` and `if_primary_term` parameters, which you can read from the [Get an index rollup job](#get-an-index-rollup-job) response. Omitting them on an update returns `409 version_conflict_engine_exception`. An update must also repeat the job's current `schedule.interval.start_time`.
 
 #### Request
 
+To create a job, send the following request:
+
 ```json
-PUT _plugins/_rollup/jobs/<rollup_id> // Create
-PUT _plugins/_rollup/jobs/<rollup_id>?if_seq_no=1&if_primary_term=1 // Update
+PUT _plugins/_rollup/jobs/{rollup_id}
 {
   "rollup": {
     "source_index": "nyc-taxi-data",
@@ -49,12 +49,8 @@ PUT _plugins/_rollup/jobs/<rollup_id>?if_seq_no=1&if_primary_term=1 // Update
     "enabled": true,
     "page_size": 200,
     "delay": 0,
-    "roles": [
-      "rollup_all",
-      "nyc_taxi_all",
-      "example_rollup_index_all"
-    ],
     "continuous": false,
+    "routing_field": "PULocationID",
     "dimensions": [
       {
         "date_histogram": {
@@ -94,30 +90,38 @@ PUT _plugins/_rollup/jobs/<rollup_id>?if_seq_no=1&if_primary_term=1 // Update
   }
 }
 ```
+{% include copy-curl.html %}
+
+To update an existing job, add the `if_seq_no` and `if_primary_term` parameters and send the complete job definition, including its current `start_time`:
+
+```json
+PUT _plugins/_rollup/jobs/{rollup_id}?if_seq_no=1&if_primary_term=1
+```
+{% include copy-curl.html %}
 
 You can specify the following options.
 
-Options | Description                                                                                                                                                                                                                                                                                                                                                             | Type | Required
-:--- |:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--- |:--- |
-`source_index` | The name of the detector.                                                                                                                                                                                                                                                                                                                                               | String | Yes
+Options | Description | Type | Required
+:--- |:--- |:--- |:--- |
+`source_index` | The index that the rollup job reads from. Cannot contain wildcards. | String | Yes
 `target_index` | Specify the target index that the rolled up data is ingested into. You can either create a new target index or use an existing index. The target index cannot be a combination of raw and rolled up data. This field supports dynamically generated index names like {% raw %}`rollup_{{ctx.source_index}}`{% endraw %}, where `source_index` cannot contain wildcards. | String | Yes
-`target_index_settings` | Specify any [index settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/) to be applied to the target index created during the rollup.                                                                                                                                                                                                                       | Object | No
-`schedule` | Schedule of the index rollup job which can be an interval or a cron expression.                                                                                                                                                                                                                                                                                         | Object | Yes
-`schedule.interval`  | Specify the frequency of execution of the rollup job.                                                                                                                                                                                                                                                                                                                   | Object | No
-`schedule.interval.start_time` | Start time of the interval.                                                                                                                                                                                                                                                                                                                                             | Timestamp | Yes
-`schedule.interval.period` | Define the interval period.                                                                                                                                                                                                                                                                                                                                             | String | Yes
-`schedule.interval.unit` | Specify the time unit of the interval.                                                                                                                                                                                                                                                                                                                                  | String | Yes
-`schedule.interval.cron` | Optionally, specify a cron expression to define therollup frequency.                                                                                                                                                                                                                                                                                                    | List | No
-`schedule.interval.cron.expression` | Specify a Unix cron expression.                                                                                                                                                                                                                                                                                                                                         | String | Yes
-`schedule.interval.cron.timezone` | Specify timezones as defined by the IANA Time Zone Database. Defaults to UTC.                                                                                                                                                                                                                                                                                           | String | No
-`description` | Optionally, describe the rollup job.                                                                                                                                                                                                                                                                                                                                    | String | No
-`enabled` | When true, the index rollup job is scheduled. Default is `true`.                                                                                                                                                                                                                                                                                                        | Boolean | Yes
-`continuous` | Specify whether or not the index rollup job continuously rolls up data forever or executes over the current dataset once and stops. Default is `false`.                                                                                                                                                                                                                 | Boolean | Yes
-`error_notification` | Set up a Mustache message template for error notifications. For example, if an index rollup job fails, the system sends a message to a Slack channel.                                                                                                                                                                                                                   | Object | No
-`page_size` | Specify the number of buckets to paginate at a time during rollup.                                                                                                                                                                                                                                                                                                      | Number | Yes
-`delay` | The number of milliseconds to delay execution of the index rollup job.                                                                                                                                                                                                                                                                                                  | Long | No
-`dimensions` | Specify aggregations to create dimensions for the roll up time window. Supported groups are `terms`, `histogram`, and `date_histogram`. For more information, see [Bucket Aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg).                                                                                                                            | Array | Yes
-`metrics` | Specify a list of objects that represent the fields and metrics that you want to calculate. Supported metrics are `sum`, `max`, `min`, `value_count` and `avg`. For more information, see [Metric Aggregations]({{site.url}}{{site.baseurl}}/opensearch/metric-agg).                                                                                                    | Array | No
+`target_index_settings` | Specify any [index settings]({{site.url}}{{site.baseurl}}/im-plugin/index-settings/) to be applied to the target index created during the rollup. | Object | No
+`schedule` | Schedule of the index rollup job which can be an interval or a [cron expression]({{site.url}}{{site.baseurl}}/api-reference/cron-expressions/). | Object | Yes
+`schedule.interval` | Specify the frequency of execution of the rollup job. | Object | No
+`schedule.interval.start_time` | Start time of the interval. If omitted when you create a job, OpenSearch sets it to the current time. Required when you update a job. | Timestamp | No
+`schedule.interval.period` | Define the interval period. | String | Yes
+`schedule.interval.unit` | Specify the time unit of the interval. | String | Yes
+`schedule.cron` | Specify a cron expression to define the rollup frequency instead of an interval. Specify either `schedule.interval` or `schedule.cron`, not both. | Object | No
+`schedule.cron.expression` | Specify a Unix cron expression. | String | Yes
+`schedule.cron.timezone` | Specify timezones as defined by the IANA Time Zone Database. Defaults to UTC. | String | No
+`description` | Describe the rollup job. | String | Yes
+`enabled` | When true, the index rollup job is scheduled. Default is `true`. | Boolean | No
+`continuous` | Specify whether or not the index rollup job continuously rolls up data forever or executes over the current dataset once and stops. Default is `false`. | Boolean | No
+`page_size` | Specify the number of buckets to paginate at a time during rollup. | Number | Yes
+`delay` | The number of milliseconds to delay execution of the index rollup job.  | Long | No
+`dimensions` | Specify aggregations to create dimensions for the roll up time window. Supported groups are `terms`, `histogram`, and `date_histogram`. For more information, see [Bucket aggregations]({{site.url}}{{site.baseurl}}/aggregations/bucket/index/). | Array | Yes
+`routing_field` | The `source_field` of a `terms` dimension to use as the routing value for rolled up documents in the target index. When set, each rolled up document is indexed using the value of that dimension as its routing value. This ensures that searches specifying the same `routing` value are directed to the correct shard and can find the rolled up documents. If not set, rolled up documents are distributed across shards based on document ID, and searches that specify a `routing` value may not return matching documents. The value must match the `source_field` of one of the `terms` dimensions defined in `dimensions`. This setting is immutable and cannot be changed when updating an existing rollup job. Available in OpenSearch 3.7 and later. | String | No
+`metrics` | Specify a list of objects that represent the fields and metrics that you want to calculate. Supported metrics are `sum`, `max`, `min`, `value_count`, `avg`, and `cardinality`. For more information, see [Metric aggregations]({{site.url}}{{site.baseurl}}/aggregations/metric/index/). | Array | No
 
 
 #### Example response
@@ -125,7 +129,7 @@ Options | Description                                                           
 ```json
 {
   "_id": "<rollup_id>",
-  "_version": 3,
+  "_version": 1,
   "_seq_no": 1,
   "_primary_term": 1,
   "rollup": {
@@ -142,13 +146,21 @@ Options | Description                                                           
     "last_updated_time": 1680159934649,
     "enabled_time": 1680159934649,
     "description": "Example rollup job",
-    "schema_version": 17,
+    "schema_version": 30,
     "source_index": "nyc-taxi-data",
     "target_index": "rollup-nyc-taxi-data",
+    "target_index_settings": {
+      "index": {
+        "number_of_shards": "1",
+        "codec": "best_compression",
+        "number_of_replicas": "1"
+      }
+    },
     "metadata_id": null,
     "page_size": 200,
     "delay": 0,
     "continuous": false,
+    "routing_field": "PULocationID",
     "dimensions": [
       {
         "date_histogram": {
@@ -193,7 +205,7 @@ Options | Description                                                           
 
 
 ## Get an index rollup job
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 Returns all information about an index rollup job based on the `rollup_id`.
@@ -201,7 +213,7 @@ Returns all information about an index rollup job based on the `rollup_id`.
 #### Request
 
 ```json
-GET _plugins/_rollup/jobs/<rollup_id>
+GET _plugins/_rollup/jobs/{rollup_id}
 ```
 
 
@@ -210,8 +222,9 @@ GET _plugins/_rollup/jobs/<rollup_id>
 ```json
 {
   "_id": "my_rollup",
-  "_seqNo": 1,
-  "_primaryTerm": 1,
+  "_version": 3,
+  "_seq_no": 1,
+  "_primary_term": 1,
   "rollup": { ... }
 }
 ```
@@ -220,7 +233,7 @@ GET _plugins/_rollup/jobs/<rollup_id>
 ---
 
 ## Delete an index rollup job
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 Deletes an index rollup job based on the `rollup_id`.
@@ -228,20 +241,36 @@ Deletes an index rollup job based on the `rollup_id`.
 #### Request
 
 ```json
-DELETE _plugins/_rollup/jobs/<rollup_id>
+DELETE _plugins/_rollup/jobs/{rollup_id}
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
 ```json
-200 OK
+{
+  "_index": ".opendistro-ism-config",
+  "_id": "my_rollup",
+  "_version": 4,
+  "result": "deleted",
+  "forced_refresh": true,
+  "_shards": {
+    "total": 2,
+    "successful": 1,
+    "failed": 0
+  },
+  "_seq_no": 15,
+  "_primary_term": 1
+}
 ```
+
+A request for a job that does not exist returns `404`.
 
 ---
 
 
 ## Start or stop an index rollup job
-Introduced 1.0
+**Introduced 1.0**
 {: .label .label-purple }
 
 Start or stop an index rollup job.
@@ -249,30 +278,8 @@ Start or stop an index rollup job.
 #### Request
 
 ```json
-POST _plugins/_rollup/jobs/<rollup_id>/_start
-POST _plugins/_rollup/jobs/<rollup_id>/_stop
-```
-
-
-#### Example response
-
-```json
-200 OK
-```
-
-
----
-
-## Explain an index rollup job
-Introduced 1.0
-{: .label .label-purple }
-
-Returns detailed metadata information about the index rollup job and its current progress.
-
-#### Request
-
-```json
-GET _plugins/_rollup/jobs/<rollup_id>/_explain
+POST _plugins/_rollup/jobs/{rollup_id}/_start
+POST _plugins/_rollup/jobs/{rollup_id}/_stop
 ```
 
 
@@ -280,22 +287,82 @@ GET _plugins/_rollup/jobs/<rollup_id>/_explain
 
 ```json
 {
+  "acknowledged": true
+}
+```
+
+
+---
+
+## Explain an index rollup job
+**Introduced 1.0**
+{: .label .label-purple }
+
+Returns metadata information about the index rollup job.
+
+#### Request
+
+```json
+GET _plugins/_rollup/jobs/{rollup_id}/_explain
+```
+
+
+#### Example response: Job not yet executed
+
+When the rollup job has not yet executed, both fields return `null`:
+
+```json
+{
   "example_rollup": {
-    "rollup_id": "example_rollup",
-    "last_updated_time": 1602014281,
-    "continuous": {
-      "next_window_start_time": 1602055591,
-      "next_window_end_time": 1602075591
-    },
-    "status": "running",
-    "failure_reason": null,
-    "stats": {
-      "pages_processed": 342,
-      "documents_processed": 489359,
-      "rollups_indexed": 3420,
-      "index_time_in_ms": 30495,
-      "search_time_in_ms": 584922
+    "metadata_id": null,
+    "rollup_metadata": null
+  }
+}
+```
+
+#### Example response: Job executed
+
+After the rollup job executes at least once, the response includes detailed metadata and statistics:
+
+```json
+{
+  "example_rollup": {
+    "metadata_id": "GtWGlZwBm3bOohSSvi2r",
+    "rollup_metadata": {
+      "rollup_id": "example_rollup",
+      "last_updated_time": 1772035161995,
+      "status": "finished",
+      "failure_reason": null,
+      "stats": {
+        "pages_processed": 2,
+        "documents_processed": 3,
+        "rollups_indexed": 3,
+        "index_time_in_millis": 28,
+        "search_time_in_millis": 46
+      }
     }
   }
 }
 ```
+
+For continuous rollup jobs, the `rollup_metadata` object may include additional fields such as `next_window_start_time` and `next_window_end_time` to indicate the time window for the next scheduled execution.
+{: .note}
+
+#### Response fields
+
+The response contains the rollup job ID as the key, with the following fields:
+
+Field | Description
+:--- | :---
+`metadata_id` | The document ID of the rollup metadata stored in the system index. Returns `null` if the rollup job has not yet executed.
+`rollup_metadata` | Metadata about the rollup job execution. Returns `null` if the rollup job has not yet executed. When populated, contains the following nested fields.
+`rollup_metadata.rollup_id` | The ID of the rollup job.
+`rollup_metadata.last_updated_time` | The timestamp (in milliseconds since epoch) when the rollup job was last updated.
+`rollup_metadata.status` | The current status of the rollup job. Possible values are `init` (job is initializing), `started` (job is currently executing), `finished` (job completed successfully), `failed` (job encountered an error), `stopped` (job was stopped), or `retry` (job is retrying after a failure).
+`rollup_metadata.failure_reason` | The reason for failure if the job failed. Returns `null` if the job succeeded.
+`rollup_metadata.stats` | Statistics about the rollup job execution.
+`rollup_metadata.stats.pages_processed` | The number of pages processed during the rollup.
+`rollup_metadata.stats.documents_processed` | The total number of documents processed during the rollup.
+`rollup_metadata.stats.rollups_indexed` | The number of rollup documents created and indexed.
+`rollup_metadata.stats.index_time_in_millis` | The time spent indexing rollup documents, in milliseconds.
+`rollup_metadata.stats.search_time_in_millis` | The time spent searching source documents, in milliseconds.

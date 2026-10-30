@@ -2,7 +2,7 @@
 layout: default
 title: Get controller
 parent: Controller APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 20
 ---
 
@@ -12,10 +12,10 @@ nav_order: 20
 
 Use this API to retrieve information about a controller for a model by model ID.
 
-### Endpoints
+## Endpoints
 
 ```json
-GET /_plugins/_ml/controllers/<model_id>
+GET /_plugins/_ml/controllers/{model_id}
 ```
 
 ## Path parameters
@@ -59,11 +59,11 @@ If there is no controller defined for the model, OpenSearch returns an error:
     "root_cause": [
       {
         "type": "status_exception",
-        "reason": "Failed to find model controller with the provided model ID: T_S-cY0BKCJ3ot9qr0aP"
+        "reason": "Failed to find model controller with the provided model ID"
       }
     ],
     "type": "status_exception",
-    "reason": "Failed to find model controller with the provided model ID: T_S-cY0BKCJ3ot9qr0aP"
+    "reason": "Failed to find model controller with the provided model ID"
   },
   "status": 404
 }

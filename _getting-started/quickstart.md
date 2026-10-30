@@ -2,6 +2,7 @@
 layout: default
 title: Installation quickstart
 nav_order: 3
+description: "Quickly set up a local OpenSearch and OpenSearch Dashboards cluster using Docker, then add and search sample data to get started."
 redirect_from: 
   - /about/quickstart/
   - /opensearch/install/quickstart/
@@ -11,7 +12,11 @@ redirect_from:
 # Installation quickstart
 
 OpenSearch supports multiple installation methods: Docker, Debian, Helm, RPM, tarball, and Windows.
-This guide uses [Docker](https://www.docker.com/) for a quick local setup. For other installation options, see the full [Install and upgrade OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/) guide.
+
+This guide uses [Docker](https://www.docker.com/) for a quick local setup. For other installation options, see [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Installing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
+
+The configurations on this page are intended for local testing. They either disable security or use demo certificates, and they serve OpenSearch Dashboards over HTTP. To set up OpenSearch for production, see [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Security configuration]({{site.url}}{{site.baseurl}}/security/configuration/index/).
+{: .note }
 
 There are two ways to get started:
 
@@ -24,19 +29,23 @@ Before you begin, install [Docker](https://docs.docker.com/get-docker/) on your 
 
 ## Option 1: Try OpenSearch in one command
 
-Use this method to quickly spin up OpenSearch on your local machine with minimal setup.
+Use this method to quickly spin up OpenSearch and OpenSearch Dashboards on your local machine with minimal setup. This configuration disables security.
 
-This configuration disables security and should only be used in test environments.
-{: .note }
-
-Download and run OpenSearch: 
+Start OpenSearch:
 
 ```bash
-docker pull opensearchproject/opensearch:latest && docker run -it -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "DISABLE_SECURITY_PLUGIN=true" opensearchproject/opensearch:latest
+docker pull opensearchproject/opensearch:latest && docker run -d -p 9200:9200 -e "discovery.type=single-node" -e "DISABLE_SECURITY_PLUGIN=true" --name opensearch opensearchproject/opensearch:latest
 ```
 {% include copy.html %}
 
-This process may take some time. After it finishes, OpenSearch is now running on port `9200`. To verify that OpenSearch is running, send the following request: 
+Start OpenSearch Dashboards:
+
+```bash
+docker pull opensearchproject/opensearch-dashboards:latest && docker run -d -p 5601:5601 --add-host=host.docker.internal:host-gateway -e "OPENSEARCH_HOSTS=http://host.docker.internal:9200" -e "DISABLE_SECURITY_DASHBOARDS_PLUGIN=true" --name opensearch-dashboards opensearchproject/opensearch-dashboards:latest
+```
+{% include copy.html %}
+
+This process may take some time. After it finishes, OpenSearch is running on port `9200` and OpenSearch Dashboards on port `5601`. To verify that OpenSearch is running, send the following request: 
 
 ```bash
 curl http://localhost:9200
@@ -65,19 +74,18 @@ You should get a response that looks like this:
 }
 ```
 
+To verify that OpenSearch Dashboards has started, go to `http://localhost:5601/` in your browser.
+
 ## Option 2: Set up a custom Docker cluster
 
 Use [Docker Compose](https://docs.docker.com/compose/) to run a local multi-node OpenSearch and OpenSearch Dashboards cluster:
 
-- [Set up a cluster without security](#set-up-a-cluster-without-security-for-local-development) -- Best for local development.
-- [Set up a cluster with security](#set-up-a-cluster-with-security-recommended-for-most-use-cases) -- Try OpenSearch with security by installing it with default certificates.
+- [Set up a cluster without security](#set-up-a-cluster-without-security) -- Best for local development.
+- [Set up a cluster with security](#set-up-a-cluster-with-security) -- Try OpenSearch with security by installing it with default certificates.
 
-### Set up a cluster without security (for local development)
+### Set up a cluster without security
 
 This setup uses a development Docker Compose file with security disabled.
-
-This configuration disables security and should only be used in test environments.
-{: .note }
 
 1. Create a directory for your OpenSearch cluster (for example, `opensearch-cluster`). Create a `docker-compose.yml` file in this directory and copy the contents of the [Docker Compose file for development]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#sample-docker-compose-file-for-development) into this file.
 
@@ -98,10 +106,10 @@ This configuration disables security and should only be used in test environment
     You should see an output similar to the following:
 
     ```bash
-    NAME                    COMMAND                  SERVICE                 STATUS              PORTS
-    opensearch-dashboards   "./opensearch-dashbo…"   opensearch-dashboards   running             0.0.0.0:5601->5601/tcp
-    opensearch-node1        "./opensearch-docker…"   opensearch-node1        running             0.0.0.0:9200->9200/tcp, 9300/tcp, 0.0.0.0:9600->9600/tcp, 9650/tcp
-    opensearch-node2        "./opensearch-docker…"   opensearch-node2        running             9200/tcp, 9300/tcp, 9600/tcp, 9650/tcp
+    NAME                    IMAGE                                            COMMAND                  SERVICE                 CREATED          STATUS          PORTS
+    opensearch-dashboards   opensearchproject/opensearch-dashboards:latest   "./opensearch-dashbo…"   opensearch-dashboards   30 seconds ago   Up 30 seconds   0.0.0.0:5601->5601/tcp, [::]:5601->5601/tcp
+    opensearch-node1        opensearchproject/opensearch:latest              "./opensearch-docker…"   opensearch-node1        30 seconds ago   Up 30 seconds   0.0.0.0:9200->9200/tcp, [::]:9200->9200/tcp, 9300/tcp, 9600/tcp, 9650/tcp
+    opensearch-node2        opensearchproject/opensearch:latest              "./opensearch-docker…"   opensearch-node2        30 seconds ago   Up 30 seconds   9200/tcp, 9300/tcp, 9600/tcp, 9650/tcp
     ```
 
 1. To verify that OpenSearch is running, send the following request: 
@@ -115,7 +123,7 @@ This configuration disables security and should only be used in test environment
 
 You can now explore OpenSearch Dashboards by opening `http://localhost:5601/`.
 
-### Set up a cluster with security (recommended for most use cases)
+### Set up a cluster with security
 
 This configuration enables security using demo certificates and requires additional system setup.
 
@@ -149,9 +157,9 @@ This configuration enables security using demo certificates and requires additio
     ```  
     {% include copy.html %}
 
-    For more information, see [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/).
+    For more information, see [important system settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings).
 
-1. Download the sample Compose file to your host. You can download the file with command line utilities like `curl` and `wget`, or you can manually copy [docker-compose.yml](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/docker-compose.yml) from the OpenSearch Project documentation-website repository using a web browser.
+1. Download the sample Compose file to your host. You can download the file with command line utilities like `curl` and `wget`, or you can manually copy [`docker-compose.yml`](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/docker-compose.yml) from the OpenSearch Project documentation-website repository using a web browser.
 
     To use cURL, send the following request:
 
@@ -191,10 +199,10 @@ This configuration enables security using demo certificates and requires additio
     You should see an output like the following:
 
     ```bash
-    NAME                    COMMAND                  SERVICE                 STATUS              PORTS
-    opensearch-dashboards   "./opensearch-dashbo…"   opensearch-dashboards   running             0.0.0.0:5601->5601/tcp
-    opensearch-node1        "./opensearch-docker…"   opensearch-node1        running             0.0.0.0:9200->9200/tcp, 9300/tcp, 0.0.0.0:9600->9600/tcp, 9650/tcp
-    opensearch-node2        "./opensearch-docker…"   opensearch-node2        running             9200/tcp, 9300/tcp, 9600/tcp, 9650/tcp
+    NAME                    IMAGE                                            COMMAND                  SERVICE                 CREATED          STATUS          PORTS
+    opensearch-dashboards   opensearchproject/opensearch-dashboards:latest   "./opensearch-dashbo…"   opensearch-dashboards   30 seconds ago   Up 30 seconds   0.0.0.0:5601->5601/tcp, [::]:5601->5601/tcp
+    opensearch-node1        opensearchproject/opensearch:latest              "./opensearch-docker…"   opensearch-node1        30 seconds ago   Up 30 seconds   0.0.0.0:9200->9200/tcp, [::]:9200->9200/tcp, 9300/tcp, 9600/tcp, 9650/tcp
+    opensearch-node2        opensearchproject/opensearch:latest              "./opensearch-docker…"   opensearch-node2        30 seconds ago   Up 30 seconds   9200/tcp, 9300/tcp, 9600/tcp, 9650/tcp
     ```
 
 1. Verify that OpenSearch is running. You should use `-k` (also written as `--insecure`) to disable hostname checking because the default security configuration uses demo certificates. Use `-u` to pass the default username and password (`admin:<custom-admin-password>`):
@@ -206,40 +214,43 @@ This configuration enables security using demo certificates and requires additio
 
     You should get a response similar to the one in [Option 1](#option-1-try-opensearch-in-one-command). 
 
-You can now explore OpenSearch Dashboards by opening `https://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. The default username is `admin`, and the default password is set in your `docker-compose.yml` file in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>` setting.
+You can now explore OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. Log in as the `admin` user using the custom admin password that you set in the `.env` file.
 
 ## Common issues
 
-Review these common issues and suggested solutions if your containers fail to start or exit unexpectedly.
+If your containers fail to start or exit unexpectedly, see [Common issues]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#common-issues) in the Docker installation guide.
 
-### Docker commands require elevated permissions
+## Stop the cluster
 
-Eliminate the need for running your Docker commands with `sudo` by adding your user to the `docker` user group. See Docker's [Post-installation steps for Linux](https://docs.docker.com/engine/install/linux-postinstall/) for more information.
+To stop the containers that you started in [Option 1](#option-1-try-opensearch-in-one-command), run the following command:
+
 ```bash
-sudo usermod -aG docker $USER
+docker stop opensearch opensearch-dashboards
 ```
+{% include copy.html %}
 
-### Error message: "max virtual memory areas vm.max_map_count [65530] is too low"
+Option 1 doesn't mount a volume, so the containers store your data internally. To start the containers again with your data intact, use `docker start` in place of `docker stop`. Removing the containers with `docker rm` deletes their data, including any indexes that you create in the following tutorials.
 
-OpenSearch will fail to start if your host's `vm.max_map_count` is too low. Review the [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/) if you see the following errors in the service log, and set `vm.max_map_count` appropriately.
+To stop the cluster that you started in [Option 2](#option-2-set-up-a-custom-docker-cluster), run the following command from the directory containing your `docker-compose.yml` file:
+
 ```bash
-opensearch-node1         | ERROR: [1] bootstrap checks failed
-opensearch-node1         | [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
-opensearch-node1         | ERROR: OpenSearch did not exit normally - check the logs at /usr/share/opensearch/logs/opensearch-cluster.log
+docker compose down
 ```
+{% include copy.html %}
+
+This command removes the containers and the network but keeps the named volumes in which the cluster stores your data, so running `docker compose up -d` again restores the cluster with your data intact. Adding `-v` to `docker compose down` deletes the volumes and the data in them.
 
 ## Other installation types
 
-In addition to Docker, you can install OpenSearch on various Linux distributions and on Windows. For all available installation guides, see [Install and upgrade OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/).
+In addition to Docker, you can install OpenSearch and OpenSearch Dashboards on various Linux distributions and on Windows. For all available installation guides, see [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Installing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
 
 ## Further reading
 
-You successfully deployed your own OpenSearch cluster with OpenSearch Dashboards and added some sample data. Now you're ready to learn about configuration and functionality in more detail. Here are a few recommendations on where to begin:
+You successfully deployed your own OpenSearch cluster with OpenSearch Dashboards. To learn about configuration and functionality in more detail, see the following pages:
 - [About the Security plugin]({{site.url}}{{site.baseurl}}/security/index/)
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
-- [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
-- [OpenSearch Dashboards quickstart]({{site.url}}{{site.baseurl}}/dashboards/quickstart/)
+- [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/)
 
 ## Next steps
 
-- See [Communicate with OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/communicate/) to learn about how to send requests to OpenSearch.
+- To learn how to send requests to OpenSearch, see [Communicate with OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/communicate/).

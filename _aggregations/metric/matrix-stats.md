@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/metric/matrix-stats/
 ---
 
-# Matrix stats aggregations
+# Matrix stats aggregation
 
 The `matrix_stats` aggregation is a multi-value metric aggregation that generates covariance statistics for two or more fields in matrix form. 
 
@@ -43,7 +43,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-The response containes the aggregated results:
+The response contains the aggregated results:
 
 ```json
 {

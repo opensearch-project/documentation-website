@@ -2,7 +2,7 @@
 layout: default
 title: Text to visualization
 parent: OpenSearch Assistant for OpenSearch Dashboards
-nav_order: 1
+nav_order: 40
 has_children: false
 ---
 
@@ -75,14 +75,14 @@ POST /_plugins/_flow_framework/workflow
               "anthropic_version": "bedrock-2023-05-31"
             },
             "version": "1",
-            "name": "Claude haiku runtime Connector",
+            "name": "Claude Sonnet 4.6 runtime Connector",
             "protocol": "aws_sigv4",
             "description": "The connector to BedRock service for claude model",
             "actions": [
               {
                 "action_type": "predict",
                 "method": "POST",
-                "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/anthropic.claude-3-haiku-20240307-v1:0/invoke",
+                "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-6/invoke",
                 "headers": {
                   "content-type": "application/json",
                   "x-amz-content-sha256": "required"
@@ -99,7 +99,7 @@ POST /_plugins/_flow_framework/workflow
             "create_claude_connector": "connector_id"
           },
           "user_inputs": {
-            "name": "claude-haiku",
+            "name": "claude-sonnet-4-6",
             "description": "Claude model",
             "deploy": true
           }
@@ -170,14 +170,14 @@ POST /_plugins/_flow_framework/workflow
 Use the workflow ID returned in the response to provision the resources:
 
 ```json
-POST /_plugins/_flow_framework/workflow/<workflow_id>/_provision
+POST /_plugins/_flow_framework/workflow/{workflow_id}/_provision
 ```
 {% include copy-curl.html %}
 
 To view the status of the workflow and all created resources, send the following request:
 
 ```json
-GET /_plugins/_flow_framework/workflow/<workflow_id>/_status
+GET /_plugins/_flow_framework/workflow/{workflow_id}/_status
 ```
 {% include copy-curl.html %}
 
@@ -217,7 +217,7 @@ This example demonstrates a system index. In security-enabled domains, only supe
 You can verify that the agent was created successfully by calling the agent with an example payload:
 
 ```json
-POST /_plugins/_ml/agents/<ROOT_AGENT_ID>/_execute
+POST /_plugins/_ml/agents/{ROOT_AGENT_ID}/_execute
 {
   "parameters": {
     "input_question": "find unique visitors and average bytes every 3 hours",
@@ -264,23 +264,23 @@ To generate visualizations from text in OpenSearch Dashboards, use the following
 
 1. In the **New Visualization** dialog, select **Natural language**, as shown in the following image.
 
-    <img width="800px" src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-start.png" alt="Create a visualization by selecting natural language">
+    ![Create a visualization by selecting natural language]({{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-start.png){: width="800px" }
 
 1. From the data sources dropdown list, select a data source, as shown in the following image. 
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-select-data-source.png" alt="Create a visualization by selecting natural language">
+    ![Create a visualization by selecting natural language]({{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-select-data-source.png)
 
 1. In the text box on the upper right, enter a question using natural language. A new visualization is generated, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-ask-question.png" alt="Create a visualization by selecting natural language">
+    ![Create a visualization by selecting natural language]({{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-ask-question.png)
 
 1. To modify the generated visualization, select **Edit visual**. In the **Edit visual** dialog, enter the desired modifications and then select **Apply**, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-edit-visual.png" alt="Create a visualization by selecting natural language">
+    ![Create a visualization by selecting natural language]({{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-edit-visual.png)
 
     The visualization is updated, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-edit-visual-response.png" alt="Create a visualization by selecting natural language">
+    ![Create a visualization by selecting natural language]({{site.url}}{{site.baseurl}}/images/dashboards-assistant/t2viz-edit-visual-response.png)
 
 
 

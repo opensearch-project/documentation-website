@@ -13,7 +13,9 @@ redirect_from:
 # Language analyzers
 
 OpenSearch supports the following language analyzers:
-`arabic`, `armenian`, `basque`, `bengali`, `brazilian`, `bulgarian`, `catalan`, `czech`, `danish`, `dutch`, `english`, `estonian`, `finnish`, `french`, `galician`, `german`, `greek`, `hindi`, `hungarian`, `indonesian`, `irish`, `italian`, `latvian`, `lithuanian`, `norwegian`, `persian`, `portuguese`, `romanian`, `russian`, `sorani`, `spanish`, `swedish`, `thai`, and `turkish`.
+`arabic`, `armenian`, `basque`, `bengali`, `brazilian`, `bulgarian`, `catalan`, `czech`, `danish`, `dutch`, `english`, `estonian`, `finnish`, `french`, `galician`, `german`, `greek`, `hindi`, `hungarian`, `indonesian`, `irish`, `italian`, [`kuromoji`]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/kuromoji/) (Japanese analyzer; requires plugin), `latvian`, `lithuanian`, `norwegian`, `persian`, [`polish`]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/polish/) (requires plugin), `portuguese`, `romanian`, `russian`, `sorani`, `spanish`, `swedish`, `thai`, `turkish`, and [`ukrainian`]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/ukrainian/) (requires plugin).
+
+For multilingual text processing with advanced Unicode support, OpenSearch also provides the [`icu_analyzer`]({{site.url}}{{site.baseurl}}/analyzers/language-analyzers/icu/), which offers superior text segmentation for languages with complex scripts such as Chinese, Japanese, Korean, Thai, and Arabic (requires the `analysis-icu` plugin).
 
 To use an analyzer when you map an index, specify the value in your query. For example, to map your index with the French language analyzer, specify the `french` value in the analyzer field:
 
@@ -75,6 +77,8 @@ PUT my-index
 }
 ```
 {% include copy-curl.html %}
+
+To search documents written in several languages, you can detect the language of each document during ingestion and copy its text to a field that uses the matching language analyzer. For a complete example, see [Identifying document language for multilingual search]({{site.url}}{{site.baseurl}}/tutorials/language-identification/).
 
 ## Stem exclusion
 

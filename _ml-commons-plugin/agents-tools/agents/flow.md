@@ -36,7 +36,7 @@ POST /_plugins/_ml/agents/_register
       "description": "A general tool to answer any question",
       "parameters": {
         "model_id": "YOUR_LLM_MODEL_ID",
-        "prompt": "\n\nHuman:You are a professional data analyst. You will always answer a question based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say you don't know. \n\n Context:\n${parameters.VectorDBTool.output}\n\nHuman:${parameters.question}\n\nAssistant:"
+        "prompt": "You are a professional data analyst. You will always answer a question based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say you don't know. \n\nContext:\n${parameters.VectorDBTool.output}\n\nQuestion: ${parameters.question}"
       }
     }
   ]
@@ -48,10 +48,16 @@ For more information about the Register Agent API request fields, see [Request b
 
 For a step-by-step tutorial, see [Agents and tools tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents-tools-tutorial/).
 
+## Using external MCP tools
+**Introduced 3.8**
+{: .label .label-purple }
+
+Flow agents can call external MCP server tools in a fixed pipeline alongside OpenSearch tools such as `MLModelTool`. Configure `parameters.mcp_connectors` and declare each MCP tool explicitly in the `tools` array using `McpStreamableHttpTool` or `McpSseTool`. For setup steps and examples, see [Using MCP tools with flow agents and conversational flow agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/mcp-connector/#flow-agents-and-conversational-flow-agents).
+
 ## Next steps
 
 - To learn more about registering agents, see [Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/).
 - For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 - For a step-by-step tutorial, see [Agents and tools tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents-tools-tutorial/).
 - For supported APIs, see [Agent APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/).
-- To use agents and tools in configuration automation, see [Automating configurations]({{site.url}}{{site.baseurl}}/automating-configurations/index/).
+- To create agents and tools using a workflow template, see [AI search workflows]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/index/).

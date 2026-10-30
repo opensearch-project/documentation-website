@@ -22,7 +22,7 @@ Log in to the OpenSearch Dashboards home page, select **Add sample data**, and a
 
 ## Step 1: Prepare an LLM
 
-A plan-execute-reflect agent requires a large language model (LLM) in order to function. This tutorial uses the [Anthropic Claude 3.7 model hosted on Amazon Bedrock](https://aws.amazon.com/bedrock/claude/). You can also [use other supported LLMs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/#supported-llms).
+A plan-execute-reflect agent requires a large language model (LLM) in order to function. This tutorial uses the [Anthropic Claude Sonnet 4.6 model hosted on Amazon Bedrock](https://aws.amazon.com/bedrock/claude/). You can also [use other supported LLMs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/#supported-llms).
 
 ### Step 1(a): Create a connector
 
@@ -31,14 +31,14 @@ Create a connector for the model:
 ```json
 POST /_plugins/_ml/connectors/_create
 {
-    "name": "Amazon Bedrock Claude 3.7-sonnet connector",
+    "name": "Amazon Bedrock Claude Sonnet 4.6 connector",
     "description": "Connector to Amazon Bedrock service for the Claude model",
     "version": 1,
     "protocol": "aws_sigv4",
     "parameters": {
       "region": "your_aws_region",
       "service_name": "bedrock",
-      "model": "us.anthropic.claude-3-7-sonnet-20250219-v1:0"
+      "model": "us.anthropic.claude-sonnet-4-6"
     },
     "credential": {
       "access_key": "your_aws_access_key",
@@ -71,7 +71,7 @@ POST /_plugins/_ml/models/_register
 {
     "name": "Bedrock Claude Sonnet model",
     "function_name": "remote",
-    "description": "Bedrock Claude 3.7 sonnet model for Plan, Execute and Reflect Agent",
+    "description": "Bedrock Claude Sonnet 4.6 model for Plan, Execute and Reflect Agent",
     "connector_id": "your_connector_id"
 }
 ```
@@ -81,10 +81,10 @@ Note the model ID; you'll use it in the following steps.
 
 ### Step 1(c): Configure a retry policy
 
-Because the agent is a long-running agent that executes multiple steps, we strongly recommend configuring a retry policy for your connector. For more information, see the `client_config` parameter in [Configuration parameters]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters). For example, to configure unlimited retries, set `max_retry_times` to `-1`:
+Because the agent is a long-running agent that executes multiple steps, we strongly recommend configuring a retry policy for your connector. For more information, see the `client_config` field in [Request body fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#request-body-fields). For example, to configure unlimited retries, set `max_retry_times` to `-1`:
 
 ```json
-PUT /_plugins/_ml/connectors/<connector_id>
+PUT /_plugins/_ml/connectors/{connector_id}
 {
   "client_config": {
     "max_retry_times": -1,
@@ -107,7 +107,7 @@ Create a `plan_execute_and_reflect` agent configured with the following informat
 - Meta information: `name`, `type`, `description`.
 - LLM information: The agent uses an LLM to reason, devise a plan for completing the task, execute the steps in the plan using appropriate tools, and reflect on the intermediate results in order to optimize the plan.
 - Tools: A tool is a function that can be executed by the agent. Each tool can define its own `name`, `description`, `parameters` and `attributes`.
-- Memory: Stores chat messages. OpenSearch currently only supports one memory type: `conversation_index`.
+- Memory: Stores chat messages. OpenSearch supports one memory type: `conversation_index`.
 
 For more information about all request fields, see [Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/#request-body-fields).
 
@@ -116,7 +116,7 @@ To register the agent, send the following request. In this example, you'll creat
 ```json
 POST _plugins/_ml/agents/_register
 {
-  "name": "My Plan Execute and Reflect agent with Claude 3.7",
+  "name": "My Plan Execute and Reflect agent with Claude Sonnet 4.6",
   "type": "plan_execute_and_reflect",
   "description": "this is a test agent",
   "llm": {
@@ -140,7 +140,7 @@ POST _plugins/_ml/agents/_register
     {
       "type": "IndexMappingTool"
     }
-  ],
+  ]
 }
 ```
 {% include copy-curl.html %}
@@ -187,7 +187,7 @@ Use the following tips to test your `plan_execute_and_reflect` agent effectively
   - Ensure the agent has access to all necessary tools for the task.
   - Include relevant context about your cluster in the prompt; for example, `Can you identify the error in my cluster by analyzing the "spans" and "logs" indexes?`
 
-- **Configure retries**: LLM calls can occasionally fail. Set up retries to improve reliability. For more information, see the `client_config` parameter in [Configuration parameters]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters).
+- **Configure retries**: LLM calls can occasionally fail. Set up retries to improve reliability. For more information, see the `client_config` field in [Request body fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#request-body-fields).
 
 To test the agent, run it using the [Execute Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/). Because this agent performs long-running tasks, we recommend running it asynchronously to avoid timeouts. Use the `async=true` query parameter to run the agent as a separate task:
 
@@ -331,7 +331,7 @@ POST _plugins/_ml/agents/your_agent_id/_execute?async=true
 {
   "parameters": {
     "question": "your_question",
-    "memory_id": "your_memory_id",
+    "memory_id": "your_memory_id"
   }
 }
 ```
@@ -341,3 +341,10 @@ POST _plugins/_ml/agents/your_agent_id/_execute?async=true
 
 - For information about using other models, see [Supported LLMs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/#supported-llms).
 - For information about creating agents with custom prompts, see [Modifying default prompts]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/#modifying-default-prompts).
+
+## Related documentation
+
+- [Plan-execute-reflect agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/plan-execute-reflect/)
+- [Register Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/register-agent/)
+- [Execute Agent API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agent-apis/execute-agent/)
+- [Search Index tool]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/search-index-tool/)

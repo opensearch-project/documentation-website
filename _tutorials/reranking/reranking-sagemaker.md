@@ -11,14 +11,16 @@ redirect_from:
 
 A [reranking pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/) can rerank search results, providing a relevance score for each document in the search results with respect to the search query. The relevance score is calculated by a reranker model. 
 
-This tutorial shows you how to rerank search results in self-managed OpenSearch and [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/). The tutorial uses the [Hugging Face BAAI/bge-reranker-v2-m3](https://huggingface.co/BAAI/bge-reranker-v2-m3) model hosted on Amazon SageMaker.
+This tutorial shows you how to rerank search results in self-managed OpenSearch and [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/). The tutorial uses the [Hugging Face `BAAI/bge-reranker-v2-m3`](https://huggingface.co/BAAI/bge-reranker-v2-m3) model hosted on Amazon SageMaker.
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
 
 ## Prerequisite: Deploy the model to Amazon SageMaker
 
-Use the following code to deploy the model to Amazon SageMaker. We suggest using a GPU for better performance:  
+The deployment code uses version 2.x of the SageMaker Python SDK. To install it, run `pip install "sagemaker<3"`. If you run the code outside SageMaker, `sagemaker.get_execution_role()` can return the IAM role that you are signed in as, which SageMaker can't assume, and the deployment fails. In that case, set `role` to the Amazon Resource Name (ARN) of your SageMaker execution role.
+
+Use the following code to deploy the model to Amazon SageMaker. We suggest using a GPU for better performance:
 
 ```python
 import json
@@ -78,19 +80,19 @@ The response contains the reranked results ordered by relevance score:
 [
   {
     "index": 2,
-    "score": 0.92879725
+    "score": 0.9289715
   },
   {
     "index": 0,
-    "score": 0.013636836
+    "score": 0.013589217
   },
   {
     "index": 1,
-    "score": 0.000593021
+    "score": 0.0005943261
   },
   {
     "index": 3,
-    "score": 0.00012148176
+    "score": 0.00012147202
   }
 ]
 ```
@@ -108,19 +110,19 @@ The sorted results are as follows:
 [
   {
     "index": 0,
-    "score": 0.013636836
+    "score": 0.013589217
   },
   {
     "index": 1,
-    "score": 0.000593021
+    "score": 0.0005943261
   },
   {
     "index": 2,
-    "score": 0.92879725
+    "score": 0.9289715
   },
   {
     "index": 3,
-    "score": 0.00012148176
+    "score": 0.00012147202
   }
 ]
 ```
@@ -144,7 +146,7 @@ If you are using self-managed OpenSearch, supply your AWS credentials:
 ```json
 POST /_plugins/_ml/connectors/_create
 {
-  "name": "Sagemakre cross-encoder model",
+  "name": "Sagemaker cross-encoder model",
   "description": "Test connector for Sagemaker cross-encoder model",
   "version": 1,
   "protocol": "aws_sigv4",
@@ -165,51 +167,9 @@ POST /_plugins/_ml/connectors/_create
       "headers": {
         "content-type": "application/json"
       },
-      "pre_process_function": """
-        def query_text = params.query_text;
-        def text_docs = params.text_docs;
-        def textDocsBuilder = new StringBuilder('[');
-        for (int i=0; i<text_docs.length; i++) {
-          textDocsBuilder.append('"');
-          textDocsBuilder.append(text_docs[i]);
-          textDocsBuilder.append('"');
-          if (i<text_docs.length - 1) {
-            textDocsBuilder.append(',');
-          }
-        }
-        textDocsBuilder.append(']');
-        def parameters = '{ "query": "' + query_text + '",  "texts": ' + textDocsBuilder.toString() + ' }';
-        return  '{"parameters": ' + parameters + '}';
-      """,
-      "request_body": """
-        { 
-          "query": "${parameters.query}",
-          "texts": ${parameters.texts}
-        }
-      """,
-      "post_process_function": """
-        if (params.result == null || params.result.length == 0) {
-          throw new IllegalArgumentException("Post process function input is empty.");
-        }
-        def outputs = params.result;
-        def scores = new Double[outputs.length];
-        for (int i=0; i<outputs.length; i++) {
-          def index = new BigDecimal(outputs[i].index.toString()).intValue();
-          scores[index] = outputs[i].score;
-        }
-        def resultBuilder = new StringBuilder('[');
-        for (int i=0; i<scores.length; i++) {
-          resultBuilder.append(' {"name": "similarity", "data_type": "FLOAT32", "shape": [1],');
-          resultBuilder.append('"data": [');
-          resultBuilder.append(scores[i]);
-          resultBuilder.append(']}');
-          if (i<outputs.length - 1) {
-            resultBuilder.append(',');
-          }
-        }
-        resultBuilder.append(']');
-        return resultBuilder.toString();
-      """
+      "pre_process_function": "def query_text = params.query_text;\ndef text_docs = params.text_docs;\ndef textDocsBuilder = new StringBuilder('[');\nfor (int i=0; i<text_docs.length; i++) {\n  textDocsBuilder.append('\"');\n  textDocsBuilder.append(text_docs[i]);\n  textDocsBuilder.append('\"');\n  if (i<text_docs.length - 1) {\n    textDocsBuilder.append(',');\n  }\n}\ntextDocsBuilder.append(']');\ndef parameters = '{ \"query\": \"' + query_text + '\",  \"texts\": ' + textDocsBuilder.toString() + ' }';\nreturn  '{\"parameters\": ' + parameters + '}';",
+      "request_body": "{ \"query\": \"${parameters.query}\", \"texts\": ${parameters.texts} }",
+      "post_process_function": "if (params.result == null || params.result.length == 0) {\n  throw new IllegalArgumentException(\"Post process function input is empty.\");\n}\ndef outputs = params.result;\ndef scores = new Double[outputs.length];\nfor (int i=0; i<outputs.length; i++) {\n  def index = new BigDecimal(outputs[i].index.toString()).intValue();\n  scores[index] = outputs[i].score;\n}\ndef resultBuilder = new StringBuilder('[');\nfor (int i=0; i<scores.length; i++) {\n  resultBuilder.append(' {\"name\": \"similarity\", \"data_type\": \"FLOAT32\", \"shape\": [1],');\n  resultBuilder.append('\"data\": [');\n  resultBuilder.append(scores[i]);\n  resultBuilder.append(']}');\n  if (i<outputs.length - 1) {\n    resultBuilder.append(',');\n  }\n}\nresultBuilder.append(']');\nreturn resultBuilder.toString();"
     }
   ]
 }
@@ -221,7 +181,7 @@ If you are using Amazon OpenSearch service, you can provide an AWS Identity and 
 ```json
 POST /_plugins/_ml/connectors/_create
 {
-  "name": "Sagemakre cross-encoder model",
+  "name": "Sagemaker cross-encoder model",
   "description": "Test connector for Sagemaker cross-encoder model",
   "version": 1,
   "protocol": "aws_sigv4",
@@ -229,7 +189,7 @@ POST /_plugins/_ml/connectors/_create
     "roleArn": "your_role_arn_which_allows_access_to_sagemaker_model_inference_endpoint"
   },
   "parameters": {
-    "region": "your_sagemkaer_model_region_like_us-west-2",
+    "region": "your_sagemaker_model_region_like_us-west-2",
     "service_name": "sagemaker"
   },
   "actions": [
@@ -240,58 +200,16 @@ POST /_plugins/_ml/connectors/_create
       "headers": {
         "content-type": "application/json"
       },
-      "pre_process_function": """
-        def query_text = params.query_text;
-        def text_docs = params.text_docs;
-        def textDocsBuilder = new StringBuilder('[');
-        for (int i=0; i<text_docs.length; i++) {
-          textDocsBuilder.append('"');
-          textDocsBuilder.append(text_docs[i]);
-          textDocsBuilder.append('"');
-          if (i<text_docs.length - 1) {
-            textDocsBuilder.append(',');
-          }
-        }
-        textDocsBuilder.append(']');
-        def parameters = '{ "query": "' + query_text + '",  "texts": ' + textDocsBuilder.toString() + ' }';
-        return  '{"parameters": ' + parameters + '}';
-      """,
-      "request_body": """
-        { 
-          "query": "${parameters.query}",
-          "texts": ${parameters.texts}
-        }
-      """,
-      "post_process_function": """
-        if (params.result == null || params.result.length == 0) {
-          throw new IllegalArgumentException("Post process function input is empty.");
-        }
-        def outputs = params.result;
-        def scores = new Double[outputs.length];
-        for (int i=0; i<outputs.length; i++) {
-          def index = new BigDecimal(outputs[i].index.toString()).intValue();
-          scores[index] = outputs[i].score;
-        }
-        def resultBuilder = new StringBuilder('[');
-        for (int i=0; i<scores.length; i++) {
-          resultBuilder.append(' {"name": "similarity", "data_type": "FLOAT32", "shape": [1],');
-          resultBuilder.append('"data": [');
-          resultBuilder.append(scores[i]);
-          resultBuilder.append(']}');
-          if (i<outputs.length - 1) {
-            resultBuilder.append(',');
-          }
-        }
-        resultBuilder.append(']');
-        return resultBuilder.toString();
-      """
+      "pre_process_function": "def query_text = params.query_text;\ndef text_docs = params.text_docs;\ndef textDocsBuilder = new StringBuilder('[');\nfor (int i=0; i<text_docs.length; i++) {\n  textDocsBuilder.append('\"');\n  textDocsBuilder.append(text_docs[i]);\n  textDocsBuilder.append('\"');\n  if (i<text_docs.length - 1) {\n    textDocsBuilder.append(',');\n  }\n}\ntextDocsBuilder.append(']');\ndef parameters = '{ \"query\": \"' + query_text + '\",  \"texts\": ' + textDocsBuilder.toString() + ' }';\nreturn  '{\"parameters\": ' + parameters + '}';",
+      "request_body": "{ \"query\": \"${parameters.query}\", \"texts\": ${parameters.texts} }",
+      "post_process_function": "if (params.result == null || params.result.length == 0) {\n  throw new IllegalArgumentException(\"Post process function input is empty.\");\n}\ndef outputs = params.result;\ndef scores = new Double[outputs.length];\nfor (int i=0; i<outputs.length; i++) {\n  def index = new BigDecimal(outputs[i].index.toString()).intValue();\n  scores[index] = outputs[i].score;\n}\ndef resultBuilder = new StringBuilder('[');\nfor (int i=0; i<scores.length; i++) {\n  resultBuilder.append(' {\"name\": \"similarity\", \"data_type\": \"FLOAT32\", \"shape\": [1],');\n  resultBuilder.append('\"data\": [');\n  resultBuilder.append(scores[i]);\n  resultBuilder.append(']}');\n  if (i<outputs.length - 1) {\n    resultBuilder.append(',');\n  }\n}\nresultBuilder.append(']');\nreturn resultBuilder.toString();"
     }
   ]
 }
 ```
 {% include copy-curl.html %}
 
-For more information, see the [AWS documentation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ml-amazon-connector.html), [this tutorial]({{site.url}}{{site.baseurl}}/vector-search/tutorials/semantic-search/semantic-search-sagemaker/), and [the AIConnectorHelper notebook](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/tutorials/aws/AIConnectorHelper.ipynb).
+For more information, see the [AWS documentation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ml-amazon-connector.html), [this tutorial]({{site.url}}{{site.baseurl}}/vector-search/tutorials/semantic-search/semantic-search-sagemaker/), and [the AIConnectorHelper notebook](https://github.com/opensearch-project/ml-commons/blob/main/docs/tutorials/aws/AIConnectorHelper.ipynb).
 
 Use the connector ID from the response to register and deploy the model:
 
@@ -350,19 +268,19 @@ By default, the model output has the following format:
 [
   {
     "index": 2,
-    "score": 0.92879725
+    "score": 0.9289715
   },
   {
     "index": 0,
-    "score": 0.013636836
+    "score": 0.013589217
   },
   {
     "index": 1,
-    "score": 0.000593021
+    "score": 0.0005943261
   },
   {
     "index": 3,
-    "score": 0.00012148176
+    "score": 0.00012147202
   }
 ]
 ```
@@ -381,7 +299,7 @@ The connector `post_process_function` transforms the model's output into a forma
             1
           ],
           "data": [
-            0.013636836
+            0.013589217
           ]
         },
         {
@@ -391,7 +309,7 @@ The connector `post_process_function` transforms the model's output into a forma
             1
           ],
           "data": [
-            0.013636836
+            5.943261E-4
           ]
         },
         {
@@ -401,7 +319,7 @@ The connector `post_process_function` transforms the model's output into a forma
             1
           ],
           "data": [
-            0.92879725
+            0.9289715
           ]
         },
         {
@@ -411,7 +329,7 @@ The connector `post_process_function` transforms the model's output into a forma
             1
           ],
           "data": [
-            0.00012148176
+            1.2147202E-4
           ]
         }
       ],
@@ -421,7 +339,7 @@ The connector `post_process_function` transforms the model's output into a forma
 }
 ```
 
-The response contains two `similarity` objects. For each `similarity` object, the `data` array contains a relevance score for each document with respect to the query. The `similarity` objects are provided in the order of the input documents---the first object pertains to the first document. 
+The response contains four `similarity` objects. For each `similarity` object, the `data` array contains a relevance score for each document with respect to the query. The `similarity` objects are provided in the order of the input documents---the first object pertains to the first document.
 
 ## Step 2: Configure a reranking pipeline
 
@@ -433,13 +351,13 @@ Send a bulk request to ingest test data:
 
 ```json
 POST _bulk
-{ "index": { "_index": "my-test-data" } }
+{ "index": { "_index": "my-test-data", "_id": "1" } }
 { "passage_text" : "Carson City is the capital city of the American state of Nevada." }
-{ "index": { "_index": "my-test-data" } }
+{ "index": { "_index": "my-test-data", "_id": "2" } }
 { "passage_text" : "The Commonwealth of the Northern Mariana Islands is a group of islands in the Pacific Ocean. Its capital is Saipan." }
-{ "index": { "_index": "my-test-data" } }
+{ "index": { "_index": "my-test-data", "_id": "3" } }
 { "passage_text" : "Washington, D.C. (also known as simply Washington or D.C., and officially as the District of Columbia) is the capital of the United States. It is a federal district." }
-{ "index": { "_index": "my-test-data" } }
+{ "index": { "_index": "my-test-data", "_id": "4" } }
 { "passage_text" : "Capital punishment (the death penalty) has existed in the United States since beforethe United States was a country. As of 2017, capital punishment is legal in 30 of the 50 states." }
 ```
 {% include copy-curl.html %}
@@ -513,12 +431,12 @@ The first document in the response is `Carson City is the capital city of the Am
       "value": 4,
       "relation": "eq"
     },
-    "max_score": 2.5045562,
+    "max_score": 1.1384345,
     "hits": [
       {
         "_index": "my-test-data",
         "_id": "1",
-        "_score": 2.5045562,
+        "_score": 1.1384345,
         "fields": {
           "passage_text": [
             "Carson City is the capital city of the American state of Nevada."
@@ -533,7 +451,7 @@ The first document in the response is `Carson City is the capital city of the Am
       {
         "_index": "my-test-data",
         "_id": "2",
-        "_score": 0.5807494,
+        "_score": 0.263977,
         "fields": {
           "passage_text": [
             "The Commonwealth of the Northern Mariana Islands is a group of islands in the Pacific Ocean. Its capital is Saipan."
@@ -549,7 +467,7 @@ The first document in the response is `Carson City is the capital city of the Am
       {
         "_index": "my-test-data",
         "_id": "3",
-        "_score": 0.5261191,
+        "_score": 0.23914504,
         "fields": {
           "passage_text": [
             "Washington, D.C. (also known as simply Washington or D.C., and officially as the District of Columbia) is the capital of the United States. It is a federal district."
@@ -566,7 +484,7 @@ The first document in the response is `Carson City is the capital city of the Am
       {
         "_index": "my-test-data",
         "_id": "4",
-        "_score": 0.5083029,
+        "_score": 0.23104677,
         "fields": {
           "passage_text": [
             "Capital punishment (the death penalty) has existed in the United States since beforethe United States was a country. As of 2017, capital punishment is legal in 30 of the 50 states."
@@ -629,12 +547,12 @@ The first document in the response is `"Washington, D.C. (also known as simply W
       "value": 4,
       "relation": "eq"
     },
-    "max_score": 0.92879725,
+    "max_score": 0.9289715,
     "hits": [
       {
         "_index": "my-test-data",
         "_id": "3",
-        "_score": 0.92879725,
+        "_score": 0.9289715,
         "fields": {
           "passage_text": [
             "Washington, D.C. (also known as simply Washington or D.C., and officially as the District of Columbia) is the capital of the United States. It is a federal district."
@@ -651,7 +569,7 @@ The first document in the response is `"Washington, D.C. (also known as simply W
       {
         "_index": "my-test-data",
         "_id": "1",
-        "_score": 0.013636836,
+        "_score": 0.013589217,
         "fields": {
           "passage_text": [
             "Carson City is the capital city of the American state of Nevada."
@@ -666,7 +584,7 @@ The first document in the response is `"Washington, D.C. (also known as simply W
       {
         "_index": "my-test-data",
         "_id": "2",
-        "_score": 0.013636836,
+        "_score": 5.943261E-4,
         "fields": {
           "passage_text": [
             "The Commonwealth of the Northern Mariana Islands is a group of islands in the Pacific Ocean. Its capital is Saipan."
@@ -682,7 +600,7 @@ The first document in the response is `"Washington, D.C. (also known as simply W
       {
         "_index": "my-test-data",
         "_id": "4",
-        "_score": 0.00012148176,
+        "_score": 1.2147202E-4,
         "fields": {
           "passage_text": [
             "Capital punishment (the death penalty) has existed in the United States since beforethe United States was a country. As of 2017, capital punishment is legal in 30 of the 50 states."
@@ -730,3 +648,9 @@ POST my-test-data/_search?search_pipeline=rerank_pipeline_sagemaker
 }
 ```
 {% include copy-curl.html %}
+
+## Related documentation
+
+- [Reranking search results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/)
+- [Rerank processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/)
+- [Connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/)

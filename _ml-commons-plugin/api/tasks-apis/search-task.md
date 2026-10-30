@@ -1,20 +1,25 @@
 ---
 layout: default
-title: Search task
-parent: Tasks APIs
-grand_parent: ML Commons APIs
+title: Search ML tasks
+parent: ML Tasks APIs
+grand_parent: ML APIs
 nav_order: 15
 ---
 
-# Search Task API
+# Search ML Tasks API
 
-Searches tasks based on parameters indicated in the request body.
+Searches machine learning (ML) tasks based on parameters indicated in the request body.
 
 ## Endpoints
 
 ```json
 GET /_plugins/_ml/tasks/_search
+POST /_plugins/_ml/tasks/_search
 ```
+
+## Request body fields
+
+The request body accepts the standard [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/) search request fields, such as `query`, `size`, `from`, `sort`, and `_source`.
 
 ## Example request: Search for a task in which `function_name` is `KMEANS`
 
@@ -68,7 +73,9 @@ GET /_plugins/_ml/tasks/_search
           "is_async" : true,
           "function_name" : "KMEANS",
           "input_type" : "SEARCH_QUERY",
-          "worker_node" : "jjqFrlW7QWmni1tRnb_7Dg",
+          "worker_node" : [
+            "jjqFrlW7QWmni1tRnb_7Dg"
+          ],
           "state" : "COMPLETED",
           "model_id" : "AAnLJ38BvytMh9aUi-M2",
           "task_type" : "TRAINING"
@@ -87,7 +94,9 @@ GET /_plugins/_ml/tasks/_search
           "is_async" : true,
           "function_name" : "KMEANS",
           "input_type" : "SEARCH_QUERY",
-          "worker_node" : "A_IiqoloTDK01uZvCjREaA",
+          "worker_node" : [
+            "A_IiqoloTDK01uZvCjREaA"
+          ],
           "state" : "COMPLETED",
           "model_id" : "xARRLX8BydmmU1x6I-CG",
           "task_type" : "TRAINING"

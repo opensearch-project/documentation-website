@@ -7,7 +7,7 @@ redirect_from:
   - /query-dsl/aggregations/metric/median-absolute-deviation/
 ---
 
-# Median absolute deviation aggregations
+# Median absolute deviation aggregation
 
 The `median_absolute_deviation` aggregation is a single-value metric aggregation. Median absolute deviation is a variability metric that measures dispersion from the median.
 
@@ -51,7 +51,7 @@ GET opensearch_dashboards_sample_data_flights/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 As shown in the following example response, the aggregation returns an estimate of the median absolute deviation in the `median_absolute_deviation_DistanceMiles` variable:
 

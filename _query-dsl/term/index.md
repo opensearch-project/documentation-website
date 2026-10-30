@@ -3,7 +3,7 @@ layout: default
 title: Term-level queries
 has_children: true
 has_toc: false
-nav_order: 20
+nav_order: 40
 redirect_from:
   - /opensearch/query-dsl/term/
   - /query-dsl/term/

@@ -1,12 +1,14 @@
 ---
 layout: default
 title: Cluster pending tasks
-nav_order: 45
+nav_order: 46
 parent: Cluster APIs
 has_children: false
 ---
 
 # Cluster Pending Tasks API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The `/_cluster/pending_tasks` API returns a list of cluster-level changes that have not yet been executed. These pending tasks are typically queued operations such as index creation, template updates, shard allocation changes, and other cluster state updates.
 
@@ -24,8 +26,8 @@ The following table lists the available query parameters. All query parameters a
 
 | Parameter        | Data type | Description                                                                                                             |
 | ---------------- | --------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `local`          | Boolean   | Whether to return information from the local node only instead of the elected cluster manager node. Default is `false`. |
-| `cluster_manager_timeout` | Time      | Specifies the timeout for connecting to the cluster manager node. Default is `30s`.                                     |
+| `local` | Boolean | Whether to return information from the local node only instead of the elected cluster manager node. Default is `false`. |
+| `cluster_manager_timeout` | Time | Specifies the timeout for connecting to the cluster manager node. Default is `30s`.                                     |
 
 ## Example request
 
@@ -83,10 +85,14 @@ The following table lists all response fields.
 
 | Field                           | Data type | Description                                                        |
 | ------------------------------- | --------- | ------------------------------------------------------------------ |
-| `tasks`                         | Array     | The list of pending cluster state update tasks.                        |
-| `tasks[n].insert_order`         | Integer   | The order in which the task was added to the queue.                    |
-| `tasks[n].priority`             | String    | The priority level of the task (for example, `HIGH`, `URGENT`).               |
-| `tasks[n].source`               | String    | The description of the operation that submitted the task.              |
-| `tasks[n].executing`            | Boolean   | Confirmation of whether the task is currently being executed.                      |
-| `tasks[n].time_in_queue_millis` | Integer   | The amount of time the task has been waiting in the queue (in milliseconds). |
-| `tasks[n].time_in_queue`        | String    | A human-readable version of `time_in_queue_millis`.                  |
+| `tasks` | Array | The list of pending cluster state update tasks.                        |
+| `tasks[n].insert_order` | Integer | The order in which the task was added to the queue.                    |
+| `tasks[n].priority` | String | The priority level of the task (for example, `HIGH`, `URGENT`).               |
+| `tasks[n].source` | String | The description of the operation that submitted the task.              |
+| `tasks[n].executing` | Boolean | Confirmation of whether the task is currently being executed.                      |
+| `tasks[n].time_in_queue_millis` | Integer | The amount of time the task has been waiting in the queue (in milliseconds). |
+| `tasks[n].time_in_queue` | String | A human-readable version of `time_in_queue_millis`.                  |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:monitor/task`.

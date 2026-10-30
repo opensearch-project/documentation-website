@@ -1,19 +1,22 @@
 ---
 layout: default
 title: Create or update index template
-parent: Index APIs
-nav_order: 35
+parent: Index templates
+grand_parent: Index APIs
+nav_order: 10
 ---
 
 # Create Or Update Index Template API
+**Introduced 1.0**
+{: .label .label-purple }
 
 You can use the Create or Update Index Template API to create indexes with predefined mappings and settings as well as update existing index templates.
 
 ## Endpoints
 
 ```json
-PUT _index_template/<template-name>
-POST _index_template/<template-name>
+PUT _index_template/{template-name}
+POST _index_template/{template-name}
 ```
 
 ## Path parameters
@@ -43,7 +46,7 @@ Parameter | Type | Description
 `data_stream` | Object | When used, the request creates data streams and any backing indexes based on the template. This setting requires a matching index template. It can also be used with the `hidden` setting, which, when set to `true`, hides the data stream backing indexes. Optional.
 `_meta` | Object | Optional metadata that provides details about the index template. Optional.
 `priority` | Integer | A number that determines which index templates take precedence during the creation of a new index or data stream. OpenSearch chooses the template with the highest priority. When no priority is given, the template is assigned a `0`, signifying the lowest priority. Optional.
-`template` | Object | The template that includes the `aliases`, `mappings`, or `settings` for the index. For more information, see [#template]. Optional.
+`template` | Object | The template that includes the `aliases`, `mappings`, or `settings` for the index. For more information, see [Template](#template). Optional.
 `version` | Integer | The version number used to manage index templates. Version numbers are not automatically set by OpenSearch. Optional.
 `context` | Object | (Experimental) The `context` parameter provides use-case-specific predefined templates that can be applied to an index. Among all settings and mappings declared for a template, context templates hold the highest priority. For more information, see [index-context]({{site.url}}{{site.baseurl}}/im-plugin/index-context/).
 
@@ -169,7 +172,9 @@ response = client.indices.put_index_template(
 
 ### Using multiple matching templates
 
-When multiple index templates match the name of a new index or data stream, the template with the highest priority is used. For example, the following two requests create index templates with different priorities: 
+When multiple index templates match the name of a new index or data stream, the template with the highest priority is used. For example, the following two requests create index templates with different priorities.
+
+The first request creates a template with priority `0` that matches index names starting with `h`:
 
 ```json
 PUT /_index_template/template_one
@@ -186,7 +191,12 @@ PUT /_index_template/template_one
     }
   }
 }
+```
+{% include copy-curl.html %}
 
+The second request creates a template with priority `1` that matches the narrower set of index names starting with `ha`:
+
+```json
 PUT /_index_template/template_two
 {
   "index_patterns" : ["ha*"],
@@ -214,7 +224,7 @@ The following example request adds a `version` number to an index template, whic
 
 <!-- spec_insert_start
 component: example_code
-rest: PUT /_index_template/template_one
+rest: PUT /_index_template/versioned-template
 body: |
 {
   "index_patterns" : ["mac", "cheese"],
@@ -228,7 +238,7 @@ body: |
 }
 -->
 {% capture step1_rest %}
-PUT /_index_template/template_one
+PUT /_index_template/versioned-template
 {
   "index_patterns": [
     "mac",
@@ -248,7 +258,7 @@ PUT /_index_template/template_one
 
 
 response = client.indices.put_index_template(
-  name = "template_one",
+  name = "versioned-template",
   body =   {
     "index_patterns": [
       "mac",
@@ -278,7 +288,7 @@ The following example request uses the `meta` parameter to add metadata to the i
 
 <!-- spec_insert_start
 component: example_code
-rest: PUT /_index_template/template_one
+rest: PUT /_index_template/metadata-template
 body: |
 {
   "index_patterns": ["rom", "juliet"],
@@ -297,7 +307,7 @@ body: |
 }
 -->
 {% capture step1_rest %}
-PUT /_index_template/template_one
+PUT /_index_template/metadata-template
 {
   "index_patterns": [
     "rom",
@@ -322,7 +332,7 @@ PUT /_index_template/template_one
 
 
 response = client.indices.put_index_template(
-  name = "template_one",
+  name = "metadata-template",
   body =   {
     "index_patterns": [
       "rom",
@@ -356,7 +366,7 @@ Include a `data_stream` object to use an index template for data streams, as sho
 
 <!-- spec_insert_start
 component: example_code
-rest: PUT /_index_template/template_1
+rest: PUT /_index_template/logs-template
 body: |
 {
   "index_patterns": ["logs-*"],
@@ -364,7 +374,7 @@ body: |
 }
 -->
 {% capture step1_rest %}
-PUT /_index_template/template_1
+PUT /_index_template/logs-template
 {
   "index_patterns": [
     "logs-*"
@@ -377,7 +387,7 @@ PUT /_index_template/template_1
 
 
 response = client.indices.put_index_template(
-  name = "template_1",
+  name = "logs-template",
   body =   {
     "index_patterns": [
       "logs-*"
@@ -397,7 +407,9 @@ response = client.indices.put_index_template(
 
 When using multiple component templates with the `composed_of` field, the component templates are merged in the specified order. Next, all mappings, settings, and aliases from the parent index template of the component are merged. Lastly, any configuration options added to the index requests are merged.
 
-In the following example request, an index with `h*` has two merged primary shards. If the order in the request body were reversed, then the index would have one primary shard:
+In the following example, an index matching `my-index-*` has two merged primary shards. If the order in the `composed_of` array were reversed, then the index would have one primary shard.
+
+First, create a component template that sets one primary shard:
 
 ```json
 PUT /_component_template/template_with_1_shard
@@ -408,7 +420,12 @@ PUT /_component_template/template_with_1_shard
     }
   }
 }
+```
+{% include copy-curl.html %}
 
+Next, create a component template that sets two primary shards:
+
+```json
 PUT /_component_template/template_with_2_shards
 {
   "template": {
@@ -417,10 +434,15 @@ PUT /_component_template/template_with_2_shards
     }
   }
 }
+```
+{% include copy-curl.html %}
 
-PUT /_index_template/template_1
+Finally, create an index template that composes both component templates in order:
+
+```json
+PUT /_index_template/composed-template
 {
-  "index_patterns": ["h*"],
+  "index_patterns": ["my-index-*"],
   "composed_of": ["template_with_1_shard", "template_with_2_shards"]
 }
 ```
@@ -429,4 +451,6 @@ PUT /_index_template/template_1
 
 Recursive merging is used for mapping definition and root options such as `dynamic_templates` and `meta`, meaning that when an earlier component contains a `meta` block, new `meta` entries are added to the end of the metadata in the index. Any entries containing a preexisting key are overwritten.
 
+## Required permissions
 
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/index_template/put`.

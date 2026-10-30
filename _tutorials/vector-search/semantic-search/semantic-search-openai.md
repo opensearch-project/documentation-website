@@ -12,12 +12,12 @@ redirect_from:
 
 This tutorial shows you how to implement semantic search in [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) using the [OpenAI embedding model](https://platform.openai.com/docs/guides/embeddings). For more information, see [Semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/semantic-search/).
 
-If using Python, you can create an OpenAI connector and test the model using the [opensearch-py-ml](https://github.com/opensearch-project/opensearch-py-ml) client CLI. The CLI automates many configuration steps, making setup faster and reducing the chance of errors. For more information about using the CLI, see the [CLI documentation](https://opensearch-project.github.io/opensearch-py-ml/cli/index.html#).
+If using Python, you can create an OpenAI connector and test the model using the [`opensearch-py-ml`](https://github.com/opensearch-project/opensearch-py-ml) client CLI. The CLI automates many configuration steps, making setup faster and reducing the chance of errors. For more information about using the CLI, see the [CLI documentation](https://opensearch-project.github.io/opensearch-py-ml/cli/index.html#).
 {: .tip}
 
 If using self-managed OpenSearch instead of Amazon OpenSearch Service, create a connector to the OpenAI model using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/openai_connector_embedding_blueprint.md).
 
-Alternatively, you can set up an embedding model using [the AIConnectorHelper notebook](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/tutorials/aws/AIConnectorHelper.ipynb).
+Alternatively, you can set up an embedding model using [the AIConnectorHelper notebook](https://github.com/opensearch-project/ml-commons/blob/main/docs/tutorials/aws/AIConnectorHelper.ipynb).
 {: .tip}
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
@@ -130,7 +130,7 @@ You'll use the `your_iam_user_arn` IAM user to assume the role in Step 4.
         {
             "Effect": "Allow",
             "Action": "es:ESHttpPost",
-            "Resource": "your_opensearch_domain_arn_created"
+            "Resource": "your_opensearch_domain_arn_created/*"
         }
     ]
 }
@@ -148,7 +148,7 @@ Follow these steps to map a backend role:
 3. On the **ml_full_access** role details page, select **Mapped users**, and then select **Manage mapping**. 
 4. Enter the IAM role ARN created in Step 3.1 in the **Backend roles** field, as shown in the following image.
     ![Mapping a backend role]({{site.url}}{{site.baseurl}}/images/vector-search-tutorials/mapping_iam_role_arn.png)
-4. Select **Map**. 
+5. Select **Map**. 
 
 The IAM role is now successfully configured in your OpenSearch cluster.
 
@@ -369,7 +369,6 @@ PUT my_index
 {
   "settings": {
     "index": {
-      "knn.space_type": "cosinesimil",
       "default_pipeline": "my_openai_embedding_pipeline",
       "knn": "true"
     }
@@ -378,7 +377,8 @@ PUT my_index
     "properties": {
       "text_knn": {
         "type": "knn_vector",
-        "dimension": 1536
+        "dimension": 1536,
+        "space_type": "cosinesimil"
       }
     }
   }
@@ -419,3 +419,10 @@ POST /my_index/_search
 }
 ```
 {% include copy-curl.html %}
+
+## Related documentation
+
+- [Semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/semantic-search/)
+- [Connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/)
+- [Text embedding processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-embedding/)
+- [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/)

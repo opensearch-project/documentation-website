@@ -103,7 +103,7 @@ GET testindex/_search
 
 The following image depicts the example. Both the point and the polygon are within the bounding envelope.
 
-<img src="{{site.url}}{{site.baseurl}}/images/xy_query.png" alt="xy shape query" width="250">
+![xy shape query]({{site.url}}{{site.baseurl}}/images/xy_query.png){: width="250" }
 
 
 The response contains both documents:
@@ -187,6 +187,7 @@ Parameter | Description
 `index` | The name of the index that contains the pre-indexed shape.
 `id` | The document ID of the document that contains the pre-indexed shape.
 `path` | The field name of the field that contains the pre-indexed shape as a path.
+`routing` | The routing value of the document that contains the pre-indexed shape. Required if the shape document was indexed with a custom routing value.
 
 The following example illustrates referencing the name of a shape pre-indexed in another index. In this example, the index `pre-indexed-shapes` contains the shape that defines the boundaries, and the index `testindex` contains the shapes whose locations are checked against those boundaries.
 
@@ -416,7 +417,7 @@ xy point only supports the default `INTERSECTS` spatial relation, so you don't n
 
 The following image depicts the example. Points 1 and 2 are within the circle, and point 3 is outside the circle.
 
-<img src="{{site.url}}{{site.baseurl}}/images/xy_query_point.png" alt="xy point query" width="300">
+![xy point query]({{site.url}}{{site.baseurl}}/images/xy_query_point.png){: width="300" }
 
 The response returns documents 1 and 2:
 

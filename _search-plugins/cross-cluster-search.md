@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Cross-cluster search
-nav_order: 65
+nav_order: 230
 redirect_from:
  - /security/access-control/cross-cluster-search/
  - /security-plugin/access-control/cross-cluster-search/
@@ -20,6 +20,17 @@ You can use cross-cluster search (CCS) in OpenSearch to search and analyze data 
 
 ---
 
+## Prerequisite
+
+Before configuring cross-cluster search, ensure that the following prerequisite is met:
+
+- If you've overridden `node.roles` in `opensearch.yml` for any node in a cluster participating in cross-cluster search, ensure that the `node.roles` setting includes the `remote_cluster_client` role:
+
+   ```yaml
+   node.roles: [<other_roles>, remote_cluster_client]
+   ```
+   {% include copy.html %}
+
 ## Authentication flow
 
 The following sequence describes the authentication flow when using cross-cluster search to access a *remote cluster* from a *coordinating cluster*. You can have different authentication and authorization configurations on the remote and coordinating clusters, but we recommend using the same settings on both.
@@ -29,6 +40,32 @@ The following sequence describes the authentication flow when using cross-cluste
 1. The call, including the authenticated user, is forwarded to the remote cluster.
 1. The user's permissions are evaluated on the remote cluster.
 
+## Remote cluster role evaluation
+**Introduced 3.9**
+{: .label .label-purple }
+
+By default, the remote cluster evaluates permissions using a combination of the security roles propagated from the coordinating cluster and its own role mappings. As a result, a user who has broad permissions on the coordinating cluster (for example, `all_access`) receives those same permissions on the remote cluster.
+
+To give the remote cluster independent control over the permissions that CCS users receive, set the following cluster setting on the remote cluster:
+
+```json
+PUT /_cluster/settings
+{
+  "persistent": {
+    "plugins.security.ccs.ignore_source_security_roles": true
+  }
+}
+```
+{% include copy-curl.html %}
+
+When `plugins.security.ccs.ignore_source_security_roles` is `true`, the remote cluster strips the security roles propagated from the coordinating cluster and evaluates access exclusively through its own `roles_mapping.yml` configuration. You can then define CCS user permissions independently on each cluster. The setting is `false` by default, so existing CCS deployments are unaffected.
+
+### Limitations
+
+The setting has the following limitations:
+
+- The remote cluster doesn't re-authenticate CCS users, so it doesn't consult the role assignments in `internal_users.yml`. When this setting is enabled, you must use `roles_mapping.yml` to grant CCS users access to the remote cluster. Role assignments made using `opendistro_security_roles` in `internal_users.yml` have no effect on CCS user authorization.
+- The setting applies only to cross-cluster search requests. Other cross-cluster operations aren't affected.
 
 ## Setting permissions
 
@@ -56,7 +93,7 @@ humanresources:
 
 #### Example role in OpenSearch Dashboards
 
-![OpenSearch Dashboards UI for creating a cross-cluster search role]({{site.url}}{{site.baseurl}}/images/security-ccs.png)
+![OpenSearch Dashboards panel for creating a cross-cluster search role]({{site.url}}{{site.baseurl}}/images/security-ccs.png)
 
 
 ## Sample Docker setup
@@ -83,7 +120,6 @@ services:
       - opensearch-data1:/usr/share/opensearch/data
     ports:
       - 9200:9200
-      - 9600:9600 # required for Performance Analyzer
     networks:
       - opensearch-net
 
@@ -104,7 +140,6 @@ services:
       - opensearch-data2:/usr/share/opensearch/data
     ports:
       - 9250:9200
-      - 9700:9600 # required for Performance Analyzer
     networks:
       - opensearch-net
 
@@ -139,8 +174,8 @@ To get the IP address for the remote cluster, first identify its container ID:
 ```bash
 docker ps
 CONTAINER ID    IMAGE                                       PORTS                                                      NAMES
-6fe89ebc5a8e    opensearchproject/opensearch:{{site.opensearch_version}}   0.0.0.0:9200->9200/tcp, 0.0.0.0:9600->9600/tcp, 9300/tcp   opensearch-ccs-node1
-2da08b6c54d8    opensearchproject/opensearch:{{site.opensearch_version}}   9300/tcp, 0.0.0.0:9250->9200/tcp, 0.0.0.0:9700->9600/tcp   opensearch-ccs-node2
+6fe89ebc5a8e    opensearchproject/opensearch:{{site.opensearch_version}}   0.0.0.0:9200->9200/tcp, 9600/tcp, 9300/tcp   opensearch-ccs-node1
+2da08b6c54d8    opensearchproject/opensearch:{{site.opensearch_version}}   9300/tcp, 0.0.0.0:9250->9200/tcp, 9600/tcp   opensearch-ccs-node2
 ```
 
 Then get that container's IP address:
@@ -167,7 +202,7 @@ curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-passwo
 All of the cURL requests can also be sent using OpenSearch Dashboards Dev Tools.
 {: .tip }
 The following image shows an example of a cURL request using Dev Tools.
-![OpenSearch Dashboards UI for configuring remote cluster for Cross-cluster search]({{site.url}}{{site.baseurl}}/images/ccs-devtools.png)
+![OpenSearch Dashboards Dev Tools request for configuring remote cluster for Cross-cluster search]({{site.url}}{{site.baseurl}}/images/ccs-devtools.png)
 
 On the remote cluster, index a document:
 
@@ -362,3 +397,8 @@ curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-passwo
 ```
 
 Note the previously configured port `8300` in the [Proxy configuration]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/#proxy-configuration) section.
+
+## Related documentation
+
+- To query remote clusters using PPL in Event analytics or in an Observability workspace, see [Using observability apps for cross-cluster search]({{site.url}}{{site.baseurl}}/observing-your-data/cross-cluster-search/).
+- To obtain information about the remote clusters connected to a cluster, see [Remote cluster information]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/remote-info/).

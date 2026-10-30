@@ -69,10 +69,16 @@ semantic_search:
       - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
       - "<b>Model:</b> Amazon Titan Text Embeddings"  
       - "<b>Deployment:</b> Amazon Bedrock"
+  - heading: "Multimodal search using ML inference processors"
+    link: /tutorials/vector-search/semantic-search/multimodal-search-ml-inference/
+    list:
+      - "<b>Platform:</b> OpenSearch, Amazon OpenSearch Service"
+      - "<b>Model:</b> Amazon Titan Multimodal Embeddings"
+      - "<b>Deployment:</b> Amazon Bedrock"
 ---
 
 # Semantic search tutorials
 
-The following tutorials show you how to implement semantic search.
+Learn how to implement semantic search in OpenSearch using embedding models to match queries by meaning rather than exact keywords.
 
 {% include cards.html cards=page.semantic_search %}

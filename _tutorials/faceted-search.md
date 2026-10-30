@@ -38,7 +38,7 @@ PUT _ingest/pipeline/normalize-color-pipeline
 ```
 {% include copy-curl.html %}
 
-Then map all fields to `keyword` for aggregation and apply the pipeline to the index:
+Then map the facet fields (`color` and `size`) to `keyword` for aggregation and apply the pipeline to the index:
 
 ```json
 PUT /products
@@ -464,7 +464,7 @@ The results appear as follows.
 
 ### Maintaining facet options during filtering
 
-When users select a facet filter, they typically expect to still see the other available filtering options. For example, if a user filters for red t-shirts, the color facet should still show all available colors (red, blue, and others) from the original search results, not just "red". This helps users understand the full range of options and easily switch between filters.
+When users select a facet filter, they typically expect to still see the other available filtering options. For example, if a user filters for red t-shirts, the color facet should still show all available colors (red, blue, and others) from the original search results, not only "red". This helps users understand the full range of options and easily switch between filters.
 
 You can achieve this behavior by using a `post_filter`. The `post_filter` filters the search results after aggregations are calculated, so facets reflect the unfiltered dataset:
 
@@ -1098,7 +1098,7 @@ The response contains all three stores bucketed by distance:
 
 Hierarchical faceting enables drill-down through a hierarchy of attributes, like Category > Subcategory > Product type. This can be implemented using fields that encode the hierarchy with delimiters.
 
-First, create an ingest pipeline that uses the `path_hierarchy` tokenizer to automatically generate all hierarchy levels:
+First, create an ingest pipeline that uses a `script` processor to generate all hierarchy levels from the `category_path` field:
 
 ```json
 PUT _ingest/pipeline/category-hierarchy-pipeline
@@ -1161,7 +1161,7 @@ curl -XPUT "http://localhost:9200/_ingest/pipeline/category-hierarchy-pipeline" 
 ```
 {% include copy.html %}
 
-This approach avoids using `fielddata` on `text` fields by explicitly storing each hierarchy level as a separate `keyword` field. While this requires more storage space, it provides better query performance and is more memory efficient for aggregations. In production systems, you can automate the hierarchy level extraction during indexing using ingest pipelines or application logic.
+This approach avoids using `fielddata` on `text` fields by explicitly storing each hierarchy level as a separate `keyword` field. While this requires more storage space, it provides better query performance and is more memory efficient for aggregations.
 
 Next, define your index mapping with hierarchical fields and set the pipeline as a default pipeline on the index:
 
@@ -1193,13 +1193,13 @@ POST /products-advanced/_bulk
 { "index": {"_id": 1} }
 { "name": "Cotton T-Shirt", "color": "red", "category_path": "Clothing>Shirts>T-Shirts" }
 { "index": {"_id": 2} }
-{ "name": "Wool Sweater", "color": "red", "category_path": "Clothing>Sweaters>Wool" }
+{ "name": "Athletic shirt", "color": "red", "category_path": "Clothing>Athletic>Shirts" }
 { "index": {"_id": 3} }
 { "name": "Running Shoes", "color": "red", "category_path": "Footwear>Athletic>Running" }
 { "index": {"_id": 4} }
 { "name": "Dress Shirt", "color": "blue", "category_path": "Clothing>Shirts>Dress" }
 { "index": {"_id": 5} }
-{ "name": "Hiking Boots", "color": "blue", "category_path": "Footwear>Outdoor>Hiking" }
+{ "name": "Dress Shirt", "color": "white", "category_path": "Clothing>Shirts>Dress" }
 { "index": {"_id": 6} }
 { "name": "Casual Sneakers", "color": "blue", "category_path": "Footwear>Casual>Sneakers" }
 ```
@@ -1369,7 +1369,7 @@ The response contains a flat structure with separate aggregation results. The ca
   "aggregations": {
     "full_hierarchy": {
       "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
+      "sum_other_doc_count": 1,
       "buckets": [
         {
           "key": "Clothing",
@@ -1409,10 +1409,6 @@ The response contains a flat structure with separate aggregation results. The ca
         },
         {
           "key": "Footwear>Casual",
-          "doc_count": 1
-        },
-        {
-          "key": "Footwear>Casual>Sneakers",
           "doc_count": 1
         }
       ]
@@ -1454,6 +1450,8 @@ The response contains a flat structure with separate aggregation results. The ca
 ```
 
 </details>
+
+A `terms` aggregation returns the top 10 buckets by default. The sample data contains 11 distinct `category_hierarchy` values, so the `full_hierarchy` aggregation omits `Footwear>Casual>Sneakers` and counts its document in `sum_other_doc_count`. To return all values, set `size` in the `terms` aggregation to a value greater than the number of distinct values.
 
 The results appear as follows.
 
@@ -1625,7 +1623,7 @@ The response has a hierarchical structure with subcategories nested under their 
   "aggregations": {
     "full_hierarchy": {
       "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
+      "sum_other_doc_count": 1,
       "buckets": [
         {
           "key": "Clothing",
@@ -1665,10 +1663,6 @@ The response has a hierarchical structure with subcategories nested under their 
         },
         {
           "key": "Footwear>Casual",
-          "doc_count": 1
-        },
-        {
-          "key": "Footwear>Casual>Sneakers",
           "doc_count": 1
         }
       ]
@@ -1970,12 +1964,12 @@ The response contains only `Clothing` products:
 
 </details>
 
-Similarly, you can aggregate the `Clothing>Shirts` category by specifying `"category_path": "Clothing>Shirts"` in the `prefix` query. Your application code can then strip prefixes to provide a cleaner display (for example, change `Clothing>Shirts` to `Shirts`) if necessary. OpenSearch does the heavy lifting (tokenizing and aggregating), while your application code handles the display formatting by stripping prefixes based on hierarchy level.
+Similarly, you can aggregate the `Clothing>Shirts` category by specifying `"category_path": "Clothing>Shirts"` in the `prefix` query. Your application code can then strip prefixes to provide a cleaner display (for example, change `Clothing>Shirts` to `Shirts`) if necessary. OpenSearch generates the hierarchy levels and aggregates them, while your application code handles the display formatting by stripping prefixes based on hierarchy level.
 
 
-## Related articles
+## Related documentation
 
-- [Mappings and field types]({{site.url}}{{site.baseurl}}/mappings/)
+- [Mappings]({{site.url}}{{site.baseurl}}/mappings/)
 - [Supported field types]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/)
 - [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/)
 - [Query and filter context]({{site.url}}{{site.baseurl}}/query-dsl/query-filter-context/)

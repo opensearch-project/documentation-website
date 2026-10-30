@@ -6,7 +6,7 @@ has_children: false
 nav_order: 60
 ---
 
-# Cumulative sum aggregations
+# Cumulative sum aggregation
 
 The `cumulative_sum` aggregation is a parent aggregation that calculates the cumulative sum across the buckets of a previous aggregation.
 
@@ -54,7 +54,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 {% include copy-curl.html %}
 
-#### Example response
+## Example response
 
 ```json
 {

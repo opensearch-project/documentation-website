@@ -2,13 +2,13 @@
 layout: default
 title: Rolling upgrade
 nav_order: 20
-has_toc: true
+has_children: true
+has_toc: false
 permalink: /migrate-or-upgrade/rolling-upgrade/
 nav_exclude: false
 redirect_from:
  - /upgrade-opensearch/
  - /rolling-upgrade/index/
- - /migrate-or-upgrade/rolling-upgrade/appendix/
  - /install-and-configure/upgrade-opensearch/rolling-upgrade/
 ---
 
@@ -18,18 +18,31 @@ Rolling upgrades, sometimes referred to as "node replacement upgrades," can be p
 
 This document serves as a high-level, platform-agnostic overview of the rolling upgrade procedure. For specific examples of commands, scripts, and configuration files, refer to the [Rolling upgrade lab]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/rolling-upgrade/rolling-upgrade-lab/).
 
+If you installed your cluster using the Ansible playbook, see [Upgrading a cluster installed using the playbook]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/ansible/#upgrading-a-cluster-installed-using-the-playbook).
+
 ## Preparing to upgrade
 Before making any changes to your OpenSearch cluster, is it highly recommended to back up your configuration files and create a [snapshot]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/) of the cluster state and indexes.
 
 **Important**: OpenSearch nodes **cannot be downgraded**. If you need to revert the upgrade, then you will need to perform a new installation of OpenSearch and restore the cluster from a snapshot. Take a snapshot and store it in a remote repository before beginning the upgrade procedure. Rolling upgrades are **only supported between major adjacent versions**, for example, from OpenSearch 1.x to 2.x but not 1.x to 3.x.
 {: .important}
 
+**Important**: The minimum required cluster version for upgrades to 3.x.x is 2.19.0.
+{: .important}
+
+### Cross-cluster replication
+
+If your cluster uses [cross-cluster replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/), follow these guidelines when upgrading:
+
+- **Unidirectional replication**: Upgrade the follower cluster first, then the leader cluster.
+- **Bidirectional replication**: Stop replication in one direction, then upgrade both clusters. For the replication that remains active, upgrade the follower cluster first, then the leader cluster. Resume the stopped replication after both clusters are upgraded.
+
 ## Performing the upgrade
 
 1. Verify the health of your OpenSearch cluster before you begin. You should resolve any index or shard allocation issues prior to upgrading to ensure that your data is preserved. A status of **green** indicates that all primary and replica shards are allocated. See [Cluster health]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) for more information. The following command queries the `_cluster/health` API endpoint:
    ```json
-   GET "/_cluster/health?pretty"
+   GET /_cluster/health
    ```
+   {% include copy-curl.html %}
    The response should look similar to the following example:
    ```json
    {
@@ -52,13 +65,14 @@ Before making any changes to your OpenSearch cluster, is it highly recommended t
    ```
 1. Disable shard replication to prevent shard replicas from being created while nodes are being taken offline. This stops the movement of Lucene index segments on nodes in your cluster. You can disable shard replication by querying the `_cluster/settings` API endpoint:
    ```json
-   PUT "/_cluster/settings?pretty"
+   PUT /_cluster/settings
    {
        "persistent": {
            "cluster.routing.allocation.enable": "primaries"
        }
    }
    ```
+   {% include copy-curl.html %}
    The response should look similar to the following example:
    ```json
    {
@@ -78,8 +92,9 @@ Before making any changes to your OpenSearch cluster, is it highly recommended t
 
 1. Perform a flush operation on the cluster to commit transaction log entries to the Lucene index:
    ```json
-   POST "/_flush?pretty"
+   POST /_flush
    ```
+   {% include copy-curl.html %}
    The response should look similar to the following example:
    ```json
    {
@@ -100,9 +115,10 @@ Before making any changes to your OpenSearch cluster, is it highly recommended t
     {: .important}
 
 1. Query the `_cat/nodes` endpoint to identify which node was promoted to cluster manager. The following command includes additional query parameters that request only the name, version, node.role, and master headers. Note that OpenSearch 1.x versions use the term "master," which has been deprecated and replaced by "cluster_manager" in OpenSearch 2.x and later.
-   ```bash
-   GET "/_cat/nodes?v&h=name,version,node.role,master" | column -t
+   ```json
+   GET /_cat/nodes?v&h=name,version,node.role,master
    ```
+   {% include copy-curl.html %}
    The response should look similar to the following example:
    ```bash
    name        version  node.role  master
@@ -113,9 +129,10 @@ Before making any changes to your OpenSearch cluster, is it highly recommended t
    ```
 1. Stop the node you are upgrading. If running this in Docker, do not delete the volume associated with the container when you delete the container. The new OpenSearch container will use the existing volume. **Deleting the volume will result in data loss**.
 1. Confirm that the associated node has been dismissed from the cluster by querying the `_cat/nodes` API endpoint:
-   ```bash
-   GET "/_cat/nodes?v&h=name,version,node.role,master" | column -t
+   ```json
+   GET /_cat/nodes?v&h=name,version,node.role,master
    ```
+   {% include copy-curl.html %}
    The response should look similar to the following example:
    ```bash
    name        version  node.role  master
@@ -136,9 +153,10 @@ Before making any changes to your OpenSearch cluster, is it highly recommended t
         - Copy the TLS certificates listed in the `opensearch.yml` file to the `./config/` directory.
         - Start OpenSearch.
 1. Query the `_cat/nodes` endpoint after OpenSearch is running on the new node to confirm that it has joined the cluster:
-   ```bash
-   GET "/_cat/nodes?v&h=name,version,node.role,master" | column -t
+   ```json
+   GET /_cat/nodes?v&h=name,version,node.role,master
    ```
+   {% include copy-curl.html %}
    The response should look similar to the following example:
    ```bash
    name        version  node.role  master
@@ -148,22 +166,31 @@ Before making any changes to your OpenSearch cluster, is it highly recommended t
    os-node-03  7.10.2   dimr       -
    ```
    In the example output, the new OpenSearch node reports a running version of `7.10.2` to the cluster. This is the result of `compatibility.override_main_response_version`, which is used when connecting to a cluster with legacy clients that check for a version. You can manually confirm the version of the node by calling the `/_nodes` API endpoint, as in the following command. Replace `<nodeName>` with the name of your node. See [Nodes API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/) to learn more.
-   ```bash
-   GET "/_nodes/<nodeName>?pretty=true" | jq -r '.nodes | .[] | "\(.name) v\(.version)"'
+   ```json
+   GET /_nodes/<nodeName>?filter_path=nodes.*.name,nodes.*.version
    ```
+   {% include copy-curl.html %}
    The response should look similar to the following example:
-   ```bash
-   os-node-01 v1.3.7
+   ```json
+   {
+     "nodes" : {
+       "WbhwdqH3T8ShpE7AhXNfqw" : {
+         "name" : "os-node-01",
+         "version" : "1.3.7"
+       }
+     }
+   }
    ```
 1. Reenable shard replication:
    ```json
-   PUT "/_cluster/settings?pretty"
+   PUT /_cluster/settings
    {
        "persistent": {
            "cluster.routing.allocation.enable": "all"
        }
    }
    ```
+   {% include copy-curl.html %}
    The response should look similar to the following example:
    ```json
    {
@@ -181,9 +208,10 @@ Before making any changes to your OpenSearch cluster, is it highly recommended t
    }
    ```
 1. Confirm that the cluster is healthy:
-   ```bash
-   GET "/_cluster/health?pretty"
+   ```json
+   GET /_cluster/health
    ```
+   {% include copy-curl.html %}
    The response should look similar to the following example:
    ```json
    {
@@ -206,9 +234,10 @@ Before making any changes to your OpenSearch cluster, is it highly recommended t
    }
    ```
 1. Repeat steps 2 through 11 for each node in your cluster. Remember to upgrade an eligible cluster manager node last. After replacing the last node, query the `_cat/nodes` endpoint to confirm that all nodes have joined the cluster. The cluster is now bootstrapped to the new version of OpenSearch. You can verify the cluster version by querying the `_cat/nodes` API endpoint:
-   ```bash
-   GET "/_cat/nodes?v&h=name,version,node.role,master" | column -t
+   ```json
+   GET /_cat/nodes?v&h=name,version,node.role,master
    ```
+   {% include copy-curl.html %}
    The response should look similar to the following example:
    ```bash
    name        version  node.role  master
@@ -217,7 +246,7 @@ Before making any changes to your OpenSearch cluster, is it highly recommended t
    os-node-01  1.3.7    dimr       -
    os-node-03  1.3.7    dimr       -
    ```
-1. The upgrade is now complete, and you can begin enjoying the latest features and fixes!
+1. The upgrade is now complete, and you can begin using the latest features and fixes.
 
 ## Rolling restart
 
@@ -275,10 +304,10 @@ To perform a rolling restart, follow the steps outlined in [Performing the upgra
 
 By preserving quorum and restarting nodes sequentially, rolling restarts ensure zero downtime and full data continuity.
 
-## Related articles
+## Related documentation
 
 - [Rolling upgrade lab]({{site.url}}{{site.baseurl}}/migrate-or-upgrade/rolling-upgrade/rolling-upgrade-lab/) -- A hands-on lab with step-by-step instructions for practicing rolling upgrades in a test environment.
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
-- [Performance analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
+- [Performance Analyzer]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/telemetry/performance-analyzer/)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
 - [About Security in OpenSearch]({{site.url}}{{site.baseurl}}/security/index/)

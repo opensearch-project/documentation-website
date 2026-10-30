@@ -2,7 +2,7 @@
 layout: default
 title: Sparse encoding
 parent: Ingest processors
-nav_order: 240
+nav_order: 252
 redirect_from:
    - /api-reference/ingest-apis/processors/sparse-encoding/
 ---
@@ -29,7 +29,7 @@ The following is the syntax for the `sparse_encoding` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `sparse_encoding` processor.
 
@@ -42,8 +42,11 @@ The following table lists the required and optional parameters for the `sparse_e
 `field_map.<input_field>` | String | Required | The name of the field from which to obtain text for generating vector embeddings.
 `field_map.<vector_field>`  | String | Required | The name of the vector field in which to store the generated vector embeddings.
 `description`  | String | Optional  | A brief description of the processor.  |
-`tag` | String | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
-`batch_size` | Integer | Optional | Specifies the number of documents to be batched and processed each time. Default is `1`. |
+`tag` | String | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging). |
+`if` | String containing a Boolean expression | Optional | A condition for running the processor. |
+`ignore_failure` | Boolean | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, the processor failure is ignored. Default is `false`. |
+`on_failure` | List | Optional | A list of processors to run if the processor fails. |
+`batch_size` | Integer | Optional | Specifies the number of documents to be batched and processed each time. Default is `1`. If you specify `if`, the processor doesn't batch documents and processes them one at a time. |
 `skip_existing` | Boolean | Optional | When `true`, the processor does not make inference calls for fields that already contain embeddings, leaving existing embeddings unchanged. Default is `false`.|
 
 ### Pruning sparse vectors
@@ -58,7 +61,7 @@ The `sparse_encoding` processor can be used to prune sparse vectors by configuri
 `abs_value` | Float (0, +∞) | Prunes a sparse vector by removing elements with values lower than the `prune_ratio`.
 `alpha_mass` | Float [0, 1) | Prunes a sparse vector by keeping only elements whose cumulative sum of values is within the `prune_ratio` of the total sum.
 `top_k` | Integer (0, +∞) | Prunes a sparse vector by keeping only the top `prune_ratio` elements.
-none | N/A | Leaves sparse vectors unchanged.
+`none` | N/A | Leaves sparse vectors unchanged.
 
 Among all pruning options, specifying `max_ratio` as equal to `0.1` demonstrates strong generalization on test datasets. This approach reduces storage requirements by approximately 40% while incurring less than a 1% loss in search relevance.
 
@@ -66,7 +69,7 @@ Among all pruning options, specifying `max_ratio` as equal to `0.1` demonstrates
 
 Follow these steps to use the processor in a pipeline. You must provide a model ID when creating the processor. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/). 
 
-**Step 1: Create a pipeline.** 
+### Step 1: Create a pipeline
 
 The following example request creates an ingest pipeline where the text from `passage_text` will be converted into text embeddings and the embeddings will be stored in `passage_embedding`:
 
@@ -90,7 +93,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline.**
+### Step 2 (Optional): Test the pipeline
 
 It is recommended that you test your pipeline before you ingest documents.
 {: .tip}
@@ -112,8 +115,6 @@ POST _ingest/pipeline/nlp-ingest-pipeline/_simulate
 }
 ```
 {% include copy-curl.html %}
-
-#### Response
 
 The response confirms that in addition to the `passage_text` field, the processor has generated text embeddings in the `passage_embedding` field:
 

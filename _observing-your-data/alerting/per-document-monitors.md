@@ -11,45 +11,79 @@ has_children: false
 Introduced 2.0
 {: .label .label-purple }
 
-Per document monitors are a type of alert monitor that can be used to identify and alert on specific documents in an OpenSearch index. For example, you can use the monitor to:
+A per document monitor runs one or more queries against the documents added to an index since the monitor's previous run and generates an alert for the documents that match the trigger conditions. For example, you can use a per document monitor to:
 
-- Detect corrupted data or unauthorized changes.
-- Enforce data quality policies, such as ensuring all documents contain a certain field or that values in a field are within a certain range. 
-- Track changes to a specific document over time, which can be helpful for auditing and compliance purposes
+- Detect log entries that contain errors or security events as they are ingested.
+- Detect documents that violate data quality rules, for example, documents in which a field contains an unexpected value.
 
-Per document monitors do not support cross-cluster searching.
-{: .note} 
+On its first run, a per document monitor does not evaluate the documents that already exist in the index. It evaluates only the documents added after that.
 
-## Defining queries
+Per document monitors do not support cross-cluster search.
+{: .note}
 
-Per document monitors allow you to define up to 10 queries that compare a selected field with a desired value. You can define supported field data types using the following operators:
+## Creating a per document monitor
 
-- `is` 
-- `is not`
-- `is greater than`
-- `is greater than equal`
-- `is less than`
-- `is less than equal`
+The following example creates a monitor that generates an alert when a web log with a `404` response is indexed.
 
-You can query each [trigger]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/) using up to 10 tags, adding the tag as a single trigger condition instead of specifying a single query. The [Alerting plugin]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/) processes the trigger conditions from all queries as a logical `OR` operation, so if any of the query conditions are met, it triggers an alert. The Alerting plugin then tells the [Notifications plugin]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) to send the alert notification to a channel.
+1. Create an index for the example logs. In **Dev Tools**, send the following request:
 
-You can only use _tags_--- that is, labels that can be applied to multiple queries to combine them with the logical `OR`` operation---in a per document monitor.
-{: .important}
+   ```json
+   PUT web-logs
+   {
+     "mappings": {
+       "properties": {
+         "response": { "type": "keyword" },
+         "request": { "type": "keyword" },
+         "timestamp": { "type": "date" }
+       }
+     }
+   }
+   ```
+   {% include copy-curl.html %}
+
+1. On the top menu, go to **OpenSearch Plugins** > **Alerting**.
+1. Select the **Monitors** tab, and then select **Create monitor**.
+1. In **Monitor details**, enter a **Monitor name**, such as `Not found responses`, and select **Per document monitor**. In **Monitor defining method**, select **Visual editor**. Optionally, change the **Schedule**. By default, the monitor runs every minute.
+1. In **Select data**, in **Index**, enter `web-logs` and press Enter.
+1. In **Query**, define the query:
+   - **Query name**: Enter `not-found`.
+   - **Field**: Select `response`, select **is**, and enter `404`.
+   - **Tags**: Optionally, select **Add tag** and enter `errors`. A tag groups queries so that a trigger condition can refer to all queries with the tag.
+
+   To define more queries, select **Add another query**. A monitor supports up to 10 queries. The available operators depend on the field type. For example, numeric fields support **is greater than** and **is less than**.
+1. In **Triggers**, select **Add trigger**, and then configure the trigger:
+   - **Trigger name**: Enter `Not found responses`.
+   - **Trigger conditions**: Select the `not-found` query. To refer to all queries with a tag instead, select the tag. To combine conditions, select **Add condition**.
+1. Optionally, in **Actions**, add an action that sends a notification when the trigger condition is met. For more information, see [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/).
+1. Select **Create**.
+1. Index a document that matches the query:
+
+   ```json
+   POST web-logs/_doc
+   {
+     "response": "404",
+     "request": "/missing-page",
+     "timestamp": "2026-10-28T02:00:00Z"
+   }
+   ```
+   {% include copy-curl.html %}
+
+On its next run, the monitor generates an alert in the **Active** state for the matching document. A document with another response code, such as `200`, does not match the query and does not generate an alert.
+
+To define the queries and trigger conditions using the API, see [Document-level monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/#document-level-monitors).
 
 ## Document findings
 
-The Alerting plugin creates a list of _Findings_ that contain metadata about which document matches each query. A _Finding_ is a record of a document identified by the per document monitor query as meeting the alert condition. Key components of a finding include the document ID, timestamp, alert condition details. Findings are stored in the Findings index, `.opensearch-alerting-finding*`. 
+When a document matches a query, the monitor creates a _finding_, which is a record of the document and the query that it matched. Findings are stored in the `.opensearch-alerting-finding*` indexes. Each finding contains the following information.
 
-Security Analytics can use the findings data to keep track of and analyze the query data separately from the alert processes. See [Working with findings]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/) to learn more.
+Field | Description
+:--- | :---
+Document | The document ID and index name, separated by a vertical bar, for example, `Re5akdirhj3fl` and `web-logs`.
+Query | The name of the query that matched the document.
+Time found | The time at which the monitor found the document.
+
+Security Analytics uses findings to analyze query matches separately from alerts. For more information, see [Working with findings]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/).
 {: .note}
 
-The Alerting API also provides a _document-level monitor_ that programmatically accomplishes the same function as the _per document monitor_ in OpenSearch Dashboards. See [Document-level monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#document-level-monitors) to learn more.
-
-To prevent a large volume of findings in a high-ingestion cluster, configuring alert notifications for each finding is not recommended unless rules are well defined.
+In a cluster that ingests a large number of documents, a broad query can create many findings. Send a notification for each finding only if the queries are specific.
 {: .important}
-
-The following metadata is provided for each document findings entry:
-
-* **Document**: The document ID and index name. For example: `Re5akdirhj3fl | test-logs-index`.
-* **Query**: The query name that matched the document.
-* **Time found**: The timestamp that indicates when the document was found during the runtime.

@@ -6,6 +6,8 @@ nav_order: 45
 ---
 
 # Field capabilities API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The `_field_caps` API provides information about the capabilities of fields across one or more indexes. It is typically used by clients to determine how fields are mapped and whether they can be used for search, sorting, and aggregations across multiple indexes.
 
@@ -46,9 +48,9 @@ The following table lists the available request body fields.
 
 | Field          | Data type | Description                                                             |
 | :------------- | :-------- | :---------------------------------------------------------------------- |
-| `index_filter` | Object    | A query DSL object used to filter indexes included in the request. See [Example: Using an index filter](#example-using-an-index-filter). _Optional_.|
+| `index_filter` | Object | A query DSL object used to filter indexes included in the request. See [Example: Using an index filter](#example-using-an-index-filter). _Optional_.|
 
-## Example Requests
+## Example requests
 
 Create two indexes with different mappings for the same field:
 
@@ -93,8 +95,7 @@ GET /store-west,store-east/_field_caps?fields=product,price
 
 response = client.field_caps(
   index = "store-west,store-east",
-  params = { "fields": "product,price" },
-  body = { "Insert body here" }
+  params = { "fields": "product,price" }
 )
 
 {% endcapture %}
@@ -238,12 +239,16 @@ The following table lists all response body fields.
 
 | Field                                            | Data type    | Description                                                                                                              |
 | :----------------------------------------------- | :----------- | :----------------------------------------------------------------------------------------------------------------------- |
-| `indices`                                        | List         | The list of indexes included in the response.                                                                            |
-| `fields`                                         | Object       | A map of types to field capabilities, where each key is a field name and its value is an object.                  |
-| `fields.<field>.<type>.type`                     | String       | The data type of the field (for example, `float`, `text`, `keyword`).                                                           |
-| `fields.<field>.<type>.searchable`               | Boolean      | Whether the field is indexed and searchable.                                                                             |
-| `fields.<field>.<type>.aggregatable`             | Boolean      | Whether the field can be used in aggregations like `sum` or `terms`.                                                  |
-| `fields.<field>.<type>.indices`                  | List         | A list of indexes in which this field appears with the corresponding type.                                                  |
-| `fields.<field>.<type>.non_searchable_indices`   | List or null | A list of indexes in which the field is *not* searchable. `null` means that the field is not searchable in any index.                                   |
+| `indices` | List | The list of indexes included in the response.                                                                            |
+| `fields` | Object | A map of types to field capabilities, where each key is a field name and its value is an object.                  |
+| `fields.<field>.<type>.type` | String | The data type of the field (for example, `float`, `text`, `keyword`).                                                           |
+| `fields.<field>.<type>.searchable` | Boolean | Whether the field is indexed and searchable. For indexes that use a pluggable data format, this value is `false` for fields of the following types: numeric, `date`, `date_nanos`, `ip`, and `boolean`. Fields of these types are not indexed, but OpenSearch still serves `range`, `term`, and `terms` queries on them from doc values. For more information, see [Pluggable data format indexes]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/index-parameter/#pluggable-data-format-indexes). |
+| `fields.<field>.<type>.aggregatable` | Boolean | Whether the field can be used in aggregations like `sum` or `terms`.                                                  |
+| `fields.<field>.<type>.indices` | List | A list of indexes in which this field appears with the corresponding type.                                                  |
+| `fields.<field>.<type>.non_searchable_indices` | List or null | A list of indexes in which the field is *not* searchable. `null` means that the field is not searchable in any index.                                   |
 | `fields.<field>.<type>.non_aggregatable_indices` | List or null | A list of indexes in which the field is *not* aggregatable. `null` means that the field is not aggregatable in any index.                               |
-| `fields.<field>.<type>.meta`                     | Object       | Merged metadata values from all mappings. Keys are custom metadata keys, and values are arrays of values across indexes. |
+| `fields.<field>.<type>.meta` | Object | Merged metadata values from all mappings. Keys are custom metadata keys, and values are arrays of values across indexes. |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:data/read/field_caps` and `indices:data/read/field_caps*`.

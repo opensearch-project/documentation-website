@@ -6,6 +6,8 @@ nav_order: 80
 ---
 
 # Multi Term Vectors API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The `_mtermvectors` API retrieves term vector information for multiple documents in one request. Term vectors provide detailed information about the terms (words) in a document, including term frequency, positions, offsets, and payloads. This can be useful for applications such as relevance scoring, highlighting, or similarity calculations. For more information, see [Term vector parameter]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/text/#term-vector-parameter).
 
@@ -53,12 +55,12 @@ The following table lists the available query parameters. All query parameters a
 | `offsets` | Boolean | If `true`, the response includes term offsets. _(Default: `true`)_ |
 | `payloads` | Boolean | If `true`, the response includes term payloads. _(Default: `true`)_ |
 | `positions` | Boolean | If `true`, the response includes term positions. _(Default: `true`)_ |
-| `preference` | String | Specifies the node or shard on which the operation should be performed.  See [preference query parameter]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#the-preference-query-parameter) for a list of available options.  By default the requests are routed randomly to available shard copies (primary or replica), with no guarantee of consistency across repeated queries. |
+| `preference` | String | Specifies the node or shard on which the operation should be performed. See [preference query parameter]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/#the-preference-query-parameter) for a list of available options. By default the requests are routed randomly to available shard copies (primary or replica), with no guarantee of consistency across repeated queries. |
 | `realtime` | Boolean | If `true`, the request is real time as opposed to near real time. _(Default: `true`)_ |
 | `routing` | List or String | A custom value used to route operations to a specific shard. |
 | `term_statistics` | Boolean | If `true`, the response includes term frequency and document frequency. _(Default: `false`)_ |
 | `version` | Integer | If `true`, returns the document version as part of a hit. |
-| `version_type` | String | The specific version type. <br> Valid values are: <br> - `external`: The version number must be greater than the current version. <br> - `external_gte`: The version number must be greater than or equal to the current version. <br> - `force`: The version number is forced to be the given value. <br> - `internal`: The version number is managed internally by OpenSearch. |
+| `version_type` | String | The specific version type. <br> Valid values are: <br> - `external`: The version number must be greater than the current version. <br> - `external_gte`: The version number must be greater than or equal to the current version. <br> - `internal`: The version number is managed internally by OpenSearch. |
 
 <!-- spec_insert_end -->
 
@@ -275,8 +277,7 @@ GET /my-index/_mtermvectors?ids=1,2&fields=text
 
 response = client.mtermvectors(
   index = "my-index",
-  params = { "ids": "1,2", "fields": "text" },
-  body = { "Insert body here" }
+  params = { "ids": "1,2", "fields": "text" }
 )
 
 {% endcapture %}
@@ -485,3 +486,7 @@ Each element of the `docs` array contains the following fields.
 | `term_vectors.<field>.field_statistics.sum_ttf` | Integer | The sum of total term frequencies for all terms in the field. |
 | `term_vectors.<field>.terms` | Object | A map of terms in the field, in which each term includes its frequency (`term_freq`) and associated token information. |
 | `term_vectors.<field>.terms.<term>.tokens` | Array | An array of token objects for each term, including the token's `position` in the text and its character offsets (`start_offset` and `end_offset`). |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:data/read/mtv` and `indices:data/read/mtv*`.

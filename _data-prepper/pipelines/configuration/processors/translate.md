@@ -93,7 +93,9 @@ You can use the following options to configure the `translate` processor.
 | mappings | No | List | Defines inline mappings. For more information, see [mappings](#mappings). |
 | file | No | Map | Points to the file that contains mapping configurations. For more information, see [file](#file). |
 
+<!-- vale off -->
 ### mappings
+<!-- vale on -->
 
 Each item in the `mappings` configuration contains the following options.
 
@@ -113,7 +115,9 @@ Each item in the `targets` configuration contains the following options.
 | type | No | String | Specifies the data type for the target value. |
 | translate_when | No | String | Uses a [Data Prepper expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/) to specify a condition for performing the translation. When specified, the expression will only translate when the condition is met. |
 
+<!-- vale off -->
 #### map option
+<!-- vale on -->
 
 You can use the following key types when using the map option:
 
@@ -138,7 +142,9 @@ You can use the following key types when using the map option:
 
 When configuring the keys inside the `map` option, do not use any overlapping number ranges or duplicate keys.
 
+<!-- vale off -->
 #### regex option
+<!-- vale on -->
 
 You can use the following options with the `regex` option. 
 
@@ -147,7 +153,9 @@ You can use the following options with the `regex` option.
 | patterns | Yes | Map | A map of key-value pairs defining the regex patterns of keys and the value to translate to for each pattern. |
 | exact | No | Boolean | Whether to use full string match or partial string match on the regex pattern. If `true`, the pattern is considered a match only when the entire key matches the pattern. Otherwise, the pattern is considered a match when a sub-string of the key matches the pattern. |
 
+<!-- vale off -->
 ### file
+<!-- vale on -->
 
 The `file` option in the `translate` processor takes a local YAML file or an Amazon Simple Storage Service (Amazon S3) object containing translation mappings. The file's contents should be in the following format:
 ```yaml
@@ -165,7 +173,7 @@ You can use the following options in the `file` configuration.
 | Parameter | Required | Type | Description |
 | :--- | :---  | :--- | :--- |
 | name | Yes | String | The full path to a local file or key name for an S3 object. |
-| aws | No | Map | The AWS configuration when the file is an S3 object. See the following table for more information. |
+| `aws` | No | Map | The AWS configuration when the file is an S3 object. See the following table for more information. |
 
 You can use the following options with the `aws` configuration.
 

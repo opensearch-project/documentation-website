@@ -15,7 +15,8 @@ const actionHandlers = {
     send_feedback: () => sendFeedback(),
     switch_tab: (el) => switchTab({ target: el }, el.getAttribute('data-tab')),
     copy_code: (el) => copyCode(el),
-    copy_as_curl: (el) => copyAsCurl(el)
+    copy_as_curl: (el) => copyAsCurl(el),
+    open_playground: (el) => openPlayground(el)
 };
 
 
@@ -137,16 +138,29 @@ function copyCode(button) {
 
 function copyAsCurl(button) {
     const codeBlock = button.closest('.code-container').querySelector('pre');
-    const code = codeBlock.textContent.trim(); 
-    
-    const lines = code.split('\n');
-    const [method, path] = lines[0].trim().split(' ');
-    const body = lines.slice(1).join('\n');
-    
-    const formattedPath = path.startsWith('/') ? path : '/' + path;
-    const curlCommand = body 
-        ? `curl -X ${method} "localhost:9200${formattedPath}" -H "Content-Type: application/json" -d '\n${body}\n'`
-        : `curl -X ${method} "localhost:9200${formattedPath}"`;
-        
+    const code = codeBlock.textContent.trim();
+    const curlCommand = window.CopyUtils.convertToCurl(code, false);
     window.navigator.clipboard.writeText(curlCommand);
+}
+
+function openPlayground(button) {
+    let query = button.getAttribute('data-query');
+
+    // Replace source=otellogs with the playground index pattern
+    query = query.replace(/source\s*=\s*otellogs/gi, 'source=logs-otel-v1*');
+
+    // Remove trailing semicolons
+    query = query.replace(/;\s*$/, '');
+
+    const baseUrl = 'https://observability.playground.opensearch.org/w/AYexAG/app/explore/logs/#/';
+
+    // The hash params are parsed as RISON by the app.
+    // Encode query with encodeURIComponent so all special chars are safe inside RISON quotes.
+    const encodedQuery = encodeURIComponent(query).replace(/'/g, "!'");
+
+    const qParam = `(dataset:(id:'6766d4f0-3869-11f1-b2f2-5f6bda0002a3',timeFieldName:time,title:'logs-otel-v1*',type:INDEX_PATTERN),language:PPL,query:'${encodedQuery}')`;
+    const gParam = `(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-6h,to:now))`;
+    const aParam = `(legacy:(columns:!(body,severityText,resource.attributes.service.name),interval:auto,isDirty:!f,sort:!()),tab:(logs:(),patterns:(usingRegexPatterns:!f)),ui:(activeTabId:logs,showHistogram:!t))`;
+
+    window.open(`${baseUrl}?_g=${gParam}&_q=${qParam}&_a=${aParam}`, '_blank');
 }

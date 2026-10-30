@@ -9,7 +9,13 @@ nav_order: 160
 
 The `hunspell` token filter is used for stemming and morphological analysis of words in a specific language. This filter applies Hunspell dictionaries, which are widely used in spell checkers. It works by breaking down words into their root forms (stemming).
 
-The Hunspell dictionary files are automatically loaded at startup from the `<OS_PATH_CONF>/hunspell/<locale>` directory. For example, the `en_GB` locale must have at least one `.aff` file and one or more `.dic` files in the `<OS_PATH_CONF>/hunspell/en_GB/` directory.
+If an algorithmic stemmer, such as the [`stemmer`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/stemmer/) or [`porter_stem`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/porter-stem/) filter, is available for your language, try it before using `hunspell`. Algorithmic stemmers are faster, use less memory, and require no dictionary files, and they often produce comparable or better search results. For more information, see [Stemming]({{site.url}}{{site.baseurl}}/analyzers/stemming/).
+
+The Hunspell dictionary files are automatically loaded at startup from the `<OS_PATH_CONF>/hunspell/<locale>` directory. For example, the `en_GB` locale must have at least one `.aff` file and one or more `.dic` files in the `<OS_PATH_CONF>/hunspell/en_GB/` directory. 
+
+Alternatively, you can load dictionaries from a custom directory by using the `ref_path` parameter to maintain multiple independent dictionary sets for the same locale. For more information, see [Custom dictionary loading with ref_path](#custom-dictionary-loading).
+
+You can also hot-reload Hunspell dictionaries at runtime without restarting the node. For more information, see [Hot-reloading Hunspell dictionaries](#hot-reloading-hunspell-dictionaries).
 
 You can download these files from [LibreOffice dictionaries](https://github.com/LibreOffice/dictionaries).
 
@@ -19,10 +25,12 @@ The `hunspell` token filter can be configured with the following parameters.
 
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
-`language/lang/locale` | At least one of the three is required | String | Specifies the language for the Hunspell dictionary.
+`language/lang/locale` | At least one of the three is required | String | Specifies the language for the Hunspell dictionary. Can contain only alphanumeric characters, hyphens, and underscores (for example, `en_US`, `de_DE`).
+`ref_path` | Optional | String | Specifies a relative path used to load dictionaries from the `<OS_PATH_CONF>/<ref_path>/hunspell/<locale>/` directory instead of the default `<OS_PATH_CONF>/hunspell/<locale>/` directory. When specified, the `locale` parameter is required. The `ref_path` value can contain alphanumeric characters, hyphens, underscores, and forward slashes (for nested paths such as `analyzers/my-dict`). The `locale` value can contain only alphanumeric characters, hyphens, and underscores. See [Custom dictionary loading with ref_path](#custom-dictionary-loading). **Note**: `ref_path` resolves directly under `<OS_PATH_CONF>`. In OpenSearch 3.6 and earlier, it resolved under `<OS_PATH_CONF>/analyzers/`. To preserve the previous layout, prefix your `ref_path` value with `analyzers/` (for example, `analyzers/my-dict`).
 `dedup` | Optional | Boolean | Determines whether to remove multiple duplicate stemming terms for the same token. Default is `true`.
-`dictionary` | Optional | Array of strings | Configures the dictionary files to be used for the Hunspell dictionary. Default is all files in the `<OS_PATH_CONF>/hunspell/<locale>` directory.
+`dictionary` | Optional | Array of strings | Configures the dictionary files to be used for the Hunspell dictionary. Default is all files in the `<OS_PATH_CONF>/hunspell/<locale>` directory if `ref_path` is not specified or all files in the `<OS_PATH_CONF>/<ref_path>/hunspell/<locale>/` directory when `ref_path` is specified. See [Custom dictionary loading with ref_path](#custom-dictionary-loading).
 `longest_only` | Optional | Boolean | Specifies whether only the longest stemmed version of the token should be returned. Default is `false`.
+`updateable` | Optional | Boolean | When set to `true`, the filter operates in search-time analysis mode, allowing dictionaries to be hot-reloaded by using the [Refresh search analyzer]({{site.url}}{{site.baseurl}}/im-plugin/refresh-analyzer/) API without restarting the node. Default is `false`. **Introduced 3.7.**
 
 ## Example
 
@@ -56,6 +64,159 @@ PUT /my_index
 }
 ```
 {% include copy-curl.html %}
+
+## Hunspell node settings
+
+The following table lists the static node settings that control how OpenSearch loads Hunspell dictionaries from the default `<OS_PATH_CONF>/hunspell/` directory. Configure them in `opensearch.yml`.
+
+Setting | Data type | Description
+:--- | :--- | :---
+`indices.analysis.hunspell.dictionary.lazy` | Boolean | If `false`, OpenSearch loads every dictionary in the `hunspell` directory when the node starts and logs an error for any dictionary that fails to load. If `true`, OpenSearch loads each dictionary the first time a `hunspell` filter uses it, so dictionary errors appear only when an index or analysis request references the locale. Default is `false`.
+`indices.analysis.hunspell.dictionary.ignore_case` | Boolean | If `true`, words are matched to dictionary entries regardless of case. For example, if the dictionary contains `Jump` with an `-ing` suffix rule, the text `jumping` is stemmed to `jump` only when `ignore_case` is `true`. This setting applies to all locales. Default is `false`.
+`indices.analysis.hunspell.dictionary.<locale>.ignore_case` | Boolean | Sets `ignore_case` for one locale, for example, `indices.analysis.hunspell.dictionary.en_US.ignore_case`. Overrides the global `ignore_case` setting.
+
+You can also set `ignore_case` for a single dictionary by adding a `settings.yml` file to the locale directory, for example, `<OS_PATH_CONF>/hunspell/en_US/settings.yml` containing `ignore_case: true`. If both the file and the locale-specific node setting specify `ignore_case`, the node setting takes precedence.
+
+## Custom dictionary loading
+
+When you specify a `ref_path` parameter, dictionaries are loaded from a custom directory instead of the default directory. This is useful when you need multiple independent dictionary sets for the same locale, for example, when different indexes require different custom dictionaries.
+
+The `ref_path` value is resolved relative to `<OS_PATH_CONF>` and can contain forward slashes for nested paths. In OpenSearch 3.6 and earlier, `ref_path` was resolved relative to `<OS_PATH_CONF>/analyzers/`. To preserve the previous directory layout when upgrading from 3.6 or earlier, prefix your existing `ref_path` value with `analyzers/`.
+{: .note}
+
+Place dictionary files in the following directory structure:
+
+```xml
+<OS_PATH_CONF>/<ref_path>/hunspell/<locale>/
+├── <locale>.aff       (exactly one .aff file required)
+├── <locale>.dic       (one or more .dic files)
+└── <locale>_custom.dic
+```
+
+The following example loads a Hunspell dictionary from `<OS_PATH_CONF>/analyzers/my-dict/hunspell/en_US/`:
+
+```json
+PUT /my_index
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "my_custom_hunspell": {
+          "type": "hunspell",
+          "ref_path": "analyzers/my-dict",
+          "locale": "en_US"
+        }
+      },
+      "analyzer": {
+        "my_analyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "my_custom_hunspell"
+          ]
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Multiple indexes can use different `ref_path` directories configured for the same locale. Each `ref_path` maintains its own independent dictionary cache:
+
+```json
+PUT /index_medical
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "medical_hunspell": {
+          "type": "hunspell",
+          "ref_path": "analyzers/medical-dict",
+          "locale": "en_US"
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT /index_legal
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "legal_hunspell": {
+          "type": "hunspell",
+          "ref_path": "analyzers/legal-dict",
+          "locale": "en_US"
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Hot-reloading Hunspell dictionaries
+**Introduced 3.7**
+{: .label .label-purple }
+
+You can update Hunspell dictionaries at runtime without restarting the node. To enable this, set the `updateable` parameter to `true` on the Hunspell token filter. This registers the filter in search-time analysis mode, so it can only be used at search time (for example, in a `search_analyzer`), not at index time.
+
+To hot-reload a Hunspell dictionary, follow these steps:
+
+1. Configure the Hunspell token filter with `updateable` set to `true`. The following example creates an index that uses a hot-reloadable Hunspell filter as a `search_analyzer`:
+
+   ```json
+   PUT /my_index
+   {
+     "settings": {
+       "analysis": {
+         "filter": {
+           "my_reloadable_hunspell": {
+             "type": "hunspell",
+             "ref_path": "analyzers/my-dict",
+             "locale": "en_US",
+             "updateable": true
+           }
+         },
+         "analyzer": {
+           "my_search_analyzer": {
+             "type": "custom",
+             "tokenizer": "standard",
+             "filter": [
+               "lowercase",
+               "my_reloadable_hunspell"
+             ]
+           }
+         }
+       }
+     },
+     "mappings": {
+       "properties": {
+         "content": {
+           "type": "text",
+           "analyzer": "standard",
+           "search_analyzer": "my_search_analyzer"
+         }
+       }
+     }
+   }
+   ```
+   {% include copy-curl.html %}
+
+1. Replace the `.aff` and `.dic` files on disk on every node that holds a shard for the index.
+
+1. Call the [Refresh Search Analyzer API]({{site.url}}{{site.baseurl}}/im-plugin/refresh-analyzer/). When `reload_cached_resources` is `false` (the default), the API rebuilds analyzer factories but reuses the previously cached Hunspell dictionary. Specify `reload_cached_resources=true` to force the dictionary to be reloaded from disk:
+
+   ```json
+   POST /_plugins/_refresh_search_analyzers/my_index?reload_cached_resources=true
+   ```
+   {% include copy-curl.html %}
 
 ## Generated tokens
 

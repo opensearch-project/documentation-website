@@ -28,7 +28,7 @@ This demo configuration is insecure and should not be used in production environ
 Download and run OpenSearch: 
 
 ```bash
-docker pull opensearchproject/opensearch:latest && docker run -it -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" -e "DISABLE_SECURITY_PLUGIN=true" opensearchproject/opensearch:latest
+docker pull opensearchproject/opensearch:latest && docker run -it -p 9200:9200 -e "discovery.type=single-node" -e "DISABLE_SECURITY_PLUGIN=true" opensearchproject/opensearch:latest
 ```
 {% include copy.html %}
 
@@ -54,16 +54,23 @@ You should get a response that looks like this:
     "build_date" : <build-date>,
     "build_snapshot" : false,
     "lucene_version" : <lucene-version>,
-    "minimum_wire_compatibility_version" : "7.10.0",
-    "minimum_index_compatibility_version" : "7.0.0"
+    "minimum_wire_compatibility_version" : "2.19.0",
+    "minimum_index_compatibility_version" : "2.0.0"
   },
   "tagline" : "The OpenSearch Project: https://opensearch.org/"
 }
 ```
 
-For more information, see [Installation quickstart]({{site.url}}{{site.baseurl}}/getting-started/quickstart/) and [Install and upgrade OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/).
+For more information, see [Installation quickstart]({{site.url}}{{site.baseurl}}/getting-started/quickstart/) and [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/).
 
 </details>
+
+## Running API requests
+
+This guide includes API request examples that you can run in several ways:
+
+- **OpenSearch Dashboards Dev Tools console** (recommended): Open OpenSearch Dashboards at `http://localhost:5601`, select **Dev Tools** in the upper-right corner, and paste the request. Select the request and choose the play button. For more information, see [Running queries in the console]({{site.url}}{{site.baseurl}}/dashboards/visualize/run-queries/).
+- **cURL**: Use the **Copy as cURL** button next to each code example to copy the request in cURL format, then paste and run it in your terminal.
 
 ## Step 1: Create a vector index
 
@@ -88,7 +95,9 @@ PUT /hotels-index
 ```
 {% include copy-curl.html %}
 
-Vector queries usually have a `size` > 0, so by default they don't enter the request cache. In OpenSearch 2.19 or later, if your workload mostly consists of vector queries, consider increasing the dynamic `indices.requests.cache.maximum_cacheable_size` cluster setting to a larger value, such as `256`. This allows queries with a `size` of up to 256 to enter the request cache, improving performance. For more information, see [Request cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/request-cache).
+To use a different method or engine, see [Methods and engines]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/).
+
+Vector queries usually have a `size` > 0, so by default they don't enter the request cache. If your workload mostly consists of vector queries, consider increasing the dynamic `indices.requests.cache.maximum_cacheable_size` cluster setting to a larger value, such as `256`. This allows queries with a `size` of up to 256 to enter the request cache, improving performance. For more information, see [Request cache]({{site.url}}{{site.baseurl}}/search-plugins/caching/request-cache/).
 
 ## Step 2: Add data to your index
 

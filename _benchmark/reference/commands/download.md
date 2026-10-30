@@ -1,15 +1,15 @@
 ---
 layout: default
 title: download
-nav_order: 60
+nav_order: 30
 parent: Command reference
-grand_parent: OpenSearch Benchmark Reference
+grand_parent: Reference
 redirect_from:
   - /benchmark/commands/download/
 ---
 
 <!-- vale off -->
-# download
+# download command
 <!-- vale on -->
 
 Use the `download` command to select which OpenSearch distribution version to download.
@@ -41,5 +41,5 @@ Use the following options to customize how OpenSearch Benchmark downloads OpenSe
 - `--distribution-repository`: Defines the repository from where the OpenSearch distribution should be downloaded. Default is `release`.
 - `--cluster-config-instance`: Defines the `--cluster-config-instance` to use. You can view possible configuration instances using the command `opensearch-benchmark list cluster-config-instances`.
 - `--cluster-config-instance-params`: A comma-separated list of key-value pairs injected verbatim as variables for the `cluster-config-instance`.
-- `--target-os`: The target operating system (OS) for which the OpenSearch artifact should be downloaded. Default is the current OS.
+- `--target-os`: The target operating system for which the OpenSearch artifact should be downloaded. Default is the current operating system.
 - `--target-arch`: The name of the CPU architecture for which an artifact should be downloaded.

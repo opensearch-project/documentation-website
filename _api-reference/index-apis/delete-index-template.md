@@ -1,18 +1,21 @@
 ---
 layout: default
 title: Delete index template
-parent: Index APIs
-nav_order: 55
+parent: Index templates
+grand_parent: Index APIs
+nav_order: 20
 ---
 
 # Delete Index Template API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The Delete Index Template API deletes one or more index templates.
 
 ## Endpoints
 
 ```json
-DELETE /_index_template/<template-name>
+DELETE /_index_template/{template-name}
 ```
 
 ## Path parameters
@@ -29,3 +32,7 @@ Parameter | Type | Description
 :--- | :--- | :---
 `cluster_manager_timeout` | Time | The amount of time to wait for a connection to the cluster manager node. Default is `30s`.
 `timeout` | Time | The amount of time that the operation will wait for a response. Default is `30s`.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/index_template/delete`.

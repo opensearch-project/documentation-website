@@ -7,9 +7,9 @@ redirect_from:
   - /query-dsl/aggregations/bucket/geotile-grid/
 ---
 
-# Geotile grid aggregations
+# Geotile grid aggregation
 
-The geotile grid aggregation groups documents into grid cells for geographical analysis. Each grid cell corresponds to a [map tile](https://en.wikipedia.org/wiki/Tiled_web_map) and is identified using the `{zoom}/{x}/{y}` format. You can aggregate documents on [geopoint]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) or [geoshape]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/) fields using a geotile grid aggregation. One notable difference is that a geopoint is only present in one bucket, but a geoshape is counted in all geotile grid cells with which it intersects.
+The geotile grid aggregation groups documents into grid cells for geographical analysis. Each grid cell corresponds to a [map tile](https://en.wikipedia.org/wiki/Tiled_web_map) and is identified using the `{zoom}/{x}/{y}` format. You can aggregate documents on [geopoint]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/geo-point/) or [geoshape]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/geo-shape/) fields using a geotile grid aggregation. One notable difference is that a geopoint is only present in one bucket, but a geoshape is counted in all geotile grid cells with which it intersects.
 
 ## Precision
 
@@ -533,7 +533,7 @@ When aggregating geoshapes, one geoshape can be counted for multiple buckets bec
 ```
 </details>
 
-Currently, OpenSearch supports geoshape aggregation through the API but not in OpenSearch Dashboards visualizations. If you'd like to see geoshape aggregation implemented for visualizations, upvote the related [GitHub issue](https://github.com/opensearch-project/dashboards-maps/issues/250).
+OpenSearch supports geoshape aggregation through the API but not in OpenSearch Dashboards visualizations. If you'd like to see geoshape aggregation implemented for visualizations, upvote the related [GitHub issue](https://github.com/opensearch-project/dashboards-maps/issues/250).
 {: .note}
 
 ## Supported parameters
@@ -543,7 +543,7 @@ Geotile grid aggregation requests support the following parameters.
 Parameter | Data type | Description
 :--- | :--- | :---
 field | String | The field that contains the geopoints. This field must be mapped as a `geo_point` field. If the field contains an array, all array values are aggregated. Required.
-precision | Integer | The granularity level used to determine grid cells for bucketing results. Cells cannot exceed the specified size (diagonal) of the required precision. Valid values are in the [0, 29] range. Optional. Default is 7. 
-bounds | Object | The bounding box for filtering geopoints. The bounding box is defined by the upper-left and lower-right vertices. The vertices are specified as geopoints in one of the following formats: <br>- An object with a latitude and longitude<br>- An array in the [`longitude`, `latitude`] format<br>- A string in the "`latitude`,`longitude`" format<br>- A geohash <br>- WKT<br> See the [geopoint formats]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats) for formatting examples. Optional.
-size | Integer | The maximum number of buckets to return. When there are more buckets than `size`, OpenSearch returns buckets with more documents. Optional. Default is 10,000.
-shard_size | Integer | The maximum number of buckets to return from each shard. Optional. Default is max (10, `size` &middot; number of shards), which provides a more accurate count of more highly prioritized buckets.
+`precision` | Integer | The granularity level used to determine grid cells for bucketing results. Cells cannot exceed the specified size (diagonal) of the required precision. Valid values are in the [0, 29] range. Optional. Default is 7. 
+`bounds` | Object | The bounding box for filtering geopoints. The bounding box is defined by the upper-left and lower-right vertices. The vertices are specified as geopoints in one of the following formats: <br>- An object with a latitude and longitude<br>- An array in the [`longitude`, `latitude`] format<br>- A string in the "`latitude`,`longitude`" format<br>- A geohash <br>- WKT<br> See the [geopoint formats]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats) for formatting examples. Optional.
+`size` | Integer | The maximum number of buckets to return. When there are more buckets than `size`, OpenSearch returns buckets with more documents. Optional. Default is 10,000.
+`shard_size` | Integer | The maximum number of buckets to return from each shard. Optional. Default is max (10, `size` &middot; number of shards), which provides a more accurate count of more highly prioritized buckets.

@@ -2,7 +2,7 @@
 layout: default
 title: Register model group
 parent: Model group APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 10
 ---
 
@@ -28,6 +28,7 @@ The following table lists the available request fields.
 Field |Data type | Description 
 :--- | :--- | :---
 `name` | String | The model group name. Required.
+`model_group_id` | String | A unique identifier for the model group. Optional. If omitted, OpenSearch generates one automatically. 
 `description` | String | The model group description. Optional.
 `access_mode` | String | The access mode for this model. Valid values are `public`, `private`, and `restricted`. When this parameter is set to `restricted`, you must specify either `backend_roles` or `add_all_backend_roles`, but not both. Optional. If you specify none of the security parameters (`access_mode`, `backend_roles`, and `add_all_backend_roles`), the default `access_mode` is `private`.
 `backend_roles` | Array | A list of the model owner's backend roles to add to the model. Can be specified only if `access_mode` is `restricted`. Cannot be specified at the same time as `add_all_backend_roles`. Optional.
@@ -147,4 +148,4 @@ POST /_plugins/_ml/model_groups/_register
 
 ## Registering a model group in a cluster where model access control is disabled
 
-If model access control is disabled on your cluster (one of the [prerequisites](ml-commons-plugin/model-access-control/#model-access-control-prerequisites) is not met), you can register a model group with a `name` and `description` but cannot specify any of the access parameters (`model_access_name`, `backend_roles`, or `add_backend_roles`). By default, in such a cluster, all model groups are public.
+If model access control is disabled on your cluster (one of the [prerequisites]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/#model-access-control-prerequisites) is not met), you can register a model group with a `name` and `description` but cannot specify any of the access parameters (`access_mode`, `backend_roles`, or `add_all_backend_roles`). By default, in such a cluster, all model groups are public.

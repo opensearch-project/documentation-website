@@ -61,10 +61,12 @@ module Jekyll::LinkChecker
   @ignored_domains = [
     'localhost',
     'playground.opensearch.org', # inifite redirect, https://github.com/opensearch-project/dashboards-anywhere/issues/172
+    'ml.playground.opensearch.org', # infinite redirect
     'crates.io', # 404s on bots
     'www.cloudflare.com', # 403s on bots
     'platform.openai.com', # 403s on bots
     'openai.com', # 403s on bots
+    'opensourceconnections.com', # 403s on bots
     'mvnrepository.com', # 403s on bots
     'www.intel.com', # 403s on bots
     'wordnet.princeton.edu', # 403s on bots
@@ -73,8 +75,20 @@ module Jekyll::LinkChecker
     'dl.acm.org', # 403s on bots
     'www.npmjs.com', # 403s on bots
     'www.base64decode.org', # 403s on bots
-    'docs.docker.com', # 403s on bots
-    'example.issue.link' # a fake example link from the template
+    'docs.docker.com', # 403s on bots,
+    'docs-vizlib.insightsoftware.com', # 403s on bots,
+    'www.javadoc.io', # 522s on bots (Cloudflare)
+    'medium.com', # 403s on bots
+    'opensearch.slack.com', # 403s on bots
+    'www.ibm.com', # 403s on bots
+    'www.iso.org', # 403s on bots
+    'wikitravel.org', # 403s on bots
+    'elastic.co', # 406s on bots
+    'www.elastic.co', # 406s on bots
+    'example.issue.link', # a fake example link from the template
+    'jinja.palletsprojects.com', # 429s on bots
+    'lemurproject.org', # timeouts on bots
+    'www.cs.cmu.edu' # timeouts on bots
   ]
 
   ##

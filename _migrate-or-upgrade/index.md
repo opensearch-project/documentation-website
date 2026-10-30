@@ -3,18 +3,21 @@ layout: default
 title: Migrate or upgrade
 has_children: true
 has_toc: false
-permalink: /upgrade-or-migrate/
+permalink: /migrate-or-upgrade/
 redirect_from:
   - /migrate-or-upgrade/index/
   - /upgrade-opensearch/index/
-  - /migrate-or-upgrade/
+  - /upgrade-or-migrate/
   - /upgrade-to/index/
   - /upgrade-to/
   - /upgrade-to/upgrade-to/
   - /install-and-configure/upgrade-opensearch/index/
+  - /install-and-configure/upgrade-opensearch/
   - /upgrade-to/docker-upgrade-to/
+  - /upgrade-to/dashboards-upgrade-to/
 nav_exclude: true
 ---
+
 # Migrate or upgrade OpenSearch
 
 The OpenSearch Project releases regular updates that include new features, enhancements, and bug fixes. OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. To learn about upcoming features and fixes, review the [OpenSearch Project Roadmap](https://github.com/orgs/opensearch-project/projects/206) on GitHub. To view a list of previous releases or to learn more about how OpenSearch uses versioning, see [Release schedule and maintenance policy](https://opensearch.org/releases.html).
@@ -36,6 +39,7 @@ Take time to plan the process before making any changes to your cluster:
 Make sure to:
 
 - Review [breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/).
+- Review the [version history]({{site.url}}{{site.baseurl}}/version-history/) to see what changed in each release.
 - Check [plugin compatibility]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#available-plugins).
 - Review the [OpenSearch tools compatibility matrices]({{site.url}}{{site.baseurl}}/tools/index/#compatibility-matrices).
 - Back up [configuration files](#backing-up-configuration-files).
@@ -47,6 +51,8 @@ Stop nonessential indexing before upgrading.
 ---
 
 ## Migration and upgrade methods
+
+OpenSearch supports the following migration and upgrade methods.
 
 ### Rolling upgrade
 
@@ -163,47 +169,56 @@ You can further reduce the risk of data loss by storing your snapshots in extern
 
 ## Index compatibility reference
 
-<style>
-table {
-    border-collapse: collapse;
-    table-layout: fixed;
-}
-th {
-  background-color: #F5F7F7;
-}
-th,
-td {
-  text-align: center;
-  padding: 0.5em 1em;
-}
-</style>
-<table>
-  <tr><th>Lucene version</th><th>OpenSearch version</th><th>Elasticsearch version</th></tr>
-  <tr><td>9.10.0</td><td>2.14.0<br>2.13.0</td><td>8.13</td></tr>
-  <tr><td>9.9.2</td><td>2.12.0</td><td>&#8212;</td></tr>
-  <tr><td>9.7.0</td><td>2.11.1<br>2.9.0</td><td>8.9.0</td></tr>
-  <tr><td>9.6.0</td><td>2.8.0</td><td>8.8.0</td></tr>
-  <tr><td>9.5.0</td><td>2.7.0<br>2.6.0</td><td>8.7.0</td></tr>
-  <tr><td>9.4.2</td><td>2.5.0<br>2.4.1</td><td>8.6</td></tr>
-  <tr><td>9.4.1</td><td>2.4.0</td><td>&#8212;</td></tr>
-  <tr><td>9.4.0</td><td>&#8212;</td><td>8.5</td></tr>
-  <tr><td>9.3.0</td><td>2.3.0<br>2.2.x</td><td>8.4</td></tr>
-  <tr><td>9.2.0</td><td>2.1.0</td><td>8.3</td></tr>
-  <tr><td>9.1.0</td><td>2.0.x</td><td>8.2</td></tr>
-  <tr><td>9.0.0</td><td>&#8212;</td><td>8.1<br>8.0</td></tr>
-  <tr><td>8.11.1</td><td>&#8212;</td><td>7.17</td></tr>
-  <tr><td>8.10.1</td><td>1.3.x<br>1.2.x</td><td>7.16</td></tr>
-  <tr><td>8.9.0</td><td>1.1.0</td><td>7.15<br>7.14</td></tr>
-  <tr><td>8.8.2</td><td>1.0.0</td><td>7.13</td></tr>
-  <tr><td>8.8.0</td><td>&#8212;</td><td>7.12</td></tr>
-  <tr><td>8.7.0</td><td>&#8212;</td><td>7.11<br>7.10</td></tr>
-  <tr><td>8.6.2</td><td>&#8212;</td><td>7.9</td></tr>
-  <tr><td>8.5.1</td><td>&#8212;</td><td>7.8<br>7.7</td></tr>
-  <tr><td>8.4.0</td><td>&#8212;</td><td>7.6</td></tr>
-  <tr><td>8.3.0</td><td>&#8212;</td><td>7.5</td></tr>
-  <tr><td>8.2.0</td><td>&#8212;</td><td>7.4</td></tr>
-  <tr><td>8.1.0</td><td>&#8212;</td><td>7.3</td></tr>
-  <tr><td>8.0.0</td><td>&#8212;</td><td>7.2<br>7.1</td></tr>
-  <tr><td>7.7.3</td><td>&#8212;</td><td>6.8</td></tr>
-</table>
-<p style="text-align:right"><sub><em>A dash (&#8212;) indicates that no version contains the listed Lucene version.</em></sub></p>
+OpenSearch stores data in Lucene indexes, and each OpenSearch major version is built on a different Lucene major version: OpenSearch 1.x on Lucene 8, 2.x on Lucene 9, and 3.x on Lucene 10.
+
+Whether a cluster can read an existing index depends on the version of OpenSearch or Elasticsearch that created the index. Each OpenSearch major version reads indexes created by the previous major version:
+
+- OpenSearch 1.x reads indexes created by Elasticsearch 6.0 to 7.10.2.
+- OpenSearch 2.x reads indexes created by Elasticsearch 7.0 to 7.10.2 and by OpenSearch 1.x.
+- OpenSearch 3.x reads indexes created by OpenSearch 2.x.
+
+To use an index created by an earlier version, reindex it in a cluster that can read it before you upgrade. OpenSearch can't restore indexes created by Elasticsearch 7.11 or later, even when they use the same Lucene major version. To migrate from those versions, use [Migration Assistant]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/#supported-migration-paths).
+
+The following table lists the Lucene version that each OpenSearch and Elasticsearch release is built on. A dash (---) indicates that no release of that product uses the listed Lucene version.
+
+| Lucene version | OpenSearch version | Elasticsearch version |
+| :--- | :--- | :--- |
+| 10.5.1 | 3.9.0 | 9.5 |
+| 10.5.0 | 3.8.0 | 9.5 |
+| 10.4.0 | 3.7.0<br>3.6.0 | 9.4 |
+| 10.3.2 | 3.5.0<br>3.4.0 | 9.3 |
+| 10.3.1 | 3.3.x | 9.2 |
+| 10.2.2 | 3.2.0 | 9.1 |
+| 10.2.1 | 3.1.0 | --- |
+| 10.1.0 | 3.0.0 | 9.0 |
+| 9.12.3 | 2.19.4 to 2.19.7 | --- |
+| 9.12.2 | 2.19.3 | 8.19 |
+| 9.12.1 | 2.19.0 to 2.19.2 | 8.18 |
+| 9.12.0 | 2.18.0 | 8.17<br>8.16 |
+| 9.11.1 | 2.17.x<br>2.16.0 | 8.15 |
+| 9.10.0 | 2.15.0<br>2.14.0<br>2.13.0 | 8.14<br>8.13 |
+| 9.9.2 | 2.12.0 | --- |
+| 9.7.0 | 2.11.1<br>2.9.0 | 8.9.0 |
+| 9.6.0 | 2.8.0 | 8.8.0 |
+| 9.5.0 | 2.7.0<br>2.6.0 | 8.7.0 |
+| 9.4.2 | 2.5.0<br>2.4.1 | 8.6 |
+| 9.4.1 | 2.4.0 | --- |
+| 9.4.0 | --- | 8.5 |
+| 9.3.0 | 2.3.0<br>2.2.x | 8.4 |
+| 9.2.0 | 2.1.0 | 8.3 |
+| 9.1.0 | 2.0.x | 8.2 |
+| 9.0.0 | --- | 8.1<br>8.0 |
+| 8.11.1 | --- | 7.17 |
+| 8.10.1 | 1.3.x<br>1.2.x | 7.16 |
+| 8.9.0 | 1.1.0 | 7.15<br>7.14 |
+| 8.8.2 | 1.0.0 | 7.13 |
+| 8.8.0 | --- | 7.12 |
+| 8.7.0 | --- | 7.11<br>7.10 |
+| 8.6.2 | --- | 7.9 |
+| 8.5.1 | --- | 7.8<br>7.7 |
+| 8.4.0 | --- | 7.6 |
+| 8.3.0 | --- | 7.5 |
+| 8.2.0 | --- | 7.4 |
+| 8.1.0 | --- | 7.3 |
+| 8.0.0 | --- | 7.2<br>7.1 |
+| 7.7.3 | --- | 6.8 |

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: OTLP source
+title: OTLP
 parent: Sources
 grand_parent: Pipelines
 nav_order: 85
@@ -51,7 +51,7 @@ You can configure SSL/TLS in the `otlp` source with the following options.
 | `ssl_key_file` | String | The SSL key file path or Amazon S3 path (for example, `s3://<bucketName>/<path>`). Required if `ssl` is set to `true`. |
 | `use_acm_cert_for_ssl` | Boolean | Enables SSL/TLS using a certificate and private key from AWS Certificate Manager (ACM). Default is `false`. |
 | `acm_certificate_arn` | String | The ACM certificate Amazon Resource Name (ARN). ACM certificates take precedence over Amazon S3 or local file system certificates. Required if `use_acm_cert_for_ssl` is set to `true`. |
-| `acm_private_key_password` | String | The ACM private key password that decrypts the private key. If not provided, OpenSearch Data Prepper uses the private key unencrypted. |
+| `acm_private_key_password` | String | The ACM private key password that decrypts the private key. If not provided, OpenSearch Data Prepper uses the private key without encryption. |
 | `aws_region` | String | The AWS Region used by ACM or Amazon S3. Required if `use_acm_cert_for_ssl` is set to `true` or if `ssl_certificate_file` and `ssl_key_file` are Amazon S3 paths. |
 
 ### Authentication configuration
@@ -134,7 +134,7 @@ otel-telemetry:
         hosts: [ "https://opensearch:9200" ]
         index: logs-%{yyyy.MM.dd}
         username: admin
-        password: yourStrongPassword123!
+        password: "<custom-admin-password>"
         insecure: true
     - pipeline:
         name: traces-raw
@@ -156,7 +156,7 @@ traces-raw:
         hosts: [ "https://opensearch:9200" ]
         index_type: trace-analytics-raw
         username: admin
-        password: yourStrongPassword123!
+        password: "<custom-admin-password>"
         insecure: true
 
 otel-metrics:
@@ -174,7 +174,7 @@ otel-metrics:
         hosts: [ "https://opensearch:9200" ]
         index: metrics-otel-%{yyyy.MM.dd}
         username: admin
-        password: yourStrongPassword123!
+        password: "<custom-admin-password>"
         insecure: true
 ```
 {% include copy.html %}
@@ -328,7 +328,7 @@ otlp-pipeline:
 ```
 {% include copy.html %}
 
-## Related pages
+## Related documentation
 
 - [OTel logs source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otel-logs-source/)
 - [OTel metrics source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otel-metrics-source/)

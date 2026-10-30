@@ -185,7 +185,7 @@ Configure any metric fields on which you need to perform aggregations. `Metrics`
 
 When using `metrics`, follow these best practices: 
 
-- Currently, fields supported by `metrics` are all [numeric field types]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/numeric/), with the exception of `unsigned_long`. For more information, see [GitHub issue #15231](https://github.com/opensearch-project/OpenSearch/issues/15231). 
+- Fields supported by `metrics` are all [numeric field types]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/numeric/), with the exception of `unsigned_long`. For more information, see [GitHub issue #15231](https://github.com/opensearch-project/OpenSearch/issues/15231). 
 - Supported metric aggregations include `Min`, `Max`, `Sum`, `Avg`, and `Value_count`. 
     - `Avg` is a derived metric based on `Sum` and `Value_count` and is not indexed when a query is run. The remaining base metrics are indexed.
 - A maximum of `100` base metrics are supported per star-tree index.

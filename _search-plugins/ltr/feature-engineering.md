@@ -3,6 +3,7 @@ layout: default
 title: Feature engineering
 nav_order: 40
 parent: Learning to Rank
+grand_parent: Optimizing search quality
 has_children: false
 ---
 

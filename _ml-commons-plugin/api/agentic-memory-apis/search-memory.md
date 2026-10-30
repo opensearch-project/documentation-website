@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Search memory
+title: Search agentic memory
 parent: Agentic memory APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 54
 ---
 
-# Search Memory API
+# Search Agentic Memory API
 **Introduced 3.3**
 {: .label .label-purple }
 
@@ -15,7 +15,8 @@ Use this API to search for memories of a specific type within a memory container
 ## Endpoints
 
 ```json
-GET /_plugins/_ml/memory_containers/<memory_container_id>/memories/<type>/_search
+GET /_plugins/_ml/memory_containers/{memory_container_id}/memories/{type}/_search
+POST /_plugins/_ml/memory_containers/{memory_container_id}/memories/{type}/_search
 ```
 
 ## Path parameters
@@ -171,18 +172,24 @@ GET /_plugins/_ml/memory_containers/HudqiJkB1SltqOcZusVU/memories/working/_searc
     "max_score": null,
     "hits": [
       {
-        "_index": "test1-session",
+        "_index": ".plugins-ml-am-default-memory-sessions",
         "_id": "CcxjTpkBvwXRq366A1aE",
+        "_version": 1,
+        "_seq_no": 10,
+        "_primary_term": 1,
         "_score": null,
         "_source": {
-          "memory_container_id": "HudqiJkB1SltqOcZusVU",
+          "summary": "This is a test session",
+          "created_time": 1757956735881,
+          "last_updated_time": 1757956735881,
           "namespace": {
             "user_id": "bob"
           },
-          "created_time": "2025-09-15T17:18:55.881276939Z",
-          "last_updated_time": "2025-09-15T17:18:55.881276939Z"
+          "memory_container_id": "HudqiJkB1SltqOcZusVU"
         },
-        "sort": ["2025-09-15T17:18:55.881276939Z"]
+        "sort": [
+          1757956735881
+        ]
       }
     ]
   }

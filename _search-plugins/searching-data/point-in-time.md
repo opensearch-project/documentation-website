@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Point in Time
-parent: Search options
+parent: Customizing search results
 nav_order: 20
 redirect_from:
   - /opensearch/point-in-time/
@@ -12,13 +12,13 @@ redirect_from:
 
 Point in Time (PIT) lets you run different queries against a dataset that is fixed in time. 
 
-Normally, if you run a query on an index multiple times, the same query may return different results because documents are continually indexed, updated, and deleted. If you need to run a query against the same data, you can preserve that data's state by creating a PIT. The main use of the PIT feature is to couple it with the `search_after` functionality for deep pagination of search results.
+Normally, if you run a query on an index multiple times, the same query may return different results because documents are continually indexed, updated, and deleted. If you need to run a query against the same data, you can preserve the state of that data by creating a PIT. The main use of the PIT feature is to couple it with the `search_after` functionality for deep pagination of search results.
 
 ## Paginating search results
 
 Besides the PIT functionality, there are three ways to [paginate search results]({{site.url}}{{site.baseurl}}/opensearch/search/paginate/) in OpenSearch: using the Scroll API, specifying `from` and `size` parameters for your search, and using the `search_after` functionality. However, all three have limitations:
 
-- The Scroll API's search results are frozen at the moment of the request, but they are bound to a particular query. Additionally, scroll can only move forward in the search, so if a request for a page fails, the subsequent request skips that page and returns the following one.
+- The Scroll API search results are frozen at the moment of the request, but they are bound to a particular query. Additionally, scroll can only move forward in the search, so if a request for a page fails, the subsequent request skips that page and returns the following one.
 - If you specify the `from` and `size` parameters for your search, the search results are not frozen in time, so they may be inconsistent because of documents being indexed or deleted. The `from` and `size` feature is not recommended for deep pagination because every page request requires processing of all results and filtering them for the requested page.
 - The `search_after` search results are not frozen in time, so they may be inconsistent because of concurrent document indexing or deletion.
 
@@ -28,7 +28,7 @@ The PIT functionality does not have the limitations of other pagination methods,
 
 PIT search has the same capabilities as regular search, except PIT search acts on an older dataset, while a regular search acts on a live dataset. PIT search is not bound to a query, so you can run different queries on the same dataset, which is frozen in time. 
 
-You can use the [Create PIT API]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#create-a-pit) to create a PIT. When you create a PIT for a set of indexes, OpenSearch locks a set of segments for those indexes, freezing them in time. On a lower level, none of the resources required for this PIT are modified or deleted. If the segments that are part of a PIT are merged, OpenSearch retains a copy of those segments for the period of time specified at PIT creation by the `keep_alive` parameter. 
+You can use the [Create PIT API]({{site.url}}{{site.baseurl}}/api-reference/search-apis/point-in-time-api/#create-a-pit) to create a PIT. When you create a PIT for a set of indexes, OpenSearch locks a set of segments for those indexes, freezing them in time. On a lower level, none of the resources required for this PIT are modified or deleted. If the segments that are part of a PIT are merged, OpenSearch retains a copy of those segments for the period of time specified at PIT creation by the `keep_alive` parameter. 
 
 The create PIT operation returns a PIT ID, which you can use to run multiple queries on the frozen dataset. Even though the indexes continue to ingest data and modify or delete documents, the PIT references the data that has not changed since the PIT creation. When your query contains a PIT ID, you don't need to pass the indexes to the search because it will use that PIT. A search with a PIT ID will produce exactly the same result when you run it multiple times.
 
@@ -92,21 +92,23 @@ GET /_search
 
 Using `search_after` with PIT for pagination gives you control over ordering of the results. If you don't need results in any specific order, or if you want the ability to jump from a page to a non-consecutive page, you can use search slicing. Search slicing splits a PIT search into multiple slices that can be consumed independently by a client application.
 
-For example, if you have a PIT search query that has 1,000,000 results and you want to return 50,000 results at a time, your client application has to make 20 consecutive calls to receive each batch of results. If you use search slicing, you can parallelize these 20 calls. In your multithreaded client application you can use five slices for each PIT. As a result, you will have 5 10,000-hit slices that can be consumed by five different threads in your client, instead of having a single thread consume 50,000 results. 
+For example, a PIT search that matches 1,000,000 documents can be split into 2 slices of about 500,000 documents each, which two threads in your client application can read in parallel. Each thread pages through its own slice using `search_after`. All slices use the same PIT ID.
 
-To use search slicing, you have to specify two parameters:
-- `slice.id` is the slice ID you are requesting. 
-- `slice.max` is the number of slices to break the search response into. 
+To use search slicing, specify the following parameters in the `slice` object:
 
-The following PIT search query illustrates search slicing:
+- `slice.max` is the number of slices into which to split the search. It cannot exceed the `index.max_slices_per_pit` index setting (default `1024`).
+- `slice.id` is the ID of the slice you are requesting, from `0` to `slice.max` - 1.
+
+OpenSearch assigns each document to a slice based on its shard and document ID, so slices contain roughly, but not exactly, the same number of documents.
+
+The following request returns the first of two slices:
 
 ```json
-
 GET /_search
 {
   "slice": {
-    "id": 0,  // id is the slice (page) number being requested. In every request we can only query for one slice                    
-    "max": 2  // max is the total number of slices (pages) the search response will be broken down into                  
+    "id": 0,
+    "max": 2
   },
   "query": {
     "match": {
@@ -118,8 +120,11 @@ GET /_search
   }
 }
 ```
+{% include copy-curl.html %}
 
-In every request you can only query for one slice, so the next query will be the same as the previous one, except the `slice.id` will be `1`.
+Each request returns one slice. To request the second slice, send the same request with `slice.id` set to `1`.
+
+Each slice is paginated like any other search. Paging through a slice using `from` and `size` is limited by the `index.max_result_window` index setting (default `10000`): the sum of `from` and `size` cannot exceed this value. To read more documents from a slice, add a `sort` to the request and paginate using `search_after`, as described in [Pagination with PIT and `search_after`](#pagination-with-pit-and-search_after). For more information about index settings, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/).
 
 
 ## API

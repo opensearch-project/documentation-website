@@ -55,7 +55,7 @@ Option | Required | Type | Description
 `hosts` | Yes | List | A list of OpenSearch hosts to write to, such as `["https://localhost:9200", "https://remote-cluster:9200"]`.
 `cert` | No | String | The path to the security certificate. For example, `"config/root-ca.pem"` if the cluster uses the OpenSearch Security plugin.
 `username` | No | String  | The username for HTTP basic authentication.
-`password` | No | String | The password for HTTP basic authentication.
+`password` | No | String | The password for HTTP basic authentication. Many Data Prepper examples authenticate as the `admin` user and use the `<custom-admin-password>` placeholder for its [password]({{site.url}}{{site.baseurl}}/security/configuration/passwords/#admin-password). You can also authenticate as a user that has only the permissions that the sink requires. For more information, see [OpenSearch cluster security](#opensearch-cluster-security).
 `aws` | No | AWS  | The [AWS](#aws) configuration. 
 [max_retries](#configure-max_retries) | No | Integer | The maximum number of times that the `opensearch` sink should try to push data to the OpenSearch server before considering it to be a failure. Defaults to `Integer.MAX_VALUE`. When not provided, the sink will try to push data to the OpenSearch server indefinitely and exponential backoff will increase the waiting time before a retry.
 `aws_sigv4` | No | Boolean | **Deprecated in Data Prepper 2.7.** Default is `false`. Whether to use AWS Identity and Access Management (IAM) signing to connect to an Amazon OpenSearch Service domain. For your access key, secret key, and optional session token, OpenSearch Data Prepper uses the default credential chain (environment variables, Java system properties, `~/.aws/credential`). 
@@ -71,7 +71,7 @@ Option | Required | Type | Description
 
 `template_type` | No | String | Defines what type of OpenSearch template to use. Available options are `v1` and `index-template`. The default value is `v1`, which uses the original OpenSearch templates available at the `_template` API endpoints. The `index-template` option uses composable [index templates]({{site.url}}{{site.baseurl}}/opensearch/index-templates/), which are available through the OpenSearch `_index_template` API. Composable index types offer more flexibility than the default and are necessary when an OpenSearch cluster contains existing index templates. Composable templates are available for all versions of OpenSearch and some later versions of Elasticsearch. When `distribution_version` is set to `es6`, Data Prepper enforces the `template_type` as `v1`.
 `template_file` | No | String | The path to a JSON [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) file, such as `/your/local/template-file.json`, when `index_type` is set to `custom`. For an example template file, see [otel-v1-apm-span-index-template.json](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/src/main/resources/otel-v1-apm-span-index-template.json). If you supply a template file, then it must match the template format specified by the `template_type` parameter.
-`template_content` | No | JSON | Contains all the inline JSON found inside of the index  [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/). For an example of template content, see [the example template content](#example_template_content).
+`template_content` | No | JSON | Contains all the inline JSON found inside of the index  [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/). For an example of template content, see [the example template content](#example-with-template_content-and-actions).
 `document_id_field` | No | String | **Deprecated in Data Prepper 2.7 in favor of `document_id`.** The field from the source data to use for the OpenSearch document ID (for example, `"my-field"`) if `index_type` is `custom`.
 `document_id` | No | String | A format string to use as the `_id` in OpenSearch documents. To specify a single field in an event, use `${/my_field}`. You can also use Data Prepper expressions to construct the `document_id`, for example, `${getMetadata(\"some_metadata_key\")}`. These options can be combined into more complex formats, such as `${/my_field}-test-${getMetadata(\"some_metadata_key\")}`. 
 `document_version` | No | String  |  A format string to use as the `_version` in OpenSearch documents. To specify a single field in an event, use `${/my_field}`. You can also use Data Prepper expressions to construct the `document_version`, for example, `${getMetadata(\"some_metadata_key\")}`. These options can be combined into more complex versions, such as `${/my_field}${getMetadata(\"some_metadata_key\")}`. The `document_version` format must evaluate to a long type and can only be used when `document_version_type` is set to either `external` or `external_gte`.
@@ -92,9 +92,61 @@ Option | Required | Type | Description
 `document_root_key` | No | String  | The key in the event that will be used as the root in the document. The default is the root of the event. If the key does not exist, then the entire event is written as the document. If `document_root_key` is of a basic value type, such as a string or integer, then the document will have a structure of `{"data": <value of the document_root_key>}`.
 `serverless` | No | Boolean | **Deprecated in Data Prepper 2.7. Use this option with the `aws` configuration instead.** Determines whether the OpenSearch backend is Amazon OpenSearch Serverless. Set this value to `true` when the destination for the `opensearch` sink is an Amazon OpenSearch Serverless collection. Default is `false`.
 `serverless_options` | No | Object | **Deprecated in Data Prepper 2.7. Use this option with the `aws` configuration instead.** The network configuration options available when the backend of the `opensearch` sink is set to Amazon OpenSearch Serverless. For more information, see [Serverless options](#serverless-options).
+`query_lookup` | No | Object | Configuration for querying existing documents before indexing to prevent duplicates. For more information, see [Query lookup](#query-lookup).
 
 
+## Query lookup
+
+The `query_lookup` configuration enables deduplication by querying OpenSearch for existing documents before indexing new ones. This feature helps prevent duplicates in two scenarios:
+
+1. **Conditional querying**: Query for documents based on a condition before indexing them.
+2. **Error-based querying**: Query for documents when bulk operation errors occur that could result in partial success, such as socket timeouts or 500 internal server errors.
+
+### Query lookup options
+
+The `query_lookup` object supports the following options.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+`query_when` | No | String | A [Data Prepper expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/) that determines which documents qualify for querying before indexing. For example, `getMetadata("potential_duplicate") == true` will only query documents with that metadata field set to `true`.
+`query_term` | Yes | String | The unique field of the document that will be used to query for existing documents in OpenSearch. This is typically an ID field.
+`query_on_bulk_errors` | No | Boolean | When set to `true`, documents that encounter recoverable bulk operation errors (such as socket timeouts or 500 errors) will be queried rather than immediately retried. This helps prevent duplicates when the initial indexing request may have partially succeeded. Default is `false`.
+`query_duration` | No | Duration | The amount of time to query for a given document before indexing it. Use ISO 8601 duration format, such as `PT5M` for 5 minutes. Default is `PT5M`.
+`async_limit` | No | Integer | The maximum number of documents that can be queried concurrently before blocking the processor worker threads. Default is `5000`.
+
+### Query lookup example
+
+The following example configuration queries for documents with a `potential_duplicate` metadata field before indexing:
+
+```yaml
+pipeline:
+  ...
+  sink:
+    opensearch:
+      hosts: ["https://localhost:9200"]
+      username: YOUR_USERNAME
+      password: YOUR_PASSWORD
+      index: my-index
+      query_lookup:
+        query_when: 'getMetadata("potential_duplicate") == true'
+        query_term: 'document_id'
+        query_on_bulk_errors: true
+        query_duration: PT5M
+        async_limit: 5000
+```
+
+In this configuration:
+- Documents with the `potential_duplicate` metadata set to `true` are queried before indexing.
+- The `document_id` field is used as the unique identifier for querying.
+- If a bulk operation encounters errors like socket timeouts or 500 errors, the affected documents are queried rather than immediately retried.
+- Documents are queried for up to 5 minutes before being indexed.
+- Up to 5,000 documents can be queried concurrently.
+
+If a document already exists in OpenSearch, it will be dropped and the event handle will be released, preventing duplicates.
+
+<!-- vale off -->
 ## aws
+<!-- vale on -->
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
@@ -165,7 +217,7 @@ Consider an [S3 source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/conf
 * Reaching `max_retries` still prevents acknowledgment.
 * Results in unnecessary reprocessing of entire S3 objects.
 
-**Best practice** -- Always configure a DLQ when using acknowledgments to:
+**Best practice**---always configure a DLQ when using acknowledgments to:
 * Prevent infinite reprocessing.
 * Handle non-retryable errors gracefully.
 * Minimize unnecessary reprocessing.
@@ -178,7 +230,7 @@ In order to send data to an OpenSearch cluster using the `opensearch` sink plugi
 sink:
   - opensearch:
       username: "admin"
-      password: "admin"
+      password: "<custom-admin-password>"
       ...
 ```
 
@@ -189,6 +241,10 @@ Alternately, rather than admin credentials, you can specify the credentials of a
 - `cluster_all`
 - `indices:admin/template/get`
 - `indices:admin/template/put`
+
+If the target is an OpenSearch data stream, the following permission is required by the data stream detector:
+
+- `indices:admin/data_stream/get`
 
 ### Index permissions
 
@@ -374,7 +430,7 @@ log-pipeline:
           region: "us-east-1"
 ```
 
-### Example with template_content and actions <a id="example_template_content"></a>
+### Example with template_content and actions
 
 The following example pipeline contains both `template_content` and a list of conditional `actions`:
 

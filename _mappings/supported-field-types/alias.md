@@ -84,7 +84,7 @@ GET movies/_field_caps?fields=release_date
 You cannot use aliases in the following situations:
 - In write requests, such as update requests.
 - In multi-fields or as a target of `copy_to`.
-- As a _source parameter for filtering results.
+- As a `_source` parameter for filtering results.
 - In APIs that take field names, such as term vectors.
 - In `terms`, `more_like_this`, and `geo_shape` queries (aliases are not supported when retrieving documents).
 

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Template
-parent: Specialized queries
+parent: AI and vector search queries
 nav_order: 70
 ---
 
@@ -14,6 +14,9 @@ Use a `template` query to create search queries that contain placeholder variabl
 For example, you might use a template query when working with the [ml_inference search request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-request/), which converts text input into vector embeddings during the search process. The processor will replace the placeholders with the generated values before the final query is executed.
 
 For a complete example, see [Query rewriting using template queries]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/template-query/).
+
+This page documents the `template` query, which uses placeholder variables resolved by search request processors (such as ML inference) at runtime. If you want to create reusable, parameterized queries using Mustache syntax (`{{variable}}`), see [Search Template API]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search-template/).
+{: .note}
 
 ## Example
 

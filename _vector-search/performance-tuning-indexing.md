@@ -5,7 +5,7 @@ nav_order: 10
 parent: Performance tuning
 ---
 
-# Indexing performance tuning
+# Vector search indexing performance tuning
 
 Take any of the following steps to improve indexing performance, especially when you plan to index a large number of vectors at once.
 
@@ -14,7 +14,7 @@ Take any of the following steps to improve indexing performance, especially when
 Either disable the refresh interval (default = 1 sec) or set a long duration for the refresh interval to avoid creating multiple small segments:
 
 ```json
-PUT /<index_name>/_settings
+PUT /{index_name}/_settings
 {
     "index" : {
         "refresh_interval" : "-1"
@@ -38,7 +38,7 @@ Monitor CPU utilization and choose the correct number of threads. Because native
 
 ## Use the derived vector source feature to reduce storage requirements
 
-Starting with OpenSearch 3.0, you can use the derived vector source feature to significantly reduce storage requirements for vector fields. It is an [index setting]({{site.url}}{{site.baseurl}}/vector-search/settings/#index-settings) that is enabled by default. This feature prevents vectors from being stored in the `_source` field while still maintaining all functionality, including the ability to use the `update`, `update_by_query`, and `reindex` APIs.
+You can use the derived vector source feature to significantly reduce storage requirements for vector fields. It is an [index setting]({{site.url}}{{site.baseurl}}/vector-search/settings/#index-settings) that is enabled by default. This feature prevents vectors from being stored in the `_source` field while still maintaining all functionality, including the ability to use the `update`, `update_by_query`, and `reindex` APIs.
 
 ## (Expert level) Build vector data structures on demand
 
@@ -54,7 +54,21 @@ During indexing, vector search builds a specialized data structure for a `knn_ve
     PUT /test-index/
     {
       "settings": {
+        "index.knn": true,
         "index.knn.advanced.approximate_threshold": "-1"
+      },
+      "mappings": {
+        "properties": {
+          "my_vector1": {
+            "type": "knn_vector",
+            "dimension": 2,
+            "method": {
+              "name": "hnsw",
+              "space_type": "l2",
+              "engine": "faiss"
+            }
+          }
+        }
       }
     }
     ```
@@ -104,3 +118,6 @@ During indexing, vector search builds a specialized data structure for a `knn_ve
     {% include copy-curl.html %}
 
     After the force merge, new search requests will execute approximate k-NN search using the newly created data structures.
+
+    A force merge does not rewrite a shard that already contains a single segment, so vector data structures are not built for that segment. In this case, reindex the data after setting `index.knn.advanced.approximate_threshold` to `0`.
+    {: .note}

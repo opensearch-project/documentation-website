@@ -88,6 +88,7 @@ PUT /sorani-index
           "type": "custom",
           "tokenizer": "standard",
           "filter": [
+            "sorani_normalization",
             "lowercase",
             "decimal_digit",
             "sorani_stop",

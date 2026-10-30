@@ -303,7 +303,7 @@ The following table lists all tool parameters that are available when registerin
 
 | Parameter | Type | Required/Optional | Description |
 |:---|:---|:---|:---|
-| `engine` | String | Required | The search engine to use. Valid values are `google`, `bing`, `duckduckgo`, or `custom`. |
+| `engine` | String | Optional | The search engine to use. Valid values are `google`, `bing`, `duckduckgo`, or `custom`. Default is `google`. |
 | `engine_id` | String | Optional | The Custom Search Engine ID for Google. Required when `engine` is set to `google`. |
 | `api_key` | String | Optional | The API key for authentication. Required when `engine` is set to `google` or `bing`. |
 | `endpoint` | String | Optional | The URL endpoint for the custom search API. Required when `engine` is set to `custom`. |
@@ -320,6 +320,7 @@ The following table lists all tool parameters that are available when running th
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
 `question` | String | Required | The natural language question to send to the LLM. 
+`next_page` | String | Optional | The URL of the next page of search results, returned in the `next_page` field of a previous response. If provided, the tool returns results from this page instead of running a new search.
 
 ## Testing the tool
 

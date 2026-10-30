@@ -138,7 +138,7 @@ const tpl = `
         padding: 0.3em calc(3.8em - 1px) 0.3em calc(1em - 1px);
         border-bottom: 1px solid #eee;
         text-decoration: none;
-        color: var(--link-color);
+        color: #0053b8;
         position: relative;
         line-height: 1.6em;
     }

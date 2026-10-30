@@ -3,9 +3,8 @@ layout: default
 title: Snapshot APIs
 has_children: true
 has_toc: false
-nav_order: 80
+nav_order: 120
 redirect_from:
-  - /opensearch/rest-api/document-apis/
   - /opensearch/rest-api/snapshots/
   - /api-reference/snapshots/
 ---
@@ -14,7 +13,7 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple }
 
-The snapshot APIs allow you to manage snapshots and snapshot repositories.
+The snapshot APIs allow you to manage snapshots and snapshot repositories. For information about registering repositories and taking and restoring snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/index/).
 
 ## Snapshot API operations
 

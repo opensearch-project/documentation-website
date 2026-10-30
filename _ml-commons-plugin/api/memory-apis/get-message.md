@@ -2,7 +2,7 @@
 layout: default
 title: Get message
 parent: Memory APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 50
 ---
 
@@ -27,7 +27,7 @@ You can retrieve message information by using the `message_id`.
 ### Endpoints
 
 ```json
-GET /_plugins/_ml/memory/message/<message_id>
+GET /_plugins/_ml/memory/message/{message_id}
 ```
 
 ### Path parameters
@@ -53,10 +53,7 @@ GET /_plugins/_ml/memory/message/0m8ya40BfUsSoeNTj-pU
   "message_id": "0m8ya40BfUsSoeNTj-pU",
   "create_time": "2024-02-02T19:01:32.113621539Z",
   "updated_time": "2024-02-02T19:01:32.113621539Z",
-  "input": null,
-  "prompt_template": null,
   "response": "Hello, this is OpenAI. Here is the answer to your question.",
-  "origin": null,
   "additional_info": {
     "suggestion": "api.openai.com"
   }
@@ -72,7 +69,7 @@ Use this command to get a list of messages for a certain memory.
 ### Endpoints
 
 ```json
-GET /_plugins/_ml/memory/<memory_id>/messages
+GET /_plugins/_ml/memory/{memory_id}/messages
 ```
 
 ### Path parameters
@@ -82,6 +79,17 @@ The following table lists the available path parameters.
 Parameter | Data type | Description
 :--- | :--- | :---
 `memory_id` | String | The ID of the memory for which to retrieve messages.
+
+### Query parameters
+
+Use the following query parameters to customize your results. All query parameters are optional.
+
+Parameter | Data type | Description
+:--- | :--- | :---
+`max_results` | Integer | The maximum number of messages to return. Default is `10`.
+`next_token` | Integer | The index of the first message in the sorted list of messages to return. Messages are ordered by `create_time`, starting with the oldest message. Default is `0`.
+
+Trace messages are not included in the results. To retrieve trace messages, use the [Get Message Traces API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/get-message-traces/).
 
 ## Response body fields
 
@@ -100,22 +108,14 @@ The following table lists the available response fields.
 | `additional_info` | Object | Any other information that was sent to the `origin`. |
 | `parent_message_id` | String | The ID of the parent message (for trace messages). |
 | `trace_number` | Integer | The trace number (for trace messages). |
+| `next_token` | Integer | The index of the first message to return in the next page of results. Present only if more results may exist. |
+
+Fields that have no value are omitted from the response.
 
 ## Example request
 
 ```json
 GET /_plugins/_ml/memory/gW8Aa40BfUsSoeNTvOKI/messages
-```
-{% include copy-curl.html %}
-
-```json
-POST /_plugins/_ml/message/_search
-{
-  "query": {
-    "match_all": {}
-  },
-  "size": 1000
-}
 ```
 {% include copy-curl.html %}
 
@@ -142,10 +142,7 @@ POST /_plugins/_ml/message/_search
       "message_id": "0m8ya40BfUsSoeNTj-pU",
       "create_time": "2024-02-02T19:01:32.113621539Z",
       "updated_time": "2024-02-02T19:01:32.113621539Z",
-      "input": null,
-      "prompt_template": null,
       "response": "Hello, this is OpenAI. Here is the answer to your question.",
-      "origin": null,
       "additional_info": {
         "suggestion": "api.openai.com"
       }

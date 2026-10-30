@@ -26,9 +26,6 @@ POST /_plugins/_ml/agents/_register
   "name": "Test_Agent_For_Search_Alerts_Tool",
   "type": "flow",
   "description": "this is a test agent for the SearchAlertsTool",
-  "memory": {
-    "type": "demo"
-  },
   "tools": [
       {
       "type": "SearchAlertsTool",
@@ -73,7 +70,7 @@ OpenSearch responds with a list of generated alerts and the total number of aler
       "output": [
         {
           "name": "response",
-          "result": "Alerts=[Alert(id=rv9nYo0Bk4MTqirc_DkW, version=394, schemaVersion=5, monitorId=ZuJnYo0B9RaBCvhuEVux, workflowId=, workflowName=, monitorName=test-monitor-2, monitorVersion=1, monitorUser=User[name=admin, backend_roles=[admin], roles=[own_index, all_access], custom_attribute_names=[], user_requested_tenant=null], triggerId=ZeJnYo0B9RaBCvhuEVul, triggerName=t-1, findingIds=[], relatedDocIds=[], state=ACTIVE, startTime=2024-02-01T02:03:18.420Z, endTime=null, lastNotificationTime=2024-02-01T08:36:18.409Z, acknowledgedTime=null, errorMessage=null, errorHistory=[], severity=1, actionExecutionResults=[], aggregationResultBucket=null, executionId=ZuJnYo0B9RaBCvhuEVux_2024-02-01T02:03:18.404853331_51c18f2c-5923-47c3-b476-0f5a66c6319b, associatedAlertIds=[])]TotalAlerts=1"
+          "result": "Alerts=[Alert(id=rv9nYo0Bk4MTqirc_DkW, version=394, schemaVersion=6, monitorId=ZuJnYo0B9RaBCvhuEVux, workflowId=, workflowName=, monitorName=test-monitor-2, monitorVersion=1, monitorUser=User[name=admin, backend_roles=[admin], roles=[own_index, all_access], custom_attribute_names=[], user_requested_tenant=null, user_requested_tenant_access=null], triggerId=ZeJnYo0B9RaBCvhuEVul, triggerName=t-1, findingIds=[], relatedDocIds=[], state=ACTIVE, startTime=2024-02-01T02:03:18.420Z, endTime=null, lastNotificationTime=2024-02-01T08:36:18.409Z, acknowledgedTime=null, errorMessage=null, errorHistory=[], severity=1, actionExecutionResults=[], aggregationResultBucket=null, executionId=ZuJnYo0B9RaBCvhuEVux_2024-02-01T02:03:18.404853331_51c18f2c-5923-47c3-b476-0f5a66c6319b, associatedAlertIds=[], clusters=null, query=null, queryResults=[], target=null)]TotalAlerts=1"
         }
       ]
     }
@@ -105,7 +102,9 @@ The following table lists all tool parameters that are available when registerin
 Parameter	| Type | Description	
 :--- | :--- | :---
 `alertIds`	| Array	| The ID of the alert to search for.
-`monitorId`	| String	| The name of the monitor by which to filter the alerts.
+`alertIndex` | String | The name of the alert index to search (default is `null`).
+`monitorId`	| String	| The ID of the monitor by which to filter the alerts.
+`monitorIds` | Array | A list of monitor IDs by which to filter the alerts.
 `workflowIds`	| Array | A list of workflow IDs by which to filter the alerts.
 `alertState` |	String	| The alert state by which to filter the alerts. Valid values are `ALL`, `ACTIVE`, `ERROR`, `COMPLETED`, and `ACKNOWLEDGED`. Default is `ALL`.
 `severityLevel` | String| The severity level by which to filter the alerts. Valid values are `ALL`, `1`, `2`, and `3`. Default is `ALL`.

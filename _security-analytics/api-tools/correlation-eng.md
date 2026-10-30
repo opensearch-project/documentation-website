@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Correlation engine APIs
-parent: API tools
+parent: Security Analytics APIs
 nav_order: 55
 ---
 
@@ -13,22 +13,41 @@ Correlation engine APIs allow you to create new correlation rules, view findings
 
 ## Create correlation rules between log types
 
-You can use the following API to create correlation rules:
+Creates a correlation rule that correlates findings from two or more log sources.
+
+### Endpoints
 
 ```json
 POST /_plugins/_security_analytics/correlation/rules
 ```
-{% include copy-curl.html %}
 
 ### Request body fields
 
-| Field | Type | Description |
-| :--- | :--- |:--- |
-| `index` | String | The name of the index used as the log source. |
-| `query` | String | The query used to filter security logs for correlation. |
-| `category` | String | The log type associated with the log source. |
+The following table lists the available request body fields.
 
-#### Example request
+| Field | Data type | Description |
+| :--- | :--- |:--- |
+| `name` | String | The name of the correlation rule. Optional. |
+| `correlate` | Array | The log sources to correlate. Provide at least two. Required. |
+| `correlate.index` | String | The name of the index used as the log source. |
+| `correlate.query` | String | The query used to filter security logs for correlation. |
+| `correlate.category` | String | The log type associated with the log source. |
+| `time_window` | Long | The window, in milliseconds, within which findings must occur to be correlated. Optional. If not specified, the `plugins.security_analytics.correlation_time_window` cluster setting applies. |
+| `trigger` | Object | Generates a correlation alert and sends notifications when the rule correlates findings. Optional. |
+| `trigger.name` | String | The name of the trigger. |
+| `trigger.severity` | String | Severity level for the trigger expressed as an integer: 1 = highest; 2 = high; 3 = medium; 4 = low; 5 = lowest. |
+| `trigger.actions` | Array | The notifications to send when the trigger generates an alert. |
+| `trigger.actions.name` | String | The name of the action. Required for each action. |
+| `trigger.actions.destination_id` | String | The ID of the notification channel that receives the message. |
+| `trigger.actions.subject_template.source` | String | The subject of the notification message. Can include [correlation rule trigger variables](#correlation-rule-trigger-variables). |
+| `trigger.actions.subject_template.lang` | String | The scripting language used to define the subject. Must be `mustache`. |
+| `trigger.actions.message_template.source` | String | The body of the notification message. Can include [correlation rule trigger variables](#correlation-rule-trigger-variables). |
+| `trigger.actions.message_template.lang` | String | The scripting language used to define the message. Must be `mustache`. |
+| `trigger.actions.throttle_enabled` | Boolean | Whether to limit the number of notifications sent within a span of time. Default is `false`. |
+| `trigger.actions.throttle.unit` | String | The unit of time used for throttling. |
+| `trigger.actions.throttle.value` | Integer | The number of units of time used for throttling. |
+
+### Example request
 
 ```json
 POST /_plugins/_security_analytics/correlation/rules
@@ -59,7 +78,7 @@ POST /_plugins/_security_analytics/correlation/rules
 ```
 {% include copy-curl.html %}
 
-#### Example response
+### Example response
 
 ```json
 {
@@ -92,40 +111,150 @@ POST /_plugins/_security_analytics/correlation/rules
   }
 }
 ```
-{% include copy-curl.html %}
 
 ### Response body fields
 
-| Field | Type | Description |
+The following table lists all response body fields.
+
+| Field | Data type | Description |
 | :--- | :--- |:--- |
-| `_id` | String | The Id for the new rule. |
+| `_id` | String | The ID for the new rule. |
+
+### Correlation rule triggers
+
+Add a `trigger` to a correlation rule to generate a correlation alert and send a notification each time the rule correlates findings. The following request creates a rule with a trigger that notifies a channel when a network finding correlates with an Active Directory finding:
+
+```json
+POST /_plugins/_security_analytics/correlation/rules
+{
+  "name": "network-ad-correlation",
+  "time_window": 300000,
+  "correlate": [
+    {
+      "index": "vpc_flow",
+      "query": "dstaddr:4.5.6.7",
+      "category": "network"
+    },
+    {
+      "index": "ad_logs",
+      "query": "ResultType:50126",
+      "category": "ad_ldap"
+    }
+  ],
+  "trigger": {
+    "name": "correlation-trigger",
+    "severity": "1",
+    "actions": [
+      {
+        "name": "notify-security-team",
+        "destination_id": "6r8ZBoQBKW_6dKriacQb",
+        "subject_template": {
+          "source": {% raw %}"Correlation alert: {{ctx.correlationRuleName}}"{% endraw %},
+          "lang": "mustache"
+        },
+        "message_template": {
+          "source": {% raw %}"Rule {{ctx.correlationRuleName}} correlated finding {{ctx.sourceFinding}} with findings {{ctx.correlatedFindingIds}} within {{ctx.timeWindow}} ms."{% endraw %},
+          "lang": "mustache"
+        },
+        "throttle_enabled": false
+      }
+    ]
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains the generated trigger and action IDs:
+
+```json
+{
+  "_id": "7mBjhqABedeO5z2szdu9",
+  "_version": 1,
+  "rule": {
+    "name": "network-ad-correlation",
+    "correlate": [
+      {
+        "index": "vpc_flow",
+        "category": "network",
+        "query": "dstaddr:4.5.6.7"
+      },
+      {
+        "index": "ad_logs",
+        "category": "ad_ldap",
+        "query": "ResultType:50126"
+      }
+    ],
+    "time_window": 300000,
+    "trigger": {
+      "id": "62BjhqABedeO5z2szdss",
+      "name": "correlation-trigger",
+      "severity": "1",
+      "actions": [
+        {
+          "id": "6mBjhqABedeO5z2szdsr",
+          "name": "notify-security-team",
+          "destination_id": "6r8ZBoQBKW_6dKriacQb",
+          "message_template": {
+            "source": {% raw %}"Rule {{ctx.correlationRuleName}} correlated finding {{ctx.sourceFinding}} with findings {{ctx.correlatedFindingIds}} within {{ctx.timeWindow}} ms."{% endraw %},
+            "lang": "mustache"
+          },
+          "throttle_enabled": false,
+          "subject_template": {
+            "source": {% raw %}"Correlation alert: {{ctx.correlationRuleName}}"{% endraw %},
+            "lang": "mustache"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+Each action requires a `name`. A request that omits it fails with an `uninitialized_property_access_exception` error.
+{: .note}
+
+### Correlation rule trigger variables
+
+The following table lists the variables available in the `subject_template` and `message_template` of a correlation rule trigger action. These variables differ from the ones available in alerting monitors, which are described in [Monitor variables]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/#monitor-variables).
+
+| Variable | Data type | Description |
+| :--- | :--- | :--- |
+| `ctx.correlationRuleName` | String | The name of the correlation rule that generated the alert. |
+| `ctx.sourceFinding` | String | The ID of the finding that initiated the correlation. |
+| `ctx.correlatedFindingIds` | Array | The IDs of the findings correlated with the source finding. |
+| `ctx.timeWindow` | Long | The correlation time window, in milliseconds. |
+
+To see the entire context object, add {% raw %}`{{ctx}}`{% endraw %} to the message body.
 
 ---
 
 ## List all findings and correlations within a certain time window
 
-You can use the following API to list all findings and their correlations within a certain time window:
+Lists all findings and their correlations within a certain time window.
+
+### Endpoints
 
 ```json
-GET /_plugins/_security_analytics/correlations?start_timestamp=<start time in milliseconds>&end_timestamp=<end time in milliseconds>
+GET /_plugins/_security_analytics/correlations
 ```
-{% include copy-curl.html %}
 
 ### Query parameters
 
-| Parameter | Type | Description |
+The following table lists the available query parameters. Both query parameters are required.
+
+| Parameter | Data type | Description |
 | :--- | :--- |:--- |
 | `start_timestamp` | Number | Start time for the time window, in milliseconds. |
 | `end_timestamp` | Number | End time for the time window, in milliseconds. |
 
-#### Example request
+### Example request
 
 ```json
 GET /_plugins/_security_analytics/correlations?start_timestamp=1689289210000&end_timestamp=1689300010000
 ```
 {% include copy-curl.html %}
 
-#### Example response
+### Example response
 
 ```json
 {
@@ -142,15 +271,16 @@ GET /_plugins/_security_analytics/correlations?start_timestamp=1689289210000&end
   ]
 }
 ```
-{% include copy-curl.html %}
 
 ### Response body fields
 
-| Field | Type | Description |
+The following table lists all response body fields.
+
+| Field | Data type | Description |
 | :--- | :--- |:--- |
-| `finding1` | String | The Id for a first finding in the correlation. |
+| `finding1` | String | The ID for a first finding in the correlation. |
 | `logType1` | String | The log type associated with the first finding. |
-| `finding2` | String | The Id for a second finding in the correlation. |
+| `finding2` | String | The ID for a second finding in the correlation. |
 | `logType2` | String | The log type associated with the second finding. |
 | `rules` | Array | A list of correlation rule IDs associated with the correlated findings. |
 
@@ -158,30 +288,33 @@ GET /_plugins/_security_analytics/correlations?start_timestamp=1689289210000&end
 
 ## List correlations for a finding belonging to a log type
 
-You can use the following API to list correlations for certain findings and associated log types:
+Lists the findings correlated with a given finding.
+
+### Endpoints
 
 ```json
-GET /_plugins/_security_analytics/findings/correlate?finding=425dce0b-f5ee-4889-b0c0-7d15669f0871&detector_type=ad_ldap&nearby_findings=20&time_window=10m
+GET /_plugins/_security_analytics/findings/correlate
 ```
-{% include copy-curl.html %}
 
 ### Query parameters
 
-| Parameter | Type | Description |
-| :--- | :--- |:--- |
-| `finding` | String | The finding ID. |
-| `detector_type` | String | The log type for the detector. |
-| `nearby_findings` | Number | The number of nearby findings with respect to the given finding Id. |
-| `time_window` | String | Sets a time window in which all of the correlations must have occurred together. |
+The following table lists the available query parameters.
 
-#### Example request
+| Parameter | Data type | Description |
+| :--- | :--- |:--- |
+| `finding` | String | The finding ID. Required. |
+| `detector_type` | String | The log type for the detector. Required. |
+| `nearby_findings` | Number | The number of nearby findings with respect to the given finding ID. Optional. |
+| `time_window` | String | Sets a time window in which all of the correlations must have occurred together. Optional. |
+
+### Example request
 
 ```json
 GET /_plugins/_security_analytics/findings/correlate?finding=425dce0b-f5ee-4889-b0c0-7d15669f0871&detector_type=ad_ldap&nearby_findings=20&time_window=10m
 ```
 {% include copy-curl.html %}
 
-#### Example response
+### Example response
 
 ```json
 {
@@ -219,39 +352,51 @@ GET /_plugins/_security_analytics/findings/correlate?finding=425dce0b-f5ee-4889-
   ]
 }
 ```
-{% include copy-curl.html %}
 
 ### Response body fields
 
-| Field | Type | Description |
+The following table lists all response body fields.
+
+| Field | Data type | Description |
 | :--- | :--- |:--- |
 | `finding` | String | The finding ID. |
 | `detector_type` | String | The log type associated with the finding. |
 | `score` | Number | The correlation score for the correlated finding. The score is based on the proximity of relevant findings in the threat scenario defined by the correlation rule. |
 
+---
+
 ## List correlation alerts
 
-You can use the following API to list correlation alerts:
+Lists the alerts generated by correlation rule triggers.
+
+### Endpoints
 
 ```json
 GET /_plugins/_security_analytics/correlationAlerts
 ```
-{% include copy-curl.html %}
 
 ### Query parameters
 
-| Parameter | Type | Description |
-| :--- | :--- |:--- |
-| `correlation_rule_id` | String | The correlation rule ID. | Optional
+The following table lists the available query parameters. All query parameters are optional.
 
-#### Example request
+| Parameter | Data type | Description |
+| :--- | :--- |:--- |
+| `correlation_rule_id` | String | The correlation rule ID. |
+
+### Example request
 
 ```json
-GET /_plugins/_security_analytics/correlations?correlation_rule_id=VjY0MpABPzR_pcEveVRq
+GET /_plugins/_security_analytics/correlationAlerts?correlation_rule_id=VjY0MpABPzR_pcEveVRq
 ```
 {% include copy-curl.html %}
 
-#### Example response
+### Example response
+
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
 
 ```json
 {
@@ -298,11 +443,51 @@ GET /_plugins/_security_analytics/correlations?correlation_rule_id=VjY0MpABPzR_p
     "total_alerts": 2
 }
 ```
-{% include copy-curl.html %}
+</details>
+
+### Response body fields
+
+The following table lists all response body fields.
+
+| Field | Data type | Description |
+| :--- | :--- |:--- |
+| `correlationAlerts` | Array | The correlation alerts that match the request. |
+| `correlationAlerts.correlated_finding_ids` | Array | The IDs of the findings correlated by the rule. |
+| `correlationAlerts.correlation_rule_id` | String | The ID of the correlation rule that generated the alert. |
+| `correlationAlerts.correlation_rule_name` | String | The name of the correlation rule that generated the alert. |
+| `correlationAlerts.user` | Object | The user associated with the correlation rule. |
+| `correlationAlerts.id` | String | The alert ID. |
+| `correlationAlerts.version` | Integer | The alert version. |
+| `correlationAlerts.schema_version` | Integer | The version of the alert index schema. |
+| `correlationAlerts.trigger_name` | String | The name of the trigger that generated the alert. |
+| `correlationAlerts.state` | String | The alert state. Valid values are `ACTIVE`, `ACKNOWLEDGED`, `COMPLETED`, `ERROR`, and `DELETED`. |
+| `correlationAlerts.error_message` | String | The error message for the alert, if any. |
+| `correlationAlerts.severity` | String | The severity level of the trigger that generated the alert. |
+| `correlationAlerts.action_execution_results` | Array | The results of the notification actions that the trigger ran. |
+| `correlationAlerts.start_time` | String | The time at which the alert was generated. |
+| `correlationAlerts.end_time` | String | The time at which the correlation time window ended. |
+| `correlationAlerts.acknowledged_time` | String | The time at which the alert was acknowledged. `null` if the alert has not been acknowledged. |
+| `total_alerts` | Integer | The total number of alerts returned. |
+
+---
 
 ## Acknowledge correlation alerts
 
-You can use the following API to acknowledge the correlation alerts.
+Acknowledges one or more correlation alerts.
+
+### Endpoints
+
+```json
+POST /_plugins/_security_analytics/_acknowledge/correlationAlerts
+```
+
+### Request body fields
+
+The following table lists the available request body fields.
+
+| Field | Data type | Description |
+| :--- | :--- |:--- |
+| `alertIds` | Array | The IDs of the correlation alerts to acknowledge. Required. |
 
 ### Example request
 
@@ -314,7 +499,13 @@ POST /_plugins/_security_analytics/_acknowledge/correlationAlerts
 ```
 {% include copy-curl.html %}
 
-#### Example response
+### Example response
+
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
 
 ```json
 {
@@ -361,4 +552,13 @@ POST /_plugins/_security_analytics/_acknowledge/correlationAlerts
     "failed": []
 }
 ```
-{% include copy-curl.html %}
+</details>
+
+### Response body fields
+
+The following table lists all response body fields.
+
+| Field | Data type | Description |
+| :--- | :--- |:--- |
+| `acknowledged` | Array | The correlation alerts that were acknowledged. |
+| `failed` | Array | The correlation alerts that could not be acknowledged. |

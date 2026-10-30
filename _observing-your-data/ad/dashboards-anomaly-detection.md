@@ -2,7 +2,7 @@
 layout: default
 title: Anomaly detection visualizations and dashboards
 parent: Anomaly detection
-nav_order: 50
+nav_order: 10
 ---
 
 # Anomaly detection dashboards and visualizations
@@ -15,19 +15,13 @@ You can connect data visualizations to OpenSearch datasets and then create, run,
 
 ## Getting started 
 
-Before getting started, you must have:
-
-- Installed OpenSearch and OpenSearch Dashboards version 2.9 or later. See [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/).
-- Installed the Anomaly Detection plugin version 2.9 or later. See [Installing OpenSearch plugins]/({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
-- Installed the Anomaly Detection Dashboards plugin version 2.9 or later. See [Managing OpenSearch Dashboards plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/) to get started.
-
 ## General requirements for anomaly detection visualizations
 
 Anomaly detection visualizations are displayed as time-series charts that give you a snapshot of when anomalies have occurred. You can display up to 10 metrics on your chart, and each series can be shown as a line on the chart. Note that only real-time anomalies will be visible on the chart. For more information about real-time and historical anomaly detection, see [Anomaly detection, Step 3: Set up detector jobs]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/#step-3-set-up-detector-jobs).
 
 Keep in mind the following requirements when setting up or creating anomaly detection visualizations. The visualization:
 
-- Must be a [Vizlib line chart](https://community.vizlib.com/support/solutions/articles/35000107262-vizlib-line-chart-introduction)
+- Must be a [line chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/line-charts/) in which every series is displayed as a line
 - Must contain at least a Y-axis metric aggregation
 - Must not have non-Y-axis metric aggregation types
 - Must use the date histogram aggregation type for the X-axis bucket
@@ -53,7 +47,7 @@ To start, first create an anomaly detector:
 8. To preview the visualization within the flyout, toggle the **Show visualization** button.
 9. Select **Create detector**. Once you have created a new detector, the detector is added to the visualization, as shown in the following image.  
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-detector.png" alt="Interface of adding a detector" width="800" height="800">
+![Interface of adding a detector]({{site.url}}{{site.baseurl}}/images/dashboards/add-detector.png){: width="800" height="800" }
 
 ## Adding anomaly detectors to visualizations
 
@@ -62,10 +56,10 @@ Use a single interface to add, view, and edit anomaly detectors that you want to
 1. Select the ellipsis icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/}) from the visualization panel, then select **Anomaly Detection**.
 2. Select **Associate a detector**.
 3. From the **Select detector to associate** dropdown menu, select the detector. Only eligible detectors are listed in the dropdown menu.
-4. View basic information about the detectors. To view comprehensive details, select **View detector page** to open the Anomaly Detection plugin page.
+4. View basic information about the detectors. To view comprehensive details, select **View detector page** to open the detector in Anomaly Detection.
 5. Select **Associate detector**. An existing detector is now associated to the visualization, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/anomaly-detect-dashboard.png" alt="Interface and confirmation message of associating a detector" width="800" height="800">
+![Interface and confirmation message of associating a detector]({{site.url}}{{site.baseurl}}/images/dashboards/anomaly-detect-dashboard.png){: width="800" height="800" }
 
 ## Refreshing the visualization
 

@@ -16,7 +16,7 @@ The `phonetic` token filter is not included in OpenSearch distributions by defau
 ```
 {% include copy.html %}
 
-For more information about installing plugins, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
+For more information about installing plugins, see [Managing OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
 {: .note}
 
 ## Parameters

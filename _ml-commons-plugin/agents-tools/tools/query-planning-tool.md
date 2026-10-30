@@ -22,7 +22,7 @@ The `QueryPlanningTool` supports two approaches for generating DSL queries from 
 
 - **Using search templates**: The LLM uses predefined search templates as additional context when generating queries. You provide a collection of search templates with descriptions, and the LLM uses these as examples and guidance to create more accurate queries. If the LLM determines that none of the provided templates are suitable for the user's question, the LLM attempts to generate the query independently.
 
-The `user_templates` approach is particularly useful when you have established query patterns for your specific use case or domain: it helps the LLM to generate queries that follow your preferred structure and to use appropriate field names from your index mappings.
+Using search templates is particularly useful when you have established query patterns for your specific use case or domain: it helps the LLM to generate queries that follow your preferred structure and to use appropriate field names from your index mappings.
 
 ## Step 1: Create an index and ingest sample data
 
@@ -75,7 +75,7 @@ POST _bulk
 
 ## Step 2: Register and deploy a model
 
-The following request registers a remote model from Amazon Bedrock and deploys it to your cluster. The API call creates the connector and model in one step. Replace the `region`, `access_key`, `secret_key`, and `session_token` with your own values. You can use any model that supports the `converse` API, such as [Anthropic Claude 4](https://www.anthropic.com/news/claude-4) or [GPT 5](https://openai.com/index/introducing-gpt-5). You can use other model providers by creating a connector to this model (see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#connector-blueprints)).
+The following request registers a remote model from Amazon Bedrock and deploys it to your cluster. The API call creates the connector and model in one step. Replace the `region`, `access_key`, `secret_key`, and `session_token` with your own values. You can use any model that supports the `converse` API, such as [Anthropic Claude 4](https://www.anthropic.com/news/claude-4) or [GPT 5](https://openai.com/index/introducing-gpt-5). You can use other model providers by creating a connector to this model (see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/)).
 
 **Important**: When creating connectors for the `QueryPlanningTool`, the request body must include the `system_prompt` and `user_prompt` parameters. These parameters are required for the tool to properly inject the system and user prompts into the model's request. 
 
@@ -84,7 +84,7 @@ The following example registers and deploys the Anthropic Claude 4 model:
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
 {
-  "name": "Claude 4 sonnet Query Planner tool Model",
+  "name": "Claude 4 Sonnet Query Planner Tool Model",
   "function_name": "remote",
   "description": "Claude 4 sonnet for Query Planning",
   "connector": {
@@ -121,7 +121,7 @@ POST /_plugins/_ml/models/_register?deploy=true
 The following example registers and deploys the OpenAI GPT 5 model:
 
 ```json
-POST /_plugins/_ml/models/_register
+POST /_plugins/_ml/models/_register?deploy=true
 {
     "name": "My OpenAI model: gpt-5",
     "function_name": "remote",
@@ -181,7 +181,8 @@ POST /_plugins/_ml/agents/_register
     {
       "type": "QueryPlanningTool",
       "parameters": {
-        "model_id": "ANiSxJgBOh0h20Y9XYXl"
+        "model_id": "ANiSxJgBOh0h20Y9XYXl",
+        "response_filter": "$.output.message.content[0].text"
       }
     }
   ]
@@ -189,8 +190,9 @@ POST /_plugins/_ml/agents/_register
 ```
 {% include copy-curl.html %}
 
-When registering the agent, you can override parameters that you specified during model registration, such as `system_prompt` and `user_prompt`. 
+The `response_filter` parameter extracts the generated query from the model response. Without it, the tool returns the full model response, which a search pipeline can't use as a query. This example uses the filter for Anthropic Claude models called through the Amazon Bedrock Converse API. For an OpenAI model, use `$.choices[0].message.content`. For more information, see [Response filter configuration](#response-filter-configuration).
 
+The tool sets the `system_prompt` and `user_prompt` parameters itself, so values for these parameters provided during agent registration are not used. To customize the prompts, specify `query_planner_system_prompt` and `query_planner_user_prompt`. For more information, see [Customizing the prompts](#customizing-the-prompts).
 
 ### Using search templates
 
@@ -253,6 +255,7 @@ POST /_plugins/_ml/agents/_register
       "description": "A general tool to answer any question",
       "parameters": {
         "model_id": "ANiSxJgBOh0h20Y9XYXl",
+        "response_filter": "$.output.message.content[0].text",
         "generation_type": "user_templates",
         "search_templates": [
           {
@@ -295,7 +298,6 @@ POST /_plugins/_ml/agents/RNjQi5gBOh0h20Y9-RX1/_execute
     "index_name": "iris-index"
   }
 }
-
 ```
 {% include copy-curl.html %}
 
@@ -308,7 +310,7 @@ OpenSearch returns the inference results, which include the generated query DSL:
       "output": [
         {
           "name": "response",
-          "result": "{'query':{'term':{'species':'setosa'}}}"
+          "result": "{\"size\":0,\"query\":{\"term\":{\"species.keyword\":\"setosa\"}},\"aggs\":{\"count_setosa\":{\"value_count\":{\"field\":\"species.keyword\"}}}}"
         }
       ]
     }
@@ -323,14 +325,35 @@ The following table lists all tool parameters that are available when registerin
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
 `model_id` | String | Required | The model ID of the LLM used to generate the query DSL. When used within a `conversational` agent, if this value is not provided, the agent's own `llm.model_id` is used by default.
-`response_filter` | String | Optional | A JSONPath expression used to extract the generated query from the LLM's response.
-`generation_type` | String | Optional | Determines how queries are generated. Use `llmGenerated` to rely solely on the LLM's built-in knowledge or `user_templates` to provide predefined search templates that guide query generation for consistent results. Default is `llmGenerated`.
+`response_filter` | String | Optional | A JSONPath expression used to extract the generated query from the LLM response. If not specified, the tool returns the full LLM response. Specify this parameter when running the tool in a `flow` agent. See [Response filter configuration](#response-filter-configuration).
+`generation_type` | String | Optional | Determines how queries are generated. Use `llmGenerated` to rely solely on the LLM built-in knowledge or `user_templates` to provide predefined search templates that guide query generation for consistent results. Default is `llmGenerated`.
 `query_planner_system_prompt` | String | Optional | A system prompt that provides high-level instructions to the LLM.
 `query_planner_user_prompt` | String | Optional | A user prompt template that defines how the natural language question and context are presented to the LLM for query generation.
 `search_templates` | Array | Optional | Applicable only when `generation_type` is `user_templates`. A list of search templates that provide the LLM with predefined query patterns for generating query DSL. Each template must include a `template_id` (unique identifier) and `template_description` (explains the template's purpose and use case to help the LLM choose appropriately).
+`template_selection_system_prompt` | String | Optional | Applicable only when `generation_type` is `user_templates`. A system prompt that instructs the LLM how to choose a search template from `search_templates`. If not specified, the tool uses a default template selection prompt.
+`template_selection_user_prompt` | String | Optional | Applicable only when `generation_type` is `user_templates`. A user prompt that presents the question and the available search templates to the LLM for template selection. If not specified, the tool uses a default template selection prompt.
+`fallback_query` | String | Optional | An OpenSearch query DSL query used if the LLM fails to generate a valid DSL query for the given query text. See [Fallback behavior](#fallback-behavior).
 
 All parameters that were configured either in the connector or in the agent registration can be overridden during agent execution.
 {: .note}
+
+## Response filter configuration
+
+The `response_filter` parameter uses JSONPath expressions to extract the generated query from the LLM response. Different model providers return responses in different formats, so you need to specify the appropriate filter for your model type.
+
+**OpenAI models**:
+
+```json
+"response_filter": "$.choices[0].message.content"
+```
+{% include copy.html %}
+
+**Anthropic Claude models (Amazon Bedrock Converse API)**:
+
+```json
+"response_filter": "$.output.message.content[0].text"
+```
+{% include copy.html %}
 
 ## Execute parameters
 
@@ -341,6 +364,7 @@ Parameter | Type | Required/Optional | Description
 `question` | String | Required | A complete natural language query with all necessary context to generate OpenSearch DSL. Include the question, any specific requirements, filters, or constraints. Examples: `Find all products with price greater than 100 dollars`, `Show me documents about machine learning published in 2023`, `Search for users with status active and age between 25 and 35`.
 `index_name` | String | Required | The name of the index for which the query needs to be generated.
 `embedding_model_id` | String | Optional | The model ID used to perform semantic search.
+`query_fields` | String | Optional | The fields that the LLM should prioritize when generating the query. Passed to the LLM through the `${parameters.query_fields}` placeholder in the default user prompt.
 
 ## Customizing the prompts
 
@@ -371,6 +395,9 @@ POST /_plugins/_ml/agents/_register
 }
 ```
 {% include copy-curl.html %}
+
+Use the appropriate `response_filter` based on your model type. For more information and examples, see [Response filter configuration](#response-filter-configuration).
+{: .note}
 
 The following is the default system prompt:
 
@@ -522,10 +549,186 @@ GIVE THE OUTPUT PART ONLY IN YOUR RESPONSE (a single JSON object)
 Output:
 ```
 
+## Fallback behavior
+
+The `QueryPlanningTool` uses a fallback query when the LLM fails to generate valid query DSL. By default, the fallback query is `{"size":10,"query":{"match_all":{}}}`. You can override this default by specifying a custom `fallback_query` parameter when registering the agent.
+
+The tool automatically extracts the first valid JSON object from the LLM response, even if the JSON is surrounded by additional text, Markdown code fences, explanations, or other content. However, if no valid JSON can be extracted from the response (for example, when the response is completely empty, contains only non-JSON text, or contains only malformed JSON), the tool returns the fallback query (either the default or your custom query).
+
+When the fallback is triggered, no error is thrown. Instead, a debug log is shown in the system logs. This ensures that query planning operations continue to work even when the LLM provides unexpected output.
+
+### Overriding the default fallback query
+
+The following example demonstrates how the fallback query operates. 
+
+To follow this example, first complete Steps 1--3 from the [Agentic search tutorial]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index/): create an index, ingest data, and register a model.
+
+Next, register an agent using the model ID from Step 3. Include a custom `fallback_query` parameter to demonstrate the fallback behavior, and set `response_filter` for your model type (see [Response filter configuration](#response-filter-configuration)):
+
+```json
+POST _plugins/_ml/agents/_register
+{
+  "name": "Iris Search Agent with Fallback",
+  "type": "flow",
+  "tools": [
+    {
+      "type": "QueryPlanningTool",
+      "parameters": {
+        "model_id": "<your-model-id>",
+        "response_filter": "<response-filter-based-on-model-type>",
+        "fallback_query": "{\"size\":10,\"query\":{\"bool\":{\"should\":[{\"match\":{\"species\":{\"query\":\"${parameters.question}\",\"fuzziness\":\"AUTO\"}}},{\"match_all\":{\"boost\":0.1}}],\"minimum_should_match\":1}}}"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+Next, create a search pipeline using the agent ID from the previous step:
+
+```json
+PUT _search/pipeline/agentic_search_pipeline
+{
+  "request_processors": [
+    {
+      "agentic_query_translator": {
+        "agent_id": "<your-agent-id>"
+      }
+    }
+  ],
+  "response_processors": [
+    {
+      "agentic_context": {
+        "dsl_query": true
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+To test the fallback behavior, send a search request with a question unrelated to the `iris-index`:
+
+```json
+POST /iris-index/_search?search_pipeline=agentic_search_pipeline&pretty
+{
+  "query": {
+    "agentic": {
+      "query_text": "Find all employees hired in 2023 with salary above 100000"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response includes the `dsl_query` field in the `ext` section containing the fallback query:
+
+```json
+{
+  "took" : 5396,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 2,
+      "relation" : "eq"
+    },
+    "max_score" : 0.1,
+    "hits" : [
+      {
+        "_index" : "iris-index",
+        "_id" : "1",
+        "_score" : 0.1,
+        "_source" : {
+          "petal_length_in_cm" : 1.4,
+          "petal_width_in_cm" : 0.2,
+          "sepal_length_in_cm" : 5.1,
+          "sepal_width_in_cm" : 3.5,
+          "species" : "setosa"
+        }
+      },
+      {
+        "_index" : "iris-index",
+        "_id" : "2",
+        "_score" : 0.1,
+        "_source" : {
+          "petal_length_in_cm" : 4.5,
+          "petal_width_in_cm" : 1.5,
+          "sepal_length_in_cm" : 6.4,
+          "sepal_width_in_cm" : 2.9,
+          "species" : "versicolor"
+        }
+      }
+    ]
+  },
+  "ext" : {
+    "dsl_query" : "{\"size\":10,\"query\":{\"bool\":{\"should\":[{\"match\":{\"species\":{\"query\":\"Find all employees hired in 2023 with salary above 100000\",\"fuzziness\":\"AUTO\"}}},{\"match_all\":{\"boost\":0.1}}],\"minimum_should_match\":1}}}"
+  }
+}
+```
+
+Next, ask a question related to the `iris-index`:
+
+```json
+POST /iris-index/_search?search_pipeline=agentic_search_pipeline
+{
+  "query": {
+    "agentic": {
+      "query_text": "Find all setosa species"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains the proper LLM-generated query instead of using the fallback query:
+
+```json
+{
+  "took" : 4037,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 1,
+      "relation" : "eq"
+    },
+    "max_score" : 0.0,
+    "hits" : [
+      {
+        "_index" : "iris-index",
+        "_id" : "1",
+        "_score" : 0.0,
+        "_source" : {
+          "petal_length_in_cm" : 1.4,
+          "petal_width_in_cm" : 0.2,
+          "sepal_length_in_cm" : 5.1,
+          "sepal_width_in_cm" : 3.5,
+          "species" : "setosa"
+        }
+      }
+    ]
+  },
+  "ext" : {
+    "dsl_query" : "{\"query\":{\"bool\":{\"filter\":[{\"term\":{\"species.keyword\":\"setosa\"}}]}}}"
+  }
+}
+```
+
 ## Testing the tool
 
 You can run this tool either as part of an agent workflow or independently using the [Execute Tool API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/execute-tool/). The Execute Tool API is useful for testing individual tools or performing standalone operations.
 
-## Related pages
+## Related documentation
 
 - [Agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/index)

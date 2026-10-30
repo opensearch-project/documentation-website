@@ -2,12 +2,13 @@
 layout: default
 title: Update MCP tools 
 parent: MCP server APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 20
 ---
 
 # Update MCP Tools API
 **Introduced 3.0**
+{: .label .label-purple }
 
 Use this API to update one or more Model Context Protocol (MCP)-based tools. For more information about supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 
@@ -29,9 +30,9 @@ Field | Data type | Required/Optional | Description
 The `tools` array contains a list of tools. Each tool contains the following fields.
 
 Field | Data type | Required/Optional | Description
-:---  | :--- | :---
+:---  | :--- | :--- | :---
 `name`| String | Required | The name of the tool to update. |
-`type` | String | Optional | The tool type. For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/). 
+`type` | String | Optional | The tool type. This field is ignored because the type of a registered tool cannot be changed.
 `description` | String | Optional | The description of the tool.
 `parameters` | Object | Optional | The parameters for the tool. The parameters are dependent on the tool type. For information about specific tool types, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 `attributes` | Object | Optional | The configuration properties (attributes) for the tool. The most important attribute in this field is the tool's `input_schema`, which defines the expected parameter format for the tool. This schema is sent to the large language model (LLM) so it can properly format parameters when executing the tool.
@@ -81,33 +82,39 @@ POST /_plugins/_ml/mcp/tools/_update
 ```
 {% include copy-curl.html %}
 
+<!-- vale off -->
 ### PPLTool
+<!-- vale on -->
 
 ```json
 POST /_plugins/_ml/mcp/tools/_update
 {
-  "type": "PPLTool",
-  "name": "TransferQuestionToPPLAndExecuteTool",
-  "description": "Use this tool to convert natural language into PPL queries and execute them. Use this tool after you know the index name; otherwise, call IndexRoutingTool first. The input parameters are: {index: IndexName, question: UserQuestion}",
-  "parameters": {
-    "model_id": "${your_model_id}",
-    "model_type": "FINETUNE"
-  },
-  "attributes": {
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "question": {
-          "type": "string",
-          "description": "The user's natural language question that needs to be converted to PPL."
-        },
-        "index": {
-          "type": "string",
-          "description": "The index on which the generated PPL query will be executed."
+  "tools": [
+    {
+      "type": "PPLTool",
+      "name": "TransferQuestionToPPLAndExecuteTool",
+      "description": "Use this tool to convert natural language into PPL queries and execute them. Use this tool after you know the index name; otherwise, call IndexRoutingTool first. The input parameters are: {index: IndexName, question: UserQuestion}",
+      "parameters": {
+        "model_id": "${your_model_id}",
+        "model_type": "FINETUNE"
+      },
+      "attributes": {
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "question": {
+              "type": "string",
+              "description": "The user's natural language question that needs to be converted to PPL."
+            },
+            "index": {
+              "type": "string",
+              "description": "The index on which the generated PPL query will be executed."
+            }
+          }
         }
       }
     }
-  }
+  ]
 }
 ```
 {% include copy-curl.html %}
@@ -126,3 +133,7 @@ For each node, OpenSearch responds with the node ID and the status of the update
     }
 }
 ```
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/opensearch/ml/mcp_tools/update`.

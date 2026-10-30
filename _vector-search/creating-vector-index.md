@@ -5,7 +5,6 @@ nav_order: 20
 redirect_from:
   - /vector-search/creating-a-vector-db/
   - /search-plugins/knn/knn-index/
-  - /vector-search/creating-vector-index/
 ---
 
 # Creating a vector index
@@ -15,7 +14,7 @@ Creating a vector index in OpenSearch involves a common core process with some v
 Before you start, review the options for generating embeddings to help you decide on the option suitable for your use case. For more information, see [Preparing vectors]({{site.url}}{{site.baseurl}}/vector-search/getting-started/vector-search-options/).
 {: .tip}
 
-## Overview
+## Basic vector index
 
 To create a vector index, set the `index.knn` parameter to `true`in the `settings`:
 
@@ -49,7 +48,7 @@ Creating a vector index involves the following key steps:
    Set `index.knn` to `true` in the index settings to enable k-NN search functionality.
 
 1. **Define a vector field**:
-   Specify the field that will store the vector data. When defining a `knn_vector` field in OpenSearch, you can select from different data types to balance storage requirements and performance. By default, k-NN vectors are float vectors, but you can also choose byte or binary vectors for more efficient storage. For more information, see [k-NN vector]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/).
+   Specify the field that will store the vector data. When defining a `knn_vector` field in OpenSearch, you can select from different data types to balance storage requirements and performance. By default, k-NN vectors are float vectors, but you can also choose half-float, byte, or binary vectors for more efficient storage. For more information, see [k-NN vector]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/).
 
 1. **Specify the dimension**:
    Set the `dimension` property to match the size of the vectors used.
@@ -103,7 +102,7 @@ PUT /my-raw-vector-index
 
 To automatically generate embeddings during ingestion, configure an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) with the model ID of the embedding model. For more information about configuring a model, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/).
 
-Specify the `field_map` to define the source field for input text and the target field for storing embeddings. In this example, text from the `text` field is converted into embeddings and stored in `passage_embedding`:
+Specify the `field_map` to define the source field for input text and the target field for storing embeddings. In this example, text from the `input_text` field is converted into embeddings and stored in `output_embedding`:
 
 ```json
 PUT /_ingest/pipeline/auto-embed-pipeline

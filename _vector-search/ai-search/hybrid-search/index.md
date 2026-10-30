@@ -15,10 +15,12 @@ Introduced 2.11
 
 Hybrid search combines keyword and semantic search to improve search relevance. To implement hybrid search, you need to set up a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline intercepts search results at an intermediate stage and applies processing to normalize and combine document scores.  
 
-There are two types of processors available for hybrid search:  
+Two search phase results processors are available for hybrid search, and they differ in what they combine:
 
-- [Normalization processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) (Introduced 2.10): A score-based processor that normalizes and combines document scores from multiple query clauses, rescoring the documents using the selected normalization and combination techniques.  
-- [Score ranker processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/score-ranker-processor/) (Introduced 2.19): A rank-based processor that uses rank fusion to combine and rerank documents from multiple query clauses.
+- The [normalization processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) is score based. It converts the scores from each query clause to a common scale and then combines them, preserving the margins between documents. Choose it when the difference between two documents' scores contains information that the final ranking must reflect, or when you need fine-grained control through normalization techniques, combination techniques, and score bounds.
+- The [score ranker processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/score-ranker-processor/) is rank based. It uses reciprocal rank fusion (RRF) to combine documents according to their position in each query clause's results, ignoring the scores themselves. Choose it when you want a configuration that works without first measuring how your query clauses score documents. For more information, see [Reciprocal rank fusion]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/rrf/).
+
+The following example uses the normalization processor. To compare both processors on your own data and judgment lists, see [Optimizing hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/optimize-hybrid-search/).
 
 **PREREQUISITE**<br>
 To follow this example, you must set up a text embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model). If you have already generated text embeddings, skip to [Step 3](#step-3-configure-a-search-pipeline).
@@ -26,49 +28,7 @@ To follow this example, you must set up a text embedding model. For more informa
 
 ## Configuring hybrid search
 
-There are two ways to configure hybrid search:
-
-- [**Automated workflow**](#automated-workflow) (Recommended for quick setup): Automatically create an ingest pipeline, an index, and a search pipeline with minimal configuration.
-- [**Manual setup**](#manual-setup) (Recommended for custom configurations): Manually configure each component for greater flexibility and control.
-
-## Automated workflow
-
-OpenSearch provides a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/#hybrid-search) that automatically creates an ingest pipeline, an index, and a search pipeline. You must provide the model ID for the configured model when creating a workflow. Review the hybrid search workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/hybrid-search-defaults.json) to determine whether you need to update any of the parameters. For example, if the model dimensionality is different from the default (`1024`), specify the dimensionality of your model in the `output_dimension` parameter. To create the default hybrid search workflow, send the following request:
-
-```json
-POST /_plugins/_flow_framework/workflow?use_case=hybrid_search&provision=true
-{
-"create_ingest_pipeline.model_id": "mBGzipQB2gmRjlv_dOoB"
-}
-```
-{% include copy-curl.html %}
-
-OpenSearch responds with a workflow ID for the created workflow:
-
-```json
-{
-  "workflow_id" : "U_nMXJUBq_4FYQzMOS4B"
-}
-```
-
-To check the workflow status, send the following request:
-
-```json
-GET /_plugins/_flow_framework/workflow/U_nMXJUBq_4FYQzMOS4B/_status
-```
-{% include copy-curl.html %}
-
-Once the workflow completes, the `state` changes to `COMPLETED`. The workflow creates the following components:
-
-- An ingest pipeline named `nlp-ingest-pipeline`
-- An index named `my-nlp-index` 
-- A search pipeline named `nlp-search-pipeline`
-
-You can now continue with [steps 4 and 5](#step-4-ingest-documents-into-the-index) to ingest documents into the index and search the index.
-
-## Manual setup
-
-To manually configure hybrid search, follow these steps:
+To configure hybrid search, follow these steps:
 
 1. [Create an ingest pipeline](#step-1-create-an-ingest-pipeline).
 1. [Create an index for ingestion](#step-2-create-an-index-for-ingestion).
@@ -224,7 +184,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
           "neural": {
             "passage_embedding": {
               "query_text": "Hi world",
-              "model_id": "aVeif4oB5Vm0Tdw8zYO2",
+              "model_id": "bQ1J8ooBpBj3wT4HVUsb",
               "k": 5
             }
           }
@@ -238,11 +198,11 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 
 Alternatively, you can set a default search pipeline for the `my-nlp-index` index. For more information, see [Default search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/using-search-pipeline/#default-search-pipeline).
 
-The response contains the matching document:
+The response contains the matching documents:
 
 ```json
 {
-  "took" : 36,
+  "took" : 32,
   "timed_out" : false,
   "_shards" : {
     "total" : 1,
@@ -252,15 +212,24 @@ The response contains the matching document:
   },
   "hits" : {
     "total" : {
-      "value" : 1,
+      "value" : 2,
       "relation" : "eq"
     },
-    "max_score" : 1.2251667,
+    "max_score" : 1.0,
     "hits" : [
       {
         "_index" : "my-nlp-index",
+        "_id" : "2",
+        "_score" : 1.0,
+        "_source" : {
+          "passage_text" : "Hi planet",
+          "id" : "s2"
+        }
+      },
+      {
+        "_index" : "my-nlp-index",
         "_id" : "1",
-        "_score" : 1.2251667,
+        "_score" : 0.3007,
         "_source" : {
           "passage_text" : "Hello world",
           "id" : "s1"
@@ -270,7 +239,6 @@ The response contains the matching document:
   }
 }
 ```
-{% include copy-curl.html %}
 
 #### Example: Combining a match query and a term query
 
@@ -310,11 +278,11 @@ The response contains the matching documents:
 
 ```json
 {
-    "took": 11,
+    "took": 3,
     "timed_out": false,
     "_shards": {
-        "total": 2,
-        "successful": 2,
+        "total": 1,
+        "successful": 1,
         "skipped": 0,
         "failed": 0
     },
@@ -347,7 +315,16 @@ The response contains the matching documents:
     }
 }
 ```
-{% include copy-curl.html %}
+
+To create the ingest pipeline, index, and search pipeline in one step, you can use the [hybrid search workflow template]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-templates/#hybrid-search).
+{: .tip}
+
+## Filtering data
+
+Hybrid search supports two approaches to filtering:
+
+- **Pre-filtering** removes documents before they are scored. To use pre-filtering, add a top-level `filter` to the `hybrid` query. This is the most common approach for filtering hybrid search results. For more information, see [Hybrid search with pre-filtering]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/pre-filtering/)
+- **Post-filtering** removes documents after all scoring is complete. To use post-filtering, add a `post_filter` to the search request. Use this approach for faceted search with aggregations when you want the facets to reflect the unfiltered query while filtering only the displayed hits. For more information, see [Hybrid search with post-filtering]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/post-filtering/).
 
 ## Next steps
 

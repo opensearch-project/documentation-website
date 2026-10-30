@@ -1,8 +1,9 @@
 ---
 layout: default
-title: Alerting dashboards and visualizations 
+title: Alerting dashboards and visualizations
 parent: Alerting
-nav_order: 50
+nav_order: 20
+has_children: true
 ---
 
 # Alerting dashboards and visualizations
@@ -17,14 +18,9 @@ Create, manage, and take action on your alerts in a single, consolidated view an
 
 The following image gives you a snapshot of the Dashboard interface. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/alerting-dashboard.png" alt="Example alerting visualization" width="800" height="800">
+![Example alerting visualization]({{site.url}}{{site.baseurl}}/images/dashboards/alerting-dashboard.png){: width="800" height="800" }
 
 ## Getting started 
-
-Before getting started, you must have:
-
-- Installed OpenSearch and OpenSearch Dashboards version 2.9 or later. See [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/).
-- Installed the Alerting and Notifications Dashboards plugins. See [Managing OpenSearch Dashboards plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/) to get started.
 
 ## Configuring admin settings
 
@@ -36,7 +32,7 @@ Alerting visualizations are displayed as time-series charts that give you a snap
 
 Keep in mind the following requirements when setting up or creating alerting visualizations. The visualization:
 
-- Must be a [Vizlib line chart](https://community.vizlib.com/support/solutions/articles/35000107262-vizlib-line-chart-introduction)
+- Must be a [line chart]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/line-charts/) in which every series is displayed as a line
 - Must contain at least a Y-axis metric aggregation
 - Must not have non-Y-axis metric aggregation types
 - Must use the date histogram aggregation type for the X-axis bucket
@@ -46,7 +42,7 @@ Keep in mind the following requirements when setting up or creating alerting vis
 
 ## Creating alerting monitors
 
-By default, when you begin to create the alert monitor workflow using the Dashboard interface, you are presented with a menu-driven interface. This interface provides a range of options that are displayed in full screen, in pop-ups, in pull-downs, or in dropdowns. They allow you to define the metrics that can be monitored, set thresholds, customize triggers that automate workflows, and generate actions when conditions are met. Currently, you can only create [per query monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/).
+By default, when you begin to create the alert monitor workflow using the Dashboard interface, you are presented with a menu-driven interface. This interface provides a range of options that are displayed in full screen, in pop-ups, in pull-downs, or in dropdowns. They allow you to define the metrics that can be monitored, set thresholds, customize triggers that automate workflows, and generate actions when conditions are met. You can only create [per query monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/).
 
 To create an alerting monitor: 
 
@@ -60,18 +56,18 @@ To create an alerting monitor:
 
 An example of these steps is shown in the following screenshot.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/create-monitor-menu.png" alt="Create monitor interface" width="400" height="400">
+![Create monitor interface]({{site.url}}{{site.baseurl}}/images/dashboards/create-monitor-menu.png){: width="400" height="400" }
 
 ## Associating monitors
 
-You can associate certain monitor types with a visualization using the Dashboard interface instead of the plugin page, giving you a single interface through which to add, view, and edit monitor data.
+You can associate certain monitor types with a visualization using the Dashboard interface instead of the Alerting page, giving you a single interface through which to add, view, and edit monitor data.
 
 Continuing with the alerting visualization and dashboard created in the preceding section, associate an existing monitor with a visualization by following these steps: 
 
 1. From the visualization panel, choose the ellipsis icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/}).
 2. Select **Associated monitors**.
 3. From the **Select monitor to associate** dropdown menu, select the monitor. Only eligible monitors are listed in the dropdown menu. 
-4. View the monitor's basic information. To view comprehensive details, select **View monitor page** to open the Alerting plugin page.
+4. View the monitor's basic information. To view comprehensive details, select **View monitor page** to open the monitor in Alerting.
 5. Select **Associate monitor**. An existing monitor is associated with the visualization.
 
 ## Exploring alerting monitor details
@@ -83,8 +79,8 @@ Once you've created or associated alerting monitors, verify that the monitor is 
 3. Select the ellipsis icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/}), then **Alerting** > **Associated monitors**.
 4. Choose an alerting monitor from the list. Information such as history, alerts, and associated visualizations is shown within the visualization panel.
 5. Unlink or edit a monitor. 
-   1. Unlink a monitor from the visualization by selecting the link icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/link-icon.png" class="inline-icon" alt="link icon"/>{:/}) under **Actions**. This only unlinks the monitor from the visualization; it does not delete the monitor.
-   2. Edit the monitor's metrics by selecting the edit icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/edit-icon.png" class="inline-icon" alt="edit icon"/>{:/}).
+   1. Unlink a monitor from the visualization by selecting the link icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/link-icon.png" class="inline-icon" alt="link icon"/>{:/}) under **Actions**. This only dissociates the monitor from the visualization; it does not delete the monitor.
+   2. Edit the monitor's metrics by selecting the edit icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/edit-icon.png" class="inline-icon" alt="edit icon"/>{:/}).
 
 ## Next steps
 

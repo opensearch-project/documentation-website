@@ -44,7 +44,7 @@ Broadly, you can classify queries into two categories---*leaf queries* and *comp
 
     - [Geographic and xy queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-xy/index/): Use geographic queries to search documents that include geographic data. Use xy queries to search documents that include points and shapes in a two-dimensional coordinate system. 
 
-    - Joining queries: Use joining queries to search nested fields or return parent and child documents that match a specific query. Types of joining queries include `nested`, `has_child`, `has_parent`, and `parent_id` queries.
+    - [Joining queries]({{site.url}}{{site.baseurl}}/query-dsl/joining/): Use joining queries to search nested fields or return parent and child documents that match a specific query. Types of joining queries include `nested`, `has_child`, `has_parent`, and `parent_id` queries.
 
     - [Span queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/span-query/): Use span queries to perform precise positional searches. Span queries are low-level, specific queries that provide control over the order and proximity of specified query terms. They are primarily used to search legal documents. 
 
@@ -96,6 +96,7 @@ Expensive queries can consume a lot of memory and lead to a decline in cluster p
 - [`regexp`]({{site.url}}{{site.baseurl}}/query-dsl/term/regexp/) queries 
 - [`wildcard`]({{site.url}}{{site.baseurl}}/query-dsl/term/wildcard/) queries 
 - [`query_string`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) queries that are internally transformed into prefix queries
+- [`geo_shape`]({{site.url}}{{site.baseurl}}/query-dsl/geo-and-xy/geoshape/) queries on geoshape fields that store shapes in a prefix tree
 
 To disallow expensive queries, you can disable the `search.allow_expensive_queries` cluster setting as follows:
 
@@ -109,5 +110,5 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-To track expensive queries, enable [shard slow logs]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/logs/#shard-slow-logs).
+To track expensive queries, enable [shard slow logs]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/logs/#shard-slow-logs).
 {: .tip}

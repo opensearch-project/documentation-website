@@ -2,7 +2,7 @@
 layout: default
 title: Star-tree index
 parent: Improving search performance
-nav_order: 54
+nav_order: 50
 ---
 
 # Star-tree index
@@ -69,7 +69,7 @@ A _star node_ (marked as `*` in the following diagram) aggregates all values for
 
 The following diagram shows a star-tree index created for this example and three example query paths. In the diagram, notice that each branch corresponds to a dimension (`status` and `port`). Some nodes contain precomputed aggregation values (for example, `Sum(size)`), allowing OpenSearch to skip unnecessary calculations at query time.
 
-<img src="{{site.url}}{{site.baseurl}}/images/star-tree-index.png" alt="A star-tree index containing two dimensions and two metrics">
+![A star-tree index containing two dimensions and two metrics]({{site.url}}{{site.baseurl}}/images/star-tree-index.png)
 
 The colored arrows show three query examples:
 
@@ -95,7 +95,7 @@ These examples show how OpenSearch selects the shortest path in the star-tree an
 
 ## Limitations
 
-Note the following limiations of star-tree indexes:
+Note the following limitations of star-tree indexes:
 
 - Star-tree indexes do not support updates or deletions. To use a star-tree index, data should be append-only. See [Enabling a star-tree index](#enabling-a-star-tree-index).
 - A star-tree index only works for aggregation queries that filter on dimension fields and aggregate metric fields defined in the index's star-tree configuration.
@@ -117,6 +117,19 @@ Star-tree indexing behavior is controlled by the following cluster-level and ind
 
 Setting `indices.composite_index.star_tree.enabled` to `false` prevents OpenSearch from using star-tree optimization during searches, but the star-tree index structures are still created. To completely remove star-tree structures, you must reindex your data without the star-tree mapping.
 {: .note}
+
+## Advanced star-tree index settings
+
+The following index-level settings provide fine-grained control over star-tree index behavior. These settings are static, meaning they must be configured when creating the index and cannot be changed afterward.
+
+| Setting                                                    | Default | Range      | Purpose                                                                                                                              |
+| ---------------------------------------------------------- | ------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `index.composite_index.star_tree.default.max_leaf_docs`   | `10000` | Min: `1`   | Sets the maximum number of documents allowed in a leaf node. Lower values improve query latency but increase storage requirements.  |
+| `index.composite_index.star_tree.field.default.metrics`   | `["value_count", "sum"]` | N/A | Defines the default metrics computed for star-tree aggregations. These metrics are pre-calculated to speed up aggregation queries. |
+| `index.composite_index.star_tree.field.max_base_metrics`  | `100`   | `4` to `100` | Controls the maximum number of base metrics that can be configured for star-tree fields. More metrics provide more aggregation options but increase index size. |
+| `index.composite_index.star_tree.field.max_dimensions`    | `10`    | `2` to `10`  | Sets the maximum number of dimensions that can be part of a star-tree index field. Affects star-tree index size and query performance. |
+| `index.composite_index.star_tree.field.max_date_intervals` | `3`     | `1` to `3`   | Specifies the maximum number of date intervals that can be configured for star-tree date fields. Controls temporal granularity options. |
+| `index.composite_index.star_tree.max_fields`              | `1`     | `1` to `1`   | Controls the maximum number star-tree fields per index. Only one star-tree field per index is supported.            |
 
 
 To create an index that uses a star-tree index, send the following request:
@@ -347,7 +360,7 @@ You can use [date histograms]({{site.url}}{{site.baseurl}}/aggregations/bucket/d
 To use date histogram aggregations and make them searchable in a star-tree index, remember the following requirements:
 
 - The calendar intervals in a star-tree mapping configuration can use either the request's calendar field or a field of lower granularity than the request field. For example, if an aggregation uses the `month` field, the star-tree search can still use lower-granularity fields such as `day`.
-- A metric sub-aggregation must be part of the aggregation request.
+- A metric subaggregation must be part of the aggregation request.
 
 The following example filters logs to include only those with status codes between `200` and `400` and sets the `size` of the response to `0`, so that only aggregated results are returned. It then aggregates the filtered logs by calendar month and calculates the total `size` of the requests for each month:
 

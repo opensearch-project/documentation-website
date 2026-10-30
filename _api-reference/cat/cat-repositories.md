@@ -81,3 +81,7 @@ id    type
 repo1   fs
 repo2   s3
 ```
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/repository/get`.

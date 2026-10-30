@@ -15,6 +15,8 @@ redirect_from:
 
 The CAT count operation lists the number of documents in your cluster.
 
+The count includes only live documents. Documents that you deleted are not counted, even if they have not yet been removed from disk by a segment merge. To see the number of deleted documents in each index, use the [CAT Indices API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/).
+
 
 <!-- spec_insert_start
 api: cat.count
@@ -129,3 +131,7 @@ The following response shows the overall document count as 1625:
 epoch      | timestamp | count
 1624237738 | 01:08:58  | 1625
 ```
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:data/read/search`.

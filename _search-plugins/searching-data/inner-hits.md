@@ -1,14 +1,19 @@
 ---
 layout: default
 title: Retrieve inner hits
-parent: Search options
+parent: Customizing search results
 has_children: false
-nav_order: 75
+nav_order: 60
 ---
 
 # Retrieve inner hits
 
 In OpenSearch, when you perform a search using [nested objects]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/nested/) or [parent-join]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/join/), the underlying hits (nested inner objects or child documents) are hidden by default. You can retrieve inner hits by using the `inner_hits` parameter in the search query.
+
+Use inner hits in the following scenarios:
+
+- Identifying which nested objects or child documents caused a document to match, for example, the comments on a blog post that contain the search terms or the update on a support ticket that matches a query.
+- Retrieving documents together with their matching nested objects or child documents in one request, for example, products with their matching reviews or job postings with their matching applications. This avoids sending a separate query for the related documents.
 
 You can also use `inner_hits` with the following features:
 
@@ -16,6 +21,7 @@ You can also use `inner_hits` with the following features:
   - [Explain]({{site.url}}{{site.baseurl}}/api-reference/explain/)
 
 ## Inner hits with nested objects
+
 Nested objects allow you to index an array of objects and maintain their relationship within the same document. The following example request uses the `inner_hits` parameter to retrieve the underlying inner hits.
 
 1. Create an index mapping with a nested object:
@@ -139,7 +145,202 @@ The preceding query searches for nested user objects containing the name John an
   }
 }
 ```
+### Identifying the matched nested object
+
+Each inner hit for a nested object contains a `_nested` object that identifies the nested object that matched. The `field` property contains the name of the nested field, and the `offset` property contains the position of the object in that field's array in the original document, starting at `0`. In the preceding response, the `offset` of `0` means that the inner hit is the first object in the `user` array. Because inner hits are sorted by score or by the sort order you specify, the order of inner hits usually differs from the order of the objects in the document, so use `offset` to identify the original object.
+
+By default, the `_source` of each inner hit contains only the matched nested object, not the entire source document. You can change the returned fields using [source filtering]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#using-source-filtering), disable `_source` for inner hits, or return the [stored fields]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/store/) of the nested object by specifying them in `stored_fields` in `inner_hits`.
+
+### Retrieving nested inner hits without the source
+
+Nested objects are not stored separately: their source is part of the source of the parent document. To return the `_source` of a nested inner hit, OpenSearch parses the parent document's source and extracts the matching object. Doing this for every inner hit increases the search time, especially if you increase `size` for the search or for `inner_hits`. To avoid this cost, disable `_source` for inner hits and retrieve the field values from doc values instead.
+
+The following example uses an `articles` index containing nested `comments`. Create the index and add a document:
+
+```json
+PUT /articles
+{
+  "mappings": {
+    "properties": {
+      "comments": {
+        "type": "nested",
+        "properties": {
+          "author": { "type": "keyword" },
+          "text": { "type": "text" },
+          "reactions": {
+            "type": "nested",
+            "properties": {
+              "user": { "type": "keyword" },
+              "emoji": { "type": "keyword" }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT /articles/_doc/1?refresh=true
+{
+  "title": "Choosing a backpacking tent",
+  "comments": [
+    {
+      "author": "ana",
+      "text": "Great overview of tent weights",
+      "reactions": []
+    },
+    {
+      "author": "ben",
+      "text": "Which tent survives strong wind?",
+      "reactions": [
+        { "user": "ana", "emoji": "thumbs_up" },
+        { "user": "chen", "emoji": "heart" }
+      ]
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+The following request finds comments that mention `wind` and returns only the `author` of each matching comment from doc values:
+
+```json
+GET /articles/_search
+{
+  "_source": false,
+  "query": {
+    "nested": {
+      "path": "comments",
+      "query": {
+        "match": { "comments.text": "wind" }
+      },
+      "inner_hits": {
+        "_source": false,
+        "docvalue_fields": ["comments.author"]
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The inner hit contains the `fields` object in place of `_source`:
+
+```json
+"inner_hits": {
+  "comments": {
+    "hits": {
+      "total": {
+        "value": 1,
+        "relation": "eq"
+      },
+      "max_score": 0.31506687,
+      "hits": [
+        {
+          "_index": "articles",
+          "_id": "1",
+          "_nested": {
+            "field": "comments",
+            "offset": 1
+          },
+          "_score": 0.31506687,
+          "fields": {
+            "comments.author": [
+              "ben"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+### Inner hits for multi-level nested objects
+
+If nested objects contain other nested objects, you can return inner hits from any level by specifying the full dotted path in the `nested` query. The following request returns the reactions by the user `ana`, which are nested in `comments.reactions`:
+
+```json
+GET /articles/_search
+{
+  "_source": false,
+  "query": {
+    "nested": {
+      "path": "comments.reactions",
+      "query": {
+        "term": { "comments.reactions.user": "ana" }
+      },
+      "inner_hits": {}
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The inner hits are named after the full path. The `_nested` object of each inner hit contains another `_nested` object for each level. In this response, the reaction is the first object (`offset` `0`) in the `reactions` array of the second comment (`offset` `1`):
+
+```json
+{
+  "took": 4,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "articles",
+        "_id": "1",
+        "_score": 1,
+        "inner_hits": {
+          "comments.reactions": {
+            "hits": {
+              "total": {
+                "value": 1,
+                "relation": "eq"
+              },
+              "max_score": 1,
+              "hits": [
+                {
+                  "_index": "articles",
+                  "_id": "1",
+                  "_nested": {
+                    "field": "comments",
+                    "offset": 1,
+                    "_nested": {
+                      "field": "reactions",
+                      "offset": 0
+                    }
+                  },
+                  "_score": 1,
+                  "_source": {
+                    "emoji": "thumbs_up",
+                    "user": "ana"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}
+```
+
 ## Inner hits with parent/child objects
+
 Parent-join relationships allow you to create relationships between documents of different types within the same index. The following example request searches with `inner_hits` using parent/child objects.
 
 1. Create an index with a parent-join field:
@@ -257,7 +458,9 @@ The preceding query searches for parent documents that have child documents matc
 }
 ```
 
-## Using both parent-join and nested objects with `inner_hits`
+You can also specify `inner_hits` in a [`has_parent`]({{site.url}}{{site.baseurl}}/query-dsl/joining/has-parent/) query. In this case, the query returns the child documents, and the inner hits of each child contain its matching parent document.
+
+## Using inner hits with both parent-join and nested objects
 
 The following example demonstrates using both parent-join and nested objects with `inner_hits`.
 
@@ -437,19 +640,20 @@ The preceding query searches for parent documents that have child documents cont
 }
 ```
 
-<!-- vale off -->
-## inner_hits parameters
-<!-- vale on -->
-You can pass the following additional parameters to a search with `inner_hits` using both nested objects and parent-join relationships:
+## Inner hits parameters
 
-* `from`: The offset from where to start fetching hits in the `inner_hits` results.
-* `size`: The maximum number of inner hits to return.
-* `sort`: The sorting order for the inner hits.
-* `name`: A custom name for the inner hits in the response. This is useful in differentiating between multiple inner hits in a single query.
+The following table lists the parameters that you can specify in `inner_hits` for both nested objects and parent-join relationships.
 
-<!-- vale off -->
-### Example: inner_hits parameters with nested objects
-<!-- vale on -->
+Parameter | Description
+:--- | :---
+`from` | The offset from which to start returning inner hits. Default is `0`.
+`size` | The maximum number of inner hits to return. Default is `3`.
+`sort` | The sort order for the inner hits. By default, inner hits are sorted by relevance score.
+`name` | A custom name for the inner hits in the response. Useful for differentiating between multiple inner hits in a single query. By default, the name is the nested `path` for a `nested` query, the child relation name for a `has_child` query, and the parent relation name for a `has_parent` query.
+
+Inner hits also accept many of the options that you can specify for the hits of a search request, including [`highlight`]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight/), `explain`, [source filtering]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#using-source-filtering), [`script_fields`]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#using-scripted-fields), [`docvalue_fields`]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/retrieve-specific-fields/#searching-with-doc-value-fields), `version`, and `seq_no_primary_term`. Nested objects are not assigned sequence numbers, so OpenSearch rejects `seq_no_primary_term` in the inner hits of a `nested` query.
+
+### Example: Inner hits parameters with nested objects
 
 1. Create an index with the following mappings:
 
@@ -608,9 +812,7 @@ The following is the expected result:
 }
 ```
 
-<!-- vale off -->
-### Example: inner_hits parameters with a parent-join relationship
-<!-- vale on -->
+### Example: Inner hits parameters with a parent-join relationship
 
 1. Create an index with the following mappings:
 
@@ -781,33 +983,6 @@ The following is the expected result:
   }
 }
 ```
-<!-- vale off -->
-## Benefits of using inner_hits
-<!-- vale on -->
-* **Detailed query results**
-
-    You can use `inner_hits` to retrieve detailed information about matching nested or child documents directly from the parent document's search results. This is particularly useful for understanding the context and specifics of the match without having to perform additional queries.
-    
-    Example use case: In a blog post index, you have comments as nested objects. When searching for blog posts containing specific comments, you can retrieve relevant comments that match the search criteria along with information about the post.
-
-* **Optimized performance**
-
-    Without `inner_hits`, you may need to run multiple queries to fetch related documents. Using `inner_hits` consolidates these into a single query, reducing the number of round trips to the OpenSearch server and improving overall performance.
-
-    Example use case: In an e-commerce application, you have products as parent documents and reviews as child documents. A single query using `inner_hits` can fetch products and their relevant reviews, avoiding multiple separate queries.
-
-* **Simplified query logic**
-
-    You can combine parent/child or nested document logic in a single query to simplify the application code and reduce complexity. This helps to ensure that the code is more maintainable and consistent by centralizing the query logic in OpenSearch
-
-    Example use case: In a job portal, you have jobs as parent documents and applications as nested or child documents. You can simplify the application logic by fetching jobs along with specific applications in one query.
-
-* **Contextual relevance**
-
-    Using `inner_hits` provides contextual relevance by showing exactly which nested or child documents match the query criteria. This is crucial for applications in which the relevance of results depends on a specific part of the document that matches the query.
-
-    Example use case: In a customer support system, you have tickets as parent documents and comments or updates as nested or child documents. You can determine which specific comment matches the search in order to better understand the context of the ticket search.
-
 ## Next steps
 
 - Learn about [joining queries]({{site.url}}{{site.baseurl}}/query-dsl/joining/) on [nested]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/nested/) or [join]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/join/) fields.

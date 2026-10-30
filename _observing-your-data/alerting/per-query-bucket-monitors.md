@@ -9,98 +9,126 @@ has_children: false
 
 # Per query and per bucket monitors
 
-Per query monitors are a type of alert monitor that can be used to identify and alert on specific queries that are run against an OpenSearch index; for example, queries that detect and respond to anomalies in specific queries. Per query monitors only trigger one alert at a time. 
+Per query and per bucket monitors run a query on a schedule and evaluate the results using trigger conditions:
 
-Per bucket monitors are a type of alert monitor that can be used to identify and alert on specific buckets of data that are created by a query against an OpenSearch index.
+- A _per query monitor_ evaluates the query result as a whole. For example, it can generate an alert when the number of matching documents is above a threshold. A trigger in a per query monitor has at most one active alert at a time.
+- A _per bucket monitor_ groups the query results into buckets using one or more fields and evaluates each bucket separately. For example, it can generate a separate alert for each host or country whose request count is above a threshold.
 
-Both monitor types support querying remote indexes using the same `cluster-name:index-name` pattern used by [cross-cluster search]({{site.url}}{{site.baseurl}}/security/access-control/cross-cluster-search/) or by using OpenSearch Dashboards 2.12 or later.
+The examples on this page use the OpenSearch Dashboards sample web logs. To add the sample data, on the OpenSearch Dashboards home page, select **Add sample data**, and then select **Add data** on the **Sample web logs** card.
 
-The following [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) are required in order to create a cross-cluster monitor through the dashboards UI: `cluster:admin/opensearch/alerting/remote/indexes/get`, `indices:admin/resolve/index`, `cluster:monitor/health`, and `indices:admin/mappings/get`.
+## Creating a per query monitor
+
+The following example creates a monitor that generates an alert when the website receives more than 100 requests in a day.
+
+To create the monitor, follow these steps:
+
+1. On the top menu, go to **OpenSearch Plugins** > **Alerting**.
+1. Select the **Monitors** tab, and then select **Create monitor**.
+1. In **Monitor details**, configure the following settings:
+   - **Monitor name**: Enter `Daily web traffic`.
+   - **Monitor type**: Select **Per query monitor**.
+   - **Monitor defining method**: Select **Visual editor**. To write the query using query domain-specific language (DSL), select **Extraction query editor** instead. For more information, see [Defining the query using the extraction query editor](#defining-the-query-using-the-extraction-query-editor). To generate alerts from anomaly detection results, select **Anomaly detector**. For more information, see [Pairing a monitor with an anomaly detector](#pairing-a-monitor-with-an-anomaly-detector).
+   - **Schedule**: Keep the default, which runs the monitor every minute. To run the monitor at a specific time, select **Daily**, **Weekly**, **Monthly**, or **Custom cron expression**, and then select a time zone. For more information about cron expressions, see [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/cron-expressions/).
+1. In **Select data**, in **Indexes**, enter `opensearch_dashboards_sample_data_logs` and press Enter. In **Time field**, select `timestamp`.
+
+   If you use the Security plugin, you can select only indexes that you have permission to access. For more information, see [Alerting security]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/security/).
+1. In **Query**, configure the query:
+   - **Metrics**: Keep **COUNT OF documents**. To use another aggregation, such as an average or maximum of a numeric field, select **Add metric**.
+   - **Time range for the last**: Enter `1` and select **day(s)**.
+   - **Data filter**: Optionally, select **Add filter** to monitor a subset of the documents.
+
+   To view the query and how long it takes to run, expand **Preview query and performance**. The monitor runs this query as often as the schedule specifies, so check that its performance is acceptable.
+1. In **Triggers**, select **Add trigger**, and then configure the trigger:
+   - **Trigger name**: Enter `More than 100 requests`.
+   - **Severity level**: Keep **1 (Highest)**.
+   - **Trigger condition**: Select **IS ABOVE** and enter `100`.
+
+   The trigger preview shows the document count over the selected time range. For more information, see [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/).
+1. Optionally, in **Actions**, add an action that sends a notification when the trigger condition is met. Actions require a notification channel. If you don't have one, select **Manage channels** to create one. For more information, see [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/).
+1. Select **Create**.
+
+Because the sample web logs typically contain more than 100 requests in a day, the trigger condition is met and the monitor generates an alert in the **Active** state. To view the alert, select the **Alerts** tab on the **Alerting** page.
+
+## Creating a per bucket monitor
+
+The following example creates a monitor that generates a separate alert for each country that sends more than 20 requests in a day.
+
+To create the monitor, follow these steps:
+
+1. On the top menu, go to **OpenSearch Plugins** > **Alerting**.
+1. Select the **Monitors** tab, and then select **Create monitor**.
+1. In **Monitor details**, enter a **Monitor name**, such as `Daily requests by country`. In **Monitor type**, select **Per bucket monitor**. In **Monitor defining method**, select **Visual editor**.
+1. In **Select data**, in **Indexes**, enter `opensearch_dashboards_sample_data_logs` and press Enter. In **Time field**, select `timestamp`.
+1. In **Query**, configure the query:
+   - **Metrics**: Keep **COUNT OF documents**.
+   - **Time range for the last**: Enter `1` and select **day(s)**.
+   - **Group by**: Select **Add group by**, and then select the `geo.src` field. A per bucket monitor requires at least one group-by field.
+1. In **Triggers**, select **Add trigger**, and then configure the trigger:
+   - **Trigger name**: Enter `More than 20 requests`.
+   - **Trigger conditions**: In **Metric**, keep **Count of documents**. In **Threshold**, select **IS ABOVE**. In **Value**, enter `20`.
+   - **Keyword filter**: Optionally, select **Add filter** to evaluate only the buckets whose group-by value matches a keyword.
+1. Optionally, in **Actions**, add an action that sends a notification for each bucket that meets the trigger condition.
+1. Select **Create**.
+
+The monitor generates an alert for each country whose request count is above the threshold. Each alert includes the bucket key, for example, `CN`.
+
+## Defining the query using the extraction query editor
+
+To define the query using [query DSL]({{site.url}}{{site.baseurl}}/query-dsl/index/), select **Extraction query editor** in **Monitor defining method**. Then enter the query in **Query** and select **Run** to test it. The **Monitor performance** panel shows how long the query takes to run and how many documents it returns.
+
+To limit the query to the time period of each monitor run, use the `{% raw %}{{period_end}}{% endraw %}` variable. The following query returns the number of `404` responses in the day before each monitor run:
+
+```json
+{% raw %}{
+  "size": 0,
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "range": {
+            "timestamp": {
+              "gte": "{{period_end}}||-1d",
+              "lte": "{{period_end}}",
+              "format": "epoch_millis"
+            }
+          }
+        },
+        {
+          "term": {
+            "response.keyword": "404"
+          }
+        }
+      ]
+    }
+  }
+}{% endraw %}
+```
+{% include copy.html %}
+
+When you use the extraction query editor, you define the trigger condition using a [Painless]({{site.url}}{{site.baseurl}}/scripting/painless/) script. The following condition generates an alert when the query returns more than 5 documents:
+
+```
+ctx.results[0].hits.total.value > 5
+```
+{% include copy.html %}
+
+To test the condition, select **Preview condition response**. For the variables that you can use in trigger conditions, see [Monitor variables]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/#monitor-variables).
+
+## Pairing a monitor with an anomaly detector
+
+To generate alerts from the results of an [anomaly detector]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/), create a per query monitor, select **Anomaly detector** in **Monitor defining method**, and then select the detector. The **Anomaly detector** method is not available for per bucket monitors.
+
+Set the monitor interval to at least twice the detector interval. Otherwise, the monitor might miss anomaly results. For example, if both the monitor and the detector run every 5 minutes and you start the detector at 12:00, an anomaly detected at 12:05 might not be available for queries until 12:06. The monitor reads results from 12:00 to 12:05, so it misses that anomaly. When you create a monitor from a detector in OpenSearch Dashboards, the monitor interval is set to twice the detector interval by default.
+
+If you change a detector's interval, update the monitor interval as well. The monitor interval is not updated automatically.
+
+## Querying remote indexes
+
+Both monitor types can query indexes on remote clusters. In **Select data**, select the remote clusters in **Select clusters**, and then select the indexes. When you define the query using the extraction query editor, specify remote indexes using the `<cluster-name>:<index-name>` pattern used by [cross-cluster search]({{site.url}}{{site.baseurl}}/security/access-control/cross-cluster-search/).
+
+To create a cross-cluster monitor in OpenSearch Dashboards, you need the following [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/): `cluster:admin/opensearch/alerting/remote/indexes/get`, `indices:admin/resolve/index`, `cluster:monitor/health`, and `indices:admin/mappings/get`.
 {: .note}
 
-<img src="{{site.url}}{{site.baseurl}}/images/alerting/cross-cluster-per-query-per-bucket-monitors.png" alt="Cluster metrics monitor" width="700"/>
+The following image shows remote indexes selected for a per query monitor.
 
-## Creating a per query or per bucket monitor
-
-To create a per query monitor, follow these steps:
-
-**Step 1.** Define your query and [triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/). You can use any of these methods: visual editor, query editor, or anomaly detector.
-
-   - Visual definition works well for monitors that can be defined as "some value is above or below some threshold for some amount of time." It also works well for most monitors.
-
-   - Query definition provides flexibility in relation to your query (using [OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index)) and how you evaluate the results of that query (Painless scripting).
-
-The following example averages the `cpu_usage` field:
-
-```json
-     {
-       "size": 0,
-       "query": {
-         "match_all": {}
-       },
-       "aggs": {
-         "avg_cpu": {
-           "avg": {
-             "field": "cpu_usage"
-           }
-         }
-       }
-     }
-```
-
-You can also filter query results using `{% raw %}{{period_start}}{% endraw %}` and `{% raw %}{{period_end}}{% endraw %}`:
-
-```json
-     {
-       "size": 0,
-       "query": {
-         "bool": {
-           "filter": [{
-             "range": {
-               "timestamp": {
-                 "from": "{% raw %}{{period_end}}{% endraw %}||-1h",
-                 "to": "{% raw %}{{period_end}}{% endraw %}",
-                 "include_lower": true,
-                 "include_upper": true,
-                 "format": "epoch_millis",
-                 "boost": 1
-               }
-             }
-           }],
-           "adjust_pure_negative": true,
-           "boost": 1
-         }
-       },
-       "aggregations": {}
-     }
-```
-
-"Start" and "end" refer to the interval at which the monitor runs. See [Monitor variables]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/#monitor-variables).
-
-To define a monitor visually, choose **Visual editor**. Then choose a source index, a time frame, an aggregation (for example, `count()` or `average()`), a data filter (if you want to monitor a subset of your source index), and a group-by field if you want to include an aggregation field in your query. At least one group-by field is required if you're defining a per bucket monitor. 
-
-Visual definition works well for most monitors.
-{: .tip }
-
-If you use the Security plugin, you can only choose indexes that you have permission to access. For details, see [Alerting security]({{site.url}}{{site.baseurl}}/security/).
-
-To use a query, choose **Extraction query editor**, add your query (using [OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index)), and test it using the **Run** button.
-
-The monitor makes this query to OpenSearch as often as the schedule dictates; check the **Query Performance** section and make sure you're comfortable with the performance implications.
-
-Anomaly detection is available only if you are defining a per query monitor.
-{: .warning}
-
-To use an anomaly detector, choose **Anomaly detector** and select your **Detector**.
-
-The anomaly detection option is for pairing with the Anomaly Detection plugin. See [Anomaly Detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/).
-
-For anomaly detector, choose an appropriate schedule for the monitor based on the detector interval. Otherwise, the alerting monitor might miss reading the results. For example, assume you set the monitor interval and the detector interval as 5 minutes, and you start the detector at 12:00. If an anomaly is detected at 12:05, it might be available at 12:06 because of the delay between writing the anomaly and it being available for queries. The monitor reads the anomaly results between 12:00 and 12:05, so it does not get the anomaly results available at 12:06.
-
-To avoid this issue, make sure the alerting monitor is at least twice the detector interval. When you create a monitor using OpenSearch Dashboards, the anomaly detector plugin generates a default monitor schedule that's twice the detector interval.
-
-Whenever you update a detector’s interval, make sure to update the associated monitor interval, as the Anomaly Detection plugin does not do this automatically.
-
-**Step 2.** Choose the frequency to run the monitor, for example, either by time intervals (minutes, hours, days) or on a schedule. If you run it by time interval or on a custom [custom cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/), then you must provide the time zone.
-
-**Step 3.** Add a trigger to the monitor.
+![Selecting remote indexes for a monitor]({{site.url}}{{site.baseurl}}/images/alerting/cross-cluster-per-query-per-bucket-monitors.png){: width="700" }

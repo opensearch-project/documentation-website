@@ -1,12 +1,12 @@
 ---
 layout: default
 title: Manage workspaces
-parent: Workspace for OpenSearch Dashboards
+parent: Workspaces
 nav_order: 2
 ---
 
 # Manage workspaces
-Introduced 2.18
+**Introduced 2.18**
 {: .label .label-purple }
 
 You can access and modify the workspace details, including name, description, use case, and icon color, on the **Workspace details** page. 
@@ -14,7 +14,7 @@ You can access and modify the workspace details, including name, description, us
 To access and modify your workspace details, follow these steps: 
 
 1. Open OpenSearch Dashboards and navigate to **My Workspaces**.
-2. Choose the desired workspace  and then select the **Edit** button to make changes
+2. Choose the desired workspace and then select the **Edit** button to make changes
 3. Select the **Save** button to confirm changes or the **Discard changes** button to cancel modifications.
 
 ## Workspace update permissions
@@ -33,7 +33,7 @@ Original use case | Target use case |
 :---: | :---:
 Analytics  | Cannot be changed to any other use case
 Search  | Analytics
-Security analytics  | Analytics
+Security Analytics  | Analytics
 Observability  | Analytics
 Essentials  |    Analytics Search<br> Security Analytics<br> Observability
 
@@ -51,6 +51,23 @@ The **Workspace details** page features the following buttons in the upper-right
 ## Adding assets to the workspace
 
 Access the **Sample data** in the navigation menu on the left. Select the appropriate dataset to install it in your cluster and OpenSearch Dashboards.
+
+## Migrating unassigned assets into a workspace
+
+Saved objects created before workspaces were enabled don't belong to any workspace. A workspace displays only the assets assigned to it, so these assets aren't visible in any workspace even though they still exist in the cluster. A [dashboard admin]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#configuring-dashboard-administrators) can move all unassigned assets into a new workspace using the migration wizard.
+
+When unassigned assets exist, the workspaces landing page displays a **Migrate existing assets (N)** button to dashboard admins, where N is the number of unassigned assets.
+
+To migrate unassigned assets into a new workspace, follow these steps:
+
+1. On the workspaces landing page, select **Migrate existing assets (N)**.
+1. In the **Workspace name** field, enter a name for the new workspace.
+1. Review the list of unassigned assets. You can search the list and filter it by asset type. The wizard migrates all unassigned assets, regardless of the search term or filter.
+1. Select **Create workspace and migrate**. OpenSearch Dashboards creates the workspace, connects all data sources and data connections to it so that migrated dashboards continue to display data, and then migrates the assets. You can't close the wizard while the migration is running.
+1. Review the summary, which shows the number of migrated assets, failed assets, and connected data sources.
+1. Select **Go to \<workspace name\>** to open the new workspace.
+
+Assets that fail to migrate remain unassigned, and the summary lists each one with the reason it failed. To migrate them into the same workspace, select **Retry failed assets**. If the migration stops before it finishes, select **Continue migrating** to migrate the remaining assets into the same workspace.
 
 ## Copying assets between workspaces
 
@@ -99,8 +116,8 @@ Deleting a workspace permanently erases all its assets (except data sources) and
 
 To delete a workspace, follow these steps:
 
-1. From the **Workspace details** page, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/} icon in the upper-right corner to delete the current workspace.
-2. Alternatively, from the workspace list page, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/} icon and select **Delete**. Optionally, select multiple workspaces for bulk deletion.
+1. From the **Workspace details** page, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/} (trash can) icon in the upper-right corner to delete the current workspace.
+2. Alternatively, from the workspace list page, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/ellipsis-icon.png" class="inline-icon" alt="ellipsis icon"/>{:/} (ellipsis) icon and select **Delete**. Optionally, select multiple workspaces for bulk deletion.
 
 ## Navigating the workspaces list
 

@@ -5,7 +5,7 @@ parent: Ingest processors
 nav_order: 60
 ---
 
-This documentation describes using the `dissect` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `dissect` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/dissect/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.
+This documentation describes using the `dissect` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `dissect` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/dissect/), which runs outside the OpenSearch cluster, if your use case involves large or complex datasets.
 {: .note}
 
 # Dissect
@@ -27,7 +27,7 @@ The following is the syntax for the `dissect` processor:
 {% include copy.html %}
 
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `dissect` processor.
 
@@ -41,13 +41,13 @@ Parameter | Required/Optional | Description |
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, the processor failure is ignored. Default is `false`. |
 `ignore_missing`  | Optional  | Specifies whether the processor should ignore documents that do not contain the specified field. If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
-`tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. |
+`tag` | Optional | An identifier tag for the processor. Useful for debugging to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging). |
 
 ## Using the processor
 
 Follow these steps to use the processor in a pipeline.
 
-**Step 1: Create a pipeline**
+### Step 1: Create a pipeline
 
 The following query creates a pipeline, named `dissect-test`, that uses the `dissect` processor to parse the log line:
 
@@ -67,7 +67,7 @@ PUT /_ingest/pipeline/dissect-test
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline**
+### Step 2 (Optional): Test the pipeline
 
 It is recommended that you test your pipeline before you ingest documents.
 {: .tip}
@@ -90,8 +90,6 @@ POST _ingest/pipeline/dissect-test/_simulate
 ```
 {% include copy-curl.html %}
 
-**Response**
-
 The following example response confirms that the pipeline is working as expected:
 
 ```json
@@ -106,7 +104,7 @@ The following example response confirms that the pipeline is working as expected
           "http_method": "POST",
           "http_version": "HTTP/1.1",
           "client_ip": "192.168.1.10",
-          "message": """192.168.1.10 - - [03/Nov/2023:15:20:45 +0000] "POST /login HTTP/1.1" 200 3456""",
+          "message": "192.168.1.10 - - [03/Nov/2023:15:20:45 +0000] \"POST /login HTTP/1.1\" 200 3456",
           "url": "/login",
           "response_size": "3456",
           "timestamp": "03/Nov/2023:15:20:45 +0000"
@@ -120,7 +118,7 @@ The following example response confirms that the pipeline is working as expected
 }
 ```
 
-**Step 3: Ingest a document**
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `testindex1`:
 
@@ -132,7 +130,7 @@ PUT testindex1/_doc/1?pipeline=dissect-test
 ```
 {% include copy-curl.html %}
 
-**Step 4 (Optional): Retrieve the document**
+### Step 4 (Optional): Retrieve the document
 
 To retrieve the document, run the following query:
 
@@ -140,6 +138,8 @@ To retrieve the document, run the following query:
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
+
+The response contains the ingested document, transformed as shown in the response in Step 2.
 
 ## Dissect patterns
 
@@ -184,7 +184,7 @@ Detailed descriptions of each key modifier, along with usage examples, are provi
 
 ### Right padding modifier (`->`)
 
-The dissection algorithm is precise and requires that every character in the pattern exactly match the source string. For example, the pattern `%{hellokey} %{worldkey}` (one space) will match the string "Hello world" (one space) but not the string "Hello  world" (two spaces) because the pattern only has one space while the source string has two.
+The dissection algorithm is precise and requires that every character in the pattern exactly match the source string. For example, the pattern `%{hellokey} %{worldkey}` (1 space) will match the string `Hello world` (1 space) but not the string <code>Hello&nbsp;&nbsp;world</code> (2 spaces) because the pattern only has 1 space while the source string has 2.
 
 The _right padding modifier_ can be used to address this issue. When added to the pattern `%{helloworldkey->} %{worldkey}`, the right padding modifier will match <code>Hello&nbsp;world</code> (1 space), <code>Hello&nbsp;&nbsp;world</code> (2 spaces), and even <code>Hello&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;world</code> (10 spaces). 
 
@@ -261,7 +261,6 @@ Your response should appear similar to the following:
   ]
 }
 ```
-{% include copy-curl.html %}
 
 ### Append modifier (`+`)
 
@@ -327,7 +326,6 @@ The substrings are appended to the `address` field, as shown in the following re
   ]
 }
 ```
-{% include copy-curl.html %}
 
 ### Append with order modifier (`+` and `/n`)
 
@@ -393,7 +391,6 @@ The substrings are appended to the `address` field in reverse order, as shown in
   ]
 }
 ```
-{% include copy-curl.html %}
 
 ### Named skip key modifier
 
@@ -459,7 +456,6 @@ Your response should appear similar to the following:
   ]
 }
 ```
-{% include copy-curl.html %}
 
 ### Reference keys (`*` and `&`)
 
@@ -526,4 +522,3 @@ The two key-value pairs were extracted into fields, as shown in the following re
   ]
 }
 ```
-{% include copy-curl.html %}

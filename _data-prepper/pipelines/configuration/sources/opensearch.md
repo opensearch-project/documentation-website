@@ -84,7 +84,11 @@ The `opensearch` source can be configured with Amazon OpenSearch Serverless by s
 
 ## Using metadata
 
-When the `opensource` source constructs OpenSearch Data Prepper events from documents in the cluster, the document index is stored in the EventMetadata with an `opensearch-index` key, and the document_id is stored in the `EventMetadata` with the `opensearch-document_id` as the key. This allows for conditional routing based on the index or `document_id`. The following example pipeline configuration sends events to an `opensearch` sink and uses the same index and `document_id` from the source cluster as in the destination cluster:
+When the `opensource` source constructs OpenSearch Data Prepper events from documents, the document index is stored in the `EventMetadata` with `opensearch-index` as the key, and the `document_id` is stored in the `EventMetadata` with the `opensearch-document_id` as the key. The document version is stored in the metadata as `opensearch_document_version`.
+
+You can reference this metadata in your pipeline configuration as needed. For example, you can use the `opensearch-document_id` to prevent duplicates in sinks that support document updates, such as the `opensearch` sink. You can also use the original document metadata for conditional routing.
+
+The following example pipeline configuration sends events to an `opensearch` sink and uses the same index, `document_id`, and `document_version` from the source cluster as in the destination cluster to prevent duplicate documents:
 
 
 ```yaml
@@ -99,6 +103,8 @@ opensearch-migration-pipeline:
         hosts: [ "https://sink-cluster:9200" ]
         username: "username"
         password: "password"
+        document_version_type: external
+        document_version: "${getMetadata(\"opensearch_document_version\")}"
         document_id: "${getMetadata(\"opensearch-document_id\")}"
         index: "${getMetadata(\"opensearch-index\"}"
 ```
@@ -114,7 +120,7 @@ Option | Required | Type    | Description
 `username` | No | String  | The username for HTTP basic authentication. Since Data Prepper 2.5, this setting can be refreshed at runtime if [AWS secrets reference]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#reference-secrets) is applied.
 `password` | No | String  | The password for HTTP basic authentication. Since Data Prepper 2.5, this setting can be refreshed at runtime if [AWS secrets reference]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#reference-secrets) is applied.
 `disable_authentication` | No | Boolean | Whether authentication is disabled. Defaults to `false`.
-`aws` | No | Object  | The AWS configuration. For more information, see [aws](#aws).
+`aws` | No | Object  | The AWS configuration. For more information, see [`aws`](#aws).
 `acknowledgments` | No | Boolean | When `true`, enables the `opensearch` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/#end-to-end-acknowledgments) when events are received by OpenSearch sinks. Default is `false`.
 `connection` | No | Object  | The connection configuration. For more information, see [Connection](#connection).
 `indices` | No | Object | The configuration for filtering which indexes are processed. Defaults to all indexes, including system indexes. For more information, see [indexes](#indices).
@@ -148,7 +154,9 @@ Option | Required | Type            | Description
 `start_time` | No | String | The time when processing should begin. The source will not start processing until this time. The string must be in ISO 8601 format, such as `2007-12-03T10:15:30.00Z`. The default option starts processing immediately.
 
 
+<!-- vale off -->
 ### indices
+<!-- vale on -->
 
 The following options help the `opensearch` source determine which indexes are processed from the source cluster using regex patterns. An index will only be processed if it matches one of the `index_name_regex` patterns under the `include` setting and does not match any of the
 patterns under the `exclude` setting.
@@ -165,7 +173,9 @@ Option | Required | Type    | Description
 :--- |:----|:-----------------| :---
 `index_name_regex` | Yes | Regex string | The regex pattern to match indexes against.
 
+<!-- vale off -->
 ### search_options
+<!-- vale on -->
 
 Use the following settings under the `search_options` configuration.
 
@@ -176,9 +186,9 @@ Option | Required | Type    | Description
 
 ### Default search behavior
 
-By default, the `opensearch` source will look up the cluster version and distribution to determine
-which `search_context_type` to use. For versions and distributions that support [Point in Time]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#point-in-time-with-search_after), `point_in_time` will be used.
-If `point_in_time` is not supported by the cluster, then [scroll]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#scroll-search) will be used. For Amazon OpenSearch Serverless collections, [search_after]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#the-search_after-parameter) will be used because neither `point_in_time` nor `scroll` are supported by collections.
+By default, the `opensearch` source uses the cluster's version and distribution to determine which `search_context_type` to use. For clusters and domains that support [Point in Time]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#point-in-time-with-search_after), the source uses `point_in_time`. If the cluster does not support Point in Time search, it falls back to [scroll search]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#scroll-search).
+
+For Amazon OpenSearch Serverless collections, the default behavior is to use [`search_after`]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#the-search_after-parameter). However, we recommend using `point_in_time` instead.
 
 ### Connection
 
@@ -229,7 +239,7 @@ In order to pull data from an OpenSearch cluster using the `opensearch` source p
 source:
   opensearch:
     username: "admin"
-    password: "admin"
+    password: "<custom-admin-password>"
   ...
 ```
 

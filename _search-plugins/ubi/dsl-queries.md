@@ -2,6 +2,7 @@
 layout: default
 title: Example UBI query DSL queries
 parent: User Behavior Insights
+grand_parent: Optimizing search quality
 has_children: false
 nav_order: 15
 ---
@@ -95,4 +96,4 @@ GET ubi_events/_search
 ```
 {% include copy.html %}
 
-You can run the preceding queries in the OpenSearch Dashboards [Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index-dev/) console.
+You can run the preceding queries in the OpenSearch Dashboards [Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index/) console.

@@ -1,11 +1,14 @@
 ---
 layout: default
 title: Simulate index templates
-parent: Index APIs
-nav_order: 145
+parent: Index templates
+grand_parent: Index APIs
+nav_order: 50
 ---
 
 # Simulate Index Templates API
+**Introduced 1.0**
+{: .label .label-purple }
 
 You can use the Simulate Index Template API to preview how index templates will be applied to an index or simulate an index template before creating it.
 
@@ -13,8 +16,8 @@ You can use the Simulate Index Template API to preview how index templates will 
 
 ```json
 POST /_index_template/_simulate
-POST /_index_template/_simulate/<template_name>
-POST /_index_template/_simulate_index/<index_name>
+POST /_index_template/_simulate/{template_name}
+POST /_index_template/_simulate_index/{index_name}
 ```
 
 ## Path parameters
@@ -57,8 +60,7 @@ POST /_index_template/_simulate_index/logs-sim-1
 
 
 response = client.indices.simulate_index_template(
-  name = "logs-sim-1",
-  body = { "Insert body here" }
+  name = "logs-sim-1"
 )
 
 {% endcapture %}
@@ -81,8 +83,7 @@ POST /_index_template/_simulate/template_for_simulation
 
 
 response = client.indices.simulate_template(
-  name = "template_for_simulation",
-  body = { "Insert body here" }
+  name = "template_for_simulation"
 )
 
 {% endcapture %}
@@ -220,8 +221,7 @@ POST /_index_template/_simulate/template_for_simulation
 
 
 response = client.indices.simulate_template(
-  name = "template_for_simulation",
-  body = { "Insert body here" }
+  name = "template_for_simulation"
 )
 
 {% endcapture %}
@@ -248,8 +248,7 @@ POST /_index_template/_simulate_index/logs-sim-1
 
 
 response = client.indices.simulate_index_template(
-  name = "logs-sim-1",
-  body = { "Insert body here" }
+  name = "logs-sim-1"
 )
 
 {% endcapture %}

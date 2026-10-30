@@ -3,6 +3,7 @@ layout: default
 title: Optimizing search with LTR
 nav_order: 70
 parent: Learning to Rank
+grand_parent: Optimizing search quality
 has_children: false
 ---
 
@@ -95,7 +96,7 @@ The `sltr` query can be integrated with the following OpenSearch features and fu
 -   Filtering out results based on business rules using OpenSearch filters before applying the model
 -   Chaining multiple rescores to refine the relevance of your results
 -   Rescoring once to address relevance with `sltr` and a second time for business concerns
--   Downboosting relevant but low-quality content in the baseline query to prevent it from being rescored
+-   Down-boosting relevant but low-quality content in the baseline query to prevent it from being rescored
 
 ## Next steps
 

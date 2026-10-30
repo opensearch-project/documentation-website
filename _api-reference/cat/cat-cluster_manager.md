@@ -79,3 +79,7 @@ response = client.cat.cluster_manager(
 id                     |   host     |     ip     |   node
 ZaIkkUd4TEiAihqJGkp5CA | 172.18.0.3 | 172.18.0.3 | opensearch-node2
 ```
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:monitor/state`.

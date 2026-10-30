@@ -13,7 +13,7 @@ The `span_containing` query finds matches where a larger text pattern (like a ph
 For example, you can use the `span_containing` query to perform the following searches:
 
 - Find the word "quick" but only when it appears in sentences that mention both foxes and behavior.
-- Ensure that certain terms appear within the context of other terms---not just anywhere in the document.
+- Ensure that certain terms appear within the context of other terms---not anywhere in the document.
 - Search for specific words that appear within larger meaningful phrases.
 
 ## Example

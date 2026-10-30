@@ -7,7 +7,6 @@ has_children: true
 redirect_from:
   - /search-plugins/neural-sparse-search/
   - /search-plugins/sparse-search/
-  - /search-plugins/neural-sparse-search/
 ---
 
 # Neural sparse search
@@ -27,7 +26,7 @@ To learn more about splitting long text into passages for neural sparse search, 
 
 ## Accelerating neural sparse search
 
-Starting with OpenSearch version 2.15, you can significantly accelerate the search process by creating a search pipeline with a `neural_sparse_two_phase_processor`. 
+You can significantly accelerate the search process by creating a search pipeline with a `neural_sparse_two_phase_processor`. 
 
 To create a search pipeline with a two-phase processor for neural sparse search, use the following request: 
 
@@ -67,6 +66,8 @@ For information about splitting large documents into smaller passages before gen
 {: .label .label-purple }
 
 You can run neural sparse approximate nearest neighbor (ANN) search to achieve better query performance with high query recall (>0.9). For more information, see [Neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/).
+
+You can choose between two engines for a `sparse_vector` field: the Lucene engine, which is the default, and the native engine. You select the engine in the field mapping, and the query syntax is the same for both. For more information, see [Engines]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/#engines).
 
 ## Further reading
 

@@ -26,16 +26,16 @@ Term | Definition
 
 The following table lists the supported operators. Operators are listed in order of precedence (top to bottom, left to right).
 
-| Operator             | Description                                           | Associativity |
-|----------------------|-------------------------------------------------------|---------------|
-| `()`                 | Priority expression                                   | Left to right |
-| `not`<br> `+`<br>  `-`| Unary logical NOT<br>Unary positive<br>Unary negative | Right to left |
-| `*`, `/`             | Multiplication and division operators                 | Left to right |
-| `+`, `-`             | Addition and subtraction operators                    | Left to right |
-| `+`                  | String concatenation operator                         | Left to right |
-| `<`, `<=`, `>`, `>=` | Relational operators                                  | Left to right |
-| `==`, `!=`           | Equality operators                                    | Left to right |
-| `and`, `or`          | Conditional expression                                | Left to right |
+| Operator               | Description                                           | Associativity |
+|------------------------|-------------------------------------------------------|---------------|
+| `()`                   | Priority expression                                   | Left to right |
+| `not`<br> `+`<br>  `-` | Unary logical NOT<br>Unary positive<br>Unary negative | Right to left |
+| `*`, `/`, `%`           | Multiplication (`*`), division (`/`), and modulo (`%`) operators        | Left to right |
+| `+`, `-`               | Addition and subtraction operators                    | Left to right |
+| `+`                    | String concatenation operator                         | Left to right |
+| `<`, `<=`, `>`, `>=`   | Relational operators                                  | Left to right |
+| `==`, `!=`             | Equality operators                                    | Left to right |
+| `and`, `or`            | Conditional expression                                | Left to right |
 
 ### Relational operators
 
@@ -236,6 +236,6 @@ White space is optional around relational operators, regex equality operators, e
 | `,`                  | Set value delimiter      | No                   | `/a in {200, 202}`<br>`/a in {200,202}`<br>`/a in {200 , 202}` | `/a in {200,}`                        |
 | `typeof`             | Type check operator      | Yes                   | `/a typeof integer`<br>`/a typeof long`<br>`/a typeof string`<br> `/a typeof double`<br> `/a typeof boolean`<br>`/a typeof map`<br>`/a typeof array` |`/a typeof /b`<br>`/a typeof 2`                      |
 
-## Related articles
+## Related documentation
 
 - [Functions]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/functions/)

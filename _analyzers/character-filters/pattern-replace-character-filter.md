@@ -59,12 +59,19 @@ The response contains the generated token:
  
 ## Parameters
 
-The `pattern_replace` character filter must be configured with the following parameters.
+The `pattern_replace` character filter supports the following parameters.
 
 | Parameter   | Required/Optional | Data type | Description    |
-|:---|:---|
+|:---|:---|:---|:---|
 | `pattern`   | Required | String | A regular expression used to match parts of the input text. The filter identifies and matches this pattern to perform replacement. |
-| `replacement` | Optional | String | The string that replaces pattern matches. Use an empty string (`""`) to remove the matched text. Default is an empty string (`""`).   |
+| `replacement` | Optional | String | The string that replaces pattern matches. Use an empty string (`""`) to remove the matched text. The replacement can reference capturing groups in `pattern` as `$1`, `$2`, and so on. For an example, see [Using capturing groups](#using-capturing-groups). Default is an empty string (`""`).   |
+| `flags` | Optional | String | One or more [Java regular expression flags](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html#field.summary) that modify how `pattern` is matched, for example, `CASE_INSENSITIVE`. To specify multiple flags, separate them with a pipe character (`\|`), for example, `"CASE_INSENSITIVE\|COMMENTS"`. |
+
+A poorly written regular expression can make analysis very slow and, in extreme cases, cause a `StackOverflowError` that stops the node. Avoid patterns that can match the same text in many ways, such as nested quantifiers like `(a+)+`, and test new patterns on representative text using the [Analyze API]({{site.url}}{{site.baseurl}}/api-reference/analyze-apis/).
+{: .warning}
+
+If a replacement changes the length of the text, search results are not affected, but [highlighting]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight/) can be inaccurate. OpenSearch adjusts the character offsets of tokens to match the original text, but the adjustment can be imprecise for tokens next to a replacement. For example, if the filter removes parentheses and hyphens from `Call (555) 123-4567 today`, a search for `555` highlights `(<em>555)</em>`, including the closing parenthesis. If you need precise highlighting, test the results on your data.
+{: .note}
 
 ## Creating a custom analyzer
 

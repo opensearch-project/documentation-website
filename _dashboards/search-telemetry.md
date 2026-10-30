@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Search telemetry
-nav_order: 140
+parent: Settings and administration
+nav_order: 70
 ---
 
 

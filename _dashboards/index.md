@@ -7,65 +7,81 @@ nav_exclude: true
 permalink: /dashboards/
 redirect_from:
   - /dashboards/index/
+start_cards:
+  - heading: "Install OpenSearch Dashboards"
+    description: "Install OpenSearch Dashboards using Docker, Helm, a package manager, a tarball, or on Windows"
+    link: "/install-and-configure/install-dashboards/index/"
+  - heading: "Try it in the Playground"
+    description: "Explore OpenSearch Dashboards in your browser without installing anything"
+    link: "https://playground.opensearch.org/app/home#/"
+getting_started_cards:
+  - heading: "Getting started"
+    description: "Learn the main applications step by step using sample data"
+    link: "/dashboards/getting-started/"
+  - heading: "Navigating OpenSearch Dashboards"
+    description: "Learn the layout of the home page and the left navigation panel"
+    link: "/dashboards/navigating-ui/"
 ---
 
 # OpenSearch Dashboards
 
-OpenSearch Dashboards is the user interface that lets you visualize your OpenSearch data and run and scale your OpenSearch clusters.
+OpenSearch Dashboards is the web UI for OpenSearch. Use it to search and explore your data, build visualizations and dashboards, and manage your cluster without writing API requests.
+
+{% include cards.html cards=page.start_cards %}
 
 ## Getting started
 
-| Concept | Description | 
-|---------|-------------|
-| [OpenSearch Dashboards Quickstart]({{site.url}}{{site.baseurl}}/dashboards/quickstart-dashboards/) | Learn about the basic concepts and features of OpenSearch Dashboards. |
-| [OpenSearch Playground](https://playground.opensearch.org/app/home#/) | Explore features in OpenSearch Dashboards without downloading or installing anything. |
-| [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/) | Get started with OpenSearch Dashboards. | 
-| [Create visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/) | Learn about visualizing data in OpenSearch Dashboards. |
-| [Explore and query data]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) | Learn how to explore and query data in OpenSearch. |
+{% include cards.html cards=page.getting_started_cards %}
 
-## Query languages
+## Adding data
 
-Query language | Where you can use it | Description
-:--- | :--- | :---
-[Query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/index/) | [Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index-dev/) | The primary OpenSearch query language that supports creating complex, fully customizable queries.
-[Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) | [Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) and [Dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/) search bar | A simple text-based query language used to filter data in OpenSearch Dashboards. 
-[Query string query language]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) | [Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) and [Dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/) search bar | A scaled-down query language whose syntax is based on the Apache Lucene query syntax.
-[SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/index/) | [Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/) | A traditional query language that bridges the gap between relational database concepts and the flexibility of OpenSearch’s document-oriented data storage.
-[Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) | [Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/) | The primary language used with observability in OpenSearch. PPL uses a pipe syntax that chains commands into a query.
+To work with data in OpenSearch Dashboards, either add it to OpenSearch or connect to where it's stored:
 
-### Discover and Dashboard search bar
+- [Ingest data]({{site.url}}{{site.baseurl}}/getting-started/ingest-data/) into OpenSearch indexes.
+- [Connect data sources]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/), such as other OpenSearch clusters, Amazon S3, or Prometheus, to query data without ingesting it.
 
-Using the search bar in the [Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) and [Dashboard]({{site.url}}{{site.baseurl}}/dashboards/dashboard/index/) apps, you can search data with the following two languages:
+## Exploring and visualizing data
 
-- [DQL]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) 
+Use the following applications to search your data and present it visually. The table lists the query language that you use in each application.
 
-- [Query string query (Lucene)]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/)
+| Application | Use it to | Query language |
+| :--- | :--- | :--- |
+| [Discover]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) | Search, filter, and examine your data. | [DQL]({{site.url}}{{site.baseurl}}/dashboards/dql/) or [query string (Lucene)]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) |
+| [Visualize]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualize-app/) | Create charts, maps, tables, and other visualizations using a point-and-click interface. | [DQL]({{site.url}}{{site.baseurl}}/dashboards/dql/) or [query string (Lucene)]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) |
+| [Dashboards]({{site.url}}{{site.baseurl}}/dashboards/dashboard/) | Combine multiple visualizations into a single page and filter all of them at once. | [DQL]({{site.url}}{{site.baseurl}}/dashboards/dql/) or [query string (Lucene)]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) |
+| [Query Workbench]({{site.url}}{{site.baseurl}}/dashboards/query-workbench/) | Run on-demand SQL and PPL queries. | [SQL]({{site.url}}{{site.baseurl}}/sql-and-ppl/sql/) or [PPL]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/) |
+| [Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index/) | Send OpenSearch API requests from the browser. | [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/) |
 
-The following table compares DQL and query string query language features.
+If [workspaces]({{site.url}}{{site.baseurl}}/dashboards/workspace/) are enabled, you can also create visualizations by writing PPL or PromQL queries. For more information, see [Creating visualizations using queries]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/).
 
-DQL and query string query language | DQL | Query string query language
-:--- | :--- | :---
-- Wildcard expressions (DQL supports `*` only)<br> - Ranges<br> - Boolean operations<br> | - Querying nested fields | - Regular expressions<br> - Fuzziness<br> - Proximity queries<br> - Boosting
+## Exporting data and generating reports
 
-By default, the query language in the Discover search toolbar is DQL. To switch to query string syntax, select **DQL** and then turn off **OpenSearch Dashboards Query Language**. The query language changes to `Lucene`, as shown in the following image.
+Download search results or visualization data as CSV files, or export your dashboards and visualizations as saved objects to back them up or copy them to another instance. For more information, see [Exporting data]({{site.url}}{{site.baseurl}}/dashboards/exporting-data/).
 
-![Using query string syntax in OpenSearch Dashboards Discover]({{site.url}}{{site.baseurl}}/images/discover-lucene-syntax.png)
+To share a dashboard, visualization, or saved search as a PDF, PNG, CSV, or XLSX file, either once or on a schedule, see [Reporting]({{site.url}}{{site.baseurl}}/dashboards/reporting/).
+
+## Managing indexes and snapshots
+
+Use the following applications to manage indexes and snapshots.
+
+| Application | Use it to |
+| :--- | :--- |
+| [Index Management]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/) | Manage indexes, data streams, aliases, templates, and Index State Management policies. |
+| [Snapshot Management]({{site.url}}{{site.baseurl}}/dashboards/sm-dashboards/) | Back up and restore your cluster's indexes and state. |
 
 ## Observability
 
-| Concept | Description | 
-|---------|-------------|
-| [Observability in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/observing-your-data/index/) | Observe, monitor, and secure data and improve performance across tools and workflows. |
+To monitor logs, traces, and metrics in OpenSearch Dashboards, see [Observability]({{site.url}}{{site.baseurl}}/observing-your-data/index/). To set up prebuilt dashboards and visualizations for common data sources, such as NGINX logs, see [Integrations]({{site.url}}{{site.baseurl}}/dashboards/integrations/index/).
 
+## Using AI assistance
 
-## Dashboards Management
+The [OpenSearch Assistant]({{site.url}}{{site.baseurl}}/dashboards/dashboards-assistant/index/) adds AI-powered assistance to OpenSearch Dashboards.
 
-| Concept | Description | 
-|---------|-------------|
-| [Dashboards Management]({{site.url}}{{site.baseurl}}/dashboards/management/management-index/) | Learn about the command center for customizing your OpenSearch Dashboards behavior, creating index patterns, and configuring data sources. |
+## Configuring and administering OpenSearch Dashboards
 
-## Dev Tools 
+You can configure OpenSearch Dashboards in two places, depending on your role.
 
-| Concept | Description |
-|---------|-------------|
-| [Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index-dev/) | Learn how to run OpenSearch queries in an integrated console. |
+| Where | Who uses it | What you can configure |
+| :--- | :--- | :--- |
+| [Dashboards Management]({{site.url}}{{site.baseurl}}/dashboards/management/management-index/), an application in the UI | Users who have the required permissions | [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/), [data sources]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/), [saved objects]({{site.url}}{{site.baseurl}}/dashboards/management/saved-objects/), and [advanced settings]({{site.url}}{{site.baseurl}}/dashboards/management/advanced-settings/) |
+| The `opensearch_dashboards.yml` configuration file | Administrators who deploy OpenSearch Dashboards and have access to the host | Deployment-level settings, such as [custom branding]({{site.url}}{{site.baseurl}}/dashboards/branding/), [network compression]({{site.url}}{{site.baseurl}}/dashboards/compression/), and [workspaces]({{site.url}}{{site.baseurl}}/dashboards/workspace/). For more information, see [Settings and administration]({{site.url}}{{site.baseurl}}/dashboards/settings-and-administration/) and [Configuring OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-dashboards/). |

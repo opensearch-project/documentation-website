@@ -21,4 +21,9 @@ Connecting to external MCP servers expands agent capabilities to include the fol
 - Implementing secure authentication and authorization for tool access
 - Interacting with various tools through a consistent, standardized interface
 
-To start using MCP, see [Connecting to an external MCP server]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/mcp-connector/). 
+To start using MCP, see [Connecting to an external MCP server]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/mcp-connector/).
+
+This section describes the in-cluster MCP connector that lets OpenSearch agents call tools hosted on external MCP servers.
+
+OpenSearch also provides an MCP server that exposes OpenSearch APIs to external AI assistants. In contrast to the in-cluster MCP connector, the OpenSearch MCP Server lets external clients query OpenSearch rather than letting OpenSearch agents call external tools. For more information, see [OpenSearch MCP Server]({{site.url}}{{site.baseurl}}/ai-agent-integrations/mcp-server/).
+{: .note} 

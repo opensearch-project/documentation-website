@@ -3,12 +3,14 @@ layout: default
 title: SAML
 parent: Authentication backends
 nav_order: 55
+has_children: true
+has_toc: false
 redirect_from:
   - /security/configuration/saml/
   - /security-plugin/configuration/saml/
 ---
 
-# SAML
+# SAML authentication
 
 The Security plugin supports user authentication through SAML single sign-on. The Security plugin implements the web browser SSO profile of the SAML 2.0 protocol.
 
@@ -163,7 +165,7 @@ Name | Description
 `kibana_url` | The OpenSearch Dashboards base URL. Required.
 
 
-## Username and Role attributes
+## Username and role attributes
 
 Subjects (for example, user names) are usually stored in the `NameID` element of a SAML response:
 
@@ -210,11 +212,11 @@ The Security plugin supports the following signature algorithms.
 
 Algorithm | Value
 :--- | :---
-DSA_SHA1 | http://www.w3.org/2000/09/xmldsig#dsa-sha1;
-RSA_SHA1 | http://www.w3.org/2000/09/xmldsig#rsa-sha1;
-RSA_SHA256 | http://www.w3.org/2001/04/xmldsig-more#rsa-sha256;
-RSA_SHA384 | http://www.w3.org/2001/04/xmldsig-more#rsa-sha384;
-RSA_SHA512 | http://www.w3.org/2001/04/xmldsig-more#rsa-sha512;
+`DSA_SHA1` | http://www.w3.org/2000/09/xmldsig#dsa-sha1;
+`RSA_SHA1` | http://www.w3.org/2000/09/xmldsig#rsa-sha1;
+`RSA_SHA256` | http://www.w3.org/2001/04/xmldsig-more#rsa-sha256;
+`RSA_SHA384` | http://www.w3.org/2001/04/xmldsig-more#rsa-sha384;
+`RSA_SHA512` | http://www.w3.org/2001/04/xmldsig-more#rsa-sha512;
 
 
 ## Logout
@@ -225,7 +227,7 @@ Name | Description
 :--- | :---
 `sp.forceAuthn` | Force a re-login even if the user has an active session with the IdP.
 
-Currently, the Security plugin supports only the `HTTP-Redirect` logout binding. Make sure this is configured correctly in your IdP.
+The Security plugin supports only the `HTTP-Redirect` logout binding. Make sure this is configured correctly in your IdP.
 
 
 ## Exchange key settings
@@ -401,3 +403,7 @@ Then add this endpoint to `server.xsrf.allowlist` in `opensearch_dashboards.yml`
 ```yml
 server.xsrf.allowlist: ["/_opendistro/_security/saml/acs/idpinitiated", "/_opendistro/_security/saml/acs", "/_opendistro/_security/saml/logout"]
 ```
+
+## Troubleshooting
+
+- For solutions to common SAML configuration issues, see [Troubleshooting SAML]({{site.url}}{{site.baseurl}}/security/authentication-backends/troubleshoot-saml/).

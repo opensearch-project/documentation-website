@@ -15,7 +15,7 @@ redirect_from:
 
 The cluster decommission operation adds support decommissioning based on awareness. It greatly benefits multi-zone deployments, where awareness attributes, such as `zones`, can aid in applying new upgrades to a cluster in a controlled fashion. This is especially useful during outages, in which case, you can decommission the unhealthy zone to prevent replication requests from stalling and prevent your request backlog from becoming too large.
 
-For more information about allocation awareness, see [Shard allocation awareness]({{site.url}}{{site.baseurl}}/opensearch/cluster/#shard-allocation-awareness).
+For more information about allocation awareness, see [Shard allocation awareness]({{site.url}}{{site.baseurl}}/tuning-your-cluster/creating-a-cluster/#shard-allocation-awareness).
 
 
 ## Endpoints
@@ -30,10 +30,12 @@ DELETE /_cluster/decommission/awareness
 
 Parameter | Type | Description
 :--- | :--- | :---
-awareness_attribute_name | String | The name of awareness attribute, usually `zone`.
-awareness_attribute_value | String | The value of the awareness attribute. For example, if you have shards allocated in two different zones, you can give each zone a value of `zone-a` or `zoneb`. The cluster decommission operation decommissions the zone listed in the method.
+`awareness_attribute_name` | String | The name of awareness attribute, usually `zone`.
+`awareness_attribute_value` | String | The value of the awareness attribute. For example, if you have shards allocated in two different zones, you can give each zone a value of `zone-a` or `zoneb`. The cluster decommission operation decommissions the zone listed in the method.
 
 ## Example requests
+
+The following examples demonstrate how to use the Cluster Decommission API.
 
 ### Decommissioning and recommissioning a zone
 
@@ -136,4 +138,4 @@ The following example response returns the decommission status of all zones:
 ## Next steps
 
 - For more information about zone awareness and weight, see [Cluster awareness]({{site.url}}{{site.baseurl}}/api-reference/cluster-awareness/).
-- For more information about allocation awareness, see [Cluster formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/#advanced-step-6-configure-shard-allocation-awareness-or-forced-awareness).
+- For more information about allocation awareness, see [Cluster formation]({{site.url}}{{site.baseurl}}/tuning-your-cluster/creating-a-cluster/#advanced-step-6-configure-shard-allocation-awareness-or-forced-awareness).

@@ -9,29 +9,34 @@ has_children: false
 has_toc: false
 ---
 
-# Doc values
+# Doc values mapping parameter
 
-By default, most fields are indexed and searchable using the inverted index. The inverted index works by storing a unique sorted list of terms and mapping each term to the documents that contain it.
+The `doc_values` mapping parameter controls whether OpenSearch stores a field's values in doc values, an on-disk structure organized by document. OpenSearch builds doc values at index time and uses them for operations that need a field's value for each matching document: sorting, aggregations, and accessing field values in scripts.
 
-Sorting, aggregations, and field access in scripts, however, require a different approach. Instead of finding documents from terms, these operations need to retrieve terms from specific documents.
+Searching uses a different structure. The inverted index maps each term to the documents that contain it, which makes it fast to find documents for a query but slow to look up the value of a field in a given document. Doc values store the same values as the `_source` field, but in columns, one per field, so OpenSearch can read the value for any document without parsing `_source`.
 
-Doc values make these operations possible. They are an on-disk, column-oriented data structure created at index time. Although they store the same values as the `_source` field, their format is optimized for fast sorting and aggregations.
+Doc values are enabled by default for all field types that support them. The `text` field type does not support doc values, and OpenSearch ignores `doc_values` in a `text` field mapping. To sort or aggregate on text, add a [`keyword`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/keyword/) subfield or, less commonly, enable [field data]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/field-data/).
 
-Doc values are enabled by default on nearly all field types, except for `text` fields. If you know that a field won't be used for sorting, aggregations, or scripting, you can disable doc values in order to reduce disk usage.
+If you do not sort, aggregate, or run scripts on a field, you can disable doc values to reduce disk usage. A field with doc values disabled can still be searched. Note the following considerations before disabling doc values:
 
-## Example
+- You cannot change `doc_values` for an existing field. To enable or disable doc values later, you must reindex your data into a new index.
+- [Derived source]({{site.url}}{{site.baseurl}}/mappings/metadata-fields/source/#derived-source) reconstructs `_source` from doc values and stored fields. OpenSearch rejects a derived source mapping that disables both `doc_values` and [`store`]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/store/) for a field.
 
-To understand how `doc_values` affect fields, create a sample index. In this index, the `status_code` field  has `doc_values` enabled by default, allowing it to support sorting and aggregations. The `session_id` field has `doc_values` disabled, so it does not support sorting or aggregations but can still be queried:
+The reverse trade-off is also possible for numeric fields. If you set [`index`]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/index-parameter/) to `false` on a numeric field but keep doc values, OpenSearch can still search the field by scanning its doc values. Such queries are slower than queries on indexed fields, so this configuration suits fields that are mainly aggregated and only occasionally searched.
+
+## Example: Disabling doc values on a lookup field
+
+The following request creates an index in which the `response_code` field uses the default doc values, so you can sort and aggregate on it. The `request_id` field has doc values disabled because each value is unique and is only used to look up individual requests:
 
 ```json
 PUT /web_analytics
 {
   "mappings": {
     "properties": {
-      "status_code": {
+      "response_code": {
         "type": "keyword"
       },
-      "session_id": {
+      "request_id": {
         "type": "keyword",
         "doc_values": false
       }
@@ -46,8 +51,8 @@ Add some sample data to the index:
 ```json
 PUT /web_analytics/_doc/1
 {
-  "status_code": "200",
-  "session_id": "abc123"
+  "response_code": "200",
+  "request_id": "req-7f3a"
 }
 ```
 {% include copy-curl.html %}
@@ -55,31 +60,31 @@ PUT /web_analytics/_doc/1
 ```json
 PUT /web_analytics/_doc/2
 {
-  "status_code": "404",
-  "session_id": "def456"
+  "response_code": "404",
+  "request_id": "req-91c2"
 }
 ```
 {% include copy-curl.html %}
 
 ```json
-PUT /web_analytics/_doc/3
+PUT /web_analytics/_doc/3?refresh=true
 {
-  "status_code": "200",
-  "session_id": "ghi789"
+  "response_code": "200",
+  "request_id": "req-b04e"
 }
 ```
 {% include copy-curl.html %}
 
-Perform an aggregation on the `status_code` field:
+Perform an aggregation on the `response_code` field:
 
 ```json
 GET /web_analytics/_search
 {
   "size": 0,
   "aggs": {
-    "status_codes": {
+    "response_codes": {
       "terms": {
-        "field": "status_code"
+        "field": "response_code"
       }
     }
   }
@@ -87,11 +92,11 @@ GET /web_analytics/_search
 ```
 {% include copy-curl.html %}
 
-This aggregation returns correct results because `status_code` has `doc_values` enabled:
+The aggregation returns a bucket for each response code:
 
 ```json
 {
-  "took": 37,
+  "took": 4,
   "timed_out": false,
   "terminated_early": true,
   "_shards": {
@@ -109,7 +114,7 @@ This aggregation returns correct results because `status_code` has `doc_values` 
     "hits": []
   },
   "aggregations": {
-    "status_codes": {
+    "response_codes": {
       "doc_count_error_upper_bound": 0,
       "sum_other_doc_count": 0,
       "buckets": [
@@ -127,16 +132,16 @@ This aggregation returns correct results because `status_code` has `doc_values` 
 }
 ```
 
-Attempt to aggregate on the `session_id` field:
+Attempt to aggregate on the `request_id` field:
 
 ```json
 GET /web_analytics/_search
 {
   "size": 0,
   "aggs": {
-    "session_counts": {
+    "request_counts": {
       "terms": {
-        "field": "session_id"
+        "field": "request_id"
       }
     }
   }
@@ -144,4 +149,4 @@ GET /web_analytics/_search
 ```
 {% include copy-curl.html %}
 
-This aggregation fails because `session_id` has `doc_values` disabled, preventing the document-to-field lookup required for aggregations.
+OpenSearch rejects the request because `request_id` has no doc values from which to read each document's value. Sorting on `request_id` fails for the same reason. However, you can still search the field. For example, a `term` query for `req-91c2` returns document 2.

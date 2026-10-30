@@ -2,8 +2,11 @@
 layout: default
 title: UBI index schemas
 parent: User Behavior Insights
+grand_parent: Optimizing search quality
 has_children: false
 nav_order: 5
+redirect_from:
+  - /search-plugins/ubi/data-structures/
 ---
 
 # UBI index schemas
@@ -34,8 +37,8 @@ and how those, in turn, interact with the **OpenSearch cluster**, which houses t
 Blue arrows illustrate standard search, bold, dashed lines illustrate UBI-specific additions, and
 red arrows illustrate the flow of the `query_id` to and from OpenSearch.
 
-<img src="{{site.url}}{{site.baseurl}}/images/ubi/ubi-schema-interactions_legend.png" />
-<img src="{{site.url}}{{site.baseurl}}/images/ubi/ubi-schema-interactions.png" />
+![]({{site.url}}{{site.baseurl}}/images/ubi/ubi-schema-interactions_legend.png)
+![]({{site.url}}{{site.baseurl}}/images/ubi/ubi-schema-interactions.png)
 
 {% comment %}
 The mermaid source below is converted into a PNG under 
@@ -144,7 +147,7 @@ The `ubi_queries` index [schema](https://github.com/OpenSearch-project/user-beha
 
 - `client_id` (events and queries): A client ID provided by the client application.
 
-- `query_response_objects_ids` (queries): An array of object IDs. An ID can have the same value as the `_id`, but it is meant to be the externally valid ID of a document, item, or product.
+- `query_response_hit_ids` (queries): An array of object IDs. An ID can have the same value as the `_id`, but it is meant to be the externally valid ID of a document, item, or product.
 
 Because UBI manages the `ubi_queries` index, you should never have to write directly to this index (except when importing data).
 

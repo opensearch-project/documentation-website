@@ -1,14 +1,16 @@
 ---
 layout: default
 title: aggregate
-nav_order: 85
+nav_order: 10
 parent: Command reference
-grand_parent: OpenSearch Benchmark Reference
+grand_parent: Reference
 redirect_from:
   - /benchmark/commands/aggregate/
 ---
 
-# aggregate
+<!-- vale off -->
+# aggregate command
+<!-- vale on -->
 
 The `aggregate` command combines multiple test runs into a single aggregated result, providing a more streamlined way to conduct and analyze multiple test runs. There are two methods of aggregation:
 

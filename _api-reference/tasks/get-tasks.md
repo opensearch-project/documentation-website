@@ -9,7 +9,10 @@ nav_order: 20
 **Introduced 1.0**
 {: .label .label-purple }
 
-The Get Task API returns detailed information about a single task.
+The Get Task API returns detailed information about a single general OpenSearch task (such as search, reindex, or bulk operations).
+
+This API is different from the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/), which tracks machine learning tasks and has a different response format.
+{: .important }
 
 <!-- spec_insert_start
 api: tasks.get
@@ -52,63 +55,100 @@ The following table lists the available query parameters. All query parameters a
 
 ## Example request
 
-The following request returns detailed information about active search tasks:
+The following request returns information about a reindex task:
 
-```bash
-curl -XGET "localhost:9200/_tasks?actions=*search&detailed
+```json
+GET /_tasks/6It0uQ1AR06IDC4nMstPQw:908779
 ```
-{% include copy.html %}
+{% include copy-curl.html %}
 
 ## Example response
 
-The following response returns detailed information about the `transport` task:
+The task in this example has already completed, so the response contains the result of the reindex operation in the `response` object:
 
 ```json
 {
-  "nodes": {
-    "JzrCxdtFTCO_RaINw8ckNA": {
-      "name": "node-1",
-      "transport_address": "127.0.0.1:9300",
-      "host": "127.0.0.1",
-      "ip": "127.0.0.1:9300",
-      "roles": [
-        "data",
-        "ingest",
-        "cluster_manager",
-        "remote_cluster_client"
-      ],
-      "tasks": {
-        "JzrCxdtFTCO_RaINw8ckNA:54321": {
-          "node": "JzrCxdtFTCO_RaINw8ckNA",
-          "id": 54321,
-          "type": "transport",
-          "action": "indices:data/read/search",
-          "status": {
-            "total": 1000,
-            "created": 0,
-            "updated": 0,
-            "deleted": 0,
-            "batches": 1,
-            "version_conflicts": 0,
-            "noops": 0,
-            "retries": {
-              "bulk": 0,
-              "search": 0
-            },
-            "throttled_millis": 0,
-            "requests_per_second": -1.0,
-            "throttled_until_millis": 0
-          },
-          "description": "indices[test_index], types[_doc], search_type[QUERY_THEN_FETCH], source[{\"query\":{\"match_all\":{}}}]",
-          "start_time_in_millis": 1625145678901,
-          "running_time_in_nanos": 2345678,
-          "cancellable": true
-        }
-      }
-    }
+  "completed": true,
+  "task": {
+    "node": "6It0uQ1AR06IDC4nMstPQw",
+    "id": 908779,
+    "type": "transport",
+    "action": "indices:data/write/reindex",
+    "status": {
+      "total": 3,
+      "updated": 0,
+      "created": 3,
+      "deleted": 0,
+      "batches": 1,
+      "version_conflicts": 0,
+      "noops": 0,
+      "retries": {
+        "bulk": 0,
+        "search": 0
+      },
+      "throttled_millis": 0,
+      "requests_per_second": -1.0,
+      "throttled_until_millis": 0
+    },
+    "description": "reindex from [products] to [products-copy]",
+    "start_time_in_millis": 1793043339924,
+    "running_time_in_nanos": 704592000,
+    "cancellable": true,
+    "cancelled": false,
+    "headers": {}
+  },
+  "response": {
+    "took": 434,
+    "timed_out": false,
+    "total": 3,
+    "updated": 0,
+    "created": 3,
+    "deleted": 0,
+    "batches": 1,
+    "version_conflicts": 0,
+    "noops": 0,
+    "retries": {
+      "bulk": 0,
+      "search": 0
+    },
+    "throttled": "0s",
+    "throttled_millis": 0,
+    "requests_per_second": -1.0,
+    "throttled_until": "0s",
+    "throttled_until_millis": 0,
+    "failures": []
   }
 }
 ```
+
+## Response body fields
+
+The following table lists all response body fields.
+
+Field | Data type | Description
+:--- | :--- | :---
+`completed` | Boolean | Whether the task has completed.
+`task` | Object | Information about the task. See [The `task` object](#the-task-object).
+`response` | Object | The result of the operation that the task ran. Present only after the task completes. The fields depend on the operation. For example, a reindex task returns the same fields as the [Reindex API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/).
+
+### The `task` object
+
+The following table lists all response fields in the `task` object.
+
+Field | Data type | Description
+:--- | :--- | :---
+`node` | String | The ID of the node running the task.
+`id` | Integer | The task ID on the node. The full task ID used in requests has the format `<node>:<id>`.
+`type` | String | The task type, for example, `transport`.
+`action` | String | The action that the task performs, for example, `indices:data/write/reindex`.
+`status` | Object | The current state of the task. The fields depend on the task type. For example, a reindex task reports the number of documents processed so far.
+`description` | String | A description of the task.
+`start_time_in_millis` | Long | The time at which the task started, in milliseconds since the epoch.
+`running_time_in_nanos` | Long | The amount of time for which the task has been running, in nanoseconds.
+`cancellable` | Boolean | Whether the task can be canceled.
+`cancelled` | Boolean | Whether the task has been canceled.
+`headers` | Object | The tracked request headers of the request that started the task, such as `X-Opaque-Id`. Other request headers are not included.
+`resource_stats` | Object | Resource usage statistics. Present only for running tasks that support resource tracking. See [The `resource_stats` object](#the-resource_stats-object).
 
 ### The `resource_stats` object
 
@@ -125,3 +165,7 @@ Response field | Description |
 `thread_info` | Thread-count-related statistics.|
 `thread_info.active_threads` | The number of threads currently working on the task. |
 `thread_info.thread_executions` | The number of threads that have been scheduled to work on the task. |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:monitor/tasks/get`.

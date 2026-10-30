@@ -3,6 +3,7 @@ layout: default
 title: Working with features
 nav_order: 30
 parent: Learning to Rank
+grand_parent: Optimizing search quality
 has_children: false
 ---
 

@@ -7,56 +7,57 @@ redirect_from:
   - /api-reference/ingest-apis/simulate-ingest/
 ---
 
-# Simulate pipeline
+# Simulate Pipeline API
 **Introduced 1.0**
 {: .label .label-purple }
 
-Use the simulate ingest pipeline API operation to run or test the pipeline.
+The Simulate Pipeline API runs an ingest pipeline against a set of sample documents and returns the transformed documents without indexing them. Use it to test a pipeline before you apply it to your data. You can simulate an existing pipeline or provide a pipeline definition in the request body.
 
 ## Endpoints
 
-The following requests **simulate the latest ingest pipeline created**:
+```json
+GET  /_ingest/pipeline/_simulate
+POST /_ingest/pipeline/_simulate
+GET  /_ingest/pipeline/{pipeline-id}/_simulate
+POST /_ingest/pipeline/{pipeline-id}/_simulate
+```
 
-```
-GET _ingest/pipeline/_simulate
-POST _ingest/pipeline/_simulate
-```
-{% include copy-curl.html %}
+## Path parameters
 
-The following requests **simulate a single pipeline based on the pipeline ID**:
+The following table lists the available path parameters. All path parameters are optional.
 
-```
-GET _ingest/pipeline/<pipeline-id>/_simulate
-POST _ingest/pipeline/<pipeline-id>/_simulate
-```
-{% include copy-curl.html %}
+Parameter | Data type | Description
+:--- | :--- | :---
+`pipeline-id` | String | The ID of an existing pipeline to simulate. If not specified, provide the pipeline definition in the `pipeline` request body field.
+
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+Parameter | Data type | Description
+:--- | :--- | :---
+`verbose` | Boolean | If `true`, the response contains the result of each processor in the pipeline, including the document after each processor runs. Default is `false`.
 
 ## Request body fields
 
-The following table lists the request body fields used to run a pipeline.
+The following table lists the available request body fields.
 
-Field | Required | Type | Description
-:--- | :--- | :--- | :---
-`docs` | Required | Array | The documents to be used to test the pipeline.
-`pipeline` | Optional | Object | The pipeline to be simulated. If the pipeline identifier is not included, then the response simulates the latest pipeline created.
-
-The `docs` field can include subfields listed in the following table.
-
-Field | Required | Type | Description
-:--- | :--- | :--- | :---
-`source` | Required | Object | The document's JSON body.
-`id` | Optional | String | A unique document identifier. The identifier cannot be used elsewhere in the index.
-`index` | Optional | String | The index where the document's transformed data appears.
-
-## Query parameters 
-
-The following table lists the query parameters for running a pipeline. 
-
-Parameter | Type | Description
+Field | Data type | Description
 :--- | :--- | :---
-`verbose` | Boolean | Verbose mode. Display data output for each processor in the executed pipeline.
+`docs` | Array of objects | The documents to run through the pipeline. Required.
+`pipeline` | Object | The definition of the pipeline to simulate. Contains the same fields as the [Create or Update Pipeline API]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#request-body-fields) request body. Required if the pipeline ID is not specified in the path.
 
-#### Example: Specify a pipeline in the path
+Each object in the `docs` array contains the following fields.
+
+Field | Data type | Description
+:--- | :--- | :---
+`_source` | Object | The document's JSON body. Required.
+`_id` | String | The document ID. Processors can read and modify the ID using the `_id` metadata field. Optional.
+`_index` | String | The index name. Processors can read and modify the index name using the `_index` metadata field. Optional.
+
+## Example: Simulating an existing pipeline
+
+The following request runs two documents through the `my-pipeline` pipeline created in the [Create or Update Pipeline API example]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#example-request):
 
 ```json
 POST /_ingest/pipeline/my-pipeline/_simulate
@@ -85,7 +86,7 @@ POST /_ingest/pipeline/my-pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-The request returns the following response:
+The response contains each document after the pipeline processed it:
 
 ```json
 {
@@ -122,9 +123,29 @@ The request returns the following response:
 }
 ```
 
-#### Example: Verbose mode
+## Example: Viewing the result of each processor
 
-When the previous request is run with the `verbose` parameter set to `true`, the response shows the sequence of transformations for each document. For example, for the document with the ID `1`, the response contains the results of applying each processor in the pipeline in sequence:
+To view the document after each processor runs, set the `verbose` query parameter to `true`:
+
+```json
+POST /_ingest/pipeline/my-pipeline/_simulate?verbose=true
+{
+  "docs": [
+    {
+      "_index": "my-index",
+      "_id": "1",
+      "_source": {
+        "grad_year": 2024,
+        "graduated": false,
+        "name": "John Doe"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+The response contains the results of applying each processor in the pipeline in sequence:
 
 ```json
 {
@@ -152,7 +173,7 @@ When the previous request is run with the `verbose` parameter set to `true`, the
         {
           "processor_type": "set",
           "status": "success",
-          "description": "Sets 'graduated' to true",
+          "description": "Sets graduated to true",
           "doc": {
             "_index": "my-index",
             "_id": "1",
@@ -190,16 +211,16 @@ When the previous request is run with the `verbose` parameter set to `true`, the
 }
 ```
 
-#### Example: Specify a pipeline in the request body
+## Example: Simulating a pipeline defined in the request body
 
-Alternatively, you can specify a pipeline directly in the request body without first creating a pipeline:
+To test a pipeline without creating it, provide the pipeline definition in the request body:
 
 ```json
 POST /_ingest/pipeline/_simulate
 {
   "pipeline" :
   {
-    "description": "Splits text on white space characters",
+    "description": "Splits comma-separated text into fields",
     "processors": [
       {
         "csv" : {
@@ -235,8 +256,6 @@ POST /_ingest/pipeline/_simulate
 }
 ```
 {% include copy-curl.html %}
-
-#### Response
 
 The request returns the following response:
 
@@ -274,3 +293,30 @@ The request returns the following response:
   ]
 }
 ```
+
+## Response body fields
+
+The response contains the `docs` array, with one object for each document in the request, in the same order as the request. If a processor dropped a document, the array contains `null` for that document. Each object in the array contains the following fields.
+
+Field | Data type | Description
+:--- | :--- | :---
+`doc` | Object | The document after the pipeline processed it, including its `_index`, `_id`, `_source`, and `_ingest` metadata. Returned when `verbose` is `false` and the document was processed successfully.
+`error` | Object | The error that caused the pipeline to fail for this document. Returned if processing failed. In this case, `doc` isn't returned.
+`processor_results` | Array of objects | The result of each processor, in the order in which the processors ran. Returned only when `verbose` is `true`.
+
+Each object in the `processor_results` array contains the following fields.
+
+Field | Data type | Description
+:--- | :--- | :---
+`processor_type` | String | The processor type, for example, `set`.
+`status` | String | The processor result. Valid values are `success`, `error` (the processor failed; if it defines `on_failure`, the results of the `on_failure` processors follow), `error_ignored` (the processor failed and `ignore_failure` is `true`), `skipped` (the processor's `if` condition returned `false`), and `dropped` (the processor dropped the document).
+`description` | String | The processor description. Returned only if the processor has a description.
+`tag` | String | The processor tag. Returned only if the processor has a tag.
+`if` | Object | The processor's `if` condition (`condition`) and its result (`result`). Returned only if the processor has a condition.
+`doc` | Object | The document after this processor ran.
+`error` | Object | The error returned by the processor. Returned if the status is `error`.
+`ignored_error` | Object | The error that the processor ignored. Returned if the status is `error_ignored`.
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/ingest/pipeline/simulate`.

@@ -137,19 +137,142 @@ The following table lists the parameters accepted by numeric field types. All pa
 
 Parameter | Description 
 :--- | :--- 
-`boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0. Dynamically updatable.
-`coerce` | A Boolean value that signals to truncate decimals for integer values and to convert strings to numeric values. Default is `true`. Dynamically updatable.
-`doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `true`.
-`ignore_malformed` | A Boolean value that specifies to ignore malformed values and not to throw an exception. Default is `false`. Dynamically updatable.
-`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`. 
-`meta` | Accepts metadata for this field.
-[`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A  value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
+`boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0. Dynamically updatable. For more information, see [Boost]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/boost/).
+`coerce` | A Boolean value that signals to truncate decimals for integer values and to convert strings to numeric values. Default is `true`. Dynamically updatable. For more information, see [Coerce]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/coerce/).
+`doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `true`. For more information, see [Doc values]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/doc-values/).
+`ignore_malformed` | A Boolean value that specifies to ignore malformed values and not to throw an exception. Default is `false`. Dynamically updatable. For more information, see [Ignore malformed]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/ignore-malformed/).
+`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`. For indexes that use a pluggable data format, the default is `false`, and `true` is not supported. For more information, see [Pluggable data format indexes]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/index-parameter/#pluggable-data-format-indexes).
+`meta` | Accepts metadata for this field. For more information, see [Meta]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/meta/).
+[`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
 `skip_list` | A Boolean value that specifies whether to enable skip list indexing for doc values. When enabled, this creates indexed doc values that can improve performance for `range` queries by allowing the query engine to skip over irrelevant document ranges. Default is `false`.
-`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the _source field. Default is `false`. 
+`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the `_source` field. Default is `false`. For more information, see [Store]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/store/).
 
 Scaled float has an additional required parameter: `scaling_factor`.
 
 Parameter | Description 
 :--- | :--- 
-`scaling_factor` | A double value that is multiplied by the field value and rounded to the nearest long. Required.
-`skip_list` | A Boolean value that specifies whether to enable skip list indexing for doc values. When enabled, OpenSearch creates indexed doc values that can improve performance for `range` queries by allowing the query engine to skip irrelevant document ranges. Default is `false`. 
+`scaling_factor` | A double value that is multiplied by the field value and rounded to the nearest long. Required. 
+`skip_list` | A Boolean value that specifies whether to enable skip list indexing for doc values. When enabled, OpenSearch creates indexed doc values that can improve performance for `range` queries by allowing the query engine to skip irrelevant document ranges. Default is `false`.
+
+## Derived source
+
+When an index uses [derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source), OpenSearch may sort numeric values in multi-value fields during source reconstruction. Additionally, precision loss can occur with certain numeric field types.
+
+Create an index that enables derived source and configures a `number` field:
+
+```json
+PUT sample-index1
+{
+  "settings": {
+    "index": {
+      "derived_source": {
+        "enabled": true
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "number": {
+        "type": "integer"
+      }
+    }
+  }
+}
+```
+
+Index a document with multiple integer values into the index:
+
+```json
+PUT sample-index1/_doc/1
+{
+  "number": [1, 0, -1, 0]
+}
+```
+
+After OpenSearch reconstructs `_source`, the derived `_source` sorts the values numerically:
+
+```json
+{
+  "number": [-1, 0, 0, 1]
+}
+```
+
+When using `half_float` fields, precision loss may occur based on the field's stored precision. Create an index with an `hf` field:
+
+```json
+PUT sample-index2
+{
+  "settings": {
+    "index": {
+      "derived_source": {
+        "enabled": true
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "hf": {
+        "type": "half_float"
+      }
+    }
+  }
+}
+```
+
+Index a document with a precise decimal value into the index:
+
+```json
+PUT sample-index2/_doc/1
+{
+  "hf": 1234.56
+}
+```
+
+After OpenSearch reconstructs `_source`, the derived `_source` shows precision loss:
+
+```json
+{
+  "hf": 1235.0
+}
+```
+
+When using `scaled_float` fields, precision loss may occur due to the scaling factor. Create an index with an `sf` field:
+
+```json
+PUT sample-index3
+{
+  "settings": {
+    "index": {
+      "derived_source": {
+        "enabled": true
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "sf": {
+        "type": "scaled_float",
+        "scaling_factor": 100
+      }
+    }
+  }
+}
+```
+
+Index a document with a decimal value into the index:
+
+```json
+PUT sample-index3/_doc/1
+{
+  "sf": 12.345
+}
+```
+
+After OpenSearch reconstructs `_source`, the derived `_source` shows precision loss:
+
+```json
+{
+  "sf": 12.34
+}
+```
+

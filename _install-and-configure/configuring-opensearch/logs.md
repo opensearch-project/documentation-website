@@ -2,7 +2,7 @@
 layout: default
 title: Logs
 parent: Configuring OpenSearch
-nav_order: 130
+nav_order: 190
 redirect_from:
   - /opensearch/logs/
   - /monitoring-your-cluster/logs/
@@ -44,7 +44,7 @@ Common categories can be found in [Common core logging categories](#common-core-
 
 After this sample change, OpenSearch emits much more detailed logs during reindex operations:
 
-```plaintext
+```
 [2019-10-18T16:52:51,184][DEBUG][o.o.i.r.TransportReindexAction] [node1] [1626]: starting
 [2019-10-18T16:52:51,186][DEBUG][o.o.i.r.TransportReindexAction] [node1] executing initial scroll against [some-index]
 [2019-10-18T16:52:51,291][DEBUG][o.o.i.r.TransportReindexAction] [node1] scroll returned [3] documents with a scroll id of [DXF1Z==]
@@ -137,6 +137,28 @@ The following table lists the common plugin logger categories.
 
 
 
+## Error logs
+
+OpenSearch logs errors at the `WARN`, `ERROR`, and `FATAL` levels. Additionally, certain exceptions from the `DEBUG` level are logged, including the following:
+
+- `org.opensearch.index.mapper.MapperParsingException`
+- `org.opensearch.index.query.QueryShardException`
+- `org.opensearch.action.search.SearchPhaseExecutionException`
+- `org.opensearch.common.util.concurrent.OpenSearchRejectedExecutionException`
+- `java.lang.IllegalArgumentException`
+
+Error logs can help with troubleshooting in many situations, including the following:
+
+- Painless script compilation issues
+- Invalid queries
+- Indexing issues
+- Snapshot failures
+- Index State Management migration failures
+
+### Mapper parsing exception scope
+
+Mapper parsing exceptions are logged only when they are triggered by explicit mapping requests, such as the [Put Mapping API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/put-mapping/) requests. They are not logged when triggered by document indexing operations, such as the [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) or the [Index API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/index-document/) requests. For example, if a document contains a field value that conflicts with the index mapping (for example, when you send a string value in an integer field), the Bulk API returns a `mapper_parsing_exception` in the response body, but this error is not written to the error logs. To identify documents causing a `mapper_parsing_exception` during bulk indexing, inspect the Bulk API response for errors rather than relying on error logs.
+
 ## Search request slow logs
 
 New in version 2.12, OpenSearch offers request-level slow logs for search. These logs rely on thresholds to define what qualifies as "slow." All requests which exceed the threshold are logged.
@@ -160,7 +182,7 @@ PUT /_cluster/settings
 A line from `opensearch_index_search_slowlog.log` might look like this:
 
 ```plaintext
-[2023-10-30T15:47:42,630][TRACE][c.s.r.slowlog] [runTask-0] took[80.8ms], took_millis[80], phase_took_millis[{expand=0, query=39, fetch=22}], total_hits[4 hits], search_type[QUERY_THEN_FETCH], shards[{total: 10, successful: 10, skipped: 0, failed: 0}], source[{"query":{"match_all":{"boost":1.0}}}], id[]
+[2023-10-30T15:47:42,630][TRACE][c.s.r.slowlog] [runTask-0] took[80.8ms], took_millis[80], phase_took_millis[{expand=0, query=39, fetch=22}], total_hits[4 hits], search_type[QUERY_THEN_FETCH], shards[{total: 10, successful: 10, skipped: 0, failed: 0}], indices[index_1, index_2, my_index_*], source[{"query":{"match_all":{"boost":1.0}}}], id[]
 ```
 
 Search request slow logs can consume considerable disk space and affect performance if you set low threshold values. Consider enabling them temporarily for troubleshooting or performance tuning. To disable search request slow logs, return all thresholds to `-1`.
@@ -175,7 +197,7 @@ These logs rely on thresholds to define what qualifies as a "slow" search or "sl
 Unlike search request slow logs, shard slow log thresholds are configured for individual shard took time.
 
 ```json
-GET <some-index>/_settings?include_defaults=true
+GET {some-index}/_settings?include_defaults=true
 {
   "indexing": {
     "slowlog": {
@@ -218,7 +240,7 @@ GET <some-index>/_settings?include_defaults=true
 To enable these logs, increase one or more thresholds:
 
 ```json
-PUT <some-index>/_settings
+PUT {some-index}/_settings
 {
   "indexing": {
     "slowlog": {

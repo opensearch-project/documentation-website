@@ -1,0 +1,125 @@
+---
+layout: default
+title: eval
+parent: Commands
+grand_parent: PPL
+nav_order: 13
+---
+
+<!-- vale off -->
+
+# eval command
+
+<!-- vale on -->
+
+The `eval` command evaluates the specified expression and appends the result of the evaluation to the search results.
+
+The `eval` command processes data after documents are retrieved from the shards. This means that `eval` cannot be used to filter documents before they are returned. Use a `where` clause for filtering. Additionally, because `eval` computations are performed on the coordinating node rather than distributed across data nodes, performance may be slower for large result sets.
+
+The `eval` command is not rewritten to [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/). It is only executed on the coordinating node.
+{: .note}
+
+## Syntax
+
+The `eval` command has the following syntax:
+
+```sql
+eval <field>=<expression> ["," <field>=<expression> ]...
+```
+
+## Parameters
+
+The `eval` command supports the following parameters.
+
+| Parameter | Required/Optional | Description |
+| --- | --- | --- |
+| `<field>` | Required | The name of the field to create or update. If the field does not exist, a new field is added. If it already exists, its value is overwritten. |
+| `<expression>` | Required | The expression to evaluate. |  
+  
+
+## Example 1: Classifying logs by severity tier  
+
+The following query creates an `is_critical` field that classifies each log as critical or non-critical based on severity, useful for building alert rules:
+  
+```sql
+source=otellogs
+| eval is_critical = IF(severityNumber >= 17, 'yes', 'no')
+| dedup severityText
+| sort severityNumber
+| fields severityText, is_critical
+```
+{% include copy.html %}
+{% include try-in-playground.html %}
+  
+The query returns the following results:
+  
+<!-- vale off -->
+
+| severityText | is_critical |
+| --- | --- |
+| DEBUG | no |
+| INFO | no |
+| WARN | no |
+| ERROR | yes |
+
+<!-- vale on -->
+  
+
+## Example 2: Finding errors without traces  
+
+The following query creates two Boolean fields to identify error logs and whether they have distributed tracing context. Errors that are not traced are harder to debug because you can't follow the request across services:
+  
+```sql
+source=otellogs
+| eval is_error = severityNumber >= 17, is_traced = LENGTH(traceId) > 0
+| where is_error = true
+| sort `resource.attributes.service.name`
+| fields `resource.attributes.service.name`, is_error, is_traced
+```
+{% include copy.html %}
+{% include try-in-playground.html %}
+  
+The query returns the following results:
+  
+<!-- vale off -->
+
+| resource.attributes.service.name | is_error | is_traced |
+| --- | --- | --- |
+| checkout | True | True |
+| checkout | True | False |
+| frontend-proxy | True | True |
+| payment | True | True |
+| payment | True | False |
+| product-catalog | True | False |
+| recommendation | True | True |
+
+<!-- vale on -->
+  
+
+## Example 3: Building a standardized log line  
+
+The following query prepends the severity level to the log body, creating a standardized format for export or alerting:
+  
+```sql
+source=otellogs
+| where severityText IN ('ERROR', 'WARN')
+| eval formatted = '[' + severityText + '] ' + body
+| sort severityNumber, `resource.attributes.service.name`
+| fields formatted
+| head 3
+```
+{% include copy.html %}
+{% include try-in-playground.html %}
+  
+The query returns the following results:
+  
+<!-- vale off -->
+
+| formatted |
+| --- |
+| [WARN] SSL certificate for api.example.com expires in 14 days |
+| [WARN] Rate limit threshold reached: 450/500 requests per minute for API key ending in ...abc789 |
+| [WARN] Slow query detected: SELECT \* FROM products WHERE category = 'electronics' took 3200ms |
+
+<!-- vale on -->
+  

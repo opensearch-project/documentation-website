@@ -1,24 +1,21 @@
 ---
 layout: default
-title: Trace Analytics plugin for OpenSearch Dashboards
-parent: Trace Analytics
+title: Trace analytics in OpenSearch Dashboards
+parent: Trace analytics
+grand_parent: Classic observability apps
 nav_order: 50
 redirect_from:
   - /observability-plugin/trace/ta-dashboards/
   - /monitoring-plugins/trace/ta-dashboards/
 ---
 
-# Trace Analytics plugin for OpenSearch Dashboards
+# Trace analytics in OpenSearch Dashboards
 
-The Trace Analytics plugin offers at-a-glance visibility into application performance based on [OpenTelemetry (OTel)](https://opentelemetry.io/) protocol data that standardizes instrumentation for collecting telemetry data from cloud-native software.
+Trace analytics offers at-a-glance visibility into application performance based on [OpenTelemetry (OTel)](https://opentelemetry.io/) protocol data that standardizes instrumentation for collecting telemetry data from cloud-native software.
 
-## Installing the plugin
+## Setting up the OpenTelemetry demo
 
-See [Standalone OpenSearch Dashboards plugin install]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/) for instructions on how to install the Trace Analytics plugin.
-
-## Setting up the OpenTelemetry Demo
-
-The [OpenTelemetry Demo with OpenSearch](https://github.com/opensearch-project/opentelemetry-demo) simulates a distributed application generating real-time telemetry data, providing you with a practical environment in which to explore features available with the Trace Analytics plugin before implementing it in your environment.
+The [OpenTelemetry Demo with OpenSearch](https://github.com/opensearch-project/opentelemetry-demo) simulates a distributed application generating real-time telemetry data, providing you with a practical environment in which to explore features available in Trace analytics before implementing it in your environment.
 
 ### Step 1: Set up the OpenTelemetry Demo
 
@@ -30,7 +27,7 @@ The [OpenTelemetry Demo with OpenSearch](https://github.com/opensearch-project/o
 - Configure the OTel collectors to send telemetry data (traces, metrics, logs) to your OpenSearch cluster, using the [preexisting setup](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/otel-collector).
 - Confirm that [Data Prepper](https://github.com/opensearch-project/opentelemetry-demo/tree/main/src/dataprepper) is set up to process the incoming data, handle trace analytics and service map pipelines, submit data to required indexes, and perform preaggregated calculations.
 
-### Step 3: Explore Trace Analytics in OpenSearch Dashboards
+### Step 3: Explore trace analytics in OpenSearch Dashboards
 
 The **Trace Analytics** application includes two options: **Services** and **Traces**:
 
@@ -41,7 +38,7 @@ The **Trace Analytics** application includes two options: **Services** and **Tra
 
 Select **Services correlation** to display relationships between telemetry signals. This feature helps you navigate from the logical service level to associated metrics and logs for a specific service.
 
-The Trace Analytics plugin supports correlating spans, traces, and services with their corresponding logs. This lets you move directly from a trace or span to relevant log entries, or from a service to its correlated logs, within the Trace Analytics interface. Correlation streamlines troubleshooting by offering a unified view of telemetry data, making it easier to identify root causes and understand application context.
+Trace analytics supports correlating spans, traces, and services with their corresponding logs. This lets you move directly from a trace or span to relevant log entries, or from a service to its correlated logs, within the Trace Analytics interface. Correlation streamlines troubleshooting by offering a unified view of telemetry data, making it easier to identify root causes and understand application context.
 
 Use the following options to perform correlation:
 
@@ -54,14 +51,14 @@ Use the following options to perform correlation:
 
 ## Schema dependencies and assumptions
 
-The plugin requires you to use [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/) to process and visualize OTel data and relies on the following Data Prepper pipelines for OTel correlations and service map calculations:
+Trace analytics requires you to use [Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/) to process and visualize OTel data and relies on the following Data Prepper pipelines for OTel correlations and service map calculations:
 
 - [Trace analytics pipeline]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/)
 - [Service map pipeline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/service-map/)
 
 ### Standardized telemetry data
 
-The plugin requires telemetry data to follow the OTel schema conventions, including the structure and naming of spans, traces, and metrics as specified by OTel, and to be implemented using the [Simple Schema for Observability]({{site.url}}{{site.baseurl}}/observing-your-data/ss4o/).
+Trace analytics requires telemetry data to follow the OTel schema conventions, including the structure and naming of spans, traces, and metrics as specified by OTel, and to be implemented using the [Simple Schema for Observability]({{site.url}}{{site.baseurl}}/observing-your-data/ss4o/).
 
 ### Service names and dependency map
 
@@ -77,11 +74,11 @@ Traces and spans must have consistently generated and maintained unique identifi
 
 ### RED metrics adherence
 
-The plugin expects metric data to include rate, error, and duration (RED) indicators for each service, either preaggregated using the Data Prepper pipeline or calculated dynamically based on spans. This allows you to effectively compute and display key performance indicators.
+Trace analytics expects metric data to include rate, error, and duration (RED) indicators for each service, either preaggregated using the Data Prepper pipeline or calculated dynamically based on spans. This allows you to effectively compute and display key performance indicators.
 
 ### Correlation fields
 
-Certain fields, such as `serviceName`, must be present to perform correlation analysis. These fields enable the plugin to link related telemetry data and provide a holistic view of service interactions and dependencies.
+Certain fields, such as `serviceName`, must be present to perform correlation analysis. These fields enable trace analytics to link related telemetry data and provide a holistic view of service interactions and dependencies.
 
 ### Correlation indexes
 
@@ -177,7 +174,7 @@ Trace Analytics in OpenSearch 3.1 includes expanded support for custom index nam
 
   ![Drop-down menu and custom data grid in Trace Analytics]({{site.url}}{{site.baseurl}}/images/ta-span-kind.png)
 
-- The service map now appears below the traces table on the **Trace Analytics** page, providing immediate visual context for service relationships and dependencies as you analyze trace data.
+- The service map now appears under the traces table on the **Trace Analytics** page, providing immediate visual context for service relationships and dependencies as you analyze trace data.
 
   ![Service map displayed below traces table]({{site.url}}{{site.baseurl}}/images/ta-traces-page.png)
 
@@ -185,7 +182,7 @@ Trace Analytics in OpenSearch 3.1 includes expanded support for custom index nam
 
   ![Gantt chart with tree view and pie chart layout]({{site.url}}{{site.baseurl}}/images/ta-hierarchial-view.png)
 
-- The Gantt chart now includes a selectable mini-map above it, allowing you to quickly navigate to and focus on specific sections of the trace timeline, as shown in the following image.
+- The Gantt chart now includes a selectable mini-map, allowing you to quickly navigate to and focus on specific sections of the trace timeline, as shown in the following image.
 
   ![Gantt chart with selectable mini-map]({{site.url}}{{site.baseurl}}/images/ta-gantt-mini-map.png)
 

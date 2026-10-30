@@ -5,7 +5,15 @@ nav_order: 5
 permalink: /breaking-changes/
 ---
 
+# Breaking changes
+
+OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. The following sections list breaking changes introduced in OpenSearch, organized by version.
+
+<!-- vale off -->
 ## 1.x
+<!-- vale on -->
+
+The following breaking changes were introduced in OpenSearch 1.x.
 
 ### Migrating to OpenSearch and limits on the number of nested JSON objects
 
@@ -16,6 +24,8 @@ Therefore, we recommend evaluating your data for these limits before attempting 
 
 ## 2.0.0
 
+The following breaking changes were introduced in OpenSearch 2.0.0.
+
 ### Remove mapping types parameter
 
 The `type` parameter has been removed from all OpenSearch API endpoints. Instead, indexes can be categorized by document type. For more details, see issue [#1940](https://github.com/opensearch-project/opensearch/issues/1940).
@@ -24,11 +34,15 @@ The `type` parameter has been removed from all OpenSearch API endpoints. Instead
 
 Non-inclusive terms are deprecated in version 2.x and will be permanently removed in OpenSearch 3.0.  We are using the following replacements: 
 
+<!-- vale off -->
 - "Whitelist" is now "Allow list"
 - "Blacklist" is now "Deny list"
 - "Master" is now "Cluster Manager"
+<!-- vale on -->
 
+<!-- vale off -->
 ### Add OpenSearch Notifications plugins
+<!-- vale on -->
 
 In OpenSearch 2.0, the Alerting plugin is now integrated with new plugins for Notifications. If you want to continue to use the notification action in the Alerting plugin, install the new backend plugins `notifications-core` and `notifications`. If you want to manage notifications in OpenSearch Dashboards, use the new `notificationsDashboards` plugin. For more information, see [Notifications]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/index/) on the OpenSearch documentation page.
 
@@ -39,20 +53,48 @@ A Lucene upgrade forced OpenSearch to drop support for JDK 8. As a consequence, 
 
 ## 2.5.0
 
+The following breaking change was introduced in OpenSearch 2.5.0.
+
 ### Wildcard query behavior for text fields
 
 OpenSearch 2.5 contains a bug fix that corrects the behavior of the `case_insensitive` parameter for the `wildcard` query on text fields. As a result, a wildcard query on text fields that ignored case sensitivity and erroneously returned results prior to the bug fix will not return the same results. For more information, see issue [#8711](https://github.com/opensearch-project/OpenSearch/issues/8711).
 
+## 2.18.0
+
+The following breaking change was introduced in OpenSearch 2.18.0.
+
+### Default k-NN engine change
+
+The default k-NN engine changed from NMSLIB to Faiss. If you use `space_type: "cosinesimil"` without explicitly specifying an engine, your vectors are now automatically normalized to unit length during indexing. This happens because Faiss does not natively support cosine similarity and instead uses inner product on normalized vectors. As a result, stored vector values will differ from input values, which may affect code that retrieves and compares vectors. If your vectors are already normalized, consider setting `space_type` to `innerproduct` instead of `cosinesimil` to obtain mathematically equivalent results with explicit control over normalization. For more information, see pull request [#2221](https://github.com/opensearch-project/k-NN/pull/2221).
+
 ## 2.19.0
+
+The following breaking change was introduced in OpenSearch 2.19.0.
 
 ### Nested value support in the text embedding processor
 The `text_embedding` processor no longer replaces nested values like `_ingest._value` when evaluating fields like `title_tmp:_ingest._value.title_embedding`. Instead, you must directly specify the nested key as `books.title:title_embedding` to achieve the desired output. For more information, see issue [#1243](https://github.com/opensearch-project/neural-search/issues/1243).
 
 ## 3.0.0
 
+The following breaking changes were introduced in OpenSearch 3.0.0.
+
 ### JDK requirement
 
 The minimum supported JDK version is JDK 21.
+
+### Version compatibility setting
+
+The `compatibility.override_main_response_version` setting has been removed. This functionality was deprecated in OpenSearch 1.x and is no longer supported.
+
+For more information, see issue [#18228](https://github.com/opensearch-project/OpenSearch/issues/18228).
+
+For alternative approaches, see [Agents and ingestion tools]({{site.url}}{{site.baseurl}}/tools/#agents-and-ingestion-tools).
+
+### Index version
+
+Indexes created in versions earlier than `2.x.x` (including system indexes) are not supported. These indexes must be reindexed **before upgrading**. For information about reindexing, see [Reindex data]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/).
+
+For more information, see issue [#18717](https://github.com/opensearch-project/OpenSearch/issues/18717).
 
 ### System index access
 
@@ -90,7 +132,7 @@ For more information, see issue [#2595](https://github.com/opensearch-project/Op
 
 The `index.store.hybrid.mmap.extensions` setting has been removed as part of improvements to `hybridfs` file handling. For more information, see pull request [#9392](https://github.com/opensearch-project/OpenSearch/pull/9392).
 
-### Transport Nio plugin
+### Transport NIO plugin
 
 The `transport-nio` plugin has been removed. Netty remains the standard network framework for both node-to-node and client-to-server communication. For more information, see issue [#16887](https://github.com/opensearch-project/OpenSearch/issues/16887).
 
@@ -126,7 +168,7 @@ For more information, see pull request [#2564](https://github.com/opensearch-pro
 
 ### Performance Analyzer plugin
 
-The `performance-analyzer-rca` agent has been removed. We recommend transitioning to the [Telemetry plugin](https://github.com/opensearch-project/performance-analyzer/issues/585) for performance monitoring and analysis. The Telemetry plugin, using the OpenTelemetry framework, allows for seamless integration with lightweight open-source agents in order to publish performance metrics to observability stores. For more information, see issue [#591](https://github.com/opensearch-project/performance-analyzer-rca/issues/591).
+The `performance-analyzer-rca` agent has been removed. The agent served the Performance Analyzer API on port 9600, so the metrics, batch metrics, and root cause analysis (RCA) APIs and the PerfTop dashboards are no longer available. The Performance Analyzer plugin remains installed by default and can publish its metrics using the [metrics framework]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/telemetry/metrics/), which exports them using OpenTelemetry. For more information, see [Performance Analyzer]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/telemetry/performance-analyzer/) and issue [#591](https://github.com/opensearch-project/performance-analyzer-rca/issues/591).
 
 ### SQL plugin
 
@@ -188,4 +230,9 @@ For more information, see pull request [#9813](https://github.com/opensearch-pro
 ### ML Commons plugin
 
 - The `CatIndexTool` is removed in favor of the `ListIndexTool`.
+- The Asynchronous Batch Ingestion API (`POST /_plugins/_ml/_batch_ingestion`) is removed. For similar functionality, use [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/). For more information, see pull request [#3688](https://github.com/opensearch-project/ml-commons/pull/3688).
+
+### Romanian analysis
+
+The `romanian` analyzer now supports Romanian in its modern Unicode form and normalizes cedilla characters to their comma-based equivalents. Because both forms are still in use, we recommend reindexing existing Romanian documents to ensure consistent analysis and search behavior.
 

@@ -6,7 +6,7 @@ has_children: true
 nav_order: 30
 ---
 
-# Buffers
+# Data Prepper buffers
 
 The `buffer` component acts as an intermediary layer between the `source` and `sink` components in an OpenSearch Data Prepper pipeline. It serves as temporary storage for events, decoupling the `source` from the downstream processors and sinks. Buffers can be either in-memory or disk based. 
 

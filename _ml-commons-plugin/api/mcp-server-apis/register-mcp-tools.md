@@ -2,12 +2,13 @@
 layout: default
 title: Register MCP tools 
 parent: MCP server APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 10
 ---
 
 # Register MCP Tools API
 **Introduced 3.0**
+{: .label .label-purple }
 
 Use this API to register one or more Model Context Protocol (MCP)-based tools. For more information about supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/).
 
@@ -29,7 +30,7 @@ Field | Data type | Required/Optional | Description
 The `tools` array contains a list of tools. Each tool contains the following fields.
 
 Field | Data type | Required/Optional | Description
-:---  | :--- | :---
+:---  | :--- | :--- | :---
 `name`| String | Optional | The tool name. The tool name defaults to the `type` parameter value. If you need to include multiple tools of the same type in the MCP server, specify different names for the tools. |
 `type` | String | Required | The tool type. For a list of supported tools, see [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/index/). 
 `description` | String | Optional | The description of the tool.
@@ -48,6 +49,7 @@ The [built-in tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools
   </summary>
 
 ```json
+POST /_plugins/_ml/mcp/tools/_register
 {
     "tools": [
         {
@@ -344,33 +346,39 @@ POST /_plugins/_ml/mcp/tools/_register
 ```
 {% include copy-curl.html %}
 
+<!-- vale off -->
 #### PPLTool
+<!-- vale on -->
 
 ```json
 POST /_plugins/_ml/mcp/tools/_register
 {
-  "type": "PPLTool",
-  "name": "TransferQuestionToPPLAndExecuteTool",
-  "description": "Use this tool to convert natural language into PPL queries and execute them. Use this tool after you know the index name; otherwise, call IndexRoutingTool first. The input parameters are: {index: IndexName, question: UserQuestion}",
-  "parameters": {
-    "model_id": "${your_model_id}",
-    "model_type": "FINETUNE"
-  },
-  "attributes": {
-    "input_schema": {
-      "type": "object",
-      "properties": {
-        "question": {
-          "type": "string",
-          "description": "The user's natural language question that needs to be converted to PPL."
-        },
-        "index": {
-          "type": "string",
-          "description": "The index on which the generated PPL query will be executed."
+  "tools": [
+    {
+      "type": "PPLTool",
+      "name": "TransferQuestionToPPLAndExecuteTool",
+      "description": "Use this tool to convert natural language into PPL queries and execute them. Use this tool after you know the index name; otherwise, call IndexRoutingTool first. The input parameters are: {index: IndexName, question: UserQuestion}",
+      "parameters": {
+        "model_id": "${your_model_id}",
+        "model_type": "FINETUNE"
+      },
+      "attributes": {
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "question": {
+              "type": "string",
+              "description": "The user's natural language question that needs to be converted to PPL."
+            },
+            "index": {
+              "type": "string",
+              "description": "The index on which the generated PPL query will be executed."
+            }
+          }
         }
       }
     }
-  }
+  ]
 }
 ```
 {% include copy-curl.html %}
@@ -389,3 +397,7 @@ OpenSearch responds with the node ID and the status of the creation of all tools
     }
 }
 ```
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/opensearch/ml/mcp_tools/register`.

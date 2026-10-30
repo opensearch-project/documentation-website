@@ -15,10 +15,12 @@ Standard k-nearest neighbors (k-NN) search methods compute similarity using a br
 
 The approximate k-NN search methods in OpenSearch use approximate nearest neighbor (ANN) algorithms from the [NMSLIB](https://github.com/nmslib/nmslib), [Faiss](https://github.com/facebookresearch/faiss), and [Lucene](https://lucene.apache.org/) libraries to power k-NN search. These search methods employ ANN to improve search latency for large datasets. Of the three search methods OpenSearch provides, this method offers the best search scalability for large datasets. This approach is the preferred method when a dataset reaches hundreds of thousands of vectors.
 
+The [`opensearch-jvector` plugin]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/opensearch-jvector/) provides an additional `jvector` engine for approximate k-NN search that implements DiskANN-style indexing in pure Java. The engine supports thread-safe concurrent ingestion, incremental index updates without full graph rebuilds, and native product quantization (PQ). Consider `jvector` when your dataset grows continuously or when it is larger than available memory and you need high recall at a high compression ratio.
+
 For information about the algorithms OpenSearch supports, see [Methods and engines]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/).
 {: .note}
 
-OpenSearch builds a native library index of the vectors for each `knn-vector` field/Lucene segment pair during indexing, which can be used to efficiently find the k-nearest neighbors to a query vector during search. To learn more about Lucene segments, see the [Apache Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/codecs/lucene87/package-summary.html#package.description). These native library indexes are loaded into native memory during search and managed by a cache. To learn more about preloading native library indexes into memory, see [Warmup API]({{site.url}}{{site.baseurl}}/vector-search/api/knn#warmup-operation). Additionally, you can see which native library indexes are already loaded into memory using the [Stats API]({{site.url}}{{site.baseurl}}/vector-search/api/knn#stats).
+OpenSearch builds a native library index of the vectors for each `knn-vector` field/Lucene segment pair during indexing, which can be used to efficiently find the k-nearest neighbors to a query vector during search. To learn more about Lucene segments, see the [Apache Lucene documentation](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/codecs/lucene104/package-summary.html#package.description). These native library indexes are loaded into native memory during search and managed by a cache. To learn more about preloading native library indexes into memory, see [Warmup API]({{site.url}}{{site.baseurl}}/vector-search/api/knn#warmup-operation). Additionally, you can see which native library indexes are already loaded into memory using the [Stats API]({{site.url}}{{site.baseurl}}/vector-search/api/knn#stats).
 
 Because the native library indexes are constructed during indexing, it is not possible to apply a filter on an index and then use this search method. All filters are applied to the results produced by the ANN search.
 
@@ -125,9 +127,9 @@ GET my-knn-index-1/_search
 
 In the preceding query, `k` represents the number of neighbors returned by the search of each graph. You must also include the `size` parameter, indicating the final number of results that you want the query to return.  
 
-For the NMSLIB and Faiss engines, `k` represents the maximum number of documents returned for all segments of a shard. For the Lucene engine, `k` represents the number of documents returned for a shard. The maximum value of `k` is 10,000.
+For the NMSLIB and Faiss engines, `k` represents the maximum number of documents returned for each segment of a shard. For the Lucene engine, `k` represents the number of documents returned for a shard. The maximum value of `k` is 10,000.
 
-For any engine, each shard returns `size` results to the coordinator node. Thus, the total number of results that the coordinator node receives is `size * number of shards`. After the coordinator node consolidates the results received from all nodes, the query returns the top `size` results.
+For any engine, each shard returns `size` results to the coordinating node. Thus, the total number of results that the coordinating node receives is `size * number of shards`. After the coordinating node consolidates the results received from all nodes, the query returns the top `size` results.
 
 The following table provides examples of the number of results returned by various engines in several scenarios. For these examples, assume that the number of documents contained in the segments and shards is sufficient to return the number of results specified in the table.
 
@@ -139,7 +141,7 @@ The following table provides examples of the number of results returned by vario
 
 The number of results returned by Faiss/NMSLIB differs from the number of results returned by Lucene only when `k` is smaller than `size`. If `k` and `size` are equal, all engines return the same number of results. 
 
-Starting in OpenSearch 2.14, you can use `k`, `min_score`, or `max_distance` for [radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/).
+You can use `k`, `min_score`, or `max_distance` for [radial search]({{site.url}}{{site.baseurl}}/search-plugins/knn/radial-search-knn/).
 
 ## Building a vector index from a model
 
@@ -209,17 +211,22 @@ POST /_plugins/_knn/models/my-model/_train
 ```
 {% include copy-curl.html %}
 
-For more information about the method parameters, see [IVF training requirements]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#ivf-training-requirements).
+This example trains successfully on four vectors only because it uses the default `nlist` of `4` and a `code_size` of `2`, which requires at least 2<sup>2</sup> = 4 training vectors. If you omit `code_size` or increase it, you need more training data. For example, omitting `code_size` requires more than 1,000 training vectors. For more information about the method parameters and the minimum number of training vectors, see [IVF training requirements]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#ivf-training-requirements).
 
 The Train API returns as soon as the training job is started. To check the job status, use the Get Model API:
 
 ```json
-GET /_plugins/_knn/models/my-model?filter_path=state&pretty
+GET /_plugins/_knn/models/my-model?filter_path=state
+```
+{% include copy-curl.html %}
+
+While the model is being trained, the response contains the `training` state:
+
+```json
 {
   "state": "training"
 }
 ```
-{% include copy-curl.html %}
 
 Once the model enters the `created` state, you can create an index that will use this model to initialize its native library indexes:
 

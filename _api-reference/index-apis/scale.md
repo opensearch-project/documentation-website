@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Scale
-parent: Index APIs
-nav_order: 130
+parent: Index operations
+grand_parent: Index APIs
+nav_order: 80
 ---
 
 # Scale API
@@ -19,7 +20,7 @@ If you are using the Security plugin, you must have the `manage index` privilege
 ## Endpoints
 
 ```json
-POST /<index>/_scale
+POST /{index}/_scale
 ```
 
 ## Path parameters
@@ -38,9 +39,7 @@ The following table lists the available request body fields.
 | :--- | :--- | :--- | :--- |
 | `search_only` | **Required** | Boolean | When `true`, enables search-only mode on the index. When `false`, disables search-only mode and restores the index to normal operations. |
 
-## Example requests
-
-### Enable search-only mode
+## Example request: Enabling search-only mode
 
 The following request enables search-only mode for an index named `my-index`:
 
@@ -52,7 +51,7 @@ POST /my-index/_scale
 ```
 {% include copy-curl.html %}
 
-### Disable search-only mode
+## Example request: Disabling search-only mode
 
 The following request disables search-only mode and returns the index to normal operations:
 

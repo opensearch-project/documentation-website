@@ -2,13 +2,13 @@
 layout: default
 title: Reranking using a cross-encoder model
 parent: Reranking search results
-grand_parent: Search relevance
+grand_parent: Optimizing search quality
 has_children: false
 nav_order: 10
 ---
 
 # Reranking search results using a cross-encoder model
-Introduced 2.12
+**Introduced 2.12**
 {: .label .label-purple }
 
 You can rerank search results using a cross-encoder model in order to improve search relevance. To implement reranking, you need to configure a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline intercepts search results and applies the [`rerank` processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/) to them. The `rerank` processor evaluates the search results and sorts them based on the new scores provided by the cross-encoder model. 
@@ -120,3 +120,8 @@ Alternatively, you can provide the full path to the field containing the context
 
 - Learn more about the [`rerank` processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/).
 - See a comprehensive example of [reranking by a field using an externally hosted cross-encoder model]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field-cross-encoder/).
+- For a tutorial that uses a cross-encoder model hosted in Amazon SageMaker, see [Reranking search results using a cross-encoder in Amazon SageMaker]({{site.url}}{{site.baseurl}}/tutorials/reranking/reranking-cross-encoder/).
+- For a tutorial that uses a reranker model hosted in Amazon SageMaker, see [Reranking search results using a reranker in Amazon SageMaker]({{site.url}}{{site.baseurl}}/tutorials/reranking/reranking-sagemaker/).
+- For a tutorial that uses reranking models hosted on Amazon Bedrock, see [Reranking search results using Amazon Bedrock models]({{site.url}}{{site.baseurl}}/tutorials/reranking/reranking-bedrock/).
+- For a tutorial that uses Cohere Rerank on Amazon Bedrock, see [Reranking search results using Cohere Rerank on Amazon Bedrock]({{site.url}}{{site.baseurl}}/tutorials/reranking/reranking-cohere-bedrock/).
+- For a tutorial that uses the Cohere Rerank API, see [Reranking search results using Cohere Rerank]({{site.url}}{{site.baseurl}}/tutorials/reranking/reranking-cohere/).

@@ -8,6 +8,7 @@ redirect_from:
   - /opensearch/supported-field-types/
   - /opensearch/supported-field-types/index/
   - /field-types/supported-field-types/
+  - /field-types/supported-field-types/index/
   - /mappings/supported-field-types/
 ---
 
@@ -26,11 +27,13 @@ You can specify data types for your fields when creating a mapping. The followin
 
 | Field type  | Description |
 | [`text`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/text/)                       | Analyzed full-text string.                                 |
-| [`keyword`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/keyword/)                 | A non-analyzed string, useful for exact matches.           |
 | [`match_only_text`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/match-only-text/) | A lightweight version of `text` for search-only use cases. |
+| [`keyword`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/keyword/)                 | A non-analyzed string, useful for exact matches.           |
+| [`constant_keyword`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/constant-keyword/) | Uses the same value for all documents in the index.      |
+| [`icu_collation_keyword`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/icu-collation-keyword/) | Language-specific keyword for sorting with collation rules. |
 | [`wildcard`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/wildcard/)               | Enables efficient substring and regex matching.            |
 | [`token_count`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/token-count/)         | Stores the number of tokens after analysis.                |
-| [`constant_keyword`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/constant-keyword/) | Uses the same value for all documents in the index.      |
+| [`version`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/version/)                 | A semantic version string that follows a semantic versioning specification. |
 
 ## Numeric field types
 
@@ -96,7 +99,7 @@ You can specify data types for your fields when creating a mapping. The followin
 
 | Field type  | Description |
 | [`knn_vector`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-vector/)                 | Indexes a dense vector for k-NN search and vector similarity operations.                                                                   |
-| [`sparse_vector`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/sparse-vector/)               | Indexes a sparse vector for [neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann). |
+| [`sparse_vector`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/sparse-vector/)               | Indexes a sparse vector for [neural sparse ANN search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/neural-sparse-ann/). |
 
 ## Specialized search field types
 
@@ -106,7 +109,7 @@ You can specify data types for your fields when creating a mapping. The followin
 | [`rank_features`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/rank/)                    | Boosts or decreases the relevance score of documents. Used when the list of features is sparse.                                          |
 | [`percolator`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/percolator/)                 | A field that acts as a stored query for reverse search operations.                                                                        |
 | [`star_tree`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/star-tree/)                   | Precomputes aggregations for faster performance using a [star-tree index](https://docs.pinot.apache.org/basics/indexing/star-tree-index). |
-| [`derived`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/derived/)                       | A dynamically generated field computed from other fields using a script.                                                                  |
+| [Derived]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/derived/)                         | A dynamically generated field computed from other fields using a script. Defined in the `derived` object of the mapping or search request, not by a `type` value. |
 
 
 ## Arrays
@@ -124,6 +127,9 @@ PUT testindex1/_doc/2
   "number": [1, 2, 3] 
 }
 ```
+
+The `semantic` field cannot contain an array of values because it's mapped to an embedding field (`rank_features` or `knn_vector`), which supports only a single vector.
+{: .note}
 
 ## Multifields
 
@@ -179,7 +185,7 @@ PUT testindex
 }
 ```
 
-Index three documents into testindex. The `emergency_phone` fields of documents 1 and 3 contain `null`, while the `emergency_phone` field of document 2 has an empty array:
+Index three documents into `testindex`. The `emergency_phone` fields of documents 1 and 3 contain `null`, while the `emergency_phone` field of document 2 has an empty array:
 
 ```json
 PUT testindex/_doc/1

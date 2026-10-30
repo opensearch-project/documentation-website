@@ -2,12 +2,13 @@
 layout: default
 title: List MCP tools 
 parent: MCP server APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 30
 ---
 
 # List MCP Tools API
 **Introduced 3.1**
+{: .label .label-purple }
 
 Use this API to list all Model Context Protocol (MCP)-based tools by name.
 
@@ -64,3 +65,7 @@ OpenSearch responds with the MCP tool list:
     ]
 }
 ```
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/opensearch/ml/mcp_tools/list`.

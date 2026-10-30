@@ -6,6 +6,8 @@ nav_order: 85
 ---
 
 # Search shards API
+**Introduced 1.0**
+{: .label .label-purple }
 
 The `_search_shards` API provides information about which shards OpenSearch would route a search request to if the request were executed. This helps you understand how OpenSearch plans to distribute the query across shards without actually running the search. This API does not execute the search but allows you to inspect routing decisions, shard distribution, and the nodes that would handle the request. 
 
@@ -13,9 +15,9 @@ The `_search_shards` API provides information about which shards OpenSearch woul
 
 ```json
 GET /_search_shards
-GET /<index>/_search_shards
+GET /{index}/_search_shards
 POST /_search_shards
-POST /<index>/_search_shards
+POST /{index}/_search_shards
 ```
 
 ## Path parameters
@@ -254,7 +256,11 @@ The following table lists all response body fields.
 | `shards` | Array of arrays | Nested arrays representing shard copies (primary/replica) for the request. |
 | `shards.index` | String | The index name. |
 | `shards.shard` | Integer | The shard number. |
-| `shards.node`  | String | The node ID of the node containing this shard. |
+| `shards.node` | String | The node ID of the node containing this shard. |
 | `shards.primary` | Boolean | Whether this is a primary shard. |
 | `shards.state` | String | The current shard state. |
 | `shards.allocation_id.id` | String | A unique ID for this shard allocation. |
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/shards/search_shards`.

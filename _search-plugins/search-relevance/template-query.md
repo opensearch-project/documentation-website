@@ -3,13 +3,13 @@ layout: default
 title: Template queries
 nav_order: 70
 parent: Query rewriting
-grand_parent: Search relevance
+grand_parent: Optimizing search quality
 has_children: false
 has_toc: false
 ---
 
 # Template queries
-Introduced 2.19
+**Introduced 2.19**
 {: .label .label-purple }
 
 A template query allows you to create queries with dynamic placeholders that are resolved by search request processors during query execution. This is particularly useful when your query parameters need to be generated or transformed during the search process, such as when using machine learning (ML) inference to convert text into vector embeddings.
@@ -209,7 +209,7 @@ The response contains the matching document:
 }
 ```
 
-## Related articles
+## Related documentation
 
 - [Template query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/template/)
 - [ML inference search request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-request/)

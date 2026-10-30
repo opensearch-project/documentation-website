@@ -9,49 +9,104 @@ has_children: false
 
 # Per cluster metrics monitors
 
-_Per cluster metrics monitors_ are a type of alert monitor that collects and analyzes metrics from a single cluster, providing insights into the cluster's performance and health. You can set alerts to monitor certain conditions, such as when:
+A per cluster metrics monitor runs a cluster API request on a schedule and evaluates the response using a trigger condition. Use it to generate alerts about the state of a cluster, for example, when:
 
 - Cluster health reaches yellow or red status.
-- Cluster-level metrics---for example, CPU usage and JVM memory usage---reach specified thresholds.
-- Node-level metrics---for example, available disk space, JVM memory usage, and CPU usage---reach specified thresholds.
-- Total number of documents stored reaches specified thresholds.
+- Cluster-level metrics, such as CPU usage and JVM memory usage, reach specified thresholds.
+- Node-level metrics, such as available disk space, JVM memory usage, and CPU usage, reach specified thresholds.
+- The total number of documents stored reaches a specified threshold.
 
-## Create a cluster metrics monitor
+## Creating a per cluster metrics monitor
 
-To create a cluster metrics monitor, follow these steps:
+The following example creates a monitor that generates an alert when the cluster health status is not green.
 
-1. Select **Alerting** > **Monitors** > **Create monitor**.
-2. Select the **Per cluster metrics monitor** option.
-3. In the Query section, pick the **Request type** from the dropdown list.
-4. (Optional) If you want to filter the API response to use only certain path parameters, enter those parameters under **Query parameters**. Most APIs that can be used to monitor cluster status support path parameters as described in their documentation (for example, comma-separated lists of index names).
-5. In the [Triggers]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/) section, indicate which conditions will trigger an alert. The trigger condition autopopulates a `painless ctx` variable. For example, a cluster monitor watching for Cluster Stats uses the trigger condition `ctx.results[0].indices.count <= 0`, which triggers an alert based on the number of indexes returned by the query. For more specificity, add any additional Painless conditions supported by the API. To see an example of the condition response, select **Preview condition response**.
-6. In the Actions section, indicate how you want your users to be notified when a trigger condition is met.
-7. Select **Create**. Your new monitor appears in the **Monitors** list.
+To create the monitor, follow these steps:
 
-The following example shows a configuration of a cluster metrics monitor.
+1. On the top menu, go to **OpenSearch Plugins** > **Alerting**.
+1. Select the **Monitors** tab, and then select **Create monitor**.
+1. In **Monitor details**, enter a **Monitor name**, such as `Cluster health`, and select **Per cluster metrics monitor**. Optionally, change the **Schedule**. By default, the monitor runs every minute.
+1. In **Select data**, keep the local cluster selected. To monitor remote clusters, select them in **Select clusters**. For more information, see [Monitoring remote clusters](#monitoring-remote-clusters).
+1. In **Query**, in **Request type**, select **Cluster health**. Optionally, in **Path parameters**, enter path parameters to filter the API response, for example, a comma-separated list of index names. To view the API response, select **Preview query**.
+1. In **Triggers**, select **Add trigger**, and then configure the trigger:
+   - **Trigger name**: Enter `Cluster health is not green`.
+   - **Severity level**: Keep **1 (Highest)**.
+   - **Trigger condition**: Keep the default condition for the selected request type, `ctx.results[0].status != "green"`. The condition is a [Painless]({{site.url}}{{site.baseurl}}/scripting/painless/) script that evaluates the API response. To test the condition, select **Preview condition response**.
+1. Optionally, in **Actions**, add an action that sends a notification when the trigger condition is met. For more information, see [Actions]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/actions/).
+1. Select **Create**.
 
-<img src="{{site.url}}{{site.baseurl}}/images/cluster-metrics.png" alt="Cluster metrics monitor" width="700"/>
+If the cluster health status is yellow or red, the monitor generates an alert in the **Active** state. For example, a single-node cluster that contains indexes with replicas has a yellow status because the replicas cannot be assigned.
+
+A per cluster metrics monitor supports up to 10 triggers. For the variables that you can use in trigger conditions, see [Trigger variables]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/#trigger-variables).
+
+## Creating a per cluster metrics monitor using the API
+
+To create the monitor from the preceding example using the API, send the following request:
+
+```json
+POST _plugins/_alerting/monitors
+{
+  "type": "monitor",
+  "monitor_type": "cluster_metrics_monitor",
+  "name": "Cluster health",
+  "enabled": true,
+  "schedule": {
+    "period": {
+      "interval": 1,
+      "unit": "MINUTES"
+    }
+  },
+  "inputs": [
+    {
+      "uri": {
+        "api_type": "CLUSTER_HEALTH",
+        "path": "_cluster/health",
+        "path_params": ""
+      }
+    }
+  ],
+  "triggers": [
+    {
+      "query_level_trigger": {
+        "name": "Cluster health is not green",
+        "severity": "1",
+        "condition": {
+          "script": {
+            "source": "ctx.results[0].status != \"green\"",
+            "lang": "painless"
+          }
+        },
+        "actions": []
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+For more information about the monitor APIs, see [Alerting API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/).
 
 ## Supported APIs
 
-Trigger conditions use responses from the following API endpoints. Most APIs that can be used to monitor cluster status support path parameters (for example, comma-separated lists of index names). They do not support query parameters.
+A per cluster metrics monitor can call the following APIs. The `api_type` column lists the value to use in the `inputs.uri.api_type` field when you create the monitor using the API. The APIs support path parameters, such as a comma-separated list of index names, but not query parameters.
 
-- [_cluster/health]({{site.url}}{{site.baseurl}}/api-reference/cluster-health/)
-- [_cluster/stats]({{site.url}}{{site.baseurl}}/api-reference/cluster-stats/)
-- [_cluster/settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings/)
-- [_nodes/stats]({{site.url}}{{site.baseurl}}/opensearch/popular-api/#get-node-statistics)
-- [_cat/indices]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/)
-- [_cat/pending_tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-pending-tasks/)
-- [_cat/recovery]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/)
-- [_cat/shards]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-shards/)
-- [_cat/snapshots]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots/)
-- [_cat/tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-tasks/)
+API | `api_type` | Request type in OpenSearch Dashboards
+:--- | :--- | :---
+[Cluster Health]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) | `CLUSTER_HEALTH` | **Cluster health**
+[Cluster Settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) | `CLUSTER_SETTINGS` | **Cluster settings**
+[Cluster Stats]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-stats/) | `CLUSTER_STATS` | **Cluster stats**
+[CAT Indices]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/) | `CAT_INDICES` | **List indices**
+[CAT Pending Tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-pending-tasks/) | `CAT_PENDING_TASKS` | **List pending tasks**
+[CAT Recovery]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/) | `CAT_RECOVERY` | **List index and shard recoveries**
+[CAT Shards]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-shards/) | `CAT_SHARDS` | **List shards**
+[CAT Snapshots]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots/) | `CAT_SNAPSHOTS` | **List snapshots**
+[CAT Tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-tasks/) | `CAT_TASKS` | **List tasks**
+[Nodes Stats]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/) | `NODES_STATS` | Not available. Use the API.
 
-## Restrict API fields
+## Restricting API fields
 
-If you want to hide fields from the API response and not expose them for alerting, reconfigure the [supported_json_payloads.json](https://github.com/opensearch-project/alerting/blob/main/alerting/src/main/resources/org/opensearch/alerting/settings/supported_json_payloads.json) file inside the Alerting plugin. The file functions as an allow list for the API fields you want to use in an alert. By default, all APIs and their parameters can be used for monitors and trigger conditions.
+To restrict the APIs and response fields that can be used in per cluster metrics monitors, modify the [supported_json_payloads.json](https://github.com/opensearch-project/alerting/blob/main/alerting/src/main/resources/org/opensearch/alerting/settings/supported_json_payloads.json) file inside the Alerting plugin. The file functions as an allow list. By default, all supported APIs and their response fields can be used in monitors and trigger conditions.
 
-However, you can modify the file so that cluster metrics monitors can only be created for APIs referenced. Furthermore, only fields referenced in the supported files can create trigger conditions. This `supported_json_payloads.json` allows for a cluster metrics monitor to be created for the `_cluster/stats` API, and triggers conditions for the `indices.shards.total` and `indices.shards.index.shards.min` fields.
+If you modify the file, per cluster metrics monitors can be created only for the APIs that the file lists, and trigger conditions can use only the fields that the file lists. For example, the following entry allows monitors for the Cluster Stats API and trigger conditions that use the `indices.shards.total` and `indices.shards.index.shards.min` fields:
 
 ```json
 "/_cluster/stats": {
@@ -62,68 +117,28 @@ However, you can modify the file so that cluster metrics monitors can only be cr
 }
 ```
 
-## Painless triggers
+## Monitoring remote clusters
 
-Painless scripts define triggers for cluster metrics monitors, similar to per query or per bucket monitors, which are defined using the extraction query definition option. Painless scripts are composed of at least one statement and any additional functions you wish to run.
+A per cluster metrics monitor can call an API on multiple clusters. In OpenSearch Dashboards, select the clusters in **Select clusters**. Using the API, list the clusters in the `inputs.uri.clusters` field, for example, `"clusters": ["cluster-1", "cluster-2"]`.
 
-The cluster metrics monitor supports up to **ten** triggers.
+When a monitor calls an API on multiple clusters, `ctx.results[0]` contains a response for each cluster, keyed by cluster name. The following trigger condition generates an alert when the health status of any of the clusters is not green:
 
-In the following example, the monitor is configured to call the Cluster Health API for two clusters, `cluster-1` and `cluster-2`. The trigger condition will create an alert when either of the clusters' `status` is not `green`.
-
-The `script` parameter points the `source` to the Painless script `for (cluster in ctx.results[0].keySet()) if (ctx.results[0][cluster].status != \"green\") return true`. See [Trigger variables]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/triggers/#trigger-variables) for more `painless ctx` variable options.
-
-```json
-{
-  "name": "Cluster Health Monitor",
-  "type": "monitor",
-  "monitor_type": "query_level_monitor",
-  "enabled": true,
-  "schedule": {
-    "period": {
-      "unit": "MINUTES",
-      "interval": 1
-    }
-  },
-  "inputs": [
-    {
-      "uri": {
-        "api_type": "CLUSTER_HEALTH",
-        "path": "_cluster/health/",
-        "path_params": "",
-        "url": "http://localhost:9200/_cluster/health/",
-        "clusters": ["cluster-1", "cluster-2"]
-      }
-    }
-  ],
-  "triggers": [
-    {
-      "query_level_trigger": {
-        "id": "Tf_L_nwBti6R6Bm-18qC",
-        "name": "Yellow status trigger",
-        "severity": "1",
-        "condition": {
-          "script": {
-            "source": "for (cluster in ctx.results[0].keySet()) if (ctx.results[0][cluster].status != \"green\") return true",
-            "lang": "painless"
-          }
-        },
-        "actions": []
-      }
-    }
-  ]
-}
 ```
-The dashboards interface supports the selection of clusters to be monitored and the desired API. A view of the interface is shown in the following image.
+for (cluster in ctx.results[0].keySet()) if (ctx.results[0][cluster].status != "green") return true
+```
+{% include copy.html %}
 
-The following [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) are required in order to create a cross-cluster monitor through the dashboards UI: `cluster:admin/opensearch/alerting/remote/indexes/get`, `indices:admin/resolve/index`, `cluster:monitor/health`, and `indices:admin/mappings/get`.
+To create a cross-cluster monitor in OpenSearch Dashboards, you need the following [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/): `cluster:admin/opensearch/alerting/remote/indexes/get`, `indices:admin/resolve/index`, `cluster:monitor/health`, and `indices:admin/mappings/get`.
 {: .note}
 
-<img src="{{site.url}}{{site.baseurl}}/images/alerting/cross-cluster-cluster-metrics-monitors.png" alt="Cluster metrics monitor" width="700"/>
+The following image shows a per cluster metrics monitor that calls the Cluster Health API on two clusters.
 
-### Limitations
+![Per cluster metrics monitor for multiple clusters]({{site.url}}{{site.baseurl}}/images/alerting/cross-cluster-cluster-metrics-monitors.png){: width="700" }
+
+## Limitations
 
 Per cluster metrics monitors have the following limitations:
 
-- The OpenSearch cluster must be in a state where an index's conditions can be monitored and actions can be executed against the index.
-- Removing resource permissions from a user will not prevent that user’s preexisting monitors for that resource from executing.
-- Users with permissions to create monitors are not blocked from creating monitors for resources for which they do not have permissions; however, those monitors will not run.
+- The cluster must be in a state in which the monitor can run and its actions can be performed.
+- Removing resource permissions from a user does not stop that user's existing monitors for that resource from running.
+- Users with permissions to create monitors are not prevented from creating monitors for resources that they don't have permissions for. However, those monitors don't run.

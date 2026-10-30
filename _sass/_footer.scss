@@ -3,11 +3,14 @@ $footer-2-column-max: 834px;
 $footer-2-column-min: 701px;
 $footer-1-column-max:700px;
 
+$footer-gradient-start: #016BA7;
+$footer-gradient-end: #011C2D;
+
 .bottom-contentinfo--wrapper {
     @include clearfix;
     @include sans-serif;
     position: relative;
-    background: $primary-open-sky;
+    background: $blue-300;
     clear: both;
     margin-top: 0px;
     & * {
@@ -37,7 +40,7 @@ $footer-1-column-max:700px;
     > .bottom-contentinfo--subfooter {
         @include clearfix;
         padding: 0;
-        @include gradient-deep-blue-sea;
+        background: linear-gradient(180deg, $footer-gradient-start 0%, $footer-gradient-end 97.92%);
         > .bottom-contentinfo--container {
             > .subfooter--flex-wrapper {
                 display: flex;
@@ -105,8 +108,8 @@ $footer-1-column-max:700px;
 
     h2 {
         font-size: 16px;
-        border-top: 1px solid $line;
-        color: $background-lightest;
+        border-top: 1px solid $grey-lt-300;
+        color: $grey-lt-000;
         font-weight: 700;
         margin-top: 20px;
         padding: 30px 0 10px;
@@ -141,9 +144,9 @@ $footer-1-column-max:700px;
     }
 
     .bottom-contentinfo--footer {
-        background: $primary-deep-blue-sea-s3;
+        background: $blue-dk-300;
         padding: 10px 0 30px;
-        color: #d9d9d9;
+        color: $blue-dk-100;
         > .bottom-contentinfo--container {
             padding: 0;
             > .footer--flex-wrapper {
@@ -171,17 +174,17 @@ $footer-1-column-max:700px;
                         line-height: 24px;
                         box-sizing: border-box;
                         a {
-                            color: $primary-open-sky-t1;
+                            color: $blue-vibrant-200;
                             text-decoration: underline;
                             &:hover {
-                                color: $primary-pacific-sky-t3;
+                                color: $blue-vibrant-300;
                             }
                             &:visited {
-                                color: $primary-open-sky-t2;
+                                color: $blue-300;
                             }
                         }
                         svg > path {
-                            fill: $primary-pacific-sky-t3;
+                            fill: $blue-vibrant-300;
                         }
                         @media screen and (max-width: $footer-1-column-max) {
                             > .footer--legal-rows-wrapper--row--logo__desktop {
@@ -211,7 +214,7 @@ $footer-1-column-max:700px;
         }
         
         a, svg {
-            color: $accent-light;
+            color: $blue-vibrant-100;
         }
         svg {
             float: left;
@@ -245,7 +248,7 @@ $footer-1-column-max:700px;
         font-size: 40px;
         @include sans-serif;
         background: url(../img/logo-search.png) 0 0 no-repeat;
-        color: $accent-dark;
+        color: $blue-dk-300;
         display: block;
         font-weight: 700;
         height: 50px;
@@ -268,7 +271,7 @@ $footer-1-column-max:700px;
 
     .thanks {
         font-size: 12px;
-        color: $attention-dark;
+        color: $yellow-100;
         margin: 0;
         padding: 0;
         @include respond-min(462.5px) {

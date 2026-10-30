@@ -1,0 +1,177 @@
+---
+layout: default
+title: eventstats
+parent: Commands
+grand_parent: PPL
+nav_order: 14
+---
+
+<!-- vale off -->
+
+# eventstats command
+
+<!-- vale on -->
+
+The `eventstats` command enriches your event data with calculated summary statistics. It analyzes the specified fields within your events, computes various statistical measures, and then appends these results as new fields to each original event.
+
+The `eventstats` command operates in the following way:
+
+1. It performs calculations across the entire search results or within defined groups.
+2. The original events remain intact, with new fields added to contain the statistical results.
+3. The command is particularly useful for comparative analysis, identifying outliers, and providing additional context to individual events.
+
+## Comparing stats commands
+
+For a comprehensive comparison of `stats`, `eventstats`, and `streamstats` commands, including their differences in transformation behavior, output format, aggregation scope, and use cases, see [Comparing `stats`, `eventstats`, and `streamstats`]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/streamstats/#comparing-stats-eventstats-and-streamstats).
+
+## Syntax
+
+The `eventstats` command has the following syntax:
+
+```sql
+eventstats [bucket_nullable=bool] <function>... [by-clause]
+```
+
+The following are examples of the `eventstats` command syntax:
+
+```sql
+source = table | eventstats avg(a)
+source = table | where a < 50 | eventstats count(c)
+source = table | eventstats min(c), max(c) by b
+source = table | eventstats count(c) as count_by by b | where count_by > 1000
+source = table | eventstats dc(field) as distinct_count
+source = table | eventstats distinct_count(category) by region
+```
+
+## Parameters
+
+The `eventstats` command supports the following parameters.
+
+| Parameter | Required/Optional | Description |
+| --- | --- | --- |
+| `<function>` | Required | An aggregation function or window function. |
+| `bucket_nullable` | Optional | Controls whether the `eventstats` command considers `null` buckets as a valid group in group-by aggregations. When set to `false`, it does not treat `null` group-by values as a distinct group during aggregation. Default is determined by `plugins.ppl.syntax.legacy.preferred`. |
+| `<by-clause>` | Optional | Groups results by specified fields or expressions. Syntax: `by [span-expression,] [field,]...` Default is aggregating over the entire search results. |
+| `<span-expression>` | Optional | Splits a field into buckets by intervals (at most one). Syntax: `span(field_expr, interval_expr)`. For example, `span(age, 10)` creates 10-year age buckets, while `span(timestamp, 1h)` creates hourly buckets. |
+
+### Time units
+
+The following time units are available for span expressions:
+
+* Milliseconds (`ms`)
+* Seconds (`s`)
+* Minutes (`m`, case sensitive)
+* Hours (`h`)
+* Days (`d`)
+* Weeks (`w`)
+* Months (`M`, case sensitive)
+* Quarters (`q`)
+* Years (`y`)  
+
+## Aggregation functions
+
+The `eventstats` command supports the following aggregation functions:
+
+* `COUNT` -- Count of values
+* `SUM` -- Sum of numeric values
+* `AVG` -- Average of numeric values
+* `MAX` -- Maximum value
+* `MIN` -- Minimum value
+* `VAR_SAMP` -- Sample variance
+* `VAR_POP` -- Population variance
+* `STDDEV_SAMP` -- Sample standard deviation
+* `STDDEV_POP` -- Population standard deviation
+* `DISTINCT_COUNT`/`DC` -- Distinct count of values
+* `EARLIEST` -- Earliest value by timestamp
+* `LATEST` -- Latest value by timestamp  
+
+For detailed documentation of each function, see [Functions]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/functions/aggregations/).  
+
+## Example 1: Enriching logs with per-service counts  
+
+The following query adds the total log count for each service to every log entry, letting you see how active each service is alongside individual log details:
+  
+```sql
+source=otellogs
+| eventstats count() as service_total by `resource.attributes.service.name`
+| where severityText = 'ERROR'
+| sort `resource.attributes.service.name`
+| fields severityText, `resource.attributes.service.name`, service_total, body
+| head 3
+```
+{% include copy.html %}
+{% include try-in-playground.html %}
+  
+The query returns the following results:
+  
+<!-- vale off -->
+
+| severityText | resource.attributes.service.name | service_total | body |
+| --- | --- | --- | --- |
+| ERROR | checkout | 3 | NullPointerException in CheckoutService.placeOrder at line 142 |
+| ERROR | checkout | 3 | Kafka producer delivery failed: message too large for topic order-events (max 1048576 bytes) |
+| ERROR | frontend-proxy | 3 | [2024-02-01T09:20:00.456Z] "POST /api/checkout HTTP/1.1" 503 - 0 30000 checkout-8d4f7b-mk2p9 |
+
+<!-- vale on -->
+  
+
+## Example 2: Calculating severity statistics by group  
+
+The following query adds the average severity and error count per service to each log entry:
+  
+```sql
+source=otellogs
+| where severityText = 'ERROR'
+| eventstats avg(severityNumber) as avg_sev, count() as error_count by `resource.attributes.service.name`
+| sort `resource.attributes.service.name`
+| fields `resource.attributes.service.name`, severityNumber, avg_sev, error_count
+```
+{% include copy.html %}
+{% include try-in-playground.html %}
+  
+The query returns the following results:
+  
+<!-- vale off -->
+
+| resource.attributes.service.name | severityNumber | avg_sev | error_count |
+| --- | --- | --- | --- |
+| checkout | 17 | 17.0 | 2 |
+| checkout | 17 | 17.0 | 2 |
+| frontend-proxy | 17 | 17.0 | 1 |
+| payment | 17 | 17.0 | 2 |
+| payment | 17 | 17.0 | 2 |
+| product-catalog | 17 | 17.0 | 1 |
+| recommendation | 17 | 17.0 | 1 |
+
+<!-- vale on -->
+  
+
+## Example 3: Null bucket handling
+
+The following query uses `bucket_nullable=false` to exclude null values from the group-by aggregation:
+
+```sql
+source=otellogs
+| eventstats bucket_nullable=false count() as scope_count by instrumentationScope.name
+| where severityText = 'ERROR'
+| sort `resource.attributes.service.name`
+| fields `resource.attributes.service.name`, `instrumentationScope.name`, scope_count
+```
+{% include copy.html %}
+{% include try-in-playground.html %}
+  
+The query returns the following results:
+  
+<!-- vale off -->
+
+| resource.attributes.service.name | instrumentationScope.name | scope_count |
+| --- | --- | --- |
+| checkout | null | null |
+| checkout | null | null |
+| frontend-proxy | null | null |
+| payment | null | null |
+| payment | @opentelemetry/instrumentation-http | 2 |
+| product-catalog | null | null |
+| recommendation | null | null |
+
+<!-- vale on -->

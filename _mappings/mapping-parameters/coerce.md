@@ -9,7 +9,7 @@ has_children: false
 has_toc: false
 ---
 
-# Coerce
+# Coerce mapping parameter
 
 The `coerce` mapping parameter controls whether OpenSearch attempts to normalize and convert values to match the field's data type during indexing.
 

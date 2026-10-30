@@ -9,7 +9,7 @@ nav_order: 46
 
 The **Alerts** window provides features for viewing and managing alerts. It consists of:
 
-- A bar graph displaying alert counts, dates, and statuses or severities.
+- A bar graph displaying alert counts, dates, and status or severity levels.
 - Two tabs:
   - **Findings**: Lists detector-generated alerts, showing details such as alert time, trigger name, and the detector that triggered the alert.
   - **Correlations**: Lists correlation-rule-generated alerts, showing details such as alert time, trigger name, and the correlation rule that triggered the alert.
@@ -23,7 +23,8 @@ You can select the **Refresh** button to refresh information on the **Alerts** p
 The **Alerts** graph displays alerts by their status or severity. Use the **Group by** dropdown menu to specify either **Alert status** or **Alert severity**.
 
 To specify a date range, select the calendar icon to activate the dropdown menu. The date selector window opens. An example window is shown in the following image.
-<br><img src="{{site.url}}{{site.baseurl}}/images/Security/find-date-pick.png" alt="Date selector for findings graph" width="55%">
+
+![Date selector for findings graph]({{site.url}}{{site.baseurl}}/images/Security/find-date-pick.png){: width="55%" }
 
 You can use the **Quick select** settings to specify a date range:
 * Select either **Last** or **Next** from the first dropdown menu to set the date range to either behind the current setting or ahead of the current setting.
@@ -33,13 +34,13 @@ You can use the **Quick select** settings to specify a date range:
 
 An example window is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/quickset.png" alt="Quick select settings example" width="40%">
+![Quick select settings example]({{site.url}}{{site.baseurl}}/images/Security/quickset.png){: width="40%" }
 
 You can use the left and right arrows in the upper-left corner to shift the time range backward or forward, respectively. When you use these arrows, the start date and end date appear in the date range field. You can then select each one to set an absolute, relative, or current date and time. For absolute and relative changes, select the **Update** button to apply the changes. 
 
 An example window is shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/date-pick.png" alt="Altering date range" width="55%">
+![Altering date range]({{site.url}}{{site.baseurl}}/images/Security/date-pick.png){: width="55%" }
 
 As an alternative, you can select an option in the **Commonly used** section (see the preceding image of the calendar dropdown menu) to conveniently set a date range. Options include **Today**, **Yesterday**, **this week**, and **week to date**. 
 

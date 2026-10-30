@@ -2,7 +2,7 @@
 layout: default
 title: Supported algorithms 
 has_children: false
-nav_order: 125
+nav_order: 100
 ---
 
 # Supported algorithms
@@ -52,6 +52,7 @@ POST /_plugins/_ml/_train/kmeans
     ]
 }
 ```
+{% include copy-curl.html %}
 
 ### Limitations
 
@@ -131,6 +132,7 @@ POST _plugins/_ml/_predict/LINEAR_REGRESSION/ROZs-38Br5eVE0lTsoD9
   }
 }
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
@@ -237,7 +239,6 @@ The following example estimates cluster centers and provides cluster labels for 
 POST _plugins/_ml/_train_predict/RCF_SUMMARIZE
 {
   "parameters": {
-    "centroids": 3,
     "max_k": 15,
     "distance_type": "L2"
   },
@@ -269,6 +270,7 @@ POST _plugins/_ml/_train_predict/RCF_SUMMARIZE
   }
 }
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
@@ -288,7 +290,7 @@ The `rows` parameter within the prediction result has been modified for length. 
       {
         "values": [
           {
-            "column_type": "DOUBLE",
+            "column_type": "INTEGER",
             "value": 0
           }
         ]
@@ -305,7 +307,7 @@ The Localization algorithm finds subset-level information for aggregate data (fo
 
 ### Parameters
 
-All parameters are required except `filter_query` and `anomaly_start`.
+All parameters are required except `filter_query` and `anomaly_start_time`.
 
 Parameter | Type   | Description | Default value
 :--- | :--- | :--- | :---
@@ -314,11 +316,11 @@ Parameter | Type   | Description | Default value
 `aggregations` | List  | The fields and aggregation for values. | N/A
 `time_field_name` | String | The timestamp field. | `null`
 `start_time` | Long | The beginning of the time range. | `0` 
-`end_time` | Long | The end of the time range. | 0``
+`end_time` | Long | The end of the time range. | `0`
 `min_time_interval` | Long | The minimum time interval/scale for analysis. | `0`
 `num_outputs` | Integer | The maximum number of values from localization/slicing. | `0`
-`filter_query` | Long | (Optional) Reduces the collection of data for analysis. | N/A
-anomal`y_star | Time units | (Optional) The time after which the data will be analyzed. | N/A
+`filter_query` | Object | (Optional) A query that reduces the collection of data for analysis. | N/A
+`anomaly_start_time` | Long | (Optional) The time after which the data will be analyzed. | N/A
 
 ### Example: Execute localization
 
@@ -326,7 +328,7 @@ The following example executes Localization against an RCA index.
 
 #### Example request
 
-```bash
+```json
 POST /_plugins/_ml/_execute/anomaly_localization
 {
   "index_name": "rca-index",
@@ -349,6 +351,7 @@ POST /_plugins/_ml/_execute/anomaly_localization
   "num_outputs": 10
 }
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
@@ -458,7 +461,7 @@ The following example creates an index in OpenSearch with the [Iris dataset](htt
 
 Before using this request, make sure that you have downloaded [Iris data](https://archive.ics.uci.edu/dataset/53/iris).
 
-```bash
+```json
 PUT /iris_data
 {
   "mappings": {
@@ -482,10 +485,11 @@ PUT /iris_data
   }
 }
 ```
+{% include copy-curl.html %}
 
 #### Ingest data from IRIS_data.txt
 
-```bash
+```json
 POST _bulk
 { "index" : { "_index" : "iris_data" } }
 {"sepal_length_in_cm":5.1,"sepal_width_in_cm":3.5,"petal_length_in_cm":1.4,"petal_width_in_cm":0.2,"class":"Iris-setosa"}
@@ -501,7 +505,8 @@ This example uses a multi-class logistic regression categorization methodology. 
 
 **Request**
 
-```bash
+```json
+POST _plugins/_ml/_train/logistic_regression
 {
   "parameters": {
     "target": "class"
@@ -524,6 +529,7 @@ This example uses a multi-class logistic regression categorization methodology. 
   ]
 }
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
@@ -540,8 +546,8 @@ The `model_id` will be used to predict the class of the Iris.
 
 Using the `model_id` of the trained Iris dataset, logistic regression will predict the class of the Iris based on the input data.
 
-```bash
-POST _plugins/_ml/_predict/logistic_regression/SsfQaoIBEoC4g4joZiyD
+```json
+POST _plugins/_ml/_predict/logistic_regression/TOgsf4IByBqD7FK_FQGc
 {
   "parameters": {
     "target": "class"
@@ -610,6 +616,7 @@ POST _plugins/_ml/_predict/logistic_regression/SsfQaoIBEoC4g4joZiyD
   }
 }
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
@@ -666,6 +673,7 @@ PUT /_cluster/settings
   }
 }
 ```
+{% include copy-curl.html %}
 
 ### Parameters
 
@@ -673,7 +681,7 @@ To use the metrics correlation algorithm, include the following parameters.
 
 | Parameter | Type | Description | Default value |
 |---|---|---|---|
-metrics | Array | A list of metrics within the time series that can be correlated to anomalous behavior | N/A
+`metrics` | Array | A list of metrics within the time series that can be correlated to anomalous behavior | N/A
 
 ### Input
 
@@ -693,6 +701,7 @@ The following example inputs the number of metrics (M) as 3 and the number of ti
 POST /_plugins/_ml/_execute/METRICS_CORRELATION
 {"metrics": [[-1.1635416, -1.5003631, 0.46138194, 0.5308311, -0.83149344, -3.7009873, -3.5463789, 0.22571462, -5.0380244, 0.76588845, 1.236113, 1.8460795, 1.7576948, 0.44893077, 0.7363948, 0.70440894, 0.89451003, 4.2006273, 0.3697659, 2.2458954, -2.302939, -1.7706926, 1.7445002, -1.5246059, 0.07985192, -2.7756078, 1.0002468, 1.5977372, 2.9152713, 1.4172368, -0.26551363, -2.2883027, 1.5882446, 2.0145164, 3.4862874, -1.2486862, -2.4811826, -0.17609037, -2.1095612, -1.2184235, 0.63118523, -1.8909532, 2.039797, -0.5317177, -2.2922578, -2.0179775, -0.07992507, -0.12554549, -0.2553092, 1.1450123, -0.4640453, -2.190223, -4.671612, -1.5076426, 1.635445, -1.1394824, -0.7503817, 0.98424894, -0.38896716, 1.0328646, 1.9543738, -0.5236269, 0.14298044, 3.2963762, 8.1641035, 5.717064, 7.4869685, 2.5987444, 11.018798, 9.151356, 5.7354255, 6.862203, 3.0524514, 4.431755, 5.1481285, 7.9548607, 7.4519925, 6.09533, 7.634116, 8.898271, 3.898491, 9.447067, 8.197385, 5.8284273, 5.804283, 7.7688456, 10.574343, 7.5679493, 7.1888094, 7.1107903, 8.454468, 8.066334, 8.83665, 7.11204, 4.4898267, 8.614764, 6.336754, 11.577503, 3.3998494, 9.501525, 13.17289, 6.1116023, 5.143777, 2.7813284, 3.7917604, 7.1683135, 7.627272, 7.290255, 3.1299121, 7.089733, 9.140584, 8.844729, 9.403275, 10.220029, 8.039719, 8.85549, 4.034555, 4.412663, 7.54451, 7.2116737, 4.6346946, 7.0044127, 9.7557, 10.982841, 5.897937, 6.870126, 3.5638695, 5.7872133], [1.3037996, 2.7976995, -0.12042701, 1.3688855, 1.6955005, -2.2575269, 0.080582514, 3.011721, -0.4320283, 3.2440786, -1.0321085, 1.2346085, -2.3152106, -0.9783513, 0.6837618, 1.5320586, -1.6148578, -0.94538075, 0.55978125, -4.7430468, 3.466028, 2.3792691, 1.3269067, -0.35359794, -1.5547276, 0.5202475, 1.0269136, -1.7531714, 0.43987304, -0.18845831, 2.3086758, 2.519588, 2.0116413, 0.019745048, -0.010070452, 2.496933, 1.1557871, 0.08433053, 1.375894, -1.2135965, -1.2588277, -0.31454003, 0.045949124, -1.7518936, -2.3533764, -2.0125146, 0.10255043, 1.1782314, 2.4579153, -0.8780899, -4.1442213, 3.8300152, 2.772975, 2.6803262, 0.9867382, 0.77618766, 0.46541777, 3.8959959, -2.1713195, 0.10609512, -0.26438138, -2.145317, 3.6734529, 1.4830295, -5.3445525, -10.6427765, -8.300354, -1.9608921, -6.6779685, -10.019544, -8.341513, -9.607174, -7.2441607, -3.411102, -6.180552, -8.318714, -6.060591, -7.790343, -5.9695, -7.9429936, -3.775652, -5.2827606, -3.7168224, -6.729588, -9.761094, -7.4683576, -7.2595067, -6.6790915, -9.832726, -8.352172, -6.936336, -8.252518, -6.787475, -9.091013, -11.465944, -6.712504, -8.987438, -6.946672, -8.877166, -6.7854185, -3.6417139, -6.1036086, -5.360772, -4.0435786, -4.5864973, -6.971063, -10.522461, -6.3692527, -4.387658, -9.723745, -4.7020173, -5.097396, -9.903703, -4.882414, -4.1999683, -6.7829437, -6.2555966, -8.121125, -5.334131, -9.174302, -3.9752126, -4.179469, -8.335524, -9.359406, -6.4938803, -6.794677, -8.382997, -9.879416], [1.8792984, -3.1561708, -0.8443318, -1.998743, -0.6319316, 2.4614046, -0.44511616, 0.82785237, 1.7911717, -1.8172283, 0.46574894, -1.8691323, 3.9586513, 0.8078605, 0.9049874, 5.4086914, -0.7425967, -0.20115769, -1.197923, 2.741789, 0.85432875, -1.1688408, -1.7771784, 1.615249, -4.1103697, 0.4721327, -2.75669, -0.38393462, -3.1137516, -2.2572582, 0.9580673, -3.7139492, -0.68303126, 1.6007807, 0.6313973, -2.5115106, 0.703251, 2.4844077, -1.7405633, -3.007687, 2.372802, 2.4684637, 0.6443977, -3.1433117, 0.05976736, -1.9809214, 3.514713, 2.1880944, 1.242541, 1.8236228, 0.8642841, -0.17313614, 1.7042321, 0.8298376, 4.2443194, 0.13983983, 1.1940852, 2.5076652, 39.285202, 82.73858, 44.707516, -4.267148, 0.25930226, 0.20799652, -3.7213502, 1.475217, -1.2394199, -0.0034497892, 1.1413965, 55.18923, -2.2969518, -4.1400924, -2.4707043, 43.193188, -0.19258368, 3.471275, 1.1374166, 1.2147579, 4.13017, -2.0576499, 2.1529694, -0.28360432, 0.8477302, -0.63012695, 1.2569811, 1.943168, 0.17070436, 3.2358394, -2.3737662, 0.77060974, 4.99065, 3.1079204, 3.6347675, 0.6801177, -2.2205186, 1.0961101, -2.4445753, -2.0919478, -2.895031, 2.5458927, 0.38599384, 1.0492333, -0.081834644, -7.4079595, -2.1785216, -0.7277175, -2.7413428, -3.2083786, 3.2958643, -1.1839997, 5.4849496, 2.0259023, 5.607272, -1.0125756, 3.721461, 2.5715313, 0.7741753, -0.55034757, 0.7526307, -2.6758716, -2.964664, -0.57379586, -0.28817406, -3.2334063, -0.22387607, -2.0793931, -6.4562697, 0.80134094]]}
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
@@ -706,19 +715,16 @@ In the following example response, each item corresponds to an event discovered 
 
 ```json
 {
-  "function_name": "METRICS_CORRELATION",
-  "output": {
-    "inference_results": [
-      {
-        "event_window": [
-          52,
-          72
-        ],
-        "event_pattern": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.99625e-05, 0.0001052875, 0.0002605894, 0.00064648513, 0.0014303402, 0.002980127, 0.005871893, 0.010885878, 0.01904726, 0.031481907, 0.04920215, 0.07283493, 0.10219432, 0.1361888, 0.17257516, 0.20853643, 0.24082609, 0.26901975, 0.28376183, 0.29364157, 0.29541212, 0.2832976, 0.29041746, 0.2574534, 0.2610143, 0.22938538, 0.19999361, 0.18074994, 0.15539801, 0.13064545, 0.10544432, 0.081248805, 0.05965102, 0.041305058, 0.027082501, 0.01676033, 0.009760197, 0.005362286, 0.0027713624, 0.0013381141, 0.0006126331, 0.0002634901, 0.000106459476, 4.0407333e-05, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        "suspected_metrics": [0,1,2]
-      }
-    ]
-  }
+  "inference_results": [
+    {
+      "event_window": [
+        52.0,
+        72.0
+      ],
+      "event_pattern": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3.99625e-05, 0.0001052875, 0.0002605894, 0.00064648513, 0.0014303402, 0.002980127, 0.005871893, 0.010885878, 0.01904726, 0.031481907, 0.04920215, 0.07283493, 0.10219432, 0.1361888, 0.17257516, 0.20853643, 0.24082609, 0.26901975, 0.28376183, 0.29364157, 0.29541212, 0.2832976, 0.29041746, 0.2574534, 0.2610143, 0.22938538, 0.19999361, 0.18074994, 0.15539801, 0.13064545, 0.10544432, 0.081248805, 0.05965102, 0.041305058, 0.027082501, 0.01676033, 0.009760197, 0.005362286, 0.0027713624, 0.0013381141, 0.0006126331, 0.0002634901, 0.000106459476, 4.0407333e-05, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      "suspected_metrics": [0,1,2]
+    }
+  ]
 }
 ```
 

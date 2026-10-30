@@ -15,7 +15,7 @@ The nodes reload secure settings endpoint allows you to change secure settings o
 
 ```json
 POST _nodes/reload_secure_settings
-POST _nodes/<nodeId>/reload_secure_settings
+POST _nodes/{node_id}/reload_secure_settings
 ```
 
 ## Path parameter
@@ -24,7 +24,7 @@ You can include the following optional path parameter in your request.
 
 Parameter | Type | Description
 :--- | :--- | :---
-nodeId | String | A comma-separated list of nodeIds used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). Defaults to `_all`.
+`node_id` | String | A comma-separated list of node IDs used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). Defaults to `_all`.
 
 ## Request body fields
 
@@ -50,11 +50,7 @@ POST /_nodes/reload_secure_settings
 
 {% capture step1_python %}
 
-
-response = client.nodes.reload_secure_settings(
-  body = { "Insert body here" }
-)
-
+response = client.nodes.reload_secure_settings()
 {% endcapture %}
 
 {% include code-block.html

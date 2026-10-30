@@ -5,7 +5,7 @@ parent: Supported log types
 nav_order: 50 
 ---
 
-# Linux
+# Linux log type
 
 The `linux` log type records Linux syslog events.
 

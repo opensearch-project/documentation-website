@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Intervals
-nav_order: 80
+nav_order: 90
 parent: Full-text queries
 ---
 
@@ -190,7 +190,7 @@ Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :---
 `term` | Required | String | The term to match. 
 `analyzer` | Optional | String | The [analyzer]({{site.url}}{{site.baseurl}}/analyzers/index/) used to normalize the `term`. Default is the analyzer specified for the `<field>`.
-`fuzziness` | Optional | String | The number of character edits (insert, delete, substitute) that it takes to change one word to another when determining whether a term matched a value. For example, the distance between `wined` and `wind` is 1. Valid values are non-negative integers or `AUTO`. The default, `AUTO`, chooses a value based on the length of each term and is a good choice for most use cases.
+`fuzziness` | Optional | String | The maximum number of edits allowed when matching the term, specified as `0`, `1`, `2`, `AUTO`, or `AUTO:<low>,<high>`. Default is `AUTO`. For more information, see [Fuzziness]({{site.url}}{{site.baseurl}}/query-dsl/fuzziness/).
 `transpositions` | Optional | Boolean | Setting `transpositions` to `true` (default) adds swaps of adjacent characters to the insert, delete, and substitute operations of the `fuzziness` option. For example, the distance between `wind` and `wnid` is 1 if `transpositions` is true (swap "n" and "i") and 2 if it is false (delete "n", insert "n"). If `transpositions` is `false`, `rewind` and `wnid` have the same distance (2) from `wind`, despite the more human-centric opinion that `wnid` is an obvious typo. The default is a good choice for most use cases.
 `prefix_length`| Optional | Integer | The number of beginning characters left unchanged for fuzzy matching. Default is 0. 
 `use_field` | Optional | String | Specifies to search this field instead of the top-level <field>. The `term` is normalized using the search analyzer specified for this field, unless you specify an `analyzer`.

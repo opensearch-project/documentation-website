@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Cluster routing and awareness
-nav_order: 50
+nav_order: 48
 parent: Cluster APIs
 has_children: false
 redirect_from:
@@ -10,7 +10,7 @@ redirect_from:
 ---
 
 # Cluster Routing And Awareness API
-**Introduced 1.0**
+**Introduced 2.4**
 {: .label .label-purple }
 
 To control how search traffic is routed across zones, you can assign weights to awareness attribute values. This is useful for zonal deployments, heterogeneous clusters, or routing traffic away from unhealthy zones.
@@ -81,10 +81,10 @@ For more information about OpenSearch settings, see [Configuring OpenSearch]({{s
 ## Endpoints
 
 ```json
-PUT /_cluster/routing/awareness/<attribute>/weights
-GET /_cluster/routing/awareness/<attribute>/weights?local
-GET /_cluster/routing/awareness/<attribute>/weights
-DELETE /_cluster/routing/awareness/<attribute>/weights
+PUT /_cluster/routing/awareness/{attribute}/weights
+GET /_cluster/routing/awareness/{attribute}/weights?local
+GET /_cluster/routing/awareness/{attribute}/weights
+DELETE /_cluster/routing/awareness/{attribute}/weights
 ```
 
 ## Path parameters
@@ -93,7 +93,7 @@ The following table lists the available path parameters. All path parameters are
 
 Parameter | Data type | Description
 :--- | :--- | :---
-`<attribute>` | String | The name of the configured awareness attribute (for example, `zone`). The attribute specified in the path determines which awareness attribute the weights apply to.
+`attribute` | String | The name of the configured awareness attribute (for example, `zone`). The attribute specified in the path determines which awareness attribute the weights apply to.
 
 ## Query parameters
 
@@ -109,8 +109,8 @@ The following table lists the available request body fields for the `PUT` and `D
 
 | Parameter  | Data type | Applicable method | Description  |
 | :--- | :--- | :--- | :--- |
-| `weights`  | Object    | `PUT` | Specifies custom weights for the awareness attribute values. The weights influence how search requests are distributed across zones or other awareness attribute values. Weights are relative and can use any ratio. For example, in a `2:3:5` ratio across three zones, 20%, 30%, and 50% of requests are routed to the respective zones. A weight of `0` excludes a zone from receiving search traffic. Required for the `PUT` method. |
-| `_version` | Integer    | `PUT`, `DELETE` | Used for optimistic concurrency control (OCC). Ensures that changes are applied only if the current version matches, preventing conflicting updates. The version is incremented after each succesful `PUT` or `DELETE` operation. To initiate concurrency control, you must set `_version` to `-1` in the initial request. Required for the `PUT` and `DELETE` methods. |
+| `weights` | Object | `PUT` | Specifies custom weights for the awareness attribute values. The weights influence how search requests are distributed across zones or other awareness attribute values. Weights are relative and can use any ratio. For example, in a `2:3:5` ratio across three zones, 20%, 30%, and 50% of requests are routed to the respective zones. A weight of `0` excludes a zone from receiving search traffic. Required for the `PUT` method. |
+| `_version` | Integer | `PUT`, `DELETE` | Used for optimistic concurrency control (OCC). Ensures that changes are applied only if the current version matches, preventing conflicting updates. The version is incremented after each succesful `PUT` or `DELETE` operation. To initiate concurrency control, you must set `_version` to `-1` in the initial request. Required for the `PUT` and `DELETE` methods. |
 
 
 ## Example request: Weighted round-robin search
@@ -276,4 +276,4 @@ After this request, the `_version` increments to `2`.
 ## Next steps
 
 - For more information about zone commissioning, see [Cluster decommission]({{site.url}}{{site.baseurl}}/api-reference/cluster-decommission/).
-- For more information about allocation awareness, see [Cluster formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/#advanced-step-6-configure-shard-allocation-awareness-or-forced-awareness).
+- For more information about allocation awareness, see [Cluster formation]({{site.url}}{{site.baseurl}}/tuning-your-cluster/creating-a-cluster/#advanced-step-6-configure-shard-allocation-awareness-or-forced-awareness).

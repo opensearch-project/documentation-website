@@ -1,0 +1,8 @@
+extends: substitution
+message: "Consider using '%s' instead of '%s' unless referring to an API parameter or Linux command."
+link: https://github.com/opensearch-project/documentation-website/blob/main/STYLE_GUIDE.md#offensive-terms
+ignorecase: true
+level: suggestion
+swap:
+  'abort': stop, end, or cancel
+  'kill': stop, end, clear, remove, or cancel

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Quickstart
-nav_order: 2
+nav_order: 5
 ---
 
 # OpenSearch Benchmark quickstart
@@ -12,7 +12,7 @@ This page outlines how to quickly install OpenSearch Benchmark and run your firs
 
 To perform the Quickstart steps, you'll need to fulfill the following prerequisites:
 
-- A currently active OpenSearch cluster. For instructions on how to create an OpenSearch cluster, see [Creating a cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/index/).
+- A currently active OpenSearch cluster. For instructions on how to create an OpenSearch cluster, see [Creating a cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/creating-a-cluster/).
 - Git 2.3 or greater.
 - Python 3.8 or later
 
@@ -114,9 +114,9 @@ You can now run your first benchmark. The following benchmark uses the [percolat
 
 ### Understanding workload command flags
 
-Benchmarks are run using the [`run`]({{site.url}}{{site.baseurl}}/benchmark/commands/run/) command with the following command flags:
+Benchmarks are run using the [`run`]({{site.url}}{{site.baseurl}}/benchmark/reference/commands/run/) command with the following command flags:
 
-For additional `run` command flags, see the [run]({{site.url}}{{site.baseurl}}/benchmark/commands/run/) reference. Some commonly used options are `--workload-params`, `--exclude-tasks`, and `--include-tasks`.
+For additional `run` command flags, see the [run]({{site.url}}{{site.baseurl}}/benchmark/reference/commands/run/) reference. Some commonly used options are `--workload-params`, `--exclude-tasks`, and `--include-tasks`.
 {: .tip}
 
 * `--pipeline=benchmark-only` : Informs OSB that users wants to provide their own OpenSearch cluster.
@@ -261,9 +261,9 @@ For more details about how the summary report is generated, see [Summary report]
 
 Now that you're familiar with running OpenSearch Benchmark on a cluster, you can run OpenSearch Benchmark on your own cluster, using the same `run` command but replacing the following settings:
 
-  * Replace `https://localhost:9200` with your target cluster endpoint.  This could be a URI like `https://search.mydomain.com` or a `HOST:PORT` specification.
+  * Replace `https://localhost:9200` with your target cluster endpoint. This can be a URI like `https://search.mydomain.com` or a `HOST:PORT` specification.
   * If the cluster is configured with basic authentication, replace the username and password in the command line with the appropriate credentials.
-  * Remove the `verify_certs:false` directive if you are not specifying `localhost` as your target cluster.  This directive is needed only for clusters where SSL certificates are not set up.
+  * Remove the `verify_certs:false` directive if you are not specifying `localhost` as your target cluster. This directive is needed only for clusters where SSL certificates are not set up.
   * If you are using a `HOST:PORT`specification and plan to use SSL/TLS, either specify `https://`, or add the `use_ssl:true` directive to the `--client-options` string option.
   * Remove the `--test-mode` flag to run the full workload, rather than an abbreviated test.
 

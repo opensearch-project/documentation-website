@@ -7,7 +7,7 @@ redirect_from:
    - /api-reference/ingest-apis/processors/csv/
 ---
 
-This documentation describes using the `csv` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `csv` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/csv/), which runs on the OpenSearch cluster, if your use case involves large or complex datasets.
+This documentation describes using the `csv` processor in OpenSearch ingest pipelines. Consider using the [Data Prepper `csv` processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/csv/), which runs outside the OpenSearch cluster, if your use case involves large or complex datasets.
 {: .note}
 
 # CSV processor
@@ -28,30 +28,30 @@ The following is the syntax for the `csv` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `csv` processor.
 
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-`field`  | Required  | The name of the field containing the data to be converted. Supports template snippets. |
-`target_fields`  | Required  | The name of the field in which to store the parsed data. |
+`field`  | Required  | The name of the field containing the CSV data to be parsed. |
+`target_fields`  | Required  | An array of field names in which to store the parsed values, one for each CSV column. Can't be empty. |
 `description`  | Optional  | A brief description of the processor.  |
-`empty_value`  | Optional  | Represents optional parameters that are not required or are not applicable.  |
+`empty_value`  | Optional  | The value to store for empty CSV fields. If not specified, then empty fields are skipped and the corresponding target field isn't added to the document. An empty quoted value (`""`) is also treated as empty. For example, given the line `1,,3` and an `empty_value` of `N/A`, the second target field is set to `N/A`.  |
 `if` | Optional | A condition for running the processor. |
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
 `ignore_missing`  | Optional | Specifies whether the processor should ignore documents that do not contain the specified field. If set to `true`, the processor does not modify the document if the field does not exist or is `null`. Default is `false`.  | 
 `on_failure` | Optional | A list of processors to run if the processor fails. |
-`quote`  | Optional  | The character used to quote fields in the CSV data. Default is `"`. |
-`separator`  | Optional  | The delimiter used to separate the fields in the CSV data. Default is `,`.  |
-`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
-`trim`  | Optional  | If set to `true`, the processor trims white space from the beginning and end of the text. Default is `false`.  |
+`quote`  | Optional  | The character used to quote fields in the CSV data. Must be a single character. Default is `"`. |
+`separator`  | Optional  | The delimiter used to separate the fields in the CSV data. Must be a single character. Default is `,`.  |
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging). |
+`trim`  | Optional  | If set to `true`, the processor trims white space from the beginning and end of the text. White space inside quotation marks is preserved, so the processor doesn't trim quoted values. For example, given the line `Wireless mouse, "  dark gray  "`, the processor returns `Wireless mouse` and `  dark gray  `. Default is `false`.  |
 
 ## Using the processor
 
 Follow these steps to use the processor in a pipeline.
 
-**Step 1: Create a pipeline**
+### Step 1: Create a pipeline
 
 The following query creates a pipeline, named `csv-processor`, that splits `resource_usage` into three new fields named `cpu_usage`, `memory_usage`, and `disk_usage`:
 
@@ -72,7 +72,7 @@ PUT _ingest/pipeline/csv-processor
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline**
+### Step 2 (Optional): Test the pipeline
 
 It is recommended that you test your pipeline before you ingest documents.
 {: .tip}
@@ -87,18 +87,13 @@ POST _ingest/pipeline/csv-processor/_simulate
       "_index": "testindex1",
       "_id": "1",
       "_source": {
-        "resource_usage": "25,4096,10",
-        "memory_usage": "4096",
-        "disk_usage": "10",
-        "cpu_usage": "25"
+        "resource_usage": "25,4096,10"
       }
     }
   ]
 }
 ```
 {% include copy-curl.html %}
-
-**Response**
 
 The following example response confirms that the pipeline is working as expected:
 
@@ -124,7 +119,7 @@ The following example response confirms that the pipeline is working as expected
 }
 ```
 
-**Step 3: Ingest a document**
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `testindex1`:
 
@@ -136,7 +131,7 @@ PUT testindex1/_doc/1?pipeline=csv-processor
 ```
 {% include copy-curl.html %}
 
-**Step 4 (Optional): Retrieve the document**
+### Step 4 (Optional): Retrieve the document
 
 To retrieve the document, run the following query:
 
@@ -144,3 +139,5 @@ To retrieve the document, run the following query:
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
+
+The response contains the ingested document, transformed as shown in the response in Step 2.

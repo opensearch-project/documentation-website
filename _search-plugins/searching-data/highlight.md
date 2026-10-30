@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Highlight query matches
-parent: Search options
-nav_order: 50
+parent: Customizing search results
+nav_order: 70
 redirect_from:
   - /opensearch/search/highlight/
 ---
@@ -120,11 +120,91 @@ The `highlight` parameter highlights the original terms even when using synonyms
 
 To highlight the search terms, the highlighter needs the start and end character offsets of each term. The offsets mark the term's position in the original text. The highlighter can obtain the offsets from the following sources:
 
-- **Postings**: When documents are indexed, OpenSearch creates an inverted search index&mdash;a core data structure used to search for documents. Postings represent the inverted search index and store the mapping of each analyzed term to the list of documents in which it occurs. If you set the `index_options` parameter to `offsets` when mapping a [text field]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text), OpenSearch adds each term's start and end character offsets to the inverted index. During highlighting, the highlighter reruns the original query directly on the postings to locate each term. Thus, storing offsets makes highlighting more efficient for large fields because it does not require reanalyzing the text. Storing term offsets requires additional disk space, but uses less disk space than storing term vectors.
+- **Postings**: When documents are indexed, OpenSearch creates an inverted search index&mdash;a core data structure used to search for documents. Postings represent the inverted search index and store the mapping of each analyzed term to the list of documents in which it occurs. If you set the `index_options` parameter to `offsets` when mapping a [text field]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text/), OpenSearch adds each term's start and end character offsets to the inverted index. During highlighting, the highlighter reruns the original query directly on the postings to locate each term. Thus, storing offsets makes highlighting more efficient for large fields because it does not require reanalyzing the text. Storing term offsets requires additional disk space, but uses less disk space than storing term vectors.
 
 - [**Term vectors**]: If you set the [`term_vector` parameter]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text#term-vector-parameter) to  `with_positions_offsets` when mapping a text field, the highlighter uses the `term_vector` to highlight the field. Storing term vectors requires the most disk space. However, it makes highlighting faster for fields larger than 1 MB and for multi-term queries like prefix or wildcard because term vectors provide access to the dictionary of terms for each document.
 
 - **Text reanalysis**: In the absence of both postings and term vectors, the highlighter reanalyzes text in order to highlight it. For every document and every field that needs highlighting, the highlighter creates a small in-memory index and reruns the original query through Lucene's query execution planner to access low-level match information for the current document. Reanalyzing the text works well in most use cases. However, this method is more memory and time intensive for large fields.
+
+## Fragmenting and scoring text
+
+To build a highlight, a highlighter splits the field text into fragments, scores the fragments against the query, and returns the best-scoring fragments with the matching terms enclosed in the highlighting tags. The highlighter types differ in the following ways:
+
+- Splitting text into fragments: The `plain` highlighter splits the text purely by length: it starts a new fragment each time the text exceeds the next multiple of `fragment_size`. As a result, a fragment can start or end in the middle of a sentence or with a punctuation mark. The `unified` and `fvh` highlighters use sentence boundaries, so a fragment contains whole sentences when `fragment_size` allows.
+- Scoring fragments: The `plain` highlighter scores a fragment by the number of unique query terms it contains, where each term contributes its boost (by default, 1). The `fvh` highlighter counts every occurrence of a query term, not only unique terms. The `unified` highlighter scores fragments using the BM25 algorithm. Use the `number_of_fragments` option to specify how many of the best fragments to return.
+- Highlighting terms: Highlighters extract the individual terms, phrases, and prefixes from the query and highlight them in the selected fragments. They do not evaluate the Boolean logic of the query. For more information, see [Query limitations](#query-limitations).
+
+For example, create an index containing a product review:
+
+```json
+PUT /product-reviews
+{
+  "mappings": {
+    "properties": {
+      "review": {
+        "type": "text",
+        "analyzer": "english"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT /product-reviews/_doc/1?refresh=true
+{
+  "review": "The tent kept us dry during two nights of heavy rain. Setting it up took ten minutes. The only problem was the zipper on the tent door, which jammed twice. Overall, a great tent for the price."
+}
+```
+{% include copy-curl.html %}
+
+The following request highlights `tent` using the `plain` highlighter with a `fragment_size` of 40 characters:
+
+```json
+GET /product-reviews/_search
+{
+  "query": {
+    "match": {
+      "review": "tent"
+    }
+  },
+  "highlight": {
+    "number_of_fragments": 3,
+    "fields": {
+      "review": {
+        "type": "plain",
+        "fragment_size": 40
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The `plain` highlighter splits the text by length, so the third fragment starts with the period that ends the preceding sentence:
+
+```json
+"highlight": {
+  "review": [
+    "The <em>tent</em> kept us dry during two nights",
+    " on the <em>tent</em> door, which jammed twice",
+    ". Overall, a great <em>tent</em> for the price."
+  ]
+}
+```
+
+If you run the same request using the `unified` highlighter, each fragment starts at the beginning of a sentence:
+
+```json
+"highlight": {
+  "review": [
+    "The <em>tent</em> kept us dry during two nights of",
+    "The only problem was the zipper on the <em>tent</em>",
+    "Overall, a great <em>tent</em> for the price."
+  ]
+}
+```
 
 ## Highlighter types
 
@@ -165,7 +245,7 @@ The `unified` highlighter is based on the Lucene Unified Highlighter and is the 
 
 ### The `fvh` highlighter
 
-The `fvh` highlighter is based on the Lucene Fast Vector Highlighter. To use this highlighter, you need to store term vectors with positions offsets, which increases the index size. The `fvh` highlighter can combine matched terms from multiple fields into one result. It can also assign weights to matches depending on their positions; thus, you can sort phrase matches above term matches when highlighting a query that boosts phrase matches over term matches. Additionally, you can configure the `fvh` highlighter to select the boundaries of a returned text fragment, and you can highlight multiple words with different tags.
+The `fvh` highlighter is based on the Lucene Fast Vector Highlighter. To use this highlighter, you need to store term vectors with positions offsets, which increases the index size. The `fvh` highlighter can combine matched terms from multiple fields into one result. It can also assign weights to matches depending on their positions; thus, you can sort phrase matches higher than term matches when highlighting a query that boosts phrase matches over term matches. Additionally, you can configure the `fvh` highlighter to select the boundaries of a returned text fragment, and you can highlight multiple words with different tags.
 
 ### The `plain` highlighter
 
@@ -251,7 +331,7 @@ The response includes a `highlight` object for each hit, indicating the most sem
 }
 ```
 
-For a step-by-step guide, see the [semantic highlighting tutorial]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-highlighting-tutorial/).
+For a step-by-step guide, see [Using semantic highlighting]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-highlighting-tutorial/).
 
 #### Batch inference mode
 **Introduced 3.3**
@@ -274,7 +354,9 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-Then set `batch_inference` to `true` in `highlight.options`:
+Then set `ext.semantic_highlighting_batch` to `true` at the request level. This enables batch inference for every highlight field configured as `type: semantic` in the request.
+
+The following example enables batch semantic highlighting for a top-level field:
 
 ```json
 POST /neural-search-index/_search
@@ -298,9 +380,42 @@ POST /neural-search-index/_search
       }
     },
     "options": {
-      "model_id": "your-remote-semantic-highlighing-model-id",
-      "batch_inference": true
+      "model_id": "your-remote-semantic-highlighting-model-id"
     }
+  },
+  "ext": {
+    "semantic_highlighting_batch": true
+  }
+}
+```
+{% include copy-curl.html %}
+
+The following example enables batch semantic highlighting for a field inside `inner_hits`:
+
+```json
+POST /neural-search-index/_search
+{
+  "query": {
+    "nested": {
+      "path": "chunks",
+      "query": {
+        "match": { "chunks.text": "treatments for neurodegenerative diseases" }
+      },
+      "inner_hits": {
+        "size": 5,
+        "highlight": {
+          "fields": {
+            "chunks.text": { "type": "semantic" }
+          },
+          "options": {
+            "model_id": "your-remote-semantic-highlighting-model-id"
+          }
+        }
+      }
+    }
+  },
+  "ext": {
+    "semantic_highlighting_batch": true
   }
 }
 ```
@@ -317,7 +432,7 @@ Option | Description
 `type` | Specifies the highlighter to use. Valid values are `unified`, `fvh`, `plain`, and `semantic`. Default is `unified`.
 `fields` | Specifies the fields to search for text to be highlighted. Supports wildcard expressions. If you use wildcards, only `text` and `keyword` fields are highlighted. For example, you can set `fields` to `my_field*` to include all `text` and `keyword` fields that start with the prefix `my_field`. 
 `force_source` | Specifies that field values for highlighting should be obtained from the `_source` field rather than from stored field values. Default is `false`.
-require_field_match | Specifies whether to highlight only fields that contain a search query match. Default is `true`. To highlight all fields, set this option to `false`.
+`require_field_match` | Specifies whether to highlight only fields that contain a search query match. Default is `true`. To highlight all fields, set this option to `false`.
 `pre_tags` | Specifies the HTML start tags for the highlighted text as an array of strings.
 `post_tags` | Specifies the HTML end tags for the highlighted text as an array of strings.
 `tags_schema` | If you set this option to `styled`, OpenSearch uses the built-in tag schema. In this schema, the `pre_tags` are `<em class="hlt1">`, `<em class="hlt2">`, `<em class="hlt3">`, `<em class="hlt4">`, `<em class="hlt5">`, `<em class="hlt6">`, `<em class="hlt7">`, `<em class="hlt8">`, `<em class="hlt9">`, and `<em class="hlt10">`, and the `post_tags` is `</em>`.
@@ -325,28 +440,27 @@ require_field_match | Specifies whether to highlight only fields that contain a 
 `boundary_scanner` | Valid only for the `unified` and `fvh` highlighters. Specifies whether to split the highlighted fragments into sentences, words, or characters. Valid values are the following:<br>- `sentence`: Split highlighted fragments at sentence boundaries, as defined by the [BreakIterator](https://docs.oracle.com/javase/8/docs/api/java/text/BreakIterator.html). You can specify the BreakIterator's locale in the `boundary_scanner_locale` option. <br>- `word`: Split highlighted fragments at word boundaries, as defined by the [BreakIterator](https://docs.oracle.com/javase/8/docs/api/java/text/BreakIterator.html). You can specify the BreakIterator's locale in the `boundary_scanner_locale` option.<br>- `chars`: Split highlighted fragments at any character listed in `boundary_chars`. Valid only for the `fvh` highlighter. 
 `boundary_scanner_locale` | Provides a [locale](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html) for the `boundary_scanner`. Valid values are language tags (for example, `"en-US"`). Default is [Locale.ROOT](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html#ROOT).
 `boundary_max_scan` | Controls how far to scan for boundary characters when the `boundary_scanner` parameter for the `fvh` highlighter is set to `chars`. Default is 20.
-encoder | Specifies whether the highlighted fragment should be HTML encoded before it is returned. Valid values are `default` (no encoding) or `html` (first escape the HTML text and then insert the highlighting tags). For example, if the field text is `<h3>Hamlet</h3>` and the `encoder` is set to `html`, the highlighted text is `"&lt;h3&gt;<em>Hamlet</em>&lt;&#x2F;h3&gt;"`. 
+`encoder` | Specifies whether the highlighted fragment should be HTML encoded before it is returned. Valid values are `default` (no encoding) or `html` (first escape the HTML text and then insert the highlighting tags). For example, if the field text is `<h3>Hamlet</h3>` and the `encoder` is set to `html`, the highlighted text is `"&lt;h3&gt;<em>Hamlet</em>&lt;&#x2F;h3&gt;"`. 
 `fragmenter` | Specifies how to split text into highlighted fragments. Valid only for the `plain` highlighter. Valid values are the following:<br>- `span` (default): Splits text into fragments of the same size but tries not to split text between highlighted terms. <br>- `simple`: Splits text into fragments of the same size.
-fragment_offset | Specifies the character offset from which you want to start highlighting. Valid for the `fvh` highlighter only.
+`fragment_offset` | Specifies the character offset from which you want to start highlighting. Valid for the `fvh` highlighter only.
 `fragment_size` | The size of a highlighted fragment, specified as the number of characters. If `number_of_fragments` is set to 0, `fragment_size` is ignored. Default is 100.
-number_of_fragments| The maximum number of returned fragments. If `number_of_fragments` is set to 0, OpenSearch returns the highlighted contents of the entire field. Default is 5.
+`number_of_fragments`| The maximum number of returned fragments. If `number_of_fragments` is set to 0, OpenSearch returns the highlighted contents of the entire field. Default is 5.
 `order` | The sort order for the highlighted fragments. Set `order` to `score` to sort fragments by relevance. Each highlighter uses a different algorithm to calculate relevance scores. Default is `none`.
-`highlight_query` | Specifies that matches for a query other than the search query should be highlighted. The `highlight_query` option is useful when using a faster query to get document matches and a slower query (for example, `rescore_query`) to refine the results. We recommend including the search query as part of the `highlight_query`.
+`highlight_query` | Specifies that matches for a query other than the search query should be highlighted. The `highlight_query` option is useful when using a faster query to get document matches and a slower query (for example, `rescore_query`) to refine the results. OpenSearch does not check that `highlight_query` matches the search query. If `highlight_query` doesn't include the search query, terms that matched the document may not be highlighted, and terms that didn't match may be highlighted. We recommend including the search query as part of the `highlight_query`.
 `matched_fields` | Combines matches from different fields to highlight one field. The most common use case for this functionality is highlighting text that is analyzed in different ways and kept in multi-fields. If using `fvh`, all fields in the `matched_fields` list must have the `term_vector` field set to `with_positions_offsets`. The field in which the matches are combined is the only loaded field, so it is beneficial to set its `store` option to `yes`. Valid only for the `fvh` and `unified` highlighters.
 `no_match_size` | Specifies the number of characters, starting from the beginning of the field, to return if there are no matching fragments to highlight. Default is 0.
 `phrase_limit` | The number of matching phrases in a document that are considered. Limits the number of phrases to be analyzed by the `fvh` highlighter in order to avoid consuming a lot of memory. If `matched_fields` are used, `phrase_limit` specifies the number of phrases for each matched field. A higher `phrase_limit` leads to increased query time and more memory consumption. Valid only for the `fvh` highlighter. Default is 256.
-`max_analyzer_offset` | Specifies the maximum number of characters to be analyzed by a highlight request. The remaining text will not be processed. If the text to be highlighted exceeds this offset, then an empty highlight is returned. The maximum number of characters that will be analyzed for a highlight request is defined by `index.highlight.max_analyzed_offset`. When this limit is reached, an error is returned. Set the `max_analyzer_offset` to a lower value than `index.highlight.max_analyzed_offset` to avoid the error.
+`max_analyzer_offset` | Specifies the maximum number of characters to be analyzed by a highlight request. The remaining text will not be processed. If the text to be highlighted exceeds this offset, then an empty highlight is returned. The maximum number of characters that will be analyzed for a highlight request is defined by the `index.highlight.max_analyzed_offset` index setting, which defaults to `1000000`. If a field that must be reanalyzed is longer than this limit, the entire search request fails. Fields indexed with offsets or term vectors are not reanalyzed by the `unified` and `fvh` highlighters, so the limit does not apply to them. The `plain` highlighter always reanalyzes text. Set the `max_analyzer_offset` to a lower value than `index.highlight.max_analyzed_offset` to avoid the error.
 `options` | A global object containing highlighter-specific options.
-`options.batch_inference` | When set to `true`, enables batch inference mode for semantic highlighting, processing all documents in a single ML inference call instead of one call per document. Requires an externally hosted model with batch processing capabilities (local models are not supported) and the system processor factory to be enabled via cluster setting: `search.pipeline.enabled_system_generated_factories: ["semantic-highlighter"]`. Default is `false`. Valid only for the `semantic` highlighter.
-`options.max_inference_batch_size` | Specifies the maximum number of documents to include in each inference request to the model server when using batch inference mode. If the number of documents to process exceeds this value, the documents will be processed iteratively in batches of this size. Default is `100`. Valid only for the `semantic` highlighter with `batch_inference` enabled.
-`options.model_id` | The ID of the deployed ML model to use for highlighting. Required for the `semantic` highlighter. When `options.batch_inference` is set to `true`, the model must be an externally hosted model with batch processing capabilities.
+`options.max_inference_batch_size` | Specifies the maximum number of documents to include in each inference request to the model server when using batch inference mode. If the number of documents to process exceeds this value, the documents are processed iteratively in batches of this size. Default is `100`. Valid only for the `semantic` highlighter when batch inference mode is enabled.
+`options.model_id` | The ID of the deployed ML model to use for highlighting. Required for the `semantic` highlighter. When batch inference mode is enabled, the model must be an externally hosted model with batch processing capabilities. See [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
 
 The unified highlighter's sentence scanner splits sentences larger than `fragment_size` at the first word boundary after `fragment_size` is reached. To return whole sentences without splitting them, set `fragment_size` to 0.
 {: .note}
 
 ## Changing the highlighting tags
 
-Design your application code to parse the results from the `highlight` object and perform an action on the search terms, such as changing their color, bolding, italicizing, and so on.
+Design your application code to parse the results from the `highlight` object and perform an action on the search terms, such as changing their color or applying bold or italic formatting.
 
 To change the default `em` tags, specify the new tags in the `pretag` and `posttag` parameters:
 
@@ -456,7 +570,7 @@ The play name is highlighted by the new tags in the response:
 
 ## Specifying a highlight query
 
-By default, OpenSearch only considers the search query for highlighting. If you use a fast query to get document matches and a slower query like `rescore_query` to refine the results, it is useful to highlight the refined results. You can do this by adding a `highlight_query`:
+By default, OpenSearch only considers the search query for highlighting. If you use a fast query to get document matches and a slower query like `rescore_query` to refine the results, it is useful to highlight the refined results. You can do this by adding a `highlight_query`. Include the search query in the `highlight_query`, as in the following example, because OpenSearch highlights only the terms of the `highlight_query`:
 
 ```json
 GET shakespeare/_search
@@ -1107,4 +1221,4 @@ Note the following limitations:
 
 - When extracting terms to highlight, highlighters don't reflect the Boolean logic of a query. Therefore, for some complex Boolean queries, such as nested Boolean queries and queries using `minimum_should_match`, OpenSearch may highlight terms that don't correspond to query matches.
 - The `fvh` highlighter does not support span queries.
-- The `semantic` highlighter requires a deployed ML model specified by `model_id` in the `highlight.options`. It does not use traditional offset methods (postings, term vectors) and relies solely on model inference. For batch inference mode (`batch_inference: true`), you must use an externally hosted model with batch processing capabilities.
+- The `semantic` highlighter requires a deployed ML model specified by `model_id` in the `highlight.options`. It does not use traditional offset methods (postings and term vectors) and relies solely on model inference. For batch inference mode, you must use an externally hosted model with batch processing capabilities.

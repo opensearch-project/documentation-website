@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Memory APIs
-parent: ML Commons APIs
+parent: ML APIs
 has_children: true
 has_toc: false
 nav_order: 50
@@ -15,14 +15,14 @@ redirect_from:
 
 Memory APIs provide operations needed to implement [conversational search]({{site.url}}{{site.baseurl}}/search-plugins/conversational-search/). A memory stores conversation history for the current conversation. A message represents one question/answer interaction between the user and a large language model. Messages are organized into memories.
 
-ML Commons supports the following memory-level APIs:
+OpenSearch supports the following memory APIs:
 
 - [Create or update memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-memory/)
 - [Get memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/get-memory/)
 - [Search memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/search-memory/)
 - [Delete memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/delete-memory/)
 
-ML Commons supports the following message-level APIs:
+OpenSearch supports the following message APIs:
 
 - [Create or update message]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/create-message/)
 - [Get message]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/get-message/)
