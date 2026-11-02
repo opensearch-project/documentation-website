@@ -17,7 +17,6 @@ To learn more about how `inner_hits` works, see [Retrieve inner hits]({{site.url
 
 For information about running a hybrid query without a search pipeline, see [Fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/).
 
-
 During hybrid query execution, documents are scored and retrieved as follows:
 
 1. Each subquery selects parent documents based on the relevance of their inner hits.

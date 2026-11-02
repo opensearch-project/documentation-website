@@ -16,7 +16,7 @@ Reciprocal rank fusion (RRF) combines the results of multiple query clauses usin
 
 Because RRF uses only ranks, the relevance scores produced by the individual query clauses never need to be comparable. A BM25 score of `12.4` and a vector similarity of `0.87` measure different quantities on different scales, but a rank of `1` identifies the top result in both lists. RRF is therefore a reasonable starting point for hybrid search when you have not yet determined how to weight keyword relevance against semantic relevance.
 
-This page configures RRF in a search pipeline. In OpenSearch 3.10 and later, you can also apply RRF without a search pipeline by running the `hybrid` query in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/) and setting both the normalization and combination techniques to `rrf`.
+You can configure RRF in a search pipeline or apply it without one by running the `hybrid` query in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/) and setting both the normalization and combination techniques to `rrf`. The examples on this page use a search pipeline.
 
 OpenSearch calculates the RRF score of a document $$d$$ as follows:
 

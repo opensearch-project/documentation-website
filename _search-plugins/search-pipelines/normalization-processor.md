@@ -14,7 +14,7 @@ Introduced 2.10
 
 The `normalization-processor` is a search phase results processor that runs between the query and fetch phases of search execution. It intercepts the query phase results and then normalizes and combines the document scores from different query clauses before passing the documents to the fetch phase.
 
-In OpenSearch 3.10 and later, you can apply the same normalization and combination techniques without a search pipeline by running the `hybrid` query in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/), which configures them in the query itself.
+You can apply the same normalization and combination techniques without a search pipeline by running the `hybrid` query in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/), which configures them in the query itself.
 
 ## Score normalization and combination
 
@@ -251,7 +251,7 @@ Field | Data type | Description
 `description` | String | A description of the processor. Optional.
 `ignore_failure` | Boolean | For this processor, this value is ignored. If the processor fails, the pipeline always fails and returns an error. 
 
-The `lower_bounds` and `upper_bounds` parameters are supported only in a search pipeline. A `hybrid` query running in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/) rejects a request that specifies them, rather than ignoring the bounds. To use score bounds, configure the normalization in a search pipeline, as described on this page.
+The `lower_bounds` and `upper_bounds` parameters are supported only in a search pipeline. A `hybrid` query running in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/) does not support them. To use score bounds, configure the normalization in a search pipeline, as described on this page.
 {: .note}
 
 ## Example 
