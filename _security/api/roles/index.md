@@ -18,6 +18,7 @@ OpenSearch supports the following role APIs.
 | API | Description |
 | :--- | :--- |
 | [Create or Update Role API]({{site.url}}{{site.baseurl}}/security/api/roles/create-role/) | Creates or replaces the specified role. |
+| [Create or Update Roles API]({{site.url}}{{site.baseurl}}/security/api/roles/create-roles/) | Creates or replaces multiple roles in one request. |
 | [Patch Roles API]({{site.url}}{{site.baseurl}}/security/api/roles/patch-roles/) | Updates individual attributes of one role, or creates, updates, or deletes multiple roles in a single call. |
 | [Get Roles API]({{site.url}}{{site.baseurl}}/security/api/roles/get-roles/) | Retrieves one role or all roles. |
 | [Delete Role API]({{site.url}}{{site.baseurl}}/security/api/roles/delete-role/) | Deletes the specified role. |
