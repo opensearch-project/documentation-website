@@ -28,8 +28,8 @@ The following table lists the descriptors registered at startup by the component
 | :--- | :--- |
 | OpenSearch task management | `.tasks*` |
 | OpenSearch Dashboards | `.opensearch_dashboards`<br>`.opensearch_dashboards_*`<br>`.reporting-*`<br>`.apm-agent-configuration`<br>`.apm-custom-link` |
-| Security plugin | `.opendistro_security` (configurable)<br>`.opensearch_security_api_tokens`<br>`.opendistro-anomaly-detectors-sharing`<br>`.opensearch-forecasters-sharing`<br>`.plugins-ml-model-group-sharing`<br>`.plugins-flow-framework-templates-sharing`<br>`.plugins-flow-framework-state-sharing`<br>`.opendistro-reports-definitions-sharing`<br>`.opendistro-reports-instances-sharing` |
-| Alerting | `.opendistro-alerting-config`<br>`.opendistro-alerting-alert*`<br>`.opensearch-alerting-comments*` |
+| Security plugin | `.opendistro_security` (configurable)<br>`.opensearch_security_api_tokens`<br>`.opendistro-alerting-config-sharing`<br>`.opendistro-anomaly-detectors-sharing`<br>`.opensearch-forecasters-sharing`<br>`.plugins-ml-model-group-sharing`<br>`.plugins-flow-framework-templates-sharing`<br>`.plugins-flow-framework-state-sharing`<br>`.opendistro-reports-definitions-sharing`<br>`.opendistro-reports-instances-sharing` |
+| Alerting | `.opendistro-alerting-config`<br>`.opendistro-alerting-alert*`<br>`.opensearch-alerting-finding*`<br>`.opensearch-alerting-comments*` |
 | Anomaly Detection and Forecasting | `.opendistro-anomaly-detectors`<br>`.opendistro-anomaly-detector-jobs`<br>`.opendistro-anomaly-results*`<br>`.opendistro-anomaly-checkpoints`<br>`.opendistro-anomaly-detection-state`<br>`.opensearch-forecasters`<br>`.opensearch-forecast-checkpoints`<br>`.opensearch-forecast-state` |
 | Asynchronous Search | `.opendistro-asynchronous-search-response` |
 | Cross-cluster Replication | `.replication-metadata-store` |
