@@ -49,7 +49,7 @@ The Security plugin supports the following REST management API settings:
 
 - `plugins.security.restapi.max_string_length` (Static): Sets the maximum number of characters allowed for any individual string value in a Security REST API request body. Valid values are between `1` and `50000000`, inclusive. Default is `4096`. Increase this value if you submit large free-form values, such as document-level security (DLS) queries, through the REST API.
 
-- `plugins.security.restapi.bulk_max_entries` (Dynamic): Sets the maximum number of resources accepted in one bulk create-or-update request to the Security REST API, such as `PUT _plugins/_security/api/roles`, `PUT _plugins/_security/api/rolesmapping`, or `PUT _plugins/_security/api/actiongroups`. A request with more entries is rejected with HTTP status `400` before any change is written. Valid values are between `1` and `100000`, inclusive. Default is `1000`. Only a caller whose role is listed in `plugins.security.restapi.roles_enabled` can change this setting.
+- `plugins.security.restapi.bulk_max_entries` (Dynamic): Sets the maximum number of entries in one bulk create or update request to the Security REST API. Valid values are 1--100000. Default is `1000`. Only users with a role listed in `plugins.security.restapi.roles_enabled` can change this setting.
 
 - `plugins.security.restapi.password_validation_regex` (Static): Specifies a regular expression to set the criteria for the login password. For more information, see [Password settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings).
 
