@@ -119,14 +119,16 @@ Before upgrading to OpenSearch 2.15, take a cluster snapshot and store it remote
    {
      "acknowledged" : true,
      "persistent" : {
-        "cluster" : { 
-        "remote_store" : {
-          "compatibility_mode" : "mixed",
-          "migration.direction" :  "remote_store"
-        }
-      },
-      "transient" : { }
-    }
+       "cluster" : {
+         "migration" : {
+           "direction" : "remote_store"
+         },
+         "remote_store" : {
+           "compatibility_mode" : "mixed"
+         }
+       }
+     },
+     "transient" : { }
    }
    ```
    
@@ -166,7 +168,13 @@ Before upgrading to OpenSearch 2.15, take a cluster snapshot and store it remote
 
 1. Deploy a new container running the same version of OpenSearch and mapped to the same volume as the container you deleted.
 
-1. Query the `_cat/nodes` endpoint after OpenSearch is running on the new node to confirm that it has joined the cluster. Wait for the cluster to become green again.
+1. Query the `_cat/nodes` endpoint after OpenSearch is running on the new node to confirm that it has joined the cluster. Then wait for all primary shards to become active before migrating the next node. Because shard allocation is limited to primary shards in step 2, replica shards remain unassigned and the cluster status stays yellow until you reenable shard replication in step 11. The following request waits until the cluster status is at least yellow and no shards are initializing or relocating:
+
+   ```json
+   GET _cluster/health?wait_for_status=yellow&wait_for_no_initializing_shards=true&wait_for_no_relocating_shards=true&pretty
+   ```
+
+   Before you migrate the next node, confirm that the response contains `"timed_out" : false` and that `initializing_shards` and `relocating_shards` are both `0`. Unassigned replica shards are expected at this stage.
 
 1. Repeat steps 6 through 9 for each node in your cluster. 
 
