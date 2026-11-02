@@ -2,14 +2,18 @@
 layout: default
 title: Object store source
 parent: Pull-based ingestion
-grand_parent: Document APIs
 has_children: false
-nav_order: 20
+nav_order: 30
+redirect_from:
+  - /api-reference/document-apis/pull-based-ingestion-object-store/
 ---
 
 # Object store source for pull-based ingestion
 **Introduced 3.10**
 {: .label .label-purple }
+
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
+{: .warning}
 
 The `object_store` source lets an index pull newline-delimited JSON (NDJSON) files directly from object storage, such as Amazon Simple Storage Service (Amazon S3), Google Cloud Storage, Azure Blob Storage, or a shared file system. Each shard reads its own portion of the files, so you don't need a separate streaming system or loading tool for a one-time load.
 
@@ -69,8 +73,8 @@ PUT /events
 
 The object store source requires the following `ingestion_source` settings to have non-default values:
 
-* The `pointer.init.reset` setting must be `earliest` or `none`. The default value, `latest`, starts reading at the end of the data, so the source rejects it. The source also rejects `reset_by_timestamp` and accepts `reset_by_offset` only for single-shard indexes. For more information, see [Stream position]({{site.url}}{{site.baseurl}}/api-reference/document-apis/pull-based-ingestion/#stream-position).
-* The `mapper_type` setting must be `raw_payload`. Each line of a file is indexed as one document, using the line as the document body. For more information, see [Message format]({{site.url}}{{site.baseurl}}/api-reference/document-apis/pull-based-ingestion/#message-format).
+* The `pointer.init.reset` setting must be `earliest` or `none`. The default value, `latest`, starts reading at the end of the data, so the source rejects it. The source also rejects `reset_by_timestamp` and accepts `reset_by_offset` only for single-shard indexes. For more information, see [Stream position]({{site.url}}{{site.baseurl}}/im-plugin/pull-based-ingestion/index/#stream-position).
+* The `mapper_type` setting must be `raw_payload`. Each line of a file is indexed as one document, using the line as the document body. For more information, see [Message format]({{site.url}}{{site.baseurl}}/im-plugin/pull-based-ingestion/index/#message-format).
 
 ## Source parameters
 
@@ -134,7 +138,7 @@ Each document ID is built from the shard number, the object key, and the byte of
 
 ## Monitoring ingestion progress
 
-The `consumer_stats.pointer_based_lag` metric reports the number of bytes that the shard has not yet read. Ingestion is complete when this metric is `0` on every shard. For more information, see [Pull-based ingestion metrics]({{site.url}}{{site.baseurl}}/api-reference/document-apis/pull-based-ingestion/#pull-based-ingestion-metrics).
+The `consumer_stats.pointer_based_lag` metric reports the number of bytes that the shard has not yet read. Ingestion is complete when this metric is `0` on every shard. For more information, see [Pull-based ingestion metrics]({{site.url}}{{site.baseurl}}/im-plugin/pull-based-ingestion/index/#pull-based-ingestion-metrics).
 
 ## Errors
 
@@ -144,7 +148,7 @@ The following errors pause the shard:
 * A read error, such as a missing object or a reached cost limit.
 * An object size mismatch. The source verifies that each object has its declared size. If an object is shorter or longer than declared, or is declared empty but contains data, the shard pauses so that partial data is not indexed.
 
-Lines that cannot be parsed are handled according to the `error_strategy` setting. For more information, see [Updating the error policy]({{site.url}}{{site.baseurl}}/api-reference/document-apis/pull-based-ingestion/#updating-the-error-policy).
+Lines that cannot be parsed are handled according to the `error_strategy` setting. For more information, see [Updating the error policy]({{site.url}}{{site.baseurl}}/im-plugin/pull-based-ingestion/index/#updating-the-error-policy).
 
 ## Limitations
 
@@ -155,5 +159,5 @@ The object store source has the following limitations:
 
 ## Related documentation
 
-* [Pull-based Ingestion API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/pull-based-ingestion/)
-* [Pull-based Ingestion Management API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/pull-based-ingestion-management/)
+* [Pull-based ingestion]({{site.url}}{{site.baseurl}}/im-plugin/pull-based-ingestion/index/)
+* [Pull-based ingestion management APIs]({{site.url}}{{site.baseurl}}/api-reference/index-apis/pull-based-ingestion-management/)

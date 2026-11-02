@@ -1,73 +1,53 @@
 ---
 layout: default
 title: Pull-based ingestion
-parent: Document APIs
+nav_order: 33
 has_children: true
-nav_order: 90
+has_toc: false
+redirect_from:
+  - /im-plugin/pull-based-ingestion/
+  - /api-reference/document-apis/pull-based-ingestion/
 ---
 
-# Pull-based Ingestion API
+# Pull-based ingestion
 **Introduced 3.0**
 {: .label .label-purple }
 
-Pull-based ingestion enables OpenSearch to ingest data from streaming sources such as Apache Kafka or Amazon Kinesis. Unlike traditional ingestion methods where clients actively push data to OpenSearch through REST APIs, pull-based ingestion allows OpenSearch to control the data flow by retrieving data directly from streaming sources. This approach provides native backpressure handling, helping prevent server overload during traffic spikes. Pull-based ingestion guarantees at-least-once ingestion semantics and uses external versioning to ensure data consistency.
+Pull-based ingestion enables OpenSearch to ingest data from streaming sources such as Apache Kafka or Amazon Kinesis or from files in object storage. Unlike traditional ingestion methods where clients actively push data to OpenSearch through REST APIs, pull-based ingestion allows OpenSearch to control the data flow by retrieving data directly from the source. This approach provides native backpressure handling, helping prevent server overload during traffic spikes. Pull-based ingestion guarantees at-least-once ingestion semantics and uses external versioning to ensure data consistency.
+
+## Supported sources
+
+OpenSearch supports the following pull-based ingestion sources. Each source requires its own plugin.
+
+| Source | Plugin | `type` value |
+| :--- | :--- | :--- |
+| [Apache Kafka]({{site.url}}{{site.baseurl}}/im-plugin/pull-based-ingestion/kafka/) | `ingestion-kafka` | `kafka` |
+| [Amazon Kinesis]({{site.url}}{{site.baseurl}}/im-plugin/pull-based-ingestion/kinesis/) | `ingestion-kinesis` | `kinesis` |
+| [Object store]({{site.url}}{{site.baseurl}}/im-plugin/pull-based-ingestion/object-store/) | `ingestion-object-store` | `object_store` |
+
+To pause, resume, or check the state of ingestion, use the [pull-based ingestion management APIs]({{site.url}}{{site.baseurl}}/api-reference/index-apis/pull-based-ingestion-management/).
 
 ## Prerequisites
 
 Before using pull-based ingestion, ensure that the following prerequisites are met:
 
-* Install an ingestion plugin for your streaming source using the command `bin/opensearch-plugin install <plugin-name>`. For more information, see [Additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/index/). OpenSearch supports the following ingestion plugins: 
-  - `ingestion-kafka`
-  - `ingestion-kinesis` (experimental)
-  - `ingestion-object-store`, which reads NDJSON files from object storage. See [Object store source]({{site.url}}{{site.baseurl}}/api-reference/document-apis/pull-based-ingestion-object-store/).
+* Install the ingestion plugin for your source using the command `bin/opensearch-plugin install <plugin-name>`. For more information, see [Additional plugins]({{site.url}}{{site.baseurl}}/install-and-configure/additional-plugins/index/).
 * Configure pull-based ingestion during [index creation](#creating-an-index-for-pull-based-ingestion). You cannot convert an existing push-based index to a pull-based one.
 
 ## Creating an index for pull-based ingestion
 
-To ingest data from a streaming source, first create an index with pull-based ingestion settings. The following request creates an index that pulls data from a Kafka topic in the segment replication mode. For other available modes, see [Ingestion modes](#ingestion-modes):
-
-```json
-PUT /my-index
-{
-  "settings": {
-    "ingestion_source": {
-      "type": "kafka",
-      "pointer.init.reset": "earliest",
-      "param": {
-        "topic": "test",
-        "bootstrap_servers": "localhost:49353"
-      }
-    },
-    "index.number_of_shards": 1,
-    "index.number_of_replicas": 1,
-    "index": {
-      "replication.type": "SEGMENT"
-    }
-  },
-  "mappings": {
-    "properties": {
-      "name": {
-        "type": "text"
-      },
-      "age": {
-        "type": "integer"
-      }
-    }
-  }
-}
-```
-{% include copy-curl.html %}
+To ingest data from a source, first create an index containing pull-based ingestion settings in `ingestion_source`. For an example request for each source, see [Supported sources](#supported-sources).
 
 ### Ingestion source settings
 
-The `ingestion_source` settings control how OpenSearch pulls data from the streaming source. A _poll_ is an operation in which OpenSearch actively requests a batch of data from the streaming source. The following table lists all settings that `ingestion_source` supports.
+The `ingestion_source` settings control how OpenSearch pulls data from the source. A _poll_ is an operation in which OpenSearch actively requests a batch of data from the source. The following table lists all settings that `ingestion_source` supports.
 
 Dynamic settings can be updated using the [Update Settings API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/update-settings/) without restarting the ingestion process. Static settings cannot be changed after index creation. For more information about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 {: .note}
 
 | Setting | Dynamic | Description |
 | :--- | :--- | :--- |
-| `type` | No | The streaming source type. Required. Valid values are `kafka`, `kinesis`, or `object_store`. |
+| `type` | No | The source type. Required. Valid values are `kafka`, `kinesis`, or `object_store`. |
 | `pointer.init.reset` | No | Determines the stream location from which to start reading. Optional. Valid values are `earliest`, `latest`, `reset_by_offset`, `reset_by_timestamp`, or `none`. See [Stream position](#stream-position). |
 | `pointer.init.reset.value` | No | Required only for `reset_by_offset` or `reset_by_timestamp`. Specifies the offset value or timestamp in milliseconds. See [Stream position](#stream-position). |
 | `error_strategy` | Yes | How to handle failed messages. Optional. Valid values are `DROP` (failed messages are skipped and ingestion continues) and `BLOCK` (when a message fails, ingestion stops). Default is `DROP`. |
@@ -77,10 +57,10 @@ Dynamic settings can be updated using the [Update Settings API]({{site.url}}{{si
 | `internal_queue_size` | No | The size of the internal blocking queue for advanced tuning. Valid values are from 1 to 100,000, inclusive. Optional. Default is 100. |
 | `all_active` | No | Whether to enable the all-active ingestion mode. Cannot be enabled for indexes that use segment replication mode. Default is `false`. See [Ingestion modes](#ingestion-modes). |
 | `pointer_based_lag_update_interval` | No | The interval at which pointer-based lag is calculated. Accepts time units. Default is `10s`. Setting this value to `0` disables pointer-based lag calculation. |
-| `warmup.timeout` | Yes | The maximum amount of time to wait for the shard to catch up with the streaming source during the warmup phase after node restart or shard relocation. Shards will not serve queries until warmup completes or times out. Accepts time units. Optional. Default is `-1` (disabled). |
+| `warmup.timeout` | Yes | The maximum amount of time to wait for the shard to catch up with the source during the warmup phase after node restart or shard relocation. Shards will not serve queries until warmup completes or times out. Accepts time units. Optional. Default is `-1` (disabled). |
 | `warmup.lag_threshold` | Yes | The acceptable pointer-based lag threshold for warmup completion. Warmup completes when the lag is at or below this value. A value of `0` means that the shard is synchronized with the source. Optional. Default is `100`. |
 | `mapper_type` | No | Defines the mapper for the input message format. Valid values are `default` and `raw_payload`. See [Message format](#message-format). |
-| `param` | Yes | Source-specific configuration parameters. Required. <br>&ensp;&#x2022; The `ingest-kafka` plugin requires:<br>&ensp;&ensp;- `topic`: The Kafka topic to consume from<br>&ensp;&ensp;- `bootstrap_servers`: The Kafka server addresses<br>&ensp;&ensp;Optionally, you can provide additional standard Kafka consumer parameters (such as `fetch.min.bytes`). These parameters are passed directly to the Kafka consumer. <br>&ensp;&#x2022; The `ingest-kinesis` plugin requires:<br>&ensp;&ensp;- `stream`: The Kinesis stream name<br>&ensp;&ensp;- `region`: The AWS Region<br>&ensp;&ensp;- `access_key`: The AWS access key<br>&ensp;&ensp;- `secret_key`: The AWS secret key<br>&ensp;&ensp;Optionally, you can provide an `endpoint_override`. <br>&ensp;&#x2022; For the `ingestion-object-store` plugin parameters, see [Object store source]({{site.url}}{{site.baseurl}}/api-reference/document-apis/pull-based-ingestion-object-store/). | 
+| `param` | Yes | Source-specific configuration parameters. Required. For the parameters of each source, see [Kafka source parameters]({{site.url}}{{site.baseurl}}/im-plugin/pull-based-ingestion/kafka/#source-parameters), [Kinesis source parameters]({{site.url}}{{site.baseurl}}/im-plugin/pull-based-ingestion/kinesis/#source-parameters), or [Object store source parameters]({{site.url}}{{site.baseurl}}/im-plugin/pull-based-ingestion/object-store/#source-parameters). |
 
 
 ### Other settings
@@ -97,7 +77,7 @@ Pull-based ingestion supports the following modes.
 
 #### Segment replication mode
 
-In segment replication mode, the primary shards ingest events from a streaming source and index the documents. The pull-based index is configured to use [segment replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/index/) to copy over the segment files from primary to replica shards, as shown in the following image.
+In segment replication mode, the primary shards ingest events from a source and index the documents. The pull-based index is configured to use [segment replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/segment-replication/index/) to copy over the segment files from primary to replica shards, as shown in the following image.
 
 ![Pull-based ingestion segment replication mode]({{site.url}}{{site.baseurl}}/images/pull-based-ingestion/pull-based-segrep-mode.png){: width="50%" }
 
@@ -106,7 +86,7 @@ We recommend using this mode with [remote-backed storage]({{site.url}}{{site.bas
 
 #### All-active mode
 
-Enabling all-active mode allows both primary and replica shards to independently ingest and index events from the streaming source, as shown in the following image.
+Enabling all-active mode allows both primary and replica shards to independently ingest and index events from the source, as shown in the following image.
 
 ![Pull-based ingestion all active mode]({{site.url}}{{site.baseurl}}/images/pull-based-ingestion/pull-based-all-active-mode.png){: width="50%" }
 
@@ -126,6 +106,8 @@ The following table provides the valid `pointer.init.reset` values and their cor
 | `reset_by_timestamp` | A specific timestamp | A Unix timestamp in milliseconds. Required. <br> For Kafka streams, defaults to Kafka's `auto.offset.reset` policy if no messages are found for the given timestamp. |
 | `none`               | The last committed position for existing indexes | None | 
 
+The object store source supports only some of these values. For more information, see [Creating an index]({{site.url}}{{site.baseurl}}/im-plugin/pull-based-ingestion/object-store/#creating-an-index).
+
 ### Stream partitioning
 
 When using partitioned streams (such as Kafka topics or Kinesis shards), note the following relationships between stream partitions and OpenSearch shards:
@@ -134,6 +116,8 @@ When using partitioned streams (such as Kafka topics or Kinesis shards), note th
 - The number of index shards must be greater than or equal to the number of stream partitions.
 - Extra shards beyond the number of partitions remain empty.
 - Documents must be sent to the same partition for successful updates.
+
+The object store source divides objects among shards differently. For more information, see [Dividing objects among shards]({{site.url}}{{site.baseurl}}/im-plugin/pull-based-ingestion/object-store/#dividing-objects-among-shards).
 
 When using pull-based ingestion, traditional REST API--based ingestion is disabled for the index.
 {: .note}
@@ -223,7 +207,7 @@ The following table lists the available `polling_ingest_stats` metrics.
 | `consumer_stats.total_poller_message_failure_count` | The total number of failed messages on the poller. |
 | `consumer_stats.total_poller_message_dropped_count` | The total number of failed messages on the poller that were dropped. |
 | `consumer_stats.lag_in_millis` | Lag in milliseconds, computed as the time elapsed since the last processed message timestamp. |
-| `consumer_stats.pointer_based_lag` | The Apache Kafka offset-based lag, calculated as the difference between the latest available offset and the current message offset. This metric applies only when Apache Kafka is used as the streaming source. For the [object store source]({{site.url}}{{site.baseurl}}/api-reference/document-apis/pull-based-ingestion-object-store/), it is the number of bytes the shard still has to read. |
+| `consumer_stats.pointer_based_lag` | The Apache Kafka offset-based lag, calculated as the difference between the latest available offset and the current message offset. This metric applies only when Apache Kafka is used as the streaming source. For the [object store source]({{site.url}}{{site.baseurl}}/im-plugin/pull-based-ingestion/object-store/), it is the number of bytes the shard still has to read. |
 
 To retrieve shard-level pull-based ingestion metrics, use the [Nodes Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/):
 
