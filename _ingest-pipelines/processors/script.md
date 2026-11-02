@@ -24,7 +24,7 @@ The following is the syntax for the `script` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `script` processor.
 
@@ -86,8 +86,6 @@ POST _ingest/pipeline/my-script-pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Response
-
 The following example response confirms that the pipeline is working as expected:
 
 ```json
@@ -109,7 +107,7 @@ The following example response confirms that the pipeline is working as expected
 }
 ```
 
-### Step 3: Ingest a document 
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `testindex1`:
 
@@ -120,8 +118,6 @@ PUT testindex1/_doc/1?pipeline=my-script-pipeline
 }
 ```
 {% include copy-curl.html %}
-
-#### Response
 
 The response confirms that the document has been indexed into `testindex1` and has indexed all documents with the `message` field converted to uppercase:
 
@@ -149,6 +145,8 @@ To retrieve the document, run the following query:
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
+
+The response contains the ingested document, transformed as shown in the response in Step 2.
 
 ## Using parameters and modifying metadata
 

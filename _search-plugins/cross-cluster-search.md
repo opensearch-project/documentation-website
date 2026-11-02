@@ -120,7 +120,6 @@ services:
       - opensearch-data1:/usr/share/opensearch/data
     ports:
       - 9200:9200
-      - 9600:9600 # required for Performance Analyzer
     networks:
       - opensearch-net
 
@@ -141,7 +140,6 @@ services:
       - opensearch-data2:/usr/share/opensearch/data
     ports:
       - 9250:9200
-      - 9700:9600 # required for Performance Analyzer
     networks:
       - opensearch-net
 
@@ -176,8 +174,8 @@ To get the IP address for the remote cluster, first identify its container ID:
 ```bash
 docker ps
 CONTAINER ID    IMAGE                                       PORTS                                                      NAMES
-6fe89ebc5a8e    opensearchproject/opensearch:{{site.opensearch_version}}   0.0.0.0:9200->9200/tcp, 0.0.0.0:9600->9600/tcp, 9300/tcp   opensearch-ccs-node1
-2da08b6c54d8    opensearchproject/opensearch:{{site.opensearch_version}}   9300/tcp, 0.0.0.0:9250->9200/tcp, 0.0.0.0:9700->9600/tcp   opensearch-ccs-node2
+6fe89ebc5a8e    opensearchproject/opensearch:{{site.opensearch_version}}   0.0.0.0:9200->9200/tcp, 9600/tcp, 9300/tcp   opensearch-ccs-node1
+2da08b6c54d8    opensearchproject/opensearch:{{site.opensearch_version}}   9300/tcp, 0.0.0.0:9250->9200/tcp, 9600/tcp   opensearch-ccs-node2
 ```
 
 Then get that container's IP address:
@@ -399,3 +397,8 @@ curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:<custom-admin-passwo
 ```
 
 Note the previously configured port `8300` in the [Proxy configuration]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/#proxy-configuration) section.
+
+## Related documentation
+
+- To query remote clusters using PPL in Event analytics or in an Observability workspace, see [Using observability apps for cross-cluster search]({{site.url}}{{site.baseurl}}/observing-your-data/cross-cluster-search/).
+- To obtain information about the remote clusters connected to a cluster, see [Remote cluster information]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/remote-info/).

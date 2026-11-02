@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Anomaly detection security
-nav_order: 10
+nav_order: 40
 parent: Anomaly detection
 has_children: false
 redirect_from: 
@@ -12,10 +12,12 @@ redirect_from:
 
 You can use the Security plugin with anomaly detection in OpenSearch to limit non-admin users to specific actions. For example, you might want some users to only be able to create, update, or delete detectors, while others to only view detectors.
 
+To control access to individual detectors using resource sharing, see [Anomaly detector access control]({{site.url}}{{site.baseurl}}/observing-your-data/ad/detector-access-control/).
+
 All anomaly detection indexes are protected as system indexes. Only a super admin user or an admin user with a TLS certificate can access system indexes. For more information, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/).
 
 
-Security for anomaly detection works the same as [security for alerting]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/security/).
+Security for anomaly detection works the same as [security for alerting]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/security/).
 
 ## Basic permissions
 
@@ -25,14 +27,14 @@ The Security plugin has two built-in roles that cover most anomaly detection use
 
 If you use OpenSearch Dashboards to create your anomaly detectors, you may experience access issues even with `anomaly_full_access`. This issue has been resolved in OpenSearch 2.17, but for earlier versions, the following additional permissions need to be added: 
 
-- `indices:data/read/search` -- You need this permission because the Anomaly Detection plugin needs to search the data source in order to validate whether there is enough data to train the model.
+- `indices:data/read/search` -- You need this permission because anomaly detection needs to search the data source in order to validate whether there is enough data to train the model.
 - `indices:admin/mappings/fields/get` and `indices:admin/mappings/fields/get*` -- You need these permissions to validate whether the given data source has a valid timestamp field and categorical field (in the case of creating a high-cardinality detector).
 
 If these roles don't meet your needs, mix and match individual anomaly detection [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/ad/detector/delete` permission lets you delete detectors.
 
 ### A note on alerts and fine-grained access control
 
-When a trigger generates an alert, the detector and monitor configurations, the alert itself, and any notification that is sent to a channel may include metadata describing the index being queried. By design, the plugin must extract the data and store it as metadata outside of the index. [Document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/) (DLS) and [field-level security]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security/) (FLS) access controls are designed to protect the data in the index. But once the data is stored outside the index as metadata, users with access to the detector and monitor configurations, alerts, and their notifications will be able to view this metadata and possibly infer the contents and quality of data in the index, which would otherwise be concealed by DLS and FLS access control.
+When a trigger generates an alert, the detector and monitor configurations, the alert itself, and any notification that is sent to a channel may include metadata describing the index being queried. By design, anomaly detection must extract the data and store it as metadata outside of the index. [Document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/) (DLS) and [field-level security]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security/) (FLS) access controls are designed to protect the data in the index. But once the data is stored outside the index as metadata, users with access to the detector and monitor configurations, alerts, and their notifications will be able to view this metadata and possibly infer the contents and quality of data in the index, which would otherwise be concealed by DLS and FLS access control.
 
 To reduce the chances of unintended users viewing metadata that could describe an index, we recommend that administrators enable role-based access control and keep these kinds of design elements in mind when assigning permissions to the intended group of users. See [Limit access by backend role](#advanced-limit-access-by-backend-role) for details.
 

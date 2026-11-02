@@ -11,7 +11,7 @@ redirect_from:
 
 # Notifications
 
-The Notifications plugin provides a central location for configuring the channels that OpenSearch plugins, such as Alerting and Index State Management (ISM), use to send notifications. Supported channel types are Amazon Chime, Amazon Simple Notification Service (Amazon SNS), email through SMTP or Amazon Simple Email Service (Amazon SES), Slack, Microsoft Teams, and custom webhooks.
+Notifications provides a central location for configuring the channels that OpenSearch plugins, such as Alerting and Index State Management (ISM), use to send notifications. Supported channel types are Amazon Chime, Amazon Simple Notification Service (Amazon SNS), email through SMTP or Amazon Simple Email Service (Amazon SES), Slack, Microsoft Teams, and custom webhooks.
 
 ## Configuring notifications
 
@@ -37,7 +37,7 @@ Webhook settings, including headers, are stored in plain text in the OpenSearch 
 
 ### Amazon SNS as a channel type
 
-The Notifications plugin can publish messages to Amazon SNS topics. Through SNS topic subscriptions, you can deliver notifications as email messages or text messages or use them to invoke AWS Lambda functions. For more information about Amazon SNS, see the [Amazon Simple Notification Service Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/welcome.html).
+Notifications can publish messages to Amazon SNS topics. Through SNS topic subscriptions, you can deliver notifications as email messages or text messages or use them to invoke AWS Lambda functions. For more information about Amazon SNS, see the [Amazon Simple Notification Service Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/welcome.html).
 
 To create an Amazon SNS channel, enter the **SNS topic ARN** and, optionally, the **IAM role ARN**. OpenSearch uses the AWS credentials available on each node through the default AWS credential provider chain, for example, environment variables or an Amazon EC2 instance profile. If you don't specify an IAM role ARN, these credentials must grant permission to publish to the topic. If you specify an IAM role ARN, OpenSearch uses these credentials to assume the role and then publishes to the topic using the role's permissions.
 
@@ -98,7 +98,7 @@ The role's trust policy must allow that user or role to assume it. In `Principal
 
 To send notifications by email, select **Email** as the channel type. Then select a **Sender type**, a sender, and at least one default recipient. A channel uses one sender, either an **SMTP sender** or an **SES sender** that sends email through Amazon SES. In **Default recipients**, enter email addresses or select a recipient group to send notifications to multiple people. If the sender or recipient group doesn't exist yet, select **Create SMTP sender**, **Create SES sender**, or **Create recipient group** to create one.
 
-You can also manage senders and recipient groups on the **Email senders** and **Email recipient groups** pages of the Notifications plugin.
+You can also manage senders and recipient groups on the **Email senders** and **Email recipient groups** pages in Notifications.
 
 ### Create email sender
 

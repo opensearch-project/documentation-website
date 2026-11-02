@@ -27,7 +27,7 @@ If you specify a cluster setting using more than one method, OpenSearch determin
 
 ## Static settings
 
-Static settings are settings that you cannot update while the cluster is running. To change a static setting, update it in `opensearch.yml` or using a startup flag on each node and then restart the node. In general, static settings relate to networking, cluster formation, and the local file system. For more information, see [Creating a cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/).
+Static settings are settings that you cannot update while the cluster is running. To change a static setting, update it in `opensearch.yml` or using a startup flag on each node and then restart the node. In general, static settings relate to networking, cluster formation, and the local file system. For more information, see [Creating a cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/creating-a-cluster/).
 
 ## Dynamic settings
 

@@ -110,7 +110,7 @@ You can use the `preference` parameter in the search query to indicate the searc
     ```
     {% include copy-curl.html %}
 
-10. `_search_replica`: Executes the search only on [search replicas]({{site.url}}{{site.baseurl}}/tuning-your-cluster/separate-index-and-search-workloads/), which are hosted on nodes with the `search` role. If the index has no search replicas, the search fails.
+10. `_search_replica`: Executes the search only on [search replicas]({{site.url}}{{site.baseurl}}/tuning-your-cluster/performance-tuning/separate-index-and-search-workloads/), which are hosted on nodes with the `search` role. If the index has no search replicas, the search fails.
 
     ```json
     GET /my-index/_search?preference=_search_replica

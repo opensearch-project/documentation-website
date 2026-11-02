@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Configuring APM in OpenSearch Dashboards
-nav_order: 15
-parent: Application Performance Monitoring
+nav_order: 20
+parent: Application performance monitoring
+grand_parent: Observability workspace apps
 ---
 
 # Configuring APM in OpenSearch Dashboards
@@ -31,7 +32,7 @@ Link the trace and log datasets so that APM can display related logs when you in
 3. Add the logs dataset as a correlated dataset.
 4. Save the correlation.
 
-This enables in-context log correlations throughout the APM interface, including the **Services** and **Application Map** pages. For detailed instructions, see [Correlations]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/correlations/).
+This enables in-context log correlations throughout the APM interface, including the **Services** and **Topology Map** pages. For detailed instructions, see [Correlations]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/correlations/).
 
 ## Step 3: Create an index pattern for the service map
 
@@ -46,7 +47,7 @@ This index pattern is used by APM to display service topology data and dependenc
 
 ## Step 4: Attach a Prometheus data source to your workspace
 
-APM uses Prometheus to store and query Rate, Errors, Duration (RED) metrics. To add a Prometheus data source to your workspace, follow these steps:
+APM uses Prometheus to store and query rate, error, and duration (RED) metrics. To add a Prometheus data source to your workspace, follow these steps:
 
 1. Navigate to **Dashboards Management** > **Data sources**.
 2. Select **Create data source** and choose **Prometheus**.
@@ -61,7 +62,7 @@ For detailed instructions on configuring a Prometheus data source, see [Configur
 
 To configure APM settings, follow these steps:
 
-1. Navigate to **APM** > **Services** or **APM** > **Application Map**.
+1. In the left navigation, select **Application performance** > **Services** or **Topology Map**.
 2. Select the **APM Settings** button in the upper-right corner. The **Application monitoring settings** dialog appears, as shown in the following image.
    ![APM settings modal]({{site.url}}{{site.baseurl}}/images/apm/apm-settings-modal.png)
 3. In the **Application monitoring settings** dialog, configure the following settings:
@@ -72,9 +73,9 @@ To configure APM settings, follow these steps:
 
 4. Select **Update** to save your configuration.
 
-After completing this setup, APM will display service topology, RED metrics, and in-context correlations across the Services and Application Map pages.
+After completing this setup, APM will display service topology, RED metrics, and in-context correlations across the Services and Topology Map pages.
 
 ## Next steps
 
 - [Services]({{site.url}}{{site.baseurl}}/observing-your-data/apm/services/): View service performance metrics and dependencies.
-- [Application map]({{site.url}}{{site.baseurl}}/observing-your-data/apm/application-map/): Explore the service topology visualization.
+- [Topology map]({{site.url}}{{site.baseurl}}/observing-your-data/apm/application-map/): Explore the service topology visualization.

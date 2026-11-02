@@ -32,7 +32,7 @@ The following is the syntax for the `text_embedding` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `text_embedding` processor.
 
@@ -79,7 +79,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
 Creating the pipeline does not validate `model_id`. The request succeeds even if the model does not exist or is not deployed, and the error appears only when you ingest a document. Test the pipeline before ingesting documents.
 {: .note}
 
-### Step 2: Test the pipeline
+### Step 2 (Optional): Test the pipeline
 
 To test the pipeline, run the following query:
 
@@ -98,8 +98,6 @@ POST _ingest/pipeline/nlp-ingest-pipeline/_simulate
 }
 ```
 {% include copy-curl.html %}
-
-#### Response
 
 The response confirms that in addition to the `passage_text` field, the processor has generated text embeddings in the `passage_embedding` field:
 

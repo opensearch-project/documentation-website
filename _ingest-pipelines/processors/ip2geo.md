@@ -143,7 +143,7 @@ DELETE /_plugins/geospatial/ip2geo/datasource/my-datasource
 
 Once the data source is created, you can create the pipeline. 
 
-## Syntax 
+## Syntax
 
 The following is the syntax for the `ip2geo` processor:
 
@@ -156,7 +156,7 @@ The following is the syntax for the `ip2geo` processor:
 }
 ```
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `ip2geo` processor.
 
@@ -177,7 +177,7 @@ The following table lists the required and optional parameters for the `ip2geo` 
 
 Follow these steps to use the processor in a pipeline.
 
-**Step 1: Create a pipeline**
+### Step 1: Create a pipeline
 
 The following query creates a pipeline, named `my-pipeline`, that converts the IP address to geographical information:
 
@@ -197,7 +197,7 @@ PUT /_ingest/pipeline/my-pipeline
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline**
+### Step 2 (Optional): Test the pipeline
 
 {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/info-icon.png" class="inline-icon" alt="info icon"/>{:/} **NOTE**<br>It is recommended that you test your pipeline before you ingest documents.
 {: .note}
@@ -218,8 +218,6 @@ POST _ingest/pipeline/my-pipeline/_simulate
   ]
 }
 ```
-
-**Response**
 
 The following response confirms that the pipeline is working as expected:
 
@@ -247,7 +245,7 @@ The following response confirms that the pipeline is working as expected:
 }
 ```
 
-**Step 3: Ingest a document**
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `my-index`:
 
@@ -259,7 +257,7 @@ PUT /my-index/_doc/my-id?pipeline=my-pipeline
 ```
 {% include copy-curl.html %}
 
-**Step 4 (Optional): Retrieve the document** 
+### Step 4 (Optional): Retrieve the document
 
 To retrieve the document, run the following query:
 
@@ -267,3 +265,5 @@ To retrieve the document, run the following query:
 GET /my-index/_doc/my-id
 ```
 {% include copy-curl.html %}
+
+The response contains the ingested document, transformed as shown in the response in Step 2.

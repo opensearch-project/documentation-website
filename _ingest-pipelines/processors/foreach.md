@@ -27,7 +27,7 @@ The following is the syntax for the `foreach` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `foreach` processor.
 
@@ -101,8 +101,6 @@ POST _ingest/pipeline/test-foreach/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Response
-
 The following example response confirms that the pipeline is working as expected, showing that the four elements have been lowercased:
 
 ```json
@@ -131,7 +129,7 @@ The following example response confirms that the pipeline is working as expected
 
 ```
 
-### Step 3: Ingest a document 
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `testindex1`:
 
@@ -142,8 +140,6 @@ POST testindex1/_doc/1?pipeline=test-foreach
 }  
 ```
 {% include copy-curl.html %}
-
-#### Response
 
 The request indexes the document into the index `testindex1` and applies the pipeline before indexing:
 
@@ -172,28 +168,7 @@ GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-#### Response
-
-The response shows the document with all elements of the `protocols` field converted to lowercase:
-
-```json
-{  
-  "_index": "testindex1",  
-  "_id": "1",  
-  "_version": 6,  
-  "_seq_no": 5,  
-  "_primary_term": 67,  
-  "found": true,  
-  "_source": {  
-    "protocols": [  
-      "http",  
-      "https",  
-      "tcp",  
-      "udp"  
-    ]  
-  }  
-}  
-```
+The response contains the ingested document, transformed as shown in the response in Step 2.
 
 ## Processing an array of objects
 

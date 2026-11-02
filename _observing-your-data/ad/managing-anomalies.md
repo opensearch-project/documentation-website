@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Configuring anomaly alerting
-nav_order: 60
+nav_order: 20
 parent: Anomaly detection
 has_children: false
 ---

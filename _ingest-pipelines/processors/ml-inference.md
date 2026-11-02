@@ -45,7 +45,7 @@ The following is the syntax for the `ml_inference` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `ml_inference` processor.
 
@@ -86,7 +86,7 @@ For remote models, the `model_input` field is optional, and its default value is
 
 The following example configures an `ml_inference` processor with an externally hosted model.
 
-**Step 1: Create a pipeline**
+#### Step 1: Create a pipeline
 
 The following example creates an ingest pipeline for an externally hosted text embedding model. The model requires an `input` field and generates results in a `data` field. It converts the text in the `passage_text` field into text embeddings and stores the embeddings in the `passage_embedding` field. The `function_name` is not explicitly specified in the processor configuration, so it defaults to `remote`, signifying an externally hosted model:
 
@@ -140,7 +140,7 @@ When specifying the `input_map` for an externally hosted model, you can directly
 ]
 ```
 
-**Step 2 (Optional): Test the pipeline**
+#### Step 2 (Optional): Test the pipeline
 
 It is recommended that you test your pipeline before you ingest documents.
 {: .tip}
@@ -162,8 +162,6 @@ POST _ingest/pipeline/ml_inference_pipeline/_simulate
 }
 ```
 {% include copy-curl.html %}
-
-#### Response
 
 The response confirms that the processor has generated text embeddings in the `passage_embedding` field. The document now contains both the `passage_text` and `passage_embedding` fields:
 
@@ -200,7 +198,7 @@ Once you have created an ingest pipeline, you need to create an index for ingest
 
 The following example configures an `ml_inference` processor with a local model.
 
-**Step 1: Create a pipeline**
+#### Step 1: Create a pipeline
 
 The following example creates an ingest pipeline for the `huggingface/sentence-transformers/all-distilroberta-v1` local model. The model is a sentence transformer [pretrained model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/#sentence-transformers) hosted in your OpenSearch cluster. 
 
@@ -290,7 +288,7 @@ The model generates embeddings in the `$.inference_results.*.output.*.data` fiel
 ]
 ```
 
-To configure an `ml_inference` processor with a local model, specify the `function_name` explicitly. In this example, `function_name` is `text_embedding`. For information about valid `function_name` values, see [Configuration parameters](#configuration-parameters).
+To configure an `ml_inference` processor with a local model, specify the `function_name` explicitly. In this example, `function_name` is `text_embedding`. For information about valid `function_name` values, see [Parameters](#parameters).
 
 In this example, the final configuration of the `ml_inference` processor with the local model is as follows:
 
@@ -328,7 +326,7 @@ PUT /_ingest/pipeline/ml_inference_pipeline_local
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline**
+#### Step 2 (Optional): Test the pipeline
 
 To test the pipeline, run the following query:
 
@@ -376,8 +374,6 @@ POST _ingest/pipeline/ml_inference_pipeline/_simulate
 }
 ```
 {% include copy-curl.html %}
-
-#### Response
 
 The response confirms that the processor has generated text embeddings in the `context_embedding` field. The document now contains both the `context` and `context_embedding` fields at the same path:
 

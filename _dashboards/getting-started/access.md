@@ -12,6 +12,8 @@ Once OpenSearch and OpenSearch Dashboards are running, open your browser and nav
 - `http://localhost:5601` or `https://localhost:5601` for a local installation.
 - [https://playground.opensearch.org/app/home#/](https://playground.opensearch.org/app/home#/) for the OpenSearch Playground.
 
+If your cluster uses the Security plugin, OpenSearch Dashboards opens a sign-in page. Sign in as the `admin` user with the password that you set in `OPENSEARCH_INITIAL_ADMIN_PASSWORD` when you installed OpenSearch. For more information, see [Setting the initial admin password]({{site.url}}{{site.baseurl}}/security/configuration/passwords/#setting-the-initial-admin-password).
+
 >- _OpenSearch Dashboards_ refers to the web UI for OpenSearch---the application you're looking at in your browser.
 >- The **Dashboards** application is the tool within OpenSearch Dashboards for assembling visualizations into a single page.
 >- A _dashboard_ (lowercase) is an individual page of visualizations created in the **Dashboards** application.

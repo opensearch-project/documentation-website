@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Metric analytics
-nav_order: 50
+parent: Classic observability apps
+nav_order: 30
 ---
 
 # Metric analytics
@@ -9,6 +10,8 @@ Introduced 2.4
 {: .label .label-purple }
 
 You can ingest and visualize metric data stored directly in OpenSearch using the **Metrics** tool. This equips you with tools to analyze and correlate data across logs, traces, and metrics.
+
+Metric analytics is a [classic observability app]({{site.url}}{{site.baseurl}}/observing-your-data/classic-observability-apps/). To explore metrics in an Observability workspace, see [Metrics]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/discover-metrics/).
 
 Before the introduction of this feature, you could only ingest and visualize logs and traces from your monitored environments. With the **Metrics** tool, you can observe your digital assets with more granularity, gain deeper insight into the health of your infrastructure, and better inform your root cause analysis.
 
@@ -175,7 +178,7 @@ You can create visualizations using the metric data collected by your OpenSearch
 
 To create these visualizations, follow these steps:
 
-1. From the OpenSearch Dashboards main menu, go to **Observability** > **Metrics**.
+1. On the top menu, go to **Observability** > **Metrics**.
 2. In the **Metrics source** list, select **Prometheus** or **OpenTelemetry**.
 3. In the **Available Metrics** list, select the metrics to add to your visualization. If you have more than one Prometheus connection, each connection's metrics are listed separately. The visualization title shows the connection and metric name, for example, `my_prometheus.go_goroutines`.
 4. Select **Save as visualization**.
@@ -197,7 +200,7 @@ source = my_prometheus.prometheus_http_requests_total | stats avg(@value) by spa
 
 To create a custom visualization based on the PPL query, follow these steps:
 
-1. From the OpenSearch Dashboards main menu, go to **Observability** > **Logs** and select **Event Explorer**.
+1. On the top menu, go to **Observability** > **Logs**, and then select **Event Explorer**.
 2. Enter your PPL query and select **Run**.
 3. Select the **Visualizations** tab, and then select **Save**.
 4. Optionally, in the **Custom operational dashboards/application** list, select the dashboards or applications to which to add the visualization. Enter a **Name** for the visualization. To save the visualization as a metric, turn on **Save as Metric**.

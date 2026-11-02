@@ -2,6 +2,7 @@
 layout: default
 title: Analyzing Jaeger trace data 
 parent: Trace analytics
+grand_parent: Classic observability apps
 nav_order: 55
 redirect_from:
   - /observability-plugin/trace/trace-analytics-jaeger/
@@ -15,6 +16,8 @@ Introduced 2.5
 If you use OpenSearch as the storage backend for [Jaeger](https://www.jaegertracing.io/), you can analyze Jaeger trace data using trace analytics in OpenSearch Dashboards. Trace analytics shows the error rates and latency of your services and operations. You can filter traces and examine the spans of an individual trace to locate service issues.
 
 Trace analytics supports two data sources. Select **Data Prepper** to analyze trace data that OpenSearch Data Prepper ingested into OpenSearch. Select **Jaeger** to analyze trace data that Jaeger stored in OpenSearch.
+
+To ingest trace data using Data Prepper instead, see [Getting started with trace analytics]({{site.url}}{{site.baseurl}}/observing-your-data/trace/getting-started/).
 
 ## Jaeger indexes
 

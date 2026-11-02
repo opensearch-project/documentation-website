@@ -82,7 +82,7 @@ In a single-node cluster, such as one deployed on a laptop, one machine has to p
 
 In each cluster, there is an elected _cluster manager_ node, which orchestrates cluster-level operations, such as creating an index. Nodes communicate with each other, so if your request is routed to a node, that node sends requests to other nodes, gathers the nodes' responses, and returns the final response.
 
-For more information about other node types, see [Creating a cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/#nodes).
+For more information about other node types, see [Creating a cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/creating-a-cluster/#nodes).
 
 ### Shards
 

@@ -22,7 +22,7 @@ The following is the syntax for the `split` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `split` processor.
 
@@ -85,8 +85,6 @@ POST _ingest/pipeline/split_pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Response
-
 The following example response confirms that the pipeline is working as expected:
 
 ```json
@@ -113,7 +111,7 @@ The following example response confirms that the pipeline is working as expected
 }
 ```
 
-### Step 3: Ingest a document 
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `testindex1`:
 
@@ -124,8 +122,6 @@ PUT testindex1/_doc/1?pipeline=split_pipeline
 }
 ```
 {% include copy-curl.html %}
-
-#### Response
 
 The request indexes the document into the index `testindex1` and splits the `log_message` field on the comma delimiter and stores the result in the `log_parts` field before indexing, as shown in the following response:
 
@@ -154,28 +150,7 @@ GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-#### Response 
-
-The response shows the `log_parts` field, which contains the values of `log_message` split on the comma delimiter:
-
-```json
-{
-  "_index": "testindex1",
-  "_id": "1",
-  "_version": 70,
-  "_seq_no": 72,
-  "_primary_term": 47,
-  "found": true,
-  "_source": {
-    "log_message": "error,warning,info",
-    "log_parts": [
-      "error",
-      "warning",
-      "info"
-    ]
-  }
-}
-```
+The response contains the ingested document, transformed as shown in the response in Step 2.
 
 ## Preserving empty trailing fields
 

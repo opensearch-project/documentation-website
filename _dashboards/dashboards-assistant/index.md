@@ -108,7 +108,7 @@ Select the trash can icon to delete a conversation. Once the confirmation dialog
 
 ### Share a conversation through Notebooks
 
-You can use [Notebooks]({{site.url}}{{site.baseurl}}/observing-your-data/notebooks/) to save your conversations. To use this option, select **Save to notebook** from the dropdown menu to the right of **OpenSearch Assistant**. Enter a name for the notebook, then select **Save**. A pop-up message in the lower-right corner confirms the conversation has been saved. 
+You can use [Notebooks]({{site.url}}{{site.baseurl}}/dashboards/notebooks/) to save your conversations. To use this option, select **Save to notebook** from the dropdown menu to the right of **OpenSearch Assistant**. Enter a name for the notebook, then select **Save**. A pop-up message in the lower-right corner confirms the conversation has been saved. 
 
 All conversations (prompts and responses/questions and answers) between you and the large language model (LLM) will be saved to this notebook.
 

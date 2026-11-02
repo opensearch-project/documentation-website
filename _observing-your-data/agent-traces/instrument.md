@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Instrumenting your application
-parent: Agent traces
+parent: Agent monitoring
+grand_parent: Observability workspace apps
 nav_order: 10
 ---
 

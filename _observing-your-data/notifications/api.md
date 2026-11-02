@@ -1,6 +1,6 @@
 ---
 layout: default
-title: API
+title: Notifications API
 nav_order: 50
 parent: Notifications
 redirect_from:
