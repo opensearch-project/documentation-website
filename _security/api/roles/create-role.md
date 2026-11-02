@@ -1,32 +1,43 @@
 ---
 layout: default
-title: Create or update role
+title: Create or update roles
 parent: Role APIs
 grand_parent: Security APIs
 nav_order: 10
 ---
 
-# Create or Update Role API
+# Create or Update Roles API
 **Introduced 1.0**
 {: .label .label-purple }
 
-Creates or replaces the specified role.
+Creates or replaces one role or multiple roles. Each supplied role definition replaces the existing definition in full. For information about specifying multiple roles, see [Creating or updating multiple roles](#creating-or-updating-multiple-roles). To update individual attributes of a role, use the [Patch Roles API]({{site.url}}{{site.baseurl}}/security/api/roles/patch-roles/).
 
-To create or replace multiple roles in one request, use the [Create or Update Roles API]({{site.url}}{{site.baseurl}}/security/api/roles/create-roles/).
-
-<!-- spec_insert_start
-api: security.create_role
-component: endpoints
--->
 ## Endpoints
+
 ```json
+PUT /_plugins/_security/api/roles
 PUT /_plugins/_security/api/roles/{role}
 ```
-<!-- spec_insert_end -->
+
+## Path parameters
+
+The following table lists the available path parameters.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `role` | String | The name of the role to create or replace. Optional. |
+
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `wait_for_completion` | Boolean | Whether to wait for the configuration write and reload to complete. When `false`, the API returns a task ID after validation. Default is `true`. |
 
 ## Request body fields
 
-The request body is required. It is a JSON object with the following fields.
+The request body is required. When you specify a role name, the body is a JSON object with the following fields.
 
 | Field | Data type | Description | Required |
 | :--- | :--- | :--- | :--- |
@@ -61,7 +72,7 @@ The `tenant_permissions` objects contain the following fields.
 > To avoid this, use a custom analyzer or map the field as [`keyword`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/keyword/), which performs an exact-match search. For a list of the characters to avoid in `text` fields, see [Word boundaries](https://unicode.org/reports/tr29/#Word_Boundaries).
 {: .warning}
 
-## Example request
+## Example request: Create one role
 
 ```json
 PUT _plugins/_security/api/roles/test-role
@@ -99,9 +110,68 @@ PUT _plugins/_security/api/roles/test-role
 
 ## Example response
 
+A successful request returns HTTP status `201` for a new role or `200` for a replaced one:
+
 ```json
 {
   "status": "CREATED",
   "message": "'test-role' created."
+}
+```
+
+If you set `wait_for_completion` to `false`, a successful submission returns HTTP status `200`, and the response contains a task ID instead of the completed result:
+
+```json
+{
+  "task": "oTUltX4IQMOUUVeiohTt8A:1234"
+}
+```
+
+Use the [Get Task API]({{site.url}}{{site.baseurl}}/api-reference/tasks/get-tasks/) to retrieve the task's status and result.
+
+## Creating or updating multiple roles
+**Introduced 3.10**
+{: .label .label-purple }
+
+To create or replace multiple roles in one request, omit the role name from the path. The request body is a non-empty JSON object in which each key is a role name and each value is a role definition containing the fields in [Request body fields](#request-body-fields). Roles that are not included in the request are unchanged.
+
+If a role name or definition is invalid, or a change is not permitted, none of the roles in the request are written. Each role in the request is subject to the same permissions and restrictions as a single-role request, including restrictions on modifying reserved or hidden roles. For API access requirements, see [Security REST API permissions]({{site.url}}{{site.baseurl}}/security/access-control/api/).
+
+The number of roles in one request is limited by the `plugins.security.restapi.bulk_max_entries` cluster setting. Default is `1000`. For more information, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/#rest-management-api-settings).
+
+### Example request: Create multiple roles
+
+The following request creates or replaces two roles:
+
+```json
+PUT /_plugins/_security/api/roles
+{
+  "movies_reader": {
+    "cluster_permissions": [],
+    "index_permissions": [
+      {
+        "index_patterns": ["movies*"],
+        "allowed_actions": ["read"]
+      }
+    ],
+    "tenant_permissions": []
+  },
+  "cluster_observer": {
+    "cluster_permissions": ["cluster_monitor"],
+    "index_permissions": [],
+    "tenant_permissions": []
+  }
+}
+```
+{% include copy-curl.html security=true %}
+
+### Example response
+
+A successful request returns HTTP status `200`, including when all supplied roles are new:
+
+```json
+{
+  "status": "OK",
+  "message": "Resources updated."
 }
 ```
