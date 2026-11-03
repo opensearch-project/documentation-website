@@ -2,7 +2,7 @@
 layout: default
 title: Profile
 parent: ML APIs
-nav_order: 110
+nav_order: 150
 ---
 
 # ML Profile API

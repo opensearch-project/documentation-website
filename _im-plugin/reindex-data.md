@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Reindexing data
-nav_order: 35
+nav_order: 22
 redirect_from:
   - /im-plugin/reindex-data/index/
 ---
