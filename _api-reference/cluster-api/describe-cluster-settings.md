@@ -83,6 +83,7 @@ Each object in `settings` contains the following fields.
 | `dynamic` | Boolean | If `true`, the setting can be updated on a running cluster using the [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/). If `false`, the setting is static and can be set only in `opensearch.yml` before a node starts. This field describes the setting definition only. It does not indicate whether the calling user is permitted to update the setting. This field is always present. |
 | `default` | String | The default value declared in the setting definition, in the string form that the Cluster Settings API accepts, such as `"30s"`, `"85%"`, or `"[]"` for an empty list. Omitted for secure (keystore) settings and for settings that declare an empty default. Some defaults are computed by the node that responds to the request. For example, `node.processors` defaults to that node's processor count. |
 | `validation` | Object | The declared value type and bounds. Present only when the setting is defined using one of the types listed in the following table. Settings that use custom parsing, such as string, list, or enumerated settings, have no `validation` object. |
+| `description` | String | The description declared in the setting definition. Omitted when the definition does not include a description. |
 
 The `validation` object contains the following fields.
 
