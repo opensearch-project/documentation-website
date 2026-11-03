@@ -20,7 +20,7 @@ Consider using fusion mode in the following cases:
 - You want candidate selection that does not depend on the number of shards. With a search pipeline, each subquery contributes its top results from each shard, so the set of candidates increases with the number of shards. In fusion mode, each subquery contributes its top `window_size` results across all shards, so the set of candidates is the same regardless of how the documents are distributed. For more information, see [Candidate window size](#candidate-window-size).
 - You need to nest the hybrid query inside another query, such as a `bool` or `dis_max` query, or apply a `rescore` to the combined results. For more information, see [Nesting a hybrid query](#nesting-a-hybrid-query) and [Rescoring](#rescoring).
 
-Use a search pipeline if you need the `lower_bounds` and `upper_bounds` normalization parameters, `scroll`, cross-cluster search, or paging deeper than the [window size limits](#window-size-limits) allow. For a complete list, see [Limitations](#limitations).
+Use a search pipeline if you need the `lower_bounds` and `upper_bounds` normalization parameters or paging deeper than the [window size limits](#window-size-limits) allow. For a complete list, see [Limitations](#limitations).
 
 To use fusion mode, all nodes in the cluster must run OpenSearch 3.10 or later.
 {: .important}
@@ -204,7 +204,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 ```
 {% include copy-curl.html %}
 
-OpenSearch uses the pipeline specified in the `search_pipeline` query parameter or, if the request does not specify one, the index's [default search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/using-search-pipeline/#default-search-pipeline). The pipeline must contain a normalization processor or a score ranker processor, and its normalization processor cannot use `lower_bounds` or `upper_bounds`. A temporary pipeline defined in the request body cannot be used. You can also write `"fusion": "pipeline"` as a shorthand for `"fusion": {"source": "pipeline"}`.
+OpenSearch uses the pipeline specified in the `search_pipeline` query parameter or, if the request does not specify one, the index's [default search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/using-search-pipeline/#default-search-pipeline). The pipeline must contain a normalization processor or a score ranker processor, and its normalization processor cannot use `lower_bounds` or `upper_bounds`. You can also write `"fusion": "pipeline"` as a shorthand for `"fusion": {"source": "pipeline"}`.
 
 ## Weighting subqueries
 
@@ -235,7 +235,7 @@ A larger window can improve the combined ranking but increases the work required
 
 A `knn` or `neural` subquery returns at most `k` results from each shard or segment, regardless of `window_size`. A `neural` subquery that does not specify `k` uses the default of `10`. To let a vector subquery fill the window, set `k` to at least `window_size`. For more information, see [The number of returned results]({{site.url}}{{site.baseurl}}/vector-search/vector-search-techniques/approximate-knn/#the-number-of-returned-results).
 
-When results are sorted by `_score` (the default), the query returns at most as many documents as the window contains. A page that starts past the end of the window is empty. To page deeper, increase `window_size`.
+For a top-level hybrid query, when results are sorted by `_score` (the default), the query returns at most as many documents as the window contains. A page that starts past the end of the window is empty. To page deeper, increase `window_size`.
 
 ### Paginating results
 
@@ -257,7 +257,7 @@ If you do not set `window_size` and a limit is lower than the default window of 
 
 A hybrid query that uses a search pipeline must be the top-level query. A hybrid query in fusion mode can be nested inside a `bool` query, a `dis_max` query, or another hybrid query that specifies `fusion`.
 
-When a hybrid query in fusion mode is nested in a `bool` query, OpenSearch selects the candidate window before applying the enclosing `bool` query's other clauses. A `must` or `filter` clause in the enclosing query can therefore remove documents from the window and return fewer results than expected. To restrict the documents that the subqueries retrieve, use the hybrid query's own `filter` parameter.
+When a hybrid query in fusion mode is nested in a `bool` query, OpenSearch selects the candidate window before applying the enclosing `bool` query's other clauses, and a `must` or `filter` clause in the enclosing query can remove documents from the window. If OpenSearch runs the subqueries a second time, as it does by default to count total hits, the results can include documents from outside the window, to which the hybrid query assigns a score of `0`. Otherwise, the results include only the documents in the window that match the enclosing query, so they can contain fewer documents than requested. To restrict the documents that the subqueries retrieve, use the hybrid query's own `filter` parameter.
 
 ## Limitations
 
@@ -331,11 +331,11 @@ The following features are supported in fusion mode but require OpenSearch to ru
 
 - Counting total hits beyond the window. By default, OpenSearch counts matching documents up to the `track_total_hits` threshold (`10000` by default), which can require the second run. Setting `track_total_hits` to `true` always requires it.
 - Sorting by any field other than `_score`, including a tiebreaker after `_score`. For more information, see [Using sorting with a hybrid query]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/sorting/).
-- [Collapsing results]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/collapse/) with `inner_hits`. Collapsing without `inner_hits` does not require the second run.
+- [Collapsing results]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/collapse/) with `inner_hits`. Collapsing without `inner_hits` requires the second run only to count total hits, so setting `track_total_hits` to `false` avoids it.
 - [Aggregations]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/aggregations/), which are computed over all matching documents, not only the candidate window.
 - Highlighting.
 
-The added latency is small for keyword subqueries. For a `knn` or `neural` subquery, it includes an additional vector search on every shard and, for a `neural` subquery, can include a second model inference.
+The added latency is usually small for keyword subqueries. For a `knn` or `neural` subquery, it can include an additional vector search on every shard. When a hybrid query in fusion mode is nested inside another hybrid query in fusion mode, the added latency can also include a second model inference for each `neural` subquery of the nested query.
 
 To reduce latency, use the following options:
 

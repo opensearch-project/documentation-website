@@ -15,7 +15,7 @@ The `collapse` parameter lets you group results by a field, returning only the h
 
 The `collapse` parameter is compatible with other hybrid query search options, such as sort, explain, and pagination, using their standard syntax.
 
-Collapsing is also supported when the hybrid query runs in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/), where it applies to the combined results. Collapsing with `inner_hits` requires additional processing in that mode. For more information, see [Performance considerations]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/#performance-considerations).
+Collapsing is also supported when the hybrid query runs in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/), where it applies to the combined results. Collapsing requires additional processing in that mode when it uses `inner_hits` or when OpenSearch counts total hits beyond the candidate window, which it does by default. For more information, see [Performance considerations]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/#performance-considerations).
 
 When using `collapse` in a hybrid query, note the following considerations:
 
