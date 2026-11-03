@@ -4,7 +4,7 @@ title: MCP server APIs
 parent: ML APIs
 has_children: true
 has_toc: false
-nav_order: 40
+nav_order: 110
 redirect_from: 
   - /ml-commons-plugin/api/mcp-server-apis/
   - /ml-commons-plugin/api/mcp-server-apis/sse-message/

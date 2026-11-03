@@ -198,6 +198,9 @@ The tool sets the `system_prompt` and `user_prompt` parameters itself, so values
 
 You can add [search templates]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search-template/index/) as additional context to assist the LLM in OpenSearch DSL generation.
 
+With this approach, the LLM still writes the full query. To have the LLM fill only the template parameters while OpenSearch renders the query, see [Filling search templates]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agentic-search-templates/index/).
+{: .tip}
+
 First, create the search templates:
 
 ```json

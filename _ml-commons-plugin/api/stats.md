@@ -2,7 +2,7 @@
 layout: default
 title: Stats 
 parent: ML APIs
-nav_order: 120
+nav_order: 160
 ---
 
 # ML Stats API
