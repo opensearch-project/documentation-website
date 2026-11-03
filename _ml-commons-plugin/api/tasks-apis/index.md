@@ -4,7 +4,7 @@ title: ML Tasks APIs
 parent: ML APIs
 has_children: true
 has_toc: false
-nav_order: 70
+nav_order: 140
 redirect_from:
   - /ml-commons-plugin/api/tasks-apis/
 ---

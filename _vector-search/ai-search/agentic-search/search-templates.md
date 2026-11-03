@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Adding search templates
+title: Using search templates as examples
 parent: Agentic search
 grand_parent: AI search
 nav_order: 100
 has_children: false
 ---
 
-# Adding search templates
+# Using search templates as examples
 
 The `QueryPlanningTool` can accept a list of [search templates]({{site.url}}{{site.baseurl}}/search-plugins/search-template/) during its registration. During search, the `QueryPlanningTool` chooses an appropriate search template based on the user's question and template descriptions, and the large language model (LLM) generates a query based on the selected search template. 
 
@@ -17,7 +17,7 @@ This approach allows you to solve complex use cases that would otherwise be chal
 - Handles complex use cases in which the LLM struggles to generate correct queries.
 - Ensures predictable query structure and naming conventions.
 
-With this approach, the LLM still writes the full query. To have the LLM fill only the template parameters while OpenSearch renders the query, see [Filling search templates in agentic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agentic-search-templates/).
+With this approach, the LLM still writes the full query. To have the LLM fill only the template parameters while OpenSearch renders the query, see [Filling search templates]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agentic-search-templates/index/).
 {: .tip}
 
 ## Best practices

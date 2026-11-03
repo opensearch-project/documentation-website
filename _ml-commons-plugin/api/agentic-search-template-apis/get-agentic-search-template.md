@@ -2,13 +2,16 @@
 layout: default
 title: Get agentic search template
 parent: Agentic search template APIs
-grand_parent: ML Commons APIs
-nav_order: 20
+grand_parent: ML APIs
+nav_order: 30
 ---
 
 # Get Agentic Search Template API
 **Introduced 3.10**
 {: .label .label-purple }
+
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/opensearch-agent-server/issues/150).
+{: .warning}
 
 Use this API to retrieve a registered agentic search template, including its parameter schema.
 
@@ -63,7 +66,7 @@ The following table lists all response body fields.
 Field | Data type | Description
 :--- | :--- | :---
 `template_id` | String | The agentic search template ID, which is also the stored script ID.
-`index_binding` | String | The index to which the template is bound.
+`index_binding` | String | The index that the template searches.
 `description` | String | The template description, if one was provided or derived.
 `param_schema` | Object | The parameter schema. See [The `param_schema` object]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/agentic-search-template-apis/register-agentic-search-template/#the-param_schema-object).
 `created_time` | Long | The time at which the template was registered, in epoch milliseconds.

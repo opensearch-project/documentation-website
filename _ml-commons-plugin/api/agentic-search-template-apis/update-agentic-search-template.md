@@ -2,15 +2,20 @@
 layout: default
 title: Update agentic search template
 parent: Agentic search template APIs
-grand_parent: ML Commons APIs
-nav_order: 40
+grand_parent: ML APIs
+nav_order: 20
 ---
 
 # Update Agentic Search Template API
 **Introduced 3.10**
 {: .label .label-purple }
 
-Use this API to update the description or parameter schema of a registered agentic search template. To change the query itself, update the stored script.
+This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, see the associated [GitHub issue](https://github.com/opensearch-project/opensearch-agent-server/issues/150).
+{: .warning}
+
+Use this API to update the description or parameter schema of a registered agentic search template. To change the query itself, update the stored script. To change the index that the template searches, delete the template and register it again.
+
+The OpenSearch Agent Server caches each template's parameter schema for 60 seconds, so an update can take up to 60 seconds to reach the agent server.
 
 ## Endpoints
 
@@ -28,7 +33,7 @@ Parameter | Data type | Required/Optional | Description
 
 ## Request body fields
 
-The following table lists the available request body fields. Other fields, including `index`, are ignored.
+The following table lists the available request body fields.
 
 Field | Data type | Required/Optional | Description
 :--- | :--- | :--- | :---
@@ -71,9 +76,6 @@ PUT /_plugins/_ml/agentic_search_templates/product_search
 ```
 
 If the template isn't registered, the API returns a `404` error. If the merged schema is invalid or the template doesn't render valid JSON with it, the API returns a `400` error.
-
-The OpenSearch Agent Server caches each template's parameter schema for 60 seconds, so an update can take up to 60 seconds to reach the agent server.
-{: .note}
 
 ## Required permissions
 
