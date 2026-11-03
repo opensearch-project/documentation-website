@@ -59,6 +59,15 @@ response = client.ingestion.pause(
     python=step1_python %}
 <!-- spec_insert_end -->
 
+## Example response
+
+```json
+{
+  "acknowledged": true,
+  "shards_acknowledged": true
+}
+```
+
 ## Response body fields
 
 The following table lists all response body fields.

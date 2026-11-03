@@ -55,7 +55,7 @@ Each object in the `reset_settings` array contains the following fields.
 | `mode` | String | Required | The reset mode. Valid values are `offset` (a positive integer offset) and `timestamp` (a Unix timestamp in milliseconds). |
 | `value` | String | Required | &ensp;&#x2022; `offset`: The Apache Kafka offset or Amazon Kinesis sequence number<br>&ensp;&#x2022; `timestamp`: A Unix timestamp in milliseconds. |
 
-## Example: Resuming ingestion from the current position
+## Example request: Resuming ingestion from the current position
 
 To resume ingestion without specifying reset settings, send the following request:
 
@@ -81,7 +81,16 @@ response = client.ingestion.resume(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-## Example: Resuming ingestion from a specific offset
+## Example response
+
+```json
+{
+  "acknowledged": true,
+  "shards_acknowledged": true
+}
+```
+
+## Example request: Resuming ingestion from a specific offset
 
 To reset shard `0` to offset `1` when resuming ingestion, send the following request:
 

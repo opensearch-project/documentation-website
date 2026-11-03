@@ -36,9 +36,9 @@ The following table lists the available query parameters. All query parameters a
 | `next_token` | String | The token for retrieving the next page of results. Use the `next_page_token` value from the previous response. |
 | `timeout` | Time units | The amount of time to wait for a response from the cluster. Default is `30s`. |
 
-## Example: Getting the ingestion state
+## Example request: Retrieving the ingestion state
 
-The following is a request with the default settings:
+To get the ingestion state of `my-index`, send the following request:
 
 <!-- spec_insert_start
 component: example_code
@@ -62,45 +62,35 @@ response = client.ingestion.get_state(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-The response contains the ingestion state of each shard. If a shard fails to return its state, the failure is listed in `_shards.failures`:
+## Example response
+
+The response contains the ingestion state of each shard in `my-index`. If a shard fails to return its state, the failure is listed in `_shards.failures`:
 
 ```json
 {
   "_shards": {
     "total": 1,
     "successful": 1,
-    "failed": 0,
-    "failures": [
-      {
-        "shard": 0,
-        "index": "my-index",
-        "status": "INTERNAL_SERVER_ERROR",
-        "reason": {
-          "type": "timeout_exception",
-          "reason": "error message"
-        }
-      }
-    ]
+    "failed": 0
   },
-  "next_page_token" : "page token if not on last page",
   "ingestion_state": {
-    "indexName": [
+    "my-index": [
       {
         "shard": 0,
         "poller_state": "POLLING",
         "error_policy": "DROP",
         "poller_paused": false,
-        "write_block_enabled" : false,
-        "batch_start_pointer" : "KafkaOffset{offset=2}",
-        "is_primary" : true,
-        "node" : "node_name"
+        "write_block_enabled": false,
+        "batch_start_pointer": "KafkaOffset{offset=17735361}",
+        "is_primary": true,
+        "node": "node-a"
       }
     ]
   }
 }
 ```
 
-## Example: Paginating results
+## Example request: Paginating results
 
 To return 20 results per page, send the following request:
 
@@ -127,7 +117,7 @@ response = client.ingestion.get_state(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-To retrieve the next page, provide the `next_page_token` value from the previous response in the `next_token` query parameter:
+If more results are available, the response contains a `next_page_token` field. To retrieve the next page, provide its value in the `next_token` query parameter:
 
 <!-- spec_insert_start
 component: example_code
@@ -151,3 +141,50 @@ response = client.ingestion.get_state(
     rest=step1_rest
     python=step1_python %}
 <!-- spec_insert_end -->
+
+## Response body fields
+
+The following table lists all response body fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `_shards` | Object | The number of shards that returned or failed to return their ingestion state. See [Shards](#shards). |
+| `ingestion_state` | Object | The ingestion state of each requested index. Each key is an index name, and its value is an array containing the state of each shard in that index. See [Shard ingestion state](#shard-ingestion-state). |
+| `next_page_token` | String | The token for retrieving the next page of results. Pass this value in the `next_token` query parameter. Returned only when more results are available. |
+
+### Shards
+
+The `_shards` object contains the following fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `total` | Integer | The total number of shards from which the ingestion state was requested. |
+| `successful` | Integer | The number of shards that returned their ingestion state. |
+| `failed` | Integer | The number of shards that failed to return their ingestion state. |
+| `failures` | Array of objects | A list of shard failures. Returned only when at least one shard fails. See [Shard failures](#shard-failures). |
+
+### Shard failures
+
+Each object in the `_shards.failures` array contains the following fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `shard` | Integer | The shard number. |
+| `index` | String | The name of the index containing the shard. |
+| `status` | String | The HTTP status of the failure, such as `INTERNAL_SERVER_ERROR`. |
+| `reason` | Object | The cause of the failure, containing the error `type` (for example, `timeout_exception`) and the error message in `reason`. |
+
+### Shard ingestion state
+
+Each object in an `ingestion_state` array contains the following fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `shard` | Integer | The shard number. |
+| `poller_state` | String | The current state of the shard's poller. Valid values are `NONE`, `POLLING`, `PROCESSING`, `PAUSED`, and `CLOSED`. |
+| `error_policy` | String | The policy for handling failed messages: `DROP` or `BLOCK`. See [Updating the error policy]({{site.url}}{{site.baseurl}}/im-plugin/pull-based-ingestion/index/#updating-the-error-policy). |
+| `poller_paused` | Boolean | Whether ingestion for the shard is paused. |
+| `write_block_enabled` | Boolean | Whether a write block is enabled for the shard. |
+| `batch_start_pointer` | String | The position in the source from which the poller resumes during shard recovery, such as a Kafka offset or a Kinesis sequence number. |
+| `is_primary` | Boolean | Whether the shard copy is a primary shard. |
+| `node` | String | The name of the node that hosts the shard copy. |
