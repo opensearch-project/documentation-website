@@ -15,7 +15,9 @@ Remote-backed storage offers a new way to protect against data loss by automatic
 
 You can migrate a document-replication-based cluster to remote-backed storage through the rolling upgrade mechanism.
 
-Rolling upgrades, sometimes referred to as *node replacement upgrades*, can be performed on running clusters with virtually no downtime. Nodes are individually stopped and migrated in place. Alternatively, nodes can be stopped and replaced, one at a time, by remote-backed hosts. During this process you can continue to index and query data in your cluster.
+Rolling upgrades, sometimes referred to as *node replacement upgrades*, can be performed on running clusters. Nodes are individually stopped and migrated in place. Alternatively, nodes can be stopped and replaced, one at a time, by remote-backed hosts. During this process you can continue to index and query data in your cluster.
+
+While the cluster contains both remote-backed and non-remote nodes, OpenSearch restricts where shard copies can be allocated. A replica can be allocated to a remote-backed node only if its primary shard is on a remote-backed node, and a shard that is stored in a remote-backed index can be allocated only to remote-backed nodes. As a result, some replica shards remain unassigned during migration, and some shards can have only one active copy. To keep every shard available, move shards off each node before you stop it.
 
 ## Preparing to migrate
 
@@ -55,8 +57,64 @@ Before upgrading to OpenSearch 2.15, take a cluster snapshot and store it remote
        "active_shards_percent_as_number":100.0
    }
    ```
-   
-1. Disable shard replication to prevent shard replicas from being created while nodes are being taken offline. This stops the movement of Lucene index segments on nodes in your cluster. You can disable shard replication by querying the `_cluster/settings` API endpoint, as shown in the following example:
+
+1. Set the `cluster.remote_store.compatibility_mode` setting to `mixed` to allow remote-backed storage nodes to join the cluster:
+
+   ```json
+   PUT "/_cluster/settings?pretty"
+   {
+       "persistent": {
+           "cluster.remote_store.compatibility_mode": "mixed"
+       }
+   }
+   ```
+
+   You should receive a response similar to the following:
+
+   ```json
+   {
+     "acknowledged" : true,
+     "persistent" : {
+       "cluster" : {
+         "remote_store" : {
+           "compatibility_mode" : "mixed"
+         }
+       }
+     },
+     "transient" : { }
+   }
+   ```
+
+1. Review your cluster and identify the first node to be migrated.
+
+1. Exclude the node from shard allocation so that OpenSearch moves its shards to other nodes. Replace `<node-name>` with the name of the node:
+
+   ```json
+   PUT "/_cluster/settings?pretty"
+   {
+       "persistent": {
+           "cluster.routing.allocation.exclude._name": "<node-name>"
+       }
+   }
+   ```
+
+1. Wait for shard relocation to finish:
+
+   ```json
+   GET "/_cluster/health?wait_for_no_relocating_shards=true&wait_for_no_initializing_shards=true&pretty"
+   ```
+
+   Confirm that the response contains `"timed_out" : false`. If the response contains `"timed_out" : true`, shards are still relocating. Repeat the request until relocation finishes.
+
+1. List the shards in the cluster and review the shards that remain on the node:
+
+   ```json
+   GET "/_cat/shards?v&h=index,shard,prirep,state,node&s=index,shard"
+   ```
+
+   Some shards can remain on the node because no other node is eligible to hold them. For example, a replica remains on the node when its primary shard is on a non-remote node and every other non-remote node already holds a copy of the shard. Before you stop the node, confirm that each shard remaining on the node has a `STARTED` copy on another node. Stopping a node that holds the only copy of a shard makes that shard unavailable until the node rejoins the cluster. To learn why a shard cannot be moved, use the [Cluster Allocation Explain API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-allocation/).
+
+1. Disable shard replication to prevent shard replicas from being created while the node is offline:
 
    ```json
    PUT "/_cluster/settings?pretty"
@@ -66,8 +124,9 @@ Before upgrading to OpenSearch 2.15, take a cluster snapshot and store it remote
        }
    }
    ```
+
    You should receive a response similar to the following:
-   
+
    ```json
    {
      "acknowledged" : true,
@@ -91,7 +150,7 @@ Before upgrading to OpenSearch 2.15, take a cluster snapshot and store it remote
    ```
 
    You should receive a response similar to the following:
-   
+
    ```json
    {
      "_shards" : {
@@ -102,37 +161,6 @@ Before upgrading to OpenSearch 2.15, take a cluster snapshot and store it remote
    }
    ```
 
-1. Set the `cluster.remote_store.compatibility_mode` setting to `mixed` to allow remote-backed storage nodes to join the cluster. Then set `cluster.migration.direction` to `remote_store`, which allocates new indexes to remote-backed data nodes. The following example updates the aforementioned setting using the Cluster Settings API:
-
-   ```json
-   PUT "/_cluster/settings?pretty"
-   {
-       "persistent": {
-           "cluster.remote_store.compatibility_mode": "mixed",
-           "cluster.migration.direction" :  "remote_store"
-       }
-   }
-   ```
-   You should receive a response similar to the following:
-   
-   ```json
-   {
-     "acknowledged" : true,
-     "persistent" : {
-       "cluster" : {
-         "migration" : {
-           "direction" : "remote_store"
-         },
-         "remote_store" : {
-           "compatibility_mode" : "mixed"
-         }
-       }
-     },
-     "transient" : { }
-   }
-   ```
-   
-1. Review your cluster and identify the first node to be upgraded.
 1. Provide the remote store repository details as node attributes in `opensearch.yml`, as shown in the following example:
 
    ```yml
@@ -168,29 +196,25 @@ Before upgrading to OpenSearch 2.15, take a cluster snapshot and store it remote
 
 1. Deploy a new container running the same version of OpenSearch and mapped to the same volume as the container you deleted.
 
-1. Query the `_cat/nodes` endpoint after OpenSearch is running on the new node to confirm that it has joined the cluster. Then wait for all primary shards to become active before migrating the next node. Because shard allocation is limited to primary shards in step 2, replica shards remain unassigned and the cluster status stays yellow until you reenable shard replication in step 11. The following request waits until the cluster status is at least yellow and no shards are initializing or relocating:
+1. Query the `_cat/nodes` endpoint after OpenSearch is running on the new node to confirm that it has joined the cluster:
 
    ```json
-   GET _cluster/health?wait_for_status=yellow&wait_for_no_initializing_shards=true&wait_for_no_relocating_shards=true&pretty
+   GET "/_cat/nodes?v&h=name,node.role,master"
    ```
 
-   Before you migrate the next node, confirm that the response contains `"timed_out" : false` and that `initializing_shards` and `relocating_shards` are both `0`. Unassigned replica shards are expected at this stage.
-
-1. Repeat steps 6 through 9 for each node in your cluster. 
-
-1. Reenable shard replication, using a command similar to the following:
+1. Reenable shard replication:
 
    ```json
-   PUT _cluster/settings?pretty
+   PUT "/_cluster/settings?pretty"
    {
        "persistent": {
            "cluster.routing.allocation.enable": "all"
        }
    }
    ```
-   
+
    You should receive a response similar to the following:
-   
+
    ```json
    {
      "acknowledged" : true,
@@ -206,13 +230,63 @@ Before upgrading to OpenSearch 2.15, take a cluster snapshot and store it remote
      "transient" : { }
    }
    ```
-   
+
+1. Wait for shard recovery to finish:
+
+   ```json
+   GET "/_cluster/health?wait_for_no_initializing_shards=true&wait_for_no_relocating_shards=true&pretty"
+   ```
+
+   Confirm that the response contains `"timed_out" : false`. If the response contains `"timed_out" : true`, repeat the request until recovery finishes. The cluster status can remain yellow until all nodes are migrated because replicas that cannot be allocated during migration remain unassigned.
+
+1. After the first node joins the cluster as a remote-backed node, set `cluster.migration.direction` to `remote_store`. This setting allocates new indexes to remote-backed data nodes and allows primary shards to relocate from non-remote nodes to remote-backed nodes. Set this setting only after a remote-backed node has joined the cluster. If no remote-backed node is available, primary shards of new indexes cannot be allocated, and the cluster status becomes red:
+
+   ```json
+   PUT "/_cluster/settings?pretty"
+   {
+       "persistent": {
+           "cluster.migration.direction": "remote_store"
+       }
+   }
+   ```
+
+   You should receive a response similar to the following:
+
+   ```json
+   {
+     "acknowledged" : true,
+     "persistent" : {
+       "cluster" : {
+         "migration" : {
+           "direction" : "remote_store"
+         }
+       }
+     },
+     "transient" : { }
+   }
+   ```
+
+1. Repeat steps 4 through 14 for each remaining node in your cluster. In step 4, specify the name of the next node. For the last non-remote node, OpenSearch moves all of its shards to remote-backed nodes, so the node holds no shards when you stop it.
+
+1. Remove the node exclusion:
+
+   ```json
+   PUT "/_cluster/settings?pretty"
+   {
+       "persistent": {
+           "cluster.routing.allocation.exclude._name": null
+       }
+   }
+   ```
+
 1. Confirm that the cluster is healthy by using the Cluster Health API, as shown in the following command:
 
-   ```bash
-   GET _cluster/health?pretty
+   ```json
+   GET "/_cluster/health?wait_for_status=green&pretty"
    ```
+
    You should receive a response similar to the following:
+
    ```json
    {
      "cluster_name" : "opensearch-dev-cluster",
@@ -233,33 +307,30 @@ Before upgrading to OpenSearch 2.15, take a cluster snapshot and store it remote
      "active_shards_percent_as_number" : 100.0
    }
    ```
-   
+
 1. Clear the `remote_store.compatibility_mode` and `migration.direction` settings by using the following command so that non-remote nodes are not allowed to join the cluster:
- 
+
    ```json
    PUT "/_cluster/settings?pretty"
    {
        "persistent": {
            "cluster.remote_store.compatibility_mode": null,
-            "cluster.migration.direction" :  null
+           "cluster.migration.direction": null
        }
    }
    ```
 
    You should receive a response similar to the following:
+
    ```json
    {
      "acknowledged" : true,
-     "persistent" : { 
-        "cluster.remote_store.compatibility_mode": null,
-         "cluster.migration.direction" :  null
-      },
-      "transient" : { }
+     "persistent" : { },
+     "transient" : { }
    }
    ```
-   
-The migration to the remote store is now complete. 
 
+The migration to the remote store is now complete.
 
 ## Related cluster settings
 
@@ -268,5 +339,5 @@ Use the following cluster settings to enable migration to a remote-backed cluste
 | Field                                     | Data type | Description |
 |:------------------------------------------|:--- |:---|
 | `cluster.remote_store.compatibility_mode` | String  | When set to `strict`, only allows the creation of either non-remote or remote nodes, depending on the initial cluster type. When set to `mixed`, allows both remote and non-remote nodes to join the cluster. Default is `strict`. |  
-| `cluster.migration.direction`             | String |  Creates new shards only on remote-backed storage nodes. Default is `None`. |                                                                                                                                                                                            
+| `cluster.migration.direction`             | String |  When set to `remote_store`, creates new shards only on remote-backed storage nodes and allows primary shards to relocate from non-remote nodes to remote-backed nodes. Default is `None`. |                                                                                                                                                                                            
 
