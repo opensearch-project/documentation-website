@@ -124,4 +124,4 @@ If you set `wait_for_completion` to `false`, a successful submission returns HTT
 }
 ```
 
-Use the [Get Task API]({{site.url}}{{site.baseurl}}/api-reference/tasks/get-tasks/) to retrieve the task's status and result.
+Use the [Get Task API]({{site.url}}{{site.baseurl}}/api-reference/tasks/get-tasks/) to retrieve the task's status and result. For more information, see [Using wait_for_completion for configuration changes]({{site.url}}{{site.baseurl}}/security/api/index/#using-wait_for_completion-for-configuration-changes).
