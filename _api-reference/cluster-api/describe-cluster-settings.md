@@ -9,9 +9,9 @@ parent: Cluster APIs
 **Introduced 3.10**
 {: .label .label-purple }
 
-The `/_cluster/settings/_describe` API returns metadata about how cluster settings are defined, rather than their configured values. For each requested setting, the API reports whether the setting is dynamic (can be updated on a running cluster) or static (requires a node restart to change), the declared default, and any declared value type and bounds.
+Returns the definitions of the specified cluster settings. For each setting, the response states whether the setting is dynamic or static, its default value, and its value type and bounds. Dynamic settings can be updated on a running cluster. Static settings require a node restart to change. For more information, see [Static settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#static-settings) and [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
 
-This API describes the setting definitions compiled into the node. It never returns a setting's configured value, so it does not expose values from `opensearch.yml`, the keystore, or the cluster state.
+The API does not return configured values, so it does not expose values from `opensearch.yml`, the keystore, or the cluster state.
 
 Because the response is derived from the setting definitions and is identical on every node, any node can serve the request. The request is not routed to the elected cluster manager node.
 
@@ -26,19 +26,21 @@ GET /_cluster/settings/_describe
 The following table lists the available query parameters.
 
 | Parameter | Data type | Description |
-| --------- | --------- | ----------- |
-| `settings` | String or List | Required. A comma-separated list of exact setting names to describe. Wildcards (`*`, `?`) are not supported; each name must be an exact setting key. A request with no names, or with a wildcard, returns `400 Bad Request`. |
+| :--- | :--- | :--- |
+| `settings` | String | A comma-separated list of exact setting names to describe. Wildcards (`*` and `?`) are not supported. Required. |
 
 ## Example request
 
-Describe two cluster settings:
+The following request describes the `cluster.max_shards_per_node`, `cluster.blocks.read_only`, and `cluster.name` settings:
 
 ```json
-GET /_cluster/settings/_describe?settings=cluster.max_shards_per_node,cluster.blocks.read_only
+GET /_cluster/settings/_describe?settings=cluster.max_shards_per_node,cluster.blocks.read_only,cluster.name
 ```
 {% include copy-curl.html %}
 
 ## Example response
+
+The `cluster.name` setting is static and declares no readable value type, so its response contains no `validation` object:
 
 ```json
 {
@@ -57,64 +59,48 @@ GET /_cluster/settings/_describe?settings=cluster.max_shards_per_node,cluster.bl
         "type": "integer",
         "min": "1"
       }
-    }
-  }
-}
-```
-
-The following example describes settings whose definitions carry less metadata. `cluster.name` declares a default but no readable value type, so it has no `validation` object. `indices.recovery.max_bytes_per_sec` declares a type but no bounds, so `validation` contains only `type`:
-
-```json
-GET /_cluster/settings/_describe?settings=cluster.name,indices.recovery.max_bytes_per_sec,cluster.info.update.interval
-```
-{% include copy-curl.html %}
-
-```json
-{
-  "settings": {
-    "cluster.info.update.interval": {
-      "dynamic": true,
-      "default": "30s",
-      "validation": {
-        "type": "time",
-        "min": "10s"
-      }
     },
     "cluster.name": {
       "dynamic": false,
       "default": "opensearch"
-    },
-    "indices.recovery.max_bytes_per_sec": {
-      "dynamic": true,
-      "default": "41943040b",
-      "validation": {
-        "type": "byte_size"
-      }
     }
   }
 }
 ```
 
-## Response fields
+## Response body fields
 
-The following table lists all response fields.
+The following table lists all response body fields.
 
 | Field | Data type | Description |
-| ----- | --------- | ----------- |
-| `settings` | Object | A map of setting names to their definition metadata. Setting names are returned in sorted order. |
-| `settings.<setting_name>.dynamic` | Boolean | Always present. If `true`, the setting can be updated on a running cluster using the Cluster Settings API. If `false`, the setting is static and can only be set in `opensearch.yml` before a node starts. This field describes the setting definition only; it does not indicate whether the calling user is permitted to update the setting. |
-| `settings.<setting_name>.default` | String | The default value declared in the setting definition, in the same string form accepted by the Cluster Settings API (for example, `"30s"`, `"85%"`, `"[]"` for an empty list). Omitted for secure (keystore) settings and for settings that declare an empty default. Some defaults are computed from the node that answers the request; for example, `node.processors` defaults to that node's processor count. |
-| `settings.<setting_name>.validation` | Object | The declared value type and bounds. Present only when the setting is defined with one of the types listed below. Settings that use custom parsing, such as string, list, or enumerated settings, have no `validation` object. |
-| `settings.<setting_name>.validation.type` | String | Always present within `validation`. One of `boolean`, `integer`, `long`, `float`, `double`, `time`, `byte_size`, or `memory_size`. |
-| `settings.<setting_name>.validation.min` | String | The smallest accepted value, in the same string form as `default`. Omitted when the definition places no lower bound on the value. |
-| `settings.<setting_name>.validation.max` | String | The largest accepted value, in the same string form as `default`. Omitted when the definition places no upper bound on the value. |
+| :--- | :--- | :--- |
+| `settings` | Object | A map of setting names to their definitions. Setting names are returned in sorted order. |
 
-For a `memory_size` setting, `min` and `max` describe the percentage form of the value (`0%` to `100%`). Such settings also accept an absolute byte size (for example, `10gb`), which these bounds do not constrain.
+Each object in `settings` contains the following fields.
 
-A requested name is omitted from the response if it is unknown or if it is a filtered setting. An unknown name is intentionally indistinguishable from a filtered one, so the response does not reveal whether a filtered setting exists. Requesting a mix of known and unknown names returns `200 OK` with only the known names described.
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `dynamic` | Boolean | If `true`, the setting can be updated on a running cluster using the [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/). If `false`, the setting is static and can be set only in `opensearch.yml` before a node starts. This field describes the setting definition only. It does not indicate whether the calling user is permitted to update the setting. This field is always present. |
+| `default` | String | The default value declared in the setting definition, in the string form that the Cluster Settings API accepts, such as `"30s"`, `"85%"`, or `"[]"` for an empty list. Omitted for secure (keystore) settings and for settings that declare an empty default. Some defaults are computed by the node that responds to the request. For example, `node.processors` defaults to that node's processor count. |
+| `validation` | Object | The declared value type and bounds. Present only when the setting is defined using one of the types listed in the following table. Settings that use custom parsing, such as string, list, or enumerated settings, have no `validation` object. |
+
+The `validation` object contains the following fields.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `type` | String | The value type. Valid values are `boolean`, `integer`, `long`, `float`, `double`, `time`, `byte_size`, and `memory_size`. This field is always present in the `validation` object. |
+| `min` | String | The smallest accepted value, in the same string form as `default`. Omitted when the definition places no lower bound on the value. |
+| `max` | String | The largest accepted value, in the same string form as `default`. Omitted when the definition places no upper bound on the value. |
+
+For a `memory_size` setting, `min` and `max` describe the percentage form of the value (0--100%). These settings also accept an absolute byte size, such as `10gb`, which these bounds do not constrain.
+
+A requested name is omitted from the response if it is unknown or if it is a filtered setting. The response does not distinguish unknown names from filtered names, so it does not reveal whether a filtered setting exists. A request that contains both known and unknown names returns `200 OK` and describes only the known names.
 
 ## Required permissions
 
 If you use the Security plugin, make sure you have the appropriate permissions: `cluster:monitor/settings/describe`.
 
-Having this permission does not grant the ability to update any setting. Whether a setting is reported as `dynamic` is independent of whether the caller holds `cluster:admin/settings/update`.
+## Related documentation
+
+- [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/)
+- [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/)
