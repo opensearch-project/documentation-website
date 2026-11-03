@@ -27,7 +27,7 @@ The following table lists the available query parameters.
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `settings` | String | A comma-separated list of exact setting names to describe. Wildcards (`*` and `?`) are not supported. Required. |
+| `settings` | String | A comma-separated list of setting names to describe. Each entry is either an exact name, such as `cluster.max_shards_per_node`, or a prefix ending in `.*`, such as `cluster.routing.allocation.*`, which describes every registered setting under that prefix at any depth. Exact names and prefixes can be mixed in one request. Any other wildcard form, such as `*` alone, a leading or mid-path `*`, `?`, or `**`, is rejected with a `400` error. Required. |
 
 ## Example request
 
@@ -68,6 +68,45 @@ The `cluster.name` setting is static and declares no readable value type, so its
 }
 ```
 
+## Example: Describing settings by prefix
+
+The following request describes every setting registered under `cluster.routing.allocation.disk.watermark`:
+
+```json
+GET /_cluster/settings/_describe?settings=cluster.routing.allocation.disk.watermark.*
+```
+{% include copy-curl.html %}
+
+## Example response
+
+The three watermark thresholds are defined using custom parsing, so their responses contain no `validation` object:
+
+```json
+{
+  "settings": {
+    "cluster.routing.allocation.disk.watermark.enable_for_single_data_node": {
+      "dynamic": false,
+      "default": "false",
+      "validation": {
+        "type": "boolean"
+      }
+    },
+    "cluster.routing.allocation.disk.watermark.flood_stage": {
+      "dynamic": true,
+      "default": "95%"
+    },
+    "cluster.routing.allocation.disk.watermark.high": {
+      "dynamic": true,
+      "default": "90%"
+    },
+    "cluster.routing.allocation.disk.watermark.low": {
+      "dynamic": true,
+      "default": "85%"
+    }
+  }
+}
+```
+
 ## Response body fields
 
 The following table lists all response body fields.
@@ -96,6 +135,13 @@ The `validation` object contains the following fields.
 For a `memory_size` setting, `min` and `max` describe the percentage form of the value (0--100%). These settings also accept an absolute byte size, such as `10gb`, which these bounds do not constrain.
 
 A requested name is omitted from the response if it is unknown or if it is a filtered setting. The response does not distinguish unknown names from filtered names, so it does not reveal whether a filtered setting exists. A request that contains both known and unknown names returns `200 OK` and describes only the known names.
+
+A prefix expands to every setting with a concrete name registered under it, including list settings. It does not expand to the following:
+
+- Affix setting templates, such as `cluster.remote.<alias>.seeds`, and group setting prefixes, such as `cluster.routing.allocation.awareness.force.`. These are patterns that define settings rather than settings themselves. Their concrete names, such as `cluster.remote.alpha.seeds` or `cluster.routing.allocation.awareness.force.zone.values`, are described only when requested by exact name.
+- Secure (keystore) settings, which the Cluster Settings API also never lists. They are described only when requested by exact name.
+
+Group settings and prefix-only affix settings, such as `node.attr.*`, accept any name under their prefix, so any such name is described using the group's or template's definition. A name that the cluster accepts only as a variant of a setting, such as the indexed form of a list setting (`cluster.remote.alpha.seeds.0`), is omitted.
 
 ## Required permissions
 
