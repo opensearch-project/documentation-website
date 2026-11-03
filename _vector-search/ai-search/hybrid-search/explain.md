@@ -25,6 +25,9 @@ POST {index}/_search?search_pipeline={search_pipeline}&explain=true
 
 To use the `explain` parameter, you must configure the `hybrid_score_explanation` response processor in your search pipeline. For more information, see [Hybrid score explanation processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/explanation-processor/). 
 
+A hybrid query running in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/) does not require this processor. In fusion mode, `explain` describes the normalization and combination without a search pipeline, using the same descriptions.
+{: .note}
+
 ### Explain by document ID
 
 You can use the [Explain API]({{site.url}}{{site.baseurl}}/api-reference/explain/) with a hybrid query to get scoring details for a single document:
