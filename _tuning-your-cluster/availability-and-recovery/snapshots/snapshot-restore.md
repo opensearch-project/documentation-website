@@ -618,6 +618,8 @@ The global state does not include snapshot repository registrations. Data stream
 
 The global state does not contain any indexes. The `indices` parameter determines which indexes are included in a snapshot, and system and hidden indexes are treated like any other index. If you omit `indices`, the snapshot includes all open indexes, including system and hidden indexes. Plugin configuration stored in system indexes, such as Index State Management (ISM) policies in the `.opendistro-ism-config` index, is backed up only if those indexes are included in the snapshot.
 
+Managed indexes resume their ISM policies only if you restore them before `.opendistro-ism-config`. For more information, see [Restoring ISM from a snapshot]({{site.url}}{{site.baseurl}}/im-plugin/ism/restore/).
+
 ## Restore snapshots
 
 The first step in restoring a snapshot is retrieving existing snapshots. To view all snapshot repositories, send the following request:
