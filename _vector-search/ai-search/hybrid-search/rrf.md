@@ -508,7 +508,7 @@ Rerunning the query from [Step 5](#step-5-run-the-hybrid-query) with these weigh
 | `4` | 0.7 &times; 1 / (1 + 3) | 0.175 |
 | `1` | 0.3 &times; 1 / (1 + 1) | 0.15 |
 
-Weighting reintroduces the tuning effort that unweighted RRF avoids, so change the weights only when you can measure the effect on relevance.
+Weighting reintroduces the tuning effort that unweighted RRF avoids, so change the weights only when you can measure the effect on relevance. To try different weights without changing the pipeline, specify them in the `hybrid` query's `weights` parameter, which replaces the pipeline's weights for that request only. For more information, see [Weighting subqueries]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/#weighting-subqueries).
 
 ## Next steps
 

@@ -28,6 +28,8 @@ To use the `explain` parameter, you must configure the `hybrid_score_explanation
 A hybrid query running in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/) does not require this processor. In fusion mode, `explain` describes the normalization and combination without a search pipeline, using the same descriptions.
 {: .note}
 
+If the query clauses are weighted, the combination description for the `arithmetic_mean`, `geometric_mean`, and `harmonic_mean` techniques lists the weights that were applied, whether they are configured in the processor or specified in the request's [`weights`]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/#weighting-subqueries) parameter, for example, `arithmetic_mean, weights [0.3, 0.7] combination of:`. The `rrf` combination description does not list weights.
+
 ### Explain by document ID
 
 You can use the [Explain API]({{site.url}}{{site.baseurl}}/api-reference/explain/) with a hybrid query to get scoring details for a single document:

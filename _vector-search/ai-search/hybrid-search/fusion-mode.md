@@ -66,7 +66,7 @@ GET /my-nlp-index/_search
 ```
 {% include copy-curl.html %}
 
-The following request sets each option explicitly. It uses `min_max` normalization and `arithmetic_mean` combination, assigns a weight of `0.3` to the keyword clause and `0.7` to the semantic clause, and considers up to the top 100 results from each subquery:
+The following request sets each option explicitly. It uses `min_max` normalization and `arithmetic_mean` combination, considers up to the top 100 results from each subquery, and uses the `weights` parameter to assign a weight of `0.3` to the keyword clause and `0.7` to the semantic clause:
 
 ```json
 GET /my-nlp-index/_search
@@ -78,19 +78,17 @@ GET /my-nlp-index/_search
   },
   "query": {
     "hybrid": {
+      "weights": [
+        0.3,
+        0.7
+      ],
       "fusion": {
         "window_size": 100,
         "normalization": {
           "technique": "min_max"
         },
         "combination": {
-          "technique": "arithmetic_mean",
-          "parameters": {
-            "weights": [
-              0.3,
-              0.7
-            ]
-          }
+          "technique": "arithmetic_mean"
         }
       },
       "queries": [
@@ -146,7 +144,7 @@ The `combination` object contains the following fields.
 Field | Data type | Description
 :--- | :--- | :---
 `technique` | String | The technique for combining scores. Valid values are `arithmetic_mean`, `geometric_mean`, `harmonic_mean`, and `rrf`. Default is `arithmetic_mean`. If the normalization technique is `z_score`, the combination technique must be `arithmetic_mean`. To use reciprocal rank fusion (RRF), set both the normalization and combination techniques to `rrf`.
-`parameters` | Object | Can contain `weights`, an array with one weight for each subquery, in the same order as the `queries` array. Each weight must be in the range from `0.0` to `1.0`, and the weights must sum to `1.0`, within a tolerance of `0.01`. If not specified, all subqueries are weighted equally. For more information, see [Weighting subqueries](#weighting-subqueries).
+`parameters` | Object | Can contain `weights`, an array with one weight for each subquery, in the same order as the `queries` array. Equivalent to the `hybrid` query's `weights` parameter, which is the recommended way to weight subqueries; specify the weights in only one of these locations. Each weight must be in the range from `0.0` to `1.0`, and the weights must sum to `1.0`, within a tolerance of `0.01`. If not specified, all subqueries are weighted equally. For more information, see [Weighting subqueries](#weighting-subqueries).
 `rank_constant` | Integer | The RRF rank constant, specified in the `combination` object as in the [score ranker processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/score-ranker-processor/). An alternative to `normalization.parameters.rank_constant`; specify it in only one of these locations. Valid values are in the range from `1` to `10000`. Default is `60`.
 
 For an explanation of each technique and guidance on choosing one, see [Normalization techniques]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/#normalization-techniques) and [Reciprocal rank fusion]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/rrf/).
@@ -206,9 +204,61 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 
 OpenSearch uses the pipeline specified in the `search_pipeline` query parameter or, if the request does not specify one, the index's [default search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/using-search-pipeline/#default-search-pipeline). The pipeline must contain a normalization processor or a score ranker processor, and its normalization processor cannot use `lower_bounds` or `upper_bounds`. You can also write `"fusion": "pipeline"` as a shorthand for `"fusion": {"source": "pipeline"}`.
 
+To run the pipeline's techniques with weights that you choose for the request, add the `weights` parameter to the `hybrid` query. Because `weights` is a parameter of the `hybrid` query rather than of the `fusion` object, you can combine it with `source`. The following example uses the `"fusion": "pipeline"` shorthand and weights the subqueries at `0.3` and `0.7`:
+
+```json
+GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
+{
+  "query": {
+    "hybrid": {
+      "weights": [
+        0.3,
+        0.7
+      ],
+      "fusion": "pipeline",
+      "queries": [
+        {
+          "match": {
+            "passage_text": {
+              "query": "Hi world"
+            }
+          }
+        },
+        {
+          "term": {
+            "passage_text": {
+              "value": "planet"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The request's weights replace the pipeline's weights for this request only; the pipeline itself is unchanged. For more information, see [Weighting subqueries](#weighting-subqueries).
+
 ## Weighting subqueries
 
-By default, every subquery contributes equally to the combined score. To weight subqueries differently, specify one weight for each subquery in `combination.parameters.weights`. The following example weights the first subquery at `0.3` and the second at `0.7`:
+By default, every subquery contributes equally to the combined score. To weight subqueries differently, specify one weight for each subquery, in the same order as the `queries` array, in the `hybrid` query's `weights` parameter, as in the [second example](#example) on this page:
+
+```json
+"hybrid": {
+  "weights": [
+    0.3,
+    0.7
+  ],
+  "fusion": {},
+  "queries": [...]
+}
+```
+{% include copy.html %}
+
+The `weights` parameter works the same way whether the query runs in fusion mode or uses a search pipeline. For valid values and the errors that an invalid `weights` parameter produces, see [Weighting subqueries]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/#weighting-subqueries) in the hybrid query documentation.
+
+Alternatively, specify the weights in `combination.parameters.weights` within the `fusion` object. The following `fusion` object is equivalent to the preceding example:
 
 ```json
 "fusion": {
@@ -225,7 +275,7 @@ By default, every subquery contributes equally to the combined score. To weight 
 ```
 {% include copy.html %}
 
-For valid values, see [Combination fields](#combination-fields).
+Specify the weights in only one of these locations. A query that contains both `weights` and `combination.parameters.weights` is rejected, even if the values are the same. A `weights` key placed directly inside the `fusion` object is also rejected because `weights` is a parameter of the `hybrid` query, not of the `fusion` object.
 
 ## Candidate window size
 

@@ -136,6 +136,8 @@ PUT /_search/pipeline/nlp-search-pipeline
 ```
 {% include copy-curl.html %}
 
+The pipeline's weights apply to every request that uses the pipeline. To use different weights for a particular request without changing the pipeline, specify a `weights` array in the `hybrid` query itself. The request's weights replace the processor's weights for that request only. For more information, see [Weighting subqueries]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/#weighting-subqueries).
+
 ## Step 4: Ingest documents into the index
 
 To ingest documents into the index created in the previous step, send the following requests:
