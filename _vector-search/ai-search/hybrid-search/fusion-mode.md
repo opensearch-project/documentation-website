@@ -334,7 +334,7 @@ When using rescoring in fusion mode, note the following considerations:
 
 The following features are supported in fusion mode but require OpenSearch to run the subqueries a second time on every shard, which increases latency:
 
-- Counting total hits beyond the window. By default, OpenSearch counts matching documents up to the `track_total_hits` threshold (`10000` by default), which can require the second run. Setting `track_total_hits` to `true` always requires it.
+- Counting total hits beyond the window. By default, OpenSearch counts matching documents up to the `track_total_hits` threshold (`10000` by default), which requires the second run. For a top-level hybrid query, OpenSearch can skip the second run if one of the subqueries matches more documents than the threshold. Setting `track_total_hits` to `true` always requires the second run.
 - Sorting by any field other than `_score`, including a tiebreaker after `_score`. For more information, see [Using sorting with a hybrid query]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/sorting/).
 - [Collapsing results]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/collapse/) with `inner_hits`. Collapsing without `inner_hits` requires the second run only to count total hits, so setting `track_total_hits` to `false` avoids it.
 - [Aggregations]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/aggregations/), which are computed over all matching documents, not only the candidate window.
