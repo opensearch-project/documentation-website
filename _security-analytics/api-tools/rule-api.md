@@ -268,6 +268,9 @@ falsepositives:
 
 Searches for pre-packaged rules by category or other criteria.
 
+Terms lookup queries are not supported. A `terms` lookup object with `index`, `id`, and `path` returns `403 Forbidden`. Use inline terms instead.
+{: .note}
+
 ### Example request
 
 ```json
@@ -364,6 +367,9 @@ POST /_plugins/_security_analytics/rules/_search?pre_packaged=true
 ## Search custom rules
 
 Searches for custom rules by category or other criteria.
+
+Terms lookup queries are not supported. A `terms` lookup object with `index`, `id`, and `path` returns `403 Forbidden`. Use inline terms instead.
+{: .note}
 
 ### Example request
 

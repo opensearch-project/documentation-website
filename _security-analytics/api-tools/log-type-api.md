@@ -50,6 +50,9 @@ POST /_plugins/_security_analytics/logtype
 
 This API allows you to search log types in the system.
 
+Terms lookup queries are not supported. A `terms` lookup object with `index`, `id`, and `path` returns `403 Forbidden`. Use inline terms instead.
+{: .note}
+
 
 ### Example request
 

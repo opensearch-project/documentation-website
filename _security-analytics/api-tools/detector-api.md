@@ -428,6 +428,9 @@ GET /_plugins/_security_analytics/detectors/<detector Id>
 
 Searches for detector matches by detector ID, detector name, or detector type.
 
+Terms lookup queries are not supported. A `terms` lookup object with `index`, `id`, and `path` returns `403 Forbidden`. Use inline terms instead.
+{: .note}
+
 ### Request body fields
 
 Field | Type | Description
