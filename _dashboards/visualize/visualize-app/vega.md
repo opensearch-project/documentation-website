@@ -296,31 +296,31 @@ By default, queries use data from the local cluster. You can assign individual `
 ```
 {% include copy.html %}
 
-## Querying Prometheus data with PromQL
+## Querying Prometheus data using PromQL
 Introduced 3.10
 {: .label .label-purple }
 
-You can use a Vega or Vega-Lite specification to query a Prometheus data connection using [PromQL](https://prometheus.io/docs/prometheus/latest/querying/basics/). The query is executed server-side and the results are injected into the visualization as inline `values`, so no external HTTP calls are made from the browser.
+You can use a Vega or Vega-Lite specification to query a Prometheus data connection using [Prometheus Query Language (PromQL)](https://prometheus.io/docs/prometheus/latest/querying/basics/). OpenSearch Dashboards runs the query on the server and inserts the results into the specification as inline `values`, so the browser makes no external HTTP calls.
 
-Before proceeding, ensure that you have configured a Prometheus data connection in OpenSearch Dashboards. For details, see [Connecting Prometheus to OpenSearch]({{site.url}}{{site.baseurl}}/dashboards/management/connect-prometheus/).
+Before proceeding, ensure that you have configured a Prometheus data connection in OpenSearch Dashboards. For more information, see [Connecting Prometheus to OpenSearch]({{site.url}}{{site.baseurl}}/dashboards/management/connect-prometheus/).
 {: .note}
 
-### Spec syntax
+### Specification fields
 
-Add a `data.url` object with `"%type%": "prometheus"` to identify the data source type. The following fields are supported:
+Add a `data.url` object and set `%type%` to `prometheus`. The `data.url` object supports the following fields.
 
 | Field | Required | Description |
 |-------|----------|-------------|
-| `"%type%"` | Yes | Must be set to `"prometheus"`. |
-| `"%datasource%"` | Yes | The name of the Prometheus data connection as configured in OpenSearch Dashboards. |
-| `"%context%"` | Yes | Must be set to `true`. Forwards the dashboard time range picker into the PromQL query. |
-| `body.query` | Yes | The PromQL expression to evaluate, for example, `"rate(http_requests_total[5m])"`. To run multiple expressions in one request, separate them with a semicolon (`;`). |
-| `"%maxdatapoints%"` | No | An upper bound on the number of data points per series. The server derives an appropriate step interval to stay within this limit. Useful for keeping charts responsive over long time ranges. |
-| `"%step%"` | No | An explicit step interval in seconds, for example, `60`. Takes precedence over `%maxdatapoints%` when both are provided. |
+| `%type%` | Yes | Must be set to `prometheus`. |
+| `%datasource%` | Yes | The name of the Prometheus data connection as configured in OpenSearch Dashboards. |
+| `%context%` | Yes | Must be set to `true`. Applies the dashboard time range to the PromQL query. |
+| `body.query` | Yes | The PromQL expression to evaluate, for example, `rate(http_requests_total[5m])`. To run multiple expressions in one request, separate them with a semicolon (`;`). |
+| `%maxdatapoints%` | No | The maximum number of data points per series. OpenSearch Dashboards calculates a step interval that keeps each series within this limit. Use this field to keep charts responsive over long time ranges. |
+| `%step%` | No | The step interval, in seconds, for example, `60`. Takes precedence over `%maxdatapoints%` when both are provided. |
 
 ### Response fields
 
-The server returns one record per data point. Each record contains the following fields, which you can reference in Vega encodings:
+OpenSearch Dashboards returns one record per data point. Each record contains the following fields, which you can reference in Vega encodings.
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -378,9 +378,9 @@ Replace `my_prometheus_connection` with the name of your configured Prometheus d
 
 ### Limitations
 
-- Prometheus data connections reach the local OpenSearch cluster's direct-query Prometheus endpoint. Remote multi-data-source (MDS) connections are not supported.
-- If a query exceeds the server-side series limit, OpenSearch Dashboards displays a warning and truncates the result. Narrow the PromQL query to reduce the number of series returned.
-- OpenSearch Dashboards limits a PromQL result to 30,000 data points and truncates it at a series boundary. If a result exceeds this client-side limit, OpenSearch Dashboards displays a warning. Use `%maxdatapoints%` or `%step%` to reduce the number of data points returned.
+- Vega PromQL queries support only Prometheus data connections on the local cluster. Data connections on remote clusters added through [multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/) are not supported.
+- If a query returns more than 2,000 series, OpenSearch Dashboards displays a warning and truncates the result. Narrow the PromQL query to reduce the number of series returned.
+- If a PromQL result exceeds 30,000 data points, OpenSearch Dashboards displays a warning and truncates the result at a series boundary. Use `%maxdatapoints%` or `%step%` to reduce the number of data points returned.
 
 ## Additional resources
 
