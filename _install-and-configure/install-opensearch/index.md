@@ -54,7 +54,7 @@ Avoid using a network file system for node storage in a production workflow. Usi
 
 The OpenSearch distribution for Linux ships with a compatible [Adoptium JDK](https://adoptium.net/) version of Java in the `jdk` directory. To find the JDK version, run `./jdk/bin/java -version`. For example, the OpenSearch 1.0.0 tarball ships with Java 15.0.1+9 (non-LTS), OpenSearch 1.3.0 ships with Java 11.0.14.1+1 (LTS), and OpenSearch 2.0.0 ships with Java 17.0.2+8 (LTS). OpenSearch is tested with all compatible Java versions.
 
-OpenSearch version | Compatible Java versions | Bundled Java version in the latest release
+OpenSearch version | Compatible Java versions | Java version bundled in the latest release
 :---------- | :-------- | :-----------
 1.0--1.2.x    | 11, 15     | 15.0.1+9
 1.3.x          | 8, 11, 14  | 11.0.25+9
