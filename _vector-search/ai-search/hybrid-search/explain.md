@@ -28,7 +28,7 @@ To use the `explain` parameter, you must configure the `hybrid_score_explanation
 A hybrid query running in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/) does not require this processor. In fusion mode, `explain` describes the normalization and combination without a search pipeline, using the same descriptions.
 {: .note}
 
-If the query clauses are weighted, whether in the processor or by the request's [`weights`]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/#weighting-subqueries) parameter, the combination description for the `arithmetic_mean`, `geometric_mean`, and `harmonic_mean` techniques includes the weights, in the same order as the query clauses. For example, an `arithmetic_mean` combination with weights of `0.3` and `0.7` produces the following top-level description:
+If the query clauses are weighted, whether in the processor or in the request's [`weights`]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/#weighting-subqueries) parameter, the combination description for the `arithmetic_mean`, `geometric_mean`, and `harmonic_mean` techniques includes the weights, in the same order as the query clauses. For example, an `arithmetic_mean` combination with weights of `0.3` and `0.7` produces the following top-level description:
 
 ```json
 "description": "arithmetic_mean, weights [0.3, 0.7] combination of:"

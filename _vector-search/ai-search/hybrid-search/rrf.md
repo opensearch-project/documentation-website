@@ -54,7 +54,7 @@ The trade-off for RRF is a small reduction in relevance. In benchmarks on six BE
 
 For the full list of `score-ranker-processor` request fields, see [Score ranker processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/score-ranker-processor/).
 
-## Example: Fusing keyword and vector results
+## Example: Combining keyword and vector results
 
 The following example builds a product index, runs a keyword query clause and a vector query clause separately to show their individual rankings, and then fuses them with RRF.
 

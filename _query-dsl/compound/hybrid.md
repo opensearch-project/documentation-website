@@ -24,24 +24,26 @@ The following table lists all top-level parameters supported by `hybrid` queries
 Parameter | Description
 :--- | :---
 `queries` | An array of one or more query clauses that are used to match documents. A document must match at least one query clause in order to be returned in the results. The documents' relevance scores from all query clauses are combined into one score, either by applying a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) or by specifying the `fusion` parameter. The maximum number of query clauses is 5. Required.
-`weights` | An array of numbers that weight the query clauses when their scores are combined, one for each query clause, in the same order as the `queries` array. Each weight must be in the range from `0.0` to `1.0`, and the weights must sum to `1.0`, within a tolerance of `0.01`. Applies both to queries that use a search pipeline and to queries in fusion mode. Optional. If not provided, all query clauses are weighted equally. For more information, see [Weighting subqueries](#weighting-subqueries).
+`weights` | An array of numbers that weight the query clauses when their scores are combined, one for each query clause, in the same order as the `queries` array. Each weight must be in the 0.0--1.0 range, and the weights must sum to `1.0`, within a tolerance of `0.01`. Applies both to queries that use a search pipeline and to queries in fusion mode. Optional. If not provided, all query clauses are weighted equally. For more information, see [Weighting subqueries](#weighting-subqueries).
 `filter` | A filter to apply to all the subqueries of the hybrid query. The filter must be a single query object. To apply multiple filter conditions, combine them in a [Boolean query]({{site.url}}{{site.baseurl}}/query-dsl/compound/bool/). For more information, see [Hybrid search with pre-filtering]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/pre-filtering/).
 `pagination_depth` | The maximum number of search results that each subquery returns from each shard. This bounds the set of documents that the search pipeline normalizes and combines, so it affects both the depth to which you can paginate and the resulting order. Valid values are integers from `1` to the value of [`index.max_result_window`]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/) (10000 by default). Required if `from` is greater than `0`; otherwise optional. If not provided, each subquery returns up to `size` results from each shard. For more information, see [Paginating hybrid query results]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/pagination/). In fusion mode, this parameter is optional regardless of `from`; if specified without `fusion.window_size`, it raises the number of results that each subquery contributes to fusion. For more information, see [Candidate window size]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/#candidate-window-size).
 `fusion` | Runs the query in fusion mode, in which OpenSearch normalizes and combines the subquery scores on the coordinating node. Contains the `normalization`, `combination`, `window_size`, and `source` parameters. A hybrid query that specifies `fusion` does not require a search pipeline. Optional. For more information, see [Fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/).
 
 ### Weighting subqueries
-Introduced 3.10
+**Introduced 3.10**
 {: .label .label-purple }
 
-By default, all query clauses contribute equally to the combined score. To weight them differently, add a `weights` array to the top-level `hybrid` query, with one weight for each query clause, in the same order as the `queries` array. Each weight must be in the range from `0.0` to `1.0`, and the weights must sum to `1.0`.
+By default, all query clauses contribute equally to the combined score. To weight them differently, add a `weights` array to the top-level `hybrid` query, containing one weight for each query clause, in the same order as the `queries` array. Each weight must be in the 0.0--1.0 range, and the weights must add to `1.0`.
+
+If the query uses a search pipeline, the pipeline must contain a normalization processor or a score ranker processor, and only the top-level `hybrid` query in the request's `query` field can specify `weights`. A `hybrid` query elsewhere in the request, such as in a `post_filter`, cannot. If the pipeline contains neither processor, add one or run the query in fusion mode.
 
 You can specify weights in the following locations.
 
-Location | Use it for | Behavior
-:--- | :--- | :---
-`weights` in the `hybrid` query | Per-request weights, with a search pipeline or in fusion mode. Recommended. | Applies to this request only. If the search pipeline also specifies weights, the request's weights take precedence.
-`combination.parameters.weights` in the pipeline's [normalization processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) or [score ranker processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/score-ranker-processor/) | A fixed weighting for every request that uses the pipeline. | Applies to every request that uses the pipeline, unless the request specifies `weights`.
-`combination.parameters.weights` in the `fusion` object | Fusion mode only. | Has the same effect as `weights` in the `hybrid` query. Specify one or the other, not both.
+Location | Effect
+:--- | :---
+`weights` in the `hybrid` query (recommended) | Applies to this request only, using a search pipeline or in fusion mode. Overrides the pipeline's weights.
+`combination.parameters.weights` in the pipeline's [normalization processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) or [score ranker processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/score-ranker-processor/) | Applies to every request that uses the pipeline.
+`combination.parameters.weights` in the `fusion` object | Fusion mode only. Has the same effect as `weights` in the `hybrid` query. Specify one or the other, not both.
 
 The following request uses the search pipeline created in [Hybrid search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/index/#step-3-configure-a-search-pipeline) and assigns a weight of `0.3` to the `match` query and `0.7` to the `neural` query:
 
@@ -85,22 +87,10 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 
 The weights apply to the `arithmetic_mean`, `geometric_mean`, `harmonic_mean`, and `rrf` combination techniques in the same way as the processor's own `weights` parameter. For fusion mode examples, see [Weighting subqueries]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/#weighting-subqueries).
 
-If the `weights` parameter is invalid, OpenSearch rejects the request with a `400` error. The following table lists the error messages and their causes.
-
-Error message contains | Cause
-:--- | :---
-`must be a collection of numbers` | `weights` is not an array of numbers.
-`must not be empty` | `weights` is an empty array. To weight all query clauses equally, omit the parameter.
-`number of weights [N] must match number of sub-queries [M]` | The array does not contain exactly one weight for each query clause.
-`all weights must be in range [0.0 ... 1.0]` or `sum of weights for combination must be equal to 1.0` | A weight is outside the range from `0.0` to `1.0`, or the weights do not sum to `1.0`.
-`cannot combine [weights] with [fusion.combination.parameters.weights]` | The query specifies weights in both locations. Keep one.
-`requires a normalization or score-ranker processor` | The query uses a search pipeline that contains neither a normalization processor nor a score ranker processor, so nothing would apply the weights. Add one of these processors to the pipeline, or run the query in fusion mode.
-`only apply to the request's top-level [hybrid] query` | With a search pipeline, `weights` is accepted only on the `hybrid` query in the request's `query`, not on a `hybrid` query elsewhere in the request, such as in a `post_filter`. Move the weights to the top-level `hybrid` query.
-
-When `explain` is set to `true`, the combination description in the explanation lists the applied weights, for example, `arithmetic_mean, weights [0.3, 0.7] combination of:`. For more information, see [Hybrid search explain]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/explain/).
+When `explain` is set to `true`, the explanation lists the applied weights for the `arithmetic_mean`, `geometric_mean`, and `harmonic_mean` techniques. For more information, see [Hybrid search explain]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/explain/).
 
 ### Rescoring hybrid queries
-Introduced 2.18
+**Introduced 2.18**
 {: .label .label-purple }
 
 You can use the [`rescore`]({{site.url}}{{site.baseurl}}/query-dsl/rescore/) parameter with hybrid queries. How rescoring interacts with a hybrid query depends on whether the query uses a search pipeline or runs in fusion mode.
