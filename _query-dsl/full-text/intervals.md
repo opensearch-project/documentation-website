@@ -193,12 +193,12 @@ Parameter | Required/Optional | Data type | Description
 `flags` | Optional | String | Enables optional regular expression operators. Separate multiple operators with a vertical bar. For valid values, see [Optional operators]({{site.url}}{{site.baseurl}}/query-dsl/regex-syntax/#optional-operators). Default is `ALL`.
 `flags_value` | Optional | Integer | The `flags` expressed as an integer bit mask of Lucene regular expression syntax flags. If you specify both `flags` and `flags_value`, `flags_value` takes precedence.
 `case_insensitive` | Optional | Boolean | If `true`, the `pattern` matches terms regardless of letter case. Default is `false`.
-`max_expansions` | Optional | Integer | The maximum number of terms that the regular expression can expand to in each index segment. If the regular expression matches more terms in a segment, an error is returned. A value of `0` or less is ignored, and the default is used. The value cannot exceed the `indices.query.bool.max_clause_count` limit (default is `1024`). Default is `128`.
-`use_field` | Optional | String | Specifies to search this field instead of the top-level `<field>`. The `pattern` is matched against the terms indexed in this field.
+`max_expansions` | Optional | Integer | The maximum number of terms that the regular expression can expand to in each index segment. If the regular expression matches more terms in a segment, an error is returned. If the value is `0` or less, the default is used. The value cannot exceed the value of the [`indices.query.bool.max_clause_count`]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/cluster-settings-for-indexes/) setting (default is `1024`). Default is `128`.
+`use_field` | Optional | String | The field to search instead of the top-level `<field>`. The `pattern` is matched against the terms indexed in this field.
 
-Unlike the `prefix`, `wildcard`, and `fuzzy` rules, the `regexp` rule does not accept an `analyzer` parameter. The `pattern` is not analyzed or normalized: it is matched exactly as written against the terms stored in the index. For example, a field that uses the `standard` analyzer stores lowercase terms, so the pattern `Stor(e|ed)` returns no results unless `case_insensitive` is `true`.
+The `regexp` rule does not accept an `analyzer` parameter, so the `pattern` is not analyzed or normalized. The pattern is matched exactly as written against the terms stored in the index. For example, a field that uses the `standard` analyzer stores lowercase terms, so the pattern `Stor(e|ed)` returns no results unless `case_insensitive` is set to `true`.
 
-#### Example: Match word variants
+### Example: Match word variants
 
 The following query uses the documents indexed at the beginning of this page. It searches for documents in which a term matching the regular expression `stor(e|ed)` (either `store` or `stored`) and the term `hash` have at most three positions between them:
 
@@ -230,7 +230,7 @@ GET /testindex/_search
 ```
 {% include copy-curl.html %}
 
-The response contains only document 1. In document 1, the terms `stored` and `hash` have two terms between them (`in` and `a`). In document 2, the terms `store` and `hash` have five terms between them (`key`, `value`, `pairs`, `in`, and `a`), which exceeds the `max_gaps` limit:
+The response contains only document 1. In document 1, the terms `stored` and `hash` have two terms between them (`in` and `a`). In document 2, the terms `store` and `hash` have five terms between them (`key`, `value`, `pairs`, `in`, and `a`), which exceeds the `max_gaps` value of `3`:
 
 <details markdown="block">
   <summary>
@@ -318,7 +318,7 @@ Parameter | Required/Optional | Data type | Description
 `overlapping` | Optional | Query object |  A query used to return intervals that overlap with an interval specified in the filter rule. 
 `script` | Optional | Script object |  A script used to match documents. This script must return `true` or `false`. 
 
-#### Example: Filters
+### Example: Filters
 
 The following query searches for documents containing the words `pairs` and `hash` that are within five positions of each other and don't contain the word `efficiently` between them:
 
@@ -385,7 +385,7 @@ The response contains only document 2:
 ```
 </details>
 
-#### Example: Script filters
+### Example: Script filters
 
 Alternatively, you can write your own script filter to include with the `intervals` query using the following variables:
 

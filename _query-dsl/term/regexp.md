@@ -9,7 +9,7 @@ nav_order: 100
 
 Use the `regexp` query to search for terms that match a regular expression. For more information about writing regular expressions, see [Regular expression syntax]({{site.url}}{{site.baseurl}}/query-dsl/regex-syntax/).
 
-To search for terms that match a regular expression and appear near other terms, use the `regexp` rule of the [intervals query]({{site.url}}{{site.baseurl}}/query-dsl/full-text/intervals/#the-regexp-rule).
+To search for terms that match a regular expression and appear near other terms, use the `regexp` rule of the `intervals` query. For more information, see [The `regexp` rule]({{site.url}}{{site.baseurl}}/query-dsl/full-text/intervals/#the-regexp-rule).
 
 The following query searches for any term that starts with any uppercase or lowercase letter followed by `amlet`:
 
