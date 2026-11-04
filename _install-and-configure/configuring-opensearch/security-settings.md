@@ -29,7 +29,7 @@ The Security plugin supports the following common settings:
 
 - `plugins.security.dls.mode` (Static): Sets the document-level security (DLS) evaluation mode. Default is `adaptive`. See [How to set the DLS evaluation mode]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/#how-to-set-the-dls-evaluation-mode-in-opensearchyml).
 
-- `plugins.security.compliance.salt` (Static): The salt to use when generating the hash value for field masking. Must be at least 32 characters. Only ASCII characters are allowed. Optional.
+- `plugins.security.compliance.salt` (Static): The salt to use when generating the hash value for field masking. Must contain at least 16 ASCII characters. Only the first 16 bytes are used. Optional.
 
 - `plugins.security.compliance.immutable_indices` (Static): Documents in indexes that are marked as immutable follow the write-once, read-many paradigm. Documents created in these indexes cannot be changed and are therefore immutable.
 
