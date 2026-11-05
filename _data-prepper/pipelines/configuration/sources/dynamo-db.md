@@ -95,6 +95,7 @@ Option | Required | Type   | Description
 `start_position` | No | String | The position from where the source starts reading stream events when the DynamoDB stream option is enabled. `LATEST` starts reading events from the most recent stream record. 
 `view_on_remove` | No | Enum | The [stream record view](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html) to use for REMOVE events from DynamoDB streams. Must be either `NEW_IMAGE` or `OLD_IMAGE` . Defaults to `NEW_IMAGE`. If the `OLD_IMAGE` option is used and the old image can not be found, the source will find the `NEW_IMAGE`.
 `disable_checkpointing` | No | Boolean | When `true`, the source does not resume reading a shard from its saved checkpoint. Each time the source starts reading a shard, it reads from the oldest available record in the shard. Default is `false`.
+`shard_discovery_interval` | No | Duration | How often the leader node checks the DynamoDB stream for new shards. Because DynamoDB Streams continuously closes shards and opens new child shards, records in a new shard are not read until the next check. A shorter interval reduces this delay at the cost of more frequent DynamoDB Streams API requests. Minimum is `1s`. Default is `1m`.
 
 ## Exposed metadata attributes
 

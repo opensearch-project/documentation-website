@@ -43,6 +43,7 @@ Option | Required | Type | Description
 `aws` | No | JSON object | The AWS configuration. For more information, see [aws](#aws).
 `acknowledgments` | No | Boolean | If `true`, enables the `kafka` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/#end-to-end-acknowledgments) when events are received by OpenSearch sinks. Default is `false`.
 `acknowledgments_timeout` | No | Duration | The maximum amount of time to wait for end-to-end acknowledgments of the records read from Kafka. Applies only when `acknowledgments` is `true`. If the records are not acknowledged within this time, their offsets are not committed. By default, acknowledgments effectively never time out.
+`acknowledgments_expiry_reset` | No | Boolean | If `true`, an acknowledgment set that expires before all of its events are acknowledged is treated as a negative acknowledgment, so the source seeks the affected partitions back to the last committed offset and reads the records again. If `false`, expired acknowledgment sets are ignored. Applies only when `acknowledgments` is `true`. Default is `false`.
 `client_dns_lookup` | Yes, when a DNS alias is used. | String | Sets Kafka's `client.dns.lookup` option. Default is `default`.
 
 ### Topics
@@ -68,6 +69,8 @@ Option | Required | Type | Description
 `fetch_min_bytes` | No | String | The minimum amount of data the server returns during a fetch request through Kafka's `fetch.min.bytes` setting. Default is `1b`.
 `retry_backoff` | No | Duration | The amount of time to wait before attempting to retry a failed request to a given topic partition. Default is `10s`.
 `reconnect_backoff` | No | Duration | The amount of time to wait before attempting to reconnect to a broker through Kafka's `reconnect.backoff.ms` setting. Default is `10s`.
+`connections_max_idle` | No | Duration | The amount of time after which the consumer closes idle connections, through Kafka's `connections.max.idle.ms` setting. Minimum is `1s`. Default is `540s`.
+`metadata_max_age` | No | Duration | The amount of time after which the consumer refreshes metadata, through Kafka's `metadata.max.age.ms` setting. The consumer detects new partitions when it refreshes metadata. Default is `300s`.
 `max_poll_interval` | No | Duration | The maximum delay between invocations of a `poll()` when using group management through Kafka's `max.poll.interval.ms` option. Default is `300s`.
 `consumer_max_poll_records` | No | Integer | The maximum number of records returned in a single `poll()` call through Kafka's `max.poll.records` setting. Default is `500`.
 `isolation_level` | No | String | Controls how the consumer reads messages written transactionally, through Kafka's `isolation.level` setting. Valid values are `read_uncommitted`, which returns all messages, and `read_committed`, which returns only messages from committed transactions. Default is `read_uncommitted`.
@@ -157,6 +160,7 @@ Option | Type | Description
 `plaintext` | JSON object | The plaintext authentication configuration. The alias `plain` is also supported for backward compatibility. For more information, see [SASL plaintext](#sasl-plaintext).
 `scram` | JSON object | The Salted Challenge Response Authentication Mechanism (SCRAM) authentication configuration. For more information, see [SASL SCRAM](#sasl-scram).
 `aws_msk_iam` | String | The Amazon MSK AWS Identity and Access Management (IAM) configuration. If set to `role`, the `sts_role_arn` set in the `aws` configuration is used. Default is `default`.
+`azure_federated` | JSON object | The configuration for authenticating to the Kafka endpoint of Azure Event Hubs using AWS credentials federated to Microsoft Entra ID. For more information, see [SASL Azure federated](#sasl-azure-federated).
 
 ##### SASL plaintext
 
@@ -176,6 +180,47 @@ The following options are required when using SCRAM authentication.
 | `username` | String | The SCRAM username. |
 | `password` | String | The SCRAM password. |
 | `mechanism` | String | The SCRAM mechanism to use, for example, `SCRAM-SHA-256` or `SCRAM-SHA-512`. The value is passed to Kafka's `sasl.mechanism` setting. |
+
+##### SASL Azure federated
+
+The `azure_federated` option connects the source to the Kafka endpoint of an Azure Event Hubs namespace without storing an Azure client secret in the pipeline. The source requests a web identity token from AWS STS using the credentials from the [`aws`](#aws) configuration, exchanges this token for an access token at the Microsoft Entra ID token endpoint, and uses the access token for SASL/OAUTHBEARER authentication. The source caches the access token and requests a new one before it expires.
+
+To use this option, enable outbound identity federation in your AWS account, allow the AWS credentials to call `sts:GetWebIdentityToken`, and add a federated identity credential that trusts the AWS token to the Microsoft Entra application. The source uses the Region set in `aws.region` and, if `aws.sts_role_arn` is set, assumes that role before requesting the token. The connection always uses the `SASL_SSL` security protocol.
+
+The following options are required when using `azure_federated`.
+
+| Option | Type | Description |
+|:---|:---|:---|
+| `client_id` | String | The application (client) ID of the Microsoft Entra application. |
+| `token_endpoint` | String | The Microsoft Entra ID OAuth 2.0 token endpoint, for example, `https://login.microsoftonline.com/<tenant-id>/oauth2/v2.0/token`. |
+| `scope` | String | The scope of the requested access token. For Azure Event Hubs, use `https://<namespace>.servicebus.windows.net/.default`. |
+
+The following example configures `azure_federated` authentication:
+
+```yaml
+kafka-pipeline:
+  source:
+    kafka:
+      bootstrap_servers:
+        - my-namespace.servicebus.windows.net:9093
+      topics:
+        - name: my-event-hub
+          group_id: data-prepper-group
+      encryption:
+        type: ssl
+      authentication:
+        sasl:
+          azure_federated:
+            client_id: <application-client-id>
+            token_endpoint: https://login.microsoftonline.com/<tenant-id>/oauth2/v2.0/token
+            scope: https://my-namespace.servicebus.windows.net/.default
+      aws:
+        region: us-east-1
+        sts_role_arn: arn:aws:iam::123456789012:role/event-hubs-federation
+  sink:
+    - stdout: {}
+```
+{% include copy.html %}
 
 ### Encryption
 

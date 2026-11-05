@@ -70,6 +70,8 @@ Option | Required | Type | Description
 `stream` | No | Boolean | Whether to enable streaming of database change events. Default is `false`.
 `tls` | No | Object | The TLS configuration for database connections. See [`tls`](#tls-options) for more information.
 `disable_s3_read_for_leader` | No | Boolean | Whether to disable S3 read operations for the leader node. Default is `false`.
+`scan_mode` | No | String | Determines whether the pipeline continues to list S3 buffer folder partitions in which no new objects are found. Valid values are `idle_optimized` and `continuous`. In `idle_optimized` mode, a folder partition in which no objects are found for 1 hour is no longer listed until a later bucket scan finds new objects in that folder. This reduces the number of S3 `ListObjectsV2` requests while the database is idle but delays the detection of the first changes written to that folder after the idle period. In `continuous` mode, the pipeline keeps listing every folder partition, so new changes are detected sooner at the cost of more `ListObjectsV2` requests. Default is `idle_optimized`.
+`empty_scan_delay` | No | Duration | The minimum amount of time to wait before listing an S3 buffer folder partition again after a listing returns no objects. A longer delay reduces the number of S3 `ListObjectsV2` requests when the database receives changes infrequently but can delay the processing of new changes by up to the configured amount. Must be between `0s` and `30m`. Default is `0s`, which lists an empty folder partition again without waiting.
 `joins` | No | Object | The configuration for combining rows from related tables into a single OpenSearch document. See [joins](#joins) for more information.
 
 <!-- vale off -->

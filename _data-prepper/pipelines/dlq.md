@@ -9,11 +9,11 @@ nav_order: 15
 
 OpenSearch Data Prepper pipelines support dead-letter queues (DLQs) for offloading failed events and making them accessible for analysis.
 
-As of Data Prepper 2.3, only the `s3` source supports DLQs.
+To use a DLQ, configure the `dlq` setting of a plugin that supports it, such as the `opensearch` sink.
 
 ## Configure a DLQ writer
 
-To configure a DLQ writer for the `s3` source, add the following to your `pipeline.yaml` file:
+To configure a DLQ writer for the `opensearch` sink, add the following to your `pipeline.yaml` file:
 
 ```yaml
 sink:
@@ -33,10 +33,10 @@ sink:
           bucket_owner: 123456789012
 ```
 
-The resulting DLQ file outputs as a JSON array of DLQ objects. Any file written to the `s3` DLQ contains the following name pattern:
+By default, each DLQ file contains a JSON object in which the `dlqObjects` array holds the DLQ objects. When `codec` is `ndjson`, each DLQ file contains one DLQ object per line. Any file written to the `s3` DLQ contains the following name pattern:
 
 ```
-dlq-v${version}-${pipelineName}-${pluginId}-${timestampIso8601}-${uniqueId}
+dlq-v${version}-${pipelineName}-${pluginId}-${timestampIso8601}-${uniqueId}.${extension}
 ```
 
 The following information is replaced in the name pattern:
@@ -44,6 +44,7 @@ The following information is replaced in the name pattern:
 - `version`: The Data Prepper version.
 - `pipelineName`: The pipeline name indicated in `pipelines.yaml`.
 - `pluginId`: The ID of the plugin associated with the DLQ event.
+- `extension`: The value of the `codec` option, either `json` or `ndjson`.
 
 ## Configuration
 
@@ -60,6 +61,7 @@ Option | Required | Type | Description
 `force_path_style` | No | Boolean | When `true`, the DLQ addresses the S3 bucket using path-style URLs (`https://s3.<region>.amazonaws.com/<bucket>/<key>`) rather than virtual-hosted-style URLs. Default is `false`.
 `legacy_md5_checksum` | No | Boolean | When `true`, the DLQ sends a `Content-MD5` header with each request and calculates checksums only when the S3 operation requires them. Use this setting for S3-compatible storage that does not support the newer AWS SDK checksum algorithms. Default is `false`.
 `bucket_owner` | No | String | The AWS account ID of the S3 bucket owner. When set, Data Prepper passes this value to S3 as `expectedBucketOwner`, and S3 rejects writes if it does not match the actual bucket owner. Default is `null`, which performs no explicit bucket owner check.
+`codec` | No | String | The format of the DLQ files. Valid values are `json` and `ndjson`. When `json`, each file contains a JSON object in which the `dlqObjects` array holds all DLQ objects in the batch. When `ndjson`, each file contains one DLQ object per line and uses the `.ndjson` file extension. Default is `json`.
 
 When using DLQ with an OpenSearch sink, you can configure the [`max_retries`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/opensearch/#configure-max_retries) option to send failed records to the DLQ after the sink reaches the maximum number of retry attempts.
 

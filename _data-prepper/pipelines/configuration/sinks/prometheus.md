@@ -120,6 +120,7 @@ Option | Required | Type | Description
 `content_type` | No | String | The MIME type of the body. Only `application/x-protobuf` is supported.
 `out_of_order_time_window` | No | Duration | The time window allowed for late-arriving data points. Data older than this window relative to the latest point will be dropped. Default is `10s`.
 `sanitize_names` | No | Boolean | Determines whether metric and label names are sanitized in order to comply with Prometheus naming conventions. Default is `true`.
+`instance_label` | No | String | The name of a label that identifies the Data Prepper instance in every time series that the sink writes. Use it when multiple instances run the same pipeline. For more information, see [Instance label](#instance-label). By default, no instance label is added.
 `connection_timeout` | No | Duration | The maximum amount of time allowed to establish an HTTP connection. Must be between 1 and 600 seconds. Default is `60s`.
 `idle_timeout` | No | Duration | The maximum amount of time an idle HTTP connection remains open before being closed. Must be between 1 and 600 seconds. Default is `60s`.
 `request_timeout` | No | Duration | The maximum amount of time allowed for a full end-to-end HTTP request to complete. Must be between 1 and 600 seconds. Default is `60s`.
@@ -127,6 +128,24 @@ Option | Required | Type | Description
 `max_retries` | No | Integer | The maximum number of attempts for failed ingestion requests. Uses exponential backoff with jitter on `retryable` status codes (`429`, `502`, `503`, or `504`). Default is `5`.
 `aws` | No | [AWS configuration](#aws-configuration) | AWS configuration for AWS Signature Version 4 signing. When present, requests are signed with AWS credentials. Cannot be used with `authentication`.
 `authentication` | No | [Authentication configuration](#authentication-configuration) | HTTP Basic authentication credentials. Cannot be used with `aws`.
+
+## Instance label
+
+When multiple Data Prepper instances run the same pipeline configuration, they write identical time series, and the Remote Write endpoint keeps only one sample for each series and timestamp. To keep the samples from each instance, set `instance_label` to a label name. The sink adds this label to every time series it writes. The label value is a truncated SHA-256 hash of the host identity, which the sink resolves once at startup from the local hostname, the `HOSTNAME` environment variable, or a local network address. If no host identity can be resolved, the pipeline fails to start. Instances that share a network namespace resolve the same identity unless they have distinct `HOSTNAME` values.
+
+The label name must match `[a-zA-Z_][a-zA-Z0-9_]*`, must not begin with `__`, and cannot be `le`, `ge`, or `quantile`. If a metric already has an attribute with the same name, the attribute value is kept and the label is not added to that series.
+
+The following example adds the `dp_instance` label:
+
+```yaml
+sink:
+  - prometheus:
+      url: "http://localhost:9090/api/v1/write"
+      instance_label: dp_instance
+```
+{% include copy.html %}
+
+To calculate the total across instances, aggregate the label away in your queries, for example, `sum without (dp_instance) (my_metric)`.
 
 ## Threshold configuration
 

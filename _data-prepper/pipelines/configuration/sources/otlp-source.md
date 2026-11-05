@@ -31,6 +31,8 @@ You can configure the `otlp` source with the following options.
 | `unframed_requests` | Boolean | Enables requests not framed using the gRPC wire protocol. Default is `false`. |
 | `thread_count` | Integer | The number of threads to keep in the scheduled thread pool. Default is `200`. |
 | `max_connection_count` | Integer | The maximum allowed number of open connections. Default is `500`. |
+| `max_connection_age` | Duration | The maximum amount of time that a client connection can remain open. When a connection reaches this age, the source closes it gracefully, and the client must open a new connection. Use this setting when multiple Data Prepper nodes run behind DNS-based load balancing: gRPC clients resolve DNS only when they open a connection, so closing connections periodically allows clients to connect to newly added nodes. Must be between `1s` and `24h`. By default, connections have no maximum age. |
+| `connection_drain_duration` | Duration | The amount of time that the source waits for in-flight requests to complete when it gracefully closes a connection, for example, after the connection reaches the `max_connection_age`. Must be between `0s` and `1h`. |
 | `max_request_length` | String | The maximum number of bytes allowed in the payload of a single gRPC or HTTP request. Default is `10mb`. |
 | `compression` | String | The compression type applied to the client request payload. Valid values are `none` (no compression) or `gzip` (apply `gzip` decompression). Default is `none`. |
 | `authentication` | Object | The authentication configuration. By default, the source runs without authentication. See [Authentication configuration](#authentication-configuration). |
