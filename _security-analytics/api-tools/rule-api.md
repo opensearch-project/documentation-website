@@ -268,7 +268,7 @@ falsepositives:
 
 Searches for pre-packaged rules by category or other criteria.
 
-Terms lookup queries are not supported. A `terms` lookup object with `index`, `id`, and `path` returns `403 Forbidden`. Use inline terms instead.
+Search requests that contain a [terms lookup]({{site.url}}{{site.baseurl}}/query-dsl/term/terms/#terms-lookup) are rejected. Specify the terms directly in the `terms` query instead.
 {: .note}
 
 ### Example request
@@ -368,7 +368,7 @@ POST /_plugins/_security_analytics/rules/_search?pre_packaged=true
 
 Searches for custom rules by category or other criteria.
 
-Terms lookup queries are not supported. A `terms` lookup object with `index`, `id`, and `path` returns `403 Forbidden`. Use inline terms instead.
+Search requests that contain a [terms lookup]({{site.url}}{{site.baseurl}}/query-dsl/term/terms/#terms-lookup) are rejected. Specify the terms directly in the `terms` query instead.
 {: .note}
 
 ### Example request

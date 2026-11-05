@@ -9,7 +9,7 @@ nav_order: 45
 
 The following APIs can be used for a number of tasks related to mappings, from creating to getting and updating mappings.
 
-The caller must have index-level mapping permissions for the index specified by `index_name`. Requests for an unauthorized index return `403 Forbidden`.
+To use these APIs, you must have permissions for the index specified in `index_name`: `indices:admin/mappings/get` to retrieve mappings and `indices:admin/mapping/put` to create or update them.
 {: .note}
 
 ---

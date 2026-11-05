@@ -233,9 +233,9 @@ DELETE /_plugins/_security_analytics/threat_intel/monitors/B8p88ZAB1vBjq44wkjEy
 
 Searches for an existing monitor using a query. The request body expects a search query. For query options, see [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/).
 
-Terms lookup queries are not supported. A `terms` lookup object with `index`, `id`, and `path` returns `403 Forbidden`. Use inline terms instead.
+Search requests that contain a [terms lookup]({{site.url}}{{site.baseurl}}/query-dsl/term/terms/#terms-lookup) are rejected. Specify the terms directly in the `terms` query instead.
 {: .note}
- 
+
 ### Example request
 
 The following example request using a match query with the monitor's ID to search for the monitor:
