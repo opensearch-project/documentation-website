@@ -228,6 +228,95 @@ To see the entire context object, add {% raw %}`{{ctx}}`{% endraw %} to the mess
 
 ---
 
+## Search for correlation rules
+
+Searches for correlation rules using a query. The request body requires a search query. For query options, see [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/).
+
+Search requests that contain a [terms lookup]({{site.url}}{{site.baseurl}}/query-dsl/term/terms/#terms-lookup) are rejected. Specify the terms directly in the `terms` query instead.
+{: .note}
+
+### Endpoints
+
+```json
+POST /_plugins/_security_analytics/correlation/rules/_search
+```
+
+### Example request
+
+The `correlate` field is mapped as a `nested` field, so use a `nested` query to search the log sources in a rule. The following request searches for correlation rules that correlate `network` logs:
+
+```json
+POST /_plugins/_security_analytics/correlation/rules/_search
+{
+  "query": {
+    "nested": {
+      "path": "correlate",
+      "query": {
+        "term": {
+          "correlate.category": "network"
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Example response
+
+Each hit's `_source` contains the correlation rule definition:
+
+```json
+{
+  "took": 31,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 0.31506687,
+    "hits": [
+      {
+        "_index": ".opensearch-sap-correlation-rules-config",
+        "_id": "ArQirKEBASjcpUUjnqb9",
+        "_version": 1,
+        "_seq_no": 1,
+        "_primary_term": 18,
+        "_score": 0.31506687,
+        "_source": {
+          "name": "network-windows",
+          "correlate": [
+            {
+              "index": "vpc_flow",
+              "category": "network",
+              "query": "dstaddr:4.5.6.7"
+            },
+            {
+              "index": "windows",
+              "category": "windows",
+              "query": "winlog.event_data.SubjectDomainName:NTAUTHORI*"
+            }
+          ],
+          "time_window": 300000,
+          "trigger": null
+        }
+      }
+    ]
+  }
+}
+```
+
+For descriptions of the rule fields, see [Request body fields](#request-body-fields).
+
+---
+
 ## List all findings and correlations within a certain time window
 
 Lists all findings and their correlations within a certain time window.
