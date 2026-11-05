@@ -13,7 +13,7 @@ redirect_from:
 
 Each OpenSearch setting is either a cluster setting or an index setting. Cluster settings apply to the whole cluster or to individual nodes. Index settings apply to a single index, and their names begin with `index.`. The settings pages in this section list cluster settings grouped by area, such as networking, security, and thread pools. For information about index settings, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/).
 
-Settings are also either [static](#static-settings) or [dynamic](#dynamic-settings). Whether a setting is static or dynamic determines whether you can change it while OpenSearch is running.
+Settings are also either [static](#static-settings) or [dynamic](#dynamic-settings). Whether a setting is static or dynamic determines whether you can change it while OpenSearch is running. To determine whether a setting is static or dynamic, use the [Describe Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/describe-cluster-settings/).
 
 The following table lists the ways in which you can specify cluster settings.
 
@@ -309,4 +309,5 @@ The following pages describe other configuration options:
 
 ## Related documentation
 
-To learn how to view and update cluster settings, see [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
+- [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/)
+- [Describe Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/describe-cluster-settings/)
