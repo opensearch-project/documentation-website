@@ -232,7 +232,6 @@ To see the entire context object, add {% raw %}`{{ctx}}`{% endraw %} to the mess
 
 Searches for correlation rules using a query. The request body requires a search query. For query options, see [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/).
 
-Search requests that contain a [terms lookup]({{site.url}}{{site.baseurl}}/query-dsl/term/terms/#terms-lookup) are rejected. Specify the terms directly in the `terms` query instead.
 {: .note}
 
 ### Endpoints
