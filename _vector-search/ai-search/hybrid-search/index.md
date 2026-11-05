@@ -13,7 +13,7 @@ redirect_from:
 **Introduced 2.11**
 {: .label .label-purple }
 
-Hybrid search combines keyword and semantic search to improve search relevance. A [`hybrid` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/) runs each query clause, normalizes the results, and combines them into a single ranking.
+Hybrid search combines keyword and semantic search to improve search relevance. OpenSearch runs each query clause of a [`hybrid` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/), normalizes the results, and combines them into a single ranking.
 
 ## Choosing a combination approach
 
@@ -46,7 +46,8 @@ Consider using a search pipeline in the following cases:
 - You want to manage the normalization and combination configuration in one place and apply it to every request that uses the pipeline.
 - You need the `lower_bounds` and `upper_bounds` normalization parameters.
 - You need to paginate deeper than the fusion mode [window size limits]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/#window-size-limits) allow.
-- You need a feature that fusion mode does not support, such as a `scroll` request or cross-cluster search. For a complete list, see [Limitations]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/#limitations).
+
+For the features that fusion mode does not support, see [Limitations]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/#limitations).
 
 ## Configuring hybrid search
 

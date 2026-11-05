@@ -234,7 +234,7 @@ The `combination` object contains the following fields. All fields are optional.
 Field | Data type | Description
 :--- | :--- | :---
 `technique` | String | The technique for combining scores. Valid values are `arithmetic_mean`, `geometric_mean`, `harmonic_mean`, and `rrf`. Default is `arithmetic_mean`. If the normalization technique is `z_score`, the combination technique must be `arithmetic_mean`. To use reciprocal rank fusion (RRF), set both the normalization and combination techniques to `rrf`.
-`parameters` | Object | Contains the `weights` array, an alternative to the `hybrid` query's `weights` parameter. For more information, see [Weighting subqueries](#weighting-subqueries).
+`parameters` | Object | Contains the optional `weights` array, an alternative to the `hybrid` query's `weights` parameter. For more information, see [Weighting subqueries](#weighting-subqueries).
 `rank_constant` | Integer | The RRF rank constant, specified in the `combination` object as in the [score ranker processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/score-ranker-processor/). An alternative to `normalization.parameters.rank_constant`; specify it in only one of these locations. Valid values are in the range from `1` to `10000`. Default is `60`.
 
 For an explanation of each technique and guidance on choosing one, see [Normalization techniques]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/#normalization-techniques) and [Reciprocal rank fusion]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/rrf/).
