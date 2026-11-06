@@ -325,7 +325,7 @@ OpenSearch Dashboards returns one record per data point. Each record contains th
 | Field | Type | Description |
 |-------|------|-------------|
 | `Time` | Number | The timestamp of the data point, in milliseconds since the Unix epoch. |
-| `Series` | String | The full label set of the time series, formatted as a Prometheus metric string, for example, `up{job="node"}`. |
+| `Series` | String | The full label set of the time series, formatted as a Prometheus metric string, for example, `up{job="node"}`. When `body.query` contains multiple expressions, each `Series` value starts with a letter that identifies its expression. For example, a `Series` value for the first expression is `A: up{job="node"}`. |
 | `Labels` | Object | The individual labels of the series as key-value pairs, for example, `{"job": "node", "instance": "localhost:9100"}`. |
 | `Value` | Number | The sample value at this timestamp. |
 
