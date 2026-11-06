@@ -20,6 +20,8 @@ Field             | Type    | Required | Description
 `invocation_type`   | String  | No       | Specifies the invocation type. Default is `event`.             
 `aws.region`        | String  | Yes      | The AWS Region in which the Lambda function is located.                         
 `aws.sts_role_arn`  | String  | No       | The Amazon Resource Name (ARN) of the role to assume before invoking the Lambda function.               
+`aws.sts_external_id` | String | No | The external ID to use when assuming the role specified in `aws.sts_role_arn`. Must be between 2 and 1,224 characters.
+`aws.sts_header_overrides` | Map | No | A map of header overrides to apply to the request that assumes the role specified in `aws.sts_role_arn`. Maximum of 5 headers.
 `max_retries`       | Integer | No       | The maximum number of sink-level retries if the Lambda invocation fails. This controls Data Prepper's retry logic. Default is `3`.
 `client.max_retries` | Integer | No | The maximum number of AWS SDK client-level retries for individual API calls. This controls the underlying SDK retry mechanism for network or service errors. Default is `3`.             
 `client.api_call_timeout` | Duration | No | The total timeout for the entire API call including all retries. Default is `60s`.
@@ -29,6 +31,7 @@ Field             | Type    | Required | Description
 `client.max_concurrency` | Integer | No | The maximum number of concurrent threads in the client. Default is `200`.
 `client.base_delay`  | Duration | No | The base delay for the exponential backoff. Default is `100ms`.
 `client.max_backoff` | Duration | No | The maximum backoff time for the exponential backoff. Default is `20s`.             
+`client.retryable_status_codes` | List | No | A list of HTTP status codes that trigger a client-level retry when returned by a Lambda invocation, for example `[500, 502, 503, 504]`. These retries count toward `client.max_retries`. Default is an empty list, in which case Data Prepper retries only throttling errors, Lambda service errors, and network or connection errors. Use for idempotent functions for which retrying transient server-side errors is safe.
 `batch`             | Object  | No       | Optional batch settings for Lambda invocations. Contains `key_name` (default: `"events"`) and `threshold` object with `event_count` (default: `100`), `maximum_size` (default: `"5mb"`), and `event_collect_timeout` (default: `10s`).
 `lambda_when`       | String  | No       | A conditional expression that determines when to invoke the Lambda sink.          
 `dlq`               | Object  | No       | The dead-letter queue (DLQ) configuration for failed invocations.                
@@ -53,6 +56,7 @@ sink:
         max_concurrency: 200
         base_delay: PT0.1S
         max_backoff: PT20S
+        retryable_status_codes: [500, 502, 503, 504]  # Optional: retry these Lambda invocation status codes
       batch:
         key_name: "events"
         threshold:
@@ -61,9 +65,10 @@ sink:
           event_collect_timeout: PT5S
       lambda_when: "event['type'] == 'log'"
       dlq:
-        region: "us-east-1"
-        sts_role_arn: "arn:aws:iam::123456789012:role/my-sqs-role"
-        bucket: "<<your-dlq-bucket-name>>"
+        s3:
+          region: "us-east-1"
+          sts_role_arn: "arn:aws:iam::123456789012:role/my-sqs-role"
+          bucket: "<<your-dlq-bucket-name>>"
 ```
 {% include copy.html %}
 

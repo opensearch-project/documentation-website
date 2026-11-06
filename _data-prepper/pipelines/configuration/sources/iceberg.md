@@ -145,6 +145,8 @@ Option | Required | Type | Description
 `ssl_key_file` | Conditionally | String | The path to the TLS private key file in PEM format. Supports local file paths and Amazon S3 URIs (for example, `s3://my-bucket/certs/key.pem`). Required when `ssl` is `true` and `use_acm_certificate_for_ssl` is `false`.
 `use_acm_certificate_for_ssl` | No | Boolean | When `true`, uses AWS Certificate Manager (ACM) for TLS certificates instead of `ssl_certificate_file` and `ssl_key_file`. Default is `false`.
 `acm_certificate_arn` | Conditionally | String | The ACM certificate ARN. Required when `use_acm_certificate_for_ssl` is `true`.
+`acm_private_key_password` | No | String | The password used to decrypt the private key exported from ACM. If not provided, Data Prepper generates a random password.
+`acm_certificate_timeout_millis` | No | Integer | The maximum amount of time, in milliseconds, that Data Prepper waits to retrieve the certificate from ACM. Default is `120000`.
 `aws_region` | Conditionally | String | The AWS Region for ACM or S3 certificate access. Required when `use_acm_certificate_for_ssl` is `true` or when certificate files are in Amazon S3.
 `ssl_client_auth` | No | Boolean | When `true`, enables mutual TLS (mTLS) for node-to-node authentication. All nodes must present a valid client certificate during shuffle communication. Default is `false`.
 `ssl_insecure_disable_verification` | No | Boolean | When `true`, disables TLS certificate verification for node-to-node shuffle communication. Default is `false`.

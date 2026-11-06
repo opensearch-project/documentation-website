@@ -119,6 +119,7 @@ Option | Required | Type    | Description
 `hosts` | Yes | List    | A list of OpenSearch hosts to write to, for example, `["https://localhost:9200", "https://remote-cluster:9200"]`.
 `username` | No | String  | The username for HTTP basic authentication. Since Data Prepper 2.5, this setting can be refreshed at runtime if [AWS secrets reference]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#reference-secrets) is applied.
 `password` | No | String  | The password for HTTP basic authentication. Since Data Prepper 2.5, this setting can be refreshed at runtime if [AWS secrets reference]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#reference-secrets) is applied.
+`authentication` | No | Object | The HTTP basic authentication configuration. Cannot be used together with the top-level `username` and `password` options. For more information, see [Authentication](#authentication).
 `disable_authentication` | No | Boolean | Whether authentication is disabled. Defaults to `false`.
 `aws` | No | Object  | The AWS configuration. For more information, see [`aws`](#aws).
 `acknowledgments` | No | Boolean | When `true`, enables the `opensearch` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines/#end-to-end-acknowledgments) when events are received by OpenSearch sinks. Default is `false`.
@@ -128,6 +129,16 @@ Option | Required | Type    | Description
 `search_options` | No | Object | A list of search options performed by the source. For more information, see [Search options](#search_options).
 `serverless` | No | Boolean | Determines whether the OpenSearch backend is Amazon OpenSearch Serverless. Set this value to `true` when the destination for the `opensearch` source is an Amazon OpenSearch Serverless collection. Default is `false`.
 `serverless_options` | No | Object | The network configuration options available when the backend of the `opensearch` source is set to Amazon OpenSearch Serverless. For more information, see [Serverless options](#serverless-options).
+`distribution_version` | No | String | The distribution of the source cluster. Valid values are `opensearch` and `es7`. If the source cannot retrieve the cluster information, it treats the cluster as an Elasticsearch cluster. Set this option to `opensearch` to treat the cluster as an OpenSearch cluster in this case. The source then uses `scroll` search unless `search_context_type` is specified.
+
+### Authentication
+
+Use the following options in the `authentication` object.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+`username` | No | String | The username for HTTP basic authentication.
+`password` | No | String | The password for HTTP basic authentication.
 
 ### Serverless options
 
@@ -152,6 +163,7 @@ Option | Required | Type            | Description
 `index_read_count` | No | Integer | The number of times each index will be processed. Default is `1`.
 `interval` | No | String | The interval that determines the amount of time between reprocessing. Supports ISO 8601 notation strings, such as "PT20.345S" or "PT15M", as well as simple notation strings for seconds ("60s") and milliseconds ("1500ms"). Defaults to `8h`.
 `start_time` | No | String | The time when processing should begin. The source will not start processing until this time. The string must be in ISO 8601 format, such as `2007-12-03T10:15:30.00Z`. The default option starts processing immediately.
+`discovery_mode` | No | String | Determines how often the source discovers indexes to process. Valid values are `periodic` and `single_scan`. When set to `periodic`, the source periodically checks for indexes to process, and each index is processed according to `index_read_count` and `interval`. When set to `single_scan`, the source discovers indexes once and processes each index one time. Default is `periodic`.
 
 
 <!-- vale off -->
@@ -183,6 +195,7 @@ Option | Required | Type    | Description
 :--- |:---------|:--------| :---
 `batch_size` | No       | Integer | The number of documents to read while paginating from OpenSearch. Default is `1000`.
 `search_context_type` | No | Enum | An override for the type of search/pagination to use on indexes. Can be [point_in_time]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#point-in-time-with-search_after)), [scroll]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#scroll-search), or `none`. The `none` option will use the [search_after]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate/#the-search_after-parameter) parameter. For more information, see [Default Search Behavior](#default-search-behavior).
+`sort` | No | List | A list of fields by which to sort documents when paginating. Each entry contains a required `name`, which specifies the field name, and an optional `order`, which is either `ascending` (default) or `descending`. Include `_id` in the list so that each document has a unique sort value; otherwise, pagination may skip or duplicate documents. By default, documents are sorted by `_doc` and then by `_id` (or only by `_doc` when using `scroll`).
 
 ### Default search behavior
 
@@ -198,6 +211,9 @@ Option | Required | Type    | Description
 :--- | :--- |:--------| :---
 `cert` | No | String  | The path to the security certificate, for example, `"config/root-ca.pem"`, when the cluster uses the OpenSearch Security plugin.
 `insecure` | No | Boolean | Whether or not to verify SSL certificates. If set to `true`, the certificate authority (CA) certificate verification is disabled and insecure HTTP requests are sent. Default is `false`.
+`certificate` | No | String | The path to the CA certificate file or the content of the certificate in PEM format. Cannot be used together with `cert`.
+`socket_timeout` | No | Duration | The socket timeout for requests to the cluster. If not specified, the default timeout of the underlying client is used.
+`connection_timeout` | No | Duration | The timeout for establishing a connection to the cluster. If not specified, the default timeout of the underlying client is used.
 
 
 ### AWS
@@ -208,6 +224,8 @@ Option | Required | Type    | Description
 :--- | :--- |:--------| :---
 `region` | No | String  | The AWS Region to use for credentials. Defaults to [standard SDK behavior to determine the Region](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/region-selection.html).
 `sts_role_arn` | No | String  | The AWS Security Token Service (AWS STS) role to assume for requests to Amazon OpenSearch Service and Amazon OpenSearch Serverless. Default is `null`, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
+`sts_external_id` | No | String | The external ID to use when assuming the STS role. Must be between 2 and 1,224 characters.
+`sts_header_overrides` | No | Map | A map of header overrides that the AWS Identity and Access Management (IAM) role assumes for the source plugin. Maximum of 5 headers.
 `serverless` | No | Boolean | Should be set to `true` when processing from an Amazon OpenSearch Serverless collection. Defaults to `false`.
 
 ## Metrics
