@@ -23,12 +23,13 @@ When your workflow includes a `traffic.proxies` section, Migration Assistant cre
 
 Client traffic is sent to the proxy Kubernetes Service. The proxy forwards requests to the source cluster and records them for later replay.
 
-## Kubernetes and EKS compared
+## How the proxy is exposed across platforms
 
-The migration engine is the same on both Kubernetes and Amazon Elastic Kubernetes Service (EKS) platforms. The practical difference is how the Kubernetes Service is exposed and integrated into your environment:
+The migration engine is the same on every platform. The practical difference is how the proxy's Kubernetes Service is exposed and integrated into your environment:
 
-- On **generic Kubernetes**, you provide the networking pattern that routes clients to the proxy Kubernetes Service.
-- On **Amazon EKS**, the Kubernetes Service can be backed by AWS load-balancer infrastructure, and the bootstrap path automates more of the platform configuration.
+- On **other Kubernetes platforms**, you provide the networking pattern that routes clients to the proxy Kubernetes Service.
+- On **Amazon Elastic Kubernetes Service (EKS)**, the Kubernetes Service can be backed by AWS load-balancer infrastructure, and the bootstrap path automates more of the platform configuration.
+- On **Google Kubernetes Engine (GKE)**, the Service is annotated for an internal (VPC-local) load balancer by default, so the proxy's ingress stays off the public internet. For details, see [Private networking on GKE]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/private-networking-on-gke/).
 
 ## Configure the proxy in the workflow
 
@@ -44,7 +45,7 @@ In the proxy configuration, important fields include:
 
 - `listenPort`
 - `podReplicas`
-- `internetFacing` when you need external exposure on EKS.
+- `internetFacing` when you need external (public) exposure instead of the platform default. On GKE, the proxy is internal by default; leave `internetFacing` unset to keep it private.
 - `tls`
 - `setHeader`
 

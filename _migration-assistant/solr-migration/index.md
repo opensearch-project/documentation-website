@@ -23,7 +23,7 @@ The version string in your workflow configuration must match the format `SOLR <m
 
 ## Solr migration differences
 
-Unlike Elasticsearch, which shares a common Lucene data format and similar REST API with OpenSearch, Solr uses its own schema format (`schema.xml`) and a different Lucene index layout. Solr migrations use a specialized component called SolrReader, which reads Solr backup data and translates Solr schemas to OpenSearch mappings. For step-by-step S3 backup setup and workflow configuration, see the [Solr backfill guide]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/solr-backfill-guide/).
+Unlike Elasticsearch, which shares a common Lucene data format and similar REST API with OpenSearch, Solr uses its own schema format (`schema.xml`) and a different Lucene index layout. Solr migrations use a specialized component called SolrReader, which reads Solr backup data and translates Solr schemas to OpenSearch mappings. For step-by-step backup setup and workflow configuration, see the [Solr backfill guide]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/solr-backfill-guide/).
 
 ## Migration phases
 
@@ -54,6 +54,9 @@ After backfill completes, validate document counts and sample queries against th
 
 Solr migrations support **backfill only**---Capture and Replay (live traffic migration) is not supported for Solr sources. You will need to update your application's query layer to use the OpenSearch API.
 {: .warning }
+
+For Solr sources, the backup repository must use Amazon S3 (`s3://`) or a local file path (`file://`). Google Cloud Storage (`gs://`) backups are **not supported** for Solr in this release, even when Migration Assistant runs on Google Kubernetes Engine (GKE). This limit applies only to Solr sources; Elasticsearch and OpenSearch sources support Google Cloud Storage snapshots.
+{: .note }
 
 ## Migrated components
 
