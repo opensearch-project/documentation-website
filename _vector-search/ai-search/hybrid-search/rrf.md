@@ -54,7 +54,7 @@ The trade-off for RRF is a small reduction in relevance. In benchmarks on six BE
 
 For the full list of `score-ranker-processor` request fields, see [Score ranker processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/score-ranker-processor/).
 
-## Example: Fusing keyword and vector results
+## Example: Combining keyword and vector results
 
 The following example builds a product index, runs a keyword query clause and a vector query clause separately to show their individual rankings, and then fuses them with RRF.
 
@@ -508,7 +508,7 @@ Rerunning the query from [Step 5](#step-5-run-the-hybrid-query) with these weigh
 | `4` | 0.7 &times; 1 / (1 + 3) | 0.175 |
 | `1` | 0.3 &times; 1 / (1 + 1) | 0.15 |
 
-Weighting reintroduces the tuning effort that unweighted RRF avoids, so change the weights only when you can measure the effect on relevance.
+Weighting reintroduces the tuning effort that unweighted RRF avoids, so change the weights only when you can measure the effect on relevance. To try different weights without changing the pipeline, specify them in the `hybrid` query's `weights` parameter, which replaces the pipeline's weights for that request only. For more information, see [Weighting subqueries]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/#weighting-subqueries).
 
 ## Next steps
 
