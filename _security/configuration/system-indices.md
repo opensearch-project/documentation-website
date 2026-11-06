@@ -69,6 +69,10 @@ Regular index permissions, including broad permissions for `*`, do not grant wri
 
 Use the owning plugin's API whenever possible, including when you authenticate as a super admin. For example, use the Security REST API or `securityadmin.sh` to change Security plugin configuration instead of indexing documents directly into `.opendistro_security`.
 
+### Snapshot restore
+
+The Security plugin also controls who can restore a protected system index from a snapshot. For the users who can restore system indexes and the steps to follow, see [Restoring system indexes]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#restoring-system-indexes).
+
 ### Read protection and scrubbed results
 
 Read protection does not produce the same response for every API. For a user without system index access, the Security plugin can replace the underlying index reader with an empty reader. As a result:
