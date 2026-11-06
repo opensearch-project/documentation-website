@@ -42,6 +42,7 @@ PUT /_cluster/settings
           "^https://api\\.cohere\\.ai/.*$",
           "^https://api\\.deepseek\\.com/.*$",
           "^https://generativelanguage\\.googleapis\\.com/.*$",
+          "^https://([a-z0-9][a-z0-9-]*-)?aiplatform\\.googleapis\\.com/.*$",
           "^https://bedrock-runtime\\..*[a-z0-9-]\\.amazonaws\\.com/.*$",
           "^https://bedrock-agent-runtime\\..*[a-z0-9-]\\.amazonaws\\.com/.*$",
           "^https://bedrock\\..*[a-z0-9-]\\.amazonaws\\.com/.*$",
@@ -56,6 +57,8 @@ PUT /_cluster/settings
 
 This setting replaces the entire list of trusted endpoints, so include every pattern your cluster needs.
 {: .note}
+
+The Google Cloud Vertex AI pattern (for `aiplatform.googleapis.com` hosts) is part of the default list in OpenSearch 3.10 and later. In OpenSearch 3.9, add it yourself to use the [`google_cloud` connector protocol]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/google-cloud/).
 
 
 
