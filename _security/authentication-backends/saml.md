@@ -164,6 +164,41 @@ Name | Description
 :--- | :---
 `kibana_url` | The OpenSearch Dashboards base URL. Required.
 
+### Overriding the Dashboards URL with a cluster setting
+
+You can override `kibana_url` without editing `config.yml` by using the `plugins.security.dashboards.dashboards_url` dynamic cluster setting. When this setting contains a value, the Security plugin uses it instead of `kibana_url` to build the Assertion Consumer Service (ACS) URL and to validate the destination of SAML responses. When the setting is empty, which is the default, the Security plugin uses `kibana_url`. The override does not replace `kibana_url`, which is still required in the SAML configuration.
+
+The value must be an absolute `http` or `https` URL that includes a host. Any other value is rejected when you update the setting. Only a cluster administrator can update it. Changes take effect on the next SAML request, without a node restart or a security configuration reload.
+
+The setting applies to the whole cluster. Because only the SAML authentication domain with `challenge: true` starts the SAML login flow, the value effectively applies to that domain. Other SAML domains do not use it for login.
+
+To set or change the URL, send the following request:
+
+```json
+PUT _cluster/settings
+{
+  "persistent": {
+    "plugins.security.dashboards.dashboards_url": "https://dashboards.example.com:5601"
+  }
+}
+```
+{% include copy-curl.html %}
+
+To remove the override and fall back to `kibana_url`, set the value to `null`:
+
+```json
+PUT _cluster/settings
+{
+  "persistent": {
+    "plugins.security.dashboards.dashboards_url": null
+  }
+}
+```
+{% include copy-curl.html %}
+
+Your IdP must also allow the ACS URL that is built from the new value, `<dashboards_url>/_opendistro/_security/saml/acs`. The setting only changes the URL that OpenSearch expects.
+{: .important }
+
 
 ## Username and role attributes
 
