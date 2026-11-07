@@ -146,6 +146,40 @@ curl -s -u ingest:s3cr3t "http://localhost:2023/ingest" \
 ```
 {% include copy.html %}
 
+### Mutual TLS authentication
+
+The `mutual_tls` authentication plugin requires each client to present a TLS client certificate signed by a certificate authority (CA) that you trust. Mutual TLS authentication requires `ssl: true`. Otherwise, pipeline validation fails with the error `ssl must be true when mutual_tls authentication is used`.
+
+The `mutual_tls` plugin is experimental. To use it, set `experimental.enable_all` to `true` in `data-prepper-config.yaml`. You cannot enable authentication plugins using `enabled_plugins`.
+{: .warning}
+
+The following example configures mutual TLS authentication:
+
+```yaml
+mtls-pipeline:
+  source:
+    http:
+      ssl: true
+      ssl_certificate_file: /path/to/server.crt
+      ssl_key_file: /path/to/server.key
+      authentication:
+        mutual_tls:
+          ssl_trust_certificate_file: /path/to/ca.crt
+  sink:
+    - stdout: {}
+```
+{% include copy.html %}
+
+You can configure the following option for `mutual_tls`.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+`ssl_trust_certificate_file` | Yes | String | The path to a readable regular file containing one or more CA certificates used to verify client certificates. Supports PEM files containing a single certificate or concatenated certificates and DER files containing a single certificate.
+
+Requests that present a certificate signed by a trusted CA are processed. Requests without a client certificate receive a `401 Unauthorized` response. If a client presents a certificate that is not signed by a trusted CA, the TLS handshake fails. When `health_check_service` and `unauthenticated_health_check` are both `true`, `GET /health` succeeds without a client certificate; otherwise, it returns `401 Unauthorized`.
+
+Mutual TLS authentication is not supported on the OTLP sources (`otlp`, `otlp_traces`, `otlp_metrics`, and `otlp_logs`). A pipeline that configures it on one of these sources fails to start.
+
 ## Metrics
 
 The `http` source includes the following metrics.

@@ -33,8 +33,8 @@ The following table lists the configuration options for the `opensearch_api` sou
 | `thread_count` | Integer | No | `200` | The number of threads in the scheduled thread pool. |
 | `max_connection_count` | Integer | No | `500` | The maximum number of open connections. |
 | `max_pending_requests` | Integer | No | `1024` | The maximum number of tasks in the work queue. |
-| `health_check_service` | Boolean | No | `false` | Enables a `/health` endpoint on the configured port. |
-| `unauthenticated_health_check` | Boolean | No | `false` | If `true`, the health endpoint does not require authentication. |
+| `health_check_service` | Boolean | No | `false` | Currently has no effect. The `opensearch_api` source does not register a `/health` endpoint. |
+| `unauthenticated_health_check` | Boolean | No | `false` | Currently has no effect because the source does not register a `/health` endpoint. |
 | `compression` | String | No | `none` | The compression applied to the request payload. Valid values are `none` and `gzip`. |
 | `authentication` | Object | No | Unauthenticated | The authentication configuration. See [Authentication](#authentication). |
 | `ssl` | Boolean | No | `false` | Enables TLS/SSL. |
@@ -71,6 +71,31 @@ source:
         password: my_s3cr3t
 ```
 {% include copy.html %}
+
+### Mutual TLS authentication
+
+The `mutual_tls` authentication plugin requires each client to present a TLS client certificate signed by a certificate authority (CA) that you trust. Mutual TLS authentication requires `ssl: true`. Otherwise, pipeline validation fails with the error `ssl must be true when mutual_tls authentication is used`.
+
+The `mutual_tls` plugin is experimental. To use it, set `experimental.enable_all` to `true` in `data-prepper-config.yaml`. You cannot enable authentication plugins using `enabled_plugins`.
+{: .warning}
+
+The following example configures mutual TLS authentication:
+
+```yaml
+source:
+  opensearch_api:
+    ssl: true
+    ssl_certificate_file: /path/to/server.crt
+    ssl_key_file: /path/to/server.key
+    authentication:
+      mutual_tls:
+        ssl_trust_certificate_file: /path/to/ca.crt
+```
+{% include copy.html %}
+
+The `ssl_trust_certificate_file` option is required. It is the path to a readable regular file containing one or more CA certificates used to verify client certificates. PEM files containing a single certificate or concatenated certificates and DER files containing a single certificate are supported.
+
+Requests that present a certificate signed by a trusted CA are processed. Requests without a client certificate receive a `401 Unauthorized` response. If a client presents a certificate that is not signed by a trusted CA, the TLS handshake fails.
 
 ### Custom authentication
 
