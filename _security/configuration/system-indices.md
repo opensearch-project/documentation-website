@@ -71,7 +71,7 @@ Use the owning plugin's API whenever possible, including when you authenticate a
 
 ### Snapshot restore
 
-The Security plugin also controls who can restore a protected system index from a snapshot. For the users who can restore system indexes and the steps to follow, see [Restoring system indexes]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#restoring-system-indexes).
+The Security plugin also controls who can restore a protected system index from a snapshot. For the required permissions and the steps to follow, see [Restoring system indexes]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#restoring-system-indexes).
 
 ### Read protection and scrubbed results
 

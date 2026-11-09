@@ -868,63 +868,69 @@ We strongly recommend against restoring `.opendistro_security` using an admin ce
 
 ## Restoring system indexes
 
-Plugins store their configuration and state in [system indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/). For example, Alerting stores its monitors in `.opendistro-alerting-config`. To recover a plugin on another cluster, for example, after losing a cluster, restore its system indexes from a snapshot together with the data indexes they refer to. Some plugins require their indexes to be restored in a specific order. For more information, see [Plugin system indexes](#plugin-system-indexes).
+Plugins store their configuration and state in [system indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/). For example, Alerting stores its monitors in `.opendistro-alerting-config`. To recover a plugin on another cluster (for example, after losing the original cluster), use a snapshot to restore the plugin's system indexes and data indexes. Some plugins require their indexes to be restored in a specific order. For more information, see [Plugin system indexes](#plugin-system-indexes).
 
 Restore plugin system indexes to a cluster that runs the same OpenSearch version as the cluster that took the snapshot. A plugin can change the format of its system indexes between versions, so restoring them to a different version might not work.
 
-If the Security plugin is not installed, system indexes are restored like any other index.
+If the Security plugin is not enabled, system indexes are restored like any other index.
 
 ### Who can restore system indexes
 
 When the Security plugin is enabled, the following users can restore system indexes:
 
 - A super admin using an [admin certificate]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates).
-- A user with a role that grants the `system:admin/system_index` permission for the index, when `plugins.security.system_indices.permission.enabled` is `true`. For more information, see [System index permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#system-index-permissions).
-- A user mapped to a role listed in `plugins.security.restapi.roles_enabled` (a REST admin), for the system indexes in the [restore list](#restore-list).
+- A user with a role that grants the `system:admin/system_index` permission for the index, when `plugins.security.system_indices.permission.enabled` is set to `true`. For more information, see [System index permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#system-index-permissions).
+- A user mapped to a role listed in `plugins.security.restapi.roles_enabled` (a REST admin), for the system indexes listed in the [`plugins.security.system_indices.restore.indices` setting](#restoring-system-indexes-as-a-rest-admin).
 
-To restore plugin system indexes, we recommend restoring them as a REST admin, using the restore list. By default, the list contains the system indexes that are known to restore correctly to a new cluster that runs the same OpenSearch version.
+We recommend that you restore plugin system indexes as a REST admin. For more information, see [Restoring system indexes as a REST admin](#restoring-system-indexes-as-a-rest-admin).
 
 Users other than a super admin also need permission to restore snapshots, for example, through the `manage_snapshots` role. Only a super admin can restore the `.opendistro_security` index. For more information, see [Security considerations](#security-considerations).
 
-### Restore list
+### Restoring system indexes as a REST admin
 **Introduced 3.10**
 {: .label .label-purple }
 
-The `plugins.security.system_indices.restore.indices` setting lists the system indexes that a REST admin can restore. By default, the list contains plugin system indexes that are known to restore correctly to a new cluster that runs the same OpenSearch version. To view the default list, send the following request:
+The `plugins.security.system_indices.restore.indices` setting lists the system indexes that a REST admin can restore. By default, the list contains the system indexes that have been tested for restoration to a new cluster running the same OpenSearch version as the original cluster. To view the default list, send the following request:
 
 ```json
 GET /_cluster/settings?include_defaults=true&filter_path=defaults.plugins.security.system_indices.restore.indices
 ```
 {% include copy-curl.html %}
 
-To change the list, use the [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/). First, set `plugins.security.system_indices.restore.dynamic.enabled` to `true` in `opensearch.yml` on each node of the cluster that you're restoring to, and then restart the nodes. You only need to do this once. Then update the list. For example, the following request allows a REST admin to restore only the Index State Management configuration index:
+The list that you set replaces the default list, so include the default entries that you still need. Entries can be index names or wildcard patterns. Only a REST admin can update the list.
 
-```json
-PUT /_cluster/settings
-{
-  "persistent": {
-    "plugins.security.system_indices.restore.indices": [".opendistro-ism-config"]
-  }
-}
-```
-{% include copy-curl.html %}
+To change the list, follow these steps:
 
-The list that you set replaces the default list, so include the default entries that you still need. Entries can be index names or wildcard patterns. Updating the list requires a REST admin. The `.opendistro_security` index can't be restored this way, even if it matches an entry in the list. For more information about these settings, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/#expert-level-settings).
+1. In `opensearch.yml` on each node of the cluster that you're restoring to, set `plugins.security.system_indices.restore.dynamic.enabled` to `true`. You need to do this only once.
+1. Restart the nodes.
+1. Update the list using the [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/). For example, the following request allows a REST admin to restore only the Index State Management configuration index:
 
-When a user restores system indexes using the restore list, the following rules apply:
+   ```json
+   PUT /_cluster/settings
+   {
+     "persistent": {
+       "plugins.security.system_indices.restore.indices": [".opendistro-ism-config"]
+     }
+   }
+   ```
+   {% include copy-curl.html %}
 
-- Name each system index that you restore in the `indices` parameter, or match it using a pattern that is no broader than an entry in the restore list. For example, if the list contains `.opendistro-alerting-alert-history-*`, the request can use that pattern or `.opendistro-alerting-alert-history-2026.10*`. A broader pattern, such as `.opendistro-*`, is denied.
+The `.opendistro_security` index can't be restored using the list, even if it matches an entry in the list. For more information about these settings, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/#expert-level-settings).
+
+When you restore system indexes using the list, the following rules apply:
+
+- The request must name each system index in the `indices` parameter or match it using a pattern that is no broader than an entry in the list. For example, if the list contains `.opendistro-alerting-alert-history-*`, the request can use that pattern or `.opendistro-alerting-alert-history-2026.10*`. A broader pattern, such as `.opendistro-*`, is denied.
 - A request that restores system indexes can't rename indexes using `rename_pattern` and `rename_replacement`.
-- If any system index in the request is not in the restore list, OpenSearch denies the whole request with a `403 Forbidden` error. The error message names the system indexes that are not in the list.
+- If any system index in the request is not in the list, OpenSearch denies the whole request with a `403 Forbidden` error. The error message names the system indexes that are not in the list.
 
 ### Restoring system indexes to another cluster
 
 To restore plugin system indexes to another cluster, follow these steps:
 
-1. Configure the plugin settings, roles, and role mappings on the cluster that you're restoring to with the values from the original cluster. Restoring a snapshot doesn't bring them back, and a value that doesn't match changes who can access the restored data without reporting an error.
-1. If you're restoring as a REST admin, ensure that the [restore list](#restore-list) on the cluster that you're restoring to includes the system indexes.
+1. Copy the plugin settings, roles, and role mappings from the original cluster to the cluster that you're restoring to. Restoring system indexes doesn't restore settings, roles, or role mappings. If a value doesn't match, users might gain or lose access to the restored data, and OpenSearch doesn't report an error.
+1. If you're restoring as a REST admin, ensure that the [list of system indexes that a REST admin can restore](#restoring-system-indexes-as-a-rest-admin) on the cluster that you're restoring to contains the system indexes that you plan to restore.
 1. Register the snapshot repository on that cluster as read-only. For more information, see [Restoring a snapshot to a different cluster](#restoring-a-snapshot-to-a-different-cluster).
-1. Restore the data indexes and system indexes, following the order for each plugin in [Plugin system indexes](#plugin-system-indexes). Name each system index in the request or match it using a pattern, as described in [Restore list](#restore-list):
+1. Restore the data indexes and system indexes, following the order for each plugin in [Plugin system indexes](#plugin-system-indexes). Name each system index in the request or match it using a pattern, as described in [Restoring system indexes as a REST admin](#restoring-system-indexes-as-a-rest-admin). For example, the following request restores the `my-logs` index and the alerting indexes:
 
    ```json
    POST /_snapshot/my-repository/snapshot-1/_restore
@@ -935,17 +941,17 @@ To restore plugin system indexes to another cluster, follow these steps:
    ```
    {% include copy-curl.html %}
 
-1. Confirm that each plugin works on the cluster, for example, by listing its monitors or policies using the plugin's API.
+1. Verify that the data for each plugin was restored, for example, by listing monitors or policies using the plugin's API.
 
 ### Plugin system indexes
 
-The following table lists each plugin's main system index and where to find its restore order and other steps.
+The following table provides information about restoring each plugin's system indexes.
 
-| Plugin | System indexes | Restore order and other steps |
+| Plugin | System indexes | Restoration order and other steps |
 | :--- | :--- | :--- |
-| Alerting | `.opendistro-alerting-config` and other Alerting indexes | See [Restoring monitors and alerts from a snapshot]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/restore/) for the other indexes and steps. |
+| Alerting | `.opendistro-alerting-config` and other alerting indexes | See [Restoring monitors and alerts from a snapshot]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/restore/). |
 | Index State Management | `.opendistro-ism-config` | See [Restoring ISM from a snapshot]({{site.url}}{{site.baseurl}}/im-plugin/ism/restore/). |
-| Learning to Rank | `.ltrstore` and `.ltrstore_<store name>` for each named feature store | No restore order. |
+| Learning to Rank | `.ltrstore` and `.ltrstore_<store name>` for each named feature store | None. |
 
 ## Index codec considerations
 
