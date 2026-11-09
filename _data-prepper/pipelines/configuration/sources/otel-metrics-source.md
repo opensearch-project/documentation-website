@@ -60,5 +60,6 @@ The `otel_metrics_source` source includes the following metrics.
 ### Counters
 
 - `requestTimeouts`: Measures the total number of requests that time out.
+- `requestsRejectedByCircuitBreaker`: Measures the total number of requests rejected because the [circuit breaker]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#circuit-breakers) is open. These requests are rejected before the request body is read and are not counted in `requestTimeouts`.
 - `requestsReceived`: Measures the total number of requests received by the OpenTelemetry metrics source.
 

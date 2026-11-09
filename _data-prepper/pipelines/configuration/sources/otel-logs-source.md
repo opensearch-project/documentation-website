@@ -185,6 +185,7 @@ You can use the following metrics with the `otel_logs_source` source.
 | Option | Type | Description |
 | :--- | :--- | :--- | 
 | `requestTimeouts` | Counter | Measures the total number of requests that time out. | 
+| `requestsRejectedByCircuitBreaker` | Counter | Measures the total number of requests rejected because the [circuit breaker]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#circuit-breakers) is open. These requests are rejected before the request body is read and are not counted in `requestTimeouts`. |
 | `requestsReceived` | Counter | Measures the total number of requests received by the `otel_logs_source` source. |
 | `badRequests` | Counter | Measures the total number of requests that could not be parsed. |
 | `requestsTooLarge` | Counter | Measures the total number of requests that exceed the maximum allowed size. Indicates that the size of the data being written into the buffer is beyond the buffer's maximum capacity. |

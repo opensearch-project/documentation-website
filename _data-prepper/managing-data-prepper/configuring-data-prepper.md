@@ -88,7 +88,13 @@ Option | Required | Type | Description
 
 Data Prepper includes a circuit breaker to help prevent Java heap memory exhaustion. This is particularly useful for pipelines that use stateful processors, which retain data in memory beyond the buffers.
 
-When a circuit breaker is triggered, Data Prepper rejects incoming data routed into buffers until the breaker resets.
+When a circuit breaker is open, Data Prepper rejects incoming data until the breaker closes:
+
+- **All sources**: Writes to the pipeline buffer fail with a timeout. Each source handles this timeout in the same way as a full buffer. For example, the `http` source responds with `408 Request Timeout`. The following buffers do not reject writes:
+  - Buffers that store data outside of Data Prepper, such as the `kafka` buffer. The data is stored in Kafka and not in the JVM heap. Instead of rejecting writes, the `kafka` buffer stops reading data from Kafka into Data Prepper until the breaker closes.
+  - Buffers of pipelines that receive data from another pipeline. The first pipeline has already accepted the data.
+- **OpenTelemetry sources**: In addition, the `otel_trace_source`, `otel_logs_source`, `otel_metrics_source`, and `otlp` sources reject requests before reading the request body. gRPC requests receive `RESOURCE_EXHAUSTED` and HTTP requests receive `429 Too Many Requests`. Both responses include a retry delay based on the source's `retry_info` setting. Health checks are not rejected. These sources do not reject requests when they write to the `kafka` buffer or another buffer that stores data outside of Data Prepper.
+- **Peer Forwarder**: The Peer Forwarder server rejects forwarded batches with `429 Too Many Requests` and a `Retry-After` header. The sending node processes the rejected records locally.
 
 The following table lists the available circuit breaker configuration blocks.
 
@@ -100,11 +106,43 @@ Option | Required | Type | Description
 
 The `heap` circuit breaker configures Data Prepper to reject incoming data when the JVM heap reaches a specified usage threshold. The `heap` parameter supports the following values.
 
-Option | Required | Type | Description
-:--- |:---|:---| :---
-`usage` | Yes | Bytes | The JVM heap usage at which to trigger the circuit breaker (for example, `6.5gb`). If current usage exceeds this value, the breaker is triggered.
-`check_interval` | No | Duration | The time interval between heap size checks that determine whether the circuit breaker should be activated. Default is `500ms`.
-`reset` | No  | Duration | The minimum amount of time the circuit breaker remains activated before new heap size checks can attempt to deactivate it. Default is `1s`.
+Option | Required | Type | Default | Description
+:--- |:---|:---|:---| :---
+`usage` | Yes | Bytes | None | The JVM heap usage at which to open the circuit breaker (for example, `6.5gb`). If current usage exceeds this value, the breaker opens.
+`close_usage` | No | Bytes | Value of `usage` | The JVM heap usage at or below which the circuit breaker closes again (for example, `5.5gb`). Must be greater than `0` and must not exceed `usage`. A value below `usage` keeps the breaker open until enough memory has been freed, which prevents it from opening and closing in quick succession.
+`check_interval` | No | Duration | `500ms` | The time interval between heap usage checks.
+`reset` | No | Duration | `1s` | The minimum amount of time the circuit breaker remains open before heap usage checks can close it. Does not apply when the garbage collection requested on opening frees enough memory.
+
+The following example opens the circuit breaker above 6.5 GB of heap usage and closes it again at or below 5.5 GB:
+
+```yaml
+circuit_breakers:
+  heap:
+    usage: 6.5gb
+    close_usage: 5.5gb
+```
+{% include copy.html %}
+
+#### How the heap circuit breaker opens and closes
+
+Used heap includes garbage that the JVM has not yet collected, so heap usage can exceed `usage` even though Data Prepper is not overloaded. To distinguish between garbage and live data, the heap circuit breaker works as follows:
+
+1. When heap usage exceeds `usage`, the breaker opens and Data Prepper requests a garbage collection. If heap usage afterward is at or below `close_usage`, the breaker closes again in the same check. Data Prepper requests this garbage collection at most once every 5 seconds. If the breaker opens again within this interval, it stays open without a garbage collection.
+2. If the breaker stays open, it closes as soon as a check after the `reset` period finds heap usage at or below `close_usage`. While the breaker is open and heap usage stays above `close_usage`, Data Prepper requests another garbage collection after 5 seconds and doubles this interval after each attempt, up to 60 seconds.
+
+With the default G1 garbage collector, a requested garbage collection is a full collection that pauses all application threads. If the JVM runs with `-XX:+DisableExplicitGC`, Data Prepper cannot request garbage collections and the breaker only closes after the JVM collects garbage on its own.
+{: .note}
+
+#### Metrics
+
+The heap circuit breaker provides the following metrics.
+
+Metric | Type | Description
+:--- | :--- | :---
+`core.circuitBreakers.heap.open` | Gauge | `1` while the circuit breaker is open, `0` while it is closed.
+`core.circuitBreakers.heap.memoryUsage` | Gauge | The used JVM heap, in bytes.
+`core.circuitBreakers.heap.trips` | Counter | The number of times the circuit breaker opened. Includes openings that the requested garbage collection resolved in the same check, which the `open` gauge might not show.
+`core.circuitBreakers.heap.garbageCollection` | Timer | The garbage collections requested by the circuit breaker. The count shows how often the circuit breaker requested a garbage collection and the total and maximum time show how long these collections took.
 
 ## Extension plugins
 

@@ -189,6 +189,7 @@ The `otel_trace_source` source includes the following metrics.
 ### Counters
 
 - `requestTimeouts`: Measures the total number of requests that time out.
+- `requestsRejectedByCircuitBreaker`: Measures the total number of requests rejected because the [circuit breaker]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#circuit-breakers) is open. These requests are rejected before the request body is read and are not counted in `requestTimeouts`.
 - `requestsReceived`: Measures the total number of requests received by the `otel_trace` source.
 - `successRequests`: Measures the total number of requests successfully processed by the `otel_trace` source plugin.
 - `badRequests`: Measures the total number of requests with an invalid format processed by the `otel_trace` source plugin.
