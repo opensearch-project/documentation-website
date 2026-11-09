@@ -14,51 +14,51 @@ great_grand_parent: Integrating ML models
 
 The `google_cloud` connector protocol enables OpenSearch to call Google Cloud Vertex AI models. OpenSearch generates and refreshes the Google Cloud OAuth 2.0 access token and adds an `Authorization` header to each request, so you don't need to supply or rotate a token manually. This protocol is the Google Cloud equivalent of the [`aws_sigv4` protocol]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/aws-sigv4/) for AWS services.
 
-Google has renamed Vertex AI to Gemini Enterprise Agent Platform. The API endpoints that the connector calls, such as `aiplatform.googleapis.com`, are unchanged, so existing connectors continue to work.
+Google has renamed Vertex AI to Gemini Enterprise Agent Platform. The API endpoints called by the connector, such as `aiplatform.googleapis.com`, are unchanged, so existing connectors do not require modification.
 {: .note}
 
 ## Prerequisites
 
-Before creating a `google_cloud` connector, enable Vertex AI in your Google Cloud project and prepare either a service account key or, for nodes hosted on Google Cloud, Workload Identity. Then configure the following cluster settings.
+Before creating a `google_cloud` connector, enable Vertex AI in your Google Cloud project and prepare either a service account key or, for nodes hosted on Google Cloud, Workload Identity. Then configure the cluster settings by following these steps:
 
-The `google_cloud` protocol is disabled by default. To enable it, set the `plugins.ml_commons.connector.vertexai_enabled` cluster setting to `true`:
+1. Enable the `google_cloud` protocol, which is disabled by default. To enable it, set the `plugins.ml_commons.connector.vertexai_enabled` cluster setting to `true`:
 
-```json
-PUT /_cluster/settings
-{
-  "persistent": {
-    "plugins.ml_commons.connector.vertexai_enabled": true
-  }
-}
-```
-{% include copy-curl.html %}
+   ```json
+   PUT /_cluster/settings
+   {
+     "persistent": {
+       "plugins.ml_commons.connector.vertexai_enabled": true
+     }
+   }
+   ```
+   {% include copy-curl.html %}
 
-In OpenSearch 3.10 and later, the default `plugins.ml_commons.trusted_connector_endpoints_regex` list includes the Vertex AI host, so no further configuration is needed unless you have changed that setting.
+1. If you have changed the `plugins.ml_commons.trusted_connector_endpoints_regex` setting or are using a version of OpenSearch earlier than 3.10, add the Vertex AI host to the trusted connector endpoints. Starting with OpenSearch 3.10, the default value of this setting includes the Vertex AI host. 
 
-In OpenSearch 3.9, or if you have changed the setting, add the Vertex AI host pattern to it. This setting replaces the entire list of trusted endpoints, so first retrieve the list that is currently in effect:
+   First, retrieve the current list:
 
-```json
-GET /_cluster/settings?include_defaults=true&filter_path=**.trusted_connector_endpoints_regex
-```
-{% include copy-curl.html %}
+   ```json
+   GET /_cluster/settings?include_defaults=true&filter_path=**.trusted_connector_endpoints_regex
+   ```
+   {% include copy-curl.html %}
 
-Then send every pattern from the response together with the Vertex AI pattern:
+   Then update the list by appending the Vertex AI pattern:
 
-```json
-PUT /_cluster/settings
-{
-  "persistent": {
-    "plugins.ml_commons.trusted_connector_endpoints_regex": [
-      "<every pattern from the preceding response>",
-      "^https://([a-z0-9][a-z0-9-]*-)?aiplatform\\.googleapis\\.com/.*$"
-    ]
-  }
-}
-```
-{% include copy-curl.html %}
+   ```json
+   PUT /_cluster/settings
+   {
+     "persistent": {
+       "plugins.ml_commons.trusted_connector_endpoints_regex": [
+         "<every pattern from the preceding response>",
+         "^https://([a-z0-9][a-z0-9-]*-)?aiplatform\\.googleapis\\.com/.*$"
+       ]
+     }
+   }
+   ```
+   {% include copy-curl.html %}
 
-If you send only the Vertex AI pattern, it replaces the default list, and connectors for other providers, such as Amazon Bedrock or OpenAI, stop working. For the default list, see [Adding trusted endpoints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/#adding-trusted-endpoints).
-{: .warning}
+   The new list overwrites the existing one. If it contains only the Vertex AI pattern, then OpenSearch blocks connections to other providers, such as Amazon Bedrock or OpenAI. For the default list, see [Adding trusted endpoints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/#adding-trusted-endpoints).
+   {: .warning}
 
 ## Authentication modes
 

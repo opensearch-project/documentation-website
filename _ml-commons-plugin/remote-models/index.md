@@ -58,10 +58,6 @@ PUT /_cluster/settings
 This setting replaces the entire list of trusted endpoints, so include every pattern your cluster needs.
 {: .note}
 
-The Google Cloud Vertex AI pattern (for `aiplatform.googleapis.com` hosts) is part of the default list in OpenSearch 3.10 and later. In OpenSearch 3.9, add it yourself to use the [`google_cloud` connector protocol]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/google-cloud/).
-
-
-
 ### Setting up connector access control
 
 If you plan on using a remote connector, make sure to use an OpenSearch cluster with the Security plugin enabled. Using the Security plugin gives you access to connector access control, which is required when using a remote connector.
