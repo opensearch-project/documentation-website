@@ -30,7 +30,15 @@ The following table lists the available path parameters.
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `model_id` | String | The model ID. Required. |
-| `algorithm_name` | String | The algorithm name, for example, `kmeans`, `text_embedding`, or `remote`. The name is not case sensitive. If you use the `/_plugins/_ml/models/{model_id}/_predict` endpoint, OpenSearch uses the model's algorithm. |
+| `algorithm_name` | String | The algorithm name, for example, `kmeans`, `text_embedding`, or `remote`. The name is not case sensitive. If you use the `/_plugins/_ml/models/{model_id}/_predict` endpoint, OpenSearch uses the model's algorithm unless you specify the `algorithm` query parameter. |
+
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `algorithm` | String | Used with the `/_plugins/_ml/models/{model_id}/_predict` endpoint. The algorithm used to parse the request body, for example, `text_embedding`. Overrides the model's algorithm. Equivalent to `{algorithm_name}` in the `/_plugins/_ml/_predict/{algorithm_name}/{model_id}` endpoint. |
 
 ## Request body fields
 
@@ -44,14 +52,17 @@ Field | Data type | Required/Optional | Description
 `input_index` | Array | Optional | For models trained using the [Train API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train/), a list of indexes containing the data to predict.
 `input_query` | Object | Optional | For models trained using the Train API, a search query that selects the documents from `input_index`.
 `input_data` | Object | Optional | For models trained using the Train API, the data to predict, provided directly as a data frame containing `column_metas` and `rows`.
-`text_docs` | Array | Optional | For local text embedding, sparse encoding, and text similarity models, a list of input texts.
+`text_docs` | Array | Optional | For text embedding, sparse encoding, and text similarity models, a list of input texts. For externally hosted models, also specify the `algorithm` query parameter.
 `query_text` | String | Optional | For text similarity models, the query text compared with each entry in `text_docs`.
 `return_number` | Boolean | Optional | For local text embedding models, whether to return the embedding as numbers. Default is `true`.
 `target_response` | Array | Optional | For local text embedding models, a list of model output names to return, for example, `sentence_embedding`.
 `question` | String | Optional | For question answering models, the question to answer.
 `context` | String | Optional | For question answering models, the text containing the answer.
 
-For externally hosted models, the actual input fields depend on the model's connector configuration. For more information, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
+For externally hosted models, the actual input fields depend on the model's connector configuration. For more information, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). By default, externally hosted models read only the `parameters` field, so other fields such as `text_docs` are ignored. To send `text_docs` to an externally hosted embedding model, specify an algorithm, for example, `POST /_plugins/_ml/models/{model_id}/_predict?algorithm=text_embedding`. The connector's preprocessing function then converts `text_docs` into the parameters that the connector expects.
+
+In Amazon OpenSearch Serverless, the `/_plugins/_ml/_predict/{algorithm_name}/{model_id}` endpoint is not available, so use the `algorithm` query parameter instead.
+{: .note}
 
 ## Example request
 
