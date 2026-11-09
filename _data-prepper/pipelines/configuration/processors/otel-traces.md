@@ -49,7 +49,7 @@ The `disable_genai_enrichment`, `genai_coverage_cache_max_size`, and `genai_root
 
 ## GenAI agent trace enrichment
 
-The `otel_traces` processor enriches traces from GenAI agents and LLM applications so that agent runs can be found, listed, and measured from the spans themselves, for example, in the OpenSearch Dashboards **Agent Traces** page. Enrichment is turned on by default, is available in Data Prepper 2.15 and later, and does not change traces that contain no GenAI data.
+The `otel_traces` processor enriches traces from GenAI agents and LLM applications so that agent runs can be found, listed, and measured from the spans themselves, for example, in the OpenSearch Dashboards **Agent Traces** page. Enrichment is turned on by default, is available in Data Prepper 2.14 and later, and does not change traces that contain no GenAI data.
 
 Enrichment matches attributes by their OpenTelemetry (OTel) key names, for example, `gen_ai.operation.name`, so the source must emit spans in the OTel format. The [`otel_trace_source`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otel-trace-source/) source defaults to the `opensearch` format, so set its `output_format` to `otel`. The [`otlp`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otlp-source/) source uses the `otel` format by default. The `opensearch` format rewrites attribute keys (for example, `http.method` becomes `span.attributes.http@method`), and the enrichment then finds no GenAI data.
 {: .important}
