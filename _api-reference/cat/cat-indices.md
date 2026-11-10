@@ -43,6 +43,7 @@ The following table lists the available query parameters. All query parameters a
 | `health` | String | Limits indexes based on their health status. Supported values are `green`, `yellow`, and `red`. <br> Valid values are: `green`, `GREEN`, `yellow`, `YELLOW`, `red`, and `RED`. | N/A |
 | `help` | Boolean | Returns help information. | `false` |
 | `include_unloaded_segments` | Boolean | Whether to include information from segments not loaded into memory. | `false` |
+| `limit` | Integer | Maximum number of rows to return. Applied after sorting (`s`). Must be a positive integer. | N/A |
 | `local` | Boolean | Returns local information but does not retrieve the state from the cluster manager node. | `false` |
 | `pri` | Boolean | When `true`, returns information only from the primary shards. | `false` |
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
