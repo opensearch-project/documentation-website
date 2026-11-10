@@ -28,7 +28,7 @@ On this path, Migration Assistant runs the same workflow engine as every other p
 - **Image access** for isolated networks, such as mirroring the images into your own registry.
 - **Snapshot storage** and the access permissions the migration pods need to read and write it (for example, an Amazon S3 or Google Cloud Storage bucket).
 - **Logging and metrics** integration with your platform's observability stack.
-- **Storage classes and node autoscaling** tuned for your platform.
+- **Storage classes and node auto scaling** tuned for your platform.
 
 The migration engine, workflow model, and console experience are identical to the managed-cloud paths.
 

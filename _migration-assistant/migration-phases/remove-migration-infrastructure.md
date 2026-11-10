@@ -46,9 +46,12 @@ aws cloudformation wait stack-delete-complete --stack-name <STACK_NAME>
 
 This removes the EKS platform resources created by the solution stack.
 
-## Google Kubernetes Engine (GKE) removal
+## Google Kubernetes Engine removal
 
-If you used the GKE Terraform path, uninstall the Helm release and then destroy the Terraform-managed infrastructure:
+If you used the Google Kubernetes Engine (GKE) Terraform path, uninstall the Helm release and then destroy the Terraform-managed infrastructure:
+
+The GKE module creates the snapshot bucket with `force_destroy = true`, so `terraform destroy` deletes the bucket and every snapshot in it without prompting. Copy out anything you still need before running it.
+{: .warning }
 
 ```bash
 helm uninstall migration-assistant -n ma

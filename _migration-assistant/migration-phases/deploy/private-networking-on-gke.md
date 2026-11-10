@@ -125,7 +125,7 @@ On GKE, the proxy's service is annotated for an internal load balancer according
 
 - The internal load balancer lives in the migration subnet. Source clients must reach it over the VPC (through peering, a VPN, or the same VPC), the same as any other private leg.
 - Set the proxy's `internetFacing` option to `true` only if you deliberately want a public proxy endpoint. Leaving it unset (the default) keeps the proxy private.
-- The replayer-to-target leg reuses the target connectivity configured above, and Kafka runs in the cluster, so neither needs additional private-networking setup.
+- The Replayer-to-target leg reuses the target connectivity configured earlier, and Kafka runs in the cluster, so neither needs additional private-networking setup.
 
 ## Control-plane privacy
 
