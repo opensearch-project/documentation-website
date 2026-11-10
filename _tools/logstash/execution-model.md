@@ -9,34 +9,46 @@ redirect_from:
 
 # Logstash execution model
 
-Here's a brief introduction to how Logstash processes events internally.
+Logstash receives events on input threads, queues them, and processes them in batches on pipeline worker threads. The number of workers and the size of each batch determine how many events Logstash processes in parallel and how quickly each event reaches its destination.
 
 ## Handling events concurrently
 
-You can configure Logstash to have a number of inputs listening for events. Each input runs in its own thread to avoid inputs blocking each other. If you have two incoming events at the same time, Logstash handles both events concurrently.
+A Logstash pipeline can receive events from multiple inputs. Each input runs in its own thread so that inputs don't block each other. If two events arrive at the same time, Logstash receives both events concurrently.
 
-After receiving an event and possibly applying an input codec, Logstash sends the event to a work queue. Pipeline workers or batchers perform the rest of the work involving filters and outputs along with any codec used at the output. Each pipeline worker also runs within its own thread meaning that Logstash processes multiple events simultaneously.
+After an input receives an event and applies its codec, if any, Logstash adds the event to a work queue. _Pipeline workers_, or _batchers_, retrieve events from the queue and run the filters, outputs, and output codecs. Each pipeline worker runs in its own thread, so Logstash processes multiple events simultaneously.
 
 ## Processing events in batches
 
-A pipeline worker consumes events from the work queue in batches to optimize the throughput of the pipeline as a whole.
+A pipeline worker retrieves events from the work queue in batches. Batching improves throughput for the following reasons:
 
-One reason why Logstash works in batches is that some code needs to be executed regardless of how many events are processed at a time within the pipeline worker. Instead of executing that code 100 times for 100 events, it’s more efficient to run it once for a batch of 100 events.
+- Some processing must run once regardless of the number of events. Running it once for a batch of 100 events is more efficient than running it 100 times.
+- Some output plugins send events in groups. For example, the OpenSearch output plugin sends each batch of events to OpenSearch in a single Bulk API request.
 
-Another reason is that a few output plugins group events as batches. For example, if you send 100 requests to OpenSearch, the OpenSearch output plugin uses the Bulk API to send a single request that groups the 100 requests.
+Two settings determine when a pipeline worker processes a batch: the maximum batch size and the batch delay. A worker processes a batch when the batch reaches the maximum size or when the batch delay has elapsed, whichever happens first. For example, if the maximum batch size is 50 and the batch delay is 100 ms, a worker processes a batch as soon as it contains 50 events or 100 ms after it starts collecting events.
 
-Logstash determines the batch size by two configuration options⁠---a number representing the maximum batch size and the batch delay. The batch delay is how long Logstash waits before processing the unprocessed batch of events.
-If you set the maximum batch size to 50 and the batch delay to 100 ms, Logstash processes a batch if they're either 50 unprocessed events in the work queue or if one hundred milliseconds have elapsed.
+The batch delay ensures that pipelines with a low volume of events process them without long delays. For example, if a pipeline sends web server error logs to OpenSearch, it might take a long time to collect 50 events. Because of the batch delay, the errors appear in OpenSearch Dashboards within milliseconds.
 
-The reason that a batch is processed, even if the maximum batch size isn’t reached, is to reduce the delay in processing and to continue to process events in a timely manner. This works well for pipelines that process a low volume of events.
+The default values work for most pipelines. Change them only if you need to tune pipeline performance.
 
-Imagine that you’ve a pipeline that processes error logs from web servers and pushes them to OpenSearch. You’re using OpenSearch Dashboards to analyze the error logs. Because you’re possibly dealing with a fairly low number of events, it might take a long time to reach 50 events. Logstash processes the events before reaching this threshold because otherwise there would be a long delay before we see the errors appear in OpenSearch Dashboards.
+## Pipeline workers and CPU cores
 
-The default batch size and batch delay work for most cases. You don’t need to change the default values unless you need to minutely optimize the performance.
+Pipeline workers can process events in parallel only if enough CPU cores are available. For example, if you run 5 workers on a server with 2 CPU cores, the workers compete for the cores. If you run 5 workers on a server with 10 CPU cores, half of the cores are not used for event processing.
 
-## Optimizing based on CPU cores
+By default, Logstash sets the number of pipeline workers to the number of CPU cores on the host. Because Logstash determines this number at startup, you don't need to configure Logstash separately for hosts with different numbers of cores, such as a development computer and a production server.
 
-The number of pipeline workers are proportional to the number of CPU cores on the nodes.
-If you have 5 workers running on a server with 2 CPU cores, the 5 workers won't be able to process events concurrently. On the other hand, running 5 workers on a server running 10 CPU cores limits the throughput of a Logstash instance.
+## Settings
 
-Instead of running a fixed number of workers, which results in poor performance in some cases, Logstash examines the number of CPU cores of the instance and selects the number of pipeline workers to optimize its performance for the platform on which its running. For instance, your local development machine might not have the same processing power as a production server. So you don't need to manually configure Logstash for different machines.
+The following table lists the settings that control pipeline workers and batching. Specify the settings in the `config/logstash.yml` file or pass them as command-line arguments when you start Logstash.
+
+Setting | Command-line argument | Description
+:--- | :--- | :---
+`pipeline.workers` | `-w` | The number of pipeline workers. Default is the number of CPU cores on the host.
+`pipeline.batch.size` | `-b` | The maximum number of events that a pipeline worker collects before processing them. Default is `125`.
+`pipeline.batch.delay` | `-u` | The time, in milliseconds, that a pipeline worker waits for new events before processing a batch that has not reached the maximum size. Default is `50`.
+
+For example, the following command starts Logstash with 4 pipeline workers and a maximum batch size of 250:
+
+```bash
+bin/logstash -f config/pipeline.conf -w 4 -b 250
+```
+{% include copy.html %}

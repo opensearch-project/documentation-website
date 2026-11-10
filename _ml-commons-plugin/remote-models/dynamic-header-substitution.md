@@ -16,7 +16,11 @@ By default, connector headers are resolved once at connector creation time. Dyna
 
 ## Configuring dynamic headers
 
-To configure a dynamic header, define the header with a `${parameters.*}` placeholder in the connector's `actions[].headers` field. You can optionally set a default value for the parameter in the top-level `parameters` field:
+To configure a dynamic header, define the header with a `${parameters.*}` placeholder in the connector's `actions[].headers` field. You can optionally set a default value for the parameter in the top-level `parameters` field.
+
+The following example uses the placeholder endpoint `api.example.com`. Connector URLs must match a pattern in `plugins.ml_commons.trusted_connector_endpoints_regex`, so replace the endpoint with your model's endpoint or add it to the trusted endpoints. For more information, see [Adding trusted endpoints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/#adding-trusted-endpoints).
+
+To create a connector containing a dynamic header, send the following request:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -95,12 +99,19 @@ The following headers cannot contain `${parameters.*}` placeholders. Using them 
 
 ## Runtime validation
 
-At prediction time, substituted header values are validated before the request is sent:
+Before substitution, OpenSearch JSON-escapes the parameter values in the `_predict` request. A newline in a runtime value reaches the header as the two characters `\n`, and other control characters reach it as escape sequences such as `\u0001`. The following values are substituted without escaping:
 
-- Header values containing `\r` or `\n` characters are rejected to prevent HTTP response splitting.
-- Values containing control characters (`0x00–0x1F`, except tab) are rejected.
-- Each individual header value must not exceed 8 KB.
-- The combined size of all headers must not exceed 64 KB.
+- Values of parameters listed in the `no_escape_params` parameter of the `_predict` request
+- Values that are valid JSON objects or arrays
+- Default values from the connector's `parameters` field
+
+At prediction time, substituted header values are validated before the request is sent to the model endpoint. A prediction request whose headers fail any of the following checks returns a 400 error:
+
+- Header values that contain a carriage return (`\r`), a line feed (`\n`), or another control character (`0x00–0x1F`, except tab, and `0x7F`) are rejected to prevent HTTP response splitting. Because runtime values are escaped, this applies only to values substituted without escaping.
+- Each header, including its name and value, must not exceed 8 KB (8,192 characters).
+- The combined size of all header names and values must not exceed 64 KB (65,536 characters).
+
+The size limits apply to the escaped values, so escape sequences count toward them. For example, a `"` character in a runtime value counts as two characters (`\"`).
 
 ## Next steps
 

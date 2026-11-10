@@ -2,7 +2,7 @@
 layout: default
 title: Search model group
 parent: Model group APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 40
 ---
 
@@ -81,7 +81,8 @@ POST /_plugins/_ml/model_groups/_search
               "test_ml"
             ],
             "name": "user1",
-            "user_requested_tenant": "__user__"
+            "user_requested_tenant": "__user__",
+            "user_requested_tenant_access": "NONE"
           },
           "created_time": 1685734407714,
           "access": "restricted",
@@ -114,7 +115,8 @@ POST /_plugins/_ml/model_groups/_search
               "test_ml"
             ],
             "name": "user1",
-            "user_requested_tenant": "__user__"
+            "user_requested_tenant": "__user__",
+            "user_requested_tenant_access": "NONE"
           },
           "created_time": 1685734410470,
           "access": "restricted",
@@ -206,7 +208,8 @@ GET /_plugins/_ml/model_groups/_search
               "test_ml"
             ],
             "name": "user1",
-            "user_requested_tenant": "__user__"
+            "user_requested_tenant": "__user__",
+            "user_requested_tenant_access": "NONE"
           },
           "created_time": 1685734407714,
           "access": "restricted",
@@ -276,7 +279,6 @@ GET /_plugins/_ml/model_groups/_search
           ],
           "owner": {
             "backend_roles": [
-              "",
               "HR",
               "IT"
             ],
@@ -287,9 +289,11 @@ GET /_plugins/_ml/model_groups/_search
               "test-ml"
             ],
             "name": "user1",
-            "user_requested_tenant": null
+            "user_requested_tenant": null,
+            "user_requested_tenant_access": "NONE"
           },
           "created_time": 1684362035938,
+          "access": "restricted",
           "latest_version": 2,
           "last_updated_time": 1684362571300,
           "name": "model_group_test",

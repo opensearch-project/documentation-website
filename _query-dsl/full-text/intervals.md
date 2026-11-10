@@ -142,6 +142,7 @@ Rule | Description
 [`match`](#the-match-rule) | Matches analyzed text.
 [`prefix`](#the-prefix-rule) | Matches terms that start with a specified set of characters.
 [`wildcard`](#the-wildcard-rule) | Matches terms using a wildcard pattern.
+[`regexp`](#the-regexp-rule) | Matches terms using a regular expression.
 [`fuzzy`](#the-fuzzy-rule) | Matches terms that are similar to the provided term within a specified edit distance. 
 [`all_of`](#the-all_of-rule) | Combines multiple rules using a conjunction (`AND`).
 [`any_of`](#the-any_of-rule) | Combines multiple rules using a disjunction (`OR`).
@@ -182,6 +183,92 @@ Parameter | Required/Optional | Data type | Description
 Specifying patterns that start with `*` or `?` can hinder search performance because it increases the number of iterations required to match terms.
 {: .important}
 
+## The `regexp` rule
+
+The `regexp` rule matches terms using a [regular expression]({{site.url}}{{site.baseurl}}/query-dsl/regex-syntax/). The regular expression must match an entire term. By default, the regular expression can expand to match at most 128 terms in each index segment. If it matches more terms than the limit in a segment, an error is returned. To change the limit, specify the `max_expansions` parameter. The following table lists all parameters the `regexp` rule supports.
+
+Parameter | Required/Optional | Data type | Description
+:--- | :--- | :--- | :---
+`pattern` | Required | String | The [regular expression]({{site.url}}{{site.baseurl}}/query-dsl/regex-syntax/) used to match terms.
+`flags` | Optional | String | Enables optional regular expression operators. Separate multiple operators with a vertical bar. For valid values, see [Optional operators]({{site.url}}{{site.baseurl}}/query-dsl/regex-syntax/#optional-operators). Default is `ALL`.
+`flags_value` | Optional | Integer | The `flags` expressed as an integer bit mask of Lucene regular expression syntax flags. If you specify both `flags` and `flags_value`, `flags_value` takes precedence.
+`case_insensitive` | Optional | Boolean | If `true`, the `pattern` matches terms regardless of letter case. Default is `false`.
+`max_expansions` | Optional | Integer | The maximum number of terms that the regular expression can expand to in each index segment. If the regular expression matches more terms in a segment, an error is returned. If the value is `0` or less, the default is used. The value cannot exceed the value of the [`indices.query.bool.max_clause_count`]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/cluster-settings-for-indexes/) setting (default is `1024`). Default is `128`.
+`use_field` | Optional | String | The field to search instead of the top-level `<field>`. The `pattern` is matched against the terms indexed in this field.
+
+The `regexp` rule does not accept an `analyzer` parameter, so the `pattern` is not analyzed or normalized. The pattern is matched exactly as written against the terms stored in the index. For example, a field that uses the `standard` analyzer stores lowercase terms, so the pattern `Stor(e|ed)` returns no results unless `case_insensitive` is set to `true`.
+
+### Example: Match word variants
+
+The following query uses the documents indexed at the beginning of this page. It searches for documents in which a term matching the regular expression `stor(e|ed)` (either `store` or `stored`) and the term `hash` have at most three positions between them:
+
+```json
+GET /testindex/_search
+{
+  "query": {
+    "intervals": {
+      "title": {
+        "all_of": {
+          "max_gaps": 3,
+          "intervals": [
+            {
+              "regexp": {
+                "pattern": "stor(e|ed)"
+              }
+            },
+            {
+              "match": {
+                "query": "hash"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains only document 1. In document 1, the terms `stored` and `hash` have two terms between them (`in` and `a`). In document 2, the terms `store` and `hash` have five terms between them (`key`, `value`, `pairs`, `in`, and `a`), which exceeds the `max_gaps` value of `3`:
+
+<details markdown="block">
+  <summary>
+    Response
+  </summary>
+  {: .text-delta}
+
+```json
+{
+  "took": 2,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 0.25,
+    "hits": [
+      {
+        "_index": "testindex",
+        "_id": "1",
+        "_score": 0.25,
+        "_source": {
+          "title": "key-value pairs are efficiently stored in a hash table"
+        }
+      }
+    ]
+  }
+}
+```
+</details>
+
 ## The `fuzzy` rule
 
 The `fuzzy` rule matches terms that are similar to the provided term within a specified edit distance. The fuzzy pattern can expand to match at most 128 terms. If the pattern matches more than 128 terms, an error is returned. The following table lists all parameters the `fuzzy` rule supports.
@@ -190,7 +277,7 @@ Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :---
 `term` | Required | String | The term to match. 
 `analyzer` | Optional | String | The [analyzer]({{site.url}}{{site.baseurl}}/analyzers/index/) used to normalize the `term`. Default is the analyzer specified for the `<field>`.
-`fuzziness` | Optional | String | The number of character edits (insert, delete, substitute) that it takes to change one word to another when determining whether a term matched a value. For example, the distance between `wined` and `wind` is 1. Valid values are non-negative integers or `AUTO`. The default, `AUTO`, dynamically selects the edit distance based on the search term's length. You can customize the thresholds using the syntax `AUTO:[low],[high]`, where `low` and `high` define the character length boundaries. When omitted, OpenSearch uses `AUTO:3,6` as the default, which applies the following rules: <br>- Terms containing 0--2 characters: Requires an exact match (0 edits). <br>- Terms containing 3--5 characters: Allows a maximum of 1 edit. <br>- Terms containing 6 or more characters: Allows a maximum of 2 edits. <br>For example, `AUTO:4,7` requires exact matches for terms containing 0--3 characters, allows a maximum of 1 edit for terms containing 4--6 characters, and allows a maximum of 2 edits for terms containing 7 or more characters. Using `AUTO` is recommended for most scenarios.
+`fuzziness` | Optional | String | The maximum number of edits allowed when matching the term, specified as `0`, `1`, `2`, `AUTO`, or `AUTO:<low>,<high>`. Default is `AUTO`. For more information, see [Fuzziness]({{site.url}}{{site.baseurl}}/query-dsl/fuzziness/).
 `transpositions` | Optional | Boolean | Setting `transpositions` to `true` (default) adds swaps of adjacent characters to the insert, delete, and substitute operations of the `fuzziness` option. For example, the distance between `wind` and `wnid` is 1 if `transpositions` is true (swap "n" and "i") and 2 if it is false (delete "n", insert "n"). If `transpositions` is `false`, `rewind` and `wnid` have the same distance (2) from `wind`, despite the more human-centric opinion that `wnid` is an obvious typo. The default is a good choice for most use cases.
 `prefix_length`| Optional | Integer | The number of beginning characters left unchanged for fuzzy matching. Default is 0. 
 `use_field` | Optional | String | Specifies to search this field instead of the top-level <field>. The `term` is normalized using the search analyzer specified for this field, unless you specify an `analyzer`.
@@ -231,7 +318,7 @@ Parameter | Required/Optional | Data type | Description
 `overlapping` | Optional | Query object |  A query used to return intervals that overlap with an interval specified in the filter rule. 
 `script` | Optional | Script object |  A script used to match documents. This script must return `true` or `false`. 
 
-#### Example: Filters
+### Example: Filters
 
 The following query searches for documents containing the words `pairs` and `hash` that are within five positions of each other and don't contain the word `efficiently` between them:
 
@@ -298,7 +385,7 @@ The response contains only document 2:
 ```
 </details>
 
-#### Example: Script filters
+### Example: Script filters
 
 Alternatively, you can write your own script filter to include with the `intervals` query using the following variables:
 

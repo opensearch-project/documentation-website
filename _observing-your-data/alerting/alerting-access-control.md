@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Alerting resource access control
-nav_order: 12
+nav_order: 50
 parent: Alerting
 has_children: false
 ---

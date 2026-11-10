@@ -122,7 +122,7 @@ To update the date source, run the following query:
 ```json
 PUT /_plugins/geospatial/ip2geo/datasource/my-datasource/_settings
 {
-    "endpoint": https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json,
+    "endpoint": "https://geoip.maps.opensearch.org/v1/geolite2-city/manifest.json",
     "update_interval_in_days": 10
 }
 ```
@@ -143,7 +143,7 @@ DELETE /_plugins/geospatial/ip2geo/datasource/my-datasource
 
 Once the data source is created, you can create the pipeline. 
 
-## Syntax 
+## Syntax
 
 The following is the syntax for the `ip2geo` processor:
 
@@ -155,9 +155,8 @@ The following is the syntax for the `ip2geo` processor:
   }
 }
 ```
-{% include copy-curl.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `ip2geo` processor.
 
@@ -172,13 +171,13 @@ The following table lists the required and optional parameters for the `ip2geo` 
 | `if` | Optional | A condition for running the processor. |
 | `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, failures are ignored. Default is `false`. |
 | `on_failure` | Optional | A list of processors to run if the processor fails. |
-| `tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
+| `tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging). |
 
 ## Using the processor
 
 Follow these steps to use the processor in a pipeline.
 
-**Step 1: Create a pipeline**
+### Step 1: Create a pipeline
 
 The following query creates a pipeline, named `my-pipeline`, that converts the IP address to geographical information:
 
@@ -198,7 +197,7 @@ PUT /_ingest/pipeline/my-pipeline
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline**
+### Step 2 (Optional): Test the pipeline
 
 {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/icons/info-icon.png" class="inline-icon" alt="info icon"/>{:/} **NOTE**<br>It is recommended that you test your pipeline before you ingest documents.
 {: .note}
@@ -219,8 +218,6 @@ POST _ingest/pipeline/my-pipeline/_simulate
   ]
 }
 ```
-
-**Response**
 
 The following response confirms that the pipeline is working as expected:
 
@@ -247,9 +244,8 @@ The following response confirms that the pipeline is working as expected:
   ]
 }
 ```
-{% include copy-curl.html %}
 
-**Step 3: Ingest a document**
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `my-index`:
 
@@ -261,7 +257,7 @@ PUT /my-index/_doc/my-id?pipeline=my-pipeline
 ```
 {% include copy-curl.html %}
 
-**Step 4 (Optional): Retrieve the document** 
+### Step 4 (Optional): Retrieve the document
 
 To retrieve the document, run the following query:
 
@@ -269,3 +265,5 @@ To retrieve the document, run the following query:
 GET /my-index/_doc/my-id
 ```
 {% include copy-curl.html %}
+
+The response contains the ingested document, transformed as shown in the response in Step 2.

@@ -136,11 +136,15 @@ arn:aws:iam::your_aws_account_id:role/*
 
 Because `all_access` includes more permissions than `ml_full_access`, mapping the backend role to `all_access` is also acceptable.
 
+If your domain access policy does not already allow this role, add the role to the domain access policy.
+
 ## Step 2: Run the CloudFormation template  
 
 The CloudFormation template integration is available in the [Amazon OpenSearch Service console](https://console.aws.amazon.com/aos/home). From the left navigation pane, select **Integrations**, as shown in the following image.
 
 ![Semantic search CloudFormation integration]({{site.url}}{{site.baseurl}}/images/vector-search-tutorials/semantic_search_remote_model_Integration_1.png)  
+
+The integration provides one template for public domains and one for virtual private cloud (VPC) domains. If your domain is in a VPC, choose the VPC domain template and enter the **Security Group Ids** and **Subnet Ids** in which to run the template's Lambda function. The Lambda function must be able to reach your domain.
 
 Choose one of the following options to deploy a model to Amazon SageMaker.
 
@@ -153,11 +157,13 @@ You can deploy a pretrained Hugging Face sentence transformer embedding model fr
 Complete the following fields, keeping all other fields at their default values:  
 
 1. Enter your **Amazon OpenSearch Endpoint**.  
-2. Use the default **SageMaker Configuration** to start quickly, or you can modify it as needed. For supported Amazon SageMaker instance types, see the [Amazon SageMaker documentation](https://aws.amazon.com/sagemaker/).  
-3. Leave the **SageMaker Endpoint Url** field empty. If you provide a URL, the model will not be deployed to Amazon SageMaker, and a new inference endpoint will not be created.  
-4. Leave the **Custom Image** field empty. The default image is `djl-inference:0.22.1-cpu-full`. For available images, see the [AWS Deep Learning Containers](https://docs.aws.amazon.com/deep-learning-containers/latest/devguide/deep-learning-containers-images.html).  
-5. Leave the **Custom Model Data Url** field empty.  
-6. The **Custom Model Environment** field defaults to `djl://ai.djl.huggingface.pytorch/sentence-transformers/all-MiniLM-L6-v2`. For a list of supported models, see [Supported models](#supported-models).  
+2. Enter a **Model Name**. The template uses this name for the SageMaker model and endpoint and for the OpenSearch model.
+3. Use the default **SageMaker Configuration** to start quickly, or you can modify it as needed. For supported Amazon SageMaker instance types, see the [Amazon SageMaker documentation](https://aws.amazon.com/sagemaker/).  
+4. Leave the **SageMaker Endpoint Url** field empty. If you provide a URL, the model will not be deployed to Amazon SageMaker, and a new inference endpoint will not be created.  
+5. Leave the **Custom Image** field empty. The default image is `djl-inference:0.22.1-cpu-full`. For available images, see the [AWS Deep Learning Containers](https://docs.aws.amazon.com/deep-learning-containers/latest/devguide/deep-learning-containers-images.html).  
+6. Leave the **Custom Model Data Url** field empty.  
+7. The **Custom Model Environment** field defaults to `djl://ai.djl.huggingface.pytorch/sentence-transformers/all-MiniLM-L6-v2`. For a list of supported models, see [Supported models](#supported-models).  
+8. Enter the **Model output embedding dimension** and the **Space type of the model**. For the default `all-MiniLM-L6-v2` model, the dimension is `384`. These fields are required.
 
 ### Option 2: Use an existing SageMaker inference endpoint  
 
@@ -168,8 +174,10 @@ If you already have a SageMaker inference endpoint, you can configure a model us
 Complete the following fields, keeping all others at their default values:  
 
 1. Enter your **Amazon OpenSearch Endpoint**.  
-2. Enter your **SageMaker Endpoint Url**.  
-3. Leave the **Custom Image**, **Custom Model Data Url**, and **Custom Model Environment** fields empty.  
+2. Enter a **Model Name**. The template uses this name for the OpenSearch model.
+3. Enter your **SageMaker Endpoint Url**.  
+4. Leave the **Custom Image**, **Custom Model Data Url**, and **Custom Model Environment** fields empty.  
+5. Enter the **Model output embedding dimension** and the **Space type of the model** for the model that your endpoint serves. These fields are required.
 
 ### Output
 
@@ -177,9 +185,9 @@ After deployment, you can find the OpenSearch AI connector and model IDs in the 
 
 If an error occurs, follow these steps to review the logs:
 
-1. Open the Amazon SageMaker console.
-1. Navigate to the **CloudWatch Logs** section.
-1. Search for **Log Groups** that contain (or are associated with) your CloudFormation stack name.
+1. Open the Amazon CloudWatch console.
+1. Select **Log groups**.
+1. Search for log groups that contain the model name that you entered in the template. The template's Lambda functions write to the `/aws/lambda/HelperLambdaFunction-<model_name>` and `/aws/lambda/ConnectorLambdaFunction-<model_name>` log groups.
 
 ## Supported models
 
@@ -274,3 +282,9 @@ djl://ai.djl.huggingface.pytorch/sentence-transformers/xlm-r-100langs-bert-base-
 djl://ai.djl.huggingface.pytorch/sentence-transformers/xlm-r-bert-base-nli-stsb-mean-tokens/
 djl://ai.djl.huggingface.pytorch/sentence-transformers/xlm-r-distilroberta-base-paraphrase-v1/
 ```
+
+## Related documentation
+
+- [Semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/semantic-search/)
+- [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/)
+- [Connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/)

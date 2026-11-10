@@ -149,7 +149,7 @@ To create a connector and register the model, use the following steps.
 
 ### Step 1.1: Create a connector for the model
 
-First, create a connector for the model. 
+First, create a connector for the model. The AWS identity that the connector uses must be allowed to perform the `bedrock:Rerank` action on all resources (`"Resource": "*"`) and the `bedrock:InvokeModel` action on the reranker model (for example, `arn:aws:bedrock:us-west-2::foundation-model/amazon.rerank-v1:0`). The `bedrock:Rerank` action can't be scoped to a model. For an example policy, see [Permissions for reranking in Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/rerank-prereq.html).
 
 If you are using self-managed OpenSearch, supply your AWS credentials:
 
@@ -353,19 +353,19 @@ By default, the Amazon Bedrock Rerank API output is formatted as follows:
 [
   {
     "index": 2,
-    "relevanceScore": 0.7711548724998493
+    "relevanceScore": 0.7711548805236816
   },
   {
     "index": 0,
-    "relevanceScore": 0.0025114635138098534
+    "relevanceScore": 0.0025114635936915874
   },
   {
     "index": 1,
-    "relevanceScore": 2.4876490010363496e-05
+    "relevanceScore": 2.4876489987946115e-05
   },
   {
     "index": 3,
-    "relevanceScore": 6.339210403977635e-06
+    "relevanceScore": 6.339210358419223e-06
   }
 ]
 ```
@@ -386,7 +386,7 @@ The response contains four `similarity` outputs. For each `similarity` output, t
             1
           ],
           "data": [
-            0.0025114636
+            0.0025114635936915874
           ]
         },
         {
@@ -396,7 +396,7 @@ The response contains four `similarity` outputs. For each `similarity` output, t
             1
           ],
           "data": [
-            2.487649e-05
+            2.4876489987946115E-5
           ]
         },
         {
@@ -406,7 +406,7 @@ The response contains four `similarity` outputs. For each `similarity` output, t
             1
           ],
           "data": [
-            0.7711549
+            0.7711548805236816
           ]
         },
         {
@@ -416,7 +416,7 @@ The response contains four `similarity` outputs. For each `similarity` output, t
             1
           ],
           "data": [
-            6.3392104e-06
+            6.339210358419223E-6
           ]
         }
       ],
@@ -514,12 +514,12 @@ The first document in the response is `Carson City is the capital city of the Am
       "value": 4,
       "relation": "eq"
     },
-    "max_score": 2.5045562,
+    "max_score": 1.1384345,
     "hits": [
       {
         "_index": "my-test-data",
         "_id": "1",
-        "_score": 2.5045562,
+        "_score": 1.1384345,
         "fields": {
           "passage_text": [
             "Carson City is the capital city of the American state of Nevada."
@@ -534,7 +534,7 @@ The first document in the response is `Carson City is the capital city of the Am
       {
         "_index": "my-test-data",
         "_id": "2",
-        "_score": 0.5807494,
+        "_score": 0.263977,
         "fields": {
           "passage_text": [
             "The Commonwealth of the Northern Mariana Islands is a group of islands in the Pacific Ocean. Its capital is Saipan."
@@ -550,7 +550,7 @@ The first document in the response is `Carson City is the capital city of the Am
       {
         "_index": "my-test-data",
         "_id": "3",
-        "_score": 0.5261191,
+        "_score": 0.23914504,
         "fields": {
           "passage_text": [
             "Washington, D.C. (also known as simply Washington or D.C., and officially as the District of Columbia) is the capital of the United States. It is a federal district."
@@ -567,7 +567,7 @@ The first document in the response is `Carson City is the capital city of the Am
       {
         "_index": "my-test-data",
         "_id": "4",
-        "_score": 0.5083029,
+        "_score": 0.23104677,
         "fields": {
           "passage_text": [
             "Capital punishment (the death penalty) has existed in the United States since beforethe United States was a country. As of 2017, capital punishment is legal in 30 of the 50 states."
@@ -667,7 +667,7 @@ The first document in the response is `"Washington, D.C. (also known as simply W
       {
         "_index": "my-test-data",
         "_id": "2",
-        "_score": 02.487649e-05,
+        "_score": 2.487649e-05,
         "fields": {
           "passage_text": [
             "The Commonwealth of the Northern Mariana Islands is a group of islands in the Pacific Ocean. Its capital is Saipan."
@@ -732,3 +732,8 @@ POST my-test-data/_search?search_pipeline=rerank_pipeline_bedrock
 ```
 {% include copy-curl.html %}
 
+## Related documentation
+
+- [Reranking search results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/reranking-search-results/)
+- [Rerank processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/)
+- [Connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/)

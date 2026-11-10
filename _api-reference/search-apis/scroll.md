@@ -255,8 +255,7 @@ DELETE /_search/scroll/DXF1ZXJ5QW5kRmV0Y2gBAAAAAAAAAAcWdmpUZDhnRFBUcWFtV21nMmFwU
 
 
 response = client.clear_scroll(
-  scroll_id = "DXF1ZXJ5QW5kRmV0Y2gBAAAAAAAAAAcWdmpUZDhnRFBUcWFtV21nMmFwUGJEQQ==",
-  body = { "Insert body here" }
+  scroll_id = "DXF1ZXJ5QW5kRmV0Y2gBAAAAAAAAAAcWdmpUZDhnRFBUcWFtV21nMmFwUGJEQQ=="
 )
 
 {% endcapture %}
@@ -280,8 +279,7 @@ DELETE /_search/scroll/_all
 
 
 response = client.clear_scroll(
-  scroll_id = "_all",
-  body = { "Insert body here" }
+  scroll_id = "_all"
 )
 
 {% endcapture %}

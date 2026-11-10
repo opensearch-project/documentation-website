@@ -186,7 +186,7 @@ The `forward_index` algorithm parameter controls how the native engine stores th
 
 Both layouts are memory mapped and apply the same quantization. The `forward_index` parameter selects where forward index data is placed; the precision at which it is stored is the same for both layouts.
 
-If you set `engine` to `lucene` and specify a `forward_index` value other than `shared`, the request is rejected.
+If a field uses the Lucene engine and specifies a `forward_index` value other than `shared` or a `clustering_batch_size` value other than `1`, the request is rejected.
 {: .warning}
 
 #### Considerations for the native engine
@@ -197,6 +197,7 @@ Before choosing the native engine, note the following:
 - The sparse memory statistics returned by the [Neural Search Stats API]({{site.url}}{{site.baseurl}}/vector-search/api/neural/#stats) report Lucene engine cache usage only. They do not account for native engine index memory.
 - The `plugins.neural_search.circuit_breaker.limit` setting has no effect on the native engine.
 - The native engine requires an index whose data is stored on the local filesystem.
+- The native engine memory maps its index file, so it is unavailable on nodes on which [`node.store.allow_mmap`]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/configuration-system/#memory-and-storage-settings) is `false`.
 
 ## Step 1: Create an index
 
@@ -300,8 +301,8 @@ GET /my-sparse-ann-index/_search
     "neural_sparse": {
       "sparse_embedding": {
         "query_tokens": {
-          "1055": 1.7,
-          "2931": 2.3
+          "23": 1.7,
+          "300": 2.3
         },
         "method_parameters": {
           "k": 10,

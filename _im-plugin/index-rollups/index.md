@@ -30,7 +30,7 @@ A job aggregates the source documents on a timestamp field, using either a fixed
 
 Choose the fields to group by carefully. Highly granular fields produce nearly as many rolled-up documents as source documents and save little space. The order of the fields matters: group by the fields with the fewest buckets first. For a dataset of demographics by city, for example, group by city and save the demographics as metrics.
 
-A job runs on a fixed interval or on a schedule that you define with a [cron expression]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#cron-expressions), and processes a number of pages per run that trades run time against memory. Add an execution delay to give ingestion time to finish: with a delay of 10 minutes, the run that rolls up the hour from 1 PM to 2 PM starts at 2:10 PM. Mark the job as continuous to roll up data as it is ingested rather than in one pass.
+A job runs on a fixed interval or on a schedule that you define with a [cron expression]({{site.url}}{{site.baseurl}}/api-reference/cron-expressions/), and processes a number of pages per run that trades run time against memory. Add an execution delay to give ingestion time to finish: with a delay of 10 minutes, the run that rolls up the hour from 1 PM to 2 PM starts at 2:10 PM. Mark the job as continuous to roll up data as it is ingested rather than in one pass.
 
 To create a job, use the [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/) or the steps in [Creating a rollup job](#creating-a-rollup-job).
 
@@ -1325,7 +1325,7 @@ A rollup job needs a source index that contains a timestamp field. If your clust
 
    1. To run the job on its schedule rather than only when a policy calls it, keep **Enable job by default** selected.
    1. To roll up data as it is ingested, select **Yes** in **Continuous**.
-   1. In **Rollup execution frequency**, select **Define by fixed interval** and enter the **Rollup interval**, or select **Define by cron expression** and enter a cron expression and a time zone. For the expression syntax, see [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#cron-expressions).
+   1. In **Rollup execution frequency**, select **Define by fixed interval** and enter the **Rollup interval**, or select **Define by cron expression** and enter a cron expression and a time zone. For the expression syntax, see [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/cron-expressions/).
    1. In **Page per execution**, enter the number of pages to process in each run. A larger number runs faster and uses more memory.
    1. Optionally, in **Execution delay**, enter how long the job waits for ingestion to finish before it runs.
 

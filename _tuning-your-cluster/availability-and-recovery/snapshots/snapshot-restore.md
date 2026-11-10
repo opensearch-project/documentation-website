@@ -17,12 +17,19 @@ redirect_from:
 
 Snapshots aren't instantaneous. They take time to complete and do not represent perfect point-in-time views of the cluster. While a snapshot is in progress, you can still index documents and send other requests to the cluster, but new documents and updates to existing documents generally aren't included in the snapshot. The snapshot includes primary shards as they existed when OpenSearch initiated the snapshot. Depending on the size of your snapshot thread pool, different shards might be included in the snapshot at slightly different times.
 
+Before snapshotting a shard, OpenSearch [flushes]({{site.url}}{{site.baseurl}}/api-reference/index-apis/flush/) it and then copies the files of the resulting Lucene commit. A shard's snapshot therefore contains all operations indexed to that shard before the flush, including documents that have not yet been refreshed and are not yet searchable.
+
 OpenSearch snapshots are incremental, meaning that they only store data that has changed since the last successful snapshot. The difference in disk usage between frequent and infrequent snapshots is often minimal.
 
 In other words, taking hourly snapshots for a week (for a total of 168 snapshots) might not use much more disk space than taking a single snapshot at the end of the week. Also, the more frequently you take snapshots, the less time they take to complete. Some OpenSearch users take snapshots as often as every 30 minutes.
 
 If you need to delete a snapshot, be sure to use the OpenSearch API rather than navigating to the storage location and purging files. Incremental snapshots from a cluster often share a lot of the same data; when you use the API, OpenSearch only removes data that no other snapshot is using.
 {: .tip }
+
+Don't back up a cluster by copying the data directories of its nodes. A copy of the data directories is not a consistent backup, and restoring from such a copy can fail or silently lose data. Snapshots are the only reliable way to back up a cluster.
+{: .warning }
+
+To take snapshots on a schedule and delete old snapshots automatically, use [Snapshot Management]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-management/).
 
 ---
 
@@ -55,7 +62,6 @@ The following node-level settings control repository behavior globally across al
 
 - `repositories.url.supported_protocols` (Static, list): Defines which URL protocols are supported for URL repositories. This setting controls which protocol schemes (such as HTTP, HTTPS, or FTP) can be used when accessing URL repositories. Limiting supported protocols helps enhance security by preventing access through potentially insecure or unintended protocols. Default is `["http", "https", "ftp", "file", "jar"]`.
 
-
 ### Shared file system
 
 1. To use a shared file system as a snapshot repository, add it to `opensearch.yml`:
@@ -64,7 +70,7 @@ The following node-level settings control repository behavior globally across al
    path.repo: ["/mnt/snapshots"]
    ```
 
-   On the RPM and Debian installs, you can then mount the file system. If you're using the Docker install, add the file system to each node in `docker-compose.yml` before starting the cluster:
+   The file system must be mounted at the same path on all cluster manager and data nodes. On the RPM and Debian installs, you can then mount the file system. If you're using the Docker install, add the file system to each node in `docker-compose.yml` before starting the cluster:
 
    ```yml
    volumes:
@@ -84,7 +90,26 @@ The following node-level settings control repository behavior globally across al
    ```
   {% include copy-curl.html %}
 
-You will most likely not need to specify any parameters except for `location`. For allowed request parameters, see [Register or update snapshot repository API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/).
+If `location` is a relative path, OpenSearch resolves it against the first `path.repo` directory. For example, with `path.repo: ["/mnt/snapshots"]`, the location `my-backups` resolves to `/mnt/snapshots/my-backups`.
+
+You will most likely not need to specify any parameters except for `location`. For allowed request parameters, see [Create or Update Snapshot Repository API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/).
+
+### URL repository
+
+A URL repository provides read-only access to snapshots stored at a URL, for example, a shared file system repository that another cluster writes to. The following request registers a URL repository for a shared file system location. A `file:` URL must point to a location listed in `path.repo`:
+
+```json
+PUT /_snapshot/my-url-repository
+{
+  "type": "url",
+  "settings": {
+    "url": "file:/mnt/snapshots"
+  }
+}
+```
+{% include copy-curl.html %}
+
+You can list and restore snapshots from a URL repository, but you can't create snapshots in it.
 
 ### Amazon S3
 
@@ -251,7 +276,7 @@ You will most likely not need to specify any parameters except for `location`. F
    ```
    {% include copy-curl.html %}
 
-You will most likely not need to specify any parameters except for `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/).
+You will most likely not need to specify any parameters except for `bucket` and `base_path`. For allowed request parameters, see [Create or Update Snapshot Repository API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-repository/).
 
 ### HDFS
 
@@ -449,6 +474,32 @@ Note the following when using Azure token credentials:
 - Token credential support is disabled in `opensearch.yml` by default.
 - A token credential takes precedence over an Azure Storage account key or a SAS when multiple options are configured. 
 
+## Sharing a repository between clusters
+
+You can register the same repository on more than one cluster, for example, to restore snapshots from a production cluster to a test cluster. Only one cluster should write to a repository. On every other cluster, register the repository with the `readonly` setting set to `true`. A read-only repository can list and restore snapshots, but it can't create them. If more than one cluster writes to the same repository, the repository contents can become corrupted:
+
+```json
+PUT /_snapshot/my-fs-repository
+{
+  "type": "fs",
+  "settings": {
+    "location": "/mnt/snapshots",
+    "readonly": true
+  }
+}
+```
+{% include copy-curl.html %}
+
+Because the snapshot format can change between major versions, we recommend using a separate repository for each major version of OpenSearch.
+
+## Maintaining repositories
+
+Use the following APIs to maintain snapshot repositories:
+
+- [Verify Snapshot Repository API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/verify-snapshot-repository/): Checks that all nodes can access the repository. OpenSearch verifies a repository when you register it. To skip this check, add `?verify=false` to the registration request, and then verify the repository later using `POST /_snapshot/<repository>/_verify`.
+- [Cleanup Snapshot Repository API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/cleanup-snapshot-repository/): Removes data that is no longer referenced by any snapshot, such as data left by failed snapshot operations.
+- [Delete Snapshot Repository API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/delete-snapshot-repository/): Removes the repository registration from the cluster. The snapshots in the repository are not deleted. To use them again, register the repository again.
+
 ## Take snapshots
 
 You specify two pieces of information when you create a snapshot:
@@ -463,7 +514,7 @@ PUT /_snapshot/my-repository/snapshot-1
 ```
 {% include copy-curl.html %}
 
-You can also add a request body to include or exclude certain indexes or specify other settings:
+You can also add a request body to include or exclude certain indexes or specify other settings. The `metadata` object stores custom information with the snapshot, such as who took it and why:
 
 ```json
 PUT /_snapshot/my-repository/snapshot-2
@@ -471,21 +522,37 @@ PUT /_snapshot/my-repository/snapshot-2
   "indices": "opensearch_dashboards*,my-index*,-my-index-2016",
   "ignore_unavailable": true,
   "include_global_state": false,
-  "partial": false
+  "partial": false,
+  "metadata": {
+    "taken_by": "ops-team",
+    "reason": "Backup before upgrading to 3.9"
+  }
 }
 ```
 {% include copy-curl.html %}
 
 For more information, see [Create Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-snapshot/).
 
-If you request the snapshot immediately after taking it, you might see something like this:
+To include the date in a snapshot name, use [date math]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/date/#date-math) in the name and URL-encode it. For example, the following request creates a snapshot named `nightly-` followed by the current date, such as `nightly-2026.10.12`. The non-encoded name is `<nightly-{now/d}>`:
+
+```json
+PUT /_snapshot/my-repository/%3Cnightly-%7Bnow%2Fd%7D%3E
+```
+{% include copy-curl.html %}
+
+To check the snapshot immediately after starting it, send the following request:
 
 ```json
 GET /_snapshot/my-repository/snapshot-2
+```
+{% include copy-curl.html %}
+
+The response shows that the snapshot is still in progress:
+
+```json
 {
   "snapshots": [{
     "snapshot": "snapshot-2",
-    "version": "6.5.4",
     "indices": [
       "opensearch_dashboards_sample_data_ecommerce",
       "my-index",
@@ -498,13 +565,12 @@ GET /_snapshot/my-repository/snapshot-2
   }]
 }
 ```
-{% include copy-curl.html %}
 
 For more information, see [Get Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot/).
 
-Note that the snapshot is still in progress. If you want to wait for the snapshot to finish before continuing, add the `wait_for_completion` parameter to your request. Snapshots can take a while to complete, so consider whether or not this option fits your use case:
+If you want to wait for the snapshot to finish before continuing, add the `wait_for_completion` parameter to your request. Snapshots can take a while to complete, so consider whether or not this option fits your use case:
 
-```
+```json
 PUT _snapshot/my-repository/snapshot-3?wait_for_completion=true
 ```
 {% include copy-curl.html %}
@@ -519,33 +585,60 @@ PARTIAL | At least one shard failed to store successfully. Can only occur if you
 FAILED | The snapshot encountered an error and stored no data.
 INCOMPATIBLE | The snapshot is incompatible with the version of OpenSearch running on this cluster. See [Conflicts and compatibility](#conflicts-and-compatibility).
 
-You can't take a snapshot if one is currently in progress. To check the status:
+To check the status of all running snapshots, send the following request:
 
-```
+```json
 GET /_snapshot/_status
 ```
 {% include copy-curl.html %}
 
+To view the progress of each shard in a specific snapshot, include the repository and snapshot names. This request returns detailed information even if the snapshot has finished:
+
+```json
+GET /_snapshot/my-repository/snapshot-2/_status
+```
+{% include copy-curl.html %}
+
+For more information, see [Get Snapshot Status API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-status/). While a snapshot is running, the Get Snapshot API can respond slowly because it uses the same thread pool as the snapshot operation, so use the Get Snapshot Status API to monitor progress.
+
+While a shard is being included in a snapshot, it can't be relocated to another node. As a result, a running snapshot can delay shard rebalancing and the effects of shard allocation filtering.
+{: .note}
+
+### Global cluster state
+
+When `include_global_state` is `true` (the default when taking a snapshot), the snapshot stores the global cluster state. The global state contains the following cluster metadata:
+
+- Persistent cluster settings. Transient cluster settings are not included.
+- Index templates, composable index templates, and component templates.
+- Ingest pipelines and search pipelines.
+- Stored scripts.
+- Persistent tasks. Plugins use persistent tasks for long-running work that must continue after a node restarts, such as cross-cluster replication tasks.
+
+The global state does not include snapshot repository registrations. Data stream definitions are stored for the data streams included in the snapshot, regardless of the `include_global_state` value.
+
+The global state does not contain any indexes. The `indices` parameter determines which indexes are included in a snapshot, and system and hidden indexes are treated like any other index. If you omit `indices`, the snapshot includes all open indexes, including system and hidden indexes. Plugin configuration stored in system indexes, such as Index State Management (ISM) policies in the `.opendistro-ism-config` index, is backed up only if those indexes are included in the snapshot.
+
+Managed indexes resume their ISM policies only if you restore them before `.opendistro-ism-config`. For more information, see [Restoring ISM from a snapshot]({{site.url}}{{site.baseurl}}/im-plugin/ism/restore/).
 
 ## Restore snapshots
 
-The first step in restoring a snapshot is retrieving existing snapshots. To see all snapshot repositories:
+The first step in restoring a snapshot is retrieving existing snapshots. To view all snapshot repositories, send the following request:
 
-```
+```json
 GET /_snapshot/_all
 ```
 {% include copy-curl.html %}
 
-To see all snapshots in a repository:
+To view all snapshots in a repository, send the following request:
 
-```
+```json
 GET /_snapshot/my-repository/_all
 ```
 {% include copy-curl.html %}
 
-Then restore a snapshot:
+Then restore a snapshot, send the following request:
 
-```
+```json
 POST /_snapshot/my-repository/snapshot-2/_restore
 ```
 {% include copy-curl.html %}
@@ -573,6 +666,13 @@ POST /_snapshot/my-repository/snapshot-2/_restore
 {% include copy-curl.html %}
 
 For more information, see [Restore Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/restore-snapshot/).
+
+When restoring a snapshot, `include_global_state` defaults to `false`. If you set it to `true`, OpenSearch restores the global cluster state stored in the snapshot, including persistent cluster settings, composable and component index templates, ingest and search pipelines, stored scripts, and persistent tasks. The restored metadata replaces corresponding metadata in the cluster. For example, persistent tasks that exist in the cluster but not in the snapshot are removed, and index templates in the snapshot overwrite existing templates with the same name. Transient cluster settings and registered snapshot repositories are not included in the snapshot and are not restored. For a list of the metadata included in the global state, see [Global cluster state](#global-cluster-state).
+
+### Monitoring a restore operation
+
+While the primary shards of an index are being restored, the index health is `yellow` and the index has no active primary shards. When the primary shards are restored, OpenSearch allocates the replica shards, and the index health becomes `green` when all replicas are allocated. To monitor the progress of the restore, use the [CAT Recovery API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/) or the [Index Recovery API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/recover/). Shards being restored from a snapshot have the recovery type `snapshot`.
+
 
 ### Restoring snapshots across remote-backed clusters
 
@@ -674,6 +774,16 @@ The target cluster will restore the index from the snapshot repository and confi
 If you encounter index name collisions during restore, use the `rename_pattern` and `rename_replacement` parameters to rename the indexes, or delete the conflicting indexes before restoring.
 {: .tip}
 
+### Restoring a snapshot to a different cluster
+
+A snapshot is not tied to the cluster that created it. To restore a snapshot to another cluster, register the snapshot repository on that cluster as read-only and then restore the snapshot as usual. For more information, see [Sharing a repository between clusters](#sharing-a-repository-between-clusters). The target cluster can have a different size or topology than the source cluster. Keep the following considerations in mind:
+
+- If the target cluster is smaller, make sure that it has enough storage for the restored indexes. To reduce the required capacity, restore only some of the indexes using the `indices` parameter, or reduce the number of replicas using the `index_settings` parameter, for example, `"index_settings": {"index.number_of_replicas": 0}`.
+- Shard allocation filtering settings, such as `index.routing.allocation.require.*`, are restored with each index. If no node in the target cluster matches these settings, the restored shards remain unassigned. To allocate them, override the settings using `index_settings` or remove them using `ignore_index_settings`.
+- If the snapshot's persistent cluster settings are incompatible with the target cluster, restoring the cluster state fails. In this case, restore the snapshot without the cluster state by setting `include_global_state` to `false`.
+
+For more information about the restore parameters, see [Restore Snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/restore-snapshot/).
+
 ### Conflicts and compatibility
 
 One way to avoid index naming conflicts when restoring indexes is to use the `rename_pattern` and `rename_replacement` options. You can then, if necessary, use the `_reindex` API to combine the two. However, it may be simpler to delete the indexes that caused the conflict prior to restoring them from a snapshot.
@@ -688,9 +798,45 @@ We recommend ceasing write requests to a cluster before restoring from a snapsho
 1. A write request to the now-deleted alias creates a new index with the same name as the alias.
 1. The alias from the snapshot fails to restore due to a naming conflict with the new index.
 
+Compatibility is determined by the version of OpenSearch that created each index in the snapshot, not by the version that took the snapshot. Each index must have been created by the current major version or the previous major version. If any index in the snapshot is incompatible, you can't restore the snapshot. Restoring a snapshot to an older version of OpenSearch is not supported.
+
 Snapshots are only forward compatible by one major version. Snapshots taken by earlier OpenSearch versions can continue to be restored by the version of OpenSearch that originally took the snapshot, even after a version upgrade. For example, a snapshot taken by OpenSearch 2.11 or earlier can continue to be restored by a 2.11 cluster even after upgrading to 2.12.
 
 If you have an old snapshot taken from an earlier major OpenSearch version, you can restore it to an intermediate cluster one major version newer than the snapshot's version, reindex all indexes, take a new snapshot, and repeat until you arrive at your desired major version, but you may find it easier to manually index your data in the new cluster.
+
+## Canceling snapshot and restore operations
+
+To cancel a snapshot that is in progress, delete it. OpenSearch stops the snapshot and removes the data it has written to the repository:
+
+```json
+DELETE _snapshot/my-repository/my-snapshot
+```
+{% include copy-curl.html %}
+
+A restore operation recovers each index from the snapshot using the standard shard recovery process. To cancel a restore that is in progress, delete the indexes that are being restored. This deletes all data that has been restored to those indexes:
+
+```json
+DELETE restored-index
+```
+{% include copy-curl.html %}
+
+To find the indexes that are being restored, use the [CAT Recovery API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/) with the `active_only` parameter. Shards being restored from a snapshot have the recovery type `snapshot`:
+
+```json
+GET _cat/recovery?active_only=true&v&h=index,shard,type,stage,snapshot,bytes_percent
+```
+{% include copy-curl.html %}
+
+## Effect of cluster blocks
+
+Cluster blocks, such as the one set by the `cluster.blocks.read_only` setting, affect snapshot and restore operations that modify the cluster metadata. With a read-only cluster block in place, the following operations are affected:
+
+- Registering or deleting a repository fails because it writes to the cluster metadata.
+- Restoring a snapshot fails because it writes to the cluster metadata.
+- Taking a snapshot succeeds because it only reads the cluster metadata.
+- Listing and deleting snapshots in a registered repository succeed because the repository contents are not part of the cluster metadata.
+
+Index blocks, such as `index.blocks.write`, are stored in the index settings and are restored with the index. To remove a restored block, update the index settings after the restore or exclude the setting using the `ignore_index_settings` parameter.
 
 ## Security considerations
 
@@ -719,6 +865,93 @@ curl -k --cert ./kirk.pem --key ./kirk-key.pem -XPOST 'https://localhost:9200/_s
 
 We strongly recommend against restoring `.opendistro_security` using an admin certificate because doing so can alter the security posture of the entire cluster. See [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for a recommended process to back up and restore your Security plugin configuration.
 {: .warning}
+
+## Restoring system indexes
+
+Plugins store their configuration and state in [system indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/). For example, Alerting stores its monitors in `.opendistro-alerting-config`. To recover a plugin on another cluster (for example, after losing the original cluster), use a snapshot to restore the plugin's system indexes and data indexes. Some plugins require their indexes to be restored in a specific order. For more information, see [Plugin system indexes](#plugin-system-indexes).
+
+Restore plugin system indexes to a cluster that runs the same OpenSearch version as the cluster that took the snapshot. A plugin can change the format of its system indexes between versions, so restoring them to a different version might not work.
+
+If the Security plugin is not enabled, system indexes are restored like any other index.
+
+### Who can restore system indexes
+
+When the Security plugin is enabled, the following users can restore system indexes:
+
+- A super admin using an [admin certificate]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates).
+- A user with a role that grants the `system:admin/system_index` permission for the index, when `plugins.security.system_indices.permission.enabled` is set to `true`. For more information, see [System index permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#system-index-permissions).
+- A user mapped to a role listed in `plugins.security.restapi.roles_enabled` (a REST admin), for the system indexes listed in the [`plugins.security.system_indices.restore.indices` setting](#restoring-system-indexes-as-a-rest-admin).
+
+We recommend that you restore plugin system indexes as a REST admin. For more information, see [Restoring system indexes as a REST admin](#restoring-system-indexes-as-a-rest-admin).
+
+Users other than a super admin also need permission to restore snapshots, for example, through the `manage_snapshots` role. Only a super admin can restore the `.opendistro_security` index. For more information, see [Security considerations](#security-considerations).
+
+### Restoring system indexes as a REST admin
+**Introduced 3.10**
+{: .label .label-purple }
+
+The `plugins.security.system_indices.restore.indices` setting lists the system indexes that a REST admin can restore. By default, the list contains the system indexes that have been tested for restoration to a new cluster running the same OpenSearch version as the original cluster. To view the default list, send the following request:
+
+```json
+GET /_cluster/settings?include_defaults=true&filter_path=defaults.plugins.security.system_indices.restore.indices
+```
+{% include copy-curl.html %}
+
+The list that you set replaces the default list, so include the default entries that you still need. Entries can be index names or wildcard patterns. Only a REST admin can update the list.
+
+To change the list, follow these steps:
+
+1. In `opensearch.yml` on each node of the cluster that you're restoring to, set `plugins.security.system_indices.restore.dynamic.enabled` to `true`. You need to do this only once.
+1. Restart the nodes.
+1. Update the list using the [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/). For example, the following request allows a REST admin to restore only the Index State Management configuration index:
+
+   ```json
+   PUT /_cluster/settings
+   {
+     "persistent": {
+       "plugins.security.system_indices.restore.indices": [".opendistro-ism-config"]
+     }
+   }
+   ```
+   {% include copy-curl.html %}
+
+The `.opendistro_security` index can't be restored using the list, even if it matches an entry in the list. For more information about these settings, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/#expert-level-settings).
+
+When you restore system indexes using the list, the following rules apply:
+
+- The request must name each system index in the `indices` parameter or match it using a pattern that is no broader than an entry in the list. For example, if the list contains `.opendistro-alerting-alert-history-*`, the request can use that pattern or `.opendistro-alerting-alert-history-2026.10*`. A broader pattern, such as `.opendistro-*`, is denied.
+- A request that restores system indexes can't rename indexes using `rename_pattern` and `rename_replacement`.
+- If any system index in the request is not in the list, OpenSearch denies the whole request with a `403 Forbidden` error. The error message names the system indexes that are not in the list.
+
+### Restoring system indexes to another cluster
+
+To restore plugin system indexes to another cluster, follow these steps:
+
+1. Copy the plugin settings, roles, and role mappings from the original cluster to the cluster that you're restoring to. Restoring system indexes doesn't restore settings, roles, or role mappings. If a value doesn't match, users might gain or lose access to the restored data, and OpenSearch doesn't report an error.
+1. If you're restoring as a REST admin, ensure that the [list of system indexes that a REST admin can restore](#restoring-system-indexes-as-a-rest-admin) on the cluster that you're restoring to contains the system indexes that you plan to restore.
+1. Register the snapshot repository on that cluster as read-only. For more information, see [Restoring a snapshot to a different cluster](#restoring-a-snapshot-to-a-different-cluster).
+1. Restore the data indexes and system indexes, following the order for each plugin in [Plugin system indexes](#plugin-system-indexes). Name each system index in the request or match it using a pattern, as described in [Restoring system indexes as a REST admin](#restoring-system-indexes-as-a-rest-admin). For example, the following request restores the `my-logs` index and the alerting indexes:
+
+   ```json
+   POST /_snapshot/my-repository/snapshot-1/_restore
+   {
+     "indices": "my-logs,.opendistro-alerting-config,.opendistro-alerting-alerts,.opendistro-alerting-alert-history-*",
+     "include_global_state": false
+   }
+   ```
+   {% include copy-curl.html %}
+
+1. Verify that the data for each plugin was restored, for example, by listing monitors or policies using the plugin's API.
+
+### Plugin system indexes
+
+The following table provides information about restoring each plugin's system indexes.
+
+| Plugin | System indexes | Restoration order and other steps |
+| :--- | :--- | :--- |
+| Alerting | `.opendistro-alerting-config` and other alerting indexes | See [Restoring monitors and alerts from a snapshot]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/restore/). |
+| Index State Management | `.opendistro-ism-config` | See [Restoring ISM from a snapshot]({{site.url}}{{site.baseurl}}/im-plugin/ism/restore/). |
+| Learning to Rank | `.ltrstore` and `.ltrstore_<store name>` for each named feature store | None. |
 
 ## Index codec considerations
 

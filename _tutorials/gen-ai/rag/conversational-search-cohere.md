@@ -42,12 +42,11 @@ POST _bulk
 
 ## Step 1: Create a connector and register a model
 
-Conversational search only supports the [OpenAI](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/open_ai_connector_chat_blueprint.md) 
-and [Amazon Bedrock Claude](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_anthropic_claude_blueprint.md) input/output styles.
+The RAG processor formats the model input and reads the model output according to the prefix of the `llm_model` parameter in the search request. For more information, see [Step 6: Use the pipeline for RAG]({{site.url}}{{site.baseurl}}/vector-search/ai-search/conversational-search/#step-6-use-the-pipeline-for-rag).
 {: .important}
 
-This tutorial follows the Amazon Bedrock Claude model input/output style by:
-- Mapping the Cohere Command `message` input parameter to the `inputs` parameter in order to match the Cohere Claude model input style.
+This tutorial follows the [Amazon Bedrock Claude](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_anthropic_claude_blueprint.md) model input/output style (the `bedrock/` prefix) by:
+- Mapping the Cohere Command `message` input parameter to the `inputs` parameter in order to match the Claude model input style.
 - Using a post-processing function to convert the Cohere Command model output to the Claude model output style.
 
 Create a connector for the Cohere Command model:
@@ -63,7 +62,7 @@ POST _plugins/_ml/connectors/_create
         "cohere_key": "your_cohere_api_key"
     },
     "parameters": {
-        "model": "command"
+        "model": "command-a-03-2025"
     },
     "actions": [
         {
@@ -212,12 +211,12 @@ The response contains the model's answer:
       "value": 6,
       "relation": "eq"
     },
-    "max_score": 9.042081,
+    "max_score": 4.110037,
     "hits": [
       {
         "_index": "qa_demo",
         "_id": "2",
-        "_score": 9.042081,
+        "_score": 4.110037,
         "_source": {
           "text": """Chart and table of population level and growth rate for the New York City metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\nThe current metro area population of New York City in 2023 is 18,937,000, a 0.37% increase from 2022.\nThe metro area population of New York City in 2022 was 18,867,000, a 0.23% increase from 2021.\nThe metro area population of New York City in 2021 was 18,823,000, a 0.1% increase from 2020.\nThe metro area population of New York City in 2020 was 18,804,000, a 0.01% decline from 2019."""
         }
@@ -231,3 +230,10 @@ The response contains the model's answer:
   }
 }
 ```
+
+## Related documentation
+
+- [Conversational search with RAG]({{site.url}}{{site.baseurl}}/vector-search/ai-search/conversational-search/)
+- [Retrieval-augmented generation processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rag-processor/)
+- [Connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/)
+- [Memory APIs]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/memory-apis/)

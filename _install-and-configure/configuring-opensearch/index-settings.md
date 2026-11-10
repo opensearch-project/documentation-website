@@ -292,7 +292,7 @@ OpenSearch supports the following dynamic index settings:
 
 <p id="periodic-flush-interval"> </p>
 
-- `index.periodic_flush_interval` (Dynamic, time unit): Triggers a flush periodically at the configured interval, storing all in-memory operations to segments on disk. OpenSearch automatically performs flush operations in the background based on conditions such as transaction log size. Default is `-1`, which disables periodic flush. For pull-based ingestion indexes, the default is `10m`. See [Pull-based ingestion]({{site.url}}{{site.baseurl}}/api-reference/document-apis/pull-based-ingestion/). You can configure this setting if your workload requires predictable, time-based flush intervals.
+- `index.periodic_flush_interval` (Dynamic, time unit): Triggers a flush periodically at the configured interval, storing all in-memory operations to segments on disk. OpenSearch automatically performs flush operations in the background based on conditions such as transaction log size. Default is `-1`, which disables periodic flush. For pull-based ingestion indexes, the default is `10m`. See [Pull-based ingestion]({{site.url}}{{site.baseurl}}/im-plugin/pull-based-ingestion/index/). You can configure this setting if your workload requires predictable, time-based flush intervals.
 
 ### Merge settings
 

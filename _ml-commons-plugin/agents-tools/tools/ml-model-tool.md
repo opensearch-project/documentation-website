@@ -10,7 +10,7 @@ grand_parent: Agents and tools
 
 <!-- vale off -->
 # ML Model tool
-plugins.ml_commons.rag_pipeline_feature_enabled: true
+**Introduced 2.13**
 {: .label .label-purple }
 <!-- vale on -->
 
@@ -99,7 +99,7 @@ POST /_plugins/_ml/agents/_register
       "description": "A general tool to answer any question",
       "parameters": {
         "model_id": "h5AUWo0BkIylWTeYT4SU",
-        "prompt": "\n\nHuman:You are a professional data analyst. You will always answer question based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say don't know. \n\nHuman:${parameters.question}\n\nAssistant:"
+        "prompt": "You are a professional data analyst. You will always answer question based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say don't know. \n\nQuestion: ${parameters.question}"
       }
     }
   ]

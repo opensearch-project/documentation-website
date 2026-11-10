@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Execute tool 
-parent: ML Commons APIs
+parent: ML APIs
 nav_order: 100
 ---
 
@@ -34,6 +34,8 @@ POST /_plugins/_ml/tools/_execute/{tool_name}
 
 The `<tool_name>` parameter refers to the predefined tool type name, such as `PPLTool`, `SearchIndexTool`, or `VectorDBTool`,---not a custom tool name that you define.
 {: .note}
+
+The Execute Tool API is enabled by default. To disable it, set `plugins.ml_commons.execute_tools_enabled` to `false`.
 
 ## Request body fields
 
@@ -115,9 +117,7 @@ POST /_plugins/_ml/tools/_execute/PPLTool
             "output": [
                 {
                     "name": "response",
-                    "dataAsMap": {
-                        "result":"{\"ppl\":\"source\=test-population | where QUERY_STRING([\'population_description\'], \'Seattle\') AND QUERY_STRING([\'population_description\'], \'2021\')\",\"executionResult\":\"{\\n  \\\"schema\\\": [\\n    {\\n      \\\"name\\\": \\\"population_description\\\",\\n      \\\"type\\\": \\\"string\\\"\\n    }\\n  ],\\n  \\\"datarows\\\": [],\\n  \\\"total\\\": 0,\\n  \\\"size\\\": 0\\n}\"}"
-                    }
+                    "result": "{\"ppl\":\"source=test-population | where QUERY_STRING(['population_description'], 'Seattle') AND QUERY_STRING(['population_description'], '2021')\",\"executionResult\":\"{\\n  \\\"schema\\\": [\\n    {\\n      \\\"name\\\": \\\"population_description\\\",\\n      \\\"type\\\": \\\"string\\\"\\n    }\\n  ],\\n  \\\"datarows\\\": [],\\n  \\\"total\\\": 0,\\n  \\\"size\\\": 0\\n}\"}"
                 }
             ]
         }

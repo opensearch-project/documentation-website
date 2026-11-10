@@ -21,9 +21,9 @@ Radial search supports the following parameters:
 
 - `max_distance`: Specifies a physical distance within the vector space, identifying all points that are within this distance from the query point. This approach is particularly useful for applications requiring spatial proximity or absolute distance measurements.
 
-`min_score`: Specifies a similarity score, facilitating the retrieval of points that meet or exceed this score in relation to the query point. This method is ideal in scenarios where relative similarity, based on a specific metric, is more critical than physical proximity.
+- `min_score`: Specifies a similarity score, facilitating the retrieval of points that meet or exceed this score in relation to the query point. This method is ideal in scenarios where relative similarity, based on a specific metric, is more critical than physical proximity.
 
-Only one query variable, either `k`, `max_distance`, or `min_score`, is required to be specified during radial search. 
+A `knn` query must specify exactly one of `k`, `max_distance`, or `min_score`.
 
 ## Spaces
 
@@ -287,7 +287,7 @@ GET knn-index-test/_search
 ```
 {% include copy-curl.html %}
 
-All documents with a score of 0.9 or higher are returned, as shown in the following response:
+All documents with a score of 0.95 or higher are returned, as shown in the following response:
 
 <details markdown="block">
   <summary>
@@ -372,7 +372,7 @@ GET knn-index-test/_search
 ```
 {% include copy-curl.html %}
 
-All documents that have a score of 0.9 or higher and a price within the range of 1 to 5 are returned, as shown in the following example:
+All documents that have a score of 0.95 or higher and a price within the range of 1 to 5 are returned, as shown in the following example:
 
 <details markdown="block">
   <summary>
@@ -509,7 +509,7 @@ This query works with both the Lucene and Faiss engines and returns documents in
   },
   "hits": {
     "total": {
-      "value": 2,
+      "value": 3,
       "relation": "eq"
     },
     "max_score": 1.74,
@@ -534,6 +534,18 @@ This query works with both the Lucene and Faiss engines and returns documents in
           "my_embeddings": [
             {
               "embedding": [0.4, 0.5, 0.6]
+            }
+          ]
+        }
+      },
+      {
+        "_index": "nested-knn-index",
+        "_id": "1",
+        "_score": 1.2,
+        "_source": {
+          "my_embeddings": [
+            {
+              "embedding": [0.1, 0.2, 0.3]
             }
           ]
         }

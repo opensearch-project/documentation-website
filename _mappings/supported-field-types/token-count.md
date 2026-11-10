@@ -116,10 +116,10 @@ The following table lists the parameters accepted by token count field types. Th
 
 Parameter | Description 
 :--- | :--- 
-`analyzer` | The analyzer to be used for this field. Specify an analyzer without token filters for optimal performance. Required. Dynamically updatable.
-`boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0. Dynamically updatable.
-`doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `true`.
+`analyzer` | The analyzer to be used for this field. Specify an analyzer without token filters for optimal performance. Required. Dynamically updatable. For more information, see [Analyzer]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/analyzer/).
+`boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0. Dynamically updatable. For more information, see [Boost]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/boost/).
+`doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `true`. For more information, see [Doc values]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/doc-values/).
 `enable_position_increments` | A Boolean value that specifies whether position increments should be counted. To avoid removing stopwords, set this field to `false`. Default is `true`.
-`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`.
+`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`. For more information, see [Index]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/index-parameter/).
 [`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
-`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the `_source` field. Default is `false`. 
+`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the `_source` field. Default is `false`. For more information, see [Store]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/store/).

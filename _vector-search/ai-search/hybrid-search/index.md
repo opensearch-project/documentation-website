@@ -10,67 +10,63 @@ redirect_from:
 ---
 
 # Hybrid search
-Introduced 2.11
+**Introduced 2.11**
 {: .label .label-purple }
 
-Hybrid search combines keyword and semantic search to improve search relevance. To implement hybrid search, you need to set up a [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) that runs at search time. The search pipeline intercepts search results at an intermediate stage and applies processing to normalize and combine document scores.  
+Hybrid search combines keyword and semantic search to improve search relevance. OpenSearch runs each query clause of a [`hybrid` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/), normalizes the results, and combines them into a single ranking.
 
-Two search phase results processors are available for hybrid search, and they differ in what they combine:
+## Choosing a combination approach
 
-- The [normalization processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) is score based. It converts the scores from each query clause to a common scale and then combines them, preserving the margins between documents. Choose it when the difference between two documents' scores contains information that the final ranking must reflect, or when you need fine-grained control through normalization techniques, combination techniques, and score bounds.
-- The [score ranker processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/score-ranker-processor/) is rank based. It uses reciprocal rank fusion (RRF) to combine documents according to their position in each query clause's results, ignoring the scores themselves. Choose it when you want a configuration that works without first measuring how your query clauses score documents. For more information, see [Reciprocal rank fusion]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/rrf/).
+OpenSearch combines the query clause results using one of the approaches listed in the following table.
 
-The following example uses the normalization processor. To compare both processors on your own data and judgment lists, see [Optimizing hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/optimize-hybrid-search/).
+Approach | Description | Choose it when
+:--- | :--- | :---
+Score based | Converts the scores from each query clause to a common scale and then combines them, preserving the margins between documents. | The difference between two documents' scores contains information that the final ranking must reflect, or you need fine-grained control through normalization techniques, combination techniques, and score bounds.
+Rank based | Uses [reciprocal rank fusion (RRF)]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/rrf/) to combine documents according to their position in each query clause's results, ignoring the scores themselves. | You want a configuration that works without first measuring how your query clauses score documents.
+
+To compare both approaches on your own data and judgment lists, see [Optimizing hybrid search]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/optimize-hybrid-search/).
+
+## Search pipeline and fusion mode
+
+You can configure either approach in one of the following places:
+
+- A [search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/index/) containing a [normalization processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/) for score-based combination or a [score ranker processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/score-ranker-processor/) for rank-based combination. The pipeline applies the same configuration to every request that uses it.
+- The `hybrid` query itself, by adding a `fusion` object. This method, called fusion mode, supports the same techniques and does not require a search pipeline. For more information, see [Fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/).
+
+### Choosing between a search pipeline and fusion mode
+
+Consider using fusion mode in the following cases:
+
+- You want to run hybrid search without creating and maintaining a search pipeline. The normalization and combination configuration is part of each request, so different requests to the same index can use different techniques.
+- You want candidate selection that does not depend on the number of shards. With a search pipeline, each subquery contributes its top results from each shard, so the set of candidates increases with the number of shards. In fusion mode, each subquery contributes its top `window_size` results across all shards, so the set of candidates is the same regardless of how the documents are distributed. For more information, see [Candidate window size]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/#candidate-window-size).
+- You need to nest the hybrid query inside another query, such as a `bool` or `dis_max` query, or apply a `rescore` to the combined results. For more information, see [Nesting a hybrid query]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/#nesting-a-hybrid-query) and [Rescoring]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/#rescoring).
+
+Consider using a search pipeline in the following cases:
+
+- You want to manage the normalization and combination configuration in one place and apply it to every request that uses the pipeline.
+- You need the `lower_bounds` and `upper_bounds` normalization parameters.
+- You need to paginate deeper than the fusion mode [window size limits]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/#window-size-limits) allow.
+
+For the features that fusion mode does not support, see [Limitations]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/#limitations).
+
+## Configuring hybrid search
+
+The following table specifies how to configure each combination approach.
+
+Approach | Search pipeline | Fusion mode
+:--- | :--- | :---
+Score based | Use the normalization processor. For an example, see [Configuring score-based hybrid search using a search pipeline](#configuring-score-based-hybrid-search-using-a-search-pipeline). | Set the normalization technique to `min_max`, `l2`, or `z_score`. For an example, complete the setup in [Using fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/#using-fusion-mode) and then see [Using score-based combination]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/#using-score-based-combination).
+Rank based | Use the score ranker processor. For an example, see [Reciprocal rank fusion]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/rrf/#example-combining-keyword-and-vector-results). | Set the normalization and combination techniques to `rrf`. For an example, complete the setup in [Using fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/#using-fusion-mode) and then see [Using rank-based combination]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/#using-rank-based-combination).
+
+## Configuring score-based hybrid search using a search pipeline
+
+The following example configures hybrid search using a search pipeline that contains a normalization processor.
 
 **PREREQUISITE**<br>
 To follow this example, you must set up a text embedding model. For more information, see [Choosing a model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/#choosing-a-model). If you have already generated text embeddings, skip to [Step 3](#step-3-configure-a-search-pipeline).
 {: .note}
 
-## Configuring hybrid search
-
-There are two ways to configure hybrid search:
-
-- [**Automated workflow**](#automated-workflow) (Recommended for quick setup): Automatically create an ingest pipeline, an index, and a search pipeline with minimal configuration.
-- [**Manual setup**](#manual-setup) (Recommended for custom configurations): Manually configure each component for greater flexibility and control.
-
-## Automated workflow
-
-OpenSearch provides a [workflow template]({{site.url}}{{site.baseurl}}/automating-configurations/workflow-templates/#hybrid-search) that automatically creates an ingest pipeline, an index, and a search pipeline. You must provide the model ID for the configured model when creating a workflow. Review the hybrid search workflow template [defaults](https://github.com/opensearch-project/flow-framework/blob/main/src/main/resources/defaults/hybrid-search-defaults.json) to determine whether you need to update any of the parameters. For example, if the model dimensionality is different from the default (`1024`), specify the dimensionality of your model in the `output_dimension` parameter. To create the default hybrid search workflow, send the following request:
-
-```json
-POST /_plugins/_flow_framework/workflow?use_case=hybrid_search&provision=true
-{
-"create_ingest_pipeline.model_id": "mBGzipQB2gmRjlv_dOoB"
-}
-```
-{% include copy-curl.html %}
-
-OpenSearch responds with a workflow ID for the created workflow:
-
-```json
-{
-  "workflow_id" : "U_nMXJUBq_4FYQzMOS4B"
-}
-```
-
-To check the workflow status, send the following request:
-
-```json
-GET /_plugins/_flow_framework/workflow/U_nMXJUBq_4FYQzMOS4B/_status
-```
-{% include copy-curl.html %}
-
-Once the workflow completes, the `state` changes to `COMPLETED`. The workflow creates the following components:
-
-- An ingest pipeline named `nlp-ingest-pipeline`
-- An index named `my-nlp-index` 
-- A search pipeline named `nlp-search-pipeline`
-
-You can now continue with [steps 4 and 5](#step-4-ingest-documents-into-the-index) to ingest documents into the index and search the index.
-
-## Manual setup
-
-To manually configure hybrid search, follow these steps:
+To configure hybrid search, follow these steps:
 
 1. [Create an ingest pipeline](#step-1-create-an-ingest-pipeline).
 1. [Create an index for ingestion](#step-2-create-an-index-for-ingestion).
@@ -78,7 +74,7 @@ To manually configure hybrid search, follow these steps:
 1. [Ingest documents into the index](#step-4-ingest-documents-into-the-index).
 1. [Search the index using hybrid search](#step-5-search-the-index-using-hybrid-search).
 
-## Step 1: Create an ingest pipeline
+### Step 1: Create an ingest pipeline
 
 To generate vector embeddings, you need to create an [ingest pipeline]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/) that contains a [`text_embedding` processor]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/processors/text-embedding/), which will convert the text in a document field to vector embeddings. The processor's `field_map` determines the input fields from which to generate vector embeddings and the output fields in which to store the embeddings.
 
@@ -102,7 +98,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
 ```
 {% include copy-curl.html %}
 
-## Step 2: Create an index for ingestion
+### Step 2: Create an index for ingestion
 
 In order to use the text embedding processor defined in your pipeline, create a vector index, adding the pipeline created in the previous step as the default pipeline. Ensure that the fields defined in the `field_map` are mapped as correct types. Continuing with the example, the `passage_embedding` field must be mapped as a k-NN vector with a dimension that matches the model dimension. Similarly, the `passage_text` field should be mapped as `text`.
 
@@ -142,7 +138,7 @@ PUT /my-nlp-index
 For more information about creating a vector index and using supported methods, see [Creating a vector index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/).
 
 
-## Step 3: Configure a search pipeline
+### Step 3: Configure a search pipeline
 
 To configure a search pipeline with a [`normalization-processor`]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/), use the following request. The normalization technique in the processor is set to `min_max`, and the combination technique is set to `arithmetic_mean`. The `weights` array specifies the weights assigned to each query clause as decimal percentages:
 
@@ -172,7 +168,9 @@ PUT /_search/pipeline/nlp-search-pipeline
 ```
 {% include copy-curl.html %}
 
-## Step 4: Ingest documents into the index
+The pipeline's weights apply to every request that uses the pipeline. To use different weights for a particular request without changing the pipeline, specify a `weights` array in the `hybrid` query itself. For more information, see [Weighting subqueries]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/#weighting-subqueries).
+
+### Step 4: Ingest documents into the index
 
 To ingest documents into the index created in the previous step, send the following requests:
 
@@ -196,7 +194,7 @@ PUT /my-nlp-index/_doc/2
 
 Before the document is ingested into the index, the ingest pipeline runs the `text_embedding` processor on the document, generating text embeddings for the `passage_text` field. The indexed document includes the `passage_text` field, which contains the original text, and the `passage_embedding` field, which contains the vector embeddings. 
 
-## Step 5: Search the index using hybrid search
+### Step 5: Search the index using hybrid search
 
 To perform hybrid search on your index, use the [`hybrid` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/), which combines the results of keyword and semantic search.
 
@@ -226,7 +224,7 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
           "neural": {
             "passage_embedding": {
               "query_text": "Hi world",
-              "model_id": "aVeif4oB5Vm0Tdw8zYO2",
+              "model_id": "bQ1J8ooBpBj3wT4HVUsb",
               "k": 5
             }
           }
@@ -240,11 +238,11 @@ GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
 
 Alternatively, you can set a default search pipeline for the `my-nlp-index` index. For more information, see [Default search pipeline]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/using-search-pipeline/#default-search-pipeline).
 
-The response contains the matching document:
+The response contains the matching documents:
 
 ```json
 {
-  "took" : 36,
+  "took" : 32,
   "timed_out" : false,
   "_shards" : {
     "total" : 1,
@@ -254,15 +252,24 @@ The response contains the matching document:
   },
   "hits" : {
     "total" : {
-      "value" : 1,
+      "value" : 2,
       "relation" : "eq"
     },
-    "max_score" : 1.2251667,
+    "max_score" : 1.0,
     "hits" : [
       {
         "_index" : "my-nlp-index",
+        "_id" : "2",
+        "_score" : 1.0,
+        "_source" : {
+          "passage_text" : "Hi planet",
+          "id" : "s2"
+        }
+      },
+      {
+        "_index" : "my-nlp-index",
         "_id" : "1",
-        "_score" : 1.2251667,
+        "_score" : 0.3007,
         "_source" : {
           "passage_text" : "Hello world",
           "id" : "s1"
@@ -272,7 +279,6 @@ The response contains the matching document:
   }
 }
 ```
-{% include copy-curl.html %}
 
 #### Example: Combining a match query and a term query
 
@@ -312,11 +318,11 @@ The response contains the matching documents:
 
 ```json
 {
-    "took": 11,
+    "took": 3,
     "timed_out": false,
     "_shards": {
-        "total": 2,
-        "successful": 2,
+        "total": 1,
+        "successful": 1,
         "skipped": 0,
         "failed": 0
     },
@@ -349,7 +355,9 @@ The response contains the matching documents:
     }
 }
 ```
-{% include copy-curl.html %}
+
+To create the ingest pipeline, index, and search pipeline in one step, you can use the [hybrid search workflow template]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-templates/#hybrid-search).
+{: .tip}
 
 ## Filtering data
 

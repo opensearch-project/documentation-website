@@ -25,15 +25,13 @@ PUT /_cluster/settings
 {
   "persistent": {
     "plugins.search_relevance.workbench_enabled": true,
-    "plugins.ml_commons.only_run_on_ml_node": "false",
-    "plugins.ml_commons.model_access_control_enabled": "true",
-    "plugins.ml_commons.allow_registering_model_via_url": "true"
+    "plugins.ml_commons.only_run_on_ml_node": "false"
   }
 }
 ```
 {% include copy-curl.html %}
 
-### Step 1: Configure a model
+## Step 1: Configure a model
 
 First, create a connector to an externally hosted LLM. This tutorial uses OpenAI, but you can adapt it for other providers such as Amazon Bedrock. For a list of available blueprints, see [OpenSearch-provided connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/#llm-judgment-blueprints-for-search-relevance-workbench). Replace `<YOUR_API_KEY>` with your OpenAI API key:
 
@@ -89,9 +87,9 @@ POST /_plugins/_ml/models/_register?deploy=true
 ```
 {% include copy-curl.html %}
 
-This is an asynchronous operation. To verify the task status, use the [Get ML task]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/) API. Once the state is `COMPLETED`, OpenSearch returns the `model_id` you'll use in the following steps.
+The response contains the `model_id` that you'll use in the following steps. Registration is an asynchronous operation. To verify the task status, use the [Get ML task]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/) API with the `task_id` from the response. When the `state` is `COMPLETED`, the model is ready to use.
 
-### Step 2: Create a search index
+## Step 2: Create a search index
 
 Create a `products` index:
 
@@ -128,21 +126,21 @@ POST /products/_bulk
 ```
 {% include copy-curl.html %}
 
-### Step 3: Create a search configuration
+## Step 3: Create a search configuration
 
-A _search configuration_ defines a search strategy to evaluate. The `%SearchText%` placeholder is replaced with each query from the query set during evaluation:
+A _search configuration_ defines a search strategy to evaluate. The `%queryText%` placeholder is replaced with each query from the query set during evaluation:
 
 ```json
 PUT /_plugins/_search_relevance/search_configurations
 {
   "name": "baseline",
-  "query": "{\"query\":{\"multi_match\":{\"query\":\"%SearchText%\",\"fields\":[\"title\",\"description\",\"category\",\"brand\"]}}}",
+  "query": "{\"query\":{\"multi_match\":{\"query\":\"%queryText%\",\"fields\":[\"title\",\"description\",\"category\",\"brand\"]}}}",
   "index": "products"
 }
 ```
 {% include copy-curl.html %}
 
-### Step 4: Create a query set
+## Step 4: Create a query set
 
 Create a query set containing test queries for evaluation:
 
@@ -161,7 +159,7 @@ PUT /_plugins/_search_relevance/query_sets
 ```
 {% include copy-curl.html %}
 
-### Step 5: Generate LLM judgments
+## Step 5: Generate LLM judgments
 
 Create an LLM judgment that uses your deployed model to evaluate search results. Replace `{model_id}`, `{query_set_id}`, and `{search_configuration_id}` with the IDs returned in previous steps:
 

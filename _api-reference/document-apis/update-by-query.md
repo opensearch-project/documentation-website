@@ -180,8 +180,7 @@ POST /products/_update_by_query?conflicts=proceed
 
 response = client.update_by_query(
   index = "products",
-  params = { "conflicts": "proceed" },
-  body = { "Insert body here" }
+  params = { "conflicts": "proceed" }
 )
 
 {% endcapture %}

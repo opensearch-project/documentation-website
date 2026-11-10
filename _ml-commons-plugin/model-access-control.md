@@ -57,33 +57,35 @@ When assigning backend roles, consider the following example of two users: `alic
 The following request assigns the user `alice` the `analyst` backend role:
 
 ```json
-PUT _plugins/_security/api/internalusers/alice
+PUT /_plugins/_security/api/internalusers/alice
 {
-  "password": "alice",
+  "password": "Str0ngPassw0rd_5521!",
   "backend_roles": [
     "analyst"
   ],
   "attributes": {}
 }
 ```
+{% include copy-curl.html security=true %}
 
 The next request assigns the user `bob` the `human-resources` backend role:
 
 ```json
-PUT _plugins/_security/api/internalusers/bob
+PUT /_plugins/_security/api/internalusers/bob
 {
-  "password": "bob",
+  "password": "Str0ngPassw0rd_6630!",
   "backend_roles": [
     "human-resources"
   ],
   "attributes": {}
 }
 ```
+{% include copy-curl.html security=true %}
 
 Finally, the last request assigns both `alice` and `bob` the role that gives them full access to ML Commons:
 
 ```json
-PUT _plugins/_security/api/rolesmapping/ml_full_access
+PUT /_plugins/_security/api/rolesmapping/ml_full_access
 {
   "backend_roles": [],
   "hosts": [],
@@ -93,6 +95,7 @@ PUT _plugins/_security/api/rolesmapping/ml_full_access
   ]
 }
 ```
+{% include copy-curl.html security=true %}
 
 If `alice` creates a model group and assigns it the `analyst` backend role, `bob` cannot access this model.
 
@@ -157,8 +160,8 @@ curl -k --cert ./kirk.pem --key ./kirk-key.pem -X POST 'https://localhost:9200/_
             "headers": {
                 "content-type": "application/json"
             },
-            "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/anthropic.claude-v2/invoke",
-            "request_body": "{\"prompt\":\"\\n\\nHuman: ${parameters.inputs}\\n\\nAssistant:\",\"max_tokens_to_sample\":300,\"temperature\":0.5,\"top_k\":250,\"top_p\":1,\"stop_sequences\":[\"\\\\n\\\\nHuman:\"]}"
+            "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-6/invoke",
+            "request_body": "{\"anthropic_version\":\"bedrock-2023-05-31\",\"messages\":[{\"role\":\"user\",\"content\":\"${parameters.inputs}\"}],\"max_tokens\":300,\"temperature\":0.5,\"top_k\":250}"
           }
        ]
     }
@@ -166,10 +169,10 @@ curl -k --cert ./kirk.pem --key ./kirk-key.pem -X POST 'https://localhost:9200/_
 ```
 {% include copy.html %}
 
-Once a hidden model is registered, only a superadmin can invoke operations on the model, including the deploy, undeploy, delete, and get API operations. For example, to deploy a hidden model, send the following request. In this request, `q7wLt4sBaDRBsUkl9BJV` is the model ID:
+Once a hidden model is registered, only a superadmin can invoke operations on the model, including the deploy, undeploy, delete, and get API operations. For example, to deploy a hidden model, send the following request. In this request, `OPENSEARCH_ASSISTANT_MODEL` is the model ID:
 
-```json
-curl -k --cert ./kirk.pem --key ./kirk-key.pem -X POST 'https://localhost:9200/_plugins/_ml/models/q7wLt4sBaDRBsUkl9BJV/_deploy'
+```bash
+curl -k --cert ./kirk.pem --key ./kirk-key.pem -X POST 'https://localhost:9200/_plugins/_ml/models/OPENSEARCH_ASSISTANT_MODEL/_deploy'
 ```
 {% include copy.html %}
 

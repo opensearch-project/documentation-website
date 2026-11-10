@@ -13,6 +13,8 @@ redirect_from:
 
 This tutorial shows you how to implement retrieval-augmented generation (RAG) using [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) and the [DeepSeek-R1 model](https://huggingface.co/deepseek-ai/DeepSeek-R1).
 
+To run the steps in this tutorial from a Jupyter notebook, use [the DeepSeek RAG demo notebook](https://github.com/opensearch-project/ml-commons/blob/main/docs/tutorials/aws/DeepSeek_demo_notebook_for_RAG.ipynb).
+
 If you are using self-managed OpenSearch instead of Amazon OpenSearch Service, create a connector to the DeepSeek-R1 model using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/deepseek_connector_chat_blueprint.md). For more information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). Then go directly to [Step 4](#step-4-create-and-test-the-model).
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
@@ -25,9 +27,11 @@ Before you start, fulfill the following prerequisites.
 When configuring Amazon settings, only change the values mentioned in this tutorial. Keep all other settings at their default values.
 {: .important}
 
-### Deploy DeepSeek-R1 to Amazon Bedrock
+### Get access to DeepSeek-R1 on Amazon Bedrock
 
-Deploy DeepSeek-R1 on Amazon Bedrock. For more information, see [Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html). Note the Amazon Bedrock DeepSeek-R1 model Amazon Resource Name (ARN); you'll use it in the following steps.
+DeepSeek-R1 is a serverless model on Amazon Bedrock. You call it through the cross-Region inference profile `us.deepseek.r1-v1:0`, which routes requests to the `deepseek.r1-v1:0` model in the `us-east-1`, `us-east-2`, and `us-west-2` Regions. For more information, see [Supported foundation models in Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html) and [Increase throughput with cross-Region inference](https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html).
+
+Note the inference profile Amazon Resource Name (ARN), which has the format `arn:aws:bedrock:your_bedrock_model_region:your_aws_account_id:inference-profile/us.deepseek.r1-v1:0`; you'll use it in the following steps.
 
 ### Create an OpenSearch cluster
 
@@ -70,12 +74,17 @@ Go to the IAM console, create a new IAM role named `my_invoke_bedrock_deepseek_m
                 "bedrock:InvokeModel"
             ],
             "Effect": "Allow",
-            "Resource": "your_DeepSeek_R1_model_ARN"
+            "Resource": [
+                "your_DeepSeek_R1_inference_profile_ARN",
+                "arn:aws:bedrock:*::foundation-model/deepseek.r1-v1:0"
+            ]
         }
     ]
 }
 ```
 {% include copy.html %}
+
+The role needs permissions for both the inference profile and the foundation model in each Region to which the profile routes requests.
 
 Note the role ARN; you'll use it in the following steps.
 
@@ -123,7 +132,7 @@ You'll use the `your_iam_user_arn` IAM user to assume the role in Step 3.
     {
       "Effect": "Allow",
       "Action": "es:ESHttpPost",
-      "Resource": "your_opensearch_domain_arn"
+      "Resource": "your_opensearch_domain_arn/*"
     }
   ]
 }
@@ -181,20 +190,20 @@ payload = {
   "parameters": {
     "service_name": "bedrock",
     "region": "your_bedrock_model_region",
-    "model_id": "your_deepseek_bedrock_model_arn",
+    "model_id": "us.deepseek.r1-v1:0",
     "temperature": 0,
-    "max_gen_len": 4000
+    "max_tokens": 4000
   },
   "actions": [
     {
       "action_type": "PREDICT",
       "method": "POST",
-      "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/${parameters.model_id}/invoke",
+      "url": "https://bedrock-runtime.${parameters.region}.amazonaws.com/model/${parameters.model_id}/invoke",
       "headers": {
         "content-type": "application/json"
       },
-      "request_body": "{ \"prompt\": \"<｜begin▁of▁sentence｜><｜User｜>${parameters.inputs}<｜Assistant｜>\", \"temperature\": ${parameters.temperature}, \"max_gen_len\": ${parameters.max_gen_len} }",
-      "post_process_function": "\n      return '{' +\n               '\"name\": \"response\",'+\n               '\"dataAsMap\": {' +\n                  '\"completion\":\"' + escape(params.generation) + '\"}' +\n             '}';\n    "
+      "request_body": "{ \"prompt\": \"<｜begin▁of▁sentence｜><｜User｜>${parameters.inputs}<｜Assistant｜>\", \"temperature\": ${parameters.temperature}, \"max_tokens\": ${parameters.max_tokens} }",
+      "post_process_function": "\n      return '{' +\n               '\"name\": \"response\",'+\n               '\"dataAsMap\": {' +\n                  '\"completion\":\"' + escape(params.choices[0].text) + '\"}' +\n             '}';\n    "
     }
   ]
 }
@@ -206,6 +215,8 @@ print(r.status_code)
 print(r.text)
 ```
 {% include copy.html %}
+
+Set `region` to a Region in which the `us.deepseek.r1-v1:0` inference profile is available. The connector sends requests to the Amazon Bedrock endpoint in that Region.
 
 The script outputs a connector ID:
 
@@ -343,7 +354,56 @@ PUT /_search/pipeline/my-conversation-search-pipeline-deepseek
 
 ### Step 5.2: Create a vector database
 
-Follow steps 1 and 2 of [this tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/) to create an embedding model and a vector index. Then ingest sample data into the index:
+First, create an embedding model. Amazon OpenSearch Service doesn't support local models, so use an externally hosted embedding model: follow Steps 1--4 of [Semantic search using Amazon Bedrock Titan]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-search/semantic-search-bedrock-titan/). In self-managed OpenSearch, you can instead use a local model, as described in [Getting started with semantic and hybrid search]({{site.url}}{{site.baseurl}}/tutorials/vector-search/neural-search-tutorial/).
+
+Create an ingest pipeline that uses the embedding model to generate embeddings from the `text` field:
+
+```json
+PUT /_ingest/pipeline/my-nlp-ingest-pipeline
+{
+  "description": "text embedding pipeline",
+  "processors": [
+    {
+      "text_embedding": {
+        "model_id": "your_embedding_model_id",
+        "field_map": {
+          "text": "passage_embedding"
+        }
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+Create a vector index that uses the pipeline. The `dimension` must match the embedding model's output dimension, which is 1,536 for the Amazon Bedrock Titan Text Embeddings model:
+
+```json
+PUT /my-nlp-index
+{
+  "settings": {
+    "index": {
+      "default_pipeline": "my-nlp-ingest-pipeline",
+      "knn": "true"
+    }
+  },
+  "mappings": {
+    "properties": {
+      "passage_embedding": {
+        "type": "knn_vector",
+        "dimension": 1536,
+        "space_type": "cosinesimil"
+      },
+      "text": {
+        "type": "text"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Ingest sample data into the index:
 
 ```json
 POST _bulk
@@ -373,7 +433,7 @@ GET /my-nlp-index/_search?search_pipeline=my-conversation-search-pipeline-deepse
     "neural": {
       "passage_embedding": {
         "query_text": "What's the population increase of New York City from 2021 to 2023? How is the trending comparing with Miami?",
-        "model_id": "heS7s5QBFSAM-Wczv7Kb",
+        "model_id": "your_embedding_model_id",
         "k": 5
       }
     }
@@ -411,39 +471,44 @@ The response includes both the relevant documents retrieved from the vector sear
       "value": 6,
       "relation": "eq"
     },
-    "max_score": 0.04107812,
+    "max_score": 0.85223955,
     "hits": [
       {
         "_index": "my-nlp-index",
-        "_id": "4",
-        "_score": 0.04107812,
+        "_id": "2",
+        "_score": 0.85223955,
         "_source": {
-          "text": """Chart and table of population level and growth rate for the Miami metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\nThe current metro area population of Miami in 2023 is 6,265,000, a 0.8% increase from 2022.\nThe metro area population of Miami in 2022 was 6,215,000, a 0.78% increase from 2021.\nThe metro area population of Miami in 2021 was 6,167,000, a 0.74% increase from 2020.\nThe metro area population of Miami in 2020 was 6,122,000, a 0.71% increase from 2019."""
+          "text": "Chart and table of population level and growth rate for the New York City metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\\nThe current metro area population of New York City in 2023 is 18,937,000, a 0.37% increase from 2022.\\nThe metro area population of New York City in 2022 was 18,867,000, a 0.23% increase from 2021.\\nThe metro area population of New York City in 2021 was 18,823,000, a 0.1% increase from 2020.\\nThe metro area population of New York City in 2020 was 18,804,000, a 0.01% decline from 2019."
         }
       },
       {
         "_index": "my-nlp-index",
-        "_id": "2",
-        "_score": 0.03810156,
+        "_id": "4",
+        "_score": 0.7766204,
         "_source": {
-          "text": """Chart and table of population level and growth rate for the New York City metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\nThe current metro area population of New York City in 2023 is 18,937,000, a 0.37% increase from 2022.\nThe metro area population of New York City in 2022 was 18,867,000, a 0.23% increase from 2021.\nThe metro area population of New York City in 2021 was 18,823,000, a 0.1% increase from 2020.\nThe metro area population of New York City in 2020 was 18,804,000, a 0.01% decline from 2019."""
+          "text": "Chart and table of population level and growth rate for the Miami metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\\nThe current metro area population of Miami in 2023 is 6,265,000, a 0.8% increase from 2022.\\nThe metro area population of Miami in 2022 was 6,215,000, a 0.78% increase from 2021.\\nThe metro area population of Miami in 2021 was 6,167,000, a 0.74% increase from 2020.\\nThe metro area population of Miami in 2020 was 6,122,000, a 0.71% increase from 2019."
         }
       }
     ]
   },
   "ext": {
     "retrieval_augmented_generation": {
-      "answer": """You are a helpful assistant.\nGenerate a concise and informative answer in less than 100 words for the given question\nSEARCH RESULT 1: Chart and table of population level and growth rate for the Miami metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\nThe current metro area population of Miami in 2023 is 6,265,000, a 0.8% increase from 2022.\nThe metro area population of Miami in 2022 was 6,215,000, a 0.78% increase from 2021.\nThe metro area population of Miami in 2021 was 6,167,000, a 0.74% increase from 2020.\nThe metro area population of Miami in 2020 was 6,122,000, a 0.71% increase from 2019.\nSEARCH RESULT 2: Chart and table of population level and growth rate for the New York City metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\nThe current metro area population of New York City in 2023 is 18,937,000, a 0.37% increase from 2022.\nThe metro area population of New York City in 2022 was 18,867,000, a 0.23% increase from 2021.\nThe metro area population of New York City in 2021 was 18,823,000, a 0.1% increase from 2020.\nThe metro area population of New York City in 2020 was 18,804,000, a 0.01% decline from 2019.\nQUESTION: What's the population increase of New York City from 2021 to 2023? How is the trending comparing with Miami?\nOkay, I need to figure out the population increase of New York City from 2021 to 2023 and compare it with Miami's growth. Let me start by looking at the data provided.
+      "answer": """<think>
+Okay, let's tackle this question. The user wants to know the population increase of New York City from 2021 to 2023 and compare the trend with Miami.
 
-From SEARCH RESULT 2, in 2021, NYC's population was 18,823,000, and in 2022, it was 18,867,000. Then in 2023, it's 18,937,000. So, from 2021 to 2022, it increased by 44,000, and from 2022 to 2023, it went up by 70,000. Adding those together, the total increase from 2021 to 2023 is 114,000.
-
-Now, looking at Miami's data in SEARCH RESULT 1, in 2021, the population was 6,167,000, and in 2023, it's 6,265,000. That's an increase of 98,000 over the same period. 
-
-Comparing the two, NYC's increase is higher than Miami's. NYC went up by 114,000, while Miami was 98,000. Also, NYC's growth rate is a bit lower than Miami's. NYC's average annual growth rate is around 0.37%, whereas Miami's is about 0.75%. So, while NYC's population increased more in total, Miami's growth rate is higher. I should present this clearly, highlighting both the total increase and the growth rates to show the comparison accurately.
+...
 </think>
 
-From 2021 to 2023, New York City's population increased by 114,000, compared to Miami's increase of 98,000. While NYC's total growth is higher, Miami's annual growth rate (0.75%) is notably faster than NYC's (0.37%)."""
+New York City's metro population increased by 114,000 from 2021 (18,823,000) to 2023 (18,937,000), with growth rates rising from 0.1% to 0.37%. Miami's metro population grew by 98,000 in the same period (6,167,000 to 6,265,000), but its growth rates were consistently higher (0.74% to 0.8%). While NYC saw a larger absolute increase due to its bigger size, Miami experienced faster percentage growth, reflecting a stronger upward trend. NYC's growth rebounded after a near-stable 2020, whereas Miami maintained steady, robust annual increases."""
     }
   }
 }
 ```
+
+## Related documentation
+
+- [Conversational search with RAG]({{site.url}}{{site.baseurl}}/vector-search/ai-search/conversational-search/)
+- [Connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/)
+- [Retrieval-augmented generation processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rag-processor/)
+- [Text embedding processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-embedding/)
+- [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/)

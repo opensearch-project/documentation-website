@@ -16,6 +16,8 @@ Reciprocal rank fusion (RRF) combines the results of multiple query clauses usin
 
 Because RRF uses only ranks, the relevance scores produced by the individual query clauses never need to be comparable. A BM25 score of `12.4` and a vector similarity of `0.87` measure different quantities on different scales, but a rank of `1` identifies the top result in both lists. RRF is therefore a reasonable starting point for hybrid search when you have not yet determined how to weight keyword relevance against semantic relevance.
 
+You can configure RRF in a search pipeline or apply it without one by running the `hybrid` query in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/) and setting both the normalization and combination techniques to `rrf`. The examples on this page use a search pipeline.
+
 OpenSearch calculates the RRF score of a document $$d$$ as follows:
 
 $$score(d) = \sum_{q \in Q} \frac{1}{k + rank_q(d)}$$
@@ -48,11 +50,11 @@ Start with RRF when you want a configuration that works without measuring the sc
 
 Use the normalization processor when the score margins contain information that must be preserved in the final ranking, such as when one query clause returns a single strong match followed by weak matches and the final ranking must reflect that difference. The three normalization techniques preserve those margins differently. For more information, see [Normalization techniques]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/normalization-processor/#normalization-techniques).
 
-The trade-off for RRF is a small reduction in relevance. In benchmarks on six BEIR datasets, RRF averaged 3.86% lower NDCG@10 than the score-based hybrid pipeline, with comparable search latency and coordinator node CPU utilization. For the full results, see [Introducing reciprocal rank fusion for hybrid search](https://opensearch.org/blog/introducing-reciprocal-rank-fusion-hybrid-search/). To compare the two processors on your own data and judgment lists, use [Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/optimize-hybrid-search/), which evaluates both across a range of parameter values.
+The trade-off for RRF is a small reduction in relevance. In benchmarks on six BEIR datasets, RRF averaged 3.86% lower NDCG@10 than the score-based hybrid pipeline, with comparable search latency and coordinating node CPU utilization. For the full results, see [Introducing reciprocal rank fusion for hybrid search](https://opensearch.org/blog/introducing-reciprocal-rank-fusion-hybrid-search/). To compare the two processors on your own data and judgment lists, use [Search Relevance Workbench]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/optimize-hybrid-search/), which evaluates both across a range of parameter values.
 
 For the full list of `score-ranker-processor` request fields, see [Score ranker processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/score-ranker-processor/).
 
-## Example: Fusing keyword and vector results
+## Example: Combining keyword and vector results
 
 The following example builds a product index, runs a keyword query clause and a vector query clause separately to show their individual rankings, and then fuses them with RRF.
 
@@ -219,7 +221,7 @@ GET /products/_search?search_pipeline=rrf-pipeline
 ```
 {% include copy-curl.html %}
 
-The response contains the fused ranking:
+The response contains the combined ranking:
 
 ```json
 {
@@ -360,7 +362,7 @@ GET /products/_search?search_pipeline=rrf-pipeline
 ```
 {% include copy-curl.html %}
 
-When your application requests a small number of results, set `pagination_depth` higher than the largest `size` value that the application uses. Larger values improve the quality of the fused ranking but require OpenSearch to retain and process more results per shard. For more information, see [Paginating hybrid query results]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/pagination/).
+When your application requests a small number of results, set `pagination_depth` higher than the largest `size` value that the application uses. Larger values improve the quality of the combined ranking but require OpenSearch to retain and process more results per shard. For more information, see [Paginating hybrid query results]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/pagination/).
 
 ## Interpreting RRF scores
 
@@ -506,7 +508,7 @@ Rerunning the query from [Step 5](#step-5-run-the-hybrid-query) with these weigh
 | `4` | 0.7 &times; 1 / (1 + 3) | 0.175 |
 | `1` | 0.3 &times; 1 / (1 + 1) | 0.15 |
 
-Weighting reintroduces the tuning effort that unweighted RRF avoids, so change the weights only when you can measure the effect on relevance.
+Weighting reintroduces the tuning effort that unweighted RRF avoids, so change the weights only when you can measure the effect on relevance. To try different weights without changing the pipeline, specify them in the `hybrid` query's `weights` parameter, which replaces the pipeline's weights for that request only. For more information, see [Weighting subqueries]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/#weighting-subqueries).
 
 ## Next steps
 

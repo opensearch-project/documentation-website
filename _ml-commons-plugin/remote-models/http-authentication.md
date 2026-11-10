@@ -73,6 +73,18 @@ The `mutual_tls_enabled` and `keystore_type` fields belong to the connector's `c
 
 Before you configure mTLS, ensure that the following requirements are met:
 
+- Client certificate authentication is enabled on the cluster. It is disabled by default, and connector requests that set `mutual_tls_enabled` to `true` are rejected with a `403` error until you enable it. To enable it, set the `plugins.ml_commons.connector.mutual_tls_enabled` cluster setting to `true`:
+
+  ```json
+  PUT /_cluster/settings
+  {
+    "persistent": {
+      "plugins.ml_commons.connector.mutual_tls_enabled": true
+    }
+  }
+  ```
+  {% include copy-curl.html %}
+
 - The connector uses the `http` protocol. For more information, see [Restrictions](#restrictions).
 - The endpoint URL matches a trusted endpoint. For more information, see [Adding trusted endpoints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index#adding-trusted-endpoints).
 - Private keys in PEM format are non-encrypted and use PKCS #8 encoding (`-----BEGIN PRIVATE KEY-----`). PKCS #1 keys (`-----BEGIN RSA PRIVATE KEY-----`) are not supported. To convert a PKCS #1 key to PKCS #8, use the following command:
@@ -198,11 +210,11 @@ OpenSearch detects the change and builds a new HTTP client for subsequent predic
 
 The following restrictions apply to client certificate authentication:
 
-- mTLS applies only to connectors that use the `http` protocol. Connectors that use the `aws_sigv4`, `mcp_sse`, or `mcp_streamable_http` protocol accept `mutual_tls_enabled` when they are created but ignore it at runtime.
+- mTLS applies only to connectors that use the `http` protocol and is not applied to streaming requests. Creating a connector that uses another protocol, such as `aws_sigv4`, with `mutual_tls_enabled` set to `true` returns a `400` error.
 - `skip_ssl_verification` and `mutual_tls_enabled` cannot both be set to `true`. Disabling server certificate validation removes the mutual part of mutual TLS, so provide `ca_cert_pem` to validate the server certificate against a private CA.
 - The `credential` object cannot contain `api_key` when mTLS is enabled. OpenSearch enforces certificate-only authentication and rejects mixed authentication methods.
 - File paths are not supported in certificate fields. Provide the certificate content itself.
-- Certificate material is validated on the first predict request. A connector with an invalid certificate configuration is created successfully and fails when it is first used.
+- Certificate material and the preceding `skip_ssl_verification` and `api_key` restrictions are validated on the first predict request. A connector with an invalid certificate configuration is created successfully and fails when it is first used.
 
 ## Next steps
 

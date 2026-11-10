@@ -29,7 +29,7 @@ When access control is enabled on your third-party platform, you can enter your 
 
 ### Adding trusted endpoints
 
-To configure connectors in OpenSearch, add the trusted endpoints to your cluster settings by using the `plugins.ml_commons.trusted_connector_endpoints_regex` setting, which supports Java regex expressions:
+To configure connectors in OpenSearch, add the trusted endpoints to your cluster settings by using the `plugins.ml_commons.trusted_connector_endpoints_regex` setting, which supports Java regex expressions. The following request sets the default list of trusted endpoints. To trust another endpoint, add its pattern to this list:
 
 ```json
 PUT /_cluster/settings
@@ -37,10 +37,18 @@ PUT /_cluster/settings
     "persistent": {
         "plugins.ml_commons.trusted_connector_endpoints_regex": [
           "^https://runtime\\.sagemaker\\..*[a-z0-9-]\\.amazonaws\\.com/.*$",
+          "^https://api\\.sagemaker\\..*[a-z0-9-]\\.amazonaws\\.com/.*$",
           "^https://api\\.openai\\.com/.*$",
           "^https://api\\.cohere\\.ai/.*$",
+          "^https://api\\.deepseek\\.com/.*$",
+          "^https://generativelanguage\\.googleapis\\.com/.*$",
+          "^https://([a-z0-9][a-z0-9-]*-)?aiplatform\\.googleapis\\.com/.*$",
           "^https://bedrock-runtime\\..*[a-z0-9-]\\.amazonaws\\.com/.*$",
-          "^https://.*-aiplatform\\.googleapis\\.com/.*$"
+          "^https://bedrock-agent-runtime\\..*[a-z0-9-]\\.amazonaws\\.com/.*$",
+          "^https://bedrock\\..*[a-z0-9-]\\.amazonaws\\.com/.*$",
+          "^https://textract\\..*[a-z0-9-]\\.amazonaws\\.com$",
+          "^https://comprehend\\..*[a-z0-9-]\\.amazonaws\\.com$",
+          "^https://rekognition(-fips)?\\..*[a-z0-9-]\\.amazonaws\\.com$"
         ]
     }
 }
@@ -49,8 +57,6 @@ PUT /_cluster/settings
 
 This setting replaces the entire list of trusted endpoints, so include every pattern your cluster needs.
 {: .note}
-
-
 
 ### Setting up connector access control
 
@@ -69,7 +75,7 @@ PUT /_cluster/settings
 ```
 {% include copy-curl.html %}
 
-When access control is enabled, you can install the [Security plugin]({{site.url}}{{site.baseurl}}/security/index/). This makes the `backend_roles`, `add_all_backend_roles`, or `access_model` options required in order to use the connector API. If successful, OpenSearch returns the following response:
+If successful, OpenSearch returns the following response:
 
 ```json
 {
@@ -85,12 +91,14 @@ When access control is enabled, you can install the [Security plugin]({{site.url
 }
 ```
 
+When both the [Security plugin]({{site.url}}{{site.baseurl}}/security/index/) and connector access control are enabled, you can control access to a connector by providing the `backend_roles`, `add_all_backend_roles`, or `access_mode` options when you create it. If you don't provide any of these options, the connector is private. If either the Security plugin or connector access control is disabled, the Create Connector API rejects requests that contain these options.
+
 ## Step 1: Register a model group
 
 To register a model, you have the following options:
 
 - You can use `model_group_id` to register a model version to an existing model group.
-- If you do not use `model_group_id`, ML Commons creates a model with a new model group.
+- If you do not use `model_group_id`, OpenSearch creates a model with a new model group.
 
 To register a model group, send the following request:
 
@@ -121,7 +129,7 @@ You can create a standalone connector that can be reused by multiple model regis
 If you're using Amazon OpenSearch Service, the process for creating connectors differs. For more information, see [Creating connectors in Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ml-amazon-connector.html).
 {: .note}
 
-The Connectors Create API, `/_plugins/_ml/connectors/_create`, creates connectors that facilitate registering and deploying external models in OpenSearch. Using the `endpoint` parameter, you can connect ML Commons to any supported ML tool by using its specific API endpoint. For example, you can connect to a ChatGPT model by using the `api.openai.com` endpoint:
+The Connectors Create API, `/_plugins/_ml/connectors/_create`, creates connectors that facilitate registering and deploying external models in OpenSearch. Using the `endpoint` parameter, you can connect OpenSearch to any supported ML tool by using its specific API endpoint. For example, you can connect to a ChatGPT model by using the `api.openai.com` endpoint:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -135,7 +143,7 @@ POST /_plugins/_ml/connectors/_create
         "model": "gpt-4o-mini"
     },
     "credential": {
-        "openAI_key": "..."
+        "openAI_key": "<openai_api_key>"
     },
     "actions": [
         {
@@ -169,25 +177,26 @@ POST /_plugins/_ml/models/_register
 {
     "name": "openAI-gpt-4o-mini",
     "function_name": "remote",
-    "model_group_id": "1jriBYsBq7EKuKzZX131",
+    "model_group_id": "wlcnb4kBJ1eYAeTMHlV6",
     "description": "test model",
     "connector_id": "a1eMb4kBJ1eYAeTMAljY"
 }
 ```
 {% include copy-curl.html %}
 
-OpenSearch returns the task ID of the register operation:
+OpenSearch returns the task ID of the register operation and the model ID of the registered model:
 
 ```json
 {
   "task_id": "cVeMb4kBJ1eYAeTMFFgj",
-  "status": "CREATED"
+  "status": "CREATED",
+  "model_id": "cleMb4kBJ1eYAeTMFFg4"
 }
 ```
 
 To check the status of the operation, provide the task ID to the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
-```bash
+```json
 GET /_plugins/_ml/tasks/cVeMb4kBJ1eYAeTMFFgj
 ```
 {% include copy-curl.html %}
@@ -214,6 +223,7 @@ Take note of the returned `model_id` because you’ll need it to deploy the mode
 ## Step 4: Deploy the model
 
 Externally hosted models are deployed automatically by default when you send a Predict API request for the first time. To disable automatic deployment for an externally hosted model, set `plugins.ml_commons.model_auto_deploy.enable` to `false`:
+
 ```json
 PUT _cluster/settings
 {
@@ -226,7 +236,7 @@ PUT _cluster/settings
 
 To deploy the model, use the [Deploy API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/deploy-model/).
 
-```bash
+```json
 POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_deploy
 ```
 {% include copy-curl.html %}
@@ -236,13 +246,14 @@ The response contains the task ID that you can use to check the status of the de
 ```json
 {
   "task_id": "vVePb4kBJ1eYAeTM7ljG",
-  "status": "CREATED"
+  "task_type": "DEPLOY_MODEL",
+  "status": "COMPLETED"
 }
 ```
 
 As in the previous step, check the status of the operation by calling the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
-```bash
+```json
 GET /_plugins/_ml/tasks/vVePb4kBJ1eYAeTM7ljG
 ```
 {% include copy-curl.html %}
@@ -320,7 +331,8 @@ The response contains the inference results provided by the OpenAI model:
             }
           }
         }
-      ]
+      ],
+      "status_code": 200
     }
   ]
 }
@@ -341,6 +353,7 @@ You can undeploy the model automatically by defining a TTL in the model settings
 
 - For more information about connectors, including example connectors, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 - For more information about connector fields, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
+- To create a connector and register and deploy a model in a single request, use a workflow template. For more information, see [Model deployment templates]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-templates/#model-deployment-templates).
 - For more information about managing ML models in OpenSearch, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
 - For more information about interacting with ML models in OpenSearch, see [Managing ML models in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-dashboard/)
 For instructions on how to configure model guardrails, see [Guardrails]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/guardrails/).

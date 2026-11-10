@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Supported units
-nav_order: 150
+nav_order: 160
 redirect_from:
   - /opensearch/units/
 ---
@@ -68,3 +68,5 @@ Suffix | Multiplier
 ## Related documentation
 
 - [Common REST parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/)
+- [Index name syntax]({{site.url}}{{site.baseurl}}/api-reference/index-name-syntax/)
+- [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/cron-expressions/)

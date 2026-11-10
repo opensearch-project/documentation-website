@@ -23,7 +23,7 @@ SM-created snapshots have names in the format `<policy_name>-<date>-<random numb
 
 Each policy has associated metadata that stores the policy status. Snapshot management saves SM policies and metadata in the system index and reads them from the system index. Thus, Snapshot Management depends on the OpenSearch cluster's indexing and searching functions. The policy's metadata keeps information about the latest creation and deletion only. The metadata is read before running every scheduled job so that SM can continue execution from the previous job's state. You can view the metadata using the [explain API]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#explain).
 
-An SM schedule is a custom [cron]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#cron-expressions) expression. It consists of two parts: a creation schedule and a deletion schedule. You must set up a creation schedule that specifies the frequency and timing of snapshot creation. Optionally, you can set up a separate schedule for deleting snapshots.
+An SM schedule is a custom [cron]({{site.url}}{{site.baseurl}}/api-reference/cron-expressions/) expression. It consists of two parts: a creation schedule and a deletion schedule. You must set up a creation schedule that specifies the frequency and timing of snapshot creation. Optionally, you can set up a separate schedule for deleting snapshots.
 
 An SM configuration includes the indexes and repository for the snapshots and supports all parameters you can define when [creating a snapshot]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#take-snapshots) using the API. Additionally, you can specify the format and time zone for the date used in the snapshot's name.
 
@@ -32,7 +32,7 @@ An SM configuration includes the indexes and repository for the snapshots and su
 
 One snapshot can contain as many indexes as there are in the cluster. We expect at most dozens of SM policies in one cluster, but a snapshot repository can safely scale to thousands of snapshots. However, to manage its metadata, a large repository requires more memory on the cluster manager node.
 
-Snapshot Management depends on the Job Scheduler plugin to schedule a job that is run periodically. Each SM policy corresponds to one SM-scheduled job. The scheduled job is lightweight, so the burden of SM depends on the snapshot creation frequency and the burden of running the snapshot operation itself.
+Snapshot Management depends on the Job Scheduler plugin to schedule a job that is run periodically. For more information, see [Scheduled jobs]({{site.url}}{{site.baseurl}}/tuning-your-cluster/scheduled-jobs/index/). Each SM policy corresponds to one SM-scheduled job. The scheduled job is lightweight, so the burden of SM depends on the snapshot creation frequency and the burden of running the snapshot operation itself.
 
 ### Repository data caching
 **Introduced 2.19**

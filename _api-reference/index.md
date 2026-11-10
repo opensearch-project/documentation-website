@@ -18,6 +18,10 @@ You can use [REST APIs](#rest-apis) for every API operation in OpenSearch. You c
 
 This page lists API families rather than individual operations. To find a specific operation, open the family that owns it and use the list of APIs on its page.
 
+The request examples on API pages omit the host and credentials, so you can paste them into Dev Tools. To learn how to send the same requests using cURL, including the host URL and authentication, see [Communicate with OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/communicate/).
+
+OpenSearch publishes a reference generated from the OpenSearch API specification that lists REST endpoints with their parameters and schemas. The specification is not yet complete, so some APIs might not appear in the generated reference. For more information, see the [OpenSearch API specification](https://api-spec.opensearch.org/). 
+
 ## REST APIs
 **Introduced 1.0**
 {: .label .label-purple }
@@ -65,7 +69,7 @@ The following APIs manage the models, agents, and workflows that support vector 
 | :--- | :--- |
 | [ML Commons API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/) | Register, deploy, and run machine learning models, agents, and connectors. |
 | [Vector Search API]({{site.url}}{{site.baseurl}}/vector-search/api/) | Manage the models and read the statistics that support vector search. |
-| [Workflow APIs]({{site.url}}{{site.baseurl}}/automating-configurations/api/) | Create, provision, and manage the workflow templates that automate complex setup tasks. |
+| [Workflow APIs]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/api/) | Create, provision, and manage the workflow templates that automate complex setup tasks. |
 
 ### Index management APIs
 
@@ -87,10 +91,10 @@ The following APIs protect cluster availability and control how a cluster uses i
 | :--- | :--- |
 | [Cross-Cluster Replication (CCR) API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/api/) | Replicate indexes from a leader cluster to a follower cluster. |
 | [Remote Store Stats API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/remote-store-stats-api/) | Read upload and download statistics for remote-backed storage. |
-| [Rules API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/rule-based-autotagging/rule-lifecycle-api/) | Create and manage the auto-tagging rules that assign incoming requests to a workload group. |
-| [Shard Indexing Backpressure Stats API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/stats-api/) | Monitor shard indexing backpressure. |
+| [Rules API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/rule-based-autotagging/rule-lifecycle-api/) | Create and manage the auto-tagging rules that assign incoming requests to a workload group. |
+| [Shard Indexing Backpressure Stats API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/load-protection/stats-api/) | Monitor shard indexing backpressure. |
 | [Snapshot Management API]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/sm-api/) | Take and delete snapshots on a schedule. |
-| [Workload Management APIs]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/workload-management/workload-groups/) | Create the workload groups that limit resource usage and read their statistics. |
+| [Workload Management APIs]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/workload-groups/) | Create the workload groups that limit resource usage and read their statistics. |
 
 ### Observability and monitoring APIs
 
@@ -101,12 +105,10 @@ The following APIs report the cluster state and notify you when it changes.
 | [Alerting API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/) | Create and manage monitors, triggers, and alerts. |
 | [Anomaly Detection API]({{site.url}}{{site.baseurl}}/observing-your-data/ad/api/) | Create and manage anomaly detectors and read the anomalies they find. |
 | [Forecasting API]({{site.url}}{{site.baseurl}}/observing-your-data/forecast/api/) | Create and manage forecasters and read the forecasts they produce. |
-| [Job Scheduler APIs]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/job-scheduler/index/#job-scheduler-apis) | Monitor the scheduled jobs and locks on a cluster. |
+| [Job Scheduler APIs]({{site.url}}{{site.baseurl}}/tuning-your-cluster/scheduled-jobs/index/#monitoring-scheduled-jobs) | Monitor the scheduled jobs and locks on a cluster. |
 | [Notifications API]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/api/) | Define the channels that deliver notifications and the sources that send them. |
-| [Performance Analyzer API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/api/) | Retrieve performance metrics for a node or a cluster. |
-| [Query Insights APIs]({{site.url}}{{site.baseurl}}/observing-your-data/query-insights/) | Read top N queries, live queries, and query insights health statistics, and change query insights settings. |
-| [Reporting API]({{site.url}}{{site.baseurl}}/reporting/api/) | Define reports and generate them from dashboards, visualizations, saved searches, and notebooks. Downloading the rendered content uses the OpenSearch Dashboards endpoint. |
-| [Root Cause Analysis API]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/pa/rca/api/) | Retrieve root cause analysis results for a cluster. |
+| [Query Insights APIs]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/query-insights/) | Read top N queries, live queries, and query insights health statistics, and change query insights settings. |
+| [Reporting API]({{site.url}}{{site.baseurl}}/dashboards/reporting/api/) | Define reports and generate them from dashboards, visualizations, saved searches, and notebooks. Downloading the rendered content uses the OpenSearch Dashboards endpoint. |
 
 ### Security and security analytics APIs
 
@@ -141,4 +143,6 @@ The following pages provide additional API reference information:
 
 - [Common REST parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/)
 - [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/)
+- [Index name syntax]({{site.url}}{{site.baseurl}}/api-reference/index-name-syntax/)
+- [Cron expressions]({{site.url}}{{site.baseurl}}/api-reference/cron-expressions/)
 - [Popular APIs]({{site.url}}{{site.baseurl}}/api-reference/popular-api/)

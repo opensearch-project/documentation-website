@@ -52,7 +52,7 @@ type-conv-pipeline:
 ```
 {% include copy.html %}
 
-Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with that file path. For more information, see [Configuring OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper). 
+Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with that file path. For more information, see [Running Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/running/). 
 
 For example, before you run the `convert_type` processor, if the `logs_json.log` file contains the following event record:
 

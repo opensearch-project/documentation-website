@@ -147,7 +147,7 @@ The `ubi_queries` index [schema](https://github.com/OpenSearch-project/user-beha
 
 - `client_id` (events and queries): A client ID provided by the client application.
 
-- `query_response_objects_ids` (queries): An array of object IDs. An ID can have the same value as the `_id`, but it is meant to be the externally valid ID of a document, item, or product.
+- `query_response_hit_ids` (queries): An array of object IDs. An ID can have the same value as the `_id`, but it is meant to be the externally valid ID of a document, item, or product.
 
 Because UBI manages the `ubi_queries` index, you should never have to write directly to this index (except when importing data).
 

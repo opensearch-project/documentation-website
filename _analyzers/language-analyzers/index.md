@@ -78,6 +78,8 @@ PUT my-index
 ```
 {% include copy-curl.html %}
 
+To search documents written in several languages, you can detect the language of each document during ingestion and copy its text to a field that uses the matching language analyzer. For a complete example, see [Identifying document language for multilingual search]({{site.url}}{{site.baseurl}}/tutorials/language-identification/).
+
 ## Stem exclusion
 
 You can apply stem exclusion to any language analyzer by providing a list of lowercase words that should be excluded from stemming. Internally, OpenSearch uses the `keyword_marker` token filter to mark these words as keywords, ensuring that they are not stemmed.

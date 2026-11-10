@@ -50,11 +50,7 @@ POST /_nodes/reload_secure_settings
 
 {% capture step1_python %}
 
-
-response = client.nodes.reload_secure_settings(
-  body = { "Insert body here" }
-)
-
+response = client.nodes.reload_secure_settings()
 {% endcapture %}
 
 {% include code-block.html

@@ -15,7 +15,7 @@ redirect_from:
 
 Agentic search lets you ask questions in natural language and have OpenSearch plan and execute the retrieval automatically. A preconfigured agent reads the question, plans the search, and returns relevant results.
 
-You can configure agentic search using the API or OpenSearch Dashboards. This guide describes configuring agentic search using the API. To learn how to configure it in OpenSearch Dashboards, see [Building Agentic Search Flows]({{site.url}}{{site.baseurl}}/vector-search/ai-search/building-agentic-search-flows/).
+You can configure agentic search using the API or OpenSearch Dashboards. This guide describes configuring agentic search using the API. To learn how to configure it in OpenSearch Dashboards, see [Building Agentic Search Flows]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/building-agentic-search-flows/).
 
 ## Agent types
 
@@ -149,7 +149,7 @@ POST /_plugins/_ml/agents/_register
     "model_id": <Model ID from Step 3>,
     "parameters": {
       "max_iteration": 15,
-      "embedding_model_id": "<Provide if you want to do neural search>"
+      "embedding_model_id": "<Provide if you want to use semantic search>"
     }
   },
   "memory": {
@@ -182,7 +182,7 @@ POST /_plugins/_ml/agents/_register
     "model_id": <Model ID from Step 3>,
     "parameters": {
       "max_iteration": 15,
-      "embedding_model_id": "<Provide if you want to do neural search>"
+      "embedding_model_id": "<Provide if you want to use semantic search>"
     }
   },
   "memory": {
@@ -285,11 +285,13 @@ After setting up basic agentic search, you can enhance your implementation with 
 
 - [Configure semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/neural-search/) -- Configure agents to automatically choose between keyword and semantic vector searches based on user intent, providing more relevant results for conceptual questions.
 
-- [Add search templates]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/search-templates/) -- Add predefined search templates to handle complex query patterns that would be challenging for LLMs to generate consistently, ensuring predictable query structure and improved reliability.
+- [Use search templates as examples]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/search-templates/) -- Add predefined search templates to handle complex query patterns that would be challenging for LLMs to generate consistently, ensuring predictable query structure and improved reliability.
+
+- [Fill search templates]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agentic-search-templates/index/) -- Have the LLM fill the parameters of registered search templates instead of writing the full query, in either OpenSearch or the OpenSearch Agent Server.
 
 - [Connect external MCP servers]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/mcp-server/) -- Extend agentic search with external tools and data sources through Model Context Protocol (MCP) servers for enhanced functionality and real-time information access.
 
-- [Build agentic search flows]({{site.url}}{{site.baseurl}}/vector-search/ai-search/building-agentic-search-flows/) -- Configure agents and execute agentic search using AI search flows in OpenSearch Dashboards. 
+- [Build agentic search flows]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/building-agentic-search-flows/) -- Configure agents and execute agentic search using AI search flows in OpenSearch Dashboards. 
 
 - [Rerank agentic search results]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/rerank-agentic-search-results/) -- Add a rerank search response processor to your agentic search pipeline to further rerank search results.
 

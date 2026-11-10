@@ -110,7 +110,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
    ```
    {% include copy.html %}
 
-1. For OpenSearch 2.12 or later, set a custom admin password, following the [admin password requirements]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/#admin-password-requirements). If you do not set a password, the startup script exits without starting OpenSearch:
+1. For OpenSearch 2.12 or later, set a custom admin password, following the [admin password requirements]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/#admin-password-requirements). If you do not set a password, the startup script exits without starting OpenSearch. OpenSearch uses this password only when it sets up the demo security configuration. To change the admin password later, see [Changing the admin password]({{site.url}}{{site.baseurl}}/security/configuration/passwords/#changing-the-admin-password). To set the password, run the following command:
    ```bash
    export OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
    ```
@@ -653,7 +653,7 @@ The following configuration is only suitable for testing in a non-production env
 - [Preparing a cluster for production]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#preparing-a-cluster-for-production)
 - [Common installation issues]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#common-issues)
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/)
-- [Configure Performance Analyzer for Tarball Installation]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/#install-performance-analyzer)
+- [Performance Analyzer]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/telemetry/performance-analyzer/)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/)
 - [About the Security plugin]({{site.url}}{{site.baseurl}}/security/index/)

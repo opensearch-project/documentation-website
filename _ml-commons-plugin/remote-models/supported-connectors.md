@@ -26,7 +26,7 @@ OpenSearch provides two types of connector blueprints:
   - Suitable for specific input and output formatting requirements.
   - Include pre- and post-processing functions.
   - Recommended for existing implementations.
-  - Compatible with [neural search]({{site.url}}{{site.baseurl}}/neural-search-plugin/index/) queries.
+  - Compatible with [semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/semantic-search/).
 
 ## Find your model and platform
 

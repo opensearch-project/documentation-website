@@ -39,7 +39,7 @@ PUT .plugins-ml-config/_doc/os_chat
 ```
 {% include copy-curl.html %}
 
-For more information about configuring the root agent, see the [Build your own chatbot tutorial]({{site.url}}{{site.baseurl}}/ml-commons-plugin/tutorials/build-chatbot/#step-5-configure-a-root-chatbot-agent-in-opensearch-dashboards).
+For more information about configuring the root agent, see [Build your own chatbot]({{site.url}}{{site.baseurl}}/tutorials/gen-ai/chatbots/build-chatbot/#step-5-configure-a-root-chatbot-agent-in-opensearch-dashboards).
 
 This example shows a system index. In security-enabled domains, only super admins have permission to execute this code. For information about making super admin calls, see the [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/) guide. For access permission, contact your IT administrator.
 {: .warning}
@@ -108,7 +108,7 @@ Select the trash can icon to delete a conversation. Once the confirmation dialog
 
 ### Share a conversation through Notebooks
 
-You can use [Notebooks]({{site.url}}{{site.baseurl}}/observing-your-data/notebooks/) to save your conversations. To use this option, select **Save to notebook** from the dropdown menu to the right of **OpenSearch Assistant**. Enter a name for the notebook, then select **Save**. A pop-up message in the lower-right corner confirms the conversation has been saved. 
+You can use [Notebooks]({{site.url}}{{site.baseurl}}/dashboards/notebooks/) to save your conversations. To use this option, select **Save to notebook** from the dropdown menu to the right of **OpenSearch Assistant**. Enter a name for the notebook, then select **Save**. A pop-up message in the lower-right corner confirms the conversation has been saved. 
 
 All conversations (prompts and responses/questions and answers) between you and the large language model (LLM) will be saved to this notebook.
 

@@ -2,7 +2,7 @@
 layout: default
 title: Verify snaphot repository
 parent: Snapshot APIs
-nav_order: 4
+nav_order: 40
 ---
 
 # Verify Snapshot Repository API
@@ -24,13 +24,15 @@ GET _snapshot/{repository}/
 
 ## Path parameters
 
-Path parameters are optional. 
+The following table lists the available path parameters.
 
 | Parameter | Data type | Description | 
 :--- | :--- | :---
 | `repository` | String | Name of repository to verify. |
 
 ## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
 
 | Parameter | Data type | Description | 
 :--- | :--- | :---
@@ -95,6 +97,8 @@ In the preceding sample, one node is connected to the snapshot repository. If mo
 ````
 
 ## Response body fields
+
+The following table lists all response body fields.
 
 | Field | Data type | Description | 
 :--- | :--- | :---

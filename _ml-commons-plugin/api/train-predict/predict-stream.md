@@ -2,7 +2,7 @@
 layout: default
 title: Predict stream
 parent: Model APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 65
 ---
 
@@ -168,7 +168,7 @@ POST /_plugins/_ml/models/_register
             "region": "<your_aws_region>",
             "service_name": "bedrock",
             "response_filter": "$.output.message.content[0].text",
-            "model": "us.anthropic.claude-3-7-sonnet-20250219-v1:0"
+            "model": "us.anthropic.claude-sonnet-4-6"
         },
         "actions": [
             {

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: OTel trace source
+title: OTel trace
 parent: Sources
 grand_parent: Pipelines
 nav_order: 80
@@ -79,7 +79,7 @@ otel-traces-https:
         hosts: ["https://opensearch:9200"]
         index: otel-traces-https
         username: admin
-        password: admin_pass
+        password: "<custom-admin-password>"
         insecure: true
 ```
 {% include copy.html %}

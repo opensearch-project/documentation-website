@@ -18,7 +18,7 @@ module Api
       @schema = @is_array ? schema.items : schema
       @schema = flatten_schema(@schema)
       @members = parse_members(@schema)
-      @is_nested = @members.any? { |param| param.is_a?(BodyParameterGroup) }
+      @is_nested = @members.any?(BodyParameterGroup)
       members.each { |param| param.group = self } unless @is_nested
     end
 

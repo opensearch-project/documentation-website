@@ -26,7 +26,7 @@ You can use GPU acceleration with both [Docker images](https://gitlab.com/nvidia
 
 ## PyTorch
 
-GPU-accelerated ML nodes require [PyTorch](https://pytorch.org/docs/stable/index.html) 1.12.1 work with ML models.
+GPU-accelerated ML nodes require [PyTorch](https://pytorch.org/docs/stable/index.html) 1.12.1 to work with ML models.
 
 ## Setting up a GPU-accelerated ML node
 
@@ -243,7 +243,7 @@ OpenSearch should now be running inside your GPU-accelerated cluster. However, i
 
 If the previous two scripts do not provision your GPU-accelerated node properly, you can install the drivers for AWS Inferentia manually:
 
-1. Deploy an AWS accelerator instance based on your chosen Linux operating system. For instructions, see [PyTorch Neuron Setup](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-setup.html#pytorch-neuron-setup).
+1. Deploy an AWS accelerator instance based on your chosen Linux operating system. For instructions, see [PyTorch Neuron Setup](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/setup/pytorch/index.html).
 
 2. Copy the Neuron library into OpenSearch. The following command uses a directory named `opensearch-2.5.0`:
 
@@ -279,7 +279,7 @@ If the previous two scripts do not provision your GPU-accelerated node properly,
    ```
 
 
-5. To make sure you have enough memory to upload a model, increase the JVM stack size to `>+2MB`:
+5. To make sure you have enough memory to upload a model, increase the JVM stack size to at least 2 MB:
 
    ```bash
    echo "-Xss2m" | sudo tee -a $OPENSEARCH_HOME/config/jvm.options
@@ -302,7 +302,7 @@ To troubleshoot the max file descriptors error, run the following command:
 echo "$(whoami) - nofile 65535" | sudo tee -a /etc/security/limits.conf
 ```
 
-To fix the `vm.max_map_count` error, run this command to increase the count to `262114`:
+To fix the `vm.max_map_count` error, run this command to increase the count to `262144`:
 
 ```bash
 sudo sysctl -w vm.max_map_count=262144

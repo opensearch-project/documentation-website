@@ -63,6 +63,7 @@ The remote index build service supports several additional, optional settings. F
 Once the remote index build service is configured, any segment flush and merge operations that meet the following requirements will transparently use the GPU build path:
 
 - The index is using one of the [supported configurations](#supported-configurations).
-- The segment size is greater than `index.knn.remote_index_build.size.min` and less than `knn.remote_index_build.size.max`.
+- The segment size is at least `index.knn.remote_index_build.size.min`. If `knn.remote_index_build.size.max` is set to a nonzero value, the segment size must also be no greater than `knn.remote_index_build.size.max`.
+- The vector field has at least 64 dimensions.
 
 You can monitor remote index build tasks by calling the k-NN Stats API and reviewing the [remote index build statistics]({{site.url}}{{site.baseurl}}/vector-search/api/knn/#remote-index-build-stats).

@@ -146,7 +146,7 @@ raw-trace-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: admin_password
+        password: "<custom-admin-password>"
         index_type: trace-analytics-raw
 ```
 {% include copy.html %}

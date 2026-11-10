@@ -64,7 +64,7 @@ join-demo:
         hosts: ["https://opensearch:9200"]
         index: join-demo-%{yyyy.MM.dd}
         username: admin
-        password: admin_password
+        password: "<custom-admin-password>"
         index_type: custom
         insecure: true  # set to true for self-signed local clusters
 ```

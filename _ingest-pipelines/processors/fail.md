@@ -7,7 +7,7 @@ nav_order: 100
 
 # Fail processor
 
-The `fail` processor is useful for performing data transformation and enrichment during the indexing process. The primary use case for the `fail` processor is to fail an indexing operation when certain conditions are met.
+The `fail` processor raises an exception that stops the pipeline and fails the indexing request. The primary use case for the `fail` processor is to fail an indexing operation when certain conditions are met and return a custom message to the client.
 
 The following is the syntax for the `fail` processor:
 
@@ -19,18 +19,18 @@ The following is the syntax for the `fail` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `fail` processor.
 
 Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
-`message` | Required | A custom error message to be included in the failure response.
+`message` | Required | A custom error message to be included in the failure response. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets), for example, `Order {% raw %}{{order_id}}{% endraw %} is missing a price`.
 `description`  | Optional  | A brief description of the processor.  |  
 `if` | Optional | A condition for running the processor. |  
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters an error. If set to `true`, then failures are ignored. Default is `false`. |  
 `on_failure` | Optional | A list of processors to run if the processor fails. |  
-`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |  
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging). |  
 
 ## Using the processor
 
@@ -77,8 +77,6 @@ POST _ingest/pipeline/fail-log-pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Response
-
 The following example response confirms that the pipeline is working as expected:
 
 ```json
@@ -99,9 +97,8 @@ The following example response confirms that the pipeline is working as expected
   ]
 }
 ```
-{% include copy-curl.html %}
 
-### Step 3: Ingest a document 
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `testindex1`:
 
@@ -113,12 +110,10 @@ PUT testindex1/_doc/1?pipeline=fail-log-pipeline
 ```
 {% include copy-curl.html %}
 
-#### Response
-
 The request fails to index the log event into the index `testindex1` due to the string `credit card` being present in `user_info`. The following response includes the custom error message specified in the fail processor:
 
 ```json
-
+{
   "error": {
     "root_cause": [
       {
@@ -132,18 +127,17 @@ The request fails to index the log event into the index `testindex1` due to the 
   "status": 500
 }
 ```
-{% include copy-curl.html %}
 
 ### Step 4 (Optional): Retrieve the document
 
-Because the log event was not indexed due to the pipeline failure, attempting to retrieve it results in the document not found error `"found": false`:
+To retrieve the document, run the following query:
 
 ```json
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-#### Document error example
+Because the pipeline failed, the document was not indexed, so the response contains `"found": false`:
 
 ```json
 {  

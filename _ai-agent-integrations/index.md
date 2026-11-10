@@ -32,7 +32,8 @@ OpenSearch also provides the following agent capabilities configured *inside* th
 
 - [Agents]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/agents/) (flow, conversational, and plan-execute-reflect) registered through the ML Commons Agent APIs.
 - [Tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/tools/) such as `VectorDBTool`, `ListIndexTool`, and `PPLTool` that OpenSearch agents can use.
-- The [in-cluster MCP connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/) that lets an OpenSearch agent call tools hosted on an *external* MCP server.
+- An [MCP connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/mcp-connector/) that lets OpenSearch agents call tools hosted on external MCP servers.
+- An [in-cluster MCP server]({{site.url}}{{site.baseurl}}/ml-commons-plugin/mcp/in-cluster-mcp-server/) that lets external MCP clients call tools registered in your cluster.
 
 The following table describes when to use each feature.
 
@@ -40,5 +41,6 @@ The following table describes when to use each feature.
 | :--- | :--- |
 | Let an external AI assistant query OpenSearch | [OpenSearch MCP Server]({{site.url}}{{site.baseurl}}/ai-agent-integrations/mcp-server/) |
 | Teach a coding assistant how to work with OpenSearch | [Agent skills]({{site.url}}{{site.baseurl}}/ai-agent-integrations/agent-skills/) |
-| Run an agent that calls external tools *inside* OpenSearch  | [Using MCP tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/mcp/) |
 | Register and run agents inside the cluster | [Agents and tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/) |
+
+To compare all MCP options, including the in-cluster MCP server and the MCP connector, see [MCP servers and clients]({{site.url}}{{site.baseurl}}/ml-commons-plugin/mcp/).

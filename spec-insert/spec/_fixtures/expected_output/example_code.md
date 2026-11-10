@@ -110,6 +110,28 @@ response = client.indices.put_settings(
 
 <!-- spec_insert_start
 component: example_code
+rest: PUT /_settings?expand_wildcards=all
+-->
+{% capture step1_rest %}
+PUT /_settings?expand_wildcards=all
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.put_settings(
+  params = { "expand_wildcards": "all" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
+<!-- spec_insert_start
+component: example_code
 rest: POST /_bulk?expand_wildcards=all
 body: |
 {"index":{"_index":"test","_id":"1"}}

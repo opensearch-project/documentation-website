@@ -95,8 +95,7 @@ GET /store-west,store-east/_field_caps?fields=product,price
 
 response = client.field_caps(
   index = "store-west,store-east",
-  params = { "fields": "product,price" },
-  body = { "Insert body here" }
+  params = { "fields": "product,price" }
 )
 
 {% endcapture %}

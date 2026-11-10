@@ -9,7 +9,7 @@ redirect_from:
 
 # Missing aggregation
 
-The `missing` aggregation creates a single bucket containing all documents that do not have a value for a specified field. A document is considered missing if the field is absent entirely or contains a configured `NULL` value. This aggregation is commonly paired with other bucket aggregations to account for documents that cannot be placed in any other bucket because they lack the required field.
+The `missing` aggregation creates a single bucket containing all documents that do not have a value for a specified field. A document is considered missing if the field is absent, `null`, or an empty array. If the field mapping defines a [`null_value`]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/null-value/), explicit `null` values are indexed as that value and are not counted as missing. This aggregation is commonly paired with other bucket aggregations to account for documents that cannot be placed in any other bucket because they lack the required field.
 
 ## Parameters
 
@@ -19,12 +19,28 @@ The `missing` aggregation takes the following parameters.
 | :--- | :--- | :--- | :--- |
 | `field` | Required | String | The field to check for missing values. |
 
+If the specified field is not mapped in the index, every document is counted as missing, and no error is returned. A misspelled field name therefore produces a bucket containing all documents. If the `doc_count` equals the total number of documents, verify the field name.
+{: .note}
+
 ## Example
 
-The following example uses the `products` index (created in the [weighted average example]({{site.url}}{{site.baseurl}}/aggregations/metric/weighted-avg/#example)) which contains a document without the `rating` field. The aggregation counts how many products are missing a rating and includes a `terms` subaggregation to identify them:
+The following request indexes three products into a `product_ratings` index. Product C has no `rating` field:
 
 ```json
-GET /products/_search
+POST product_ratings/_bulk?refresh
+{ "index": { "_id": "1" } }
+{ "name": "Product A", "rating": 4.5, "num_reviews": 100 }
+{ "index": { "_id": "2" } }
+{ "name": "Product B", "rating": 3.8, "num_reviews": 50 }
+{ "index": { "_id": "3" } }
+{ "name": "Product C" }
+```
+{% include copy-curl.html %}
+
+The following aggregation counts how many products are missing a rating and includes a `terms` subaggregation to identify them:
+
+```json
+GET /product_ratings/_search
 {
   "size": 0,
   "aggs": {
@@ -51,23 +67,7 @@ The response shows that one product (Product C) is missing the `rating` field:
 
 ```json
 {
-  "took": 9,
-  "timed_out": false,
-  "terminated_early": true,
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "skipped": 0,
-    "failed": 0
-  },
-  "hits": {
-    "total": {
-      "value": 4,
-      "relation": "eq"
-    },
-    "max_score": null,
-    "hits": []
-  },
+  ...
   "aggregations": {
     "without_rating": {
       "doc_count": 1,

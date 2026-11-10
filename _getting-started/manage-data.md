@@ -284,5 +284,5 @@ DELETE /students
 
 ## Next steps
 
-- To index many documents in a single request, see [Ingest data into OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/ingest-data/).
+- To index many documents in a single request and choose a method for ingesting your own data, see [Ingest your data into OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/ingest-data/).
 - To learn about search options, see [Search your data]({{site.url}}{{site.baseurl}}/getting-started/search-data/).

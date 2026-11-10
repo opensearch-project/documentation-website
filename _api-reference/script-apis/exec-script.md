@@ -22,81 +22,13 @@ POST /_scripts/painless/_execute
 
 | Field | Description | 
 :--- | :---
-| `script` | The script to run. Required |
+| `script` | The inline script to run, specified in the `source` field. Stored scripts are not supported, so a script `id` is rejected. Required. |
 | `context` | A context for the script. Optional. Default is `painless_test`. |
 | `context_setup` | Specifies additional parameters for the context. Optional. | 
 
 ## Example request
-<!-- spec_insert_start
-component: example_code
-rest: POST /_scripts/painless/_execute
-body: |
-{
-  "script": {
-    "source": "doc['gpa_4_0'].value * params.max_gpa / 4.0",
-    "params": {
-      "max_gpa": 5.0
-    }
-  },
-  "context": "score",
-  "context_setup": {
-    "index": "testindex1",
-    "document": {
-      "gpa_4_0": 3.5
-    }
-  }
-}
--->
-{% capture step1_rest %}
-POST /_scripts/painless/_execute
-{
-  "script": {
-    "source": "doc['gpa_4_0'].value * params.max_gpa / 4.0",
-    "params": {
-      "max_gpa": 5.0
-    }
-  },
-  "context": "score",
-  "context_setup": {
-    "index": "testindex1",
-    "document": {
-      "gpa_4_0": 3.5
-    }
-  }
-}
-{% endcapture %}
 
-{% capture step1_python %}
-
-
-response = client.put_script(
-  id = "painless",
-  context = "_execute",
-  body =   {
-    "script": {
-      "source": "doc['gpa_4_0'].value * params.max_gpa / 4.0",
-      "params": {
-        "max_gpa": 5.0
-      }
-    },
-    "context": "score",
-    "context_setup": {
-      "index": "testindex1",
-      "document": {
-        "gpa_4_0": 3.5
-      }
-    }
-  }
-)
-
-{% endcapture %}
-
-{% include code-block.html
-    rest=step1_rest
-    python=step1_python %}
-<!-- spec_insert_end -->
-
-The following request uses the default `painless_context` for the script:
+The following request uses the default `painless_test` context for the script:
 
 <!-- spec_insert_start
 component: example_code
@@ -174,14 +106,14 @@ The `painless_test` context is the default script context that provides only the
 
 ## Filter context
 
-The `filter` context runs the script as if the script were inside a script query. You must provide a test document in the context. The `_source`, stored fields, and `_doc` variables will be available to the script.
+The `filter` context runs the script as if the script were inside a script query. You must provide a test document in the context. The script accesses the document's field values through the `doc` variable.
 
 You can specify the following parameters for the filter context in the `context_setup`.
 
 Parameter | Description
 :--- | :---
-`document` | The document that is indexed in memory temporarily and available to the script.
-`index` | The name of the index that contains a mapping for the document.
+`document` | The document that is indexed in memory temporarily and available to the script. Required.
+`index` | The name of the index that contains a mapping for the document. Must be a single index name; wildcard patterns are not supported. Required.
 
 For example, first create an index with a mapping for a test document:
 
@@ -206,7 +138,7 @@ Run a script to determine if a student is eligible to graduate with honors:
 
 <!-- spec_insert_start
 component: example_code
-rest: POST /_scripts/painless/_execute
+rest: GET /_scripts/painless/_execute
 body: |
 {
   "script": {
@@ -226,7 +158,7 @@ body: |
 }
 -->
 {% capture step1_rest %}
-POST /_scripts/painless/_execute
+GET /_scripts/painless/_execute
 {
   "script": {
     "source": "doc['grad'].value == true && doc['gpa'].value >= params.min_honors_gpa",
@@ -248,9 +180,7 @@ POST /_scripts/painless/_execute
 {% capture step1_python %}
 
 
-response = client.put_script(
-  id = "painless",
-  context = "_execute",
+response = client.scripts_painless_execute(
   body =   {
     "script": {
       "source": "doc['grad'].value == true && doc['gpa'].value >= params.min_honors_gpa",
@@ -292,14 +222,14 @@ You can specify the following parameters for the score context in the `context_s
 
 Parameter | Description
 :--- | :---
-`document` | The document that is indexed in memory temporarily and available to the script.
-`index` | The name of the index that contains a mapping for the document.
-`query` | If the script uses the `_score` parameter, the query can specify to use the `_score` field to compute the score.
+`document` | The document that is indexed in memory temporarily and available to the script. Required.
+`index` | The name of the index that contains a mapping for the document. Must be a single index name; wildcard patterns are not supported. Required.
+`query` | A query used to compute the `_score` of the test document. If you don't specify a query, `_score` is `0`. Optional.
 
 For example, first create an index with a mapping for a test document:
 
 ```json
-PUT /testindex1
+PUT /testindex2
 {
   "mappings": {
     "properties": {
@@ -316,7 +246,7 @@ Run a script that converts a GPA on a 4.0 scale into a different scale that is p
 
 <!-- spec_insert_start
 component: example_code
-rest: POST /_scripts/painless/_execute
+rest: GET /_scripts/painless/_execute
 body: |
 {
   "script": {
@@ -327,7 +257,7 @@ body: |
   },
   "context": "score",
   "context_setup": {
-    "index": "testindex1",
+    "index": "testindex2",
     "document": {
       "gpa_4_0": 3.5
     }
@@ -335,7 +265,7 @@ body: |
 }
 -->
 {% capture step1_rest %}
-POST /_scripts/painless/_execute
+GET /_scripts/painless/_execute
 {
   "script": {
     "source": "doc['gpa_4_0'].value * params.max_gpa / 4.0",
@@ -345,7 +275,7 @@ POST /_scripts/painless/_execute
   },
   "context": "score",
   "context_setup": {
-    "index": "testindex1",
+    "index": "testindex2",
     "document": {
       "gpa_4_0": 3.5
     }
@@ -356,9 +286,7 @@ POST /_scripts/painless/_execute
 {% capture step1_python %}
 
 
-response = client.put_script(
-  id = "painless",
-  context = "_execute",
+response = client.scripts_painless_execute(
   body =   {
     "script": {
       "source": "doc['gpa_4_0'].value * params.max_gpa / 4.0",
@@ -368,7 +296,7 @@ response = client.put_script(
     },
     "context": "score",
     "context_setup": {
-      "index": "testindex1",
+      "index": "testindex2",
       "document": {
         "gpa_4_0": 3.5
       }

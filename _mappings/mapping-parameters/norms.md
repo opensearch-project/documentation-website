@@ -11,13 +11,15 @@ has_toc: false
 
 # Norms mapping parameter
 
-The `norms` mapping parameter controls whether normalization factors are computed and stored for a field. These factors are used during query scoring to adjust the relevance of the search results. However, storing `norms` increases the index size and consumes additional memory.
+The `norms` mapping parameter controls whether OpenSearch stores normalization factors for a field. During relevance scoring, OpenSearch uses these factors to account for field length: a query term that matches a short field value contributes more to the score than the same term in a long value. For example, if a `review` field has norms enabled, a search for `tent` scores the review `Great tent` higher than a 15-word review that also contains `tent`. If norms are disabled, both reviews receive the same score.
 
-By default, `norms` is enabled on `text` fields, for which relevance scoring is important. Fields that do not require these scoring features, such as `keyword` fields used only for filtering, are configured with `norms` disabled.
+Norms take disk space. For each field that has norms enabled, OpenSearch stores up to 1 byte for every document that contains the field. The actual size can be smaller when many values have similar lengths. Disable norms on fields that you use for filtering, sorting, or aggregations but not for relevance scoring, or on fields for which the value length should not affect relevance.
 
-## Disabling `norms` on a field
+By default, `norms` is enabled on `text` fields, for which relevance scoring is important, and disabled on `keyword` fields, which are typically used for filtering.
 
-The following request creates an index named `products` with the `description` field as a `text` field with `norms` disabled:
+## Disabling norms on a field
+
+The following request creates an index named `products` containing the `description` field of type `text` with `norms` disabled:
 
 ```json
 PUT /products
@@ -34,7 +36,7 @@ PUT /products
 ```
 {% include copy-curl.html %}
 
-To disable `norms` on a field in an existing index, use the following request:
+To add a field with `norms` disabled to an existing index, use the following request:
 
 ```json
 PUT /products/_mapping
@@ -49,20 +51,9 @@ PUT /products/_mapping
 ```
 {% include copy-curl.html %}
 
-Enabling `norms` on a field that has `norms` disabled is impossible and will result in the following error:
+## Changing norms on an existing field
 
-```json
-{
-  "error": {
-    "root_cause": [
-      {
-        "type": "illegal_argument_exception",
-        "reason": "Mapper for [description] conflicts with existing mapper:\n\tCannot update parameter [norms] from [false] to [true]"
-      }
-    ],
-    "type": "illegal_argument_exception",
-    "reason": "Mapper for [description] conflicts with existing mapper:\n\tCannot update parameter [norms] from [false] to [true]"
-  },
-  "status": 400
-}
-```
+You cannot enable `norms` on a field that has `norms` disabled. OpenSearch rejects the mapping update.
+
+Do not disable `norms` on a field that already contains indexed values. OpenSearch accepts the mapping update, but afterward it rejects every document that contains a value for the field. Closing and reopening the index or deleting the existing documents does not resolve the issue. To disable norms on a field that contains data, create an index containing the new mapping and [reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) your documents into it.
+{: .warning}

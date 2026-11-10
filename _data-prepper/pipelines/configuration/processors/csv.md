@@ -118,7 +118,7 @@ csv-pipeline-delete-source:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: admin_pass
+        password: "<custom-admin-password>"
         index_type: custom
         index: csv-demo-%{yyyy.MM.dd}
 ```

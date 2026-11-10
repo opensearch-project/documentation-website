@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Machine learning
+title: AI and machine learning
 nav_order: 1
 has_children: false
 has_toc: false
@@ -34,38 +34,73 @@ more_cards:
   - heading: "ML API reference"
     description: "Explore comprehensive documentation for machine learning API operations"
     link: "/ml-commons-plugin/api/"
-oa-toolkit:
+agents:
+  - heading: "Agents"
+    link: "/ml-commons-plugin/agents-tools/agents/"
+    description: "Learn about the agent types and choose one for your use case"
+  - heading: "Tools"
+    link: "/ml-commons-plugin/agents-tools/tools/"
+    description: "Give agents specific capabilities, such as running searches or listing indexes"
+  - heading: "Agents and tools tutorial"
+    link: "/ml-commons-plugin/agents-tools/agents-tools-tutorial/"
+    description: "Build a retrieval-augmented generation (RAG) application using an agent and tools"
   - heading: "OpenSearch Assistant Toolkit"
     link: "/ml-commons-plugin/opensearch-assistant/"
-    list:
-      - Agents for task orchestration
-      - Tools for specific operations
-      - Configuration automation
+    description: "Create AI-powered assistants for OpenSearch Dashboards"
+mcp:
+  - heading: "MCP connector"
+    link: "/ml-commons-plugin/agents-tools/mcp/"
+    description: "Let OpenSearch agents call tools hosted on external MCP servers"
+  - heading: "In-cluster MCP server"
+    link: "/ml-commons-plugin/mcp/in-cluster-mcp-server/"
+    description: "Let external MCP clients call tools registered in your cluster"
+  - heading: "Standalone MCP server"
+    link: "/ai-agent-integrations/mcp-server/"
+    description: "Run the OpenSearch MCP Server outside your cluster to let AI assistants query OpenSearch"
+memory:
+  - heading: "Agentic memory"
+    link: "/ml-commons-plugin/agentic-memory/"
+    description: "Store and retrieve information, such as user preferences, across agent conversations"
+  - heading: "Context management"
+    link: "/ml-commons-plugin/context-management/"
+    description: "Truncate, summarize, or limit the context that agents send to LLMs"
 algorithms:
   - heading: "Supported algorithms"
     link: "/ml-commons-plugin/algorithms/"
     description: "Learn about the natively supported clustering, pattern detection, and statistical analysis algorithms"
 ---
 
-# Machine learning
+# AI and machine learning
 
-OpenSearch offers two distinct approaches to machine learning (ML): using ML models for tasks like semantic search and text generation, and running statistical algorithms for data analysis. Choose the approach that best fits your use case.
+OpenSearch provides machine learning (ML) algorithms, model integrations, model inference, agents, and related AI capabilities. Integrate ML models to generate embeddings or text, build agents that use models and tools to perform multi-step tasks, or run built-in algorithms to analyze your data.
 
 ## Interactive demos
 
 {% include cards.html cards=page.demo_cards %}
 
-## ML models for search and AI/ML-powered applications
+## ML models
 
 OpenSearch supports ML models that you can use to enhance search relevance through semantic understanding. You can either deploy models directly within your OpenSearch cluster or connect to models hosted on external platforms. These models can transform text into vector embeddings, enabling semantic search capabilities, or provide advanced features like text generation and question answering. For more information, see [Integrating ML models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/integrating-ml-models/).
 
 {% include cards.html cards=page.models %}
 
-## OpenSearch Assistant and automation
+## Agents and tools
 
-OpenSearch Assistant Toolkit helps you create AI-powered assistants for OpenSearch Dashboards.
+An _agent_ uses a large language model (LLM) to plan and run multi-step tasks, such as answering questions about your data or generating queries from natural language. To perform these tasks, an agent calls _tools_, each of which runs a specific operation, such as running a search or listing indexes. For more information, see [Agents and tools]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agents-tools/index/).
 
-{% include cards.html cards=page.oa-toolkit %}
+{% include cards.html cards=page.agents %}
+
+## MCP servers and clients
+
+[Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) is an open standard that defines how AI applications discover and call tools. OpenSearch can act as an MCP client, so that its agents can call external tools, or as an MCP server, so that external AI applications can call OpenSearch tools. For more information, see [MCP servers and clients]({{site.url}}{{site.baseurl}}/ml-commons-plugin/mcp/).
+
+{% include cards.html cards=page.mcp %}
+
+## Memory and context
+
+Agents can retain information across conversations and control how much context they send to the LLM. For more information, see [Memory and context]({{site.url}}{{site.baseurl}}/ml-commons-plugin/memory-and-context/).
+
+{% include cards.html cards=page.memory %}
 
 ## Built-in algorithms for data analysis
 

@@ -54,6 +54,12 @@ Use the following applications to search your data and present it visually. The 
 
 If [workspaces]({{site.url}}{{site.baseurl}}/dashboards/workspace/) are enabled, you can also create visualizations by writing PPL or PromQL queries. For more information, see [Creating visualizations using queries]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/).
 
+## Exporting data and generating reports
+
+Download search results or visualization data as CSV files, or export your dashboards and visualizations as saved objects to back them up or copy them to another instance. For more information, see [Exporting data]({{site.url}}{{site.baseurl}}/dashboards/exporting-data/).
+
+To share a dashboard, visualization, or saved search as a PDF, PNG, CSV, or XLSX file, either once or on a schedule, see [Reporting]({{site.url}}{{site.baseurl}}/dashboards/reporting/).
+
 ## Managing indexes and snapshots
 
 Use the following applications to manage indexes and snapshots.

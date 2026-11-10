@@ -202,14 +202,13 @@ The response contains the generated embeddings:
           "name": "sentence_embedding",
           "data_type": "FLOAT32",
           "shape": [384],
-          "data": [0.0419328, 0.047480892, ..., 0.31158513, 0.21784715]
+          "data": [0.1803471, 0.21730064, ..., 0.14264598, 0.32749692]
         }
       ]
     }
   ]
 }
 ```
-{% include copy-curl.html %}
 
 ### Generating query embeddings
 
@@ -238,20 +237,19 @@ The response contains the generated embeddings:
           "name": "sentence_embedding",
           "data_type": "FLOAT32",
           "shape": [384],
-          "data": [0.2338349, -0.13603798, ..., 0.37335885, 0.10653384]
+          "data": [0.27292773, 0.03270153, ..., 0.03248981, 0.19625588]
         }
       ]
     }
   ]
 }
 ```
-{% include copy-curl.html %}
 
-# Step 7: Run semantic search
+## Step 7: Run semantic search
 
 Now you'll run semantic search using the `semantic` field type.
 
-## Step 7.1: Create an index containing a semantic field
+### Step 7.1: Create an index containing a semantic field
 
 Create an index containing a `semantic` field that references the deployed asymmetric model. OpenSearch automatically generates embeddings during ingestion and search using the specified model:
 
@@ -396,3 +394,9 @@ The response contains the top three matching documents:
 ## References
 
 - Wang, Liang, et al. (2024). *Multilingual E5 Text Embeddings: A Technical Report*. arXiv preprint arXiv:2402.05672. [Link](https://arxiv.org/abs/2402.05672)
+
+## Related documentation
+
+- [Semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/semantic-search/)
+- [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/)
+- [Custom local models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/custom-local-models/)

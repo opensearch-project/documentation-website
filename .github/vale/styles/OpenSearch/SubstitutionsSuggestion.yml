@@ -19,6 +19,9 @@ swap:
   'cap': limit or maximum
   'caps': limits or restricts
   'capping': limiting or restricting
+  'carry out': perform or run
+  'carries out': performs or runs
+  'carrying out': performing or running
   'catch up': synchronize with
   'catches up': synchronizes with
   'catching up': synchronizing with
@@ -30,10 +33,12 @@ swap:
   'come back': return
   'comes back': returns
   'coming back': returning
+  'come up with': devise or create
   'come from': are read from, are taken from, or are supplied by
   'comes from': is read from, is taken from, or is supplied by
   'coming from': read from, taken from, or supplied by
   'covers': includes, describes, or provides
+  'cut down on': reduce
   'deal with': process or resolve
   'deals with': processes or resolves
   'dealing with': processing or resolving
@@ -47,6 +52,9 @@ swap:
   'figure out': determine or identify
   'figures out': determines or identifies
   'figuring out': determining or identifying
+  'find out': determine or learn
+  'finds out': determines or learns
+  'finding out': determining or learning
   'fire up': start or launch
   'fires up': starts or launches
   'firing up': starting or launching
@@ -61,6 +69,7 @@ swap:
   'gets right': configures correctly
   'gets': receives, returns, or retrieves
   'getting': retrieving or obtaining
+  'get rid of': remove or eliminate
   'grow': increase
   'grows': increases
   'growing': increasing
@@ -73,6 +82,11 @@ swap:
   'in place': configured (keep "in place" only for an operation that modifies data without copying it)
   'is worth': we recommend (reword the sentence)
   'it is recommended': we recommend
+  '(?<=k-NN (?:and|or) )neural (?:search|query|queries)': vector search (replace the whole phrase, including "k-NN and" or "k-NN or")
+  'keep(?! up)': retain
+  'keeps(?! up)': retains
+  'kept': retained
+  'keeping(?! up)': retaining
   'keep up': maintain throughput or match demand
   'keeps up': maintains throughput or matches demand
   'keeping up': maintaining throughput or matching demand
@@ -99,9 +113,18 @@ swap:
   'looks into': investigates
   'looking into': investigating
   'looks like this': appears as follows
+  'make sure': ensure
+  'makes sure': ensures
+  'made sure': ensured
+  'making sure': ensuring
   'means': indicates
+  'narrow down': filter or limit
+  'narrows down': filters or limits
+  'narrowing down': filtering or limiting
   'navigate in': navigate to
-  'one-off': single-use or ad-hoc
+  'neural search (?:query|queries|request|requests)': "`neural` query, semantic search, or AI search (choose by context)"
+  '(?<!k-NN (?:and|or) )neural search(?! plugin| stats| api| quer| request)': semantic search, vector search, or AI search (choose by context)
+  'one-off': single-use
   'opt-in': optional or disabled by default
   'out of the box': by default, natively, or is built-in
   'out-of-the-box': default, native, or built-in
@@ -114,6 +137,8 @@ swap:
   'plug into': integrate with
   'plugs into': integrates with
   'plumbing': configuration or infrastructure
+  'point out': note or indicate
+  'points out': notes or indicates
   'point to': reference
   'points to': references
   'pointing to': referencing
@@ -130,6 +155,9 @@ swap:
   'roll out': deploy or release
   'rolls out': deploys or releases
   'rolling out': deploying or releasing
+  'run into': encounter
+  'runs into': encounters
+  'running into': encountering
   'scale up': scale or increase capacity
   'scales up': scales or increases capacity
   'scaling up': scaling or increasing capacity
@@ -152,6 +180,7 @@ swap:
   'shutting down': stopping or terminating
   'slow down': delay, reduce throughput, or increase latency
   'slows down': delays or reduces throughput
+  'sparse neural search': neural sparse search
   'slowing down': delaying or reducing throughput
   'speed up': accelerate
   'speeds up': accelerates
@@ -189,6 +218,8 @@ swap:
   'trip': trigger or raise
   'trips': triggers or raises
   'tripping': triggering or raising
+  'try out': test or evaluate
+  'tries out': tests or evaluates
   'typically': reword the sentence or remove "typically"
   'under the hood': internally
   'walks you through': describes or explains
@@ -203,3 +234,5 @@ swap:
   'working around': mitigating or bypassing
   'workaround': mitigation or alternative approach
   'works with': supports, integrates with, or is compatible with
+  'work out': determine or calculate
+  'works out': determines or calculates
