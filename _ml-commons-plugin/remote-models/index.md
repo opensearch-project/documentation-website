@@ -42,6 +42,7 @@ PUT /_cluster/settings
           "^https://api\\.cohere\\.ai/.*$",
           "^https://api\\.deepseek\\.com/.*$",
           "^https://generativelanguage\\.googleapis\\.com/.*$",
+          "^https://([a-z0-9][a-z0-9-]*-)?aiplatform\\.googleapis\\.com/.*$",
           "^https://bedrock-runtime\\..*[a-z0-9-]\\.amazonaws\\.com/.*$",
           "^https://bedrock-agent-runtime\\..*[a-z0-9-]\\.amazonaws\\.com/.*$",
           "^https://bedrock\\..*[a-z0-9-]\\.amazonaws\\.com/.*$",
@@ -56,8 +57,6 @@ PUT /_cluster/settings
 
 This setting replaces the entire list of trusted endpoints, so include every pattern your cluster needs.
 {: .note}
-
-
 
 ### Setting up connector access control
 
