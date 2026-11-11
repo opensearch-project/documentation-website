@@ -56,9 +56,6 @@ Go to the IAM console, create a new IAM role named `my_invoke_bedrock_role`, and
 ```
 {% include copy.html %}
 
-If you're using an Amazon OpenSearch Serverless collection instead of a domain, specify `ml.opensearchservice.amazonaws.com` as the service principal and see [Configure Machine Learning on Amazon OpenSearch Serverless](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-configure-machine-learning.html) for the other differences.
-{: .note}
-
 - Permissions:
 
 ```json

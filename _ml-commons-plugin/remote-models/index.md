@@ -126,7 +126,7 @@ To learn more about model groups, see [Model access control]({{site.url}}{{site.
 
 You can create a standalone connector that can be reused by multiple model registrations in OpenSearch that share the same external endpoint and configuration. Alternatively, you can specify a connector when creating a model so that it can be used only for that model. For more information and example connectors, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
-If you're using Amazon OpenSearch Service, the process for creating connectors differs. For more information, see [Creating connectors in Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ml-amazon-connector.html). If you're using Amazon OpenSearch Serverless, the connector's IAM role must trust the `ml.opensearchservice.amazonaws.com` service principal. For more information, see [Configure Machine Learning on Amazon OpenSearch Serverless](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-configure-machine-learning.html).
+If you're using Amazon OpenSearch Service, the process for creating connectors differs. For more information, see [Creating connectors in Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ml-amazon-connector.html).
 {: .note}
 
 The Connectors Create API, `/_plugins/_ml/connectors/_create`, creates connectors that facilitate registering and deploying external models in OpenSearch. Using the `endpoint` parameter, you can connect OpenSearch to any supported ML tool by using its specific API endpoint. For example, you can connect to a ChatGPT model by using the `api.openai.com` endpoint:

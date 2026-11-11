@@ -61,9 +61,6 @@ Field | Data type | Required/Optional | Description
 
 For externally hosted models, the actual input fields depend on the model's connector configuration. For more information, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). By default, externally hosted models read only the `parameters` field, so other fields such as `text_docs` are ignored. To send `text_docs` to an externally hosted embedding model, specify an algorithm, for example, `POST /_plugins/_ml/models/{model_id}/_predict?algorithm=text_embedding`. The connector's preprocessing function then converts `text_docs` into the parameters that the connector expects.
 
-In Amazon OpenSearch Serverless, the `/_plugins/_ml/_predict/{algorithm_name}/{model_id}` endpoint is not available, so use the `algorithm` query parameter instead.
-{: .note}
-
 ## Example request
 
 ```json
