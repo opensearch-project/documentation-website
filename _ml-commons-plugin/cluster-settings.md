@@ -76,7 +76,7 @@ By default, ML Commons allows registration only of [pretrained models]({{site.ur
 When registering a model from a URL, make sure the source is trusted. Loading models from untrusted sources can pose security risks. For more information, see [PyTorch security guidelines for untrusted models](https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models).
 {: .warning}
 
-The default value of `plugins.ml_commons.trusted_url_regex` is not secure. For security, set it to a regular expression that matches only the trusted repository containing your models, for example, `https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/*`.
+The default value of `plugins.ml_commons.trusted_url_regex` is not secure. For security, set it to a regular expression that matches only the trusted repository containing your models, for example, `https://github.com/opensearch-project/ml-commons/blob/main/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/*`.
 {: .warning }
 
 ## Connector endpoint settings

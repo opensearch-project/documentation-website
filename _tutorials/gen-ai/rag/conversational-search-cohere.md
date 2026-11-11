@@ -45,7 +45,7 @@ POST _bulk
 The RAG processor formats the model input and reads the model output according to the prefix of the `llm_model` parameter in the search request. For more information, see [Step 6: Use the pipeline for RAG]({{site.url}}{{site.baseurl}}/vector-search/ai-search/conversational-search/#step-6-use-the-pipeline-for-rag).
 {: .important}
 
-This tutorial follows the [Amazon Bedrock Claude](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_anthropic_claude_blueprint.md) model input/output style (the `bedrock/` prefix) by:
+This tutorial follows the [Amazon Bedrock Claude](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/bedrock_connector_anthropic_claude_blueprint.md) model input/output style (the `bedrock/` prefix) by:
 - Mapping the Cohere Command `message` input parameter to the `inputs` parameter in order to match the Claude model input style.
 - Using a post-processing function to convert the Cohere Command model output to the Claude model output style.
 

@@ -56,7 +56,7 @@ If your model input/output is not the same as the required default, you can buil
 
 ### Example: Amazon Bedrock Titan embedding model
 
-For example, the Amazon Bedrock Titan embedding model ([blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_titan_embedding_blueprint.md#2-create-connector-for-amazon-bedrock)) input is as follows:
+For example, the Amazon Bedrock Titan embedding model ([blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/bedrock_connector_titan_embedding_blueprint.md#2-create-connector-for-amazon-bedrock)) input is as follows:
 
 ```json
 { "inputText": "your_input_text" }
