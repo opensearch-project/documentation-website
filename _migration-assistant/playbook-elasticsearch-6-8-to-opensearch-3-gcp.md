@@ -6,11 +6,11 @@ parent: Playbooks
 permalink: /migration-assistant/playbook-elasticsearch-6-8-to-opensearch-3-gcp/
 ---
 
-# Playbook: Elasticsearch 6.8 to OpenSearch 3.5 on GCP (GKE)
+# Playbook: Elasticsearch 6.8 to OpenSearch 3.5 on GCP
 
 This playbook is a concrete runbook for migrating a self-managed Elasticsearch 6.8 cluster to an OpenSearch 3.5 cluster on Google Cloud Platform (GCP), with Migration Assistant running on Google Kubernetes Engine (GKE). The source and target are reached over the migration cluster's virtual private cloud (VPC) network, and snapshots are stored in Google Cloud Storage.
 
-This pattern applies when you run search infrastructure on GCP and want a repeatable, snapshot-based migration with optional zero-downtime capture and replay.
+This pattern applies when you run search infrastructure on GCP and want a repeatable, snapshot-based migration with optional zero-downtime Capture and Replay.
 
 The playbook is end-to-end. It covers source preparation, workflow configuration, a pilot migration, the full migration, validation, cutover, and removal. It assumes Migration Assistant is already deployed on GKE; if it is not, see [Deploy on Google Kubernetes Engine (GKE)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-gke/).
 
@@ -112,6 +112,8 @@ For a zero-downtime migration, follow these steps:
 If your application depends on auto-generated document IDs, test Capture and Replay thoroughly before selecting the zero-downtime approach. Auto-generated IDs are not preserved during replay.
 
 ## Step 2: Prepare the source cluster
+
+Backfill reads from a snapshot, so the source cluster needs the Cloud Storage snapshot plugin, access to the bucket, and a registered repository.
 
 ### Install the repository-gcs plugin
 
