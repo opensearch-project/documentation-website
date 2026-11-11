@@ -24,7 +24,7 @@ The Migration Assistant operating model is:
 Migration Assistant runs on any Kubernetes distribution. Two choices are independent:
 
 - **Where Migration Assistant runs**: a managed-cloud path, such as **Amazon EKS on AWS** or **Google Kubernetes Engine (GKE) on GCP**, or any other Kubernetes platform. Each managed-cloud path supplies the identity, image, snapshot, and observability integrations that you typically need for a real migration.
-- **What you migrate to**: the OpenSearch target that best fits your environment---a self-managed OpenSearch cluster or a managed OpenSearch service.
+- **What you migrate to**: the OpenSearch target that best fits your environment---a self-managed OpenSearch cluster or a managed OpenSearch offering.
 
 These choices are orthogonal: any deployment path can migrate to any supported OpenSearch target.
 

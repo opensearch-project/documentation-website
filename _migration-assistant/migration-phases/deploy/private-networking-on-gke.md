@@ -33,7 +33,7 @@ The following table lists each migration data path and how to make it private.
 
 ## Source and target over Private Service Connect
 
-Use Private Service Connect (PSC) in consumer mode when the cluster is published as a GCP PSC service attachment, such as a managed OpenSearch service that offers a private endpoint.
+Use Private Service Connect (PSC) in consumer mode when the cluster is published as a GCP PSC service attachment, such as a managed OpenSearch offering that exposes a private endpoint.
 
 1. Obtain the producer's **service-attachment URI** and the **hostname** its Transport Layer Security (TLS) certificate is issued for. Ask the producer to add your project to the service attachment's consumer accept-list, or confirm that it accepts connections automatically.
 2. Configure the leg, supplying `dns_name` so the endpoint is reachable by hostname with valid TLS:

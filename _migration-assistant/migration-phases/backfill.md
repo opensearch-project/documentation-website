@@ -87,7 +87,7 @@ If you already created the snapshot outside the workflow, use `workflow configur
 - `source.snapshotRepo.repoPathUri` --- the object storage URI of the snapshot repository. This can be an Amazon S3 URI (`s3://<bucket>/<path>`) or a Google Cloud Storage URI (`gs://<bucket>/<path>`).
 - `snapshotConfig.snapshotNameConfig.externallyManagedSnapshotName` --- the name of the snapshot within that repository.
 
-When `externallyManagedSnapshotName` is set, the workflow skips snapshot creation and proceeds directly to metadata migration and reindex-from-snapshot using the repository you provided.
+When `externallyManagedSnapshotName` is set, the workflow skips snapshot creation and proceeds directly to metadata migration and Reindex-from-Snapshot using the repository you provided.
 
 ## Run and monitor the workflow
 

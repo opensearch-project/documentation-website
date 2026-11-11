@@ -309,7 +309,7 @@ After the pilot succeeds, widen the configuration to the full index set and subm
 3. After backfill completes, the Replayer drains captured traffic to the target. Monitor until the target catches up to live and the document counts stabilize.
 4. Continue to validation.
 
-For large migrations, consider applying target-side write tuning during the load: increase primary shards on hot indices, and set `refresh_interval: -1` and `number_of_replicas: 0` while loading, then restore them afterward. Watch the target's write thread pool for rejections and lower Replayer concurrency if rejections appear.
+For large migrations, consider applying target-side write tuning during the load: increase primary shards on hot indexes, and set `refresh_interval: -1` and `number_of_replicas: 0` while loading, then restore them afterward. Watch the target's write thread pool for rejections and lower Replayer concurrency if rejections appear.
 {: .note }
 
 ## Step 9: Validate and switch traffic
@@ -334,7 +334,9 @@ Once you no longer need Migration Assistant for rollback, replay, or comparison,
 
 ## Troubleshooting
 
-### Snapshot registration fails with "repository type [gcs] does not exist"
+The following issues come up most often on the GCP path.
+
+### Snapshot registration fails with `repository type [gcs] does not exist`
 
 The source is missing the `repository-gcs` plugin. Install it on every source node and restart (see [Step 2](#step-2-prepare-the-source-cluster)).
 
