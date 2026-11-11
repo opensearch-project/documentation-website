@@ -84,8 +84,8 @@ The `actions` object supports the following fields.
 | `method`  | String | Required. Defines the HTTP method for the API call. Supports `POST` and `GET`. |
 | `url` | String      | Required. Specifies the connection endpoint at which the action occurs. This must match the regex expression for the connection used when [adding trusted endpoints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index#adding-trusted-endpoints).|
 | `request_body` | String | Optional. The request body template that OpenSearch sends to the model endpoint for the action. Use `${parameters.<parameter_name>}` placeholders to insert parameter values, for example, `${parameters.inputText}`. |
-| `pre_process_function`  | String | Optional. A built-in or custom Painless script used to preprocess the input data. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/). OpenSearch provides the following built-in preprocess functions that you can call directly:<br> - `connector.pre_process.cohere.embedding` for [Cohere](https://cohere.com/) embedding models<br> - `connector.pre_process.openai.embedding` for [OpenAI](https://platform.openai.com/docs/guides/embeddings) embedding models <br> - `connector.pre_process.default.embedding` for other text embedding models that accept a list of strings as input (OpenSearch 2.11 or later). For more information, see [Built-in functions](#built-in-pre--and-post-processing-functions). |
-| `post_process_function` | String   | Optional. A built-in or custom Painless script used to post-process the model output data. OpenSearch provides the following built-in post-process functions that you can call directly:<br> - `connector.post_process.cohere.embedding` for [Cohere text embedding models](https://docs.cohere.com/reference/embed)<br> - `connector.post_process.openai.embedding` for [OpenAI text embedding models](https://platform.openai.com/docs/api-reference/embeddings) <br> - `connector.post_process.default.embedding` for other text embedding models that return a two-dimensional float array (OpenSearch 2.11 or later). For more information, see [Built-in functions](#built-in-pre--and-post-processing-functions). |
+| `pre_process_function` | String | Optional. The name of a built-in preprocessing function or a custom Painless script that converts `text_docs` input into the parameters that fill the `request_body` template. For more information, see [Built-in pre- and post-processing functions](#built-in-pre--and-post-processing-functions) and [Custom pre- and post-processing functions](#custom-pre--and-post-processing-functions). |
+| `post_process_function` | String | Optional. The name of a built-in post-processing function or a custom Painless script that converts the model response into the format that OpenSearch requires. For more information, see [Built-in pre- and post-processing functions](#built-in-pre--and-post-processing-functions) and [Custom pre- and post-processing functions](#custom-pre--and-post-processing-functions). |
 | `headers` | JSON object | Specifies the headers used in the request or response body. Default is `ContentType: application/json`. If your third-party ML tool requires access control, define the required `credential` parameters in the `headers` parameter. |
 | `supports_structured_output` | Boolean | Optional. Applies only to `predict` actions of LLM connectors used for [agentic memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/) fact extraction. If `true`, OpenSearch adds a structured output field to the request body during fact extraction so that the model returns the extracted facts in a fixed JSON schema (constrained decoding). OpenSearch selects the field based on the provider in the action `url`: `toolConfig` for the Amazon Bedrock Converse API, `generationConfig` for Google Gemini, and `response_format` for OpenAI, Azure OpenAI, DeepSeek, the Cohere v2 Chat API, and other endpoints whose path contains `/v1/chat/completions`. The field is added only if the `request_body` is a JSON object. If `false`, or if OpenSearch does not recognize the provider, OpenSearch adds format instructions to the fact extraction prompt. Default is `false`. |
 
@@ -106,26 +106,57 @@ The `client_config` object supports the following fields.
 
 ## Built-in pre- and post-processing functions
 
-Call the built-in pre- and post-processing functions instead of writing a custom Painless script when connecting to the following text embedding models or your own text embedding models deployed on a remote server (for example, Amazon SageMaker):
+A preprocessing function converts `text_docs` input or text similarity input into the parameters that fill the connector request body template. A post-processing function converts the model response into the format that OpenSearch requires. To use a built-in function, specify its name in the `pre_process_function` or `post_process_function` field of a connector's `actions` array element. For more information about input formats, see [Providing input to an externally hosted model]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#providing-input-to-an-externally-hosted-model).
 
-- [OpenAI models](https://platform.openai.com/docs/api-reference/embeddings)
-- [Cohere models](https://docs.cohere.com/reference/embed)
+If the input is `text_docs` and the connector doesn't define a preprocessing function, OpenSearch uses the `connector.pre_process.default.embedding` function. Text similarity input requires a preprocessing function. If the input is a `parameters` object, OpenSearch fills the request body template using the values in the object.
 
-OpenSearch provides the following pre- and post-processing functions:
+The following table lists the built-in preprocessing functions.
 
-- OpenAI: `connector.pre_process.openai.embedding` and `connector.post_process.openai.embedding`
-- Cohere: `connector.pre_process.cohere.embedding` and `connector.post_process.cohere.embedding`
-- [Amazon SageMaker default functions for semantic search](#amazon-sagemaker-default-pre--and-post-processing-functions-for-semantic-search): `connector.pre_process.default.embedding` and `connector.post_process.default.embedding`
+| Function | Use with | Input | Parameters returned |
+| :--- | :--- | :--- | :--- |
+| `connector.pre_process.default.embedding` | Amazon SageMaker models or other embedding models that accept an array of strings | `text_docs` | Returns an `input` parameter containing the `text_docs` array. |
+| `connector.pre_process.openai.embedding` | OpenAI and Azure OpenAI embedding models | `text_docs` | Returns an `input` parameter containing the `text_docs` array. |
+| `connector.pre_process.cohere.embedding` | Cohere Embed models, including Cohere Embed models in Amazon Bedrock | `text_docs` | Returns a `texts` parameter containing the `text_docs` array. |
+| `connector.pre_process.cohere.multimodal_embedding` | Cohere Embed models, for image input | `text_docs` containing image data URIs | Returns an `images` parameter containing the `text_docs` array. |
+| `connector.pre_process.bedrock.embedding` | Amazon Titan Text Embeddings models in Amazon Bedrock | `text_docs` | Returns an `inputText` parameter containing the first string in `text_docs`. |
+| `connector.pre_process.bedrock.multimodal_embedding` | Amazon Titan Multimodal Embeddings in Amazon Bedrock | `text_docs` containing text, optionally followed by an image | Returns an `inputText` parameter containing the first string in `text_docs` and, if `text_docs` contains a second string, an `inputImage` parameter containing that string. |
+| `connector.pre_process.bedrock.nova.embedding` | Amazon Nova Multimodal Embeddings in Amazon Bedrock | `text_docs` in which the first string is plain text or a JSON object containing a `text`, `image`, `video`, or `audio` field | Returns a `text`, `image`, `video`, or `audio` parameter containing the value of the matching field. Plain text input returns a `text` parameter. |
+| `connector.pre_process.bedrock.nova.text_embedding` | Amazon Nova Multimodal Embeddings in Amazon Bedrock, for text input | `text_docs` | Returns an `inputText` parameter containing the first string in `text_docs`. |
+| `connector.pre_process.bedrock.nova.image_embedding` | Amazon Nova Multimodal Embeddings in Amazon Bedrock, for image input | `text_docs` | Returns an `inputImage` parameter containing the first string in `text_docs`. |
+| `connector.pre_process.bedrock.nova.video_embedding` | Amazon Nova Multimodal Embeddings in Amazon Bedrock, for video input | `text_docs` | Returns an `inputVideo` parameter containing the first string in `text_docs`. |
+| `connector.pre_process.bedrock.nova.audio_embedding` | Amazon Nova Multimodal Embeddings in Amazon Bedrock, for audio input | `text_docs` | Returns an `inputAudio` parameter containing the first string in `text_docs`. |
+| `connector.pre_process.cohere.rerank` | Cohere Rerank models | `query_text` and `text_docs` (text similarity input, such as from the `rerank` search processor) | Returns a `query` parameter containing the query text, a `documents` parameter containing the `text_docs` array, and a `top_n` parameter containing the number of strings in `text_docs`. |
+| `connector.pre_process.bedrock.rerank` | Rerank models accessed through the Amazon Bedrock Rerank API, such as Amazon Rerank. For an example, see [Reranking search results using Amazon Bedrock models]({{site.url}}{{site.baseurl}}/tutorials/reranking/reranking-bedrock/). | `query_text` and `text_docs` (text similarity input, such as from the `rerank` search processor) | Returns `queries`, `sources`, and `numberOfResults` parameters in the format of the Amazon Bedrock Rerank API. |
 
-### Amazon SageMaker default pre- and post-processing functions for semantic search
+The following table lists the built-in post-processing functions. For each function, the table provides the JSON path of the model response field that contains the embeddings or results.
+
+| Function | Use with | Response field (JSON path) |
+| :--- | :--- | :--- |
+| `connector.post_process.default.embedding` | Amazon SageMaker models or other embedding models that return a two-dimensional array | `$[*]`: Each entry of a top-level array. |
+| `connector.post_process.openai.embedding` | OpenAI and Azure OpenAI embedding models | `$.data[*].embedding` |
+| `connector.post_process.cohere.embedding` | Cohere Embed models, including Cohere Embed models in Amazon Bedrock | `$.embeddings` |
+| `connector.post_process.cohere_v2.embedding.float` | Cohere Embed models using the v2 API, for `float` embeddings | `$.embeddings.float` |
+| `connector.post_process.cohere_v2.embedding.int8` | Cohere Embed models using the v2 API, for `int8` embeddings | `$.embeddings.int8` |
+| `connector.post_process.cohere_v2.embedding.uint8` | Cohere Embed models using the v2 API, for `uint8` embeddings | `$.embeddings.uint8` |
+| `connector.post_process.cohere_v2.embedding.binary` | Cohere Embed models using the v2 API, for `binary` embeddings | `$.embeddings.binary` |
+| `connector.post_process.cohere_v2.embedding.ubinary` | Cohere Embed models using the v2 API, for `ubinary` embeddings | `$.embeddings.ubinary` |
+| `connector.post_process.bedrock.embedding` | Amazon Titan Text Embeddings V1 and Amazon Titan Multimodal Embeddings in Amazon Bedrock | `$.embedding` |
+| `connector.post_process.bedrock_v2.embedding.float` | Amazon Titan Text Embeddings V2 in Amazon Bedrock, for `float` embeddings | `$.embeddingsByType.float` |
+| `connector.post_process.bedrock_v2.embedding.binary` | Amazon Titan Text Embeddings V2 in Amazon Bedrock, for `binary` embeddings | `$.embeddingsByType.binary` |
+| `connector.post_process.bedrock.nova.embedding` | Amazon Nova Multimodal Embeddings in Amazon Bedrock | `$.embeddings[*].embedding` |
+| `connector.post_process.cohere.rerank` | Cohere Rerank models | `$.results` |
+| `connector.post_process.bedrock.rerank` | Rerank models accessed through the Amazon Bedrock Rerank API, such as Amazon Rerank. For an example, see [Reranking search results using Amazon Bedrock models]({{site.url}}{{site.baseurl}}/tutorials/reranking/reranking-bedrock/). | `$.results` |
+| `connector.post_process.mlcommons.passthrough` | Endpoints that return responses in the Predict API format, such as ML Commons in another OpenSearch cluster or the OpenSearch Agent Server. For an example, see [Filling templates in the agent server]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agentic-search-templates/agent-server/). | `$`: The entire response. If the response contains an `inference_results` array, the function returns the `output` objects from the array, so the Predict API response doesn't contain one `inference_results` array nested inside another. |
+
+### Default embedding functions
 
 When you use [semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/semantic-search/), OpenSearch sends text to the model and expects embeddings in return. [Pretrained models provided by OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/pretrained-models/) accept and return these formats. However, a model hosted on an external platform may expect a different format. The default pre- and post-processing functions translate between the two formats.
 
 For the default functions to be applied, the model input and output must be in the format described in the following sections.
 
-#### Example request
+### Example request
 
-The following example request creates a SageMaker text embedding connector and calls the default post-processing function:
+The following example request creates an Amazon SageMaker text embedding connector that uses the default functions. The connector doesn't define a preprocessing function, so OpenSearch uses `connector.pre_process.default.embedding`:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -159,14 +190,20 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-The `request_body` template must be `${parameters.input}`. 
+Set the `request_body` template to `${parameters.input}` so that OpenSearch sends the array of strings as the entire request body.
 {: .important}
 
-### Preprocessing function 
+#### Preprocessing function
 
-The `connector.pre_process.default.embedding` default preprocessing function parses the text input from OpenSearch and transforms it into the format that the model expects as input.
+The `connector.pre_process.default.embedding` function converts the `text_docs` input into the `input` parameter. For example, the following input contains two strings:
 
-The [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) provides parameters in the following format:
+```json
+{
+  "text_docs": ["hello", "world"]
+}
+```
+
+The function converts this input into the following parameters:
 
 ```json
 {
@@ -176,15 +213,15 @@ The [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predi
 }
 ```
 
-The default preprocessing function sends the `input` field contents to the model. Thus, the model input format must be a list of strings, for example:
+The `${parameters.input}` request body template then sends the list to the model, so the model input format must be a list of strings, for example:
 
 ```json
 ["hello", "world"]
 ```
 
-### Post-processing function 
+#### Post-processing function
 
-The `connector.post_process.default.embedding` default post-processing function parses the model response and transforms it into the embedding format that OpenSearch expects.
+The `connector.post_process.default.embedding` default post-processing function parses the model response and transforms it into the embedding format that OpenSearch requires.
 
 The remote text embedding model output must be a two-dimensional float array, each element of which represents an embedding of a string from the input list. For example, the following two-dimensional array corresponds to the embedding of the list `["hello", "world"]`:
 
@@ -205,7 +242,9 @@ The remote text embedding model output must be a two-dimensional float array, ea
 
 ## Custom pre- and post-processing functions
 
-You can write your own pre- and post-processing functions specifically for your model format. For example, the following Amazon Bedrock connector definition contains custom pre- and post-processing functions for the Amazon Bedrock Titan embedding model:
+You can write your own pre- and post-processing functions specifically for your model format. A custom preprocessing function is a [Painless]({{site.url}}{{site.baseurl}}/scripting/painless/) script that reads the input from `params`, for example, `params.text_docs`, and returns a JSON string containing a `parameters` object. The values in the `parameters` object fill the `request_body` template.
+
+For example, the following Amazon Bedrock connector definition contains custom pre- and post-processing functions for the Amazon Bedrock Titan embedding model:
 
 ```json
 POST /_plugins/_ml/connectors/_create
