@@ -120,6 +120,11 @@ config:
           type: noop
 ```
 
+The basic authentication domain must set `challenge` to `false` and be configured with a lower `order` value than the SAML domain because only one domain can challenge a request. For a request without credentials, the Security plugin selects the first domain in `order` with `challenge: true` and sends that domain's challenge. If the basic authentication domain issued the challenge, the browser would display the basic authentication dialog instead of redirecting the user to the IdP.
+
+For SAML login to function as expected, the SAML domain must therefore be the first domain with `challenge: true`. Because `challenge` defaults to `true`, explicitly set `challenge: false` on every other domain, including any additional SAML domains.
+
+For more information, see [The challenge setting]({{site.url}}{{site.baseurl}}/security/authentication-backends/basic-authc/#the-challenge-setting).
 
 ## Identity provider metadata
 
