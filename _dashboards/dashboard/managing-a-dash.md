@@ -58,6 +58,8 @@ To save an existing dashboard:
 
 1. (Optional) To leave the saved dashboard in its current state and save the changes as a new dashboard, select **Save as new dashboard**.
 
+1. (Optional) If you selected **Save as new dashboard**, you can select **Copy panels** so that edits to the panels in the new dashboard don't affect the original dashboard. For more information, see [Copying panels]({{site.url}}{{site.baseurl}}/dashboards/dashboard/opening-a-dashboard/#copying-panels).
+
 1. (Optional) To save the current time filter so it's applied when you reopen the dashboard, select **Store time with dashboard**.
 
 1. Select the **Save** button.
