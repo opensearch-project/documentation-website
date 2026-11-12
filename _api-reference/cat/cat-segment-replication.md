@@ -67,6 +67,7 @@ The following table lists the available query parameters. All query parameters a
 | `ignore_throttled` | Boolean | Whether specified concrete, expanded, or aliased indexes should be ignored when throttled. | N/A |
 | `ignore_unavailable` | Boolean | Whether the specified concrete indexes should be ignored when missing or closed. | N/A |
 | `index` | List | A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`. | N/A |
+| `limit` | Integer | The maximum number of rows to return. Must be greater than 0. Applied after sorting (`s`). | N/A |
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
 | `shards` | List | A comma-separated list of shards to display. | N/A |
 | `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, and `d`. | N/A |
@@ -88,6 +89,7 @@ Parameter | Data type  | Description
 `active_only` | Boolean    | If `true`, the response only includes active segment replications. Defaults to `false`. 
 [`detailed`](#additional-detailed-response-metrics) | String     | If `true`, the response includes additional metrics for each stage of a segment replication event. Defaults to `false`.
 `shards` | String     | A comma-separated list of shards to display.
+`limit` | Integer | The maximum number of rows to return. Must be greater than 0. Applied after sorting (`s`).
 `bytes` | Byte units | [Units]({{site.url}}{{site.baseurl}}/api-reference/units/) used to display byte size values.
 `format` | String     | A short version of the HTTP accept header. Valid values include `JSON` and `YAML`.  
 `h` | String     | A comma-separated list of column names to display. 

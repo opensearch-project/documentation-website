@@ -43,6 +43,7 @@ The following table lists the available query parameters. All query parameters a
 | `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
 | `h` | List | A comma-separated list of column names to display. | N/A |
 | `help` | Boolean | Returns help information. | `false` |
+| `limit` | Integer | The maximum number of rows to return. Must be greater than 0. Applied after sorting (`s`). | N/A |
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
 | `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
 

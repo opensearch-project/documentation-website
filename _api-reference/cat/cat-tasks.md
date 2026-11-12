@@ -42,6 +42,7 @@ The following table lists the available query parameters. All query parameters a
 | `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
 | `h` | List | A comma-separated list of column names to display. | N/A |
 | `help` | Boolean | Returns help information. | `false` |
+| `limit` | Integer | The maximum number of rows to return. Must be greater than 0. Applied after sorting (`s`). | N/A |
 | `nodes` | List | A comma-separated list of node IDs or names used to limit the returned information.  Use `_local` to return information from the node to which you're connecting, specify a specific node from which to get information, or keep the parameter empty to get information from all nodes. | N/A |
 | `parent_task_id` | String | The parent task identifier, which is used to limit the response. | N/A |
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
