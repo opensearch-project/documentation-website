@@ -27,7 +27,7 @@ Replace the placeholders beginning with the prefix `your_` with your own values.
 
 ## Model input and output requirements
 
-Ensure that the inputs for your model in Amazon SageMaker follow the format required by the [default pre-processing function]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#preprocessing-function). 
+Ensure that the inputs for your model in Amazon SageMaker follow the format required by the [default preprocessing function]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connector-input-output/#preprocessing-function). 
 
 The model input must be an array of strings:
 
@@ -35,7 +35,7 @@ The model input must be an array of strings:
 ["hello world", "how are you"]
 ```
 
-Additionally, ensure that the model output follows the format required by the [default post-processing function]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#post-processing-function). The model output must be an array of arrays, where each inner array corresponds to the embedding of an input string:
+Additionally, ensure that the model output follows the format required by the [default post-processing function]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connector-input-output/#post-processing-function). The model output must be an array of arrays, where each inner array corresponds to the embedding of an input string:
 
 ```json
 [
@@ -68,7 +68,7 @@ OpenSearch expects the following input format:
 { "text_docs": [ "your_input_text1", "your_input_text2"] }
 ```
 
-To convert `text_docs` into `inputText`, you must define the following pre-processing function:
+To convert `text_docs` into `inputText`, you must define the following preprocessing function:
 
 ```json
 "pre_process_function": """

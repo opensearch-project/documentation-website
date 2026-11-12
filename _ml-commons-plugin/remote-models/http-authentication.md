@@ -67,7 +67,7 @@ When `mutual_tls_enabled` is set to `true`, the `credential` object supports the
 | `keystore_password` | String | Optional | The password protecting the PKCS12 keystore. Omit it for a keystore that has no password. |
 | `ca_cert_pem` | String | Optional | One or more CA certificates, in PEM format, used to validate the endpoint's server certificate. Accepts a bundle of intermediate and root certificates. If omitted, the Java default truststore is used. Provide this field when the endpoint uses a private CA. |
 
-The `mutual_tls_enabled` and `keystore_type` fields belong to the connector's `client_config` object. For descriptions of both, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#request-body-fields).
+The `mutual_tls_enabled` and `keystore_type` fields belong to the connector's `client_config` object. For descriptions of both, see [The client_config object]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/#the-client_config-object).
 
 ### Prerequisites
 
@@ -220,4 +220,4 @@ The following restrictions apply to client certificate authentication:
 
 - To find the blueprint for your platform and model, see [OpenSearch-provided connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/).
 - To register and deploy a model that uses this connector, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
-- For descriptions of all connector fields, including the `client_config` object, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#request-body-fields).
+- For descriptions of all connector fields, including the `client_config` object, see [Create Connector API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/#request-body-fields).

@@ -2,7 +2,7 @@
 layout: default
 title: OpenSearch-provided connector blueprints
 has_children: false
-nav_order: 20
+nav_order: 10
 parent: Connectors
 grand_parent: Connecting to externally hosted models
 great_grand_parent: Integrating ML models
@@ -89,4 +89,4 @@ For more information about using these blueprints with Search Relevance Workbenc
 ## Next steps
 
 - To register and deploy a model that uses your connector, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
-- To create a connector for a platform or model that has no provided blueprint, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
+- To create a connector for a platform or model that has no provided blueprint, see [Creating a custom blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
