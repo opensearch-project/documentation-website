@@ -71,7 +71,7 @@ Each coordinating node enforces `node_limit` independently, so the cluster-wide 
 
 OpenSearch enforces `shared_limit` across the cluster, so the total does not depend on the number of nodes. Requests that count toward `shared_limit` take longer to start because the coordinating node must first verify the cluster-wide count. These requests might also fail briefly when nodes join or leave the cluster.
 
-`shared_limit` adds latency to every request that counts toward it because the coordinating node must contact another node before the search starts. Use `shared_limit` only when you need a strict cluster-wide limit.
+Specifying `shared_limit` adds latency to every request that counts toward it because the coordinating node must contact another node before the search starts. Use `shared_limit` only when you need a strict cluster-wide limit.
 {: .warning}
 
 When you set both limits, each coordinating node first accepts requests up to its `node_limit`. Only requests that exceed `node_limit` count toward `shared_limit`. For example, if clients send requests to three nodes, `node_limit` is `5`, and `shared_limit` is `20`, the workload group can run up to 35 (5 × 3 + 20) concurrent requests for each bucket.
