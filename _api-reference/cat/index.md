@@ -88,7 +88,7 @@ Parameter | Description
 `h`  |  Limits the output to specific headers. Accepts column names, column aliases, and wildcards (for example, `routing.*`).
 `format` |  The format in which to return the result. Valid values are `text` (default), `json`, `yaml`, `cbor`, and `smile`.
 `s` | Sorts the output by the specified columns. Accepts column names and column aliases, each optionally followed by `:asc` or `:desc` (for example, `s=a:desc`). Each sort key must be an existing column name or alias.
-`limit` | Maximum number of rows to return. Applied after sorting (`s`). Must be a positive integer. For more information, see [Limit the number of rows](#limit-the-number-of-rows).
+`limit` | The maximum number of rows to return. Must be greater than 0. Applied after sorting (`s`). For more information, see [Limit the number of rows](#limit-the-number-of-rows).
 `bytes` | The units used to display byte values. Valid values are `b`, `kb`, `mb`, `gb`, `tb`, and `pb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/).
 `time` | The units used to display time values. Valid values are `nanos`, `micros`, `ms`, `s`, `m`, `h`, and `d`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/).
 `ts` | Boolean. Whether to include timestamp columns in operations that provide them, such as `_cat/health`. Default is `true`.
