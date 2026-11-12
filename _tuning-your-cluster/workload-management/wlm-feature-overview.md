@@ -8,7 +8,7 @@ redirect_from:
 ---
 
 # Workload management
-Introduced 2.18
+**Introduced 2.18**
 {: .label .label-purple }
 
 Workload management allows you to group search traffic and isolate network resources, preventing the overuse of network resources by specific requests. It offers the following benefits:
@@ -94,7 +94,7 @@ To avoid passing the ID in every query, you can create rules to apply the ID aut
 
 The `wlm.workload_group.mode` cluster-level setting controls whether workload management is globally enabled. The following operating modes determine the operating level for workload management:
 
-- `monitor_only` (Default): Workload management monitors tasks but does not cancel, reject, or [throttle]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/workload-group-throttling/) any queries.
+- `monitor_only` (Default): Workload management monitors tasks but does not cancel, reject, or throttle any queries.
 
 - `disabled`: Workload management is disabled, with no monitoring or enforcement.
 
@@ -208,8 +208,8 @@ The response contains the following fields.
 | `total_completions`  | The total number of request completions in the `workload_group` at the given node. This includes all shard-level and coordinator-level requests. |
 | `total_rejections`    | The total number request rejections in the `workload_group` at the given node. This includes all shard-level and coordinator-level requests.     |
 | `total_cancellations` | The total number of cancellations in the `workload_group` at the given node. This includes all shard-level and coordinator-level requests.       |
-| `total_throttled` | The total number of requests in the `workload_group` that the given node rejected because of a [throttling]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/workload-group-throttling/) limit. OpenSearch does not count these requests in `total_rejections` or `total_completions`. Introduced in OpenSearch 3.10. |
-| `total_would_throttle` | The total number of requests coordinated by the given node that OpenSearch would have throttled but ran anyway because the `workload_group` uses `monitor` mode. Introduced in OpenSearch 3.10. |
+| `total_throttled` | The total number of requests in the `workload_group` that the given node rejected because of a throttling limit. OpenSearch does not count these requests in `total_rejections` or `total_completions`. |
+| `total_would_throttle` | The total number of requests coordinated by the given node that OpenSearch would have throttled but ran anyway because the `workload_group` uses `monitor` mode. |
 | `cpu`   | The `cpu` resource type statistics for the `workload_group`.                                                                                     | 
 | `memory`  | The `memory` resource type statistics for the `workload_group`.                                                                                  | 
 
@@ -225,7 +225,7 @@ The resource type statistics objects contain the following fields.
 
 ### Viewing statistics in table format
 
-To view workload management statistics in a paginated table, use the `_list/wlm_stats` endpoint. To include column headers, add the `v` parameter:
+To view workload management statistics in a paginated table, use the `_list/wlm_stats` endpoint. To include column headers, add the `v` query parameter:
 
 ```json
 GET _list/wlm_stats?v
@@ -234,15 +234,12 @@ GET _list/wlm_stats?v
 
 The response contains one row for each workload group on each node:
 
-```json
+```
 NODE_ID                 | WORKLOAD_GROUP_ID      | TOTAL_COMPLETIONS | TOTAL_REJECTIONS | TOTAL_CANCELLATIONS | TOTAL_THROTTLED | TOTAL_WOULD_THROTTLE | CPU_USAGE           | MEMORY_USAGE
 A3L9EfBIQf2anrrUhh_goA  | 16YGxFlPRdqIO7K4EACJlw | 33570             | 0                | 0                   | 0               | 0                    | 0.03319935314357281 | 0.002306486276211217
 A3L9EfBIQf2anrrUhh_goA  | DEFAULT_WORKLOAD_GROUP | 42572             | 0                | 0                   | 0               | 0                    | 0.0                 | 0.0
 No more pages available | -                      | -                 | -                | -                   | -               | -                    | -                   | -
 ```
-
-OpenSearch 3.10 adds the `TOTAL_THROTTLED` and `TOTAL_WOULD_THROTTLE` columns between the `TOTAL_CANCELLATIONS` and `CPU_USAGE` columns. If you parse the table output by column position, update your parser. To read the statistics programmatically, use the [Workload Management Stats API](#workload-management-stats-api), which returns typed JSON fields.
-{: .note}
 
 ## Permissions
 
