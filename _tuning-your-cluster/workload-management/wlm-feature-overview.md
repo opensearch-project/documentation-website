@@ -8,7 +8,7 @@ redirect_from:
 ---
 
 # Workload management
-Introduced 2.18
+**Introduced 2.18**
 {: .label .label-purple }
 
 Workload management allows you to group search traffic and isolate network resources, preventing the overuse of network resources by specific requests. It offers the following benefits:
@@ -30,7 +30,7 @@ Then restart your cluster. For more information, see [Managing OpenSearch plugin
 
 ## Workload groups
 
-A _workload group_ is a logical grouping of tasks with defined resource limits. System administrators can dynamically manage workload groups using the Workload Management APIs. These workload groups can be used to create search requests with resource limits. You can also define group-specific settings that are applied automatically to every request routed to the group. For more information, see [Workload groups]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/workload-groups/) and [Workload group settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/workload-group-settings/).
+A _workload group_ is a logical grouping of tasks with defined resource limits. System administrators can dynamically manage workload groups using the Workload Management APIs. These workload groups can be used to create search requests with resource limits. You can also define group-specific settings that are applied automatically to every request routed to the group. For more information, see [Workload groups]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/workload-groups/) and [Workload group settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/workload-group-settings/). To limit the number of concurrent search requests in a workload group, see [Workload group throttling]({{site.url}}{{site.baseurl}}/tuning-your-cluster/workload-management/workload-group-throttling/).
 
 The following example request adds a workload group named `analytics`:
 
@@ -94,7 +94,7 @@ To avoid passing the ID in every query, you can create rules to apply the ID aut
 
 The `wlm.workload_group.mode` cluster-level setting controls whether workload management is globally enabled. The following operating modes determine the operating level for workload management:
 
-- `monitor_only` (Default): Workload management monitors tasks but does not cancel or reject any queries.
+- `monitor_only` (Default): Workload management monitors tasks but does not cancel, reject, or throttle any queries.
 
 - `disabled`: Workload management is disabled, with no monitoring or enforcement.
 
@@ -156,6 +156,8 @@ The response returns workload management statistics for each workload group:
         "total_completions": 33570,
         "total_rejections": 0,
         "total_cancellations": 0,
+        "total_throttled": 0,
+        "total_would_throttle": 0,
         "cpu": {
           "current_usage": 0.03319935314357281,
           "cancellations": 0,
@@ -171,6 +173,8 @@ The response returns workload management statistics for each workload group:
         "total_completions": 42572,
         "total_rejections": 0,
         "total_cancellations": 0,
+        "total_throttled": 0,
+        "total_would_throttle": 0,
         "cpu": {
           "current_usage": 0,
           "cancellations": 0,
@@ -201,9 +205,11 @@ The response contains the following fields.
 
 | Field name | Description                                                                                                                                      |
 | :--- |:-------------------------------------------------------------------------------------------------------------------------------------------------| 
-| `total_completions`  | The total number of request completions in the `workload_group` at the given node. This includes all shard-level and coordinator-level requests. |
-| `total_rejections`    | The total number request rejections in the `workload_group` at the given node. This includes all shard-level and coordinator-level requests.     |
-| `total_cancellations` | The total number of cancellations in the `workload_group` at the given node. This includes all shard-level and coordinator-level requests.       |
+| `total_completions`  | The total number of search task completions in the `workload_group` at the given node. This includes all shard-level and coordinator-level tasks. |
+| `total_rejections`    | The total number of search task rejections in the `workload_group` at the given node due to resource limits (`cpu` and `memory`). This includes all shard-level and coordinator-level tasks. |
+| `total_cancellations` | The total number of search task cancellations in the `workload_group` at the given node due to resource limits (`cpu` and `memory`). This includes all shard-level and coordinator-level tasks. |
+| `total_throttled` | The total number of search request rejections in the `workload_group` at the given node due to throttling limits. This includes only coordinator-level requests. |
+| `total_would_throttle` | The total number of search requests in the `workload_group` at the given node that would have been rejected due to throttling limits but ran because the `workload_group` uses `monitor` mode. This includes only coordinator-level requests. |
 | `cpu`   | The `cpu` resource type statistics for the `workload_group`.                                                                                     | 
 | `memory`  | The `memory` resource type statistics for the `workload_group`.                                                                                  | 
 
@@ -216,6 +222,24 @@ The resource type statistics objects contain the following fields.
 | `current_usage` | The resource usage for the `workload_group` at the given node based on the last run of the monitoring thread. This value is updated based on the `wlm.workload_group.enforcement_interval`. |
 | `cancellations` | The number of cancellations resulting from the cancellation threshold being reached.                                                                                                        |
 | `rejections`    | The number of rejections resulting from the cancellation threshold being reached.                                                                                                           |
+
+### Viewing statistics in table format
+
+To view workload management statistics in a paginated table, use the `_list/wlm_stats` endpoint. To include column headers, add the `v` query parameter:
+
+```json
+GET _list/wlm_stats?v
+```
+{% include copy-curl.html %}
+
+The response contains one row for each workload group on each node:
+
+```
+NODE_ID                 | WORKLOAD_GROUP_ID      | TOTAL_COMPLETIONS | TOTAL_REJECTIONS | TOTAL_CANCELLATIONS | TOTAL_THROTTLED | TOTAL_WOULD_THROTTLE | CPU_USAGE           | MEMORY_USAGE
+A3L9EfBIQf2anrrUhh_goA  | 16YGxFlPRdqIO7K4EACJlw | 33570             | 0                | 0                   | 0               | 0                    | 0.03319935314357281 | 0.002306486276211217
+A3L9EfBIQf2anrrUhh_goA  | DEFAULT_WORKLOAD_GROUP | 42572             | 0                | 0                   | 0               | 0                    | 0.0                 | 0.0
+No more pages available | -                      | -                 | -                | -                   | -               | -                    | -                   | -
+```
 
 ## Permissions
 
