@@ -118,7 +118,7 @@ Migration Assistant has the following assumptions and limitations.
 
 For Elasticsearch and OpenSearch sources:
 
-- The source cluster must have the snapshot-repository plugin for your object storage installed: [`repository-s3`](https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#amazon-s3) for Amazon S3, or `repository-gcs` for Google Cloud Storage. Elasticsearch 8.0 and later and OpenSearch bundle these; Elasticsearch 7.x and earlier require installing the plugin on every source node.
+- The source cluster must have the snapshot-repository plugin for your object storage installed: [`repository-s3`](https://opensearch.org/docs/latest/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#amazon-s3) for Amazon S3, or `repository-gcs` for Google Cloud Storage. Elasticsearch 8.0 and later bundle these. Elasticsearch 7.x and earlier, and all OpenSearch versions, require installing the plugin on every source node.
 - Shards of up to **80 GiB** are supported by default. This can be configured to support larger shards up to the limits of your node storage. (On Amazon EKS, AWS GovCloud regions are limited to 80 GiB.)
 - Snapshots of indexes using `zstd` or `zstd_no_dict` codecs (OpenSearch 2.9+) are not supported---reindex with `default` or `best_compression` first.
 

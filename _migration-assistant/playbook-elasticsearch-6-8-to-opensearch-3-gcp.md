@@ -29,7 +29,7 @@ Replace the following placeholders with values from your environment.
 | `<TARGET_USERNAME>`, `<TARGET_PASSWORD>` | Target cluster credentials |
 | `<PILOT_INDEX_NAME>` | A small, noncritical index for the pilot run |
 
-The Cloud Storage bucket for snapshots is created by the GKE Terraform module and exposed to the workflow through the `migration-config` config map, so you do not set it manually. This playbook reads it as `<BUCKET_NAME>`.
+The Cloud Storage bucket for snapshots is created by the GKE Terraform module and exposed to the workflow through the `migrations-default-gcs-config` config map, so you do not set it manually. This playbook reads it as `<BUCKET_NAME>`.
 {: .note }
 
 ## Estimated timing
@@ -58,7 +58,7 @@ Your source cluster must meet all of the following requirements:
 - It is reachable from the VPC where Migration Assistant runs.
 - You know the source endpoint and authentication method.
 - It can write snapshots to Google Cloud Storage.
-- It contains the `repository-gcs` plugin. Elasticsearch 8.0 and later and OpenSearch bundle Cloud Storage support, but Elasticsearch 6.8 requires the plugin to be installed on every node.
+- It contains the `repository-gcs` plugin. Elasticsearch 8.0 and later bundle Cloud Storage support, but Elasticsearch 6.8 requires the plugin to be installed on every node.
 
 If the source uses self-signed certificates, plan to set `allowInsecure: true` in the workflow configuration.
 

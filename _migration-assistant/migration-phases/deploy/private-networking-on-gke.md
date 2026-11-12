@@ -107,7 +107,7 @@ If your organization enforces a VPC Service Controls perimeter that denies the s
 
 ### Source-cluster prerequisite for the repository-gcs plugin
 
-Backfill snapshots the **source** cluster to Cloud Storage, which requires the source to support Cloud Storage snapshot repositories. Elasticsearch 8.0 and later and OpenSearch bundle this support. Elasticsearch 7.x does not: it needs the `repository-gcs` plugin installed on every source node, or snapshot-repository registration fails with `repository type [gcs] does not exist`. Install it on each source node and restart:
+Backfill snapshots the **source** cluster to Cloud Storage, which requires the source to support Cloud Storage snapshot repositories. Elasticsearch 8.0 and later bundle this support. Elasticsearch 7.x and earlier, and all OpenSearch versions, need the `repository-gcs` plugin installed on every source node, or snapshot-repository registration fails with `repository type [gcs] does not exist`. Install it on each source node and restart:
 
 ```bash
 bin/elasticsearch-plugin install --batch repository-gcs

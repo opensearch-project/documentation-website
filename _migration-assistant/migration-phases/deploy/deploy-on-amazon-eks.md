@@ -52,7 +52,7 @@ Basic authentication works the same way as on any other Kubernetes platform: cre
 
 AWS Signature Version 4 authentication is the primary advantage of deploying on EKS.
 
-For sources or targets authenticated using AWS Signature Version 4, the EKS stack uses AWS Identity and Access Management (IAM) [Roles for Service Accounts (IRSA)](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) to assign an AWS identity to two sets of pods:
+For sources or targets authenticated using AWS Signature Version 4, the EKS stack uses [EKS Pod Identity](https://docs.aws.amazon.com/eks/latest/userguide/pod-identities.html) to assign an AWS Identity and Access Management (IAM) identity to two sets of pods:
 
 - The Migration Console pod (`migration-console-0`), which runs under the `migration-console-access-role` service account.
 - The Argo workflow executor pods, which run under the `argo-workflow-executor` service account.

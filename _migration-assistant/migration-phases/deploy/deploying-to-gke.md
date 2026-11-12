@@ -182,16 +182,18 @@ For access to GCP services such as Cloud Storage, the GKE path uses Workload Ide
 
 Once you no longer need Migration Assistant for rollback, replay, or comparison, remove it. Do not remove it immediately after cutover. For the readiness checklist, see [Removing migration infrastructure]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/).
 
-Because Terraform installed the Migration Assistant Helm release, destroying the module removes both Migration Assistant and the GKE infrastructure in one step:
+The module creates the snapshot bucket with `force_destroy = true`, so `terraform destroy` deletes the bucket and every snapshot in it without prompting. Copy out anything you still need before running it.
+{: .warning }
+
+Because Terraform installed the Migration Assistant Helm release, destroying the module removes both Migration Assistant and the GKE infrastructure. Delete the persistent volume claims first, while the cluster still exists:
 
 ```bash
+kubectl -n ma delete pvc --all
 terraform destroy \
   -var="project=<your-gcp-project>" \
   -var="region=<your-gcp-region>"
 ```
 {% include copy.html %}
-
-If any persistent volume claims remain afterward, delete them explicitly with `kubectl -n ma delete pvc --all`.
 
 ## Next steps
 
