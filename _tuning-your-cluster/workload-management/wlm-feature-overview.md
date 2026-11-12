@@ -205,11 +205,11 @@ The response contains the following fields.
 
 | Field name | Description                                                                                                                                      |
 | :--- |:-------------------------------------------------------------------------------------------------------------------------------------------------| 
-| `total_completions`  | The total number of request completions in the `workload_group` at the given node. This includes all shard-level and coordinator-level requests. |
-| `total_rejections`    | The total number request rejections in the `workload_group` at the given node. This includes all shard-level and coordinator-level requests.     |
-| `total_cancellations` | The total number of cancellations in the `workload_group` at the given node. This includes all shard-level and coordinator-level requests.       |
-| `total_throttled` | The total number of requests in the `workload_group` that the given node rejected because of a throttling limit. OpenSearch does not count these requests in `total_rejections` or `total_completions`. |
-| `total_would_throttle` | The total number of requests coordinated by the given node that OpenSearch would have throttled but ran anyway because the `workload_group` uses `monitor` mode. |
+| `total_completions`  | The total number of search task completions in the `workload_group` at the given node. This includes all shard-level and coordinator-level tasks. |
+| `total_rejections`    | The total number of search task rejections in the `workload_group` at the given node due to resource limits (`cpu` and `memory`). This includes all shard-level and coordinator-level tasks. |
+| `total_cancellations` | The total number of search task cancellations in the `workload_group` at the given node due to resource limits (`cpu` and `memory`). This includes all shard-level and coordinator-level tasks. |
+| `total_throttled` | The total number of search request rejections in the `workload_group` at the given node due to throttling limits. This includes only coordinator-level requests. |
+| `total_would_throttle` | The total number of search requests in the `workload_group` at the given node that would have been rejected due to throttling limits but ran because the `workload_group` uses `monitor` mode. This includes only coordinator-level requests. |
 | `cpu`   | The `cpu` resource type statistics for the `workload_group`.                                                                                     | 
 | `memory`  | The `memory` resource type statistics for the `workload_group`.                                                                                  | 
 
