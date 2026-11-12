@@ -210,6 +210,7 @@ Titan
 Titan Multimodal Embeddings
 Titan Text Embeddings
 TorchScript
+Traceloop
 Traffic Capture Proxy
 Traffic Replayer
 Tribuo
