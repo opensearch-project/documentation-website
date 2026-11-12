@@ -951,6 +951,7 @@ The following table provides information about restoring each plugin's system in
 | :--- | :--- | :--- |
 | Alerting | `.opendistro-alerting-config` and other alerting indexes | See [Restoring monitors and alerts from a snapshot]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/restore/). |
 | Index State Management | `.opendistro-ism-config` | See [Restoring ISM from a snapshot]({{site.url}}{{site.baseurl}}/im-plugin/ism/restore/). |
+| k-NN | `.opensearch-knn-models` | See [Restoring k-NN models from a snapshot]({{site.url}}{{site.baseurl}}/vector-search/vector-search-techniques/approximate-knn/#restoring-k-nn-models-from-a-snapshot). |
 | Learning to Rank | `.ltrstore` and `.ltrstore_<store name>` for each named feature store | None. |
 
 ## Index codec considerations
