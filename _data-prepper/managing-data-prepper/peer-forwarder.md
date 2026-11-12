@@ -150,6 +150,10 @@ peer_forwarder:
     mutual_tls:
 ```
 
+## Circuit breaker
+
+When a [circuit breaker]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#circuit-breakers) is configured, the Peer Forwarder server rejects forwarded requests with HTTP response code `429` and a `Retry-After` header while the breaker is open. The rejection happens before the request body is read. The sending node does not retry the request. Instead, it processes the records locally, as it does for any failed forwarding request. Because these records are not processed on the node that owns their identification keys, stateful processors such as `aggregate` might produce partial results. Use the `recordsRejectedByPeer` metric to monitor this.
+
 ## Metrics
 
 Core Peer Forwarder introduces the following custom metrics. All the metrics are prefixed by `core.peerForwarder`.
@@ -178,7 +182,9 @@ The following table provides counter metric options.
 | `recordsFailedForwarding`| Measures the total number of records that fail to be forwarded. |
 | `recordsToBeForwarded` | Measures the total number of records to be forwarded. |
 | `recordsToBeProcessedLocally` | Measures the total number of records to be processed locally. |
-| `recordsActuallyProcessedLocally`| Measures the total number of records actually processed locally. This value is the sum of `recordsToBeProcessedLocally` and `recordsFailedForwarding`. |
+| `recordsActuallyProcessedLocally`| Measures the total number of records actually processed locally. This value is the sum of `recordsToBeProcessedLocally` and `recordsFailedForwarding` minus `recordsDroppedAfterFailedForwarding`. |
+| `recordsRejectedByPeer`| Measures the total number of records in requests that the receiving peer rejected with HTTP response code `429` because its [circuit breaker]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#circuit-breakers) is open. These records are processed on the sending node instead of the node that owns their identification keys. They are also counted in `recordsFailedForwarding`. |
+| `recordsDroppedAfterFailedForwarding`| Measures the total number of records that were dropped because they could not be written to the local buffer after a failed forwarding request. These records are included in `recordsFailedForwarding`. |
 | `recordsReceivedFromPeers`| Measures the total number of records received from remote peers. |
 
 ### Gauge

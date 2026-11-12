@@ -84,7 +84,7 @@ This plugin uses pluggable authentication for gRPC servers. To provide custom au
 
 ### Retry information
 
-You can set retry behavior using the `retry_info` setting, specifying how long to wait for the next request when backpressure occurs. The retry mechanism applies exponential backoff with a configurable maximum delay:
+You can set retry behavior using the `retry_info` setting, specifying how long to wait for the next request when backpressure occurs, including when the [circuit breaker]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#circuit-breakers) is open. The retry mechanism applies exponential backoff with a configurable maximum delay:
 
 ```yaml
 source:
@@ -237,6 +237,7 @@ The following counters track request activity and errors in the `otlp` source.
 | Metric | Description |
 | :--- | :--- |
 | `requestTimeouts` | The total number of requests that timed out. |
+| `requestsRejectedByCircuitBreaker` | The total number of requests rejected because the [circuit breaker]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#circuit-breakers) is open. These requests are rejected before the request body is read and are not counted in `requestTimeouts`. |
 | `requestsReceived` | The total number of requests received by the `otlp` source. |
 | `successRequests` | The total number of requests successfully processed by the `otlp` source. |
 | `badRequests` | The total number of requests with an invalid format processed by the `otlp` source. |
