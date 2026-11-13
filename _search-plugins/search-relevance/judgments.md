@@ -85,7 +85,7 @@ The following table lists the parameters for creating LLM-based judgments.
 
 ### Retrying failed judgment requests
 
-Generating a judgment sends one LLM request for every query-document pair. Occasional failures are expected at scale: for example, the provider might throttle a request or a request might time out. To retry these requests automatically, configure retries on the connector you use for the judgment, using the connector's `client_config` settings (`max_retry_times`, `retry_backoff_policy`, and related options). For more information, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#request-body-fields).
+Generating a judgment sends one LLM request for every query-document pair. Occasional failures are expected at scale: for example, the provider might throttle a request or a request might time out. To retry these requests automatically, configure retries on the connector you use for the judgment, using the connector's `client_config` settings (`max_retry_times`, `retry_backoff_policy`, and related options). For more information, see [The client_config object]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/#the-client_config-object).
 
 ### Retrying failed documents
 

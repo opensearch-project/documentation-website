@@ -72,7 +72,7 @@ POST /_plugins/_ml/connectors/_create
 
 The `client_config` block enables automatic retries with exponential backoff and jitter for temporary rate limits or server errors. If a document still fails after the retries, the judgment run reports it instead of dropping it. For more information, see [Viewing a judgment list]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/judgments/#viewing-a-judgment-list).
 
-The `request_body` and `post_process_function` map the `system_prompt`, `user_prompt`, and `response` parameters into each provider's request and response format, so the judgment API call stays the same across providers. For information about these fields, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#request-body-fields).
+The `request_body` and `post_process_function` map the `system_prompt`, `user_prompt`, and `response` parameters into each provider's request and response format, so the judgment API call stays the same across providers. For information about these fields, see [The actions object]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/#the-actions-object).
 
 Then register and deploy the model. Replace `{connector_id}` with the ID returned in the previous response:
 

@@ -72,7 +72,7 @@ POST _plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-For more information, see [this blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/open_ai_connector_chat_blueprint.md).
+For more information, see [this blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/open_ai_connector_chat_blueprint.md).
 
 Note the connector ID; you'll use it to register the model.
 
