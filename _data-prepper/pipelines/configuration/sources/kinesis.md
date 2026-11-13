@@ -36,13 +36,15 @@ The `kinesis` source supports the following configuration options.
 Option | Required | Type     | Description
 :--- |:---------|:---------| :---
 `aws` | Yes      | AWS      | Specifies the AWS configuration. See [`aws`](#aws).
-`acknowledgments` | No       | Boolean  | When set to `true`, enables the `kinesis` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) when events are received by OpenSearch sinks.
+`acknowledgments` | No       | Boolean  | When set to `true`, enables the `kinesis` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) when events are received by OpenSearch sinks. Default is `false`.
 `streams` | Yes      | List     | Configures a list of multiple Kinesis data streams that the `kinesis` source uses to read records. You can configure up to four streams. See [Streams](#streams).
 `codec` | Yes      | Codec    | Specifies the [codec](#codec) to apply.
 `buffer_timeout` | No       | Duration | Sets the amount of time allowed for writing events to the Data Prepper buffer before timeout occurs. Any events that the source cannot write to the buffer during the specified amount of time are discarded. Default is `1s`.
 `records_to_accumulate` | No       | Integer  | Determines the number of messages that accumulate before being written to the buffer. Default is `100`.
 `consumer_strategy` | No       | String   | Selects the consumer strategy to use for ingesting Kinesis data streams. The default is `fan-out`, but `polling` can also be used. If `polling` is enabled, the additional configuration is required.
 `polling` | No       | polling   | See [polling](#polling).
+`max_initialization_attempts` | No | Integer | The maximum number of attempts to initialize the Kinesis consumer before the source stops retrying. Default is `2147483647`.
+`initialization_backoff_time` | No | Duration | The amount of time to wait between attempts to initialize the Kinesis consumer. Default is `1s`.
 
 ### Streams
 
@@ -50,7 +52,9 @@ You can use the following options in the `streams` array.
 
 Option | Required | Type | Description
 :--- |:---------| :--- | :---
-`stream_name` | Yes      | String | Defines the name of each Kinesis data stream.
+`stream_name` | No       | String | Defines the name of each Kinesis data stream. Either `stream_name` or `stream_arn` is required.
+`stream_arn` | No | String | The Amazon Resource Name (ARN) of the Kinesis data stream. If both `stream_name` and `stream_arn` are specified, `stream_arn` is used.
+`consumer_arn` | No | String | The ARN of the enhanced fan-out consumer to use for the stream. Applies only when `stream_arn` is specified and `consumer_strategy` is `fan-out`. If not specified, the source uses the stream consumer named after the pipeline.
 `initial_position` | No       | String | Sets the `initial_position` to control where the `kinesis` source begins reading stream records. Use `LATEST` to start from the most recent record, `EARLIEST` to read from the beginning of the stream, or `AT_TIMESTAMP` to start from a specific timestamp. Default is `LATEST`.
 `initial_timestamp`| No       | String | Specifies the timestamp from which to begin reading stream records. The value must follow the [ISO LocalDateTime](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_LOCAL_DATE_TIME) format and be provided in the UTC time zone (for example, `2023-01-23T10:00:00`). When `initial_position` is set to `AT_TIMESTAMP`, you must specify either `initial_timestamp` or `range`.
 `range` | No  | String | Specifies how far back from the current time to begin reading Kinesis data stream records. Supports ISO-8601 duration strings (such as `PT20.345S` or `PT15M`) as well as shorthand notation for seconds (`60s`) and milliseconds (`1600ms`). For example, `PT12H` starts reading records from 12 hours before the pipeline started. When `initial_position` is set to `AT_TIMESTAMP`, you must specify either `initial_timestamp` or `range`.
@@ -110,8 +114,8 @@ When the `consumer_strategy` is set to `polling`, the `kinesis` source uses a po
 
 Option | Required | Type    | Description
 :--- | :--- |:--------| :---
-`max_polling_records` | No | Integer | Sets the number of records to fetch from Kinesis during a single call.
-`idle_time_between_reads` | No | Duration  | Defines the amount of idle time between calls. 
+`max_polling_records` | No | Integer | Sets the number of records to fetch from Kinesis during a single call. Default is `10000`.
+`idle_time_between_reads` | No | Duration  | Defines the amount of idle time between calls. Default is `250ms`.
 
 <!-- vale off -->
 ### aws
@@ -123,7 +127,8 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `region` | No | String | Sets the AWS Region to use for credentials. Defaults to the [standard SDK behavior for determining the Region](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/region-selection.html).
 `sts_role_arn` | No | String | Defines the AWS Security Token Service (AWS STS) role to assume for requests to Amazon Kinesis Data Streams and Amazon DynamoDB. Defaults to `null`, which uses the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
-`aws_sts_header_overrides` | No | Map | Defines a map of header overrides that the AWS Identity and Access Management (IAM) role assumes for the sink plugin.
+`sts_external_id` | No | String | Defines the external ID to use when assuming the STS role. Must be between 2 and 1,224 characters.
+`sts_header_overrides` | No | Map | Defines a map of header overrides that the AWS Identity and Access Management (IAM) role assumes for the source plugin. Maximum of 5 headers.
 
 ## Exposed metadata attributes
 
