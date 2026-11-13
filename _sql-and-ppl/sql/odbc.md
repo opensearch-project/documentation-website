@@ -10,7 +10,7 @@ redirect_from:
 
 # ODBC driver
 
-The Open Database Connectivity (ODBC) driver is a read-only ODBC driver for Windows and macOS that lets you connect business intelligence (BI) and data visualization applications like [Microsoft Excel](https://github.com/opensearch-project/sql-odbc/blob/main/docs/user/microsoft_excel_support.md) and [Power BI](https://github.com/opensearch-project/sql-odbc/blob/main/bi-connectors/PowerBIConnector/README.md) to the SQL plugin.
+The Open Database Connectivity (ODBC) driver is a read-only ODBC driver for Windows, macOS, and Linux that lets you connect business intelligence (BI) and data visualization applications like [Microsoft Excel](https://github.com/opensearch-project/sql-odbc/blob/main/docs/user/microsoft_excel_support.md) and [Power BI](https://github.com/opensearch-project/sql-odbc/blob/main/bi-connectors/PowerBIConnector/README.md) to the SQL plugin.
 
 For information about downloading and using the driver, see [the SQL repository on GitHub](https://github.com/opensearch-project/sql-odbc).
 
@@ -26,6 +26,7 @@ Operating system | Version
 :--- | :---
 Windows | Windows 10, Windows 11
 macOS | Catalina 10.15.4, Mojave 10.14.6, Big Sur 11.6.7, Monterey 12.4
+Linux | x86_64 distributions with unixODBC, built from source (tested on Ubuntu)
 
 
 ## Concepts
@@ -122,10 +123,56 @@ This command gives the application permissions to save the driver and DSN config
 11. Choose **OK** to save the DSN configuration.
 12. Choose **OK** to exit the iODBC Administrator.
 
+### Linux
+
+The driver is not distributed as a Linux package. Starting with driver version 1.7.0.0, you can build it from source and register it with the unixODBC driver manager.
+
+1. Install unixODBC, CMake, a C++ toolchain, and [vcpkg](https://vcpkg.io/).
+
+2. Clone the driver repository and build the driver:
+
+   ```bash
+   git clone https://github.com/opensearch-project/sql-odbc.git
+   cd sql-odbc
+   ./build_linux_release64.sh
+   ```
+   {% include copy.html %}
+
+   The driver library is written to `build/odbc/lib/libsqlodbc.so`.
+
+3. Register the driver by adding the following entry to `odbcinst.ini`. To find the location of the file, run `odbcinst -j`:
+
+   ```ini
+   [OpenSearch SQL ODBC Driver]
+   Description=OpenSearch SQL ODBC driver
+   Driver=<path-to-sql-odbc>/build/odbc/lib/libsqlodbc.so
+   ```
+   {% include copy.html %}
+
+4. Define a data source in `~/.odbc.ini`. We recommend the following options for a default local OpenSearch installation:
+
+   ```ini
+   [opensearch]
+   Driver=OpenSearch SQL ODBC Driver
+   Host=localhost
+   Port=9200
+   Auth=NONE
+   UseSSL=0
+   ResponseTimeout=10
+   ```
+   {% include copy.html %}
+
+5. Verify the connection using `isql`, which is installed with unixODBC:
+
+   ```bash
+   echo "SELECT 1 AS one" | isql -v opensearch -b
+   ```
+   {% include copy.html %}
+
 
 ## Customizing the ODBC driver
 
-The driver is in the form of a library file: `opensearchsqlodbc.dll` for Windows and `libopensearchsqlodbc.dylib` for macOS.
+The driver is in the form of a library file: `opensearchsqlodbc.dll` for Windows, `libopensearchsqlodbc.dylib` for macOS, and `libsqlodbc.so` for Linux.
 
 If you're using with ODBC compatible BI tools, refer to your BI tool documentation for configuring a new ODBC driver.
 Typically, all that's required is to make the BI tool aware of the location of the driver library file and then use it to set up the database (i.e., OpenSearch) connection.
