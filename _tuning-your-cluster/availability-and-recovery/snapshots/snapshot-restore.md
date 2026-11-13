@@ -474,6 +474,35 @@ Note the following when using Azure token credentials:
 - Token credential support is disabled in `opensearch.yml` by default.
 - A token credential takes precedence over an Azure Storage account key or a SAS when multiple options are configured. 
 
+#### Transfer tuning
+**Introduced 3.10**
+{: .label .label-purple }
+
+You can tune Azure snapshot reads and writes with the following static, client-scoped settings. Add them to `opensearch.yml` on each node that uses the Azure client, and restart the affected nodes after making changes. These are not repository registration parameters. Replace `<name>` with the client name used by your repository, such as `default`.
+
+| Setting | Default | Valid values | Description |
+| :--- | :--- | :--- | :--- |
+| `azure.client.<name>.read.block_size` | `-1` | `-1`, or `1b` through `2147483647b` | Sets the Azure SDK streaming-read block size and preferred length for ranged reads. |
+| `azure.client.<name>.write.block_size` | `-1` | `-1`, or `1b` through `4194304000b` | Sets the block size used for staged uploads. |
+| `azure.client.<name>.write.max_single_upload_size` | `-1` | `-1`, or `1b` through `5242880000b` | Sets the largest blob uploaded in a single `Put Blob` request. Larger blobs use staged block uploads. |
+| `azure.client.<name>.write.max_concurrency` | `-1` | `-1`, or an integer of at least `1` | Sets the maximum number of concurrent requests for one block upload, not a node-wide limit. |
+
+If you omit a setting or set it to `-1`, OpenSearch does not override the Azure SDK value for that option.
+
+The following example configures transfer settings for the `default` client:
+
+```yml
+azure.client.default.read.block_size: 16mb
+azure.client.default.write.block_size: 16mb
+azure.client.default.write.max_single_upload_size: 16mb
+azure.client.default.write.max_concurrency: 4
+```
+
+These values are a tuning example, not new defaults. Benchmark your own blob-size distribution, network, and memory budget before changing these settings.
+
+For staged uploads, upload-buffer memory can grow approximately with `write.block_size * write.max_concurrency` for each active upload. Account for the total number of concurrent uploads when choosing these values.
+{: .warning }
+
 ## Sharing a repository between clusters
 
 You can register the same repository on more than one cluster, for example, to restore snapshots from a production cluster to a test cluster. Only one cluster should write to a repository. On every other cluster, register the repository with the `readonly` setting set to `true`. A read-only repository can list and restore snapshots, but it can't create them. If more than one cluster writes to the same repository, the repository contents can become corrupted:
