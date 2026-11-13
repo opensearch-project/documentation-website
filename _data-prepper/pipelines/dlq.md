@@ -9,11 +9,11 @@ nav_order: 15
 
 OpenSearch Data Prepper pipelines support dead-letter queues (DLQs) for offloading failed events and making them accessible for analysis.
 
-As of Data Prepper 2.3, only the `s3` source supports DLQs.
+To use a DLQ, configure the `dlq` setting of a plugin that supports it, such as the `opensearch` sink.
 
 ## Configure a DLQ writer
 
-To configure a DLQ writer for the `s3` source, add the following to your `pipeline.yaml` file:
+To configure a DLQ writer for the `opensearch` sink, add the following to your `pipeline.yaml` file:
 
 ```yaml
 sink:
@@ -33,10 +33,10 @@ sink:
           bucket_owner: 123456789012
 ```
 
-The resulting DLQ file outputs as a JSON array of DLQ objects. Any file written to the `s3` DLQ contains the following name pattern:
+By default, each DLQ file contains a JSON object in which the `dlqObjects` array holds the DLQ objects. When `codec` is `ndjson`, each DLQ file contains one DLQ object per line. Any file written to the `s3` DLQ contains the following name pattern:
 
 ```
-dlq-v${version}-${pipelineName}-${pluginId}-${timestampIso8601}-${uniqueId}
+dlq-v${version}-${pipelineName}-${pluginId}-${timestampIso8601}-${uniqueId}.${extension}
 ```
 
 The following information is replaced in the name pattern:
@@ -44,6 +44,7 @@ The following information is replaced in the name pattern:
 - `version`: The Data Prepper version.
 - `pipelineName`: The pipeline name indicated in `pipelines.yaml`.
 - `pluginId`: The ID of the plugin associated with the DLQ event.
+- `extension`: The value of the `codec` option, either `json` or `ndjson`.
 
 ## Configuration
 
@@ -55,7 +56,12 @@ Option | Required | Type | Description
 `key_path_prefix` | No | String | The `key_prefix` used in the Amazon Simple Storage Service (Amazon S3) bucket. Defaults to `""`. Supports time value pattern variables, such as `/%{yyyy}/%{MM}/%{dd}`, including any variables listed in the [Java DateTimeFormatter](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html). For example, when using the `/%{yyyy}/%{MM}/%{dd}` pattern, you can set `key_prefix` as `/2023/01/24`.
 `region` | No | String | The AWS Region of the S3 bucket. Defaults to `us-east-1`.
 `sts_role_arn` | No | String | The STS role the DLQ assumes in order to write to an AWS S3 bucket. Default is `null`, which uses the standard SDK behavior for credentials. To use this option, the S3 bucket must have the `s3:PutObject` permission configured.
+`sts_external_id` | No | String | The external ID to use when assuming the STS role. Must be between 2 and 1,224 characters.
+`sts_header_overrides` | No | Map | A map of headers to add to the AWS STS `AssumeRole` request.
+`force_path_style` | No | Boolean | When `true`, the DLQ addresses the S3 bucket using path-style URLs (`https://s3.<region>.amazonaws.com/<bucket>/<key>`) rather than virtual-hosted-style URLs. Default is `false`.
+`legacy_md5_checksum` | No | Boolean | When `true`, the DLQ sends a `Content-MD5` header with each request and calculates checksums only when the S3 operation requires them. Use this setting for S3-compatible storage that does not support the newer AWS SDK checksum algorithms. Default is `false`.
 `bucket_owner` | No | String | The AWS account ID of the S3 bucket owner. When set, Data Prepper passes this value to S3 as `expectedBucketOwner`, and S3 rejects writes if it does not match the actual bucket owner. Default is `null`, which performs no explicit bucket owner check.
+`codec` | No | String | The format of the DLQ files. Valid values are `json` and `ndjson`. When `json`, each file contains a JSON object in which the `dlqObjects` array holds all DLQ objects in the batch. When `ndjson`, each file contains one DLQ object per line and uses the `.ndjson` file extension. Default is `json`.
 
 When using DLQ with an OpenSearch sink, you can configure the [`max_retries`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/opensearch/#configure-max_retries) option to send failed records to the DLQ after the sink reaches the maximum number of retry attempts.
 

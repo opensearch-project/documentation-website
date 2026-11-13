@@ -120,7 +120,7 @@ s3-log-pipeline:
        sqs:
          # Change this value to your SQS Queue URL
          queue_url: "arn:aws:sqs:<YOUR-REGION>:<123456789012>:<YOUR-SQS-QUEUE>"
-         visibility_timeout: "2m"
+         visibility_timeout: "PT2M"
 ```
 {% include copy-curl.html %}
 
@@ -143,7 +143,7 @@ s3-log-pipeline:
        sqs:
          # Change this value to your SQS Queue URL
          queue_url: "arn:aws:sqs:<YOUR-REGION>:<123456789012>:<YOUR-SQS-QUEUE>"
-         visibility_timeout: "2m"
+         visibility_timeout: "PT2M"
        aws:
          # Specify the correct region
          region: "<YOUR-REGION>"

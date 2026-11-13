@@ -33,6 +33,7 @@ The following table lists the configuration options for the `opensearch_api` sou
 | `thread_count` | Integer | No | `200` | The number of threads in the scheduled thread pool. |
 | `max_connection_count` | Integer | No | `500` | The maximum number of open connections. |
 | `max_pending_requests` | Integer | No | `1024` | The maximum number of tasks in the work queue. |
+| `max_request_length` | ByteCount | No | `10mb` | The maximum number of bytes allowed in the payload of a single HTTP request, for example, `5mb`. Requests that exceed this size are rejected with a `413` status code. |
 | `health_check_service` | Boolean | No | `false` | Enables a `/health` endpoint on the configured port. |
 | `unauthenticated_health_check` | Boolean | No | `false` | If `true`, the health endpoint does not require authentication. |
 | `compression` | String | No | `none` | The compression applied to the request payload. Valid values are `none` and `gzip`. |
@@ -119,7 +120,7 @@ The following table lists the possible response status codes.
 | `200` | Request data successfully written to the buffer. |
 | `400` | Request data is malformed or uses an unsupported format. |
 | `408` | Request timed out writing to the buffer. |
-| `413` | Request payload exceeds the configured buffer capacity. |
+| `413` | Request payload exceeds the configured buffer capacity or the `max_request_length` value. |
 | `429` | Source is at full capacity; request rejected. |
 
 ## Buffer compatibility
