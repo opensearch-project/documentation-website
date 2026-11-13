@@ -161,7 +161,7 @@ Use the following options under the `scheduling` configuration.
 Option | Required | Type            | Description
 :--- | :--- |:----------------| :---
 `index_read_count` | No | Integer | The number of times each index will be processed. Default is `1`.
-`interval` | No | String | The interval that determines the amount of time between reprocessing. Supports ISO 8601 notation strings, such as "PT20.345S" or "PT15M", as well as simple notation strings for seconds ("60s") and milliseconds ("1500ms"). Defaults to `8h`.
+`interval` | No | String | The interval that determines the amount of time between reprocessing. Supports ISO 8601 notation strings, such as "PT20.345S" or "PT15M", as well as simple notation strings for seconds ("60s") and milliseconds ("1500ms"). Defaults to `PT8H`.
 `start_time` | No | String | The time when processing should begin. The source will not start processing until this time. The string must be in ISO 8601 format, such as `2007-12-03T10:15:30.00Z`. The default option starts processing immediately.
 `discovery_mode` | No | String | Determines how often the source discovers indexes to process. Valid values are `periodic` and `single_scan`. When set to `periodic`, the source periodically checks for indexes to process, and each index is processed according to `index_read_count` and `interval`. When set to `single_scan`, the source discovers indexes once and processes each index one time. Default is `periodic`.
 

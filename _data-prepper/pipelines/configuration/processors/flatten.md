@@ -294,12 +294,13 @@ Consider an input event that contains the following nested objects:
 }
 ```
 
-The `flatten` processor flattens the `log` field using `_` as the separator and places the results at the root of the event, as shown in the following output:
+The `flatten` processor flattens the `log` field using `_` as the separator and places the results at the root of the event. Because `remove_source_keys` is `true`, the processed nested fields are removed, leaving an empty `log` object, as shown in the following output:
 
 ```json
 {
   "timestamp": "2026-07-29T12:00:00Z",
   "service": "user-service",
+  "log": {},
   "request_method": "POST",
   "request_url": "/api/v1/users",
   "request_headers_content_type": "application/json",
