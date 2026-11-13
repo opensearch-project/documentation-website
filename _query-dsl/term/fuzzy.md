@@ -7,7 +7,7 @@ nav_order: 80
 
 # Fuzzy query
 
-A fuzzy query searches for documents containing terms that are similar to the search term within the maximum allowed [Damerau–Levenshtein distance](https://en.wikipedia.org/wiki/Damerau–Levenshtein_distance). The Damerau–Levenshtein distance measures the number of one-character changes needed to change one term to another term. These changes include:
+A fuzzy query searches for documents containing terms that are similar to the search term within the maximum allowed [Damerau–Levenshtein distance](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance). The Damerau–Levenshtein distance measures the number of one-character changes needed to change one term to another term. These changes include:
 
 - Replacements: **c**at to **b**at
 - Insertions: cat to cat**s**

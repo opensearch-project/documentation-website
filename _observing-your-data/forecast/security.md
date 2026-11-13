@@ -10,6 +10,8 @@ has_children: false
 
 Forecasting uses the same security framework as anomaly detection. This page explains how to configure permissions for users to create, run, and view forecasters; how to restrict access to system indexes; and how to isolate forecast results across teams.
 
+To control access to individual forecasters using resource sharing, see [Forecaster access control]({{site.url}}{{site.baseurl}}/observing-your-data/forecast/forecaster-access-control/).
+
 In all examples, replace credentials, index names, and role names with values appropriate for your environment.
 {: .note}
 
@@ -24,7 +26,7 @@ The following table describes the indexes used by the Forecasting API and their 
 | `.opensearch-forecast-state` | Stores task metadata for real-time and run-once forecasting. | No |
 | `opensearch-forecast-result*` | Stores forecast results from both backtests and real-time forecasting. | Yes |
 
-Users do not need direct access to `.opensearch-forecast-checkpoints`; it is used internally by the plugin.  
+Users do not need direct access to `.opensearch-forecast-checkpoints`; it is used internally by forecasting.  
 
 To view `.opensearch-forecasters`, use the [Get forecaster]({{site.url}}{{site.baseurl}}/observing-your-data/forecast/api/#get-forecaster) or [Search forecasters]({{site.url}}{{site.baseurl}}/observing-your-data/forecast/api/#search-forecasters) APIs.
 
@@ -461,7 +463,7 @@ When a user creates a forecaster—either in OpenSearch Dashboards or by calling
 - `indices:data/write/index` – Required to write forecast results to the index (single-stream forecasters).
 - `indices:data/read/search` – Required to search the custom index when displaying forecast results.
 - `indices:data/write/delete` – Required to delete older forecast results and manage disk usage.
-- `indices:data/write/bulk*` – Required because the plugin writes results using the Bulk API.
+- `indices:data/write/bulk*` – Required because forecasting writes results using the Bulk API.
 
 ## Next step
 

@@ -211,7 +211,7 @@ POST /_plugins/_knn/models/my-model/_train
 ```
 {% include copy-curl.html %}
 
-For more information about the method parameters, see [IVF training requirements]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#ivf-training-requirements).
+This example trains successfully on four vectors only because it uses the default `nlist` of `4` and a `code_size` of `2`, which requires at least 2<sup>2</sup> = 4 training vectors. If you omit `code_size` or increase it, you need more training data. For example, omitting `code_size` requires more than 1,000 training vectors. For more information about the method parameters and the minimum number of training vectors, see [IVF training requirements]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-methods-engines/#ivf-training-requirements).
 
 The Train API returns as soon as the training job is started. To check the job status, use the Get Model API:
 

@@ -78,7 +78,6 @@ services:
       - opensearch-data2:/usr/share/opensearch/data
     ports:
       - 9201:9200
-      - 9700:9600 # required for Performance Analyzer
     networks:
       - opensearch-net
   replication-node2:
@@ -97,7 +96,6 @@ services:
       - opensearch-data1:/usr/share/opensearch/data
     ports:
       - 9200:9200
-      - 9600:9600 # required for Performance Analyzer
     networks:
       - opensearch-net
 
@@ -132,8 +130,8 @@ To get the IP address for the leader cluster, first identify its container ID:
 ```bash
 docker ps
 CONTAINER ID    IMAGE                                       PORTS                                                      NAMES
-3b8cdc698be5    opensearchproject/opensearch:{{site.opensearch_version}}   0.0.0.0:9200->9200/tcp, 0.0.0.0:9600->9600/tcp, 9300/tcp   replication-node2
-731f5e8b0f4b    opensearchproject/opensearch:{{site.opensearch_version}}   9300/tcp, 0.0.0.0:9201->9200/tcp, 0.0.0.0:9700->9600/tcp   replication-node1
+3b8cdc698be5    opensearchproject/opensearch:{{site.opensearch_version}}   0.0.0.0:9200->9200/tcp, 9600/tcp, 9300/tcp   replication-node2
+731f5e8b0f4b    opensearchproject/opensearch:{{site.opensearch_version}}   9300/tcp, 0.0.0.0:9201->9200/tcp, 9600/tcp   replication-node1
 ```
 
 Then get that container's IP address:

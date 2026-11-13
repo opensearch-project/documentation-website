@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Execute algorithm 
-parent: ML Commons APIs
-nav_order: 90
+parent: Model APIs
+grand_parent: ML APIs
+nav_order: 80
 ---
 
 # Execute Algorithm API

@@ -20,7 +20,7 @@ The following is the syntax for the `dot_expander` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `dot_expander` processor.
 
@@ -86,8 +86,6 @@ POST _ingest/pipeline/dot-expander-pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Response
-
 The following example response confirms that the pipeline is working as expected:
 
 ```json
@@ -121,8 +119,8 @@ The following query ingests a document into an index named `testindex1`:
 ```json
 PUT testindex1/_doc/1?pipeline=dot-expander-pipeline
 {
-  "user.address.city": "Denver",
-  "user.address.state": "CO"
+  "user.address.city": "New York",
+  "user.address.state": "NY"
 }
 ```
 {% include copy-curl.html %}
@@ -136,28 +134,7 @@ GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-#### Response
-
-The following response confirms that the specified fields were expanded into nested fields:
-
-```json
-{
-  "_index": "testindex1",
-  "_id": "1",
-  "_version": 1,
-  "_seq_no": 3,
-  "_primary_term": 1,
-  "found": true,
-  "_source": {
-    "user": {
-      "address": {
-        "city": "Denver",
-        "state": "CO"
-      }
-    }
-  }
-}
-```
+The response contains the ingested document, transformed as shown in the response in Step 2.
 
 ## The `path` parameter
 

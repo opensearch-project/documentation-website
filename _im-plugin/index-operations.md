@@ -40,7 +40,17 @@ PUT /logs-2026
 
 For all available settings and mappings, see [Create Index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/). To apply the same settings and mappings to every index whose name matches a pattern, use an [index template]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/).
 
-Index names must follow the [naming restrictions for indexes]({{site.url}}{{site.baseurl}}/im-plugin/#naming-restrictions-for-indexes).
+### Naming restrictions for indexes
+
+OpenSearch indexes have the following naming restrictions:
+
+- All letters must be lowercase.
+- Index names can't begin with underscores (`_`) or hyphens (`-`).
+- Index names can't contain spaces, commas, or the following characters:
+
+  `:`, `"`, `*`, `+`, `/`, `\`, `|`, `?`, `#`, `>`, or `<`
+
+Names beginning with a period (`.`) are reserved for OpenSearch system indexes.
 
 ## Viewing index information
 

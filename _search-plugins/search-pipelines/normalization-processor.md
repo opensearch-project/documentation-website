@@ -14,9 +14,11 @@ Introduced 2.10
 
 The `normalization-processor` is a search phase results processor that runs between the query and fetch phases of search execution. It intercepts the query phase results and then normalizes and combines the document scores from different query clauses before passing the documents to the fetch phase.
 
+You can apply the same normalization and combination techniques without a search pipeline by running the `hybrid` query in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/), which configures them in the query itself.
+
 ## Score normalization and combination
 
-Many applications require both keyword matching and semantic understanding. For example, BM25 accurately provides relevant search results for a query containing keywords, and neural networks perform well when a query requires natural language understanding. Thus, you might want to combine BM25 search results with the results of a k-NN or neural search. However, BM25 and k-NN search use different scales to calculate relevance scores for the matching documents. Before combining the scores from multiple queries, it is beneficial to normalize them so that they are on the same scale, as shown by experimental data. For further reading about score normalization and combination, including benchmarks and various techniques, see [this semantic search blog post](https://opensearch.org/blog/semantic-science-benchmarks/).
+Many applications require both keyword matching and semantic understanding. For example, BM25 accurately provides relevant search results for a query containing keywords, and neural networks perform well when a query requires natural language understanding. Thus, you might want to combine BM25 search results with vector search results. However, BM25 and vector search use different scales to calculate relevance scores for the matching documents. Before combining the scores from multiple queries, it is beneficial to normalize them so that they are on the same scale, as shown by experimental data. For further reading about score normalization and combination, including benchmarks and various techniques, see [this semantic search blog post](https://opensearch.org/blog/semantic-science-benchmarks/).
 
 ## Normalization techniques
 
@@ -244,10 +246,13 @@ Field | Data type | Description
 `normalization.parameters.upper_bounds.mode` | String | Specifies how the upper bound is applied to a query. Valid values are: <br> - `apply`: Uses `max_score` for normalization without modifying the original scores. Formula: `min_max_score = if (score > upperBoundScore) then (score - minScore) / (maxScore - minScore) else (score - minScore) / (upperBoundScore - minScore)`. <br> - `clip`: Replaces scores above the upper bound with `max_score`. Formula: `min_max_score = if (score > upperBoundScore) then 1.0 else (score - minScore) / (upperBoundScore - minScore)`. <br> - `ignore`: Does not apply an upper bound to this query and uses the standard `min_max` formula instead. <br> Optional. Default is `apply`. 
 `normalization.parameters.upper_bounds.max_score` | Float | The upper bound threshold. Valid values are in the [-10000.0, 10000.0] range. If `mode` is set to `ignore`, then this value has no effect. Optional. Default is `1.0`. 
 `combination.technique` | String | The technique for combining scores. Valid values are [`arithmetic_mean`](https://en.wikipedia.org/wiki/Arithmetic_mean), [`geometric_mean`](https://en.wikipedia.org/wiki/Geometric_mean), and [`harmonic_mean`](https://en.wikipedia.org/wiki/Harmonic_mean). Optional. Default is `arithmetic_mean`. `z_score` supports only `arithmetic_mean`.
-`combination.parameters.weights` | Array of floating-point values | Specifies the weights to use for each query. Valid values are in the [0.0, 1.0] range and signify decimal percentages. The closer the weight is to 1.0, the more weight is given to a query. The number of values in the `weights` array must equal the number of queries. The sum of the values in the array must equal 1.0. Optional. If not provided, all queries are given equal weight.
+`combination.parameters.weights` | Array of floating-point values | Specifies the weights to use for each query. Valid values are in the [0.0, 1.0] range and signify decimal percentages. The closer the weight is to 1.0, the more weight is given to a query. The number of values in the `weights` array must equal the number of queries. The sum of the values in the array must equal 1.0. Optional. If not provided, all queries are given equal weight. To override these weights for a single request, specify the `weights` parameter in the [`hybrid` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/#weighting-subqueries).
 `tag` | String | The processor's identifier. Optional.
 `description` | String | A description of the processor. Optional.
 `ignore_failure` | Boolean | For this processor, this value is ignored. If the processor fails, the pipeline always fails and returns an error. 
+
+The `lower_bounds` and `upper_bounds` parameters are supported only in a search pipeline. A `hybrid` query running in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/) does not support them. To use score bounds, configure the normalization in a search pipeline, as described on this page.
+{: .note}
 
 ## Example 
 

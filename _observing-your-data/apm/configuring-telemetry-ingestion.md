@@ -2,7 +2,8 @@
 layout: default
 title: Configuring telemetry ingestion
 nav_order: 10
-parent: Application Performance Monitoring
+parent: Application performance monitoring
+grand_parent: Observability workspace apps
 ---
 
 # Configuring telemetry ingestion
@@ -157,7 +158,7 @@ The Data Prepper pipeline processes telemetry data using the following steps:
 4. The raw trace pipeline (`traces-raw-pipeline`) processes individual trace spans using the `otel_traces` processor and stores them in OpenSearch using the `trace-analytics-plain-raw` index type.
 5. The service map pipeline (`service-map-pipeline`) uses the `otel_apm_service_map` processor to generate service dependency maps and RED metrics. Service map topology data is written to OpenSearch, and RED metrics are exported to Prometheus through remote write.
 
-Two key configuration options for the `otel_apm_service_map` processor are `group_by_attributes` (which determines how services can be grouped in the application map) and `window_duration` (which sets the time window for aggregating trace data). For complete configuration details, see [APM service map processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/otel-apm-service-map/).
+Two key configuration options for the `otel_apm_service_map` processor are `group_by_attributes` (which determines how services can be grouped in the topology map) and `window_duration` (which sets the time window for aggregating trace data). For complete configuration details, see [APM service map processor]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/otel-apm-service-map/).
 {: .note}
 
 ## Verifying ingestion
@@ -171,7 +172,7 @@ After configuring the OTel Collector and Data Prepper, verify that data is flowi
 
 2. Verify that the Data Prepper remote write target is active in your Prometheus instance.
 
-3. Navigate to **Observability** > **APM** in OpenSearch Dashboards to confirm that your services appear in the [Services]({{site.url}}{{site.baseurl}}/observing-your-data/apm/services/) catalog and the [Application map]({{site.url}}{{site.baseurl}}/observing-your-data/apm/application-map/).
+3. In your Observability workspace, select **Application performance** > **Services** in the left navigation to confirm that your services appear in the [Services]({{site.url}}{{site.baseurl}}/observing-your-data/apm/services/) catalog and the [Topology map]({{site.url}}{{site.baseurl}}/observing-your-data/apm/application-map/).
 
 Ensure that all port mappings are correct between the OTel Collector, Data Prepper, OpenSearch, and Prometheus. Mismatched ports are a common cause of ingestion failures.
 {: .warning}

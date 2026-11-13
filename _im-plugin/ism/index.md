@@ -26,6 +26,8 @@ A policy can define any number of states, any number of actions in each state, a
 
 After a policy is attached to an index, ISM creates a job that runs every 5 minutes by default. Each run performs the actions of the current state, evaluates the transition conditions, and moves the index to its next state. To change the interval, see [Settings]({{site.url}}{{site.baseurl}}/im-plugin/ism/settings/). ISM does not run jobs while the cluster state is red.
 
+ISM runs its jobs using the Job Scheduler plugin. To view the jobs on a cluster or to investigate a policy that stops running, see [Scheduled jobs]({{site.url}}{{site.baseurl}}/tuning-your-cluster/scheduled-jobs/index/).
+
 ## Attaching a policy to new indexes
 
 Add an `ism_template` object to a policy so that ISM attaches the policy to each new index whose name matches one of the patterns. The following policy is attached to every index created with a name beginning with `index_name-`:
@@ -67,6 +69,7 @@ The `opendistro.index_state_management.policy_id` index setting, which attached 
 | :--- | :--- |
 | [Policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/) | The structure of a policy, the operations that an action can perform, and complete policy examples. |
 | [Managed indexes]({{site.url}}{{site.baseurl}}/im-plugin/ism/managedindexes/) | Change, remove, and retry the policy that manages an index. |
+| [Restoring ISM from a snapshot]({{site.url}}{{site.baseurl}}/im-plugin/ism/restore/) | Restore the ISM configuration index so that each managed index resumes its policy. |
 | [ISM API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/) | Create policies, attach and detach them, and explain the state of a managed index. |
 | [ISM error prevention]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/index/) | Validate actions before they run and resolve the validation messages. |
 | [Settings]({{site.url}}{{site.baseurl}}/im-plugin/ism/settings/) | Cluster settings that control the job interval, history, and validation. |

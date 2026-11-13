@@ -20,7 +20,7 @@ The following is the syntax for the `pipeline` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `pipeline` processor.
 
@@ -39,7 +39,7 @@ Follow these steps to use the processor in a pipeline.
 
 ### Step 1: Create a pipeline
 
-The following query creates a general pipeline named `general-pipeline` and then creates a new pipeline named `outer-pipeline`, which references the `general-pipeline`: 
+The following query creates a pipeline named `general-pipeline` that converts the `protocol` field to uppercase and removes the `name` field:
 
 ```json
 PUT _ingest/pipeline/general-pipeline  
@@ -60,6 +60,8 @@ PUT _ingest/pipeline/general-pipeline
 }
 ```
 {% include copy-curl.html %}
+
+The following query creates a pipeline named `outer-pipeline` that uses the `pipeline` processor to run `general-pipeline`:
 
 ```json
 PUT _ingest/pipeline/outer-pipeline  
@@ -98,8 +100,6 @@ POST _ingest/pipeline/outer-pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Response
-
 The following example response confirms that the pipeline is working as expected:
 
 ```json
@@ -121,7 +121,7 @@ The following example response confirms that the pipeline is working as expected
 }
 ```
 
-### Step 3: Ingest a document 
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `testindex1`:
 
@@ -133,8 +133,6 @@ POST testindex1/_doc/1?pipeline=outer-pipeline
 }  
 ```
 {% include copy-curl.html %}
-
-#### Response
 
 The request indexes the document into the `testindex1` index with the `protocol` field converted to uppercase and the `name` field removed, as shown in the following response:
 
@@ -163,24 +161,7 @@ GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
 
-#### Response
-
-The response shows the document with the `protocol` field converted to uppercase and the `name` field removed:
-
-```json
-{  
-  "_index": "testindex1",  
-  "_id": "1",  
-  "_version": 2,  
-  "_seq_no": 1,  
-  "_primary_term": 1,  
-  "found": true,  
-  "_source": {  
-    "protocol": "HTTPS"  
-  }  
-}  
-```
-
+The response contains the ingested document, transformed as shown in the response in Step 2.
 
 ## Selecting a pipeline dynamically
 

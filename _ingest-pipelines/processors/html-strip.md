@@ -20,7 +20,7 @@ The following is the syntax for the `html_strip` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `html_strip` processor.
 
@@ -80,8 +80,6 @@ POST _ingest/pipeline/strip-html-pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Response
-
 The following example response confirms that the pipeline is working as expected:
 
 ```json
@@ -104,20 +102,17 @@ The following example response confirms that the pipeline is working as expected
 }
 ```
 
-### Step 3: Ingest a document 
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `products`:
 
 ```json
 PUT products/_doc/1?pipeline=strip-html-pipeline
 {
-  "name": "Product 1",
-  "description": "This is a <b>test</b> product with <i>some</i> HTML tags."
+  "description": "This is a <b>test</b> description with <i>some</i> HTML tags."
 }
 ```
 {% include copy-curl.html %}
-
-#### Response
 
 The response shows that the request has indexed the document into the index `products` and will index all documents with the `description` field containing HTML tags while storing the plain text version in the `cleaned_description` field:
 
@@ -146,22 +141,4 @@ GET products/_doc/1
 ```
 {% include copy-curl.html %}
 
-#### Response
-
-The response includes both the original `description` field and the `cleaned_description` field with HTML tags removed:
-
-```json
-{
-  "_index": "products",
-  "_id": "1",
-  "_version": 1,
-  "_seq_no": 0,
-  "_primary_term": 1,
-  "found": true,
-  "_source": {
-    "cleaned_description": "This is a test product with some HTML tags.",
-    "name": "Product 1",
-    "description": "This is a <b>test</b> product with <i>some</i> HTML tags."
-  }
-}
-```
+The response contains the ingested document, transformed as shown in the response in Step 2.

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Execute tool 
-parent: ML Commons APIs
+parent: ML APIs
 nav_order: 100
 ---
 

@@ -123,7 +123,6 @@ The following sample code initializes a client with SSL and TLS enabled:
 
 ```java
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLEngine;
 
 import org.apache.hc.client5.http.auth.AuthScope;
 import org.apache.hc.client5.http.auth.UsernamePasswordCredentials;
@@ -131,10 +130,8 @@ import org.apache.hc.client5.http.impl.auth.BasicCredentialsProvider;
 import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManager;
 import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManagerBuilder;
 import org.apache.hc.client5.http.ssl.ClientTlsStrategyBuilder;
-import org.apache.hc.core5.function.Factory;
 import org.apache.hc.core5.http.HttpHost;
 import org.apache.hc.core5.http.nio.ssl.TlsStrategy;
-import org.apache.hc.core5.reactor.ssl.TlsDetails;
 import org.apache.hc.core5.ssl.SSLContextBuilder;
 import org.opensearch.client.opensearch.OpenSearchClient;
 import org.opensearch.client.transport.OpenSearchTransport;
@@ -157,13 +154,6 @@ public class OpenSearchClientExample {
     builder.setHttpClientConfigCallback(httpClientBuilder -> {
       final TlsStrategy tlsStrategy = ClientTlsStrategyBuilder.create()
         .setSslContext(sslcontext)
-        // See https://issues.apache.org/jira/browse/HTTPCLIENT-2219
-        .setTlsDetailsFactory(new Factory<SSLEngine, TlsDetails>() {
-          @Override
-          public TlsDetails create(final SSLEngine sslEngine) {
-            return new TlsDetails(sslEngine.getSession(), sslEngine.getApplicationProtocol());
-          }
-        })
         .build();
 
       final PoolingAsyncClientConnectionManager connectionManager = PoolingAsyncClientConnectionManagerBuilder
@@ -502,7 +492,6 @@ The following sample program creates a client, creates an index, indexes documen
 
 ```java
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLEngine;
 
 import org.apache.hc.client5.http.auth.AuthScope;
 import org.apache.hc.client5.http.auth.UsernamePasswordCredentials;
@@ -510,10 +499,8 @@ import org.apache.hc.client5.http.impl.auth.BasicCredentialsProvider;
 import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManager;
 import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManagerBuilder;
 import org.apache.hc.client5.http.ssl.ClientTlsStrategyBuilder;
-import org.apache.hc.core5.function.Factory;
 import org.apache.hc.core5.http.HttpHost;
 import org.apache.hc.core5.http.nio.ssl.TlsStrategy;
-import org.apache.hc.core5.reactor.ssl.TlsDetails;
 import org.apache.hc.core5.ssl.SSLContextBuilder;
 import org.opensearch.client.json.JsonData;
 import org.opensearch.client.opensearch.OpenSearchClient;
@@ -553,12 +540,6 @@ public class OpenSearchClientExample {
     builder.setHttpClientConfigCallback(httpClientBuilder -> {
       final TlsStrategy tlsStrategy = ClientTlsStrategyBuilder.create()
         .setSslContext(sslcontext)
-        .setTlsDetailsFactory(new Factory<SSLEngine, TlsDetails>() {
-          @Override
-          public TlsDetails create(final SSLEngine sslEngine) {
-            return new TlsDetails(sslEngine.getSession(), sslEngine.getApplicationProtocol());
-          }
-        })
         .build();
 
       final PoolingAsyncClientConnectionManager connectionManager =

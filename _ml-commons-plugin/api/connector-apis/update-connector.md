@@ -2,7 +2,7 @@
 layout: default
 title: Update connector
 parent: Connector APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 27
 ---
 
@@ -36,7 +36,7 @@ The following table lists the updatable fields. For more information about all c
 | `version` | Integer     | The connector version.                                                                                                                                                                                                                                                                                                                                                                 |
 | `protocol` | String      | The protocol for the connection. For AWS services, such as Amazon SageMaker and Amazon Bedrock, use `aws_sigv4`. For all other services, use `http`.                                                                                                                                                                                                                                          |
 | `parameters` | JSON object | The default connector parameters, including `endpoint` and `model`. Any parameters included in this field can be overridden by parameters specified in a predict request.                                                                                                                                                                                                                     |
-| `credential` | JSON object | Defines any credential variables required in order to connect to your chosen endpoint. ML Commons uses **AES/GCM/NoPadding** symmetric encryption to encrypt your credentials. When the connection to the cluster first starts, OpenSearch creates a random 32-byte encryption key that persists in OpenSearch's system index. Therefore, you do not need to manually set the encryption key. |
+| `credential` | JSON object | Defines any credential variables required in order to connect to your chosen endpoint. OpenSearch uses **AES/GCM/NoPadding** symmetric encryption to encrypt your credentials. When the connection to the cluster first starts, OpenSearch creates a random 32-byte encryption key that persists in OpenSearch's system index. Therefore, you do not need to manually set the encryption key. |
 | `actions` | JSON array  | Defines which actions can run within the connector. If you're an administrator creating a connection, add the [blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/) for your desired connection.                                                                                                                                                              |
 | `backend_roles` | JSON array  | A list of OpenSearch backend roles. For more information about setting up backend roles, see [Assigning backend roles to users]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control#assigning-backend-roles-to-users).                                                                                                                                                        |
 | `add_all_backend_roles` | Boolean | Has no effect when updating a connector. To change the connector's backend roles, specify them in `backend_roles`. |

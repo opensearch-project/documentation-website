@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Correlations
-nav_order: 60
-parent: Using Discover for observability
+nav_order: 40
+parent: Observability workspace apps
 redirect_from:
   - /observability-plugin/correlations/
 ---
@@ -27,7 +27,6 @@ Before using correlations, ensure that you have fulfilled the following prerequi
 
    ```yaml
    workspace.enabled: true
-   data_source.enabled: true
    explore.enabled: true
    explore.discoverTraces.enabled: true
    datasetManagement.enabled: true
@@ -98,7 +97,7 @@ After creating correlations, you can access related logs when analyzing traces.
 
 ### Viewing related logs in span details
 
-1. Navigate to **Discover** > **Traces**. 
+1. In the left navigation, select **Application performance** > **Traces**. 
 
 2. Select a trace to view its details.
 

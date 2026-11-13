@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Services
-nav_order: 20
-parent: Application Performance Monitoring
+nav_order: 40
+parent: Application performance monitoring
+grand_parent: Observability workspace apps
 ---
 
 # Services
@@ -13,7 +14,7 @@ The **Services** page provides a centralized catalog of all instrumented service
 
 ## Accessing the services page
 
-To access the **Services** page, navigate to your Observability workspace and select **APM** > **Services** from the left navigation menu. The following image shows the **Services** page.
+To access the **Services** page, in your Observability workspace, select **Application performance** > **Services** in the left navigation. The following image shows the **Services** page.
 
 ![Services home page]({{site.url}}{{site.baseurl}}/images/apm/services-home.png)
 

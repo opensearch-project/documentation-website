@@ -77,16 +77,18 @@ Some users report compatibility issues with ingest pipelines on these versions o
 
 ### Compatibility matrix for Logstash
 
-| | Logstash OSS 7.0.0 to 7.11.x | Logstash OSS 7.12.x\* | Logstash 7.13.x-7.16.x without OpenSearch output plugin | Logstash 7.13.x-7.16.x with OpenSearch output plugin | Logstash 8.x+ with OpenSearch output plugin 
-| :---| :--- | :--- | :--- | :--- | :--- |
-| Elasticsearch OSS 7.0.0 to 7.9.x | *Yes* | *Yes* | *No* | *Yes* | *Yes* |
-| Elasticsearch OSS 7.10.2 | *Yes* | *Yes* | *No* | *Yes* | *Yes* |
-| ODFE 1.0 to 1.12 | *Yes* | *Yes* | *No* | *Yes* | *Yes* |
-| ODFE 1.13 | *Yes* | *Yes* | *No* | *Yes* | *Yes* |
-| OpenSearch 1.x to 2.x | Yes through version setting | Yes through version setting | *No* | *Yes* | Yes, with Elastic Common Schema Setting |
-| OpenSearch 3.x | *No* | *No* | *No* | *Yes* | Yes, with Elastic Common Schema Setting |
+| | Logstash OSS 7.0.0 to 7.11.x | Logstash OSS 7.12.x\* | Logstash 7.13.x-7.16.x without OpenSearch output plugin | Logstash 7.13.x-7.16.x with OpenSearch output plugin | Logstash 8.x to 9.3.x with OpenSearch output plugin | Logstash 9.4.x and later with OpenSearch output plugin |
+| :---| :--- | :--- | :--- | :--- | :--- | :--- |
+| Elasticsearch OSS 7.0.0 to 7.9.x | *Yes* | *Yes* | *No* | *Yes* | *Yes* | *Partially*\*\* |
+| Elasticsearch OSS 7.10.2 | *Yes* | *Yes* | *No* | *Yes* | *Yes* | *Partially*\*\* |
+| ODFE 1.0 to 1.12 | *Yes* | *Yes* | *No* | *Yes* | *Yes* | *Partially*\*\* |
+| ODFE 1.13 | *Yes* | *Yes* | *No* | *Yes* | *Yes* | *Partially*\*\* |
+| OpenSearch 1.x to 2.x | Yes through version setting | Yes through version setting | *No* | *Yes* | *Yes* | *Partially*\*\* |
+| OpenSearch 3.x | *No* | *No* | *No* | *Yes* | Yes | Partially\*\* |
 
 \* Most current compatible version with Elasticsearch OSS.
+
+\*\* The OpenSearch output plugin indexes events but fails to install its index template. For more information, see [issue #288](https://github.com/opensearch-project/logstash-output-opensearch/issues/288) in the plugin repository.
 
 
 <!-- vale off -->

@@ -2,7 +2,7 @@
 layout: default
 title: MCP Streamable HTTP Server
 parent: MCP server APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 50
 ---
 

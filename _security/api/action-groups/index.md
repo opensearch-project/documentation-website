@@ -17,7 +17,7 @@ OpenSearch supports the following action group APIs.
 
 | API | Description |
 | :--- | :--- |
-| [Create or Update Action Group API]({{site.url}}{{site.baseurl}}/security/api/action-groups/create-action-group/) | Creates or replaces the specified action group. |
+| [Create or Update Action Groups API]({{site.url}}{{site.baseurl}}/security/api/action-groups/create-action-group/) | Creates or replaces one action group or multiple action groups. |
 | [Patch Action Groups API]({{site.url}}{{site.baseurl}}/security/api/action-groups/patch-action-groups/) | Updates individual attributes of one action group, or creates, updates, or deletes multiple action groups in a single call. |
 | [Get Action Groups API]({{site.url}}{{site.baseurl}}/security/api/action-groups/get-action-groups/) | Retrieves one action group or all action groups. |
 | [Delete Action Group API]({{site.url}}{{site.baseurl}}/security/api/action-groups/delete-action-group/) | Deletes the specified action group. |

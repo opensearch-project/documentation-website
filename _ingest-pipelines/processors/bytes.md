@@ -13,7 +13,7 @@ The `bytes` processor converts a human-readable byte value to its equivalent val
 
 The processor supports the `b`, `kb`, `mb`, `gb`, `tb`, and `pb` units, which are case insensitive. Each unit is 1,024 times the preceding unit, so `1kb` is converted to `1024`. The value must be a whole number, for example, `1536b` instead of `1.5kb`. The value must be a string that includes a unit; for example, `10` without a unit fails. The processor also fails if the value isn't in a supported format or if the result exceeds 2<sup>63</sup> − 1 bytes.
 
-### Syntax
+## Syntax
 
 The following is the syntax for the `bytes` processor: 
 
@@ -26,7 +26,7 @@ The following is the syntax for the `bytes` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `bytes` processor.  
 
@@ -45,7 +45,7 @@ Parameter | Required/Optional | Description |
 
 Follow these steps to use the processor in a pipeline.
 
-**Step 1: Create a pipeline** 
+### Step 1: Create a pipeline
 
 The following query creates a pipeline, named `file_upload`, that has one `bytes` processor. It converts the `file_size` to its byte equivalent and stores it in a new field named `file_size_bytes`:
 
@@ -65,7 +65,7 @@ PUT _ingest/pipeline/file_upload
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline** 
+### Step 2 (Optional): Test the pipeline
 
 It is recommended that you test your pipeline before you ingest documents.
 {: .tip}
@@ -87,8 +87,6 @@ POST _ingest/pipeline/file_upload/_simulate
 }
 ```
 {% include copy-curl.html %}
-
-**Response**
 
 The following response confirms that the pipeline is working as expected:
 
@@ -112,7 +110,7 @@ The following response confirms that the pipeline is working as expected:
 }
 ```
 
-**Step 3: Ingest a document**
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `testindex1`:
 
@@ -124,7 +122,7 @@ PUT testindex1/_doc/1?pipeline=file_upload
 ```
 {% include copy-curl.html %}
 
-**Step 4 (Optional): Retrieve the document** 
+### Step 4 (Optional): Retrieve the document
 
 To retrieve the document, run the following query:
 
@@ -132,3 +130,5 @@ To retrieve the document, run the following query:
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
+
+The response contains the ingested document, transformed as shown in the response in Step 2.

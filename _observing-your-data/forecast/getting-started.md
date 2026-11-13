@@ -128,10 +128,10 @@ If you provide a custom value, it overrides this calculation.
 By default, forecast results are stored in the `opensearch-forecast-results` index alias. You can:
 
 * Build dashboards and visualizations.
-* Connect the results to the Alerting plugin.
+* Use the results in [alerting monitors]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/monitors/).
 * Query the results as with any other OpenSearch index.
 
-To manage storage, the plugin applies a rollover policy:
+To manage storage, OpenSearch applies a rollover policy:
 
 * **Rollover trigger** – When a primary shard reaches approximately 65 GB, a new backing index is created and the alias is updated.
 * **Retention** – Rolled-over indexes are retained for at least 30 days before deletion.
@@ -145,7 +145,7 @@ You can customize this behavior using the following settings.
 
 ### Specifying a custom result index
 
-You can store forecast results in a custom index by selecting **Custom index** and providing an alias name, such as `abc`. The plugin creates an alias like `opensearch-forecast-result-abc` that points to the backing index (for example, `opensearch-forecast-result-abc-history-2024.06.12-000002`).
+You can store forecast results in a custom index by selecting **Custom index** and providing an alias name, such as `abc`. OpenSearch creates an alias like `opensearch-forecast-result-abc` that points to the backing index (for example, `opensearch-forecast-result-abc-history-2024.06.12-000002`).
 
 To manage permissions, use hyphenated namespaces. For example, assign `opensearch-forecast-result-financial-us-*` to roles for the `financial` department's `us` group.
 {: .note } If the Security plugin is enabled, ensure appropriate [permissions are configured]({{site.url}}{{site.baseurl}}/observing-your-data/forecast/security/#custom-result-index-permissions).
@@ -162,7 +162,7 @@ Use [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) 
 
 ### Custom result index lifecycle management
 
-The plugin triggers a rollover for custom result indexes when any of the following conditions are met.
+OpenSearch rolls over custom result indexes when any of the following conditions are met.
 
 | Parameter | Description | Type | Unit | Default | Required |
 |----------|-------------|------|------|---------|----------|

@@ -47,27 +47,41 @@ Any function that is passed to the `getNextPartition` method creates new partiti
 
 ## Configuration
 
-The following table provide optional configuration values for `source_coordination`.
+The following table provides optional configuration values for `source_coordination`.
 
 | Value | Type | Description |
 | :--- | :--- | :--- |
 | `partition_prefix` | String | A prefix to the `sourceIdentifier` used to differentiate between Data Prepper clusters that share the same distributed store. |
-| `store` | Object  | The object that comprises the configuration for the store to be used, where the key is the name of the store, such as `in_memory` or `dynamodb`, and the value is any configuration available on that store type. |
+| `store` | Object  | An object containing a key-value pair that configures the store. The key is the store name, such as `in_memory` or `dynamodb`, and the value is an object containing the options for that store. For a list of all supported stores, see [Supported stores](#supported-stores). |
 
 ### Supported stores
-As of Data Prepper 2.4, only `in_memory` and `dynamodb` stores are supported:
 
-- The `in_memory` store is the
-default when no `source_coordination` settings are configured in the `data-prepper-config.yaml` file and should only be used for single-node configurations.
-- The `dynamodb` store is used for multi-node Data Prepper environments. The `dynamodb` store can be shared between one or more Data Prepper clusters that need to utilize source coordination.
+Data Prepper supports the following source coordination stores.
+
+| Store | Environment | Description |
+| :--- | :--- | :--- |
+| `in_memory` | Single node | The default store when no `source_coordination` settings are configured in the `data-prepper-config.yaml` file. For more information, see [In-memory store](#in-memory-store). |
+| `dynamodb` | Multi-node | Stores coordination data in Amazon DynamoDB. Multiple Data Prepper clusters that use source coordination can share the store. For more information, see [DynamoDB store](#dynamodb-store). |
+| `jdbc` | Multi-node | Stores coordination data in PostgreSQL or MySQL. For more information, see [JDBC store](#jdbc-store). |
+
+#### In-memory store
+
+The `in_memory` store is the default store and does not have any options. Use it only for single-node Data Prepper deployments.
+
+The following example configures the `in_memory` store:
+
+```yaml
+source_coordination:
+  store:
+    in_memory:
+```
+{% include copy.html %}
 
 #### DynamoDB store
 
-Data Prepper will attempt to create the `dynamodb` table on startup unless the `skip_table_creation` flag is configured to `true`. Optionally, you can configure the [time-to-live](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/TTL.html) (`ttl`) on the table, which results in the store cleaning up items over time. Some sources rely on source coordination for the deduplication of data, so be sure to configure a large enough `ttl` for the pipeline duration. 
+The `dynamodb` store uses an Amazon DynamoDB table to coordinate work across Data Prepper nodes. Multiple Data Prepper clusters can share the same table. To differentiate between the clusters, configure `partition_prefix`.
 
-If `ttl` is not configured on the table, any items no longer needed in the table must be cleaned manually.
-
-The following shows the full set of permissions needed for Data Prepper to create the table, enable `ttl`, and interact with the table:
+By default, Data Prepper creates the table and its index when the store starts. Set `skip_table_creation` to `true` when the table already exists. The following policy statement grants the permissions that Data Prepper requires to create the table, enable TTL, and read and write items:
 
 ```json
 {
@@ -83,48 +97,81 @@ The following shows the full set of permissions needed for Data Prepper to creat
     "dynamodb:Query"
   ],
   "Resource": [
-    "arn:aws:dynamodb:${REGION}:${AWS_ACCOUNT_ID}:table/${TABLE_NAME}",
-    "arn:aws:dynamodb:${REGION}:${AWS_ACCOUNT_ID}:table/${TABLE_NAME}/index/source-status"
+    "arn:aws:dynamodb:<region>:<account-id>:table/<table-name>",
+    "arn:aws:dynamodb:<region>:<account-id>:table/<table-name>/index/source-status"
   ]
 }
 ```
+{% include copy.html %}
 
+You can configure `ttl` to enable DynamoDB [Time to Live (TTL)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/TTL.html), which removes expired items from the table. Some sources use these items to prevent duplicate processing, so configure a `ttl` that exceeds the expected pipeline duration. If you don't configure `ttl`, you must manually delete items that are no longer needed.
 
-| Value | Required | Type | Description |
-| :--- | :--- | :--- | :--- | 
-| `table_name` | Yes | String  | The name of the table to be used for source coordination. |
-| `region` | Yes | String | The region of the DynamoDB table. |
-| `sts_role_arn` | No  | String  |  The `sts` role that contains the table permissions. Uses default credentials when not provided. |
-| `sts_external_id` | No | String  | The external ID used in the API call to assume the `sts_role_arn`. |
-| `skip_table_creation` | No | Boolean  | If set to `true` when using an existing store, the attempt to create the store is skipped. Default is `false`. |
-| `provisioned_write_capacity_units` | No | Integer |  The number of write capacity units to configure on the table. Default is `10`. |
-| `provisioned_read_capacity_units`  | No | Integer | The number of read capacity units to configure on the table. Default is `10`. |
-| `ttl` | Duration | Optional. The duration of the TTL for the items in the table. The TTL is extended by this duration when an update is made to the item. Defaults to no TTL being used on the table. |
-  
-The following example shows a `dynamodb` store:
+When `skip_table_creation` is `true`, Data Prepper does not enable TTL on the table. If you configure `ttl` for an existing table, enable TTL on the table's `expirationTime` attribute before starting Data Prepper.
 
-```yaml
-source_coordination:
-  store:
-     dynamodb:
-       table_name: "DataPrepperSourceCoordinationStore"
-       region: "us-east-1"
-       sts_role_arn: "arn:aws:iam::##########:role/SourceCoordinationTableRole"
-       ttl: "P7D"
-       skip_table_creation: true
-```
+The `dynamodb` store supports the following options.
 
-#### In-memory store (default)
+| Option | Required | Type | Description |
+| :--- | :--- | :--- | :--- |
+| `table_name` | Yes | String | The name of the table used for source coordination. |
+| `region` | Yes | String | The AWS Region of the DynamoDB table. |
+| `sts_role_arn` | No | String | The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that has the table permissions. If not provided, Data Prepper uses the default credentials. |
+| `sts_external_id` | No | String | The external ID used in the API call to assume the `sts_role_arn` role. |
+| `skip_table_creation` | No | Boolean | When set to `true`, Data Prepper does not create the table. Default is `false`. |
+| `provisioned_write_capacity_units` | No | Integer | The number of write capacity units to configure on the table. Default is `10`. |
+| `provisioned_read_capacity_units` | No | Integer | The number of read capacity units to configure on the table. Default is `10`. |
+| `ttl` | No | Duration | The duration used to set the expiration time for items in the table. Use ISO 8601 duration format, such as `P7D`. Data Prepper extends the expiration time when it updates an item. By default, items do not expire. |
 
-The following example shows an `in_memory` store, which is best used with a single-node cluster:
-
+The following example configures a DynamoDB table as the source coordination store:
 
 ```yaml
 source_coordination:
   store:
-    in_memory:
+    dynamodb:
+      table_name: "DataPrepperSourceCoordinationStore"
+      region: "us-east-1"
+      sts_role_arn: "arn:aws:iam::123456789012:role/SourceCoordinationTableRole"
+      ttl: "P7D"
+      skip_table_creation: true
 ```
+{% include copy.html %}
 
+#### JDBC store
+
+The `jdbc` store uses a relational database to coordinate work across Data Prepper nodes. Data Prepper includes Java Database Connectivity (JDBC) drivers for PostgreSQL and MySQL.
+
+By default, Data Prepper creates the coordination table and its index when the store starts. The database user must have privileges to create the table and index and to select, insert, update, and delete rows. Set `skip_table_creation` to `true` when the required table and index already exist.
+
+You can configure `ttl` to periodically remove expired partition records. Some sources use these records to prevent duplicate processing, so configure a `ttl` that exceeds the expected pipeline duration.
+
+The `jdbc` store supports the following options.
+
+| Option | Required | Type | Description |
+| :--- | :--- | :--- | :--- |
+| `url` | Yes | String | The JDBC connection URL. |
+| `username` | Yes | String | The database username. |
+| `password` | Yes | String | The database password. |
+| `table_name` | No | String | The name of the table used for source coordination. You can specify an unqualified name or a schema-qualified name, such as `schema.table`. Default is `source_coordination`. |
+| `skip_table_creation` | No | Boolean | When set to `true`, Data Prepper does not create the coordination table or its index. Default is `false`. |
+| `max_pool_size` | No | Integer | The maximum number of connections in the JDBC connection pool. Minimum is `1`. Default is `5`. |
+| `ttl` | No | Duration | The duration used to set the expiration time for partition records. Use ISO 8601 duration format, such as `P7D`. Data Prepper extends the expiration time when it updates a record. By default, records do not expire. |
+| `connection_properties` | No | Map | JDBC driver properties to pass to each database connection. |
+
+The following example configures a PostgreSQL database as the source coordination store:
+
+```yaml
+source_coordination:
+  store:
+    jdbc:
+      url: "jdbc:postgresql://db:5432/dataprepper"
+      username: "dp_user"
+      password: {% raw %}"${{aws_secrets:db-secrets:password}}"{% endraw %}
+      table_name: "source_coordination"
+      max_pool_size: 5
+      ttl: "P7D"
+      connection_properties:
+        ssl: "true"
+```
+{% include copy.html %}
 
 ## Metrics
 

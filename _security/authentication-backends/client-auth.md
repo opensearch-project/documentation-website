@@ -24,7 +24,7 @@ To enable client certificate authentication, you must first set `clientauth_mode
 plugins.security.ssl.http.clientauth_mode: OPTIONAL
 ```
 
-Next, enable client certificate authentication in the `client_auth_domain` section of `config.yml`.
+Next, enable client certificate authentication in the `clientcert_auth_domain` section of `config.yml`. For the location of this file, see [Configuring the security backend]({{site.url}}{{site.baseurl}}/security/configuration/configuration/).
 
 ```yml
 clientcert_auth_domain:

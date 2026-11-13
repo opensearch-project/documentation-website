@@ -2,7 +2,7 @@
 layout: default
 title: Hybrid search agentic memory
 parent: Agentic memory APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 70
 ---
 

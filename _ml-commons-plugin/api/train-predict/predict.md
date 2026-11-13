@@ -2,13 +2,17 @@
 layout: default
 title: Predict
 parent: Model APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 60
 ---
 
 # Predict API
 
-ML Commons can predict new data with your trained model either from indexed data or a data frame. To use the Predict API, the `model_id` is required.
+Sends input to a model and returns the model's output (inference). The request body fields depend on the model type:
+
+- Models trained using the [Train API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train/) predict from indexed data or from a data frame provided in the request.
+- Local models, such as text embedding, sparse encoding, text similarity, and question answering models, accept text input.
+- Externally hosted models accept the input fields defined in their connector.
 
 For information about user access for this API, see [Model access control considerations]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/index/#model-access-control-considerations).
 

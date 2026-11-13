@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Viewing agent traces
-parent: Agent traces
+parent: Agent monitoring
+grand_parent: Observability workspace apps
 nav_order: 20
 ---
 
@@ -17,7 +18,6 @@ Agent traces functionality is included in default OpenSearch distributions. To e
 
 ```yaml
 workspace.enabled: true
-data_source.enabled: true
 explore.enabled: true
 explore.agentTraces.enabled: true
 ```
@@ -92,7 +92,7 @@ Agent traces follow this data pipeline:
 
 ## Using the interface
 
-To access agent traces in OpenSearch Dashboards, choose **Observability** from the main menu, then choose **Agent Traces**.
+To access agent traces, in your Observability workspace, select **Agent monitoring** > **Traces** or **Agent monitoring** > **Spans** in the left navigation. Both open the **Agent Traces** page, on the **Traces** tab or the **Spans** tab.
 
 The **Agent Traces** page includes the following components.
 

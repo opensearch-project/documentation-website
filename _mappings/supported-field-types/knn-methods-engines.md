@@ -184,6 +184,8 @@ For more information about these parameters, see the [Faiss documentation](https
 
 The IVF algorithm requires a training step. To create an index that uses IVF, you need to train a model with the [Train API]({{site.url}}{{site.baseurl}}/vector-search/api/knn#train-a-model), passing the IVF method definition. IVF requires, at a minimum, that there be `nlist` training data points, but we recommend [that you use more than this](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index#how-big-is-the-dataset). Training data can be the same as the data you plan to index or come from a separate dataset.
 
+If the method uses the `pq` encoder, the training data must also contain at least 2<sup>`code_size`</sup> vectors, for example, 256 vectors for a `code_size` of `8`. If you don't specify `code_size`, the training data must contain more than 1,000 vectors. The Train API rejects requests that don't meet the `pq` minimum. If there are fewer training vectors than `nlist`, training starts but the model enters the `failed` state.
+
 ### Supported encoders
 
 You can use encoders to reduce the memory footprint of a vector index at the expense of search accuracy. 

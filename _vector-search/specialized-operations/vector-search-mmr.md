@@ -127,7 +127,7 @@ The `mmr_explain` object contains the following fields.
 
 | Field | Description |
 |-------|-------------|
-| `original_score` | The original relevance score from the k-NN or neural search. |
+| `original_score` | The original relevance score from the vector search. |
 | `max_similarity_to_selected` | The maximum vector similarity between this document and any already selected document. For the first selected document, this value is `0.0`. |
 | `mmr_score` | The computed MMR score at selection time using the formula `(1 - diversity) * original_score - diversity * max_similarity_to_selected`. |
 | `mmr_formula` | A human-readable representation of the MMR formula with the actual values substituted. |

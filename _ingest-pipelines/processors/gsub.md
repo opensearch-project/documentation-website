@@ -22,7 +22,7 @@ The following is the syntax for the `gsub` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `gsub` processor.
 
@@ -85,8 +85,6 @@ POST _ingest/pipeline/gsub_pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Response
-
 The following response confirms that the pipeline is working as expected:
 
 ```json
@@ -108,7 +106,7 @@ The following response confirms that the pipeline is working as expected:
 }
 ```
 
-### Step 3: Ingest a document 
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `logs`:
 
@@ -119,8 +117,6 @@ PUT logs/_doc/1?pipeline=gsub_pipeline
 }
 ```
 {% include copy-curl.html %}
-
-#### Response
 
 The following response shows that the request indexed the document into the index named `logs` and that the `gsub` processor replaced all occurrences of the word `error` with the word `warning` in the `message` field:
 
@@ -149,22 +145,4 @@ GET logs/_doc/1
 ```
 {% include copy-curl.html %}
 
-#### Response
-
-The following response shows the document with the modified `message` field value:
-
-```json
-{
-  "_index": "logs",
-  "_id": "1",
-  "_version": 1,
-  "_seq_no": 0,
-  "_primary_term": 1,
-  "found": true,
-  "_source": {
-    "message": "This is an warning message"
-  }
-}
-```
-
-
+The response contains the ingested document, transformed as shown in the response in Step 2.

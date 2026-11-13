@@ -26,7 +26,7 @@ The following is the syntax for the `set` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `set` processor.
 
@@ -87,8 +87,6 @@ POST _ingest/pipeline/set-pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Response
-
 The following example response confirms that the pipeline is working as expected:
 
 ```json
@@ -111,7 +109,7 @@ The following example response confirms that the pipeline is working as expected
 }
 ```
 
-### Step 3: Ingest a document 
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `testindex1`:
 
@@ -122,8 +120,6 @@ POST testindex1/_doc?pipeline=set-pipeline
 }
 ```
 {% include copy-curl.html %}
-
-#### Response
 
 The request indexes the document into the `testindex1` index with the `new_field` field set to `some_value`, as shown in the following response:
 
@@ -151,6 +147,8 @@ To retrieve the document, run the following query:
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
+
+The response contains the ingested document, transformed as shown in the response in Step 2.
 
 ## Copying a value from another field
 

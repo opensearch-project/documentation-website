@@ -8,7 +8,7 @@ redirect_from:
 
 # SQL and PPL query response formats
 
-OpenSearch provides the `jdbc`, `csv`, `raw`, and `json` response formats for SQL and PPL queries, each useful for different purposes. The `jdbc` format is widely used because it provides the schema information and adds more functionality, such as pagination. Besides the JDBC driver, various clients can benefit from a detailed and well-formatted response.
+OpenSearch provides the `jdbc`, `csv`, and `raw` response formats for SQL and PPL queries, each useful for different purposes. The `jdbc` format is widely used because it provides the schema information and adds more functionality, such as pagination. Besides the JDBC driver, various clients can benefit from a detailed and well-formatted response.
 
 ## JDBC format
 
@@ -28,7 +28,7 @@ POST _plugins/_sql
 
 #### Example response
 
-In the response, the `schema` contains the field names and types, and the `datarows` field contains the The query returns the following results:
+In the response, the `schema` contains the field names and types, and the `datarows` field contains the result set:
 
 ```json
 {
@@ -85,75 +85,6 @@ The response contains the error message and the cause of the error:
     "type": "SemanticAnalysisException"
   },
   "status": 400
-}
-```
-
-## OpenSearch DSL JSON format
-
-If you set the format to `json`, the original OpenSearch response is returned in JSON format. Because this is the native response from OpenSearch, extra effort is needed to parse and interpret it.
-
-#### Example request
-
-The following query sets the response format to `json`:
-
-```json
-POST _plugins/_sql?format=json
-{
-  "query" : "SELECT firstname, lastname, age FROM accounts ORDER BY age LIMIT 2"
-}
-```
-{% include copy-curl.html %}
-
-#### Example response
-
-The response is the original response from OpenSearch:
-
-```json
-{
-  "_shards": {
-    "total": 5,
-    "failed": 0,
-    "successful": 5,
-    "skipped": 0
-  },
-  "hits": {
-    "hits": [{
-        "_index": "accounts",
-        "_type": "account",
-        "_source": {
-          "firstname": "Nanette",
-          "age": 28,
-          "lastname": "Bates"
-        },
-        "_id": "13",
-        "sort": [
-          28
-        ],
-        "_score": null
-      },
-      {
-        "_index": "accounts",
-        "_type": "account",
-        "_source": {
-          "firstname": "Amber",
-          "age": 32,
-          "lastname": "Duke"
-        },
-        "_id": "1",
-        "sort": [
-          32
-        ],
-        "_score": null
-      }
-    ],
-    "total": {
-      "value": 4,
-      "relation": "eq"
-    },
-    "max_score": null
-  },
-  "took": 100,
-  "timed_out": false
 }
 ```
 

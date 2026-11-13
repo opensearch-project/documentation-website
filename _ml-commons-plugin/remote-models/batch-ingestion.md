@@ -28,7 +28,7 @@ The [`text_embedding`]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/
 You can register a model in two ways:
 
 * You can use `model_group_id` to register a model version to an existing model group.
-* If you do not use `model_group_id`, then ML Commons creates a model with a new model group.
+* If you do not use `model_group_id`, then OpenSearch creates a model with a new model group.
 
 To register a model group, send the following request:
 
@@ -56,7 +56,7 @@ To learn more about model groups, see [Model access control]({{site.url}}{{site.
 
 You can create a standalone connector that can be reused by multiple model registrations in OpenSearch that share the same external endpoint and configuration. Alternatively, you can specify a connector when creating a model so that it can be used only for that model. For more information and example connectors, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
 
-The Connectors Create API, `/_plugins/_ml/connectors/_create`, creates connectors that facilitate registering and deploying external models in OpenSearch. Using the `endpoint` parameter, you can connect ML Commons to any supported ML tool by using its specific API endpoint. For example, you can connect to an OpenAI text embedding model by using the `api.openai.com` endpoint:
+The Connectors Create API, `/_plugins/_ml/connectors/_create`, creates connectors that facilitate registering and deploying external models in OpenSearch. Using the `endpoint` parameter, you can connect OpenSearch to any supported ML tool by using its specific API endpoint. For example, you can connect to an OpenAI text embedding model by using the `api.openai.com` endpoint:
 
 ```json
 POST /_plugins/_ml/connectors/_create

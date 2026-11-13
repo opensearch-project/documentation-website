@@ -2,7 +2,7 @@
 layout: default
 title: List context management
 parent: Context management APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 50
 ---
 

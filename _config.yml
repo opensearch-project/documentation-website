@@ -56,13 +56,7 @@ collections:
   ml-commons-plugin:
     permalink: /:collection/:path/
     output: true
-  monitoring-your-cluster:
-    permalink: /:collection/:path/
-    output: true
   observing-your-data:
-    permalink: /:collection/:path/
-    output: true
-  reporting:
     permalink: /:collection/:path/
     output: true
   analyzers:
@@ -145,7 +139,7 @@ opensearch_collection:
       name: Migrate or upgrade
       nav_fold: true
     tuning-your-cluster:
-      name: Creating and tuning your cluster
+      name: Managing your cluster
       nav_fold: true
     security:
       name: Security
@@ -194,12 +188,6 @@ opensearch_collection:
       nav_fold: true
     security-analytics:
       name: Security analytics
-      nav_fold: true
-    reporting:
-      name: Reporting
-      nav_fold: true
-    monitoring-your-cluster:
-      name: Monitoring your cluster
       nav_fold: true
     tools:
       name: Tools

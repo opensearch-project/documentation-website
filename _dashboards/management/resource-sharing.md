@@ -79,7 +79,7 @@ The following table lists the resources that support access management from thei
 | Flow Framework | [Workflows]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-access-control/) |
 | ML Commons | [Model groups]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-sharing-access-control/) |
 | Notifications | [Channels]({{site.url}}{{site.baseurl}}/observing-your-data/notifications/notification-access-control/) |
-| Reporting | [Report definitions]({{site.url}}{{site.baseurl}}/reporting/report-definition-access-control/) and [reports]({{site.url}}{{site.baseurl}}/reporting/report-instance-access-control/) |
+| Reporting | [Report definitions]({{site.url}}{{site.baseurl}}/dashboards/reporting/report-definition-access-control/) and [reports]({{site.url}}{{site.baseurl}}/dashboards/reporting/report-instance-access-control/) |
 | Security Analytics | [Detectors and correlation rules]({{site.url}}{{site.baseurl}}/security-analytics/resource-access-control/) |
 
 You can share a resource only if you are its owner, a superadmin, or a user to whom the owner granted share permission.

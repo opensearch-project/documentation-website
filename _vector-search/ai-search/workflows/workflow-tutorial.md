@@ -44,7 +44,7 @@ To deploy a model on the cluster, you need to create a connector to the model, r
 ### create_connector_1
 <!-- vale on -->
 
-The first step in the workflow is to create a connector to an externally hosted model (in the following example, this step is called `create_connector_1`). The content of the `user_inputs` field exactly matches the ML Commons [Create Connector API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/):
+The first step in the workflow is to create a connector to an externally hosted model (in the following example, this step is called `create_connector_1`). The content of the `user_inputs` field exactly matches the [Create Connector API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/):
 
 ```yaml
 nodes:

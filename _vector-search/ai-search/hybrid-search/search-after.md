@@ -15,6 +15,8 @@ You can control sorting results by applying a `search_after` condition that prov
 
 You can paginate the sorted results by applying a `search_after` condition in the sort queries.
 
+The `search_after` parameter is also supported when the hybrid query runs in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/).
+
 In the following example, sorting is applied by `doc_price` with a `search_after` condition:
 
 ```json

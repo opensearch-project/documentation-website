@@ -2,7 +2,7 @@
 layout: default
 title: Register MCP tools 
 parent: MCP server APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 10
 ---
 

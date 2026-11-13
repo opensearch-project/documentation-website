@@ -12,7 +12,7 @@ nav_order: 28
 
 <!-- vale on -->
 
-The `ml` command applies machine learning (ML) algorithms from the ML Commons plugin to the search results returned by a PPL command. It supports various ML operations, including anomaly detection and clustering. The command can perform train, predict, or combined train-and-predict operations, depending on the algorithm and specified action.
+The `ml` command applies machine learning (ML) algorithms to the search results returned by a PPL command. It supports various ML operations, including anomaly detection and clustering. The command can perform train, predict, or combined train-and-predict operations, depending on the algorithm and specified action.
 
 To use the `ml` command, `plugins.calcite.enabled` must be set to `false`.
 {: .note}

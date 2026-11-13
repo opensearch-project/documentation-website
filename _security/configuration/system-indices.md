@@ -28,8 +28,8 @@ The following table lists the descriptors registered at startup by the component
 | :--- | :--- |
 | OpenSearch task management | `.tasks*` |
 | OpenSearch Dashboards | `.opensearch_dashboards`<br>`.opensearch_dashboards_*`<br>`.reporting-*`<br>`.apm-agent-configuration`<br>`.apm-custom-link` |
-| Security plugin | `.opendistro_security` (configurable)<br>`.opensearch_security_api_tokens`<br>`.opendistro-anomaly-detectors-sharing`<br>`.opensearch-forecasters-sharing`<br>`.plugins-ml-model-group-sharing`<br>`.plugins-flow-framework-templates-sharing`<br>`.plugins-flow-framework-state-sharing`<br>`.opendistro-reports-definitions-sharing`<br>`.opendistro-reports-instances-sharing` |
-| Alerting | `.opendistro-alerting-config`<br>`.opendistro-alerting-alert*`<br>`.opensearch-alerting-comments*` |
+| Security plugin | `.opendistro_security` (configurable)<br>`.opensearch_security_api_tokens`<br>`.opendistro-alerting-config-sharing`<br>`.opendistro-anomaly-detectors-sharing`<br>`.opensearch-forecasters-sharing`<br>`.plugins-ml-model-group-sharing`<br>`.plugins-flow-framework-templates-sharing`<br>`.plugins-flow-framework-state-sharing`<br>`.opendistro-reports-definitions-sharing`<br>`.opendistro-reports-instances-sharing` |
+| Alerting | `.opendistro-alerting-config`<br>`.opendistro-alerting-alert*`<br>`.opensearch-alerting-finding*`<br>`.opensearch-alerting-comments*` |
 | Anomaly Detection and Forecasting | `.opendistro-anomaly-detectors`<br>`.opendistro-anomaly-detector-jobs`<br>`.opendistro-anomaly-results*`<br>`.opendistro-anomaly-checkpoints`<br>`.opendistro-anomaly-detection-state`<br>`.opensearch-forecasters`<br>`.opensearch-forecast-checkpoints`<br>`.opensearch-forecast-state` |
 | Asynchronous Search | `.opendistro-asynchronous-search-response` |
 | Cross-cluster Replication | `.replication-metadata-store` |
@@ -68,6 +68,10 @@ Regular index permissions, including broad permissions for `*`, do not grant wri
 - System index permissions are enabled and a role explicitly grants `system:admin/system_index` for the index pattern. This option does not grant access to the Security plugin configuration index.
 
 Use the owning plugin's API whenever possible, including when you authenticate as a super admin. For example, use the Security REST API or `securityadmin.sh` to change Security plugin configuration instead of indexing documents directly into `.opendistro_security`.
+
+### Snapshot restore
+
+The Security plugin also controls who can restore a protected system index from a snapshot. For the required permissions and the steps to follow, see [Restoring system indexes]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#restoring-system-indexes).
 
 ### Read protection and scrubbed results
 

@@ -13,6 +13,8 @@ Introduced 2.19
 
 The `score-ranker-processor` is a rank-based search phase results processor that runs between the query and fetch phases of search execution. It intercepts the query phase results and then uses the reciprocal rank fusion (RRF) algorithm to combine the query clauses of a [`hybrid` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/) into a final ranked list of search results. RRF scores each document based on the reciprocal of its rank in each query clause's results and then adds these scores together, so the relevance scores of the individual query clauses never need to be on comparable scales. For more information, see [Reciprocal rank fusion]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/rrf/).
 
+You can also combine query clauses using RRF without a search pipeline by running the `hybrid` query in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/) and setting both the normalization and combination techniques to `rrf`.
+
 ## Request body fields
 
 The following table lists all available request fields.
@@ -21,7 +23,7 @@ Field | Data type | Description
 :--- | :--- | :---
 `combination.technique` | String | The technique used for combining scores. Valid value is `rrf`. Optional. Default is `rrf`.
 `combination.rank_constant` | Integer | A constant added to each document's rank before calculating the reciprocal score. Valid values are in the [1, 10000] range. A larger rank constant makes the scores more uniform, reducing the influence of top-ranked results. A smaller rank constant creates a greater score difference between ranks, giving more weight to top-ranked items. Optional. Default is `60`.
-`combination.parameters.weights` | Array of floating-point values | Specifies the weights to use for each query clause. Valid values are in the [0.0, 1.0] range and signify decimal percentages. The closer the weight is to 1.0, the more weight is given to a query clause. The number of values in the `weights` array must equal the number of query clauses. The sum of the values in the array must equal 1.0. Optional. If not provided, all query clauses are given equal weight.
+`combination.parameters.weights` | Array of floating-point values | Specifies the weights to use for each query clause. Valid values are in the [0.0, 1.0] range and signify decimal percentages. The closer the weight is to 1.0, the more weight is given to a query clause. The number of values in the `weights` array must equal the number of query clauses. The sum of the values in the array must equal 1.0. Optional. If not provided, all query clauses are given equal weight. To override these weights for a single request, specify the `weights` parameter in the [`hybrid` query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/#weighting-subqueries).
 
 ## Example
 

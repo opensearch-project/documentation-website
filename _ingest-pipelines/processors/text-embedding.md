@@ -32,13 +32,13 @@ The following is the syntax for the `text_embedding` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `text_embedding` processor.
 
 | Parameter  | Data type | Required/Optional  | Description  |
 |:---|:---|:---|:---|
-`model_id` | String | Required | The ID of the model that will be used to generate the embeddings. The model must be deployed in OpenSearch before it can be used in neural search. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/) and [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/).
+`model_id` | String | Required | The ID of the model that will be used to generate the embeddings. The model must be deployed in OpenSearch before it can be used. For more information, see [Using custom models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/using-ml-models/) and [Semantic search]({{site.url}}{{site.baseurl}}/search-plugins/semantic-search/).
 `field_map` | Object | Required | Contains key-value pairs that specify the mapping of a text field to a vector field.
 `field_map.<input_field>` | String | Required | The name of the field from which to obtain text for generating text embeddings.
 `field_map.<vector_field>`  | String | Required | The name of the vector field in which to store the generated text embeddings. For a nested input field, specify only the field name and not the full path. For more information, see [Embedding a nested field](#embedding-a-nested-field).
@@ -79,7 +79,7 @@ PUT /_ingest/pipeline/nlp-ingest-pipeline
 Creating the pipeline does not validate `model_id`. The request succeeds even if the model does not exist or is not deployed, and the error appears only when you ingest a document. Test the pipeline before ingesting documents.
 {: .note}
 
-### Step 2: Test the pipeline
+### Step 2 (Optional): Test the pipeline
 
 To test the pipeline, run the following query:
 
@@ -98,8 +98,6 @@ POST _ingest/pipeline/nlp-ingest-pipeline/_simulate
 }
 ```
 {% include copy-curl.html %}
-
-#### Response
 
 The response confirms that in addition to the `passage_text` field, the processor has generated text embeddings in the `passage_embedding` field:
 

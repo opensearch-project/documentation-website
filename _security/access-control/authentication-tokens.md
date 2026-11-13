@@ -24,21 +24,154 @@ An extension can use an OBO token to interact with an OpenSearch cluster, using 
 
 ### Configuration
 
-In the [`config/opensearch-security/config.yml` file]({{site.url}}{{site.baseurl}}/security/configuration/configuration/), the OBO configuration is located in the `config.dynamic` section. It contains the `signing_key` for the token signature and an optional `encryption_key` for encrypting the `roles` claims in the token payload:
+OBO authentication is configured in the `config.dynamic.on_behalf_of` section of the [`config/opensearch-security/config.yml` file]({{site.url}}{{site.baseurl}}/security/configuration/configuration/). It uses two keys:
+
+- `signing_key`: Required. The JWT is signed using HMAC SHA-512.
+- `encryption_key`: Optional. When it is provided, mapped roles are stored in the encrypted `encrypted_roles` claim. When it is omitted, mapped roles are stored as plain text in the `roles` claim. Cluster administrators can choose whether to encrypt role information based on their security requirements.
+
+Regardless of how you provide the keys, they must meet the following requirements:
+
+- `signing_key`: At least 512 bits (64 bytes). With a shorter key, OBO tokens can be neither issued nor used until the key is replaced, and the node logs the reason.
+- `encryption_key`: The roles are encrypted using AES-256-GCM with a key derived from `encryption_key` using HKDF-SHA256. Use 32 random bytes. In [FIPS mode]({{site.url}}{{site.baseurl}}/security/configuration/fips/), keys shorter than 32 bytes are rejected.
+
+You can provide each key in one of the following ways:
+
+- [In the OpenSearch keystore](#providing-keys-in-the-opensearch-keystore) on each node. The key is stored directly in the OpenSearch keystore and requires a single setting.
+- [In a keystore file](#providing-keys-in-a-keystore-file) on each node. Use this option if your processes include Java keystore files or if the key must be generated inside a keystore and can never exist in plain text outside of it.
+- [Inline in `config.yml`](#providing-keys-in-configyml) as Base64-encoded strings. The keys are stored in the security index.
+
+When you use the OpenSearch keystore or a keystore file, don't add the keys to `config.yml`. Only enable OBO authentication as follows:
 
 ```yaml
 config:
   dynamic:
     on_behalf_of:
-      enabled: #'true'/non-specified will be consider as 'enabled'
-      signing_key: #encoded signing key here
-      encryption_key: #(optional) encoded encryption key here
-...
+      enabled: true # Required. Defaults to false.
 ```
+{% include copy.html %}
 
-The default encoding algorithm for signing the JWT is HMAC SHA512. Keys are Base64-encoded strings in the [`config/opensearch-security/config.yml` file]({{site.url}}{{site.baseurl}}/security/configuration/configuration/). After the configuration is applied using the `securityadmin.sh -cd <configuration directory>` command, the values are stored in the security system index and used cluster-wide.
+#### Providing keys in the OpenSearch keystore
+**Introduced 3.10**
+{: .label .label-purple }
 
-When `encryption_key` is omitted, roles and backend roles are stored as plain text in the token claims. When it is provided, the `roles` claim is encrypted. Cluster administrators can choose whether to encrypt role information based on their security requirements.
+Add each key to the [OpenSearch keystore]({{site.url}}{{site.baseurl}}/security/configuration/opensearch-keystore/) on every node. The keystore setting for each key is `plugins.security.on_behalf_of.<key>.secure_file`, where `<key>` is `signing_key` or `encryption_key`. The setting value is the contents of a key file, which must contain the raw key bytes, not a Base64-encoded string. The keys must be the same on every node. A token issued by one node must be verifiable by every other node.
+
+The following example generates both keys and adds them to the OpenSearch keystore:
+
+```bash
+openssl rand 64 > signing.key
+openssl rand 32 > encryption.key
+./bin/opensearch-keystore add-file \
+  plugins.security.on_behalf_of.signing_key.secure_file signing.key \
+  plugins.security.on_behalf_of.encryption_key.secure_file encryption.key
+shred -u signing.key encryption.key
+```
+{% include copy.html %}
+
+The keys are loaded once when the node starts. If a configured key cannot be loaded, for example, because the file is empty, the node does not start. To change a key, update the OpenSearch keystore and restart the node.
+
+#### Providing keys in a keystore file
+**Introduced 3.10**
+{: .label .label-purple }
+
+Add each key to a keystore file on every node. Configure the keystore location in `opensearch.yml`. Store the passwords that protect the keystore in the [OpenSearch keystore]({{site.url}}{{site.baseurl}}/security/configuration/opensearch-keystore/). The keys must be the same on every node. A token issued by one node must be verifiable by every other node.
+
+The following settings are available for each key. Each setting name starts with `plugins.security.on_behalf_of.<key>.`, where `<key>` is `signing_key` or `encryption_key`, for example, `plugins.security.on_behalf_of.signing_key.keystore_filepath`.
+
+Setting | Description
+:--- | :---
+`keystore_filepath` | The path to the keystore file. A relative path is resolved against the `config` directory. Required.
+`keystore_type` | The keystore type, `PKCS12` or `BCFKS`. Optional. If not set, the type is detected from the file.
+`keystore_alias` | The alias of the secret key entry in the keystore. Required.
+`keystore_password` | The keystore password. Secure setting: must be stored in the OpenSearch keystore, not in `opensearch.yml`.
+`keystore_keypassword` | The password of the key entry. Secure setting. Optional. If not set, `keystore_password` is used.
+
+The keys are loaded once when the node starts. If a configured key cannot be loaded, the node does not start. To change a key, update the keystore and restart the node. The keystore must be able to hold secret keys. Use a `PKCS12` or `BCFKS` keystore. In FIPS mode, use `BCFKS`. `JKS` keystores cannot store secret keys, and `PKCS11` tokens are not supported for these keys.
+
+The following example creates a PKCS#12 keystore containing both keys:
+
+```bash
+keytool -genseckey \
+  -alias obo-signing \
+  -keyalg HmacSHA512 \
+  -keysize 512 \
+  -storetype PKCS12 \
+  -keystore config/keystore.p12 \
+  -storepass <password> \
+  -keypass <password>
+
+keytool -genseckey \
+  -alias obo-enc \
+  -keyalg AES \
+  -keysize 256 \
+  -storetype PKCS12 \
+  -keystore config/keystore.p12 \
+  -storepass <password> \
+  -keypass <password>
+```
+{% include copy.html %}
+
+Reference the keystore in `opensearch.yml`:
+
+```yaml
+plugins.security.on_behalf_of.signing_key.keystore_filepath: keystore.p12
+plugins.security.on_behalf_of.signing_key.keystore_alias: obo-signing
+plugins.security.on_behalf_of.encryption_key.keystore_filepath: keystore.p12
+plugins.security.on_behalf_of.encryption_key.keystore_alias: obo-enc
+```
+{% include copy.html %}
+
+Add the keystore password to the OpenSearch keystore. Each command prompts for the value:
+
+```bash
+./bin/opensearch-keystore add plugins.security.on_behalf_of.signing_key.keystore_password
+./bin/opensearch-keystore add plugins.security.on_behalf_of.encryption_key.keystore_password
+```
+{% include copy.html %}
+
+#### Providing keys in config.yml
+
+Provide the keys as Base64-encoded strings in the `config.dynamic.on_behalf_of` section:
+
+```yaml
+config:
+  dynamic:
+    on_behalf_of:
+      enabled: true # Required. Defaults to false.
+      signing_key: # Required Base64-encoded signing key.
+      encryption_key: # Optional Base64-encoded encryption key.
+```
+{% include copy.html %}
+
+To generate a 64-byte signing key, run the following command:
+
+```bash
+openssl rand -base64 64
+```
+{% include copy.html %}
+
+To generate a 32-byte encryption key, run the following command:
+
+```bash
+openssl rand -base64 32
+```
+{% include copy.html %}
+
+After you apply the configuration using the `securityadmin.sh -cd <configuration directory>` command, the keys are stored in the security system index and used by all nodes in the cluster.
+
+#### Rolling upgrades
+
+Starting with OpenSearch 3.10, the `encrypted_roles` claim is encrypted using AES-256-GCM. Earlier versions use AES in ECB mode. During a rolling upgrade from an earlier version, OBO tokens remain valid in both directions:
+
+- If at least one node in the cluster runs an earlier version, upgraded nodes continue to issue tokens in the previous format so that every node can read them.
+- Upgraded nodes read both formats. Tokens in the previous format are accepted for one maximum token lifetime (10 minutes) after the last node running an earlier version leaves the cluster.
+- After all nodes are upgraded, new tokens use AES-256-GCM. No restart or configuration change is required.
+
+In FIPS mode, upgraded nodes never issue tokens in the previous format because AES in ECB mode is not approved for encrypting data. Until all nodes are upgraded, nodes running an earlier version reject tokens issued by upgraded nodes. Tokens issued by nodes running an earlier version remain valid on all nodes. To avoid token rejection during the upgrade, either request OBO tokens from nodes running an earlier version or send requests containing tokens issued by upgraded nodes only to upgraded nodes.
+{: .important}
+
+Upgraded nodes identify each other using the `security.internal.obo_roles_aes_gcm` node attribute, which the Security plugin configures automatically. Do not set `node.attr.security.internal.obo_roles_aes_gcm` in `opensearch.yml`. A node with this attribute configured does not start.
+{: .note}
 
 ### Token structure
 
@@ -62,18 +195,19 @@ The OBO token contains the following claims:
 	* For the REST API use case, the API parameter service enables the specifying of the target service(s) using this token. The default value is set to `self-issued`.
 * Roles: Security privilege evaluation
 	* When `encryption_key` is configured, the mapped roles are encrypted in the token payload:
-		* Encrypted mapped roles (`encrypted_roles`)
-	* When `encryption_key` is not configured, roles are stored as plain text:
+		* Encrypted mapped roles (`encrypted_roles`), encrypted using AES-256-GCM
+	* When `encryption_key` is not configured, mapped roles are stored as plain text:
 		* Mapped roles (`roles`)
-		* Backend roles (`backend_roles`)
 
-The OpenSearch Security plugin handles the encryption and decryption processes. This approach ensures the protection of user information, even when traversing the trust boundary between OpenSearch and any third-party services.
+Newly issued OBO tokens do not include backend roles. The Security plugin handles the encryption and decryption processes. This approach ensures the protection of user information, even when traversing the trust boundary between OpenSearch and any third-party services.
 
 ### API endpoint
 
-You can access the `POST /_plugins/_security/api/generateonbehalfoftoken` API endpoint on the Security plugin in order to create a short-lived, self-issued OBO token to perform certain actions on the user's behalf.
+Use the `POST /_plugins/_security/api/obo/token` endpoint to create a short-lived, self-issued OBO token that performs actions on the user's behalf. This endpoint is available in OpenSearch 3.6 and later.
 
-To access this API endpoint, the request body should contain three API parameters:
+The legacy `POST /_plugins/_security/api/generateonbehalfoftoken` endpoint remains supported for compatibility but is deprecated. Use `/obo/token` for new integrations.
+
+To access the API endpoint, the request body should contain three parameters:
 
 * `description`: This parameter allows the user to articulate the purpose for requesting this token, providing clarity and transparency.
 * `service` (optional): This parameter is directed to the audience claim of the OBO token. It offers users the opportunity to designate the target service for which they intend to use the token. Although this is an optional parameter, if not specified, the default value is set to `self-issued`.
@@ -81,7 +215,7 @@ To access this API endpoint, the request body should contain three API parameter
 The following is an example of requesting an OBO token with a lifespan of 3 minutes for the user “admin” for testing purposes:
 
 ```json
-POST /_plugins/_security/api/generateonbehalfoftoken
+POST /_plugins/_security/api/obo/token
 { 
    "description":"Testing",
    "service":"Testing Service",
