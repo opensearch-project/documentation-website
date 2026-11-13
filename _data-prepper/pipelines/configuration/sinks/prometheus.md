@@ -133,7 +133,7 @@ Option | Required | Type | Description
 
 When multiple Data Prepper instances run the same pipeline configuration, they write identical time series, and the Remote Write endpoint keeps only one sample for each series and timestamp. To keep the samples from each instance, set `instance_label` to a label name. The sink adds this label to every time series it writes. The label value is a truncated SHA-256 hash of the host identity, which the sink resolves once at startup from the local hostname, the `HOSTNAME` environment variable, or a local network address. If no host identity can be resolved, the pipeline fails to start. Instances that share a network namespace resolve the same identity unless they have distinct `HOSTNAME` values.
 
-The label name must match `[a-zA-Z_][a-zA-Z0-9_]*`, must not begin with `__`, and cannot be `le`, `ge`, or `quantile`. If a metric already has an attribute with the same name, the attribute value is kept and the label is not added to that series.
+The label name must match `[a-zA-Z_][a-zA-Z0-9_]*`, must not begin with `__`, and cannot be `le`, `ge`, or `quantile`. If a series already has a label with the same name, the existing label value is kept and the instance label is not added to that series. The comparison uses the final label names that the sink generates, which include a prefix for attributes. For example, a metric attribute named `x` becomes the `metric_attributes_x` label, so setting `instance_label` to `x` adds both labels.
 
 The following example adds the `dp_instance` label:
 

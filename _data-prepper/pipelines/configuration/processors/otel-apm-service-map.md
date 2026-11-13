@@ -43,7 +43,10 @@ A dependency node represents a downstream component that a service calls but tha
 - `external`: Created from a `CLIENT` span that contains HTTP, RPC, or peer attributes and has no child `SERVER` span.
 - `messaging`: Created from a `PRODUCER` or `CONSUMER` span. The broker node connects producers to consumers.
 
-The processor does not create a node for a peer if the peer host is unresolved, is an IP address or a loopback address, or matches a pattern in `hostname_denylist_patterns`.
+The processor does not create an `external` node for a peer if the peer host is unresolved, is an IP address or a loopback address, or matches a pattern in `hostname_denylist_patterns`. For a `database` node, such a host is left out of the node name, which then uses `<db.system>:<db.namespace>` or `<db.system>`.
+
+The processor creates dependency nodes only from spans in the OpenTelemetry format. If you use the [`otel_trace_source`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otel-trace-source/) source, set its `output_format` to `otel`. With the default `opensearch` format, the processor generates service metrics but no dependency nodes.
+{: .important}
 
 If your version of OpenSearch Dashboards does not support dependency nodes, it lists them as services. In this case, set `enabled` to `false`.
 {: .note}

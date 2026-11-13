@@ -58,7 +58,7 @@ processor:
   - aws_lambda:
       function_name: my-lambda-function
       response_events_match: false
-      response_mode: replace
+      response_mode: merge
       aws:
         region: us-east-1
         sts_role_arn: arn:aws:iam::123456789012:role/my-lambda-role

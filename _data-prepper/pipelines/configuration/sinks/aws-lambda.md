@@ -22,7 +22,6 @@ Field             | Type    | Required | Description
 `aws.sts_role_arn`  | String  | No       | The Amazon Resource Name (ARN) of the role to assume before invoking the Lambda function.               
 `aws.sts_external_id` | String | No | The external ID to use when assuming the role specified in `aws.sts_role_arn`. Must be between 2 and 1,224 characters.
 `aws.sts_header_overrides` | Map | No | A map of header overrides to apply to the request that assumes the role specified in `aws.sts_role_arn`. Maximum of 5 headers.
-`max_retries`       | Integer | No       | The maximum number of sink-level retries if the Lambda invocation fails. This controls Data Prepper's retry logic. Default is `3`.
 `client.max_retries` | Integer | No | The maximum number of AWS SDK client-level retries for individual API calls. This controls the underlying SDK retry mechanism for network or service errors. Default is `3`.             
 `client.api_call_timeout` | Duration | No | The total timeout for the entire API call including all retries. Default is `60s`.
 `client.api_call_attempt_timeout` | Duration | No | The timeout for each individual retry attempt. If not specified, AWS SDK defaults are used.
@@ -33,7 +32,6 @@ Field             | Type    | Required | Description
 `client.max_backoff` | Duration | No | The maximum backoff time for the exponential backoff. Default is `20s`.             
 `client.retryable_status_codes` | List | No | A list of HTTP status codes that trigger a client-level retry when returned by a Lambda invocation, for example `[500, 502, 503, 504]`. These retries count toward `client.max_retries`. Default is an empty list, in which case Data Prepper retries only throttling errors, Lambda service errors, and network or connection errors. Use for idempotent functions for which retrying transient server-side errors is safe.
 `batch`             | Object  | No       | Optional batch settings for Lambda invocations. Contains `key_name` (default: `"events"`) and `threshold` object with `event_count` (default: `100`), `maximum_size` (default: `"5mb"`), and `event_collect_timeout` (default: `10s`).
-`lambda_when`       | String  | No       | A conditional expression that determines when to invoke the Lambda sink.          
 `dlq`               | Object  | No       | The dead-letter queue (DLQ) configuration for failed invocations.                
 
 #### Example configuration
@@ -46,7 +44,6 @@ sink:
       aws:
         region: "us-west-2"
         sts_role_arn: "arn:aws:iam::123456789012:role/my-lambda-sink-role"
-      max_retries: 5
       client:
         max_retries: 3
         api_call_timeout: PT60S
@@ -63,7 +60,6 @@ sink:
           event_count: 50
           maximum_size: "3mb"
           event_collect_timeout: PT5S
-      lambda_when: "event['type'] == 'log'"
       dlq:
         s3:
           region: "us-east-1"
