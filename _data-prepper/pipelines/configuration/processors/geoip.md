@@ -52,9 +52,10 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `entries` | Yes | [entry](#entry) list | The list of entries marked for enrichment.
 `geoip_when` | No | String | Specifies under what condition the `geoip` processor should perform matching. Default is no condition.
-`tags_on_no_valid_ip` | No | String | The tags to add to the event metadata if the source field is not a valid IP address. This includes the localhost IP address.
-`tags_on_ip_not_found` | No | String | The tags to add to the event metadata if the `geoip` processor is unable to find a location for the IP address.
-`tags_on_engine_failure` | No | String | The tags to add to the event metadata if the `geoip` processor is unable to enrich an event due to an engine failure.
+`lookup_private_addresses` | No | Boolean | When `true`, the processor also looks up private and loopback IP addresses, such as `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`, and `127.0.0.0/8`, in the configured databases. Use this setting with a custom database that contains locations for your internal IP ranges. When `false`, the processor treats these addresses as not valid and adds the `tags_on_no_valid_ip` tags. Default is `false`.
+`tags_on_no_valid_ip` | No | List | The tags to add to the event metadata if the source field is not a valid IP address. Unless `lookup_private_addresses` is `true`, this includes private and loopback IP addresses.
+`tags_on_ip_not_found` | No | List | The tags to add to the event metadata if the `geoip` processor is unable to find a location for the IP address.
+`tags_on_engine_failure` | No | List | The tags to add to the event metadata if the `geoip` processor is unable to enrich an event due to an engine failure.
 
 <!-- vale off -->
 ## entry

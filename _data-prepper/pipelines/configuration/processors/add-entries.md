@@ -25,6 +25,11 @@ You can configure the `add_entries` processor with the following options.
 | `add_when` | No | A [conditional expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that will be evaluated to determine whether the processor will be run on the event. |
 | `overwrite_if_key_exists` | No | When set to `true`, the existing value is overwritten if `key` already exists in the event. The default value is `false`. |
 | `append_if_key_exists` | No | When set to `true`, the existing value will be appended if a `key` already exists in the event. An array will be created if the existing value is not an array. Default is `false`. |
+| `iterate_on` | No | The key of a list of objects in the event. When specified, the processor adds the entry to each object in the list. Cannot be used with `metadata_key`. |
+| `add_to_element_when` | No | A [conditional expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/) that determines whether the entry is added to the objects in the `iterate_on` list. By default, the expression is evaluated once against the root event, and the entry is added to all objects in the list or to none of them. To evaluate the expression against each object in the list, set `evaluate_when_on_element` to `true`. Applies only when `iterate_on` is specified. |
+| `evaluate_when_on_element` | No | When set to `true`, the `add_to_element_when` expression is evaluated against each object in the `iterate_on` list, and the entry is added only to the objects for which the expression evaluates to `true`. Applies only when both `iterate_on` and `add_to_element_when` are specified. Default is `false`. |
+| `disable_root_keys` | No | When set to `false`, `value_expression` and `format` are resolved against the root event so that you can use root-level fields as values in each object in the `iterate_on` list. When set to `true`, they are resolved against each object in the list. Applies only when `iterate_on` is specified. Default is `true`. |
+| `flatten_key` | No | When set to `true`, `key` is treated as a literal key name in each object in the `iterate_on` list, so a key such as `a/b` creates a field named `a/b`. When set to `false`, `key` is treated as a JSON pointer, so `a/b` creates a nested `b` field inside an `a` object. Applies only when `iterate_on` is specified. Default is `true`. |
 
 
 ## Usage
@@ -221,6 +226,40 @@ The processed event will contain the following data:
 
 ```json
 {"message": ["hello", "world"]}
+```
+
+### Example: Add entries to objects in a list
+
+The following example shows you how to configure the processor to add entries to each object in the `items` list. The first entry is added only to objects in which `type` is `a`, and the second entry copies the root-level `env` field into every object:
+
+```yaml
+...
+  processor:
+    - add_entries:
+        entries:
+          - key: "tagged"
+            value: true
+            iterate_on: "items"
+            add_to_element_when: '/type == "a"'
+            evaluate_when_on_element: true
+          - key: "env"
+            value_expression: "/env"
+            iterate_on: "items"
+            disable_root_keys: false
+...
+```
+{% include copy.html %}
+
+When the input event contains the following data:
+
+```json
+{"env": "prod", "items": [{"type": "a"}, {"type": "b"}]}
+```
+
+The processed event will contain the following data:
+
+```json
+{"env": "prod", "items": [{"type": "a", "tagged": true, "env": "prod"}, {"type": "b", "env": "prod"}]}
 ```
 
 ## Example
