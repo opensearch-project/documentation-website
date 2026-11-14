@@ -34,7 +34,7 @@ You define these in one workflow and let the platform orchestrate them.
 Run a small pilot before the full migration. Use a limited snapshot scope or a small metadata and RFS allow list to confirm that:
 
 - Snapshot creation is correct.
-- Snapshot storage access is correct (for example, Amazon S3 or Google Cloud Storage).
+- Snapshot storage access (for example, to Amazon S3 or Google Cloud Storage) is correct.
 - Mappings migrate correctly.
 - Target indexing capacity is sufficient.
 - Any document-level errors are resolved before you run the full migration.
@@ -84,8 +84,8 @@ If an index is excluded from the snapshot, the metadata and RFS allow lists cann
 
 If you already created the snapshot outside the workflow, use `workflow configure sample --load` to confirm the exact structure for your installed version, then set the following parameters in your workflow configuration:
 
-- `source.snapshotRepo.repoPathUri` --- the object storage URI of the snapshot repository. This can be an Amazon S3 URI (`s3://<bucket>/<path>`) or a Google Cloud Storage URI (`gs://<bucket>/<path>`).
-- `snapshotConfig.snapshotNameConfig.externallyManagedSnapshotName` --- the name of the snapshot within that repository.
+- `source.snapshotRepo.repoPathUri` -- The object storage URI of the snapshot repository, either an Amazon S3 URI (`s3://<bucket>/<path>`) or a Google Cloud Storage URI (`gs://<bucket>/<path>`).
+- `snapshotConfig.snapshotNameConfig.externallyManagedSnapshotName` -- The name of the snapshot within that repository.
 
 When `externallyManagedSnapshotName` is set, the workflow skips snapshot creation and proceeds directly to metadata migration and Reindex-from-Snapshot using the repository you provided.
 
@@ -131,7 +131,7 @@ workflow log all --follow
 
 # Does a sample of the target look right?
 console clusters curl target /<index>/_count
-console clusters curl target /<index>/_search?size=5&pretty
+console clusters curl target "/<index>/_search?size=5&pretty"
 ```
 {% include copy.html %}
 

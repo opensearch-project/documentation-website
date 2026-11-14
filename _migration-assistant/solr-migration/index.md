@@ -55,7 +55,7 @@ After backfill completes, validate document counts and sample queries against th
 Solr migrations support **backfill only**---Capture and Replay (live traffic migration) is not supported for Solr sources. You will need to update your application's query layer to use the OpenSearch API.
 {: .warning }
 
-For Solr sources, the backup repository must use Amazon S3 (`s3://`) or a local file path (`file://`). Google Cloud Storage (`gs://`) backups are **not supported** for Solr in this release, even when Migration Assistant runs on Google Kubernetes Engine (GKE). This limit applies only to Solr sources; Elasticsearch and OpenSearch sources support Google Cloud Storage snapshots.
+For Solr sources, the backup repository must use Amazon S3 (`s3://`) or a local file path (`file://`). Google Cloud Storage (`gs://`) backups are not supported for Solr, even when Migration Assistant runs on Google Kubernetes Engine (GKE). This limit applies only to Solr sources; Elasticsearch and OpenSearch sources support Google Cloud Storage snapshots.
 {: .note }
 
 ## Migrated components

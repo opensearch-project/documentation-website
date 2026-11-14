@@ -27,9 +27,9 @@ Client traffic is sent to the proxy Kubernetes Service. The proxy forwards reque
 
 The migration engine is the same on every platform. The practical difference is how the proxy's Kubernetes Service is exposed and integrated into your environment:
 
-- On **other Kubernetes platforms**, you provide the networking pattern that routes clients to the proxy Kubernetes Service.
-- On **Amazon Elastic Kubernetes Service (EKS)**, the Kubernetes Service can be backed by AWS load-balancer infrastructure, and the bootstrap path automates more of the platform configuration.
-- On **Google Kubernetes Engine (GKE)**, the Service is annotated for an internal (VPC-local) load balancer by default, so the proxy's ingress stays off the public internet. For details, see [Private networking on GKE]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/private-networking-on-gke/).
+- On Amazon Elastic Kubernetes Service (EKS), the Kubernetes Service can be provisioned using an AWS load balancer, and the bootstrap path automates the surrounding AWS platform configuration.
+- On Google Kubernetes Engine (GKE), the Service is annotated for an internal (VPC-local) load balancer by default, so the proxy's ingress stays off the public internet. For more information, see [Private networking on GKE]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/private-networking-on-gke/).
+- On self-managed or other Kubernetes platforms, you provide the networking pattern that routes clients to the proxy Kubernetes Service.
 
 ## Configure the proxy in the workflow
 
@@ -45,7 +45,7 @@ In the proxy configuration, important fields include:
 
 - `listenPort`
 - `podReplicas`
-- `internetFacing` when you need external (public) exposure instead of the platform default. On GKE, the proxy is internal by default; leave `internetFacing` unset to keep it private.
+- `internetFacing` when you need external (public) exposure instead of the platform default. On GKE, the proxy is internal by default, so leave `internetFacing` unset to keep it private.
 - `tls`
 - `setHeader`
 

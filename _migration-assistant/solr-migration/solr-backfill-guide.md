@@ -10,7 +10,7 @@ permalink: /migration-assistant/solr-migration/solr-backfill-guide/
 
 To migrate documents from Apache Solr to OpenSearch, use the snapshot-based backfill workflow. For the overall Solr migration architecture, see [Solr migration overview]({{site.url}}{{site.baseurl}}/migration-assistant/solr-migration/).
 
-The Solr backup repository must use Amazon S3 (`s3://`) or a local file path (`file://`). Google Cloud Storage (`gs://`) backups are **not supported** for Solr in this release, even when Migration Assistant runs on Google Kubernetes Engine (GKE). If you provide a `gs://` repository URI for a Solr source, the workflow rejects it. This limit applies only to Solr sources; Elasticsearch and OpenSearch sources support Google Cloud Storage snapshots.
+The Solr backup repository must use Amazon S3 (`s3://`) or a local file path (`file://`). Google Cloud Storage (`gs://`) backups are not supported for Solr, even when Migration Assistant runs on Google Kubernetes Engine (GKE). This limit applies only to Solr sources; Elasticsearch and OpenSearch sources support Google Cloud Storage snapshots.
 {: .note }
 
 ## SolrCloud compared to standalone Solr
@@ -44,7 +44,7 @@ The snapshot is produced by **your Solr cluster** ([Solr's Amazon S3 backup plug
 
 ## Solr prerequisites
 
-Complete the following five steps on every Solr node in the cluster.
+Complete the following steps on every Solr node in the cluster.
 
 ### Step 1: Install the S3 backup plugin on every Solr node
 

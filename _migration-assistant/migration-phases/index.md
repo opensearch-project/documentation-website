@@ -64,7 +64,7 @@ The following table describes each phase of the migration workflow.
 | [Backfill]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/) | Migrate documents using snapshot-based reindexing (RFS) | Workflow CLI |
 | [Replay captured traffic]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/replay-captured-traffic/) | Replay recorded traffic to catch the target up to real-time | Capture and Replay only |
 | [Switch traffic to the target]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/switch-traffic-to-target/) | Redirect clients from capture proxy to the target cluster | Capture and Replay only |
-| [Remove infrastructure]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/) | Remove Migration Assistant resources | Helm, CloudFormation, or Terraform |
+| [Remove infrastructure]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/) | Remove Migration Assistant resources | Helm, AWS CloudFormation, or Terraform |
 
 ## Components not migrated automatically
 

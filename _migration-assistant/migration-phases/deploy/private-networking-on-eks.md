@@ -4,41 +4,42 @@ title: Private networking
 nav_order: 3
 parent: Deploy on Amazon EKS
 grand_parent: Choose your deployment
-permalink: /migration-assistant/migration-phases/deploy/private-networking-on-eks/
 ---
 
 # Private networking on Amazon EKS
 
-By default, a Migration Assistant deployment on Amazon Elastic Kubernetes Service (EKS) reaches the source cluster, the target cluster, and Amazon Simple Storage Service (Amazon S3) over routable (typically public) endpoints. This page shows how to make each path private so that no migration data traverses the public internet. This is a security and compliance capability, not a performance feature: for same-region migrations, private and public routing perform similarly.
+By default, a Migration Assistant deployment on Amazon Elastic Kubernetes Service (Amazon EKS) accesses the source cluster, the target cluster, and Amazon Simple Storage Service (Amazon S3) over routable (usually, public) endpoints. You can make each path private so that no migration data traverses the public internet. Private routing does not improve performance for same-region migrations. Instead, it provides a security and compliance control.
 
-All connectivity is **optional** and configured per data path, or "leg." With no configuration, behavior is unchanged from the standard EKS deployment. The legs are independent, so you can make some private and leave others public.
+Configuring private connectivity is optional and applies per data path, or _leg_. The legs are independent, so you can make some private and leave others public.
 
-This page covers the connectivity options only, not the full deployment. Follow the instructions on either [Provision with Terraform]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/provisioning-eks-with-terraform/) or [Provision with CloudFormation]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/) for the remaining deployment details.
+After configuring connectivity, follow the instructions in [Provision Migration Assistant on Amazon EKS using Terraform]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/provisioning-eks-with-terraform/) or [Provision Migration Assistant on Amazon EKS using AWS CloudFormation]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/provisioning-eks-with-cloudformation/) for the remaining deployment details.
 {: .note }
 
 ## The data legs
 
-Most of these options are configured on the migration virtual private cloud (VPC), and several rely on private endpoints to Amazon Elastic Container Registry (Amazon ECR). The following table lists each migration data path and how to make it private.
+The following table lists each data leg and its private configuration option. Most options are configured on the migration virtual private cloud (VPC). Several options rely on private endpoints to Amazon Elastic Container Registry (Amazon ECR).
 
-| Leg | What it carries | How to make it private |
+| Leg | Traffic type | Private configuration |
 |:----|:----------------|:-----------------------|
-| Target write | Migrated documents to the target | `target_connectivity` set to `privatelink` or `vpc_peering` |
-| Source read | Snapshot or proxy reads from the source | `source_connectivity` set to `privatelink` or `vpc_peering` |
-| Snapshot storage | Snapshot data to and from Amazon S3 | Amazon S3 gateway endpoint (created by default) |
-| AWS APIs | Cluster calls to Amazon ECR, CloudWatch Logs, and other services | Interface endpoints in the migration VPC |
-| Control plane | Your `kubectl` and Helm access to the cluster | Private Kubernetes API endpoint with narrowed authorized ranges |
+| Target write | Documents written to the target cluster | `target_connectivity` set to `privatelink` or `vpc_peering` |
+| Source read | Data read from the source cluster (snapshots and proxy traffic) | `source_connectivity` set to `privatelink` or `vpc_peering` |
+| Snapshot storage | Snapshot data written to and read from Amazon S3 | Amazon S3 gateway endpoint (created by default) |
+| AWS APIs | Cluster calls to Amazon ECR, Amazon CloudWatch Logs, and other services | Interface endpoints in the migration VPC |
+| Control plane | `kubectl` and Helm commands from operators | Private Kubernetes API endpoint with narrowed authorized ranges |
 
-Two of these legs depend on another party, so plan for them before you provision:
+The following connectivity options require the external provider to approve a connection. Obtain approval before provisioning the cluster:
 
-- **AWS PrivateLink**: the cluster's provider must allow-list your account and accept the endpoint connection if acceptance is required. Until then the endpoint stays in `pendingAcceptance` and the hostname does not resolve. The endpoint service must also be offered in the migration availability zones.
-- **VPC peering**: the peer must accept the connection and add a reciprocal route back to the migration VPC. Peer Classless Inter-Domain Routing (CIDR) blocks must not overlap the migration VPC CIDR block.
+- AWS PrivateLink requires the cluster's provider to add your account to its allow list and to accept the endpoint connection if acceptance is required. Until then, the endpoint stays in `pendingAcceptance` and the hostname does not resolve. The endpoint service must also be offered in the migration Availability Zones.
+- VPC peering requires the peer to accept the connection and add a reciprocal route back to the migration VPC. Peer Classless Inter-Domain Routing (CIDR) blocks must not overlap the migration VPC CIDR block.
 
 ## Source and target connectivity
 
-The `source_connectivity` and `target_connectivity` variables establish a private network path to the source and target clusters. Each leg is independent and defaults to `mode = "none"`, which creates nothing:
+The `source_connectivity` and `target_connectivity` variables establish a private network path to the source and target clusters. Each leg is independent and defaults to `mode = "none"`, which creates no private network resources:
 
-- `privatelink`: creates a consumer interface VPC endpoint to the cluster provider's VPC endpoint service, optionally with a Route 53 private hosted zone that resolves a hostname to the endpoint. Requires the provider to publish a VPC endpoint service name, which you obtain from the provider.
-- `vpc_peering`: peers the migration VPC with the cluster's VPC and routes to its CIDR block. Fits a cluster in a VPC you can peer with, which is often the source.
+- `privatelink`: Creates a consumer interface VPC endpoint to the cluster provider's VPC endpoint service, optionally, with a Route 53 private hosted zone that resolves a hostname to the endpoint. Requires the provider to publish a VPC endpoint service name, which you obtain from the provider.
+- `vpc_peering`: Establishes a VPC peering connection between the migration VPC and the cluster's VPC and adds a route to the cluster's CIDR block. Use this mode for a cluster in a VPC that you can peer with, which is often the source.
+
+The following example configures PrivateLink for the target cluster and VPC peering for the source cluster:
 
 ```hcl
 target_connectivity = {
@@ -57,16 +58,16 @@ source_connectivity = {
 
 Use the provider's canonical hostname for `dns_name` so that its Transport Layer Security (TLS) certificate validates.
 
-For `privatelink`, the resolved endpoint is available as the `source_private_endpoint` and `target_private_endpoint` outputs; use those values in the workflow cluster configuration. For `vpc_peering`, these outputs are `null`, because peering routes to the cluster's existing address rather than creating an endpoint. Supply the cluster's own endpoint in the workflow configuration instead.
+For `privatelink`, the resolved endpoint values are available through the `source_private_endpoint` and `target_private_endpoint` outputs. Use these values in the workflow cluster configuration. For `vpc_peering`, these outputs are `null`, because peering routes to the cluster's existing address rather than creating an endpoint. Provide the cluster's own endpoint in the workflow configuration instead.
 
-The cluster endpoints and credentials themselves are supplied as runtime migration configuration, not by Terraform.
+Supply the cluster endpoints and credentials in the runtime migration configuration, not in the Terraform variables.
 
-The module provisions only the consumer side of each connection. The peer or provider responsibilities listed in [The data legs](#the-data-legs) remain yours to arrange.
+The module provisions only the consumer side of each connection. You are responsible for arranging the peer or provider requirements listed in [The data legs](#the-data-legs).
 {: .note }
 
 ## Isolated (air-gapped) deployments
 
-Set `isolated = true` with `create_vpc = true` for a migration that must not traverse the public internet:
+To keep migration traffic off the public internet, set `isolated = true` (`create_vpc` defaults to `true`):
 
 ```bash
 terraform apply \
@@ -76,17 +77,17 @@ terraform apply \
 ```
 {% include copy.html %}
 
-In isolated mode the module creates no NAT gateway, adds no default route from the private subnets, and creates the full set of service endpoints the cluster needs to reach AWS APIs privately: `s3` as a gateway endpoint, plus interface endpoints for `ecr.api`, `ecr.dkr`, `logs`, `monitoring`, `elasticfilesystem`, `sts`, and `eks-auth`.
+In isolated mode, the module does not create a NAT gateway or add a default route to the private subnets. Instead, it creates VPC endpoints so the cluster can reach AWS services without leaving the VPC: an `s3` gateway endpoint and interface endpoints for `ecr.api`, `ecr.dkr`, `logs`, `monitoring`, `elasticfilesystem`, `sts`, and `eks-auth`.
 
-Isolated mode also makes the Kubernetes API endpoint private, which changes how you reach the cluster. Plan for this before you apply:
+Isolated mode also makes the Kubernetes API endpoint private, which changes how you reach the cluster. Plan for this access requirement before you apply:
 
 - `kubectl`, including the `kubeconfig_command` output, must run from inside the VPC or a network routed to it: a bastion or workload in a private subnet, a peered VPC, or a virtual private network (VPN) or AWS Direct Connect attachment.
-- `deploy_helm = true` requires the same access, because the Terraform Helm provider talks to the cluster API directly. `terraform apply` itself must run from a host that can reach the private endpoint.
+- `deploy_helm = true` requires the same VPC internal access as `kubectl`, because the Terraform Helm provider connects to the cluster API directly. Run `terraform apply` from inside the VPC or a network routed to the private endpoint.
 
-Unlike the NAT gateway and endpoint behavior, the control-plane change is **not** conditional on `create_vpc`. Setting `isolated = true` with an existing VPC still disables the public API endpoint, even though the module makes no other network changes.
+Unlike the NAT gateway and endpoint changes, the control plane change does not depend on `create_vpc`. Setting `isolated = true` for an existing VPC still disables the public API endpoint, even though the module makes no other network changes.
 {: .warning }
 
-To keep the data path isolated while reaching the API from outside the VPC, set `cluster_endpoint_public_access` explicitly. An explicit value always overrides the value derived from `isolated`, and it affects only the control plane. Narrow `cluster_public_access_cidrs` when you do, because it defaults to `0.0.0.0/0`:
+To keep the data leg isolated while reaching the API from outside the VPC, set `cluster_endpoint_public_access` explicitly. An explicit value always overrides the value derived from `isolated`, and it affects only the control plane. Narrow `cluster_public_access_cidrs` when setting this override, because `cluster_public_access_cidrs` defaults to `0.0.0.0/0`:
 
 ```bash
 terraform apply \
@@ -98,15 +99,15 @@ terraform apply \
 ```
 {% include copy.html %}
 
-The override works in the other direction as well: set `cluster_endpoint_public_access = false` without `isolated` for a private-only API endpoint in a VPC that keeps its NAT egress.
+You can also use the override independently: set `cluster_endpoint_public_access = false` without enabling `isolated` to create a private-only API endpoint in a VPC that retains its NAT egress.
 
 ## Container images
 
-Container images must be reachable without internet egress. Mirror the Migration Assistant images, and any third-party images the chart pulls, into a private Amazon Elastic Container Registry (Amazon ECR) repository before workloads start. The Terraform module creates that repository and exposes it as the `ecr_repository_url` output.
+Container images must be reachable without internet egress. Copy the Migration Assistant images, and any third-party images that the chart downloads, into a private Amazon ECR repository before deploying Migration Assistant. The Terraform module creates the Amazon ECR repository and exposes it as the `ecr_repository_url` output.
 
-## Private networks with the bootstrap script
+## Configuring private networking using a bootstrap script
 
-If you provision with CloudFormation instead, the bootstrap script mirrors images into private Amazon ECR by default and creates the VPC endpoints needed to pull from inside the cluster:
+If you provision the EKS cluster using AWS CloudFormation instead, the bootstrap script copies images into private Amazon ECR by default. To also create the VPC endpoints that the cluster needs to pull images from inside the VPC, add `--create-vpc-endpoints`:
 
 ```bash
 ./aws-bootstrap.sh \
@@ -121,13 +122,14 @@ If you provision with CloudFormation instead, the bootstrap script mirrors image
 ```
 {% include copy.html %}
 
-The mirroring step runs from your machine, which must have internet access, and copies the release images and Helm charts to Amazon ECR. The EKS cluster then pulls everything through VPC endpoints. The script creates endpoints for Amazon S3, Amazon ECR API, Amazon ECR Docker, CloudWatch Logs, and Amazon Elastic File System (Amazon EFS).
+This step runs from your machine, which must have internet access, and copies the release images and Helm charts to Amazon ECR. The EKS cluster then pulls the images through VPC endpoints. The script creates endpoints for Amazon S3, Amazon ECR API, Amazon ECR Docker, CloudWatch Logs, and Amazon Elastic File System (Amazon EFS).
 
 Some deployments also need endpoints for AWS Security Token Service (AWS STS) or EKS Authentication, for example when pods take an AWS identity through AWS Identity and Access Management (IAM) Roles for Service Accounts (IRSA) or EKS Pod Identity. Create those separately before running the bootstrap script.
 
-If you prefer to manage VPC endpoints with another tool, omit `--create-vpc-endpoints`. The script still mirrors images and uses your existing endpoints.
+If you prefer to manage VPC endpoints using another tool, omit `--create-vpc-endpoints`. The script still copies images and uses your existing endpoints.
 
-The bootstrap script has no equivalent of the `source_connectivity` and `target_connectivity` variables. To reach the source or target over PrivateLink or VPC peering on this path, create those connections yourself against the VPC that the stack deploys into.
+"Stack" is ambiguous here. If you're referring to the VPC created by the CloudFormation bootstrap script, I'd name it explicitly:
+
+The bootstrap script does not provide equivalents to the `source_connectivity` and `target_connectivity` variables. To connect to the source or target over PrivateLink or VPC peering, establish those connections yourself using the VPC created by the bootstrap script.
 {: .note }
 
-{% include migration-phase-navigation.html %}

@@ -13,19 +13,28 @@ redirect_from:
 
 # Choose your deployment
 
-Migration Assistant always runs on Kubernetes. Two decisions are independent: **where Migration Assistant runs** (the cloud or platform that hosts it) and **what you migrate to** (the target OpenSearch deployment). This page covers the first decision: how much of the hosting platform the tooling prepares for you.
+When deploying Migration Assistant, you need to make two independent decisions: where to run Migration Assistant (the cloud or platform that will host it) and what to migrate to (the target OpenSearch deployment). This page helps you choose where to run Migration Assistant by explaining how much of the hosting platform the deployment tooling provisions for you.
 
-## Deployment types
+## Prerequisites
 
-The following table compares the three deployment types.
+All deployment paths require:
 
-| Type | Best when | Included |
+- Kubernetes cluster** version 1.24 or later.
+- Helm 3 installed and configured.
+- `kubectl` configured to access your cluster.
+- Network access for connectivity from the cluster to source and target clusters.
+
+## Deployment paths
+
+The following table compares the Migration Assistant deployment paths.
+
+| Path | Best when | Included |
 |:-----|:----------|:-------------|
-| [Deploy on Amazon Elastic Kubernetes Service (EKS)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/amazon-eks/) | You run migrations on AWS and want the recommended production path | The same engine plus AWS platform integration: cluster and VPC provisioning, pod identity, snapshot access, and Amazon CloudWatch dashboards. Provision with either the CloudFormation bootstrap script or Terraform |
-| [Deploy on Google Kubernetes Engine (GKE)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-gke/) | You run migrations on GCP and want the recommended production path | The same engine plus a Terraform module for the GKE cluster, VPC networking, Cloud Storage snapshots, and Workload Identity Federation for GKE |
-| [Deploy on other Kubernetes]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-kubernetes/) | You use another Kubernetes platform (managed or self-managed), or you are evaluating locally | The core Migration Assistant engine and workflow model, with you supplying the platform integrations |
+| [Deploy on Amazon Elastic Kubernetes Service (EKS)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploy-on-amazon-eks/) | You plan to run production migrations on AWS | Migration Assistant and AWS platform integrations, including cluster and VPC provisioning, pod identity, snapshot access, and Amazon CloudWatch dashboards. Choose between an AWS CloudFormation bootstrap script and Terraform for provisioning. |
+| [Deploy on Google Kubernetes Engine (GKE)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-gke/) | You plan to run production migrations on GCP | Migration Assistant and a Terraform module that provisions the GKE cluster, VPC networking, Cloud Storage snapshots, and Workload Identity Federation for GKE. |
+| [Deploy on other Kubernetes platforms]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-kubernetes/) | You use another managed or self-managed Kubernetes platform, or want to evaluate Migration Assistant locally | Migration Assistant only. You provision and configure the required platform integrations yourself. |
 
-All paths install the same Migration Assistant Helm chart. The difference is how much of the surrounding environment is prepared for you.
+All paths use the Migration Assistant Helm chart. The difference is how much of the surrounding environment the tooling prepares for you.
 
 ## Default components
 
@@ -40,42 +49,8 @@ The following table describes the components that the Migration Assistant Helm c
 
 Source and target cluster configuration is handled dynamically through the Workflow CLI, not through large Helm value files.
 
-## Managed-cloud paths
+## Managed cloud paths
 
-On a managed cloud, a provider-specific path removes a large amount of non-migration work by preparing the surrounding platform for you.
-
-On AWS, Amazon EKS is the recommended path. Both provisioning methods provide:
-
-- Cluster and VPC bootstrap.
-- Pod identity for AWS API access.
-- VPC endpoint support for isolated subnets.
-- Snapshot access for Amazon OpenSearch Service.
-- AWS-aware storage and node-pool defaults.
-
-The CloudFormation bootstrap script additionally mirrors container images into a private registry and always installs the Helm chart, which brings the Amazon CloudWatch dashboards and the default snapshot bucket with it. The Terraform module creates the registry but does not mirror images, and it installs the chart only when you ask it to. For more information, see [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/amazon-eks/).
-
-On GCP, Google Kubernetes Engine (GKE) is the recommended path. A Terraform module provides:
-
-- GKE cluster and VPC provisioning.
-- Workload Identity for GCP API access.
-- A Cloud Storage snapshot bucket and access bindings.
-- Optional private networking for the source, target, snapshot, and control-plane legs.
-
-Both managed paths reduce platform configuration effort so you can focus on validating the migration.
-
-## Prerequisites
-
-All deployment paths require:
-
-- **Kubernetes cluster**: Version 1.24 or later.
-- **Helm 3**: Installed and configured
-- **`kubectl`**: Configured to access your cluster.
-- **Network access**: Connectivity from the cluster to source and target clusters.
-
-Use [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/amazon-eks/) for the recommended production path on AWS.
-
-Use [Deploy on Google Kubernetes Engine (GKE)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-gke/) for the recommended production path on GCP.
-
-Use [Deploy on other Kubernetes]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-kubernetes/) for any other Kubernetes platform, managed or self-managed.
+When you run Migration Assistant on a managed cloud, a provider-specific deployment path provisions and configures the surrounding platform for you, reducing setup effort. For component details, see [Deploy Migration Assistant on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploy-on-amazon-eks/) or [Deploy Migration Assistant on Google Kubernetes Engine]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-gke/).
 
 {% include migration-phase-navigation.html %}

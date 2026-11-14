@@ -21,27 +21,25 @@ The Migration Assistant operating model is:
 - Migration Assistant runs the work on Kubernetes.
 - You use the Migration Console and Workflow CLI to submit, observe, approve, validate, and switch traffic to the target.
 
-Migration Assistant runs on any Kubernetes distribution. Two choices are independent:
+Migration Assistant runs on any Kubernetes distribution. Before you start, make two independent choices:
 
-- **Where Migration Assistant runs**: a managed-cloud path, such as **Amazon EKS on AWS** or **Google Kubernetes Engine (GKE) on GCP**, or any other Kubernetes platform. Each managed-cloud path supplies the identity, image, snapshot, and observability integrations that you typically need for a real migration.
-- **What you migrate to**: the OpenSearch target that best fits your environment---a self-managed OpenSearch cluster or a managed OpenSearch offering.
+- Where to deploy Migration Assistant: Choose a managed cloud platform, such as Amazon Elastic Kubernetes Service (EKS) on AWS or Google Kubernetes Engine (GKE) on GCP. Alternatively, choose another Kubernetes platform. Managed cloud deployments provide integrations for identity, container images, snapshots, and observability that are typically needed for production migrations.
+- The OpenSearch target to use: Choose the target that best fits your environment, whether it is a self-managed OpenSearch cluster or a managed OpenSearch offering.
 
-These choices are orthogonal: any deployment path can migrate to any supported OpenSearch target.
+Any deployment path can be used to migrate to any supported OpenSearch target.
 
-## Key capabilities
+Migration Assistant provides the following capabilities:
 
-Migration Assistant provides the following:
-
-- **One migration model** for snapshot-based migrations with planned downtime (called *backfill-only*) and zero-downtime migrations that use live-traffic Capture and Replay.
-- **Repeatable workflows** instead of one-time infrastructure choreography.
-- **Low source-cluster impact** through snapshot-based backfill with [Reindex-from-Snapshot (RFS)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/).
-- **Operational checkpoints** through approval gates, logs, status views, and validation steps.
-- **Practical managed-cloud paths** (Amazon EKS on AWS and GKE on GCP) that reduce surrounding platform work.
+- One migration model for snapshot-based migrations with planned downtime (called *backfill-only*) and zero-downtime migrations that use live-traffic Capture and Replay.
+- Repeatable workflows instead of one-time infrastructure choreography.
+- Low source-cluster impact, using snapshot-based backfill with [Reindex-from-Snapshot (RFS)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/).
+- Operational checkpoints using approval gates, logs, status views, and validation steps.
+- Practical managed cloud paths (Amazon EKS on AWS and GKE on GCP) that reduce surrounding platform work.
 
 ## Getting started
 
 1. [Decide whether Migration Assistant is the right tool]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/).
-2. [Understand why Migration Assistant runs on Kubernetes and how the managed-cloud paths fit in]({{site.url}}{{site.baseurl}}/migration-assistant/why-kubernetes/).
+2. [Understand why Migration Assistant runs on Kubernetes and what each managed cloud path provides]({{site.url}}{{site.baseurl}}/migration-assistant/why-kubernetes/).
 3. [Assess your migration]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/assessment/). Review breaking changes, downtime constraints, and required transformations.
 4. [Choose your deployment path]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/).
 5. [Learn how a migration runs]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/).

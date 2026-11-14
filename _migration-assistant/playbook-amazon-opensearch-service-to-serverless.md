@@ -286,9 +286,9 @@ awscurl --service aoss --region us-east-2 \
 
 You should see a JSON response containing the OpenSearch version.
 
-## Step 1: Choose the migration style
+## Step 1: Choose the migration type
 
-Select one of the following migration approaches before configuring the workflow.
+Select one of the following migration types before configuring the workflow.
 
 ### Option A: Planned downtime
 
@@ -769,7 +769,7 @@ After the workflow completes, verify metadata and documents:
 console clusters curl target /_cat/indices?v
 console clusters curl target /<PILOT_INDEX_NAME>/_mapping
 console clusters curl target /<PILOT_INDEX_NAME>/_count
-console clusters curl target /<PILOT_INDEX_NAME>/_search?size=5&pretty
+console clusters curl target "/<PILOT_INDEX_NAME>/_search?size=5&pretty"
 ```
 {% include copy.html %}
 
@@ -816,7 +816,7 @@ Update the `createSnapshotConfig`:
 ```
 {% include copy.html %}
 
-The following sections describe the steps for each migration approach. Follow the section that corresponds to the approach you selected in Step 1.
+The following sections describe the steps for each migration approach. Follow the section that corresponds to the type you selected in Step 1.
 
 ### Planned downtime path
 
@@ -1111,8 +1111,8 @@ Investigate mismatches that involve `POST` or `PUT` methods---those are write op
 Run a representative query on both clusters and compare the results:
 
 ```bash
-console clusters curl source /<INDEX_NAME>/_search?size=5&pretty
-console clusters curl target /<INDEX_NAME>/_search?size=5&pretty
+console clusters curl source "/<INDEX_NAME>/_search?size=5&pretty"
+console clusters curl target "/<INDEX_NAME>/_search?size=5&pretty"
 ```
 {% include copy.html %}
 
@@ -1277,7 +1277,7 @@ For more information, see the following resources:
 
 - [Is Migration Assistant right for you?]({{site.url}}{{site.baseurl}}/migration-assistant/is-migration-assistant-right-for-you/)
 - [Migrate to OpenSearch Serverless NextGen]({{site.url}}{{site.baseurl}}/migration-assistant/amazon-opensearch-serverless/)
-- [Deploying to EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/amazon-eks/)
+- [Deploy Migration Assistant on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploy-on-amazon-eks/)
 - [Using the Workflow CLI]({{site.url}}{{site.baseurl}}/migration-assistant/workflow-cli/getting-started/)
 - [Backfill]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/backfill/)
 - [Removing Migration Assistant]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/)

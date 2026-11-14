@@ -3,16 +3,15 @@ layout: default
 title: "Elasticsearch 6.8 → OpenSearch 3.5 on GCP"
 nav_order: 2
 parent: Playbooks
-permalink: /migration-assistant/playbook-elasticsearch-6-8-to-opensearch-3-gcp/
 ---
 
 # Playbook: Elasticsearch 6.8 to OpenSearch 3.5 on GCP
 
-This playbook is a concrete runbook for migrating a self-managed Elasticsearch 6.8 cluster to an OpenSearch 3.5 cluster on Google Cloud Platform (GCP), with Migration Assistant running on Google Kubernetes Engine (GKE). The source and target are reached over the migration cluster's virtual private cloud (VPC) network, and snapshots are stored in Google Cloud Storage.
+This playbook describes migrating a self-managed Elasticsearch 6.8 cluster to an OpenSearch 3.5 cluster on Google Cloud Platform (GCP) using Migration Assistant running on Google Kubernetes Engine (GKE). The source and target are accessed over the migration cluster's virtual private cloud (VPC) network, and snapshots are stored in Google Cloud Storage.
 
-This pattern applies when you run search infrastructure on GCP and want a repeatable, snapshot-based migration with optional zero-downtime Capture and Replay.
+Use this playbook when you run search infrastructure on GCP and need a repeatable, snapshot-based migration with optional zero-downtime Capture and Replay.
 
-The playbook is end-to-end. It covers source preparation, workflow configuration, a pilot migration, the full migration, validation, cutover, and removal. It assumes Migration Assistant is already deployed on GKE; if it is not, see [Deploy on Google Kubernetes Engine (GKE)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-gke/).
+The playbook includes every migration stage and assumes that Migration Assistant is already deployed on GKE. For information about deploying Migration Assistant, see [Deploy on Google Kubernetes Engine (GKE)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-gke/).
 
 ## Example placeholders
 
@@ -20,16 +19,16 @@ Replace the following placeholders with values from your environment.
 
 | Placeholder | Meaning |
 |:------------|:--------|
-| `<PROJECT_ID>` | GCP project ID hosting the migration environment |
-| `<REGION>` | GCP region, such as `us-central1` |
-| `<CLUSTER_NAME>` | GKE cluster name (from `terraform output -raw cluster_name`) |
-| `<SOURCE_ENDPOINT>` | Elasticsearch endpoint reachable from the migration VPC |
-| `<SOURCE_USERNAME>`, `<SOURCE_PASSWORD>` | Source cluster credentials |
-| `<TARGET_ENDPOINT>` | OpenSearch 3.5 endpoint reachable from the migration VPC |
-| `<TARGET_USERNAME>`, `<TARGET_PASSWORD>` | Target cluster credentials |
-| `<PILOT_INDEX_NAME>` | A small, noncritical index for the pilot run |
+| `<PROJECT_ID>` | The GCP project ID hosting the migration environment. |
+| `<REGION>` | The GCP region, such as `us-central1`. |
+| `<CLUSTER_NAME>` | The GKE cluster name (from `terraform output -raw cluster_name`). |
+| `<SOURCE_ENDPOINT>` | The Elasticsearch endpoint reachable from the migration VPC. |
+| `<SOURCE_USERNAME>`, `<SOURCE_PASSWORD>` | The source cluster credentials. |
+| `<TARGET_ENDPOINT>` | The OpenSearch 3.5 endpoint reachable from the migration VPC. |
+| `<TARGET_USERNAME>`, `<TARGET_PASSWORD>` | The target cluster credentials. |
+| `<PILOT_INDEX_NAME>` | A small, noncritical index for the pilot run. |
 
-The Cloud Storage bucket for snapshots is created by the GKE Terraform module and exposed to the workflow through the `migrations-default-gcs-config` config map, so you do not set it manually. This playbook reads it as `<BUCKET_NAME>`.
+The GKE Terraform module creates the Cloud Storage bucket for snapshots and makes it available to the workflow through the `migrations-default-gcs-config` ConfigMap. You do not need to configure the bucket manually. This playbook refers to the bucket as `<BUCKET_NAME>`.
 {: .note }
 
 ## Estimated timing
@@ -38,12 +37,12 @@ The following table provides estimated durations for each phase of the migration
 
 | Phase | Typical duration |
 |:------|:-----------------|
-| Source preparation (plugin, Cloud Storage access, snapshot repo) | 15 to 25 minutes |
-| Deploy Migration Assistant on GKE | 15 to 25 minutes |
-| Build configuration and test connectivity | 5 to 10 minutes |
-| Pilot migration | 15 to 20 minutes |
-| Full backfill-only migration | Depends on data size and target ingest capacity |
-| Full zero-downtime migration | Backfill duration plus replay catch-up time |
+| Source preparation (installing the `repository-gcs` plugin, configuring Cloud Storage access, registering the snapshot repository) | 15--25 minutes |
+| Deploying Migration Assistant on GKE | 15--25 minutes |
+| Building the workflow configuration and testing connectivity | 5--10 minutes |
+| Running a pilot migration | 15--20 minutes |
+| Running the full backfill-only migration | Depends on data size and target ingest capacity |
+| Running the full zero-downtime migration | Backfill duration plus replay synchronization time |
 
 For zero-downtime migrations, replay duration depends on the volume of traffic accumulated during backfill and the `speedupFactor` configured for the Replayer. A typical starting value is `1.5` to `2.0`. Monitor the target cluster to confirm it can sustain the replay rate.
 
@@ -78,9 +77,9 @@ The following infrastructure is required:
 - The `gcloud` CLI and `kubectl`, authenticated for the migration cluster.
 - If the source or target must be reached over private connectivity, see [Private networking on GKE]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/private-networking-on-gke/).
 
-## Step 1: Choose the migration style
+## Step 1: Choose the migration type
 
-Select one of the following migration approaches before configuring the workflow.
+Select one of the following migration types before configuring the workflow.
 
 ### Option A: Planned downtime
 
@@ -105,7 +104,7 @@ For a zero-downtime migration, follow these steps:
 3. Create a snapshot.
 4. Migrate metadata.
 5. Backfill documents.
-6. Replay captured traffic until the target catches up.
+6. Replay captured traffic until the target is synchronized with the source.
 7. Validate the target.
 8. Switch clients to OpenSearch.
 
@@ -135,19 +134,19 @@ If your source runs in Kubernetes, a common pattern is to install the plugin usi
 
 ### Grant the source access to Cloud Storage
 
-The source cluster writes snapshot files directly to the Cloud Storage bucket, so it needs credentials with write access to that bucket. Configure the `repository-gcs` client credentials on the source according to your environment (for example, a service account key added to the Elasticsearch keystore). Grant that identity object read and write access (`roles/storage.objectAdmin`) on the migration bucket.
+The source cluster writes snapshot files directly to the Cloud Storage bucket, so it needs credentials with write access to that bucket. Configure the `repository-gcs` client credentials on the source according to your environment (for example, a service account key added to the Elasticsearch keystore). Grant that identity read and write access to objects in the migration bucket (`roles/storage.objectAdmin`).
 
 ### Register a snapshot repository
 
-Read the bucket name that the GKE Terraform module provisioned, then register it as a snapshot repository on the source. From a shell with access to the migration cluster, read the bucket name from the config map:
+Read the bucket name that the GKE Terraform module provisioned, then register it as a snapshot repository on the source. From a shell with access to the migration cluster, read the bucket name from the ConfigMap:
 
 ```bash
-kubectl get configmap migration-config -n ma \
-  -o jsonpath='{.data.bucket_name}'
+kubectl get configmap migrations-default-gcs-config -n ma \
+  -o jsonpath='{.data.GCS_BUCKET_NAME}'
 ```
 {% include copy.html %}
 
-Register the repository on the source cluster (this is the same `gcs` repository body the workflow expects):
+Register the repository on the source cluster (this is the same `gcs` repository body that the workflow requires):
 
 ```bash
 curl -sk -u <SOURCE_USERNAME>:<SOURCE_PASSWORD> \
@@ -287,7 +286,7 @@ Compare document counts and sample a few documents on the target:
 ```bash
 console clusters cat-indices
 console clusters curl target /<PILOT_INDEX_NAME>/_count
-console clusters curl target /<PILOT_INDEX_NAME>/_search?size=5&pretty
+console clusters curl target "/<PILOT_INDEX_NAME>/_search?size=5&pretty"
 ```
 {% include copy.html %}
 
@@ -298,15 +297,15 @@ After the pilot succeeds, widen the configuration to the full index set and subm
 ### Planned downtime path
 
 1. Pause writes to the source.
-2. Run `workflow submit` and monitor with `workflow manage`.
+2. Run `workflow submit` and monitor by running `workflow manage`.
 3. Wait for the workflow to reach `Succeeded`.
 4. Continue to validation.
 
 ### Zero-downtime path
 
 1. Confirm capture is running and clients are routed through the capture proxy so live writes are recorded.
-2. Run `workflow submit` and monitor with `workflow manage`.
-3. After backfill completes, the Replayer drains captured traffic to the target. Monitor until the target catches up to live and the document counts stabilize.
+2. Run `workflow submit` and monitor by running `workflow manage`.
+3. After backfill completes, the Replayer drains captured traffic to the target. Monitor until the target is synchronized with the source and the document counts stabilize.
 4. Continue to validation.
 
 For large migrations, consider applying target-side write tuning during the load: increase primary shards on hot indexes, and set `refresh_interval: -1` and `number_of_replicas: 0` while loading, then restore them afterward. Watch the target's write thread pool for rejections and lower Replayer concurrency if rejections appear.
@@ -326,15 +325,15 @@ Confirm per-index document counts match between source and target. When you are 
 
 ## Step 10: Keep the source available as a fallback
 
-Keep the source cluster available as a rollback option until production traffic has been stable on the target (24 to 72 hours is a common window).
+Keep the source cluster available as a rollback option until production traffic has been stable on the target (24--72 hours is a common window).
 
 ## Step 11: Remove the migration infrastructure
 
-Once you no longer need Migration Assistant for rollback, replay, or comparison, remove it. Do not remove it immediately after cutover. For the readiness checklist and removal commands, see [Removing migration infrastructure]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/).
+When you no longer need Migration Assistant for rollback, replay, or comparison, remove it. Do not remove it immediately after cutover. For the readiness checklist and removal commands, see [Removing migration infrastructure]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/remove-migration-infrastructure/).
 
 ## Troubleshooting
 
-The following issues come up most often on the GCP path.
+The following issues occur most often on the GCP path.
 
 ### Snapshot registration fails with `repository type [gcs] does not exist`
 

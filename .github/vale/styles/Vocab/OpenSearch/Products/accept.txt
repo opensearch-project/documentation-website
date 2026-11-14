@@ -43,6 +43,7 @@ Capture and Replay
 Chebyshev
 Claude Code
 Claude Desktop
+Cloud Storage
 Cognito
 Confluence
 Cohere Command
@@ -79,6 +80,7 @@ Fluentd
 GeoJSON
 GitHub
 Google Cloud
+Google Kubernetes Engine
 Google Normalized Distance
 Google Workspace
 Gradle
@@ -172,6 +174,8 @@ Performance Analyzer
 Piped Processing Language
 Point in Time
 Powershell
+Private Google Access
+Private Service Connect
 Prometheus
 Python
 PyTorch
@@ -204,6 +208,7 @@ Strimzi
 SVMRank
 Sycamore
 Tableau
+Terraform
 Textract
 Tika
 Titan
@@ -223,6 +228,7 @@ Wikitravel
 Wiktionary
 Winlogbeat
 Workflow CLI
+Workload Identity Federation for GKE
 XGBoost
 Yandex
 Zipf

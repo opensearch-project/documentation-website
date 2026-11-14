@@ -51,7 +51,7 @@ kubectl describe node <NODE_NAME>
 ```
 {% include copy.html %}
 
-On other Kubernetes platforms, this often means your cluster does not have enough CPU, memory, or storage. On Amazon Elastic Kubernetes Service (EKS), it can also mean your node group or Karpenter configuration needs attention.
+On Amazon Elastic Kubernetes Service (EKS), pending pod status may indicate that your node group or Karpenter configuration is incorrect. On other Kubernetes platforms, this often happens when the cluster does not have enough CPU, memory, or storage.
 
 ## Connectivity failures
 
@@ -225,7 +225,7 @@ curl http://<SOURCE_HOST>:9200/_cat/plugins?v
 ```
 {% include copy.html %}
 
-Additionally, verify the following:
+Additionally, verify the following settings:
 
 - The source cluster can write to the snapshot bucket.
 - The repository is registered correctly.
@@ -243,7 +243,7 @@ Use a pilot allow list first so these failures appear in a small slice of data i
 
 ## Document backfill performance issues
 
-If backfill is slow or unstable, verify the following:
+If backfill is slow or unstable, verify the following settings:
 
 - Target cluster ingest capacity.
 - Available disk space on the target.
