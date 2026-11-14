@@ -138,7 +138,7 @@ terraform apply \
   -var="region=us-east-1" \
   -var="stage=dev" \
   -var="deploy_helm=true" \
-  -var="migration_assistant_version=3.3.4"
+  -var="migration_assistant_version=3.4.1"
 ```
 {% include copy.html %}
 
