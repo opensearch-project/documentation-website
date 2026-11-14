@@ -81,6 +81,13 @@ The GKE module creates the snapshot bucket with `force_destroy = true`, so `terr
 
 If you used the [Google Kubernetes Engine (GKE) Terraform path]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-gke/), uninstall the Helm release, delete the persistent volume claims, and then destroy the Terraform infrastructure.
 
+Uninstall the Helm release:
+
+```bash
+helm uninstall -n ma ma
+```
+{% include copy.html %}
+
 Delete the persistent volume claims while the cluster still exists:
 
 ```bash
