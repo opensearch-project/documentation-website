@@ -12,22 +12,22 @@ redirect_from:
 Migration Assistant follows this operating model:
 
 1. You describe the migration in workflow configuration.
-2. The Workflow CLI submits that configuration to Kubernetes.
+2. The Workflow CLI submits the workflow configuration to Kubernetes.
 3. Kubernetes and Argo Workflows create the pods and services required for each phase.
 4. You observe progress, approve gated steps, validate results, and switch traffic to the target.
 
 Internally, workflows are executed by [Argo Workflows](https://argoproj.github.io/workflows/), but you operate Migration Assistant through the Migration Console and Workflow CLI rather than through Argo directly.
 
-The following diagram illustrates a typical deployment on Amazon Elastic Kubernetes Service (EKS). Other Kubernetes distributions follow the same logical migration model, but EKS adds AWS-specific identity, networking, image, and observability integrations.
+The following diagram shows a typical Migration Assistant deployment. The migration architecture is consistent across Kubernetes distributions. Deployments on managed cloud platforms, such as Amazon Elastic Kubernetes Service (EKS) on AWS and Google Kubernetes Engine (GKE) on GCP, include additional provider-specific integrations for identity, networking, container images, and observability.
 
-![Migration Assistant Architecture on EKS]({{site.url}}{{site.baseurl}}/images/migration-assistant/eks-architecture.svg)
+![Migration Assistant architecture]({{site.url}}{{site.baseurl}}/images/migration-assistant/k8s-architecture.svg)
 
 ## System layers
 
 Migration Assistant separates concerns into two layers. You describe the migration once, and the platform executes it as managed workloads:
 
-- A **control plane** that manages migration workflows.
-- A **data plane** that performs the actual snapshot, metadata, backfill, capture, and replay work.
+- A control plane that manages migration workflows.
+- A data plane that executes snapshot creation, metadata migration, backfill, capture, and replay operations.
 
 ## Control plane
 
@@ -46,12 +46,12 @@ The following table lists the data plane components.
 
 | Component | Description |
 |:----------|:------------|
-| **Reindex-from-Snapshot (RFS)** | High-performance backfill engine that reads Lucene segments from snapshots instead of reading documents through the source cluster API |
-| **Metadata migration** | Transfers index settings, mappings, templates, and aliases |
-| **Capture Proxy** | Records live traffic to Apache Kafka during zero-downtime migrations |
-| **Traffic Replayer** | Replays captured traffic against the target cluster to catch it up |
-| **Strimzi** | Manages Kafka for Capture and Replay workflows |
-| **Observability stack** | Prometheus-compatible metrics, logs, and dashboards; on EKS this extends into CloudWatch |
+| **Reindex-from-Snapshot (RFS)** | High-performance backfill engine that reads Lucene segments from snapshots instead of reading documents through the source cluster API. |
+| **Metadata migration** | Transfers index settings, mappings, templates, and aliases. |
+| **Capture Proxy** | Records live traffic to Apache Kafka during zero-downtime migrations. |
+| **Traffic Replayer** | Replays captured traffic against the target cluster to synchronize it. |
+| **Strimzi** | Manages Apache Kafka for Capture and Replay workflows. |
+| **Observability stack** | Provides Prometheus-compatible metrics, logs, and dashboards. A managed cloud deployment can extend the observability stack into the provider's monitoring service, such as Amazon CloudWatch on EKS. |
 
 ## Migration process overview
 
@@ -59,7 +59,7 @@ Each numbered node in the architecture diagram corresponds to a step in the migr
 
 ### Step 1: Client traffic is directed to the existing cluster
 
-Client traffic flows to the source cluster as normal. If you are performing a zero-downtime migration using Capture and Replay, a Kubernetes Service routes traffic through the capture proxy fleet, which forwards requests to the source while simultaneously recording them to Kafka.
+Client traffic flows to the source cluster as normal. If you are performing a zero-downtime migration using Capture and Replay, a Kubernetes Service routes traffic using the capture proxy fleet, which forwards requests to the source while simultaneously recording them to Kafka.
 
 ### Step 2: Capture proxy replicates traffic to Kafka
 
@@ -67,15 +67,15 @@ The capture proxy relays traffic to the source cluster and simultaneously replic
 
 ### Step 3: Snapshot and backfill through Reindex-from-Snapshot
 
-With continuous traffic capture in place (or after pausing writes), you submit a migration workflow from the Migration Console. The workflow creates a point-in-time snapshot of the source cluster, migrates metadata (indexes, templates, aliases), and then launches Reindex-from-Snapshot (RFS) workers that read directly from the snapshot in Amazon S3 and bulk-index documents into the target cluster.
+After you start continuous traffic capture (or pause writes), you submit a migration workflow from the Migration Console. The workflow creates a point-in-time snapshot of the source cluster, migrates metadata (indexes, templates, aliases), and then launches Reindex-from-Snapshot (RFS) workers that read document data directly from the snapshot in object storage (such as Amazon S3 or Google Cloud Storage) and index documents into the target cluster in bulk.
 
 ### Step 4: Traffic Replayer catches up the target
 
-After the backfill completes, the Traffic Replayer reads captured traffic from Kafka and replays it against the target cluster, transforming requests as needed (authentication, index names). The Replayer catches the target up to real-time, closing the gap between the snapshot point-in-time and the current state.
+After the backfill completes, the Traffic Replayer reads captured traffic from Kafka and replays it against the target cluster. It transforms requests as needed to accommodate differences in authentication and index names. This process brings the target cluster up to date with real-time activity, closing the gap between the snapshot's point-in-time state and the current state.
 
 ### Step 5: Validate and compare
 
-The performance and behavior of traffic routed to the source and target clusters are analyzed by reviewing logs, metrics, and document counts. Use `console clusters curl` to run comparison queries against both clusters. On generic Kubernetes this usually means your cluster logging and metrics stack; on EKS the bootstrap path also wires in CloudWatch dashboards and logs.
+The performance and operational characteristics of traffic routed to the source and target clusters are analyzed by reviewing logs, metrics, and document counts. Use `console clusters curl` to run comparison queries against both clusters. On other Kubernetes platforms, this usually means using your cluster's logging and metrics stack. A managed cloud deployment can also integrate with the provider's monitoring service, such as Amazon CloudWatch dashboards and logs on EKS.
 
 ### Step 6: Redirect traffic and decommission
 
@@ -89,7 +89,7 @@ The following are common error recovery symptoms and resolutions.
 
 If a workflow step fails, perform the following steps:
 
-1. Check the error with `workflow status` and `workflow log all`.
+1. Check the error by running `workflow status` and `workflow log all`.
 2. Fix the underlying issue such as connectivity, permissions, or configuration.
 3. Retry or resubmit from the workflow model instead of patching pods manually.
 
@@ -106,12 +106,12 @@ The following components make up the Migration Assistant architecture.
 
 ### Reindex-from-Snapshot
 
-RFS takes a fundamentally different approach from traditional migration tools. Instead of reading documents through the source cluster's HTTP API, it:
+RFS takes a fundamentally different approach from traditional migration tools. Instead of reading documents using the source cluster's HTTP API, it:
 
 1. Takes a **one-time snapshot** of the source cluster (the only time the source is touched)
-2. Reads the **raw Lucene segment files** directly from the snapshot in storage (S3)
+2. Reads the **raw Lucene segment files** directly from the snapshot in object storage (such as Amazon S3 or Google Cloud Storage)
 3. Extracts documents, applies transformations, and **bulk-indexes them on the target**
 
-This approach produces **no ongoing source load**, **no version compatibility limit** (works across any supported gap), **parallel processing** (one worker per shard), and the ability to **resume where it left off** (failed shards are retried without restarting).
+This approach produces no ongoing source load, no version compatibility limit (works across any supported gap), parallel processing (one worker per shard), and the ability to resume where it left off (failed shards are retried without restarting).
 
 {% include migration-phase-navigation.html %}
