@@ -26,5 +26,5 @@ Endpoints that require mutual TLS (mTLS) accept a client certificate instead of 
 
 ## Next steps
 
-- For descriptions of all connector fields, including the `client_config` object, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#request-body-fields).
+- For descriptions of all connector fields, including the `client_config` object, see [Create Connector API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/#request-body-fields).
 - To change the credentials on an existing connector, see [Updating connector credentials]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#updating-connector-credentials).

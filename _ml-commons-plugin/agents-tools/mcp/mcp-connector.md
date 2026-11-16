@@ -96,7 +96,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-The following table describes the connector parameters. For more information about standard connector parameters, see [Request body fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#request-body-fields).
+The following table describes the connector parameters. For more information about standard connector parameters, see [Create Connector API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/#request-body-fields).
 
 | Parameter | Data type | Required | Description |
 |:----------|:---------|:---|:------------|

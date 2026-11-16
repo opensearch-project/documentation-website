@@ -94,7 +94,7 @@ Value | Root spans that receive the copies
 
 With `ai_root`, a non-GenAI root span keeps only its own attributes. Copying agent data onto a non-GenAI root span makes the HTTP span appear to call a model and use tokens, combines parallel agents into one agent name, and counts the trace's tokens again for any consumer that sums usage across spans. The [agent root marker](#agent-root-marker) span carries this data instead.
 
-Marking does not depend on this option: with `none`, a marked agent span still receives its descendants' token totals.
+Marking does not depend on this option: with `none`, an agent span that the processor marks still receives its descendants' token totals.
 
 In Data Prepper 2.17, the default changed from copying onto every root span to `ai_root`. If your queries or dashboards read agent data, such as `gen_ai.agent.name` or token totals, from non-GenAI root spans, set `genai_root_propagation` to `all_roots` to keep the previous behavior, or read the data from the marked agent span.
 {: .important}
@@ -106,7 +106,7 @@ Agents often run behind a service: the trace's root span is an HTTP or RPC span,
 * Each outermost GenAI span of a trace is marked. This is a span that has `gen_ai.operation.name` and no GenAI ancestor: either the root span itself, when it is a GenAI span, or the agent span nested under a non-GenAI root.
 * When several top-level agents run under one root span, each is marked as one agent run.
 * In a chain of agents that call agents, such as `invoke_agent` > HTTP client > HTTP server > `invoke_agent`, only the calling agent is marked because the called agent has a GenAI ancestor.
-* A marked span that reports no token usage of its own receives the usage of its descendants, counted as described in [Token usage](#token-usage).
+* A span that the processor marks and that reports no token usage of its own receives the usage of its descendants. Spans marked at the source do not receive these totals. Descendant usage is counted as described in [Token usage](#token-usage).
 * An SDK or the user can set the marker on a span at the source. If any span in a trace is marked `true` at the source, the processor marks no other span in that trace. A span set to `false` is never marked, so setting `false` on a trace's outermost GenAI spans excludes the trace from marking.
 * Spans that are flushed after `trace_flush_interval` without their root span are still marked because the marker only needs the span's descendants.
 
