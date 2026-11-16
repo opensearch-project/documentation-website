@@ -42,7 +42,7 @@ The following table lists the available query parameters. All query parameters a
 | `active_only` | Boolean | If `true`, the response only includes ongoing shard recoveries. | `false` |
 | `bytes` | String | The units used to display byte values. <br> Valid values are: `b`, `kb`, `k`, `mb`, `m`, `gb`, `g`, `tb`, `t`, `pb`, and `p`. | N/A |
 | `detailed` | Boolean | When `true`, includes detailed information about shard recoveries. | `false` |
-| `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
+| `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. <br> Valid values are: `cbor`, `json`, `smile`, `text`, and `yaml`. | `text` |
 | `h` | List | A comma-separated list of column names to display. | N/A |
 | `help` | Boolean | Returns help information. | `false` |
 | `index` | List | A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`. | N/A |

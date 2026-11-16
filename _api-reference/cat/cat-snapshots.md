@@ -41,7 +41,7 @@ The following table lists the available query parameters.
 | :--- | :--- | :--- | :--- |
 | `repository` | List or String | **(Required)** A comma-separated list of snapshot repositories used to limit the request. Accepts wildcard expressions. `_all` returns all repositories. If any repository fails during the request, OpenSearch returns an error. | N/A |
 | `cluster_manager_timeout` | String | The amount of time allowed to establish a connection to the cluster manager node. | N/A |
-| `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
+| `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. <br> Valid values are: `cbor`, `json`, `smile`, `text`, and `yaml`. | `text` |
 | `h` | List | A comma-separated list of column names to display. | N/A |
 | `help` | Boolean | Returns help information. | `false` |
 | `ignore_unavailable` | Boolean | When `true`, the response does not include information from unavailable snapshots. | `false` |
