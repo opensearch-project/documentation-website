@@ -23,23 +23,34 @@ The `sampler` aggregation takes the following parameters.
 | :--- | :--- | :--- | :--- |
 | `shard_size` | Optional | Integer | The maximum number of top-scoring documents collected from each shard. Default is `100`. |
 
-## Example
+The `sampler` aggregation can be nested under a `terms` aggregation. If the `terms` aggregation uses the `breadth_first` collect mode, OpenSearch replays the relevance scores of the deferred documents, so the sample is still based on the top-scoring documents.
+{: .note}
 
-The following example limits the sample to 200 top-scoring documents per shard, then runs a `terms` subaggregation to find the distribution of product categories within that sample:
+## Example: Sampling the top-scoring documents
+
+The following examples use a `shakespeare` index containing the complete works of Shakespeare, in which each document is one line of a play. The `text_entry` field contains the text of the line, and the `play_name` field is a `keyword` field.
+
+A query for `king falstaff` matches 1,545 lines. Most of them contain only the common word `king`, but the lines that also contain the rarer word `falstaff` receive the highest scores. The following request samples the 100 top-scoring lines on each shard and runs a `significant_terms` subaggregation to find the plays that are most associated with the sample:
 
 ```json
-GET /opensearch_dashboards_sample_data_ecommerce/_search
+GET /shakespeare/_search
 {
   "size": 0,
+  "query": {
+    "match": {
+      "text_entry": "king falstaff"
+    }
+  },
   "aggs": {
     "sample": {
       "sampler": {
-        "shard_size": 200
+        "shard_size": 100
       },
       "aggs": {
-        "top_categories": {
-          "terms": {
-            "field": "category.keyword"
+        "plays": {
+          "significant_terms": {
+            "field": "play_name",
+            "size": 3
           }
         }
       }
@@ -49,44 +60,97 @@ GET /opensearch_dashboards_sample_data_ecommerce/_search
 ```
 {% include copy-curl.html %}
 
-The response shows that the sample contains 200 documents, and the `terms` subaggregation operated only on those 200 documents rather than all 4,675:
+The sample contains 100 lines, and the most significant plays are *The Merry Wives of Windsor* and *Henry IV*, the plays in which Falstaff appears:
 
 ```json
 {
   ...
   "aggregations": {
     "sample": {
-      "doc_count": 200,
-      "top_categories": {
-        "doc_count_error_upper_bound": 0,
-        "sum_other_doc_count": 0,
+      "doc_count": 100,
+      "plays": {
+        "doc_count": 100,
+        "bg_count": 111396,
         "buckets": [
           {
-            "key": "Men's Clothing",
-            "doc_count": 82
+            "key": "Merry Wives of Windsor",
+            "doc_count": 41,
+            "score": 6.2045063935005285,
+            "bg_count": 2831
           },
           {
-            "key": "Women's Clothing",
-            "doc_count": 82
+            "key": "Henry IV",
+            "doc_count": 31,
+            "score": 3.0301421528861154,
+            "bg_count": 3205
           },
           {
-            "key": "Women's Shoes",
-            "doc_count": 49
-          },
-          {
-            "key": "Women's Accessories",
-            "doc_count": 40
-          },
-          {
-            "key": "Men's Shoes",
-            "doc_count": 37
-          },
-          {
-            "key": "Men's Accessories",
-            "doc_count": 25
+            "key": "Hamlet",
+            "doc_count": 6,
+            "score": 0.03449236569274269,
+            "bg_count": 4244
           }
         ]
       }
+    }
+  }
+}
+```
+
+## Example: Running the aggregation without a sampler
+
+The following request runs the same `significant_terms` aggregation on all 1,545 matching lines, without a sampler:
+
+```json
+GET /shakespeare/_search
+{
+  "size": 0,
+  "query": {
+    "match": {
+      "text_entry": "king falstaff"
+    }
+  },
+  "aggs": {
+    "plays": {
+      "significant_terms": {
+        "field": "play_name",
+        "size": 3
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Because the long tail of lines that contain only `king` outweighs the Falstaff lines, the most significant plays are the history plays about kings, such as *Henry VI, Part 3* and *Richard II*. The aggregation also processes all 1,545 matching documents instead of 100:
+
+```json
+{
+  ...
+  "aggregations": {
+    "plays": {
+      "doc_count": 1545,
+      "bg_count": 111396,
+      "buckets": [
+        {
+          "key": "Henry VI Part 3",
+          "doc_count": 168,
+          "score": 0.31100010146873747,
+          "bg_count": 3138
+        },
+        {
+          "key": "Richard II",
+          "doc_count": 143,
+          "score": 0.23236659237692917,
+          "bg_count": 2937
+        },
+        {
+          "key": "Henry VI Part 2",
+          "doc_count": 125,
+          "score": 0.13780305490414782,
+          "bg_count": 3334
+        }
+      ]
     }
   }
 }
@@ -99,7 +163,3 @@ The following table lists the response body fields.
 | Field | Data type | Description |
 | :--- | :--- | :--- |
 | `doc_count` | Integer | The total number of documents in the sample across all shards. |
-
-## Limitations
-
-The `sampler` aggregation cannot be nested under a `terms` aggregation that uses `breadth_first` collect mode because breadth-first collection discards relevance scores that the sampler requires.

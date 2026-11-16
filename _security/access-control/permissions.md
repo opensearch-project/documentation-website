@@ -159,51 +159,6 @@ Users that have the permission [`restapi:admin/roles`]({{site.url}}{{site.baseur
 Keep in mind that enabling this feature and mapping system index permissions to normal users gives those users access to indexes that may contain sensitive information and configurations essential to a cluster's health. We also recommend caution when mapping users to `restapi:admin/roles` because this permission gives a user not only the ability to assign the system index permission to another user but also the ability to self-assign access to any system index.
 {: .warning }
 
-### `do_not_fail_on_forbidden`
-
-If a user attempts to query multiple indexes, some of which they lack permissions for, by default they get an `error` in OpenSearch Dashboards or an `exception` when using `cURL` or an API. If you instead want the user to receive the search results for any of the indexes for which they _do_ have permissions, you can set the option `do_not_fail_on_forbidden` to `true` in `config.yml`. See the following example:
-
-```
-_meta:
-  type: "config"
-  config_version: 2
-config:
-  dynamic:
-    http:
-      anonymous_auth_enabled: false
-      xff:
-        enabled: false
-        internalProxies: "192\\.168\\.0\\.10|192\\.168\\.0\\.11"
-    do_not_fail_on_forbidden: true
-    authc:
-      basic_internal_auth_domain:
-      ...
-```
-It is important to remember that if this option is set to `true`, then the user is served the data as if it is the complete dataset. There is no indication that some data may be omitted.
-{: .warning }
-
-### `do_not_fail_on_forbidden_empty`
-
-When a user attempts to view a visualization for which they lack index permissions, they will see `error` in place of the visualization. To change this behavior to display `No results displayed because all values equal 0.`, you can set `do_not_fail_on_forbidden_empty` to `true` in `config.yml`. This option is only valid if `do_not_fail_on_forbidden` is also set to `true`. See the following example:
-
-```
-_meta:
-  type: "config"
-  config_version: 2
-config:
-  dynamic:
-    http:
-      anonymous_auth_enabled: false
-      xff:
-        enabled: false
-        internalProxies: "192\\.168\\.0\\.10|192\\.168\\.0\\.11"
-    do_not_fail_on_forbidden: true
-    do_not_fail_on_forbidden_empty: true
-    authc:
-      basic_internal_auth_domain:
-      ...
-```
-
 ## Cluster permissions
 
 These permissions are for the cluster and can't be applied granularly. For example, you either have permissions to take snapshots (`cluster:admin/snapshot/create`) or you don't. The cluster permission, therefore, cannot grant a user privileges to take snapshots of a select set of indexes while preventing the user from taking snapshots of others.
@@ -216,9 +171,9 @@ Cross-references to API documentation in the permissions that follow are only in
 
 | **Permission** | **Description** |
 | :--- | :--- |
-| `indices:admin/template/delete` |  Permission to [delete index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/#delete-a-template). |
-| `indices:admin/template/get` |  Permission to [get index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/#retrieve-a-template). |
-| `indices:admin/template/put` |  Permission to [create index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/#create-a-template). |
+| `indices:admin/template/delete` |  Permission to [delete index templates]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index-template/). |
+| `indices:admin/template/get` |  Permission to [get index templates]({{site.url}}{{site.baseurl}}/api-reference/index-apis/get-index-template/). |
+| `indices:admin/template/put` |  Permission to [create index templates]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index-template/). |
 | `indices:data/read/scroll` |  Permission to scroll through data. This setting must be configured as both a cluster- and index-level permission. |
 | `indices:data/read/scroll/clear` | Permission to clear the scroll object. This setting must be configured as both a cluster- and index-level permission. |
 | `indices:data/read/mget` |  Permission to run [multiple GET operations]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/) in one request. |
@@ -322,7 +277,7 @@ See [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rol
 
 ### Reporting permissions
 
-See [Creating reports with the Dashboards interface]({{site.url}}{{site.baseurl}}/dashboards/reporting/).
+See [Creating reports with the Dashboards interface]({{site.url}}{{site.baseurl}}/dashboards/reporting/report-dashboard-index/).
 
 - `cluster:admin/opendistro/reports/definition/create`
 - `cluster:admin/opendistro/reports/definition/update`
@@ -378,7 +333,7 @@ See [Snapshot APIs]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/)
 
 ### Reroute
 
-See [Cluster manager task throttling]({{site.url}}{{site.baseurl}}/tuning-your-cluster/cluster-manager-task-throttling/).
+See [Cluster manager task throttling]({{site.url}}{{site.baseurl}}/tuning-your-cluster/load-protection/cluster-manager-task-throttling/).
 
 - `cluster:admin/reroute`
 
@@ -498,13 +453,13 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:admin/close` |  Permission to [close an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index/). |
 | `indices:admin/close*` |  Permission to [close an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index/). |
 | `indices:admin/create` |  Permission to [create indexes]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/). |
-| `indices:admin/data_stream/create` |  Permission to create [data streams]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/datastream/#creating-a-data-stream). |
-| `indices:admin/data_stream/delete` |  Permission to [delete data streams]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/datastream/#deleting-a-data-stream). |
-| `indices:admin/data_stream/get` |  Permission to [get data streams]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/datastream/#viewing-a-data-stream). |
+| `indices:admin/data_stream/create` |  Permission to create [data streams]({{site.url}}{{site.baseurl}}/api-reference/data-stream/create-data-stream/). |
+| `indices:admin/data_stream/delete` |  Permission to [delete data streams]({{site.url}}{{site.baseurl}}/api-reference/data-stream/delete-data-stream/). |
+| `indices:admin/data_stream/get` |  Permission to [get data streams]({{site.url}}{{site.baseurl}}/api-reference/data-stream/data-stream-info/). |
 | `indices:admin/delete` |  Permission to [delete indexes]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index/). |
 | `indices:admin/exists` |  Permission to use [exists query]({{site.url}}{{site.baseurl}}/query-dsl/term/exists/). |
-| `indices:admin/flush` |  Permission to [flush an index]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index-management/#flushing-an-index). |
-| `indices:admin/flush*` |  Permission to [flush an index]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index-management/#flushing-an-index). |
+| `indices:admin/flush` |  Permission to [flush an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/flush/). |
+| `indices:admin/flush*` |  Permission to [flush an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/flush/). |
 | `indices:admin/forcemerge` |  Permission to force merge indexes and data streams. |
 | `indices:admin/get` |  Permission to get index and mapping. |
 | `indices:admin/mapping/put` |  Permission to add new mappings and fields to an index. |
@@ -519,10 +474,10 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:admin/plugins/replication/index/stop` |  Permission to stop cross-cluster replication. |
 | `indices:admin/plugins/replication/index/update` |  Permission to update cross-cluster replication settings. |
 | `indices:admin/plugins/replication/index/status_check` |  Permission to check the status of cross-cluster replication. |
-| `indices:admin/refresh` |  Permission to use the [index refresh API]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index-management/#refreshing-an-index). |
+| `indices:admin/refresh` |  Permission to use the [Refresh Index API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/refresh/). |
 | `indices:admin/refresh*` |  Permission to use the index refresh API. |
 | `indices:admin/resolve/index` |  Permission to resolve index names, index aliases and data streams. |
-| `indices:admin/rollover` |  Permission to perform [index rollover]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/rollover/). |
+| `indices:admin/rollover` |  Permission to perform [index rollover]({{site.url}}{{site.baseurl}}/api-reference/index-apis/rollover/). |
 | `indices:admin/seq_no/global_checkpoint_sync` | Permission to perform a global checkpoint sync. |
 | `indices:admin/settings/update` |  Permission to [update index settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/update-settings/). |
 | `indices:admin/shards/search_shards` |  Permission to perform [cross cluster search]({{site.url}}{{site.baseurl}}/security/access-control/cross-cluster-search/). |

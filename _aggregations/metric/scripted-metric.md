@@ -9,9 +9,9 @@ redirect_from:
 
 # Scripted metric aggregation
 
-The `scripted_metric` aggregation is a multi-value metric aggregation that returns metrics calculated from a specified script. A script has four phases, `init`, `map`, `combine`, and `reduce`, which are run in order by each aggregation and allow you to combine results from your documents.
+The `scripted_metric` aggregation is a multi-value metric aggregation that returns metrics calculated by scripts that you provide. The aggregation runs four scripts, one for each of its phases: `init`, `map`, `combine`, and `reduce`. The phases run in order and together combine results from your documents. The scripts are written in [Painless]({{site.url}}{{site.baseurl}}/scripting/painless/), and you can provide each one inline or as a [stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/).
 
-All four scripts share a mutable object called `state` that is defined by you. The `state` is local to each shard during the `init`, `map`, and `combine` phases. The result is passed into the `states` array for the `reduce` phase. Therefore, each shard's `state` is independent until the shards are combined in the `reduce` step.
+All four scripts share a mutable object called `state` that is defined by you. The `state` is local to each shard during the `init`, `map`, and `combine` phases. The result is passed into the `states` array for the `reduce` phase. Therefore, each shard's `state` is independent until the shards are combined in the `reduce` step. Each script can be specified as a string containing the script source or a script object. For more information about specifying scripts, see [How to use scripts]({{site.url}}{{site.baseurl}}/scripting/using-scripts/).
 
 ## Parameters
 
@@ -19,11 +19,11 @@ The `scripted_metric` aggregation takes the following parameters.
 
 | Parameter        | Data type | Required/Optional | Description                                                                                        |
 | ---------------- | --------- | ----------------- | -------------------------------------------------------------------------------------------------- |
-| `init_script`    | String    | Optional          | A script that executes once per shard before any documents are processed. Used to set up an initial `state` (for example, initialize counters or lists in a `state` object). If not provided, the `state` starts as an empty object on each shard.       |
-| `map_script`     | String    | Required          | A script that executes for each document collected by the aggregation. This script updates the `state` based on the document's data. For example, you might check the field's value and then increment a counter or calculate a running sum in the `state`.                                                  |
-| `combine_script` | String    | Required          | A script that executes once per shard after all documents on that shard have been processed by the `map_script`. This script aggregates the shard's `state` into a single result to be sent back to the coordinating node. This script is used to finalize the computation for one shard (for example, summing up counters or totals stored in the `state`). The script should return the consolidated value or structure for its shard.  |
-| `reduce_script`  | String    | Required          | A script that executes once on the coordinating node after receiving combined results from all shards. This script receives a special variable `states`, which is an array containing each shard's output from the `combine_script`. The `reduce_script` iterates over states and produces the final aggregation output (for example, adding shard sums or merging maps of counts). The value returned by the `reduce_script` is the value reported in the aggregation results. |
-| `params`         | Object    | Optional          | User-defined parameters accessible from all scripts except `reduce_script`.                        |
+| `init_script`    | String or object | Optional          | A script that executes once per shard before any documents are processed. Used to set up an initial `state` (for example, initialize counters or lists in a `state` object). If not provided, the `state` starts as an empty object on each shard. |
+| `map_script`     | String or object | Required          | A script that executes for each document collected by the aggregation. This script updates the `state` based on the document's data. For example, you might check the field's value and then increment a counter or calculate a running sum in the `state`.                                                  |
+| `combine_script` | String or object | Required          | A script that executes once per shard after all documents on that shard have been processed by the `map_script`. This script aggregates the shard's `state` into a single result to be sent back to the coordinating node. This script is used to finalize the computation for one shard (for example, summing up counters or totals stored in the `state`). The script should return the consolidated value or structure for its shard.  |
+| `reduce_script`  | String or object | Required          | A script that executes once on the coordinating node after receiving combined results from all shards. This script receives a special variable `states`, which is an array containing each shard's output from the `combine_script`. The `reduce_script` iterates over states and produces the final aggregation output (for example, adding shard sums or merging maps of counts). The value returned by the `reduce_script` is the value reported in the aggregation results. |
+| `params`         | Object    | Optional          | User-defined parameters accessible from all four scripts.                        |
 
 ## Allowed return types
 
@@ -38,7 +38,7 @@ The `state` can be a number, a string, a `map` (object) or an array (list), or a
 
 ## Using parameters in scripts
 
-You can optionally pass custom parameters to your scripts using the `params` field. This is a user-defined object whose contents become variables available in your `init_script`, `map_script`, and `combine_script`. The `reduce_script` does not directly receive `params` because by the `reduce` phase, all needed data must be in the `states` array. If you need a constant in the `reduce` phase, you can include it as part of each shard's `state` or use a stored script. All parameters must be defined inside the global `params` object. This ensures that they are shared across the different script phases. If you do not specify any `params`, the `params` object is empty. 
+You can optionally pass custom parameters to your scripts using the `params` field. This is a user-defined object whose contents are available in all four scripts as `params`. If you do not specify any `params`, the `params` object is empty. You can also define `params` on an individual script object, for example, `"reduce_script": {"source": "...", "params": {...}}`. OpenSearch merges these parameters with the top-level `params`. A parameter name can't appear in both places; if it does, the request fails. 
 
 For example, you can supply a `threshold` or `field` name in `params` and then reference `params.threshold` or `params.field` in your scripts:
 
@@ -136,7 +136,223 @@ The response returns the `total_profit`:
   },
   "aggregations": {
     "total_profit": {
-      "value": 170
+      "value": 170.0
+    }
+  }
+}
+```
+
+### Shard-by-shard walkthrough
+
+To see how the four phases process the data, run the net profit calculation on an index with two shards. Create the index:
+
+```json
+PUT transactions_2shards
+{
+  "settings": {
+    "number_of_shards": 2
+  },
+  "mappings": {
+    "properties": {
+      "type":   { "type": "keyword" },
+      "amount": { "type": "double" }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Index the four transactions. The `routing` values place documents 1 and 3 on shard 0 and documents 2 and 4 on shard 1:
+
+```json
+POST transactions_2shards/_bulk?refresh
+{ "index": { "_id": "1", "routing": "a" } }
+{ "type": "sale", "amount": 80 }
+{ "index": { "_id": "2", "routing": "b" } }
+{ "type": "cost", "amount": 10 }
+{ "index": { "_id": "3", "routing": "a" } }
+{ "type": "cost", "amount": 30 }
+{ "index": { "_id": "4", "routing": "b" } }
+{ "type": "sale", "amount": 130 }
+```
+{% include copy-curl.html %}
+
+The following table shows the result of each phase of the net profit calculation on each shard.
+
+| Phase | Shard 0 (documents 1 and 3) | Shard 1 (documents 2 and 4) |
+| :--- | :--- | :--- |
+| Before `init_script` | `{}` | `{}` |
+| After `init_script` | `{"transactions": []}` | `{"transactions": []}` |
+| After `map_script` | `{"transactions": [80.0, -30.0]}` | `{"transactions": [-10.0, 130.0]}` |
+| After `combine_script` | `50.0` | `120.0` |
+
+The `reduce_script` then runs once on the coordinating node. It receives the `states` array `[50.0, 120.0]` and returns their sum, `170.0`.
+
+The order of the entries in `states` isn't guaranteed, so you might see `[120.0, 50.0]` instead. Write the `reduce_script` so that its result doesn't depend on the order of the shard results.
+{: .note}
+
+To inspect the intermediate results yourself, make the later scripts return their input unchanged. For example, the following request returns each shard's `state` after the `map_script` by returning `state` from the `combine_script` and `states` from the `reduce_script`:
+
+```json
+GET transactions_2shards/_search
+{
+  "size": 0,
+  "aggs": {
+    "profit": {
+      "scripted_metric": {
+        "init_script": "state.transactions = []",
+        "map_script": "state.transactions.add(doc['type'].value == 'sale' ? doc['amount'].value : -1 * doc['amount'].value)",
+        "combine_script": "return state",
+        "reduce_script": "return states"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains one `state` object for each shard:
+
+```json
+{
+  ...
+  "aggregations": {
+    "profit": {
+      "value": [
+        {
+          "transactions": [
+            80.0,
+            -30.0
+          ]
+        },
+        {
+          "transactions": [
+            -10.0,
+            130.0
+          ]
+        }
+      ]
+    }
+  }
+}
+```
+
+Similarly, to see the result of the `combine_script` on each shard, keep the original `combine_script` and return `states` from the `reduce_script`:
+
+```json
+GET transactions_2shards/_search
+{
+  "size": 0,
+  "aggs": {
+    "profit": {
+      "scripted_metric": {
+        "init_script": "state.transactions = []",
+        "map_script": "state.transactions.add(doc['type'].value == 'sale' ? doc['amount'].value : -1 * doc['amount'].value)",
+        "combine_script": "double p = 0; for (t in state.transactions) { p += t } return p",
+        "reduce_script": "return states"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains the profit calculated on each shard:
+
+```json
+{
+  ...
+  "aggregations": {
+    "profit": {
+      "value": [
+        50.0,
+        120.0
+      ]
+    }
+  }
+}
+```
+
+
+### Using stored scripts
+
+You can store each script using the [Create or Update Stored Script API]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/) and reference it by `id`. The following requests store the four scripts from the preceding example. The `map_script` reads the name of the amount field from `params.field`:
+
+```json
+PUT _scripts/profit_init
+{
+  "script": {
+    "lang": "painless",
+    "source": "state.transactions = []"
+  }
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT _scripts/profit_map
+{
+  "script": {
+    "lang": "painless",
+    "source": "double v = doc[params.field].value; state.transactions.add(doc['type'].value == 'sale' ? v : -1 * v)"
+  }
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT _scripts/profit_combine
+{
+  "script": {
+    "lang": "painless",
+    "source": "double p = 0; for (t in state.transactions) { p += t } return p"
+  }
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT _scripts/profit_reduce
+{
+  "script": {
+    "lang": "painless",
+    "source": "double p = 0; for (s in states) { if (s != null) { p += s } } return p"
+  }
+}
+```
+{% include copy-curl.html %}
+
+The following request references the stored scripts by `id`. Define the parameters in the top-level `params` object so that they are available to all of the scripts:
+
+```json
+GET transactions/_search
+{
+  "size": 0,
+  "aggs": {
+    "total_profit": {
+      "scripted_metric": {
+        "init_script": { "id": "profit_init" },
+        "map_script": { "id": "profit_map" },
+        "combine_script": { "id": "profit_combine" },
+        "reduce_script": { "id": "profit_reduce" },
+        "params": {
+          "field": "amount"
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains the same `total_profit` as the preceding example:
+
+```json
+{
+  ...
+  "aggregations": {
+    "total_profit": {
+      "value": 170.0
     }
   }
 }
@@ -183,7 +399,7 @@ To run a scripted metric aggregation that counts the categories, use the followi
 
 - The `init_script` initializes counters for `error`, `success`, and `other` to `0`. 
 - The `map_script` examines each document's response code and increments the relevant counter based on the response code. 
-- The `combine_script` returns the `state.responses map` for that shard.
+- The `combine_script` returns the `state.responses` map for that shard.
 - The `reduce_script` merges the array of maps (`states`) from all shards. Thus, it creates a new combined `map` and adds the `error`, `success`, and `other` counts from each shard's `map`. This combined `map` is returned as the final result.
 
 The following request contains all described scripts:
@@ -257,10 +473,96 @@ The response returns three values in the `value` object, demonstrating how a scr
 }
 ```
 
-## Managing empty buckets (no documents)
+## Managing empty buckets
 
-When using a `scripted_metric` aggregation as a subaggregation within a bucket aggregation (such as `terms`), it is important to account for buckets that contain no documents on certain shards. In such cases, those shards return a `null` value for the aggregation `state`. During the `reduce_script` phase, the `states` array may therefore include `null` entries corresponding to these shards. To ensure reliable execution, the `reduce_script` must be designed to handle `null` values gracefully. A common approach is to include a conditional check, such as `if (state != null)`, before accessing or operating on each `state`. Failure to implement such checks can result in runtime errors when processing empty buckets across shards.
+A shard that has no matching documents still runs the `init_script` and `combine_script`, so it contributes the result of the `combine_script` to the `states` array. However, some bucket aggregations create empty buckets that are not collected on any shard. For example, a `histogram` or `date_histogram` aggregation returns empty buckets between the first and last buckets that contain documents. For these buckets, the `states` array contains `null`.
 
+The following request groups the transactions into histogram buckets of 25 and calculates the profit in each bucket. The transactions have amounts of 10, 30, 80, and 130, so the buckets for 50 and 100 are empty. The `reduce_script` checks for `null` before adding each state:
+
+```json
+GET transactions/_search
+{
+  "size": 0,
+  "aggs": {
+    "by_amount": {
+      "histogram": {
+        "field": "amount",
+        "interval": 25
+      },
+      "aggs": {
+        "profit": {
+          "scripted_metric": {
+            "init_script": "state.transactions = []",
+            "map_script": "state.transactions.add(doc['type'].value == 'sale' ? doc['amount'].value : -1 * doc['amount'].value)",
+            "combine_script": "double s = 0; for (t in state.transactions) { s += t } return s",
+            "reduce_script": "double total = 0; for (s in states) { if (s != null) { total += s } } return total"
+          }
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The empty buckets report a profit of `0`:
+
+```json
+{
+  ...
+  "aggregations": {
+    "by_amount": {
+      "buckets": [
+        {
+          "key": 0.0,
+          "doc_count": 1,
+          "profit": {
+            "value": -10.0
+          }
+        },
+        {
+          "key": 25.0,
+          "doc_count": 1,
+          "profit": {
+            "value": -30.0
+          }
+        },
+        {
+          "key": 50.0,
+          "doc_count": 0,
+          "profit": {
+            "value": 0.0
+          }
+        },
+        {
+          "key": 75.0,
+          "doc_count": 1,
+          "profit": {
+            "value": 80.0
+          }
+        },
+        {
+          "key": 100.0,
+          "doc_count": 0,
+          "profit": {
+            "value": 0.0
+          }
+        },
+        {
+          "key": 125.0,
+          "doc_count": 1,
+          "profit": {
+            "value": 130.0
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+Without the `if (s != null)` check, the `reduce_script` fails with a `null_pointer_exception` for the empty buckets. Always check for `null` entries in the `states` array.
+{: .important}
 
 ## Performance considerations
 

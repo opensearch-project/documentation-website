@@ -121,3 +121,7 @@ For example, in the `movies` index, if you include `actors`, `title`, and `year`
 ## Interaction with document-level security
 
 [Document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/) relies on OpenSearch queries, which means that all fields in the query must be visible in order for it to work properly. If you use field-level security in conjunction with document-level security, make sure you don't restrict access to the fields that document-level security uses.
+
+## Updating documents using scripts
+
+The Security plugin blocks the update by script operation (`POST <index>/_update/<id>`) when field-level security, document-level security, or field masking is active. To update documents, use the index operation (`PUT <index>/_doc/<id>`).

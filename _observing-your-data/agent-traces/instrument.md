@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Instrumenting your application
-parent: Agent traces
+parent: Agent monitoring
+grand_parent: Observability workspace apps
 nav_order: 10
 ---
 
@@ -115,7 +116,7 @@ The `enrich()` function adds GenAI semantic attributes to the active span:
 from opentelemetry_genai_sdk import enrich
 
 enrich(
-    model="gpt-4",
+    model="gpt-4o-mini",
     provider="openai",
     input_tokens=150,
     output_tokens=50,

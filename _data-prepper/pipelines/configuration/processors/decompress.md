@@ -47,7 +47,7 @@ decompress-logs-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: admin_passwrd
+        password: "<custom-admin-password>"
         index_type: custom
         index: decompressed-logs-%{yyyy.MM.dd}
         tags_target_key: "tags"

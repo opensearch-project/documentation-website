@@ -11,7 +11,7 @@ redirect_from:
 
 The OpenSearch CLI command line interface (`opensearch-cli`) lets you manage your OpenSearch cluster from the command line and automate tasks.
 
-Currently, `opensearch-cli` supports the [Anomaly Detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/) and [k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/) plugins, along with arbitrary REST API paths. Among other things, you can use `opensearch-cli` to create and delete detectors, start and stop them, and check k-NN statistics.
+The `opensearch-cli` supports the [Anomaly Detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/) and [k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/) plugins, along with arbitrary REST API paths. Among other things, you can use `opensearch-cli` to create and delete detectors, start and stop them, and check k-NN statistics.
 
 Profiles let you easily access different clusters or sign requests with different credentials. `opensearch-cli` supports unauthenticated requests, HTTP basic signing, and IAM signing for Amazon Web Services.
 

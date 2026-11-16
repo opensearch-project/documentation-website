@@ -9,6 +9,25 @@ nav_order: 130
 
 The `standard` tokenizer is the default tokenizer in OpenSearch. It tokenizes text based on word boundaries using a grammar-based approach that recognizes letters, digits, and other characters like punctuation. It is highly versatile and suitable for many languages because it uses Unicode text segmentation rules ([UAX#29](https://unicode.org/reports/tr29/)) to break text into tokens.
 
+## Tokenization rules
+
+The `standard` tokenizer follows the word boundary rules defined in [Unicode Standard Annex #29: Unicode Text Segmentation](https://unicode.org/reports/tr29/). The following table summarizes how these rules apply to common input.
+
+Input | Rule | Tokens
+:--- | :--- | :---
+`fast, and scalable.` | Whitespace and most punctuation, such as commas, hyphens, slashes, `+`, `#`, `%`, and `@`, split text and are removed. | `fast`, `and`, `scalable`
+`can't`, `O'Neil` | An apostrophe between two letters does not split the word. | `can't`, `O'Neil`
+`end. Next` | A period followed by a space splits the text. | `end`, `Next`
+`hello.world`, `U.S.A.` | A period between two letters does not split the word. A trailing period is removed. | `hello.world`, `U.S.A`
+`3.5`, `1,000`, `v1.2.3` | A period or comma between two digits does not split the number. | `3.5`, `1,000`, `v1.2.3`
+`snake_case` | Underscores do not split words. | `snake_case`
+`state-of-the-art` | Hyphens split words. | `state`, `of`, `the`, `art`
+`admin@example.com` | Email addresses are split at the `@` sign. | `admin`, `example.com`
+`https://opensearch.org/docs` | URLs are split at the colon and slashes. | `https`, `opensearch.org`, `docs`
+`東京`, `こんにちは` | Each ideographic and hiragana character becomes a separate token. | `東`, `京`, `こ`, `ん`, `に`, `ち`, `は`
+
+To keep email addresses and URLs as single tokens, use the [`uax_url_email` tokenizer]({{site.url}}{{site.baseurl}}/analyzers/tokenizers/uax-url-email/). Tokens longer than `max_token_length` are split at that length. For more information, see [Parameters](#parameters).
+
 ## Example usage
 
 The following example request creates a new index named `my_index` and configures an analyzer with a `standard` tokenizer:

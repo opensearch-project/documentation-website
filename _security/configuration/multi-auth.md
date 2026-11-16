@@ -7,7 +7,7 @@ nav_order: 45
 
 # Configuring Dashboards sign-in for multiple authentication options
 
-You can configure the sign-in window for OpenSearch Dashboards to provide either a single option for authenticating users at sign-in or multiple options. Currently, Dashboards supports basic authentication, OpenID Connect, and SAML as the multiple options.
+You can configure the sign-in window for OpenSearch Dashboards to provide either a single option for authenticating users at sign-in or multiple options. Dashboards supports basic authentication, OpenID Connect, and SAML as the multiple options.
 
 ## General steps for configuring multiple authentication options
 
@@ -33,7 +33,7 @@ opensearch_security.auth.type: "openid"
 ```
 {% include copy.html %}
 
-For multiple authentication options, add values to the setting as an array separated by commas. As a reminder, Dashboards currently supports a combination of basic authentication, OpenID Connect, and SAML as a valid set of values. In the setting, these values are expressed as `"basicauth"`, `"openid"`, and `"saml"`.
+For multiple authentication options, add values to the setting as an array separated by commas. OpenSearch Dashboards supports a combination of basic authentication, OpenID Connect, and SAML as a valid set of values. In the setting, these values are expressed as `"basicauth"`, `"openid"`, and `"saml"`.
 
 ```yml
 opensearch_security.auth.type: ["basicauth","openid"]

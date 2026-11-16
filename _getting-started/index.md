@@ -41,19 +41,28 @@ Watch this video to explore key features of OpenSearch and see a demo of its cor
 
 {% include youtube-player.html id='u1zxUSWWGjs' %}
 
+## Learn OpenSearch basics
+
+To learn the basics of OpenSearch, install it, and run your first searches, follow these steps in order. You'll learn how to store and retrieve data using OpenSearch and how to explore sample data using OpenSearch Dashboards, the web interface for OpenSearch.
+
+{% include list.html list_items=page.next_steps %}
+
 ## OpenSearch components
 
 OpenSearch is more than just the core engine. The following components ingest, query, and visualize the data in your cluster:
 
-- [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/): A server-side data collector capable of filtering, enriching, transforming, normalizing, and aggregating data for downstream analysis and visualization.
-- [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/): The OpenSearch data visualization UI.
+- [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/): A server-side data collector capable of filtering, enriching, transforming, normalizing, and aggregating data for downstream analysis and visualization.
+- [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/getting-started/index/): The OpenSearch data visualization UI.
 - [Clients]({{site.url}}{{site.baseurl}}/clients/): Language APIs that let you communicate with OpenSearch in several popular programming languages.
 
 The following image shows how these components interact.
 
 ![OpenSearch Data Prepper transforms and enriches data from your data sources and ingests it into the OpenSearch core engine, your application ingests and searches data using the REST API or a language client, and OpenSearch Dashboards visualizes the data]({{site.url}}{{site.baseurl}}/images/getting-started/components.png){: width="900" }
 
-OpenSearch provides additional tools for specific tasks. Use [OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/) to measure the performance of your cluster and [Migration Assistant]({{site.url}}{{site.baseurl}}/migration-assistant/) to migrate to OpenSearch from another search engine.
+OpenSearch provides additional tools for specific tasks:
+
+- [OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/benchmark/quickstart/): Measures the performance of your cluster.
+- [Migration Assistant]({{site.url}}{{site.baseurl}}/migration-assistant/): Helps you migrate to OpenSearch from another search engine.
 
 ## Common use cases
 
@@ -73,6 +82,4 @@ Another popular use case is [observability]({{site.url}}{{site.baseurl}}/observi
 
 ## Next steps
 
-To learn OpenSearch and run your first searches, follow these steps in order. Each one builds on the cluster and data created by the ones before it, so start by installing OpenSearch and work through the sequence.
-
-{% include list.html list_items=page.next_steps %}
+- To learn how OpenSearch stores data and ranks search results, see [Intro to OpenSearch]({{site.url}}{{site.baseurl}}/getting-started/intro/).

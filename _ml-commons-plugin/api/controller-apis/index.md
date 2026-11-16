@@ -1,10 +1,10 @@
 ---
 layout: default
 title: Controller APIs
-parent: ML Commons APIs
+parent: ML APIs
 has_children: true
 has_toc: false
-nav_order: 60
+nav_order: 40
 redirect_from:
   - /ml-commons-plugin/api/controller-apis/
 ---
@@ -15,7 +15,7 @@ redirect_from:
 
 You can configure a rate limit for a specific user or users of a model by calling the Controller APIs. 
 
-ML Commons supports the following controller-level APIs:
+OpenSearch supports the following controller APIs:
 
 - [Create or update controller]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/controller-apis/create-controller/)
 - [Get controller]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/controller-apis/get-controller/)

@@ -13,6 +13,8 @@ redirect_from:
 
 This tutorial shows you how to implement retrieval-augmented generation (RAG) using [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/) and the [DeepSeek-R1 model](https://huggingface.co/deepseek-ai/DeepSeek-R1).
 
+To run the steps in this tutorial from a Jupyter notebook, use [the DeepSeek RAG demo notebook](https://github.com/opensearch-project/ml-commons/blob/main/docs/tutorials/aws/DeepSeek_demo_notebook_for_RAG.ipynb).
+
 If you are using self-managed OpenSearch instead of Amazon OpenSearch Service, create a connector to the DeepSeek-R1 model using [the blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/deepseek_connector_chat_blueprint.md). For more information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). Then go directly to [Step 4](#step-4-create-and-test-the-model).
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
@@ -27,7 +29,7 @@ When configuring Amazon settings, only change the values mentioned in this tutor
 
 ### Deploy DeepSeek-R1 to Amazon SageMaker
 
-Follow the instructions in [this blog post](https://community.aws/content/2sG84dNUCFzA9z4HdfqTI0tcvKP/deploying-deepseek-r1-on-amazon-sagemaker) to deploy the DeepSeek-R1 model to Amazon SageMaker.
+Follow the instructions in [this blog post](https://builder.aws.com/content/2sG84dNUCFzA9z4HdfqTI0tcvKP/deploying-deepseek-r1-on-amazon-sagemaker) to deploy the DeepSeek-R1-Distill-Qwen-14B model to Amazon SageMaker.
 
 Note the Amazon SageMaker DeepSeek-R1 model Amazon Resource Name (ARN) and URL; you'll use them in the following steps.
 
@@ -127,7 +129,7 @@ You'll use the `your_iam_user_arn` IAM user to assume the role in Step 3.
     {
       "Effect": "Allow",
       "Action": "es:ESHttpPost",
-      "Resource": "your_opensearch_domain_arn"
+      "Resource": "your_opensearch_domain_arn/*"
     }
   ]
 }
@@ -308,15 +310,7 @@ Log in to OpenSearch Dashboards, open the DevTools console, and run the followin
             {
               "name": "response",
               "dataAsMap": {
-                "response": [
-                  {
-                    "generated_text": """hello<think>
-
-    </think>
-
-    Hello! How can I assist you today? 😊"""
-                  }
-                ]
+                "completion": "hello<think>\n\n</think>\n\nHello! How can I assist you today? 😊"
               }
             }
           ],
@@ -357,7 +351,56 @@ PUT /_search/pipeline/my-conversation-search-pipeline-deepseek
 
 ### Step 5.2: Create a vector database
 
-Follow steps 1 and 2 of [this tutorial]({{site.url}}{{site.baseurl}}/search-plugins/neural-search-tutorial/) to create an embedding model and a vector index. Then ingest sample data into the index:
+Amazon OpenSearch Service doesn't support local models, so use an externally hosted embedding model. To create one, follow Steps 1--4 of [Semantic search using Amazon Bedrock Titan]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-search/semantic-search-bedrock-titan/).
+
+Create an ingest pipeline that uses the embedding model to generate embeddings from the `text` field:
+
+```json
+PUT /_ingest/pipeline/my-nlp-ingest-pipeline
+{
+  "description": "text embedding pipeline",
+  "processors": [
+    {
+      "text_embedding": {
+        "model_id": "your_embedding_model_id",
+        "field_map": {
+          "text": "passage_embedding"
+        }
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+Create a vector index that uses the pipeline. The `dimension` must match the embedding model's output dimension, which is 1,536 for the Amazon Bedrock Titan Text Embeddings model:
+
+```json
+PUT /my-nlp-index
+{
+  "settings": {
+    "index": {
+      "default_pipeline": "my-nlp-ingest-pipeline",
+      "knn": "true"
+    }
+  },
+  "mappings": {
+    "properties": {
+      "passage_embedding": {
+        "type": "knn_vector",
+        "dimension": 1536,
+        "space_type": "cosinesimil"
+      },
+      "text": {
+        "type": "text"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Ingest sample data into the index:
 
 ```json
 POST _bulk
@@ -387,7 +430,7 @@ GET /my-nlp-index/_search?search_pipeline=my-conversation-search-pipeline-deepse
     "neural": {
       "passage_embedding": {
         "query_text": "What's the population increase of New York City from 2021 to 2023? How is the trending comparing with Miami?",
-        "model_id": "USkHsZQBts7fa6bybx3G",
+        "model_id": "your_embedding_model_id",
         "k": 5
       }
     }
@@ -479,3 +522,11 @@ The population of New York City increased by 114,000 from 2021 to 2023. The grow
   }
 }
 ```
+
+## Related documentation
+
+- [Conversational search with RAG]({{site.url}}{{site.baseurl}}/vector-search/ai-search/conversational-search/)
+- [Connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/)
+- [Retrieval-augmented generation processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rag-processor/)
+- [Text embedding processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-embedding/)
+- [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/)

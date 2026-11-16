@@ -149,7 +149,7 @@ The following example request creates an ingest pipeline where the text from `pa
 ```json
 PUT /_ingest/pipeline/nlp-ingest-pipeline-sparse
 {
-  "description": "An sparse encoding ingest pipeline",
+  "description": "A sparse encoding ingest pipeline",
   "processors": [
     {
       "sparse_encoding": {
@@ -275,11 +275,11 @@ GET my-nlp-index/_search
 ```
 {% include copy-curl.html %}
 
-The response contains the matching documents:
+The response contains the matching documents. The following response is for bi-encoder mode:
 
 ```json
 {
-  "took" : 688,
+  "took" : 45,
   "timed_out" : false,
   "_shards" : {
     "total" : 1,
@@ -292,39 +292,25 @@ The response contains the matching documents:
       "value" : 2,
       "relation" : "eq"
     },
-    "max_score" : 30.0029,
+    "max_score" : 34.865364,
     "hits" : [
       {
         "_index" : "my-nlp-index",
         "_id" : "1",
-        "_score" : 30.0029,
+        "_score" : 34.865364,
         "_source" : {
           "passage_text" : "Hello world",
           "passage_embedding" : {
-            "!" : 0.8708904,
-            "door" : 0.8587369,
-            "hi" : 2.3929274,
-            "worlds" : 2.7839446,
-            "yes" : 0.75845814,
-            "##world" : 2.5432441,
-            "born" : 0.2682308,
-            "nothing" : 0.8625516,
-            "goodbye" : 0.17146169,
-            "greeting" : 0.96817183,
-            "birth" : 1.2788506,
-            "come" : 0.1623208,
-            "global" : 0.4371151,
-            "it" : 0.42951578,
-            "life" : 1.5750692,
-            "thanks" : 0.26481047,
-            "world" : 4.7300377,
-            "tiny" : 0.5462298,
-            "earth" : 2.6555297,
-            "universe" : 2.0308156,
-            "worldwide" : 1.3903781,
-            "hello" : 6.696973,
-            "so" : 0.20279501,
-            "?" : 0.67785245
+            "hi" : 1.7058562,
+            "greeting" : 1.4859452,
+            "hey" : 1.0460025,
+            "hello" : 2.9297209,
+            "worlds" : 1.8736429,
+            "##world" : 1.912715,
+            "world" : 2.8314424,
+            "mundo" : 1.4463987,
+            "yes" : 1.1277477,
+            ...
           },
           "id" : "s1"
         }
@@ -332,16 +318,18 @@ The response contains the matching documents:
       {
         "_index" : "my-nlp-index",
         "_id" : "2",
-        "_score" : 16.480486,
+        "_score" : 22.617752,
         "_source" : {
           "passage_text" : "Hi planet",
           "passage_embedding" : {
-            "hi" : 4.338913,
-            "planets" : 2.7755864,
-            "planet" : 5.0969057,
-            "mars" : 1.7405145,
-            "earth" : 2.6087382,
-            "hello" : 3.3210192
+            "hi" : 2.9966009,
+            "high" : 1.5209199,
+            "planets" : 2.2623432,
+            "hawaii" : 1.618121,
+            "planet" : 2.927078,
+            "h" : 1.4045444,
+            "hello" : 1.808179,
+            ...
           },
           "id" : "s2"
         }
@@ -363,7 +351,7 @@ PUT /_search/pipeline/neural_search_pipeline
   "request_processors": [
     {
       "neural_query_enricher" : {
-        "default_model_id": "<bi-encoder model/tokenizer ID>"
+        "default_model_id": "<bi-encoder model ID or tokenizer ID>"
       }
     }
   ]

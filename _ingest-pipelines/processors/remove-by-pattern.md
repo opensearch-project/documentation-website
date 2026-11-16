@@ -24,7 +24,7 @@ The following is the syntax for the `remove_by_pattern` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `remove_by_pattern` processor.
 
@@ -36,13 +36,13 @@ The following table lists the required and optional parameters for the `remove_b
 `if` | Optional | A condition for running the processor. |
 `ignore_failure` | Optional | Specifies whether the processor continues execution even if it encounters errors. If set to `true`, the failure is ignored. Default is `false`. |
 `on_failure` | Optional | A list of processors to run if the processor fails. |
-`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. |
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging). |
 
 ## Using the processor
 
 Follow these steps to use the processor in a pipeline.
 
-**Step 1: Create a pipeline** 
+### Step 1: Create a pipeline
 
 The following query creates a pipeline named `remove_fields_by_pattern` that removes the fields that match the pattern `foo*`: 
 
@@ -61,7 +61,7 @@ PUT /_ingest/pipeline/remove_fields_by_pattern
 ```
 {% include copy-curl.html %}
 
-**Step 2 (Optional): Test the pipeline**
+### Step 2 (Optional): Test the pipeline
 
 It is recommended that you test your pipeline before you ingest documents.
 {: .tip}
@@ -86,8 +86,6 @@ POST _ingest/pipeline/remove_fields_by_pattern/_simulate
 ```
 {% include copy-curl.html %}
 
-**Response**
-
 The following example response confirms that the pipeline is working as expected:
 
 ```json
@@ -109,7 +107,7 @@ The following example response confirms that the pipeline is working as expected
 }
 ```
 
-**Step 3: Ingest a document**
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `testindex1`:
 
@@ -123,7 +121,7 @@ PUT testindex1/_doc/1?pipeline=remove_fields_by_pattern
 ```
 {% include copy-curl.html %}
 
-**Step 4 (Optional): Retrieve the document**
+### Step 4 (Optional): Retrieve the document
 
 To retrieve the document, run the following query:
 
@@ -131,3 +129,5 @@ To retrieve the document, run the following query:
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
+
+The response contains the ingested document, transformed as shown in the response in Step 2.

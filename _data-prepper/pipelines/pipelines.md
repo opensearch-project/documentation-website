@@ -94,7 +94,7 @@ routes-demo-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: admin_pass
+        password: "<custom-admin-password>"
         index_type: custom
         index: routed-errors-%{yyyy.MM.dd}
         routes: [errors]
@@ -104,7 +104,7 @@ routes-demo-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: admin_pass
+        password: "<custom-admin-password>"
         index_type: custom
         index: routed-slow-%{yyyy.MM.dd}
         routes: [slow_requests]
@@ -114,7 +114,7 @@ routes-demo-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: admin_pass
+        password: "<custom-admin-password>"
         index_type: custom
         index: routed-other-%{yyyy.MM.dd}
 ```

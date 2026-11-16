@@ -1,14 +1,14 @@
 ---
 layout: default
 title: Get configuration
-parent: Configuration APIs
+parent: Security configuration APIs
 grand_parent: Security APIs
 nav_order: 30
 redirect_from:
   - /api-reference/security/configuration/get-configuration/
 ---
 
-# Get Configuration API
+# Get Security Configuration API
 **Introduced 2.10**
 {: .label .label-purple }
 

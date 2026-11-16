@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Analyzing logs in Discover
-nav_order: 30
-parent: Using Discover for observability
+title: Logs
+nav_order: 20
+parent: Observability workspace apps
 redirect_from:
   - /observability-plugin/discover-logs/
 ---
@@ -29,7 +29,6 @@ Before using the **Logs** page, ensure that you have fulfilled the following pre
 
    ```yaml
    workspace.enabled: true
-   data_source.enabled: true
    explore.enabled: true
    ```
    {% include copy.html %}
@@ -48,7 +47,7 @@ Before using the **Logs** page, ensure that you have fulfilled the following pre
 To access the **Logs** page:
 
 1. Navigate to an observability workspace in OpenSearch Dashboards.
-2. In the left navigation, expand **Discover** and select **Logs**.
+2. In the left navigation, select **Logs**.
 
 ## Exploring log data
 

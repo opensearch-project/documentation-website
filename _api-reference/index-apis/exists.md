@@ -14,6 +14,9 @@ redirect_from:
 
 The index exists API operation returns whether or not an index already exists.
 
+The API returns a `200` status code if all specified indexes exist and a `404` status code if any of them does not exist. It does not distinguish between index names and [aliases]({{site.url}}{{site.baseurl}}/im-plugin/index-alias/), so it also returns `200` if you specify the name of an existing alias.
+{: .note}
+
 
 ## Endpoints
 

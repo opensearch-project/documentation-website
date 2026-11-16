@@ -217,7 +217,7 @@ echo "Enter password for keystore.jks"
 keytool -importkeystore -srckeystore admin-cert.p12 -srcstoretype pkcs12 -destkeystore keystore.jks
 
 # Import certificates to truststore
-keytool -importcert -keystore truststore.jks -file root-ca.cer -storepass changeit -trustcacerts -deststoretype pkcs12
+keytool -importcert -keystore truststore.jks -file root-ca.pem -storepass changeit -trustcacerts -deststoretype pkcs12
 
 # Cleanup
 rm combined-admin.pem
@@ -269,7 +269,7 @@ On one node, the security configuration portion of `opensearch.yml` might look l
 plugins.security.ssl.transport.pemcert_filepath: node1.pem
 plugins.security.ssl.transport.pemkey_filepath: node1-key.pem
 plugins.security.ssl.transport.pemtrustedcas_filepath: root-ca.pem
-plugins.security.ssl.transport.enforce_hostname_verification: false
+transport.ssl.enforce_hostname_verification: false
 plugins.security.ssl.http.enabled: true
 plugins.security.ssl.http.pemcert_filepath: node1.pem
 plugins.security.ssl.http.pemkey_filepath: node1-key.pem

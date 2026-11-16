@@ -21,7 +21,7 @@ The following table lists the passwords in an OpenSearch cluster.
 
 Passwords for users authenticated by an external backend, such as LDAP or Active Directory, are managed in that backend rather than in OpenSearch. For more information, see [Authentication backends]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/).
 
-The `OPENSEARCH_PASSWORD` environment variable is not an OpenSearch setting. Clients and tools, such as the [Reporting CLI]({{site.url}}{{site.baseurl}}/reporting/rep-cli-options/), read it to obtain the credentials they use when connecting to a cluster.
+The `OPENSEARCH_PASSWORD` environment variable is not an OpenSearch setting. Clients and tools, such as the [Reporting CLI]({{site.url}}{{site.baseurl}}/dashboards/reporting/rep-cli-options/), read it to obtain the credentials they use when connecting to a cluster.
 {: .note}
 
 ## Admin password

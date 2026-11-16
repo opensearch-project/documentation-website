@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Backfill
-nav_order: 6
+nav_order: 60
 parent: Migration workflows
+has_children: true
 permalink: /migration-assistant/migration-phases/backfill/
 redirect_from:
   - /migration-phases/backfill/
@@ -33,7 +34,7 @@ You define these in one workflow and let the platform orchestrate them.
 Run a small pilot before the full migration. Use a limited snapshot scope or a small metadata and RFS allow list to confirm that:
 
 - Snapshot creation is correct.
-- Source Amazon S3 access is correct.
+- Snapshot storage access (for example, to Amazon S3 or Google Cloud Storage) is correct.
 - Mappings migrate correctly.
 - Target indexing capacity is sufficient.
 - Any document-level errors are resolved before you run the full migration.
@@ -49,6 +50,9 @@ workflow configure edit
 {% include copy.html %}
 
 Then configure the snapshot migration section for your source, target, and snapshot repository.
+
+While you have the configuration open, set `documentBackfillConfig.failedDocumentStreamS3Bucket` to enable the failed document stream. The stream is off by default, and it must be enabled before the backfill runs in order to record which documents did not reach the target. For more information, see [Tracking and remediating failed documents]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/tracking-failed-documents/).
+{: .tip }
 
 ## Allow list types
 
@@ -78,11 +82,12 @@ If an index is excluded from the snapshot, the metadata and RFS allow lists cann
 
 ## Using an existing snapshot
 
-If you already created the snapshot outside the workflow, use `workflow configure sample --load` to confirm the exact structure for your installed version, then set the following parameter in your workflow configuration:
+If you already created the snapshot outside the workflow, use `workflow configure sample --load` to confirm the exact structure for your installed version, then set the following parameters in your workflow configuration:
 
-```text
-snapshotConfig.snapshotNameConfig.externallyManagedSnapshotName
-```
+- `source.snapshotRepo.repoPathUri` -- The object storage URI of the snapshot repository, either an Amazon S3 URI (`s3://<bucket>/<path>`) or a Google Cloud Storage URI (`gs://<bucket>/<path>`).
+- `snapshotConfig.snapshotNameConfig.externallyManagedSnapshotName` -- The name of the snapshot within that repository.
+
+When `externallyManagedSnapshotName` is set, the workflow skips snapshot creation and proceeds directly to metadata migration and Reindex-from-Snapshot using the repository you provided.
 
 ## Run and monitor the workflow
 
@@ -126,7 +131,7 @@ workflow log all --follow
 
 # Does a sample of the target look right?
 console clusters curl target /<index>/_count
-console clusters curl target /<index>/_search?size=5&pretty
+console clusters curl target "/<index>/_search?size=5&pretty"
 ```
 {% include copy.html %}
 
@@ -171,6 +176,8 @@ console clusters cat-indices
 console clusters curl target /<index>/_count
 ```
 {% include copy.html %}
+
+If the target document count is lower than the source count, individual documents failed to index. For more information, see [Tracking and remediating failed documents]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/tracking-failed-documents/).
 
 For zero-downtime migrations, complete backfill validation before replay begins the final synchronization step.
 

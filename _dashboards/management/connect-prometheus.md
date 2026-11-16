@@ -9,45 +9,70 @@ nav_order: 60
 Introduced 2.16
 {: .label .label-purple }
 
-This documentation covers the key steps to connect Prometheus to OpenSearch using the OpenSearch Dashboards interface, including setting up the data source connection, modifying the connection details, and creating an index pattern for the Prometheus data. 
+You can connect OpenSearch to a Prometheus server and query its metrics in OpenSearch Dashboards. OpenSearch doesn't copy the metrics. Instead, the SQL plugin sends each query to Prometheus when you run it, so the Prometheus URI must be reachable from the OpenSearch nodes.
 
-## Prerequisites and permissions
+## Prerequisites
 
-Before connecting a data source, ensure you have met the [Prerequisites]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/#prerequisites) and have the necessary [Permissions]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/#permissions).
+Before you create a connection, make sure that you have completed the following prerequisites:
 
-## Create a Prometheus data source connection
+- Set the `plugins.query.datasources.encryption.masterkey` setting on all OpenSearch nodes. OpenSearch uses this key to encrypt the stored connection credentials and rejects requests to create or update a connection if the key is not set. For more information, see [Prerequisites]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/#prerequisites).
+- Confirm that you have the required [Permissions]({{site.url}}{{site.baseurl}}/dashboards/management/data-sources/#permissions).
 
-A data source connection specifies the parameters needed to connect to a data source. These parameters form a connection string for the data source. Using OpenSearch Dashboards, you can add new **Prometheus** data source connections or manage existing ones.
+## Creating a Prometheus connection
 
-Follow these steps to connect your data source:
+To create a Prometheus connection, follow these steps:
 
-1. From the OpenSearch Dashboards main menu, go to **Management** > **Data sources** > **New data source** > **Prometheus**. 
+1. On the main menu, go to **Management** > **Dashboards Management** > **Data sources**.
+1. Select **Create direct query connection** > **Prometheus**.
+1. In the **Data source details** section, enter a **Data source name** and, optionally, a description. You use this name to refer to the connection in queries, for example, `source = my_prometheus.prometheus_http_requests_total`.
+1. In the **Prometheus data location** section, enter the **Prometheus URI**, for example, `http://prometheus.example.com:9090`.
+1. In the **Authentication details** section, select an **Authentication method**:
+    - **No authentication**: OpenSearch connects to Prometheus without credentials.
+    - **Basic authentication**: Enter a **Username** and **Password**.
+    - **AWS Signature Version 4**: Enter the **Auth Region**, **Access Key**, and **Secret Key**. Use this method for Amazon Managed Service for Prometheus.
+1. In the **Query permissions** section, select a **Query access level**:
+    - **Admin only**: Only the admin user can query the connection. This is the default.
+    - **Restricted**: Users with the OpenSearch roles that you select can query the connection. This option is available only when the Security plugin is installed.
+1. Select **Connect to Prometheus**.
 
-2. From the **Configure Prometheus data source** section: 
-   
-   - Under **Data source details**, provide a title and optional description.
-   - Under **Prometheus data location**, enter the Prometheus URI.
-   - Under **Authentication details**, select the appropriate authentication method from the dropdown list and enter the required details:
-       - **Basic authentication**: Enter a username and password.
-       - **AWS Signature Version 4**: Specify the **Region**, select the OpenSearch service from the **Service Name** list (**Amazon OpenSearch Service** or **Amazon OpenSearch Serverless**), and enter the **Access Key** and **Secret Key**.
-   - Under **Query permissions**, choose the role needed to search and index data. If you select **Restricted**, an additional field will become available to configure the required role.
+The new connection appears in the list of data sources.
 
-3. Select **Review Configuration** > **Connect to Prometheus** to save your settings. The new connection will appear in the list of data sources.
+You can also create a connection using the `_plugins/_query/_datasources` API. For an example, see [Metric analytics]({{site.url}}{{site.baseurl}}/observing-your-data/prometheusmetrics/#configuring-a-prometheus-connection-using-the-api).
 
-## Modify a data source connection
+## Querying Prometheus metrics
 
-To modify a data source connection, follow these steps: 
+To query the metrics, select the connection on the **Data sources** page and then select **Query data**. The **Metrics** page in Observability opens, where you can visualize Prometheus metrics. You can also query them using Piped Processing Language (PPL). For more information, see [Metric analytics]({{site.url}}{{site.baseurl}}/observing-your-data/prometheusmetrics/).
 
-1. Select the desired connection from the list on the **Data sources** main page. This will open the **Connection Details** window.
-2. Within the **Connection Details** window, edit the **Title** and **Description** fields. Select the **Save changes** button to apply the changes.
-3. To update the **Authentication Method**, choose the method from the dropdown list and enter any necessary credentials. Select **Save changes** to apply the changes.
-    - To update the **Basic authentication** authentication method, select the **Update stored password** button. Within the pop-up window, enter the updated password and confirm it and select **Update stored password** to save the changes. To test the connection, select the **Test connection** button.
-    - To update the **AWS Signature Version 4** authentication method, select the **Update stored AWS credential** button. Within the pop-up window, enter the updated access and secret keys and select **Update stored AWS credential** to save the changes. To test the connection, select the **Test connection** button.
+## Changing access to a connection
 
-## Delete a data source connection
+To change which users can query a connection, select the connection on the **Data sources** page. On the **Access control** tab, select **Edit**, update the **Query access level**, and save your changes.
 
-To delete the data source connection, select the {::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="delete icon"/>{:/} (delete) icon.
+## Updating a connection
 
-## Create an index pattern
+OpenSearch Dashboards doesn't support editing the Prometheus URI or the credentials of an existing connection. To update them, send a request to the `_plugins/_query/_datasources` API. The following request changes the Prometheus URI of the `my_prometheus` connection:
 
-After creating a data source connection, the next step is to create an index pattern for that data source. For more information and a tutorial on index patterns, refer to [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/). 
+```json
+PATCH _plugins/_query/_datasources
+{
+  "name": "my_prometheus",
+  "properties": {
+    "prometheus.uri": "http://prometheus.example.com:9090"
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Deleting a connection
+
+If [multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/) are enabled in OpenSearch Dashboards, you can delete a connection on the **Data sources** page. On the **Direct query connections** tab, select the connection, select **Delete 1 connection**, and then confirm the deletion. This tab lists only connections created in OpenSearch Dashboards.
+
+Otherwise, delete the connection using the API:
+
+```json
+DELETE _plugins/_query/_datasources/my_prometheus
+```
+{% include copy-curl.html %}
+
+## Related documentation
+
+- [Metric analytics]({{site.url}}{{site.baseurl}}/observing-your-data/prometheusmetrics/)

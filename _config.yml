@@ -6,10 +6,10 @@ latesturl: "/latest" # The subpath of the latest version. Used for non-version-s
 url: "https://docs.opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
-opensearch_version: '3.8.0'
-opensearch_dashboards_version: '3.8.0'
-opensearch_major_minor_version: '3.8'
-lucene_version: '10_5_0'
+opensearch_version: '3.9.0'
+opensearch_dashboards_version: '3.9.0'
+opensearch_major_minor_version: '3.9'
+lucene_version: '10_5_1'
 
 # Build settings
 markdown: kramdown
@@ -56,13 +56,7 @@ collections:
   ml-commons-plugin:
     permalink: /:collection/:path/
     output: true
-  monitoring-your-cluster:
-    permalink: /:collection/:path/
-    output: true
   observing-your-data:
-    permalink: /:collection/:path/
-    output: true
-  reporting:
     permalink: /:collection/:path/
     output: true
   analyzers:
@@ -107,16 +101,10 @@ collections:
   api-reference:
     permalink: /:collection/:path/
     output: true  
-  troubleshoot:
-    permalink: /:collection/:path/
-    output: true
   developer-documentation:
     permalink: /:collection/:path/
     output: true
   about:
-    permalink: /:collection/:path/
-    output: true
-  automating-configurations:
     permalink: /:collection/:path/
     output: true
   getting-started:
@@ -151,13 +139,13 @@ opensearch_collection:
       name: Migrate or upgrade
       nav_fold: true
     tuning-your-cluster:
-      name: Creating and tuning your cluster
+      name: Managing your cluster
       nav_fold: true
     security:
       name: Security
       nav_fold: true
     im-plugin:
-      name: Managing Indexes
+      name: Managing indexes
       nav_fold: true
     ingest-pipelines:
       name: Ingest Pipelines
@@ -187,13 +175,10 @@ opensearch_collection:
       name: Vector search
       nav_fold: true
     ml-commons-plugin:
-      name: Machine learning
+      name: AI and machine learning
       nav_fold: true
     ai-agent-integrations:
       name: AI agent integrations
-      nav_fold: true
-    automating-configurations:
-      name: Automating configurations
       nav_fold: true
     dashboards:
       name: OpenSearch Dashboards
@@ -204,20 +189,11 @@ opensearch_collection:
     security-analytics:
       name: Security analytics
       nav_fold: true
-    reporting:
-      name: Reporting
-      nav_fold: true
-    monitoring-your-cluster:
-      name: Monitoring your cluster
-      nav_fold: true
     tools:
       name: Tools
       nav_fold: true
     api-reference:
       name: API reference
-      nav_fold: true
-    troubleshoot:
-      name: Troubleshooting
       nav_fold: true
     developer-documentation:
       name: Developer documentation

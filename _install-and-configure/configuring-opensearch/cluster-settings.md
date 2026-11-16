@@ -1,15 +1,15 @@
 ---
 layout: default
-title: Cluster settings
+title: Cluster management settings
 parent: Configuring OpenSearch
 nav_order: 50
 ---
 
-# Cluster settings
+# Cluster management settings
 
-The following settings are related to the OpenSearch cluster.
+The following settings control shard allocation, coordination, fault detection, and other cluster-wide operations.
 
-To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+To learn how to apply these settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 ## Cluster-level routing and allocation settings
 
@@ -100,7 +100,7 @@ OpenSearch supports the following cluster-level routing and shard allocation set
 
 - `cluster.routing.weighted.strict` (Dynamic, Boolean): When enabled, enforces strict weighted routing where requests are only routed to nodes with appropriate weights. Default is `true`.
 
-- `cluster.routing.allocation.awareness.attributes` (Dynamic, list): See [Shard allocation awareness]({{site.url}}{{site.baseurl}}/tuning-your-cluster/index#shard-allocation-awareness).
+- `cluster.routing.allocation.awareness.attributes` (Dynamic, list): See [Shard allocation awareness]({{site.url}}{{site.baseurl}}/tuning-your-cluster/creating-a-cluster/#shard-allocation-awareness).
 
 - `cluster.routing.allocation.include.<attribute>` (Dynamic, enum): Allocates shards to a node whose `attribute` contains at least one of the included comma-separated values. 
 
@@ -117,7 +117,7 @@ OpenSearch supports the following cluster-level routing and shard allocation set
     - `_id` – Match nodes by node ID. 
     - `_tier` – Match nodes by data tier role.
 
-- `cluster.routing.allocation.awareness.force.<attribute>.values` (Dynamic, list): See [Forced awareness]({{site.url}}{{site.baseurl}}/tuning-your-cluster/index#forced-awareness).   
+- `cluster.routing.allocation.awareness.force.<attribute>.values` (Dynamic, list): See [Forced awareness]({{site.url}}{{site.baseurl}}/tuning-your-cluster/creating-a-cluster/#forced-awareness).   
 
 - `cluster.routing.allocation.shard_movement_strategy` (Dynamic, enum): Determines the order in which shards are relocated from outgoing to incoming nodes. 
 
@@ -233,9 +233,9 @@ For more information, see [Search request slow logs]({{site.url}}{{site.baseurl}
 
 - `cluster.search.request.slowlog.level` (String): Sets the minimum slow log level to log: `WARN`, `INFO`, `DEBUG`, and `TRACE`. Default is `TRACE`.
 
-## Cluster-level index settings
+## Cluster settings for indexes
 
-For information about index-level index settings, see [Cluster-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#cluster-level-index-settings).
+For information about cluster settings that apply to all indexes, see [Cluster settings for indexes]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/cluster-settings-for-indexes/).
 
 ## Cluster-level coordination settings
 

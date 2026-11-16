@@ -44,8 +44,8 @@ The `completion` field type supports the following mapping parameters.
 
 | Parameter   | Description   |
 | :--- | :--- |
-| `analyzer` | Specifies the index-time analyzer for input text. Default is `simple`. See [Index analyzers]({{site.url}}{{site.baseurl}}/analyzers/index-analyzers/).  |
-| `search_analyzer` | Defines the analyzer used at search time. Default is the value of `analyzer`. See [Search analyzers]({{site.url}}{{site.baseurl}}/analyzers/search-analyzers/). |
+| `analyzer` | Specifies the index-time analyzer for input text. Default is `simple`. See [Index analyzers]({{site.url}}{{site.baseurl}}/analyzers/index-analyzers/). For more information, see [Analyzer]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/analyzer/). |
+| `search_analyzer` | Defines the analyzer used at search time. Default is the value of `analyzer`. See [Search analyzers]({{site.url}}{{site.baseurl}}/analyzers/search-analyzers/). For more information, see [Search analyzer]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/search-analyzer/). |
 | `preserve_separators` | If `true` (default), preserves separators such as spaces or punctuation. If set to `false`, allows queries like `queensg` to match a suggestion like "Queen's Gambit".    |
 | `preserve_position_increments` | If `true` (default), maintains position increments for analyzed tokens. Setting this to `false` can match suggestions like "The Sicilian Defense" when typing `s` because it skips over stopwords like "The". Alternatively, you can index both "Sicilian Defense" and "The Sicilian Defense" as separate inputs without changing the analyzer. |
 | `max_input_length`             | Limits the length of each input string. Default is `50` UTF-16 code points. This applies only at index time to prevent large inputs from bloating the underlying data structure. Most prefix completions work well within this limit. Dynamically updatable. |
@@ -349,7 +349,7 @@ The following table lists the parameters accepted by the `fuzzy` completion sugg
 
 Parameter | Description 
 :--- | :--- 
-`fuzziness` | Fuzziness can be set as one of the following: <br> 1. An integer that specifies the maximum allowed [Damerau–Levenshtein distance](https://en.wikipedia.org/wiki/Damerau–Levenshtein_distance) for this edit. <br> 2. `AUTO`: Strings of 0–2 characters must match exactly, strings of 3–5 characters allow 1 edit, and strings longer than 5 characters allow 2 edits.<br> Default is `AUTO`.
+`fuzziness` | The maximum number of edits allowed when matching the prefix, specified as `0`, `1`, `2`, `AUTO`, or `AUTO:<low>,<high>`. Default is `AUTO`. For more information, see [Fuzziness]({{site.url}}{{site.baseurl}}/query-dsl/fuzziness/).
 `min_length` | An integer that specifies the minimum length the input must be to start returning suggestions. If the search term is shorter than `min_length`, no suggestions are returned. Default is 3.
 `prefix_length` | An integer that specifies the minimum length the matched prefix must be to start returning suggestions. If the prefix of `prefix_length` is not matched, but the search term is still within the Damerau–Levenshtein distance, no suggestions are returned. Default is 1.
 `transpositions` | A Boolean value that specifies to count transpositions (interchanges of adjacent characters) as one edit instead of two. Example: The suggestion's `input` parameter is `abcde` and the `fuzziness` is 1. If `transpositions` is set to `true`, `abdce` will match, but if `transpositions` is set to `false`, `abdce` will not match. Default is `true`.

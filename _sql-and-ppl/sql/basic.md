@@ -15,7 +15,7 @@ Use the `SELECT` clause, along with `FROM`, `WHERE`, `GROUP BY`, `HAVING`, `ORDE
 
 Among these clauses, `SELECT` and `FROM` are required, as they specify which fields to retrieve and which indexes to retrieve them from. All other clauses are optional. Use them according to your needs.
 
-### Syntax
+## Syntax
 
 The complete syntax for searching and aggregating data is as follows:
 
@@ -31,7 +31,7 @@ FROM index_name
 {% include copy.html %}
 
 
-### Fundamentals
+## Fundamentals
 
 Apart from the predefined keywords of SQL, the most basic elements are literal and identifiers.
 A literal is a numeric, string, date, or Boolean constant. An identifier is an OpenSearch index or field name.
@@ -55,7 +55,7 @@ Rule `predicate`:
 
 ![expression]({{site.url}}{{site.baseurl}}/images/predicate.png)
 
-### Execution order
+## Execution order
 
 These SQL clauses execute in an order different from how they appear:
 
@@ -71,7 +71,7 @@ FROM index
 {% include copy.html %}
 
 
-## Select
+## SELECT
 
 Specify the fields to be retrieved.
 
@@ -169,7 +169,7 @@ FROM accounts
 
 <!-- vale on -->
 
-## From
+## FROM
 
 Specify the index that you want search.
 You can specify subqueries within the `FROM` clause.
@@ -228,7 +228,7 @@ FROM account*
 
 <!-- vale on -->
 
-## Where
+## WHERE
 
 Specify a condition to filter the results.
 
@@ -352,7 +352,7 @@ GROUP BY ABS(age)
 
 <!-- vale on -->
 
-## Having
+## HAVING
 
 Use the `HAVING` clause to aggregate inside each bucket based on aggregation functions (`COUNT`, `AVG`, `SUM`, `MIN`, and `MAX`).
 The `HAVING` clause filters results from the `GROUP BY` clause:
@@ -416,7 +416,7 @@ ORDER BY employer IS NOT NULL
 
 <!-- vale on -->
 
-## Limit
+## LIMIT
 
 Specify the maximum number of documents that you want to retrieve. Used to prevent fetching large amounts of data into memory.
 

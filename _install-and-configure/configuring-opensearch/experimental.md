@@ -2,7 +2,7 @@
 layout: default
 title: Experimental feature flags
 parent: Configuring OpenSearch
-nav_order: 120
+nav_order: 180
 ---
 
 # Experimental feature flags
@@ -20,10 +20,10 @@ opensearch.experimental.feature.<feature_name>.enabled: true
 
 ## Enable on Docker containers
 
-If you’re running Docker, add the following line to `docker-compose.yml` under the `opensearch-node` > `environment` section:
+If you're running Docker Compose, add the flag to the `OPENSEARCH_JAVA_OPTS` variable in the `environment` section of each OpenSearch service in `docker-compose.yml`. Keep any options that the variable already contains, such as heap size settings:
 
-```bash
-OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.<feature_name>.enabled=true"
+```yaml
+- "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m -Dopensearch.experimental.feature.<feature_name>.enabled=true"
 ```
 {% include copy.html %}
 

@@ -1,3 +1,8 @@
+---
+has_children: true
+has_toc: false
+---
+
 # Test file
 
 This sentence tests Advanced Placement (AP). We should define AP before using.
@@ -93,3 +98,7 @@ This sentence tests 2 KB units spacing.
 This sentence tests version 1.2 not spelled out.
 
 This sentence tests terms by using Security plugin.
+
+## Related documentation
+
+This sentence tests a manual Related documentation section on a page that has children and no automatic table of contents.

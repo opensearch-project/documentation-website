@@ -20,12 +20,12 @@ To authenticate with a token, provide the token in the `credential` object and r
 POST /_plugins/_ml/connectors/_create
 {
     "name": "OpenAI Chat Connector",
-    "description": "The connector to public OpenAI model service for GPT 3.5",
+    "description": "The connector to public OpenAI model service for gpt-4o-mini",
     "version": 1,
     "protocol": "http",
     "parameters": {
         "endpoint": "api.openai.com",
-        "model": "gpt-3.5-turbo"
+        "model": "gpt-4o-mini"
     },
     "credential": {
         "openAI_key": "<openai_key>"
@@ -67,11 +67,23 @@ When `mutual_tls_enabled` is set to `true`, the `credential` object supports the
 | `keystore_password` | String | Optional | The password protecting the PKCS12 keystore. Omit it for a keystore that has no password. |
 | `ca_cert_pem` | String | Optional | One or more CA certificates, in PEM format, used to validate the endpoint's server certificate. Accepts a bundle of intermediate and root certificates. If omitted, the Java default truststore is used. Provide this field when the endpoint uses a private CA. |
 
-The `mutual_tls_enabled` and `keystore_type` fields belong to the connector's `client_config` object. For descriptions of both, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#request-body-fields).
+The `mutual_tls_enabled` and `keystore_type` fields belong to the connector's `client_config` object. For descriptions of both, see [The client_config object]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/#the-client_config-object).
 
 ### Prerequisites
 
 Before you configure mTLS, ensure that the following requirements are met:
+
+- Client certificate authentication is enabled on the cluster. It is disabled by default, and connector requests that set `mutual_tls_enabled` to `true` are rejected with a `403` error until you enable it. To enable it, set the `plugins.ml_commons.connector.mutual_tls_enabled` cluster setting to `true`:
+
+  ```json
+  PUT /_cluster/settings
+  {
+    "persistent": {
+      "plugins.ml_commons.connector.mutual_tls_enabled": true
+    }
+  }
+  ```
+  {% include copy-curl.html %}
 
 - The connector uses the `http` protocol. For more information, see [Restrictions](#restrictions).
 - The endpoint URL matches a trusted endpoint. For more information, see [Adding trusted endpoints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index#adding-trusted-endpoints).
@@ -198,14 +210,14 @@ OpenSearch detects the change and builds a new HTTP client for subsequent predic
 
 The following restrictions apply to client certificate authentication:
 
-- mTLS applies only to connectors that use the `http` protocol. Connectors that use the `aws_sigv4`, `mcp_sse`, or `mcp_streamable_http` protocol accept `mutual_tls_enabled` when they are created but ignore it at runtime.
+- mTLS applies only to connectors that use the `http` protocol and is not applied to streaming requests. Creating a connector that uses another protocol, such as `aws_sigv4`, with `mutual_tls_enabled` set to `true` returns a `400` error.
 - `skip_ssl_verification` and `mutual_tls_enabled` cannot both be set to `true`. Disabling server certificate validation removes the mutual part of mutual TLS, so provide `ca_cert_pem` to validate the server certificate against a private CA.
 - The `credential` object cannot contain `api_key` when mTLS is enabled. OpenSearch enforces certificate-only authentication and rejects mixed authentication methods.
 - File paths are not supported in certificate fields. Provide the certificate content itself.
-- Certificate material is validated on the first predict request. A connector with an invalid certificate configuration is created successfully and fails when it is first used.
+- Certificate material and the preceding `skip_ssl_verification` and `api_key` restrictions are validated on the first predict request. A connector with an invalid certificate configuration is created successfully and fails when it is first used.
 
 ## Next steps
 
 - To find the blueprint for your platform and model, see [OpenSearch-provided connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/).
 - To register and deploy a model that uses this connector, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
-- For descriptions of all connector fields, including the `client_config` object, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#request-body-fields).
+- For descriptions of all connector fields, including the `client_config` object, see [Create Connector API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/#request-body-fields).

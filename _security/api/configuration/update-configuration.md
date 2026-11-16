@@ -1,14 +1,14 @@
 ---
 layout: default
 title: Create or update configuration
-parent: Configuration APIs
+parent: Security configuration APIs
 grand_parent: Security APIs
 nav_order: 10
 redirect_from:
   - /api-reference/security/configuration/update-configuration/
 ---
 
-# Create or Update Configuration API
+# Create or Update Security Configuration API
 **Introduced 2.10**
 {: .label .label-purple }
 

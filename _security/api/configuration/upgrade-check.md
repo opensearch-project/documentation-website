@@ -1,14 +1,14 @@
 ---
 layout: default
 title: Check for upgrades
-parent: Configuration APIs
+parent: Security configuration APIs
 grand_parent: Security APIs
 nav_order: 40
 redirect_from:
   - /api-reference/security/configuration/upgrade-check/
 ---
 
-# Check for Upgrades API
+# Check for Security Configuration Upgrades API
 **Introduced 2.14**
 {: .label .label-purple }
 

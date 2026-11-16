@@ -9,6 +9,8 @@ nav_order: 160
 
 The `hunspell` token filter is used for stemming and morphological analysis of words in a specific language. This filter applies Hunspell dictionaries, which are widely used in spell checkers. It works by breaking down words into their root forms (stemming).
 
+If an algorithmic stemmer, such as the [`stemmer`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/stemmer/) or [`porter_stem`]({{site.url}}{{site.baseurl}}/analyzers/token-filters/porter-stem/) filter, is available for your language, try it before using `hunspell`. Algorithmic stemmers are faster, use less memory, and require no dictionary files, and they often produce comparable or better search results. For more information, see [Stemming]({{site.url}}{{site.baseurl}}/analyzers/stemming/).
+
 The Hunspell dictionary files are automatically loaded at startup from the `<OS_PATH_CONF>/hunspell/<locale>` directory. For example, the `en_GB` locale must have at least one `.aff` file and one or more `.dic` files in the `<OS_PATH_CONF>/hunspell/en_GB/` directory. 
 
 Alternatively, you can load dictionaries from a custom directory by using the `ref_path` parameter to maintain multiple independent dictionary sets for the same locale. For more information, see [Custom dictionary loading with ref_path](#custom-dictionary-loading).
@@ -24,7 +26,7 @@ The `hunspell` token filter can be configured with the following parameters.
 Parameter | Required/Optional | Data type | Description
 :--- | :--- | :--- | :--- 
 `language/lang/locale` | At least one of the three is required | String | Specifies the language for the Hunspell dictionary. Can contain only alphanumeric characters, hyphens, and underscores (for example, `en_US`, `de_DE`).
-`ref_path` | Optional | String | Specifies a relative path used to load dictionaries from the `<OS_PATH_CONF>/<ref_path>/hunspell/<locale>/` directory instead of the default `<OS_PATH_CONF>/hunspell/<locale>/` directory. When specified, the `locale` parameter is required. The `ref_path` value can contain alphanumeric characters, hyphens, underscores, and forward slashes (for nested paths such as `analyzers/my-dict`). The `locale` value can contain only alphanumeric characters, hyphens, and underscores. See [Custom dictionary loading with ref_path](#custom-dictionary-loading). **Note**: Starting in OpenSearch 3.7, `ref_path` resolves directly under `<OS_PATH_CONF>`. In earlier versions (3.6), it resolved under `<OS_PATH_CONF>/analyzers/`. To preserve the previous layout, prefix your `ref_path` value with `analyzers/` (for example, `analyzers/my-dict`).
+`ref_path` | Optional | String | Specifies a relative path used to load dictionaries from the `<OS_PATH_CONF>/<ref_path>/hunspell/<locale>/` directory instead of the default `<OS_PATH_CONF>/hunspell/<locale>/` directory. When specified, the `locale` parameter is required. The `ref_path` value can contain alphanumeric characters, hyphens, underscores, and forward slashes (for nested paths such as `analyzers/my-dict`). The `locale` value can contain only alphanumeric characters, hyphens, and underscores. See [Custom dictionary loading with ref_path](#custom-dictionary-loading). **Note**: `ref_path` resolves directly under `<OS_PATH_CONF>`. In OpenSearch 3.6 and earlier, it resolved under `<OS_PATH_CONF>/analyzers/`. To preserve the previous layout, prefix your `ref_path` value with `analyzers/` (for example, `analyzers/my-dict`).
 `dedup` | Optional | Boolean | Determines whether to remove multiple duplicate stemming terms for the same token. Default is `true`.
 `dictionary` | Optional | Array of strings | Configures the dictionary files to be used for the Hunspell dictionary. Default is all files in the `<OS_PATH_CONF>/hunspell/<locale>` directory if `ref_path` is not specified or all files in the `<OS_PATH_CONF>/<ref_path>/hunspell/<locale>/` directory when `ref_path` is specified. See [Custom dictionary loading with ref_path](#custom-dictionary-loading).
 `longest_only` | Optional | Boolean | Specifies whether only the longest stemmed version of the token should be returned. Default is `false`.
@@ -63,11 +65,23 @@ PUT /my_index
 ```
 {% include copy-curl.html %}
 
+## Hunspell node settings
+
+The following table lists the static node settings that control how OpenSearch loads Hunspell dictionaries from the default `<OS_PATH_CONF>/hunspell/` directory. Configure them in `opensearch.yml`.
+
+Setting | Data type | Description
+:--- | :--- | :---
+`indices.analysis.hunspell.dictionary.lazy` | Boolean | If `false`, OpenSearch loads every dictionary in the `hunspell` directory when the node starts and logs an error for any dictionary that fails to load. If `true`, OpenSearch loads each dictionary the first time a `hunspell` filter uses it, so dictionary errors appear only when an index or analysis request references the locale. Default is `false`.
+`indices.analysis.hunspell.dictionary.ignore_case` | Boolean | If `true`, words are matched to dictionary entries regardless of case. For example, if the dictionary contains `Jump` with an `-ing` suffix rule, the text `jumping` is stemmed to `jump` only when `ignore_case` is `true`. This setting applies to all locales. Default is `false`.
+`indices.analysis.hunspell.dictionary.<locale>.ignore_case` | Boolean | Sets `ignore_case` for one locale, for example, `indices.analysis.hunspell.dictionary.en_US.ignore_case`. Overrides the global `ignore_case` setting.
+
+You can also set `ignore_case` for a single dictionary by adding a `settings.yml` file to the locale directory, for example, `<OS_PATH_CONF>/hunspell/en_US/settings.yml` containing `ignore_case: true`. If both the file and the locale-specific node setting specify `ignore_case`, the node setting takes precedence.
+
 ## Custom dictionary loading
 
 When you specify a `ref_path` parameter, dictionaries are loaded from a custom directory instead of the default directory. This is useful when you need multiple independent dictionary sets for the same locale, for example, when different indexes require different custom dictionaries.
 
-Starting in OpenSearch 3.7, `ref_path` is resolved relative to `<OS_PATH_CONF>` and can contain forward slashes for nested paths. In OpenSearch 3.6, `ref_path` was resolved relative to `<OS_PATH_CONF>/analyzers/`. To preserve the previous directory layout when upgrading from 3.6, prefix your existing `ref_path` value with `analyzers/`.
+The `ref_path` value is resolved relative to `<OS_PATH_CONF>` and can contain forward slashes for nested paths. In OpenSearch 3.6 and earlier, `ref_path` was resolved relative to `<OS_PATH_CONF>/analyzers/`. To preserve the previous directory layout when upgrading from 3.6 or earlier, prefix your existing `ref_path` value with `analyzers/`.
 {: .note}
 
 Place dictionary files in the following directory structure:

@@ -272,8 +272,7 @@ POST /_cluster/reroute?retry_failed=true
 
 
 response = client.cluster.reroute(
-  params = { "retry_failed": "true" },
-  body = { "Insert body here" }
+  params = { "retry_failed": "true" }
 )
 
 {% endcapture %}

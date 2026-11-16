@@ -12,7 +12,7 @@ nav_order: 10
 
 Creates or replaces the specified user. You must specify either `password` (plain text) or `hash` (the hashed user password). If you specify `password`, the Security plugin automatically hashes the password before storing it.
 
-Note that any role you supply in the `opendistro_security_roles` array must already exist for the Security plugin to map the user to that role. To see predefined roles, refer to [the list of predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles). For instructions on how to create a role, see [Create or Update Role API]({{site.url}}{{site.baseurl}}/security/api/roles/create-role/).
+Note that any role you supply in the `opendistro_security_roles` array must already exist for the Security plugin to map the user to that role. To see predefined roles, refer to [the list of predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles). For instructions on how to create a role, see [Create or Update Roles API]({{site.url}}{{site.baseurl}}/security/api/roles/create-role/).
 
 <!-- spec_insert_start
 api: security.create_user
@@ -23,6 +23,14 @@ component: endpoints
 PUT /_plugins/_security/api/internalusers/{username}
 ```
 <!-- spec_insert_end -->
+
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `wait_for_completion` | Boolean | Whether to wait for the configuration write and reload to complete. When `false`, the API returns a task ID after validation. Default is `true`. |
 
 ## Request body fields
 
@@ -69,3 +77,13 @@ PUT _plugins/_security/api/internalusers/kirk
   "message": "'kirk' created."
 }
 ```
+
+If you set `wait_for_completion` to `false`, a successful submission returns HTTP status `200`, and the response contains a task ID instead of the completed result:
+
+```json
+{
+  "task": "oTUltX4IQMOUUVeiohTt8A:1234"
+}
+```
+
+Use the [Get Task API]({{site.url}}{{site.baseurl}}/api-reference/tasks/get-tasks/) to retrieve the task's status and result. For more information, see [Using wait_for_completion for configuration changes]({{site.url}}{{site.baseurl}}/security/api/index/#using-wait_for_completion-for-configuration-changes).

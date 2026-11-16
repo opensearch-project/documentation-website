@@ -28,7 +28,7 @@ AG-UI agents can use two types of tools:
 Before using AG-UI agents, you must enable the feature by updating your cluster settings. The `ag_ui_enabled` and `stream_enabled` settings are required, while `mcp_connector_enabled` (to connect to Model Context Protocol [MCP] servers) and `unified_agent_api_enabled` are optional but recommended:
 
 ```json
-PUT _cluster/settings
+PUT /_cluster/settings
 {
   "persistent": {
     "plugins.ml_commons.ag_ui_enabled": true,
@@ -149,7 +149,7 @@ The following table lists the request fields.
 The following example shows how to execute an AG-UI agent using the AG-UI protocol format with frontend tools, conversation context, and application state:
 
 ```json
-POST /_plugins/_ml/agents/{{agent_id}}/_execute/stream
+POST /_plugins/_ml/agents/{agent_id}/_execute/stream
 {
     "threadId": "thread-xxxxx",
     "runId": "run-xxxxx",

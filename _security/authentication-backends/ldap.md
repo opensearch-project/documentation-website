@@ -117,6 +117,18 @@ config:
 You can configure more than one server here. If the Security plugin cannot connect to the first server, it tries to connect to the remaining servers sequentially.
 
 
+### LDAP referrals
+
+An LDAP referral directs a client to another directory location to continue a lookup. By default, the Security plugin follows referrals during LDAP searches and lookups. To disable this behavior, set `follow_referrals` to `false`:
+
+```yml
+config:
+  follow_referrals: false
+
+Add this setting to the LDAP `authentication_backend.config` section under `authc` and the LDAP `authorization_backend.config` section under `authz`, as needed. Each backend reads its own setting. To disable referral following for both authentication and authorization, configure both sections.
+
+When referral following is disabled, users or roles available only through a referral might not be found. This setting does not disable failover between the servers listed in `hosts`.
+
 ### Timeouts
 
 To configure connection and response timeouts to your Active Directory server, use the following (values are in milliseconds):
@@ -334,6 +346,7 @@ If this key is not set or null, then the distinguished name (DN) of the LDAP ent
 Name | Description
 :--- | :---
 `userbase` | Specifies the subtree in the directory where user information is stored.
+`follow_referrals` | Boolean. Whether to follow LDAP referrals during searches and lookups. Default is `true`. See [LDAP referrals](#ldap-referrals).
 `usersearch` | The actual LDAP query that the Security plugin executes when trying to authenticate a user. The variable {0} is substituted with the user name.
 `username_attribute` | The Security plugin uses this attribute of the directory entry to look for the user name. If set to null, the DN is used (default).
 
@@ -522,6 +535,7 @@ nested_role_filter:
 Name | Description
 :--- | :---
 `rolebase`  | Specifies the subtree in the directory where role/group information is stored.
+`follow_referrals` | Boolean. Whether to follow LDAP referrals during searches and lookups. Default is `true`. See [LDAP referrals](#ldap-referrals).
 `rolesearch` | The actual LDAP query that the Security plugin executes when trying to determine the roles of a user. You can use three variables here (see the following description).
 `userroleattribute`  | The attribute in a user entry to use for `{2}` variable substitution.
 `userrolename`  | If the roles/groups of a user are not stored in the groups subtree, but as an attribute of the user's directory entry, define this attribute name here.

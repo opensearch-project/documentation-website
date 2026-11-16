@@ -2,7 +2,7 @@
 layout: default
 title: Tasks APIs
 has_children: yes
-nav_order: 85
+nav_order: 130
 redirect_from:
  - /opensearch/rest-api/tasks/
  - /api-reference/tasks/

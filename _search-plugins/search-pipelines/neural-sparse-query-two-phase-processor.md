@@ -81,7 +81,7 @@ The `neural_sparse_two_phase_processor` can only be used with OpenSearch 2.15 or
 
 ### Compound query support
 
-As of OpenSearch 2.15, only the Boolean [compound query]({{site.url}}{{site.baseurl}}/query-dsl/compound/index/) is supported.
+Only the Boolean [compound query]({{site.url}}{{site.baseurl}}/query-dsl/compound/index/) is supported.
 
 Neural sparse queries and Boolean queries with a boost parameter (not boosting queries) are also supported.
 

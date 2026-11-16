@@ -3,7 +3,7 @@ layout: default
 title: Document APIs
 has_children: true
 has_toc: false
-nav_order: 25
+nav_order: 50
 redirect_from:
   - /opensearch/rest-api/document-apis/index/
   - /api-reference/document-apis/
@@ -132,7 +132,3 @@ This approach prevents lost updates in scenarios where multiple clients or proce
 
 - [Term vector]({{site.url}}{{site.baseurl}}/api-reference/document-apis/termvector/)
 - [Multi term vectors]({{site.url}}{{site.baseurl}}/api-reference/document-apis/mtermvectors/)
-
-## Pull-based ingestion
-
-- [Pull-based ingestion]({{site.url}}{{site.baseurl}}/api-reference/document-apis/pull-based-ingestion/)

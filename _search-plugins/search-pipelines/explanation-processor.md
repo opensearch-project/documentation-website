@@ -13,8 +13,11 @@ Introduced 2.19
 
 The `hybrid_score_explanation` response processor adds the normalization and combination results to the returned search response. You can use it as a debugging tool to understand the score normalization process. For more information, see [Hybrid query]({{site.url}}{{site.baseurl}}/query-dsl/compound/hybrid/).
 
-To use the `explain` parameter, you must configure the `hybrid_score_explanation` response processor in your search pipeline.
+To use the `explain` parameter with a hybrid query that runs through a search pipeline, you must configure the `hybrid_score_explanation` response processor in that pipeline.
 {: .important}
+
+A hybrid query running in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/) does not require this processor. In fusion mode, `explain` describes the normalization and combination without a search pipeline, using the same descriptions shown on this page.
+{: .note}
 
 ## Request body fields
 

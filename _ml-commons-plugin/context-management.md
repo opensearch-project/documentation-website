@@ -42,7 +42,7 @@ POST /_plugins/_ml/context_management/token-aware-truncation
 {
   "description": "Context management that truncates tool outputs longer than 100,000 characters and applies sliding window to keep last 6 messages when tokens exceed 200,000",
   "hooks": {
-    "post_tool": [
+    "POST_TOOL": [
       {
         "type": "ToolsOutputTruncateManager",
         "config": {
@@ -50,7 +50,7 @@ POST /_plugins/_ml/context_management/token-aware-truncation
         }
       }
     ],
-    "pre_llm": [
+    "PRE_LLM": [
       {
         "type": "SlidingWindowManager",
         "config": {
@@ -70,8 +70,11 @@ POST /_plugins/_ml/context_management/token-aware-truncation
 
 Context management uses a hook-based architecture that allows teams of context managers to execute at specific points during agent execution. The supported hooks are:
 
-- `pre_llm` -- Runs before sending requests to the LLM.
-- `post_tool` -- Runs after tool execution completes.
+- `PRE_LLM` -- Runs before sending requests to the LLM.
+- `POST_TOOL` -- Runs after tool execution completes.
+
+Hook names are case sensitive and must be uppercase. The Create Context Management API accepts any hook name, but context managers configured under a lowercase name, such as `post_tool`, never run. Inline `context_management` configurations in agent registration requests reject lowercase hook names.
+{: .important}
 
 Context managers registered for each hook are executed in the order in which they are defined in the context management configuration.
 
@@ -81,21 +84,7 @@ These hooks are supported in OpenSearch [conversational agents]({{site.url}}{{si
 
 Activation rules determine when context managers execute during agent interactions. These rules help you control resource usage and optimize performance by triggering context optimization only when needed. If no activation rules are specified, context managers execute on every interaction at their configured hooks.
 
-Context managers support several types of activation rules that can be used individually or combined.
-
-### Always activate
-
-Use the `always` rule type to activate a context manager on every execution at its configured hook, regardless of conversation state:
-
-```json
-{
-  "activation": {
-    "rule_type": "always"
-  }
-}
-```
-
-This is equivalent to not specifying any activation rules and is useful when you want explicit control over activation behavior.
+Context managers support the following activation rules, which can be used individually or combined.
 
 ### Message count threshold
 
@@ -184,7 +173,7 @@ For more information, see [SummarizationManager]({{site.url}}{{site.baseurl}}/ml
 
 ### ToolsOutputTruncateManager
 
-Truncates tool output when it exceeds specified limits in order to prevent context overflow. This example shows a truncation manager that limits tool output to 40,000 characters and activates when the context exceeds 150,000 tokens:
+Truncates tool output when it exceeds specified limits in order to prevent context overflow. Configure this manager for the `POST_TOOL` hook. It processes the output of each tool call, both for agents that use function calling (`_llm_interface`) and for agents that don't. If the output is longer than `max_output_length` characters, the manager keeps the first `max_output_length` characters and appends `... [Output truncated - original length: <length> characters]`. The agent sends the truncated output to the LLM and stores it in the agent's traces. This example shows a truncation manager that limits tool output to 40,000 characters and activates when the context exceeds 150,000 tokens:
 
 ```json
 {
@@ -206,7 +195,7 @@ Context management can be applied to agents either during agent registration or 
 
 ### During agent registration
 
-To apply context management to agents during agent registration, include the context management name when registering an agent:
+To apply context management to agents during agent registration, include the name of an existing context management when registering an agent:
 
 ```json
 POST /_plugins/_ml/agents/_register
@@ -214,24 +203,29 @@ POST /_plugins/_ml/agents/_register
   "name": "customer-service-agent",
   "type": "conversational",
   "llm": {
-    "model_id": "your-llm-model-id"
+    "model_id": "<llm_model_id>"
   },
-  "context_management_name": "customer-service-context"
+  "tools": [
+    {
+      "type": "ListIndexTool"
+    }
+  ],
+  "context_management_name": "token-aware-truncation"
 }
 ```
 {% include copy-curl.html %}
 
 ### During agent execution
 
-To apply context management to agents during agent execution, specify the context management name in the execution request. If you specify a different context management name in the execution request than the name that was configured during agent registration, the execution request overrides the registered setting: 
+To apply context management to agents during agent execution, specify the context management name in the `parameters` object of the execution request. If you specify a different context management name in the execution request than the name that was configured during agent registration, the execution request overrides the registered setting: 
 
 ```json
-POST /_plugins/_ml/agents/agent-id/_execute
+POST /_plugins/_ml/agents/{agent_id}/_execute
 {
   "parameters": {
-    "question": "How can I help you today?"
-  },
-  "context_management_name": "customer-service-context"
+    "question": "How can I help you today?",
+    "context_management_name": "token-aware-truncation"
+  }
 }
 ```
 {% include copy-curl.html %}
@@ -245,7 +239,7 @@ The following examples demonstrate how you can use context management.
 To support long conversations, configure context management that maintains recent conversation flow while preventing context overflow:
 
 - Use a `SlidingWindowManager` to keep the most recent N number of messages.
-- Hook into `pre_llm` to optimize before LLM calls.
+- Hook into `PRE_LLM` to optimize before LLM calls.
 
 ### Tool-heavy agents
 
@@ -253,7 +247,7 @@ Configure context management for agents that use many tools:
 
 - Use a `ToolsOutputTruncateManager` to limit tool output size.
 - Apply a `SlidingWindowManager` for tool interaction history.
-- Hook into `post_tool` to clean up after tool execution.
+- Hook into `POST_TOOL` to clean up after tool execution.
 
 ### Tool-heavy agents with summarization
 
@@ -262,7 +256,7 @@ Configure context management for agents with extensive tool interactions:
 - Use `ToolsOutputTruncateManager` to limit tool output size.
 - Apply `SlidingWindowManager` for tool interaction history.
 - Use `SummarizationManager` to summarize earlier tool interactions.
-- Hook into `pre_llm` to optimize before LLM calls.
+- Hook into `PRE_LLM` to optimize before LLM calls.
 
 ## Getting started
 

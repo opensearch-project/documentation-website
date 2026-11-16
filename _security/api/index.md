@@ -57,3 +57,64 @@ The Security APIs are grouped by the resource that each one configures. The foll
 | [Flush Cache API]({{site.url}}{{site.baseurl}}/security/api/flush-cache/) | The Flush Cache API flushes the Security plugin's user, authentication, and authorization caches. |
 | [Dashboards Info API]({{site.url}}{{site.baseurl}}/security/api/dashboards-info/) | The Dashboards Info API returns the Security plugin settings that OpenSearch Dashboards needs in order to render its interface. |
 | [Security Plugin Health API]({{site.url}}{{site.baseurl}}/security/api/health/) | The Security Plugin Health API reports whether the Security plugin is initialized and ready to authorize requests. |
+
+## Using wait_for_completion for configuration changes
+**Introduced 3.10**
+{: .label .label-purple }
+
+Requests that create, update, or delete roles, role mappings, internal users, and tenants, and requests that update the audit configuration, accept the `wait_for_completion` query parameter. By default, these requests return after the configuration change is written and every node has reloaded it. When you set `wait_for_completion` to `false`, the API validates the request, submits the change as a task, and returns the task ID. Each API page lists the requests that accept the parameter.
+
+For example, the following request creates a role asynchronously:
+
+```json
+PUT /_plugins/_security/api/roles/movies_reader?wait_for_completion=false
+{
+  "index_permissions": [
+    {
+      "index_patterns": ["movies*"],
+      "allowed_actions": ["read"]
+    }
+  ]
+}
+```
+{% include copy-curl.html security=true %}
+
+The response contains the task ID:
+
+```json
+{
+  "task": "oTUltX4IQMOUUVeiohTt8A:1234"
+}
+```
+
+To retrieve the result, pass the task ID to the [Get Task API]({{site.url}}{{site.baseurl}}/api-reference/tasks/get-tasks/):
+
+```json
+GET /_tasks/oTUltX4IQMOUUVeiohTt8A:1234
+```
+{% include copy-curl.html security=true %}
+
+When the task is complete, the `response` object contains the body that the request returns when `wait_for_completion` is `true`:
+
+```json
+{
+  "completed": true,
+  "task": {
+    "node": "oTUltX4IQMOUUVeiohTt8A",
+    "id": 1234,
+    "type": "transport",
+    "action": "cluster:admin/opendistro_security/api/write_config",
+    "description": "roles/movies_reader",
+    "start_time_in_millis": 1762101234567,
+    "running_time_in_nanos": 48213456,
+    "cancellable": false,
+    "headers": {}
+  },
+  "response": {
+    "status": "CREATED",
+    "message": "'movies_reader' created."
+  }
+}
+```
+
+Security configuration write tasks cannot be canceled. Canceling a task after the change is written could leave some nodes running the previous configuration, so each task runs to completion.

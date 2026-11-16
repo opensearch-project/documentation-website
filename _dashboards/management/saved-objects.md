@@ -34,7 +34,7 @@ When multi-tenancy is enabled, each tenant has its own set of saved objects, and
 
 When workspaces are enabled, an export that you start from within a workspace contains only the objects associated with that workspace. An export that you start from **Saved objects** outside any workspace covers every workspace: the list includes the objects of all workspaces that you can access, marks each one in the **Workspace** column, and **Export all objects** writes all of them to the file.
 
-To copy objects to another workspace in the same instance rather than export them, select the objects, select **Copy to**, and choose the target workspace. To copy every object in the current workspace, select **Copy all objects to**. To perform the same task programmatically, see [Duplicate Saved Objects Workspaces API]({{site.url}}{{site.baseurl}}/dashboards/workspace/apis/#duplicate-saved-objects-workspaces-api).
+To copy objects to another workspace in the same instance rather than export them, select the objects, select **Copy to**, and choose the target workspace. To copy every object in the current workspace, select **Copy all objects to**. To perform the same task programmatically, see [Duplicate saved objects]({{site.url}}{{site.baseurl}}/dashboards/workspace/apis/#duplicate-saved-objects).
 
 ## Importing saved objects
 

@@ -2,10 +2,14 @@
 layout: default
 title: Search settings
 parent: Configuring OpenSearch
-nav_order: 70
+nav_order: 80
 ---
 
 # Search settings
+
+OpenSearch provides settings that control how search requests run across the cluster, including request limits, timeouts and cancellation, scroll and Point in Time (PIT) context lifetimes, and query and aggregation optimizations.
+
+To learn how to apply these settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 OpenSearch supports the following search settings:
 
@@ -66,5 +70,3 @@ Scripts used in searches are governed by the script size, compilation, and cachi
 ## Point in Time settings
 
 For information about PIT settings, see [PIT settings]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/point-in-time/#pit-settings).
-
-To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).

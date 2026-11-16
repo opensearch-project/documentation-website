@@ -14,9 +14,6 @@ Updates specified fields in the audit configuration. This method requires an ope
 
 Using the `PATCH` method also requires a user to have a security configuration that includes admin certificates for encryption. To find out more about these certificates, see [Configuring admin certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates).
 
-OpenSearch Dashboards Dev Tools do not currently support the `PATCH` method. You can use [cURL](https://curl.se/), [Postman](https://www.postman.com/), or another alternative process to update the configuration using this method. To follow the GitHub issue for support of the `PATCH` method in Dashboards, see [issue #2343](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/2343).
-{: .note}
-
 <!-- spec_insert_start
 api: security.patch_audit_configuration
 component: endpoints
@@ -26,6 +23,14 @@ component: endpoints
 PATCH /_plugins/_security/api/audit
 ```
 <!-- spec_insert_end -->
+
+## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `wait_for_completion` | Boolean | Whether to wait for the configuration write and reload to complete. When `false`, the API returns a task ID after validation. Default is `true`. |
 
 ## Example request
 
@@ -56,6 +61,16 @@ content-type: application/json; charset=UTF-8
 content-length: 45
 ```
 
+If you set `wait_for_completion` to `false`, a successful submission returns HTTP status `200`, and the response contains a task ID instead of the completed result:
+
+```json
+{
+  "task": "oTUltX4IQMOUUVeiohTt8A:1234"
+}
+```
+
+Use the [Get Task API]({{site.url}}{{site.baseurl}}/api-reference/tasks/get-tasks/) to retrieve the task's status and result. For more information, see [Using wait_for_completion for configuration changes]({{site.url}}{{site.baseurl}}/security/api/index/#using-wait_for_completion-for-configuration-changes).
+
 ## Response body fields
 
 The response body is a JSON object with the following fields.
@@ -64,3 +79,4 @@ The response body is a JSON object with the following fields.
 | :--- | :--- | :--- |
 | `status` | String | The status of the request. A successful request returns `OK`. |
 | `message` | String | A message describing the result of the operation. |
+| `task` | String | The ID of the task that performs the update. Returned instead of `status` and `message` when `wait_for_completion` is `false`. |

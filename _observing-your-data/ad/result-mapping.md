@@ -2,14 +2,14 @@
 layout: default
 title: Anomaly result mapping
 parent: Anomaly detection
-nav_order: 6
+nav_order: 30
 redirect_from: 
   - /monitoring-plugins/ad/result-mapping/
 ---
 
 # Anomaly result mapping
 
-When you select the **Enable custom result index** box on the **Custom result index** pane, the Anomaly Detection plugin will save the results to an index of your choosing. When the anomaly detector does not detect an anomaly, the result format is as follows:
+When you select the **Enable custom result index** box on the **Custom result index** pane, OpenSearch saves the results to an index of your choosing. When the anomaly detector does not detect an anomaly, the result format is as follows:
 
 ```json
 {
@@ -397,7 +397,7 @@ Field | Description
 
 ## Flattened anomaly result mapping
 
-When selecting the **Enable flattened custom result index** option in the **Custom result index** pane, the Anomaly Detection plugin saves the results with all of the nested fields flattened in the index.
+When selecting the **Enable flattened custom result index** option in the **Custom result index** pane, OpenSearch saves the results with all of the nested fields flattened in the index.
 
 The nested fields stored in the index use the following flattening rules.
 

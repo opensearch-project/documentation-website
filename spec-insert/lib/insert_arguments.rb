@@ -7,7 +7,7 @@ require 'json'
 class InsertArguments
   attr_reader :raw
 
-  Rest = Struct.new(:verb, :path, :query, :body, :raw_lines, keyword_init:true)
+  Rest = Struct.new(:verb, :path, :query, :body, :raw_lines, keyword_init: true)
 
   # @param [Hash] args raw arguments read from the doc insert marker
   def initialize(args)
@@ -55,7 +55,7 @@ class InsertArguments
   def api
     return @raw['api'] if @raw['api'].present?
 
-    if rest_line = rest&.raw_lines&.first
+    if (rest_line = rest&.raw_lines&.first)
       inferred_action = Api::Action.find_by_rest(rest_line)
       raise SpecInsertError, "Could not infer API from rest line: #{rest_line}" unless inferred_action
 
@@ -114,24 +114,18 @@ class InsertArguments
     verb, full_path = lines.first.to_s.split
     path, query_string = full_path.to_s.split('?', 2)
 
-    query = (query_string || "").split('&').to_h do |pair|
+    query = (query_string || '').split('&').to_h do |pair|
       k, v = pair.split('=', 2)
-      [k, v || "true"]
+      [k, v || 'true']
     end
 
     body = begin
-             JSON.parse(@raw['body']) if @raw['body']
-           rescue JSON::ParserError
-             @raw['body']
-           end
+      JSON.parse(@raw['body']) if @raw['body']
+    rescue JSON::ParserError
+      @raw['body']
+    end
 
-    Rest.new(
-      verb: verb,
-      path: path,
-      query: query,
-      body: body,
-      raw_lines: lines
-    )
+    Rest.new(verb:, path:, query:, body:, raw_lines: lines)
   end
 
   private

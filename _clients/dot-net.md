@@ -18,6 +18,20 @@ OpenSearch has two .NET clients: a low-level [OpenSearch.Net]({{site.url}}{{site
 - Operator overloading in queries.
 - Type and index inference.
 
-You can use both .NET clients in a console program, a .NET core, an ASP.NET core, or in worker services.
+You can use both .NET clients in a console program, a .NET Core application, an ASP.NET Core application, or a worker service.
 
 To get started with OpenSearch.Client, follow the instructions in [Getting started with the high-level .NET client]({{site.url}}{{site.baseurl}}/clients/OSC-dot-net#installing-opensearchclient) or in [More advanced features of the high-level .NET client]({{site.url}}{{site.baseurl}}/clients/OSC-example/), a slightly more advanced walkthrough.
+
+## Compatibility
+
+The following table lists the OpenSearch.Client and OpenSearch.Net versions that are compatible with each OpenSearch version.
+
+| OpenSearch version | Client version |
+|:---|:---|
+| 1.x | 1.0.0, 1.1.0 |
+| 2.x | 1.1.0 or later |
+| 3.x | 2.0.0 or later |
+
+The 2.x clients support .NET 8 or later and .NET Framework 4.7.2 or later. Both clients target .NET Standard 2.0 and .NET Standard 2.1. OpenSearch.Net and OpenSearch.Net.Auth.AwsSigV4 also target .NET 8 and .NET 10.
+
+For the latest compatibility information, see the [`COMPATIBILITY.md`](https://github.com/opensearch-project/opensearch-net/blob/main/COMPATIBILITY.md) file in the client repository. For information about breaking changes between client versions, see the [upgrading guide](https://github.com/opensearch-project/opensearch-net/blob/main/UPGRADING.md).

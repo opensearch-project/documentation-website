@@ -9,7 +9,7 @@ nav_order: 15
 
 # Bar charts in the visualization editor
 
-A bar chart displays data as vertical or horizontal bars, making it ideal for comparing discrete categories. You can use a Color field to break categories into sub-groups and add threshold lines to flag values higher or lower than a target.
+A bar chart displays data as vertical or horizontal bars. Use a bar chart to compare discrete categories. Select a **Color** field to split categories into subgroups, and add threshold lines to flag values higher or lower than a target.
 
 ## Creating a bar chart
 
@@ -55,9 +55,9 @@ Use thresholds to add reference lines and color-code bars based on a target valu
 Using the same grouped bar chart from the previous example, configure the settings panel:
 
 1. In the **Bar** section, enable **Use threshold colors**.
-2. In the **Thresholds** section, select **+ Add threshold**.
-3. Set the base color to green (`#00BD6B`) and add a threshold at value `200` with a red color (`#F13939`).
-4. Set **Threshold lines mode** to **Dashed lines**, as shown in the following image.
+1. In the **Thresholds** section, select **+ Add threshold**.
+1. Set the base color to green (`#00BD6B`) and add a threshold at value `200` with a red color (`#F13939`).
+1. Set **Threshold lines mode** to **Dashed lines**, as shown in the following image.
 
 ![Bar chart settings with threshold configured at 200]({{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/bar-chart-threshold-settings.png){: width="400" }
 
@@ -90,10 +90,15 @@ The following settings control the display style and sizing of bars.
 
 | Setting | Description |
 | --- | --- |
-| **Stack** | Controls whether grouped bars are displayed side by side (**None**) or stacked on top of each other (**Stacked**). |
+| **Stack** | Controls how multiple series are displayed. **None** overlays the series without stacking. **Stack** adds series values together. **Percentage** stacks series as percentages of the total. |
+| **Fill opacity** | Sets the opacity of the bars. |
 | **Size** | Controls bar width. **Auto** sizes bars automatically. **Manual** sets a specific width percentage (1–100). |
-| **Use threshold colors** | When enabled, the chart colors bars based on the threshold rules defined in the Thresholds section. |
-| **Show border** | When enabled, adds a border around each bar. You can configure border width and color. |
+| **Radius** | Sets the corner rounding of each bar in pixels. |
+| **Show values** | Shows value labels on the chart. |
+| **Use threshold colors** | When enabled, the chart colors bars based on the threshold rules defined in the **Thresholds** section. |
+| **Show border** | When enabled, adds a border around each bar. |
+| **Border width** | Sets the border thickness in pixels. This setting is available when **Show border** is enabled. |
+| **Border color** | Sets the border color. This setting is available when **Show border** is enabled. |
 
 ### Bucket
 
@@ -108,9 +113,17 @@ The following settings control how data is aggregated within each bar.
 
 For information about configuring thresholds, see [Thresholds]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/thresholds/).
 
+### Standard options
+
+For information about configuring units, unit suffixes, decimal precision, and minimum and maximum values, see [Standard options]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/standard-options/).
+
 ### Axes
 
 The X-axis and Y-axis share the same configuration options. For more information, see [Axes]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/#axes).
+
+### Legend
+
+For information about configuring the legend, see [Legend]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/#legend).
 
 ### Tooltip
 

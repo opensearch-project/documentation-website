@@ -10,7 +10,7 @@ nav_order: 15
 
 Use the Saved Objects APIs to list, retrieve, create, update, export, and import saved objects, for example to copy a set of visualizations between clusters or to inventory the visualizations that a cluster contains.
 
-These endpoints are served by OpenSearch Dashboards rather than by OpenSearch, so send them to the OpenSearch Dashboards host and port (`5601` by default) instead of the OpenSearch REST port. Requests that use `POST`, `PUT`, or `DELETE` require the `osd-xsrf: true` header.
+These endpoints are served by OpenSearch Dashboards rather than by OpenSearch, so send them to the OpenSearch Dashboards host and port (`5601` by default) instead of the OpenSearch REST port. Requests that use `POST`, `PUT`, or `DELETE` require the `osd-xsrf: true` header. Scripts written for Kibana OSS send the `kbn-xsrf: true` header instead, and OpenSearch Dashboards rejects these requests with the error `Request must contain a osd-xsrf header`. To fix this error, replace `kbn-xsrf` with `osd-xsrf` in your scripts.
 
 Send these requests using `curl`, as shown in the examples on this page. To run a `GET` endpoint without `curl`, enter its full URL in the address bar of a browser in which you are signed in to OpenSearch Dashboards.
 
@@ -26,7 +26,7 @@ curl -k -u admin:<password> "https://localhost:5601/api/saved_objects/_find?type
 
 If OpenSearch Dashboards is served from a base path, such as when it runs behind a proxy or on a managed service, include that base path in the request, for example, `https://<host>/_dashboards/api/saved_objects/_find`.
 
-These APIs return the definition of a visualization, such as its aggregations and its index pattern reference. They do not run the visualization or return the data it displays. To export the underlying rows of a saved search as a CSV or Excel file, see [Reporting API]({{site.url}}{{site.baseurl}}/reporting/api/).
+These APIs return the definition of a visualization, such as its aggregations and its index pattern reference. They do not run the visualization or return the data it displays. To export the underlying rows of a saved search as a CSV or Excel file, see [Reporting API]({{site.url}}{{site.baseurl}}/dashboards/reporting/api/).
 {: .note}
 
 To export and import the same objects from OpenSearch Dashboards instead, see [Exporting and importing saved objects]({{site.url}}{{site.baseurl}}/dashboards/management/saved-objects/).
@@ -614,6 +614,6 @@ Document "test-viz" has property "visualization" which belongs to a more recent 
 ## Related documentation
 
 - [Exporting and importing saved objects]({{site.url}}{{site.baseurl}}/dashboards/management/saved-objects/)
-- [Reporting API]({{site.url}}{{site.baseurl}}/reporting/api/)
+- [Reporting API]({{site.url}}{{site.baseurl}}/dashboards/reporting/api/)
 - [Access control lists for saved objects]({{site.url}}{{site.baseurl}}/dashboards/management/acl/)
 - [Index patterns]({{site.url}}{{site.baseurl}}/dashboards/management/index-patterns/)

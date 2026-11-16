@@ -9,60 +9,111 @@ redirect_from:
 
 # Index metadata field
 
-When querying across multiple indexes, you may need to filter results based on the index into which a document was indexed. The `index` field matches documents based on their index. 
+The `_index` metadata field contains the name of the index that stores a document. When a search targets several indexes, for example, through a comma-separated list, a wildcard pattern, or an alias, use `_index` to apply query conditions to only some of those indexes, count results per index, sort results by index, or return the index name from a script.
 
-The following example requests create two indexes, `products` and `customers`, and add a document to each index.
+OpenSearch does not store `_index` as a field in the index. Each shard knows the name of the index to which it belongs, so it evaluates a condition on `_index` by comparing the condition against that name. As a result, a query on `_index` matches either all documents in a shard or none of them.
 
-The first request adds a document to the `products` index:
+## Supported queries
+
+You can search the `_index` field using the following queries:
+
+- `term` and `terms`
+- `match`, `query_string`, and `simple_query_string`, which OpenSearch converts to `term` queries for this field
+- `prefix` and `wildcard`
+- `exists`, which matches every document
+
+The `regexp`, `fuzzy`, and `range` queries are not supported. OpenSearch rejects a search that uses them on `_index`.
+
+Matching is case sensitive, so a `term` query for `ORDERS-ONLINE` does not match the `orders-online` index. To ignore case, set `case_insensitive` to `true` in the query.
+
+A query on `_index` accepts alias names as well as index names. For example, if the `web-orders` alias points to the `orders-online` index, a `term` query for `web-orders` matches every document in `orders-online`. The `prefix` and `wildcard` queries also compare their patterns against alias names.
+
+## Remote indexes
+
+In a [cross-cluster search]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/), the `_index` value of a document from a remote cluster includes the remote cluster alias followed by a colon, for example, `east:orders-online`. This prefixed name is returned in search hits and used as the key in aggregation buckets.
+
+To match a remote index in a `prefix` or `wildcard` query, the pattern must contain the `:` separator. For example, `*:orders-*` matches documents in the `orders-*` indexes of every remote cluster but not in local indexes. A pattern without a separator, such as `east*orders-online`, is compared only against local index names, so it does not match documents in `east:orders-online`.
+
+## Example: Applying query conditions to specific indexes
+
+In this example, a store keeps online orders and in-store orders in separate indexes. The goal is to find orders for trail running products, but include online orders only if their total is at least 100.
+
+First, add two online orders to the `orders-online` index:
 
 ```json
-PUT products/_doc/1
+PUT /orders-online/_doc/1
 {
-  "name": "Widget X"
+  "product": "Trail running shoes",
+  "total": 129.99
 }
 ```
 {% include copy-curl.html %}
 
-The second request adds a document to the `customers` index:
-
 ```json
-PUT customers/_doc/2
+PUT /orders-online/_doc/2
 {
-  "name": "John Doe"
+  "product": "Trail running socks",
+  "total": 14.5
 }
 ```
 {% include copy-curl.html %}
 
-You can then query both indexes and filter the results using the `_index` field, as shown in the following example request:
+Then add an in-store order to the `orders-in-store` index:
 
 ```json
-GET products,customers/_search
+PUT /orders-in-store/_doc/1
+{
+  "product": "Trail running shoes",
+  "total": 119.99
+}
+```
+{% include copy-curl.html %}
+
+Search both indexes using the `orders-*` pattern:
+
+```json
+GET /orders-*/_search
 {
   "query": {
-    "terms": {
-      "_index": ["products", "customers"]
+    "bool": {
+      "must": {
+        "match": {
+          "product": "trail running"
+        }
+      },
+      "should": [
+        {
+          "bool": {
+            "filter": [
+              { "term": { "_index": "orders-online" } },
+              { "range": { "total": { "gte": 100 } } }
+            ]
+          }
+        },
+        {
+          "term": {
+            "_index": "orders-in-store"
+          }
+        }
+      ],
+      "minimum_should_match": 1
     }
   },
   "aggs": {
-    "index_groups": {
+    "orders_per_channel": {
       "terms": {
-        "field": "_index",
-        "size": 10
+        "field": "_index"
       }
     }
   },
   "sort": [
-    {
-      "_index": {
-        "order": "desc"
-      }
-    }
+    { "_index": "asc" }
   ],
+  "_source": ["product", "total"],
   "script_fields": {
-    "index_name": {
+    "source_index": {
       "script": {
-        "lang": "painless",
-        "source": "doc['_index'].value"
+        "source": "doc[\"_index\"].value"
       }
     }
   }
@@ -70,26 +121,83 @@ GET products,customers/_search
 ```
 {% include copy-curl.html %}
 
-In this example:
+The request uses the `_index` field in the following ways:
 
-- The `query` section uses a `terms` query to match documents from the `products` and `customers` indexes.
-- The `aggs` section performs a `terms` aggregation on the `_index` field, grouping the results by index.
-- The `sort` section sorts the results by the `_index` field in ascending order.
-- The `script_fields` section adds a new field called `index_name` to the search results containing the `_index` field value for each document.
+- The `should` clauses apply a different condition to each index. A document in `orders-online` must also have a `total` of at least 100, while any matching document in `orders-in-store` is returned.
+- The `orders_per_channel` aggregation counts the matching orders in each index.
+- The `sort` parameter orders the results alphabetically by index name.
+- The `source_index` script field reads the index name from `doc["_index"]` and returns it in the `fields` object of each hit.
 
-## Querying on the `_index` field
-
-The `_index` field represents the index into which a document was indexed. You can use this field in your queries to filter, aggregate, sort, or retrieve index information for your search results.
-
-Because the `_index` field is automatically added to every document, you can use it in your queries like any other field. For example, you can use the `terms` query to match documents from multiple indexes. The following example query returns all documents from the `products` and `customers` indexes:
+The response contains both shoe orders. The socks order is excluded because it is in `orders-online` and its total is less than 100:
 
 ```json
- {
-  "query": {
-    "terms": {
-      "_index": ["products", "customers"]
+{
+  "took": 18,
+  "timed_out": false,
+  "_shards": {
+    "total": 2,
+    "successful": 2,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 2,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": [
+      {
+        "_index": "orders-in-store",
+        "_id": "1",
+        "_score": null,
+        "_source": {
+          "product": "Trail running shoes",
+          "total": 119.99
+        },
+        "fields": {
+          "source_index": [
+            "orders-in-store"
+          ]
+        },
+        "sort": [
+          "orders-in-store"
+        ]
+      },
+      {
+        "_index": "orders-online",
+        "_id": "1",
+        "_score": null,
+        "_source": {
+          "product": "Trail running shoes",
+          "total": 129.99
+        },
+        "fields": {
+          "source_index": [
+            "orders-online"
+          ]
+        },
+        "sort": [
+          "orders-online"
+        ]
+      }
+    ]
+  },
+  "aggregations": {
+    "orders_per_channel": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "orders-in-store",
+          "doc_count": 1
+        },
+        {
+          "key": "orders-online",
+          "doc_count": 1
+        }
+      ]
     }
   }
 }
 ```
-{% include copy-curl.html %}

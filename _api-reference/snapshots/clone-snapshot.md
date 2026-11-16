@@ -2,7 +2,7 @@
 layout: default
 title: Clone snapshot
 parent: Snapshot APIs
-nav_order: 10
+nav_order: 100
 ---
 
 # Clone Snapshot API
@@ -50,7 +50,7 @@ The following table lists the available query parameters. All query parameters a
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `cluster_manager_timeout` | String | The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). |
+| `cluster_manager_timeout` | String | The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters]({{site.url}}{{site.baseurl}}/api-reference/units/#time-units). |
 
 <!-- spec_insert_end -->
 
