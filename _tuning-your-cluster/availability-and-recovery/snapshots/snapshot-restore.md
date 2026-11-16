@@ -54,9 +54,13 @@ The following node-level settings control repository behavior globally across al
 
 #### File system repository settings
 
-- `repositories.fs.chunk_size` (Static, byte unit): Sets the default chunk size for file system repositories when storing large blobs. This setting determines how large blob files are split into smaller chunks during storage. Larger chunk sizes can improve performance for sequential access but may increase memory usage and network transfer overhead. This setting serves as a fallback when chunk size is not explicitly specified in repository settings. Default is unlimited (no chunking). Minimum is `5` bytes.
+OpenSearch supports the following file system repository setting:
+
+- `repositories.fs.chunk_size` (Static, byte unit): The default chunk size for file system repositories when storing large blobs. This setting determines how large blob files are split into smaller chunks during storage. Larger chunk sizes can improve performance for sequential access but may increase memory usage and network transfer overhead. This setting serves as a fallback when chunk size is not explicitly specified in repository settings. Default is unlimited (no chunking). Minimum is `5` bytes.
 
 #### URL repository settings
+
+OpenSearch supports the following URL repository settings:
 
 - `repositories.url.allowed_urls` (Static, list): Specifies a list of URL patterns that are allowed for URL repository access. This security setting restricts which URLs can be used when creating URL repositories, preventing access to unauthorized or internal network resources. URL patterns support wildcards (e.g., `http://snapshot.example.com/*`). When empty (default), no URL repositories are permitted unless a path.repo is configured. This setting helps prevent server-side request forgery (SSRF) attacks. Default is `[]` (empty list).
 
@@ -424,7 +428,7 @@ Use the following steps to register a snapshot repository backed by an Azure sto
    }
    ```
 
-### Set up Microsoft Azure Blob Storage
+### Configuring Microsoft Azure Blob Storage
 
 To use Azure Blob Storage as a snapshot repository, follow these steps:
 1. Install the `repository-azure` plugin on all nodes with the following command:
@@ -478,30 +482,17 @@ Note the following when using Azure token credentials:
 **Introduced 3.10**
 {: .label .label-purple }
 
-You can tune Azure snapshot reads and writes with the following static, client-scoped settings. Add them to `opensearch.yml` on each node that uses the Azure client, and restart the affected nodes after making changes. These are not repository registration parameters. Replace `<name>` with the client name used by your repository, such as `default`.
+You can configure Azure snapshot read and write operations using the following static settings. These settings apply to each named Azure client. Add the settings to `opensearch.yml` on each node that uses an Azure client and restart the affected nodes. Replace `<name>` with the client name used by your repository, such as `default`. Before changing these settings, benchmark your blob-size distribution, network, and memory budget:
 
-| Setting | Default | Valid values | Description |
-| :--- | :--- | :--- | :--- |
-| `azure.client.<name>.read.block_size` | `-1` | `-1`, or `1b` through `2147483647b` | Sets the Azure SDK streaming-read block size and preferred length for ranged reads. |
-| `azure.client.<name>.write.block_size` | `-1` | `-1`, or `1b` through `4194304000b` | Sets the block size used for staged uploads. |
-| `azure.client.<name>.write.max_single_upload_size` | `-1` | `-1`, or `1b` through `5242880000b` | Sets the largest blob uploaded in a single `Put Blob` request. Larger blobs use staged block uploads. |
-| `azure.client.<name>.write.max_concurrency` | `-1` | `-1`, or an integer of at least `1` | Sets the maximum number of concurrent requests for one block upload, not a node-wide limit. |
+- `azure.client.<name>.read.block_size` (Static, byte unit): The Azure SDK streaming read block size and preferred length for ranged reads. Valid values are `-1` or `1b`–`2147483647b`. Default is `-1` (uses the Azure SDK default).
 
-If you omit a setting or set it to `-1`, OpenSearch does not override the Azure SDK value for that option.
+- `azure.client.<name>.write.block_size` (Static, byte unit): The block size used for staged uploads. Increasing this value increases upload-buffer memory usage. Valid values are `-1` or `1b`–`4194304000b`. Default is `-1` (uses the Azure SDK default).
 
-The following example configures transfer settings for the `default` client:
+- `azure.client.<name>.write.max_single_upload_size` (Static, byte unit): The largest blob uploaded in a single `Put Blob` request. Larger blobs use staged block uploads. Valid values are `-1` or `1b`–`5242880000b`. Default is `-1` (uses the Azure SDK default).
 
-```yml
-azure.client.default.read.block_size: 16mb
-azure.client.default.write.block_size: 16mb
-azure.client.default.write.max_single_upload_size: 16mb
-azure.client.default.write.max_concurrency: 4
-```
+- `azure.client.<name>.write.max_concurrency` (Static, integer): The maximum number of concurrent requests for one block upload, not a node-wide limit. Each active upload uses approximately `write.block_size * write.max_concurrency` of upload buffer memory. Consider the total number of concurrent uploads when choosing these values. Valid values are `-1` or any integer of at least `1`. Default is `-1` (uses the Azure SDK default).
 
-These values are a tuning example, not new defaults. Benchmark your own blob-size distribution, network, and memory budget before changing these settings.
-
-For staged uploads, upload-buffer memory can grow approximately with `write.block_size * write.max_concurrency` for each active upload. Account for the total number of concurrent uploads when choosing these values.
-{: .warning }
+For more information about static settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/).
 
 ## Sharing a repository between clusters
 
