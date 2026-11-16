@@ -58,7 +58,7 @@ If the original request already fits within the limits, OpenSearch sends it as a
 
 OpenSearch waits for all calls to the model created from the original prediction request. If all calls succeed, OpenSearch combines their outputs in the original input order. If any call fails, the original prediction request fails and doesn't return a partial result.
 
-For information about configuring retry and backoff settings for failed calls, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#request-body-fields).
+For information about configuring retry and backoff settings for failed calls, see [The client_config object]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/#the-client_config-object).
 
 ### Configuring request splitting
 

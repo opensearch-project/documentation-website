@@ -120,7 +120,7 @@ POST /_plugins/_ml/connectors/_create
 
 Ollama doesn't check the API key, so you can provide any value in `openAI_key`. If your model server requires an API key, provide the key in `openAI_key`; the connector sends it in the `Authorization` header as a bearer token. For more information, see [this blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/ollama_connector_chat_blueprint.md).
 
-The `qwen3:4b` model generates its reasoning before the answer, so a response can take several minutes on a host without a GPU. If requests to the model fail with a timeout, increase the connector's read timeout, which defaults to 30 seconds, by adding a `client_config` object with a larger `read_timeout` value (in seconds), for example, `"client_config": {"read_timeout": 300}`. For more information, see [Request body fields]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#request-body-fields).
+The `qwen3:4b` model generates its reasoning before the answer, so a response can take several minutes on a host without a GPU. If requests to the model fail with a timeout, increase the connector's read timeout, which defaults to 30 seconds, by adding a `client_config` object with a larger `read_timeout` value (in seconds), for example, `"client_config": {"read_timeout": 300}`. For more information, see [The client_config object]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/#the-client_config-object).
 {: .note}
 
 Note the connector ID; you'll use it to register the model.
