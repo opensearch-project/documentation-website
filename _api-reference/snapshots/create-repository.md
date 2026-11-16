@@ -56,7 +56,7 @@ The following table lists the available request body fields.
 
 Field | Data type | Description
 :--- | :--- | :---
-`type` | String | The repository type. Valid values are `fs`, `s3`, `hdfs`, `azure`, and `url`. The `s3`, `hdfs`, and `azure` types require the corresponding repository plugin. For information about `azure` repositories, see [Microsoft Azure]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#set-up-microsoft-azure-blob-storage). Required.
+`type` | String | The repository type. Valid values are `fs`, `s3`, `hdfs`, `azure`, and `url`. The `s3`, `hdfs`, and `azure` types require the corresponding repository plugin. For information about `azure` repositories, see [Microsoft Azure]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#configuring-microsoft-azure-blob-storage). Required.
 `settings` | Object | The repository settings. The valid settings depend on the repository type and are listed in the following sections. Required.
 
 ### Common parameters
