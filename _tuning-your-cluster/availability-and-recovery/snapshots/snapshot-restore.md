@@ -54,9 +54,13 @@ The following node-level settings control repository behavior globally across al
 
 #### File system repository settings
 
-- `repositories.fs.chunk_size` (Static, byte unit): Sets the default chunk size for file system repositories when storing large blobs. This setting determines how large blob files are split into smaller chunks during storage. Larger chunk sizes can improve performance for sequential access but may increase memory usage and network transfer overhead. This setting serves as a fallback when chunk size is not explicitly specified in repository settings. Default is unlimited (no chunking). Minimum is `5` bytes.
+OpenSearch supports the following file system repository setting:
+
+- `repositories.fs.chunk_size` (Static, byte unit): The default chunk size for file system repositories when storing large blobs. This setting determines how large blob files are split into smaller chunks during storage. Larger chunk sizes can improve performance for sequential access but may increase memory usage and network transfer overhead. This setting serves as a fallback when chunk size is not explicitly specified in repository settings. Default is unlimited (no chunking). Minimum is `5` bytes.
 
 #### URL repository settings
+
+OpenSearch supports the following URL repository settings:
 
 - `repositories.url.allowed_urls` (Static, list): Specifies a list of URL patterns that are allowed for URL repository access. This security setting restricts which URLs can be used when creating URL repositories, preventing access to unauthorized or internal network resources. URL patterns support wildcards (e.g., `http://snapshot.example.com/*`). When empty (default), no URL repositories are permitted unless a path.repo is configured. This setting helps prevent server-side request forgery (SSRF) attacks. Default is `[]` (empty list).
 
@@ -424,7 +428,7 @@ Use the following steps to register a snapshot repository backed by an Azure sto
    }
    ```
 
-### Set up Microsoft Azure Blob Storage
+### Configuring Microsoft Azure Blob Storage
 
 To use Azure Blob Storage as a snapshot repository, follow these steps:
 1. Install the `repository-azure` plugin on all nodes with the following command:
@@ -473,6 +477,22 @@ Note the following when using Azure token credentials:
 
 - Token credential support is disabled in `opensearch.yml` by default.
 - A token credential takes precedence over an Azure Storage account key or a SAS when multiple options are configured. 
+
+#### Transfer tuning
+**Introduced 3.10**
+{: .label .label-purple }
+
+You can configure Azure snapshot read and write operations using the following static settings. These settings apply to each named Azure client. Add the settings to `opensearch.yml` on each node that uses an Azure client and restart the affected nodes. Replace `<name>` with the client name used by your repository, such as `default`. Before changing these settings, benchmark your blob-size distribution, network, and memory budget:
+
+- `azure.client.<name>.read.block_size` (Static, byte unit): The Azure SDK streaming read block size and preferred length for ranged reads. Valid values are `-1` or `1b`–`2147483647b`. Default is `-1` (uses the Azure SDK default).
+
+- `azure.client.<name>.write.block_size` (Static, byte unit): The block size used for staged uploads. Increasing this value increases upload-buffer memory usage. Valid values are `-1` or `1b`–`4194304000b`. Default is `-1` (uses the Azure SDK default).
+
+- `azure.client.<name>.write.max_single_upload_size` (Static, byte unit): The largest blob uploaded in a single `Put Blob` request. Larger blobs use staged block uploads. Valid values are `-1` or `1b`–`5242880000b`. Default is `-1` (uses the Azure SDK default).
+
+- `azure.client.<name>.write.max_concurrency` (Static, integer): The maximum number of concurrent requests for one block upload, not a node-wide limit. Each active upload uses approximately `write.block_size * write.max_concurrency` of upload buffer memory. Consider the total number of concurrent uploads when choosing these values. Valid values are `-1` or any integer of at least `1`. Default is `-1` (uses the Azure SDK default).
+
+For more information about static settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/).
 
 ## Sharing a repository between clusters
 

@@ -49,6 +49,10 @@ For information about using a shared file system, see [Shared file system]({{sit
 
 For information about Amazon S3 repository settings, see [Amazon S3]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#amazon-s3).
 
+### Azure Blob Storage settings
+
+For information about Azure Blob Storage repository settings, see [Configuring Microsoft Azure Blob Storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#configuring-microsoft-azure-blob-storage).
+
 ## Cluster manager task throttling settings
 
 For information about cluster manager task throttling settings, see [Setting throttling limits]({{site.url}}{{site.baseurl}}/tuning-your-cluster/load-protection/cluster-manager-task-throttling/#setting-throttling-limits).
