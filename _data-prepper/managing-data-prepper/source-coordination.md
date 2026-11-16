@@ -141,6 +141,8 @@ The `jdbc` store uses a relational database to coordinate work across Data Prepp
 
 By default, Data Prepper creates the coordination table and its index when the store starts. The database user must have privileges to create the table and index and to select, insert, update, and delete rows. Set `skip_table_creation` to `true` when the required table and index already exist.
 
+Data Prepper validates the store settings when a source that uses source coordination starts, not when Data Prepper starts. If a setting is invalid, Data Prepper logs an error and does not run that pipeline.
+
 You can configure `ttl` to periodically remove expired partition records. Some sources use these records to prevent duplicate processing, so configure a `ttl` that exceeds the expected pipeline duration.
 
 The `jdbc` store supports the following options.
@@ -152,11 +154,11 @@ The `jdbc` store supports the following options.
 | `password` | Yes | String | The database password. |
 | `table_name` | No | String | The name of the table used for source coordination. You can specify an unqualified name or a schema-qualified name, such as `schema.table`. Default is `source_coordination`. |
 | `skip_table_creation` | No | Boolean | When set to `true`, Data Prepper does not create the coordination table or its index. Default is `false`. |
-| `max_pool_size` | No | Integer | The maximum number of connections in the JDBC connection pool. Minimum is `1`. Default is `5`. |
+| `max_pool_size` | No | Integer | The maximum number of connections in the JDBC connection pool. Must be at least `2`, because the store holds one connection while it opens another to update a partition. Default is `5`. |
 | `ttl` | No | Duration | The duration used to set the expiration time for partition records. Use ISO 8601 duration format, such as `P7D`. Data Prepper extends the expiration time when it updates a record. By default, records do not expire. |
 | `connection_properties` | No | Map | JDBC driver properties to pass to each database connection. |
 
-The following example configures a PostgreSQL database as the source coordination store:
+The following example configures a PostgreSQL database that requires TLS connections as the source coordination store. If your database does not support TLS, remove the `ssl` connection property:
 
 ```yaml
 source_coordination:

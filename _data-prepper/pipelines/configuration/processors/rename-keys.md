@@ -16,10 +16,13 @@ You can configure the `rename_keys` processor with the following options.
 
 | Option | Required | Description |
 | :--- | :--- | :--- |
-| `entries` | Yes | A list of event entries to rename. |
-| `from_key` | Yes | The key of the entry to be renamed. |
+| `entries` | Conditionally | A list of event entries to rename. Required if `transform_key` is not set. Cannot be used together with `transform_key`. |
+| `transform_key` | Conditionally | Transforms the names of all keys in the event, including nested keys. Valid values are `lowercase`, `uppercase`, `capitalize` (converts the first character to uppercase), and `none`. Required if `entries` is not set. Cannot be used together with `entries`. Default is `none`, which does not transform keys. |
+| `from_key` | Conditionally | The key of the entry to be renamed. Either `from_key` or `from_key_regex` is required. Cannot be used together with `from_key_regex`. |
+| `from_key_regex` | Conditionally | A regular expression that matches the top-level keys of the entries to be renamed. Either `from_key` or `from_key_regex` is required. Cannot be used together with `from_key`. If more than one key matches and `overwrite_if_to_key_exists` is `false`, only the first matching key is renamed. |
 | `to_key` | Yes | The new key of the entry. |
 | `overwrite_if_to_key_exists` | No | When set to `true`, the existing value is overwritten if `key` already exists in the event. The default value is `false`. |
+| `rename_when` | No | A [conditional expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/), such as `/type == "app"`, that determines whether the entry is applied to the event. By default, the entry is applied to all events. |
 
 ## Usage
 
