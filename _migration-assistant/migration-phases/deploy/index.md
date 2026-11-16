@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Choose your deployment
-parent: Migration workflows
 nav_order: 20
 has_children: true
 has_toc: true
@@ -14,18 +13,28 @@ redirect_from:
 
 # Choose your deployment
 
-Migration Assistant always runs on Kubernetes. The primary decision is how much platform configuration you want the tooling to automate.
+When deploying Migration Assistant, you need to make two independent decisions: where to run Migration Assistant (the cloud or platform that will host it) and what to migrate to (the target OpenSearch deployment). This page helps you choose where to run Migration Assistant by explaining how much of the hosting platform the deployment tooling provisions for you.
 
-## Deployment types
+## Prerequisites
 
-The following table compares the two deployment types.
+All deployment paths require:
 
-| Type | Best when | Included |
+- Kubernetes cluster** version 1.24 or later.
+- Helm 3 installed and configured.
+- `kubectl` configured to access your cluster.
+- Network access for connectivity from the cluster to source and target clusters.
+
+## Deployment paths
+
+The following table compares the Migration Assistant deployment paths.
+
+| Path | Best when | Included |
 |:-----|:----------|:-------------|
-| [Deploy on Kubernetes]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-kubernetes/) | You already operate a Kubernetes platform, you are not on AWS, or you are evaluating locally | The core Migration Assistant engine and workflow model, with you supplying the platform integrations |
-| [Deploy on Amazon Elastic Kubernetes Service (EKS)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/) | You are on AWS and want the recommended production path | The same engine plus AWS bootstrap automation, pod identity, image mirroring, snapshot helpers, and CloudWatch integration |
+| [Deploy on Amazon Elastic Kubernetes Service (EKS)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploy-on-amazon-eks/) | You plan to run production migrations on AWS | Migration Assistant and AWS platform integrations, including cluster and VPC provisioning, pod identity, snapshot access, and Amazon CloudWatch dashboards. Choose between an AWS CloudFormation bootstrap script and Terraform for provisioning. |
+| [Deploy on Google Kubernetes Engine (GKE)]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-gke/) | You plan to run production migrations on GCP | Migration Assistant and a Terraform module that provisions the GKE cluster, VPC networking, Cloud Storage snapshots, and Workload Identity Federation for GKE. |
+| [Deploy on other Kubernetes platforms]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-kubernetes/) | You use another managed or self-managed Kubernetes platform, or want to evaluate Migration Assistant locally | Migration Assistant only. You provision and configure the required platform integrations yourself. |
 
-Both paths install the same Migration Assistant Helm chart. The difference is how much of the surrounding environment is prepared for you.
+All paths use the Migration Assistant Helm chart. The difference is how much of the surrounding environment the tooling prepares for you.
 
 ## Default components
 
@@ -40,30 +49,8 @@ The following table describes the components that the Migration Assistant Helm c
 
 Source and target cluster configuration is handled dynamically through the Workflow CLI, not through large Helm value files.
 
-## Why Amazon EKS is recommended on AWS
+## Managed cloud paths
 
-On AWS, Amazon EKS is the recommended path because it removes a large amount of non-migration work:
-
-- Cluster and VPC bootstrap.
-- Pod identity for AWS API access.
-- Private image support for isolated subnets.
-- Snapshot bucket and role helpers.
-- CloudWatch dashboards and logging.
-- AWS-aware storage and node-pool defaults.
-
-This approach reduces platform configuration effort and allows you to focus on validating the migration.
-
-## Prerequisites
-
-All deployment paths require:
-
-- **Kubernetes cluster**: Version 1.24 or later.
-- **Helm 3**: Installed and configured
-- **`kubectl`**: Configured to access your cluster.
-- **Network access**: Connectivity from the cluster to source and target clusters.
-
-Use [Deploy on Kubernetes]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-kubernetes/) if you are bringing your own Kubernetes platform.
-
-Use [Deploy on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-eks/) if you want the AWS production path that the rest of the new Migration Assistant documentation assumes by default.
+When you run Migration Assistant on a managed cloud, a provider-specific deployment path provisions and configures the surrounding platform for you, reducing setup effort. For component details, see [Deploy Migration Assistant on Amazon EKS]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploy-on-amazon-eks/) or [Deploy Migration Assistant on Google Kubernetes Engine]({{site.url}}{{site.baseurl}}/migration-assistant/migration-phases/deploy/deploying-to-gke/).
 
 {% include migration-phase-navigation.html %}

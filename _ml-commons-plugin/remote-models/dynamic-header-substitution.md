@@ -99,7 +99,7 @@ The following headers cannot contain `${parameters.*}` placeholders. Using them 
 
 ## Runtime validation
 
-Before substitution, OpenSearch JSON-escapes the parameter values in the `_predict` request. A newline in a runtime value reaches the header as the two characters `\n`, and other control characters reach it as escape sequences such as `\u0001`. The following values are substituted without escaping:
+Before substitution, OpenSearch escapes special characters in the parameter values in the `_predict` request. A newline in a runtime value reaches the header as the two characters `\n`, and other control characters reach it as escape sequences such as `\u0001`. The following values are substituted without escaping:
 
 - Values of parameters listed in the `no_escape_params` parameter of the `_predict` request
 - Values that are valid JSON objects or arrays
@@ -115,5 +115,5 @@ The size limits apply to the escaped values, so escape sequences count toward th
 
 ## Next steps
 
-- For descriptions of all connector fields, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
+- For descriptions of all connector fields, see [Create Connector API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/#request-body-fields).
 - For information about supplying authentication credentials to a connector, see the authentication method for your platform's protocol in [Connector authentication]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connector-authentication/).

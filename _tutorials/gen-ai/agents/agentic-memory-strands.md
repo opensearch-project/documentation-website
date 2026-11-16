@@ -126,7 +126,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-The `supports_structured_output` field enables constrained decoding for fact extraction. When it is `true`, OpenSearch adds a `toolConfig` object to the Converse API request during fact extraction. The `toolConfig` object requires the model to call an `extract_facts` tool, so the model returns the facts in a fixed JSON schema. OpenSearch then reads the facts from the tool call in the response, so you don't need to set `llm_result_path`. If you omit this field, OpenSearch adds format instructions to the fact extraction prompt and reads the model's text response. For more information, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#request-body-fields).
+The `supports_structured_output` field enables constrained decoding for fact extraction. When it is `true`, OpenSearch adds a `toolConfig` object to the Converse API request during fact extraction. The `toolConfig` object requires the model to call an `extract_facts` tool, so the model returns the facts in a fixed JSON schema. OpenSearch then reads the facts from the tool call in the response, so you don't need to set `llm_result_path`. If you omit this field, OpenSearch adds format instructions to the fact extraction prompt and reads the model's text response. For more information, see [The actions object]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/#the-actions-object).
 
 Note the connector ID; you'll use it to register the model.
 
