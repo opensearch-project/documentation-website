@@ -3,6 +3,7 @@ layout: default
 title: Elision
 parent: Token filters
 nav_order: 130
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/elision/
 ---
 
 # Elision token filter

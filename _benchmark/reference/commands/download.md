@@ -4,8 +4,10 @@ title: download
 nav_order: 30
 parent: Command reference
 grand_parent: Reference
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/commands/download/
 redirect_from:
   - /benchmark/commands/download/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/commands/download/
 ---
 
 <!-- vale off -->

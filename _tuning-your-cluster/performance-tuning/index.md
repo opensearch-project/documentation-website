@@ -4,6 +4,7 @@ title: Performance tuning
 nav_order: 60
 has_children: true
 has_toc: true
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/performance-tuning/index/
 redirect_from:
   - /tuning-your-cluster/performance-tuning/
 ---

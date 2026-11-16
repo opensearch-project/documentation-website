@@ -3,6 +3,7 @@ layout: default
 title: Terraform
 nav_order: 180
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/tools/terraform/
 ---
 
 # Terraform provider

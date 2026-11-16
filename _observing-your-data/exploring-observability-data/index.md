@@ -5,6 +5,7 @@ nav_order: 50
 has_children: true
 has_toc: false
 description: "Set up an Observability workspace to explore logs, traces, and metrics in Discover and to use application performance monitoring, service-level objectives, and agent monitoring."
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/exploring-observability-data/index/
 redirect_from:
   - /observing-your-data/exploring-observability-data/
 ---

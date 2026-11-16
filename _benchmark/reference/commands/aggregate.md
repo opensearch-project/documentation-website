@@ -4,8 +4,10 @@ title: aggregate
 nav_order: 10
 parent: Command reference
 grand_parent: Reference
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/commands/aggregate/
 redirect_from:
   - /benchmark/commands/aggregate/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/commands/aggregate/
 ---
 
 <!-- vale off -->

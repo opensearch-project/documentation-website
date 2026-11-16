@@ -4,6 +4,7 @@ title: Authentication backends
 nav_order: 45
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/security/authentication-backends/authc-index/
 redirect_from:
   - /security/authentication-backends/
   - /security-plugin/configuration/concepts/

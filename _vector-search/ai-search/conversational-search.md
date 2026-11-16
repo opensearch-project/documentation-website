@@ -4,6 +4,7 @@ title: Conversational search with RAG
 parent: AI search
 has_children: false
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/conversational-search/
 redirect_from:
   - /ml-commons-plugin/conversational-search/
   - /search-plugins/conversational-search/

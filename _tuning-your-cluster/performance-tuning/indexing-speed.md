@@ -4,6 +4,7 @@ title: Tuning for indexing speed
 nav_order: 10
 parent: Performance tuning
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/performance-tuning/indexing-speed/
 redirect_from:
   - /tuning-your-cluster/performance/
 ---

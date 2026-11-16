@@ -4,6 +4,7 @@ title: Multimodal search using ML inference processors
 parent: Semantic search
 grand_parent: Vector search
 nav_order: 95
+canonical_url: https://docs.opensearch.org/latest/tutorials/vector-search/semantic-search/multimodal-search-ml-inference/
 ---
 
 # Multimodal search using ML inference processors

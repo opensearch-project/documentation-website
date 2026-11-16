@@ -5,6 +5,7 @@ has_children: true
 has_toc: false
 nav_order: 140
 description: "Reference for the OpenSearch gRPC APIs, including the bulk and k-NN search operations that use protocol buffers for high-performance communication."
+canonical_url: https://docs.opensearch.org/latest/api-reference/grpc-apis/index/
 redirect_from:
   - /api-reference/grpc-apis/
 ---

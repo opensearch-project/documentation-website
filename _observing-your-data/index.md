@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 nav_exclude: true
 permalink: /observing-your-data/
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/
 redirect_from:
   - /observability-plugin/index/
   - /observing-your-data/index/

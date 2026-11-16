@@ -4,6 +4,7 @@ title: Distributed tracing
 parent: Telemetry
 grand_parent: Monitoring your cluster
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/monitoring/telemetry/distributed-tracing/
 redirect_from:
   - /observing-your-data/trace/distributed-tracing/
 ---

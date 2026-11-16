@@ -6,6 +6,7 @@ grand_parent: AI search
 nav_order: 80
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/workflows/api/index/
 redirect_from:
   - /automating-configurations/api/
   - /automating-configurations/api/index/

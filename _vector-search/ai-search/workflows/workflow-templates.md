@@ -4,6 +4,7 @@ title: Workflow templates
 parent: AI search workflows
 grand_parent: AI search
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/workflows/workflow-templates/
 redirect_from:
   - /automating-configurations/workflow-templates/
 ---

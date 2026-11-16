@@ -3,6 +3,7 @@ layout: default
 title: Report instance access control
 nav_order: 50
 parent: Reporting
+canonical_url: https://docs.opensearch.org/latest/dashboards/reporting/report-instance-access-control/
 redirect_from:
   - /reporting/report-instance-access-control/
 ---

@@ -4,9 +4,11 @@ title: run
 nav_order: 90
 parent: Command reference
 grand_parent: Reference
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/commands/run/
 redirect_from:
   - /benchmark/commands/execute-test/
   - /benchmark/reference/commands/execute-test/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/commands/run/
 ---
 
 <!-- vale off -->

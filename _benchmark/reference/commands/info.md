@@ -4,8 +4,10 @@ title: info
 nav_order: 70
 parent: Command reference
 grand_parent: Reference
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/commands/info/
 redirect_from:
   - /benchmark/commands/info/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/commands/info/
 ---
 
 <!-- vale off -->

@@ -3,6 +3,8 @@ layout: default
 title: test_procedures
 parent: Anatomy of a workload
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/workloads/test-procedures/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/workloads/test-procedures/
 ---
 
 <!-- vale off -->

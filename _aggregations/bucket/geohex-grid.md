@@ -3,6 +3,7 @@ layout: default
 title: Geohex grid
 parent: Bucket aggregations
 nav_order: 85
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/geohex-grid/
 redirect_from:
   - /opensearch/geohexgrid-agg/
   - /query-dsl/aggregations/geohexgrid-agg/

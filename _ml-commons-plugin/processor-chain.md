@@ -3,6 +3,7 @@ layout: default
 title: Processor chains
 has_children: false
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/processor-chain/
 ---
 
 # Processor chains

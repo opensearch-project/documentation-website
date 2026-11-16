@@ -5,6 +5,7 @@ parent: Generative AI
 has_children: true
 has_toc: false
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/chatbots/index/
 redirect_from:
   - /vector-search/tutorials/chatbots/
   - /tutorials/gen-ai/chatbots/

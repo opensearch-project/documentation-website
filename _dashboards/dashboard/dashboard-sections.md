@@ -4,6 +4,7 @@ title: Dashboard sections
 parent: Creating dashboards
 nav_order: 35
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/dashboards/dashboard/dashboard-sections/
 ---
 
 # Dashboard sections

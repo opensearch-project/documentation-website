@@ -4,6 +4,7 @@ title: Workflow settings
 parent: AI search workflows
 grand_parent: AI search
 nav_order: 90
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/workflows/workflow-settings/
 redirect_from:
   - /automating-configurations/workflow-settings/
 ---

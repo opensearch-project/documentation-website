@@ -3,6 +3,7 @@ layout: default
 title: Navigating OpenSearch Dashboards
 nav_order: 20
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/dashboards/navigating-ui/
 ---
 
 # Navigating OpenSearch Dashboards

@@ -5,6 +5,7 @@ parent: Visualization types
 grand_parent: Creating visualizations in the Visualize application
 great_grand_parent: Building data visualizations
 nav_order: 150
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualize-app/tag-cloud/
 redirect_from:
   - /dashboards/visualize/tag-cloud/
 ---

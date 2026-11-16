@@ -4,6 +4,7 @@ title: Grouping top N queries
 parent: Query insights
 grand_parent: Monitoring your cluster
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/monitoring/query-insights/grouping-top-n-queries/
 redirect_from:
   - /observing-your-data/query-insights/grouping-top-n-queries/
 ---

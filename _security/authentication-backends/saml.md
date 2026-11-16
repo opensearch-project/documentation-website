@@ -5,6 +5,7 @@ parent: Authentication backends
 nav_order: 55
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/security/authentication-backends/saml/
 redirect_from:
   - /security/configuration/saml/
   - /security-plugin/configuration/saml/

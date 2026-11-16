@@ -3,6 +3,7 @@ layout: default
 title: Run queries in the Dev Tools console
 parent: Getting started
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/dashboards/getting-started/explore-dev-tools/
 ---
 
 # Run queries in the Dev Tools console

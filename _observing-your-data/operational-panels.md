@@ -3,6 +3,7 @@ layout: default
 title: Operational panels
 parent: Classic observability apps
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/operational-panels/
 redirect_from:
   - /observability-plugin/operational-panels/
 ---

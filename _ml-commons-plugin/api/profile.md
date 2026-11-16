@@ -3,6 +3,7 @@ layout: default
 title: Profile
 parent: ML APIs
 nav_order: 110
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/api/profile/
 ---
 
 # ML Profile API

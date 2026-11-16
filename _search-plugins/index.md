@@ -6,6 +6,7 @@ has_children: false
 has_toc: false
 nav_exclude: true
 permalink: /search-plugins/
+canonical_url: https://docs.opensearch.org/latest/search-plugins/
 redirect_from:
   - /search-plugins/index/
 search_methods:

@@ -4,6 +4,7 @@ title: Index APIs
 has_children: true
 has_toc: false
 nav_order: 60
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/index/
 redirect_from:
   - /opensearch/rest-api/index-apis/index/
   - /opensearch/rest-api/index-apis/

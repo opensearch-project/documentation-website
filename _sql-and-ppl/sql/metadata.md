@@ -3,6 +3,7 @@ layout: default
 title: Metadata queries
 parent: SQL
 nav_order: 9
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/sql/metadata/
 redirect_from:
   - /search-plugins/sql/metadata/
   - /search-plugins/sql/sql/metadata/

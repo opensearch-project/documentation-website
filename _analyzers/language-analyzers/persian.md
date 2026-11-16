@@ -4,6 +4,7 @@ title: Persian
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 250
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/persian/
 ---
 
 # Persian analyzer

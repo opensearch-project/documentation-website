@@ -5,6 +5,7 @@ parent: Workflow APIs
 grand_parent: AI search workflows
 great_grand_parent: AI search
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/workflows/api/get-workflow-status/
 redirect_from:
   - /automating-configurations/api/get-workflow-status/
 ---

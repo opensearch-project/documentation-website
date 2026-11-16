@@ -7,6 +7,7 @@ great_grand_parent: Building data visualizations
 has_children: true
 has_toc: false
 nav_order: 105
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualize-app/maps/
 redirect_from:
   - /dashboards/visualize/maps/
   - /dashboards/maps-plugin/

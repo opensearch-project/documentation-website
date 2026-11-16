@@ -4,6 +4,7 @@ title: Saved objects
 parent: Dashboards management
 has_children: true
 nav_order: 12
+canonical_url: https://docs.opensearch.org/latest/dashboards/management/saved-objects/
 ---
 
 # Saved objects

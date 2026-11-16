@@ -3,6 +3,7 @@ layout: default
 title: Composite Monitor API
 parent: Alerting
 nav_order: 65
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/alerting/composite-monitors-api/
 ---
 
 # Composite Monitor API

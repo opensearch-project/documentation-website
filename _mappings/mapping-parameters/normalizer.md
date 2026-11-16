@@ -2,6 +2,7 @@
 layout: default
 title: Normalizer
 parent: Mapping parameters
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/normalizer/
 redirect_from:
   - /field-types/mapping-parameters/normalizer/
 nav_order: 190

@@ -5,6 +5,7 @@ parent: Observability workspace apps
 nav_order: 50
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/apm/index/
 redirect_from:
    - /observing-your-data/apm/
 ---

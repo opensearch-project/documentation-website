@@ -6,10 +6,12 @@ nav_order: 20
 has_children: true
 has_toc: true
 permalink: /migration-assistant/migration-phases/deploy/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/deploy/
 redirect_from:
   - /migration-assistant/deploying-migration-assistant/
   - /migration-assistant/getting-started-with-data-migration/
   - /deploying-migration-assistant/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/migration-phases/deploy/
 ---
 
 # Choose your deployment

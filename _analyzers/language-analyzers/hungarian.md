@@ -4,6 +4,7 @@ title: Hungarian
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 200
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/hungarian/
 ---
 
 # Hungarian analyzer

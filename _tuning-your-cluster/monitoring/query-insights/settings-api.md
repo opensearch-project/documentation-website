@@ -4,6 +4,7 @@ title: Query Insights Settings API
 parent: Query insights
 grand_parent: Monitoring your cluster
 nav_order: 60
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/monitoring/query-insights/settings-api/
 redirect_from:
   - /observing-your-data/query-insights/settings-api/
 ---

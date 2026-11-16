@@ -3,6 +3,7 @@ layout: default
 title: Point in Time
 parent: Customizing search results
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/search-plugins/searching-data/point-in-time/
 redirect_from:
   - /opensearch/point-in-time/
   - /search-plugins/point-in-time/

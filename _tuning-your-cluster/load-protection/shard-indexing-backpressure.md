@@ -4,6 +4,7 @@ title: Shard indexing backpressure
 nav_order: 20
 has_children: true
 parent: Load protection
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/load-protection/shard-indexing-backpressure/
 redirect_from: 
   - /opensearch/shard-indexing-backpressure/
   - /tuning-your-cluster/availability-and-recovery/shard-indexing-backpressure/

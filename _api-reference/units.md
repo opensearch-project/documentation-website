@@ -2,6 +2,7 @@
 layout: default
 title: Supported units
 nav_order: 160
+canonical_url: https://docs.opensearch.org/latest/api-reference/units/
 redirect_from:
   - /opensearch/units/
 ---

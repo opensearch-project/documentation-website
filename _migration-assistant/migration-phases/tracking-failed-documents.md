@@ -5,6 +5,8 @@ parent: Backfill
 grand_parent: Migration workflows
 nav_order: 10
 permalink: /migration-assistant/migration-phases/tracking-failed-documents/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/tracking-failed-documents/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/migration-phases/tracking-failed-documents/
 ---
 
 # Tracking and remediating failed documents

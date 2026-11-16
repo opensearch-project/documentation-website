@@ -3,6 +3,7 @@ layout: default
 title: Sort results
 parent: Customizing search results
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/search-plugins/searching-data/sort/
 redirect_from:
   - /opensearch/search/sort/
 ---

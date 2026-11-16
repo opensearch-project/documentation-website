@@ -4,6 +4,8 @@ title: redline-test
 nav_order: 85
 parent: Command reference
 grand_parent: Reference
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/commands/redline-test/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/commands/redline-test/
 ---
 
 # Redline testing

@@ -5,8 +5,10 @@ nav_order: 50
 has_children: true
 has_toc: false
 parent: Reference
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/commands/index/
 redirect_from:
   - /benchmark/reference/commands/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/commands/index/
 ---
 
 # OpenSearch Benchmark command reference

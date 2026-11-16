@@ -4,6 +4,7 @@ title: Workflow steps
 parent: AI search workflows
 grand_parent: AI search
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/workflows/workflow-steps/
 redirect_from:
   - /automating-configurations/workflow-steps/
 ---

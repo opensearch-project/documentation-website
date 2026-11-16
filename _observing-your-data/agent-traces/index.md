@@ -5,6 +5,7 @@ parent: Observability workspace apps
 nav_order: 60
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/agent-traces/index/
 redirect_from:
   - /observing-your-data/agent-traces/
 ---

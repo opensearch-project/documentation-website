@@ -3,6 +3,7 @@ layout: default
 title: Configuring the security backend
 parent: Configuration
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/security/configuration/configuration/
 redirect_from:
  - /security-plugin/configuration/configuration/
 ---

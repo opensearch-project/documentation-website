@@ -4,6 +4,8 @@ title: User agent
 parent: Processors
 grand_parent: Pipelines
 nav_order: 430
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/user-agent/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/user-agent/
 ---
 
 # User agent processor

@@ -4,6 +4,7 @@ title: Rule-based auto-tagging
 nav_order: 80
 parent: Workload management
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/workload-management/rule-based-autotagging/autotagging/
 redirect_from:
   - /tuning-your-cluster/availability-and-recovery/rule-based-autotagging/autotagging/
 ---

@@ -4,6 +4,7 @@ title: Opening a dashboard
 parent: Creating dashboards
 nav_order: 10
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/dashboards/dashboard/opening-a-dashboard/
 ---
 
 # Opening a dashboard

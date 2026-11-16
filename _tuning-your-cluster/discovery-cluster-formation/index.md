@@ -3,6 +3,7 @@ layout: default
 title: Discovery and cluster formation
 nav_order: 5
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/discovery-cluster-formation/index/
 redirect_from:
   - /tuning-your-cluster/discovery-cluster-formation/
 ---

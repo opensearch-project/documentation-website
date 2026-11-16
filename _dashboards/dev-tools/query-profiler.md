@@ -4,6 +4,7 @@ title: Query Profiler
 parent: Using Dev Tools
 grand_parent: Exploring data
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/dashboards/dev-tools/query-profiler/
 ---
 
 # Query Profiler

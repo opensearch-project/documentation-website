@@ -6,11 +6,13 @@ has_children: false
 has_toc: false
 nav_exclude: true
 permalink: /data-prepper/
+canonical_url: https://docs.opensearch.org/latest/data-prepper/
 redirect_from: 
   - /clients/data-prepper/index/
   - /monitoring-plugins/trace/data-prepper/
   - /data-prepper/index/
   - /data-prepper/migrating-from-logstash-data-prepper/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/
 ---
 
 # ![Data Prepper icon]({{site.url}}{{site.baseurl}}/images/icons/OpenSearch-DataPrepper-1.png){: .heading-icon} OpenSearch Data Prepper

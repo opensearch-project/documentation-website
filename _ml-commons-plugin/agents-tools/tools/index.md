@@ -5,6 +5,7 @@ parent: Agents and tools
 has_children: true
 has_toc: false
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/agents-tools/tools/index/
 redirect_from: 
   - /ml-commons-plugin/agents-tools/tools/
   - /ml-commons-plugin/agents-tools/tools/cat-index-tool/

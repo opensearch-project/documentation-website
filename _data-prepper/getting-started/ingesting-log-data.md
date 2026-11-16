@@ -3,6 +3,8 @@ layout: default
 title: Ingesting log data into OpenSearch
 parent: Getting started
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/data-prepper/getting-started/ingesting-log-data/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/
 ---
 
 # Ingesting log data into OpenSearch

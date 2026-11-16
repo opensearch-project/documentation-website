@@ -4,6 +4,7 @@ title: Getting started
 nav_order: 10
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/vector-search/getting-started/index/
 redirect_from:
   - /vector-search/getting-started/
 ---

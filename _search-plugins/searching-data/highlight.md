@@ -3,6 +3,7 @@ layout: default
 title: Highlight query matches
 parent: Customizing search results
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/search-plugins/searching-data/highlight/
 redirect_from:
   - /opensearch/search/highlight/
 ---

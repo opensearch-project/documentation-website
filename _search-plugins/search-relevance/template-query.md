@@ -6,6 +6,7 @@ parent: Query rewriting
 grand_parent: Optimizing search quality
 has_children: false
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-relevance/template-query/
 ---
 
 # Template queries

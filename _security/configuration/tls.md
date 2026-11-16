@@ -5,6 +5,7 @@ parent: Configuration
 nav_order: 35
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/security/configuration/tls/
 redirect_from:
   - /security-plugin/configuration/tls/
 ---

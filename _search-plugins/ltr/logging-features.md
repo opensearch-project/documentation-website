@@ -5,6 +5,7 @@ nav_order: 50
 parent: Learning to Rank
 grand_parent: Optimizing search quality
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/search-plugins/ltr/logging-features/
 ---
 
 # Logging feature scores

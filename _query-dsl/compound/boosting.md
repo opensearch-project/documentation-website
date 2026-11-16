@@ -3,6 +3,7 @@ layout: default
 title: Boosting
 parent: Compound queries
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/query-dsl/compound/boosting/
 redirect_from:
   - /query-dsl/query-dsl/compound/boosting/
 ---

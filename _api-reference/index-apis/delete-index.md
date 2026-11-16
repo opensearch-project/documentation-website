@@ -4,6 +4,7 @@ title: Delete index
 parent: Core index APIs
 grand_parent: Index APIs
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/delete-index/
 redirect_from:
   - /opensearch/rest-api/index-apis/delete-index/
 ---

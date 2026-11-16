@@ -3,6 +3,7 @@ layout: default
 title: Access OpenSearch Dashboards
 parent: Getting started
 nav_order: 15
+canonical_url: https://docs.opensearch.org/latest/dashboards/getting-started/access/
 ---
 
 # Access OpenSearch Dashboards

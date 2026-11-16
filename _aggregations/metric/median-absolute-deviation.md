@@ -3,6 +3,7 @@ layout: default
 title: Median absolute deviation
 parent: Metric aggregations
 nav_order: 65
+canonical_url: https://docs.opensearch.org/latest/aggregations/metric/median-absolute-deviation/
 redirect_from:
   - /query-dsl/aggregations/metric/median-absolute-deviation/
 ---

@@ -5,6 +5,7 @@ nav_order: 5
 nav_exclude: true
 has_toc: true
 permalink: /ingest-pipelines/
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/
 redirect_from:
    - /api-reference/ingest-apis/ingest-pipelines/
    - /ingest-pipelines/index/

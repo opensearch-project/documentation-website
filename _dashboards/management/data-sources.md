@@ -3,6 +3,7 @@ layout: default
 title: Connecting data sources
 nav_order: 30
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/dashboards/management/data-sources/
 ---
 
 # Data sources

@@ -4,6 +4,7 @@ title: Conversational search using Ollama
 parent: RAG
 grand_parent: Generative AI
 nav_order: 180
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/rag/conversational-search-ollama/
 ---
 
 # Conversational search using Ollama

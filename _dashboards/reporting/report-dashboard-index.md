@@ -3,6 +3,7 @@ layout: default
 title: Reporting using OpenSearch Dashboards
 nav_order: 10
 parent: Reporting
+canonical_url: https://docs.opensearch.org/latest/dashboards/reporting/report-dashboard-index/
 redirect_from:
   - /reporting/report-dashboard-index/
 ---

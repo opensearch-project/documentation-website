@@ -5,6 +5,7 @@ nav_order: 1
 has_children: false
 nav_exclude: true
 permalink: /im-plugin/
+canonical_url: https://docs.opensearch.org/latest/im-plugin/
 redirect_from:
   - /opensearch/index-data/
   - /im-plugin/index/

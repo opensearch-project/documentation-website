@@ -2,6 +2,7 @@
 layout: default
 title: Term vector
 parent: Mapping parameters
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/term-vector/
 redirect_from:
   - /field-types/mapping-parameters/term-vector/
 nav_order: 270

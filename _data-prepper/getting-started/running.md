@@ -3,6 +3,8 @@ layout: default
 title: Running Data Prepper
 parent: Getting started
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/data-prepper/getting-started/running/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/
 ---
 
 # Running Data Prepper

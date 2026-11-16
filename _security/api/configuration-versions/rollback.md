@@ -4,6 +4,7 @@ title: Roll back configuration
 parent: Security configuration version APIs
 grand_parent: Security APIs
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/security/api/configuration-versions/rollback/
 ---
 
 # Roll Back Security Configuration API

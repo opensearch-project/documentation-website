@@ -3,6 +3,7 @@ layout: default
 title: Reporting API
 nav_order: 30
 parent: Reporting
+canonical_url: https://docs.opensearch.org/latest/dashboards/reporting/api/
 redirect_from:
   - /reporting/api/
 ---

@@ -4,6 +4,7 @@ title: Mappings
 nav_order: 1
 nav_exclude: true
 permalink: /mappings/
+canonical_url: https://docs.opensearch.org/latest/mappings/
 redirect_from: 
   - /opensearch/mappings/
   - /field-types/mappings/

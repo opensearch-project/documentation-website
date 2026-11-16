@@ -3,6 +3,7 @@ layout: default
 title: Matrix stats
 parent: Metric aggregations
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/aggregations/metric/matrix-stats/
 redirect_from:
   - /query-dsl/aggregations/metric/matrix-stats/
 ---

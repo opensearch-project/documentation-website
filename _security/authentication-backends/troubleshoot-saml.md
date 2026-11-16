@@ -4,6 +4,7 @@ title: Troubleshooting SAML
 parent: SAML
 grand_parent: Authentication backends
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/security/authentication-backends/troubleshoot-saml/
 redirect_from:
   - /troubleshoot/saml/
 ---

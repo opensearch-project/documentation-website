@@ -4,6 +4,7 @@ title: Troubleshooting TLS
 parent: Configuring TLS certificates
 grand_parent: Configuration
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/security/configuration/troubleshoot-tls/
 redirect_from:
   - /troubleshoot/tls/
 ---

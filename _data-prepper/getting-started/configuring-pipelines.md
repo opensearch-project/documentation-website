@@ -3,6 +3,8 @@ layout: default
 title: Configuring pipelines
 parent: Getting started
 nav_order: 15
+canonical_url: https://docs.opensearch.org/latest/data-prepper/getting-started/configuring-pipelines/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/
 ---
 
 # Configuring pipelines

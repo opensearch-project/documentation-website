@@ -3,6 +3,7 @@ layout: default
 title: Logs
 nav_order: 20
 parent: Observability workspace apps
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/exploring-observability-data/discover-logs/
 redirect_from:
   - /observability-plugin/discover-logs/
 ---

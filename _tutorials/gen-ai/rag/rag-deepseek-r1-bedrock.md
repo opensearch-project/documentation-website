@@ -4,6 +4,7 @@ title: RAG using DeepSeek-R1 on Amazon Bedrock
 parent: RAG
 grand_parent: Generative AI
 nav_order: 130
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/rag/rag-deepseek-r1-bedrock/
 redirect_from:
   - /vector-search/tutorials/rag/rag-deepseek-r1-bedrock/
   - /tutorials/vector-search/rag/rag-deepseek-r1-bedrock/

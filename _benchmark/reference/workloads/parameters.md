@@ -3,6 +3,8 @@ layout: default
 title: Workload parameters
 parent: Anatomy of a workload
 nav_order: 60
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/workloads/parameters/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/workloads/parameters/
 ---
 
 # Workload parameters

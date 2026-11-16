@@ -4,6 +4,7 @@ title: Troubleshooting OpenID Connect
 parent: OpenID Connect
 grand_parent: Authentication backends
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/security/authentication-backends/troubleshoot-openid-connect/
 redirect_from:
   - /troubleshoot/openid-connect/
 ---

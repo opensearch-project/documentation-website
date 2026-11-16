@@ -3,6 +3,7 @@ layout: default
 title: Reranking search results using Amazon Bedrock models
 parent: Reranking search results
 nav_order: 100
+canonical_url: https://docs.opensearch.org/latest/tutorials/reranking/reranking-bedrock/
 redirect_from:
   - /ml-commons-plugin/tutorials/reranking-bedrock/
   - /vector-search/tutorials/reranking/reranking-bedrock/

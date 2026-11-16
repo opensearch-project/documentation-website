@@ -4,8 +4,10 @@ title: Python client
 nav_order: 10
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/clients/python-low-level/
 redirect_from: 
   - /clients/python/
+redirect_to: https://docs.opensearch.org/latest/clients/python-low-level/
 ---
 
 # Python client

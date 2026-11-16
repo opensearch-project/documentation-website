@@ -5,6 +5,7 @@ nav_order: 10
 parent: Policies
 grand_parent: Index State Management
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/im-plugin/ism/policies-operations/
 ---
 
 

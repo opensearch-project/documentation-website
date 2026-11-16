@@ -2,6 +2,7 @@
 layout: default
 title: Analyze API
 nav_order: 5
+canonical_url: https://docs.opensearch.org/latest/api-reference/analyze-apis/
 redirect_from:
   - /api-reference/analyze-apis/perform-text-analysis/
   - /opensearch/rest-api/analyze-apis/

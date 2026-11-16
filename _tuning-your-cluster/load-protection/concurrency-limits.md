@@ -4,6 +4,7 @@ title: Concurrency limits
 nav_order: 30
 has_children: false
 parent: Load protection
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/load-protection/concurrency-limits/
 redirect_from:
   - /tuning-your-cluster/availability-and-recovery/concurrency-limits/
 ---

@@ -2,6 +2,7 @@
 layout: default
 title: Query and filter context
 nav_order: 5
+canonical_url: https://docs.opensearch.org/latest/query-dsl/query-filter-context/
 redirect_from:
   - /opensearch/query-dsl/query-filter-context/
   - /query-dsl/query-dsl/query-filter-context/

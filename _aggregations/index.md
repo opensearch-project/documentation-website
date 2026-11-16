@@ -5,6 +5,7 @@ has_children: false
 nav_order: 5
 nav_exclude: true
 permalink: /aggregations/
+canonical_url: https://docs.opensearch.org/latest/aggregations/
 redirect_from:
   - /query-dsl/aggregations/aggregations/
   - /opensearch/aggregations/

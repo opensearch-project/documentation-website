@@ -4,6 +4,7 @@ title: Generate on-behalf-of token
 parent: Authentication APIs
 grand_parent: Security APIs
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/security/api/authentication/generate-obo-token/
 ---
 
 # Generate On-Behalf-Of Token API

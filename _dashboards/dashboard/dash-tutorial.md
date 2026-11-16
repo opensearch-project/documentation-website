@@ -4,6 +4,7 @@ title: Dashboard tutorial
 parent: Creating dashboards
 nav_order: 5
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/dashboards/dashboard/dash-tutorial/
 ---
 
 # Tutorial: Creating a dashboard

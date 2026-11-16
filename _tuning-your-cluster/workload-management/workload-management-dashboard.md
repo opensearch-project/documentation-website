@@ -3,6 +3,7 @@ title: Managing workloads in OpenSearch Dashboards
 layout: default
 parent: Workload management
 nav_order: 60
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/workload-management/workload-management-dashboard/
 redirect_from:
   - /tuning-your-cluster/availability-and-recovery/workload-management/workload-management-dashboard/
 ---

@@ -3,6 +3,7 @@ layout: default
 title: Clean up snapshot repository
 parent: Snapshot APIs
 nav_order: 45
+canonical_url: https://docs.opensearch.org/latest/api-reference/snapshots/cleanup-snapshot-repository/
 ---
 
 # Clean Up Snapshot Repository API

@@ -3,6 +3,7 @@ layout: default
 title: Remote index build
 nav_order: 72
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/vector-search/remote-index-build/
 ---
 
 # Building vector indexes remotely using GPUs

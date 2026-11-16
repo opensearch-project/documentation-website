@@ -4,6 +4,7 @@ title: Settings
 parent: Shard indexing backpressure
 nav_order: 50
 grand_parent: Load protection
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/load-protection/shard-indexing-settings/
 redirect_from: 
   - /opensearch/shard-indexing-settings/
   - /tuning-your-cluster/availability-and-recovery/shard-indexing-settings/

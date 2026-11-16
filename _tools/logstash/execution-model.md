@@ -3,6 +3,7 @@ layout: default
 title: Logstash execution model
 parent: Logstash
 nav_order: 210
+canonical_url: https://docs.opensearch.org/latest/tools/logstash/execution-model/
 redirect_from:
  - /clients/logstash/execution-model/
 ---

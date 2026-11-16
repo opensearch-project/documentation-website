@@ -3,6 +3,7 @@ layout: default
 title: List APIs
 nav_order: 20
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/api-reference/list/index/
 redirect_from:
   - /api-reference/list/
 ---

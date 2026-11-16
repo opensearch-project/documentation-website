@@ -3,6 +3,7 @@ layout: default
 title: Remove by pattern
 parent: Ingest processors
 nav_order: 225
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/remove-by-pattern/
 redirect_from:
    - /ingest-pipelines/processors/remove_by_pattern/
 ---

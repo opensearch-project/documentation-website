@@ -4,6 +4,7 @@ title: Configuring visualizations
 parent: Creating visualizations in the Visualize application
 grand_parent: Building data visualizations
 nav_order: 200
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualize-app/configuring-viz/
 redirect_from:
   - /dashboards/visualize/viz-tool-ref/
 ---

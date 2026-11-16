@@ -4,6 +4,7 @@ title: Semantic search
 parent: AI search
 nav_order: 35
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/semantic-search/
 redirect_from:
   - /search-plugins/neural-text-search/
   - /search-plugins/semantic-search/

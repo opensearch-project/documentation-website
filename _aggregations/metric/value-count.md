@@ -3,6 +3,7 @@ layout: default
 title: Value count
 parent: Metric aggregations
 nav_order: 140
+canonical_url: https://docs.opensearch.org/latest/aggregations/metric/value-count/
 redirect_from:
   - /query-dsl/aggregations/metric/value-count/
 ---

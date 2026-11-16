@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Date nanoseconds
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/date-nanos/
 redirect_from:
   - /field-types/supported-field-types/date-nanos/
 parent: Date field types

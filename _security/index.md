@@ -6,6 +6,7 @@ has_children: false
 has_toc: false
 nav_exclude: true
 permalink: /security/
+canonical_url: https://docs.opensearch.org/latest/security/
 redirect_from:
   - /security-plugin/
   - /security-plugin/index/

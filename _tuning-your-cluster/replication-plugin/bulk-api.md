@@ -3,6 +3,7 @@ layout: default
 title: Bulk Replication API
 nav_order: 55
 parent: Cross-cluster replication
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/replication-plugin/bulk-api/
 ---
 
 # Bulk Replication API

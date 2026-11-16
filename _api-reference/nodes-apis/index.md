@@ -4,6 +4,7 @@ title: Nodes APIs
 has_children: true
 has_toc: false
 nav_order: 80
+canonical_url: https://docs.opensearch.org/latest/api-reference/nodes-apis/index/
 redirect_from:
   - /api-reference/nodes-apis/
 ---

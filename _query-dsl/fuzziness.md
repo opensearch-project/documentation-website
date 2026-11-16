@@ -2,6 +2,7 @@
 layout: default
 title: Fuzziness
 nav_order: 82
+canonical_url: https://docs.opensearch.org/latest/query-dsl/fuzziness/
 ---
 
 # Fuzziness

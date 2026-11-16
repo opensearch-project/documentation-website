@@ -3,6 +3,7 @@ layout: default
 title: Reverse nested
 parent: Bucket aggregations
 nav_order: 160
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/reverse-nested/
 redirect_from:
   - /query-dsl/aggregations/bucket/reverse-nested/
 ---

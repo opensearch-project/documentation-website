@@ -3,6 +3,7 @@ layout: default
 title: Variable width histogram
 parent: Bucket aggregations
 nav_order: 210
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/variable-width-histogram/
 ---
 
 # Variable width histogram aggregation

@@ -3,6 +3,7 @@ layout: default
 title: Spaces
 parent: k-NN vector
 grand_parent: Supported field types
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/knn-spaces/
 redirect_from:
   - /field-types/supported-field-types/knn-spaces/
 nav_order: 10

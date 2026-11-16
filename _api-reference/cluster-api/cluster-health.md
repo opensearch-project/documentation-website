@@ -4,6 +4,7 @@ title: Cluster health
 nav_order: 40
 parent: Cluster APIs
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/api-reference/cluster-api/cluster-health/
 redirect_from: 
  - /api-reference/cluster-health/
  - /opensearch/rest-api/cluster-health/

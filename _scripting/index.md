@@ -6,6 +6,7 @@ nav_exclude: true
 has_toc: false
 has_children: true
 permalink: /scripting/
+canonical_url: https://docs.opensearch.org/latest/scripting/
 ---
 
 # Scripting

@@ -3,6 +3,7 @@ layout: default
 title: Grok
 parent: Ingest processors
 nav_order: 120
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/grok/
 ---
 
 # Grok processor 

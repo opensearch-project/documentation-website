@@ -4,6 +4,7 @@ title: Reporting using the CLI
 nav_order: 20
 parent: Reporting
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/dashboards/reporting/rep-cli-index/
 redirect_from:
   - /reporting/rep-cli-index/
   - /dashboards/reporting-cli/rep-cli-index/

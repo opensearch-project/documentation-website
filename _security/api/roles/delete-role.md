@@ -4,6 +4,7 @@ title: Delete role
 parent: Role APIs
 grand_parent: Security APIs
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/security/api/roles/delete-role/
 ---
 
 # Delete Role API

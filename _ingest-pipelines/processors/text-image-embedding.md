@@ -3,6 +3,7 @@ layout: default
 title: Text/image embedding
 parent: Ingest processors
 nav_order: 270
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/text-image-embedding/
 redirect_from:
    - /api-reference/ingest-apis/processors/text-image-embedding/
 ---

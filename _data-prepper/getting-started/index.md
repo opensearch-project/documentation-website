@@ -4,6 +4,7 @@ title: Getting started
 nav_order: 5
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/data-prepper/getting-started/index/
 redirect_from:
   - /clients/data-prepper/get-started/
   - /data-prepper/getting-started/
@@ -20,6 +21,7 @@ steps:
   - heading: "Ingest log data into OpenSearch"
     description: "Build a pipeline that parses raw Apache access logs, writes them to an OpenSearch index, and lets you search the parsed fields."
     link: "/data-prepper/getting-started/ingesting-log-data/"
+redirect_to: https://docs.opensearch.org/latest/data-prepper/getting-started/
 ---
 
 # Getting started with OpenSearch Data Prepper

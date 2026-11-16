@@ -4,8 +4,10 @@ title: JavaScript client
 has_children: true
 has_toc: false
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/clients/javascript/index/
 redirect_from:
   - /clients/javascript/
+redirect_to: https://docs.opensearch.org/latest/clients/javascript/index/
 ---
 
 # JavaScript client

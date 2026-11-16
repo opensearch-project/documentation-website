@@ -3,6 +3,7 @@ layout: default
 title: Query string
 parent: Full-text queries
 nav_order: 80
+canonical_url: https://docs.opensearch.org/latest/query-dsl/full-text/query-string/
 redirect_from:
   - /opensearch/query-dsl/full-text/query-string/
   - /query-dsl/query-dsl/full-text/query-string/

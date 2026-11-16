@@ -4,6 +4,7 @@ title: CAT recovery
 parent: CAT APIs
 nav_order: 50
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-recovery/
 redirect_from:
 - /opensearch/rest-api/cat/cat-recovery/
 ---

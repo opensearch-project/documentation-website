@@ -5,6 +5,7 @@ parent: Security APIs
 nav_order: 60
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/security/api/action-groups/index/
 redirect_from:
   - /security/api/action-groups/
 ---

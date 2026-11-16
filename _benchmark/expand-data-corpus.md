@@ -2,8 +2,10 @@
 layout: default
 title: Expanding a workload's data corpus
 nav_order: 55
+canonical_url: https://docs.opensearch.org/latest/benchmark/expand-data-corpus/
 redirect_from:
   - /benchmark/user-guide/optimizing-benchmarks/expand-data-corpus/
+redirect_to: https://docs.opensearch.org/latest/benchmark/expand-data-corpus/
 ---
 
 # Expanding a workload's data corpus

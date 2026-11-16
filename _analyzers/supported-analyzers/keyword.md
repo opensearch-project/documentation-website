@@ -3,6 +3,7 @@ layout: default
 title: Keyword analyzer
 parent: Analyzers
 nav_order: 80
+canonical_url: https://docs.opensearch.org/latest/analyzers/supported-analyzers/keyword/
 ---
 
 # Keyword analyzer

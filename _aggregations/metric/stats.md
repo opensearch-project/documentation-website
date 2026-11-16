@@ -3,6 +3,7 @@ layout: default
 title: Stats
 parent: Metric aggregations
 nav_order: 110
+canonical_url: https://docs.opensearch.org/latest/aggregations/metric/stats/
 redirect_from:
   - /query-dsl/aggregations/metric/stats/
 ---

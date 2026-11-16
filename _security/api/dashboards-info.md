@@ -3,6 +3,7 @@ layout: default
 title: Dashboards info
 parent: Security APIs
 nav_order: 160
+canonical_url: https://docs.opensearch.org/latest/security/api/dashboards-info/
 redirect_from:
   - /security/api/dashboards-info/get-dashboards-info/
   - /security/api/dashboards-info/post-dashboards-info/

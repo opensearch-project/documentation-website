@@ -4,6 +4,7 @@ title: AI search workflows
 parent: AI search
 nav_order: 80
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/workflows/index/
 redirect_from:
   - /automating-configurations/
   - /automating-configurations/index/

@@ -5,6 +5,7 @@ parent: Mapping parameters
 nav_order: 30
 has_children: false
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/dynamic/
 redirect_from:
   - /field-types/mapping-parameters/dynamic/
   - /opensearch/dynamic/

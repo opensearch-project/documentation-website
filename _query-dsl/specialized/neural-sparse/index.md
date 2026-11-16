@@ -4,6 +4,7 @@ title: Neural sparse
 parent: AI and vector search queries
 has_children: true
 nav_order: 55
+canonical_url: https://docs.opensearch.org/latest/query-dsl/specialized/neural-sparse/index/
 redirect_from:
   - /query-dsl/specialized/neural-sparse/
 ---

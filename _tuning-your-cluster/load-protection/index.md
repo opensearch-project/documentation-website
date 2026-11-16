@@ -4,6 +4,7 @@ title: Load protection
 nav_order: 50
 has_children: true
 has_toc: true
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/load-protection/index/
 redirect_from:
   - /tuning-your-cluster/load-protection/
 ---

@@ -5,6 +5,7 @@ parent: Workflow template security
 grand_parent: AI search workflows
 great_grand_parent: AI search
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/workflows/workflow-access-control/
 redirect_from:
   - /automating-configurations/workflow-access-control/
 ---

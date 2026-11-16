@@ -4,6 +4,7 @@ title: Data transformations
 parent: Creating visualizations using queries
 grand_parent: Building data visualizations
 nav_order: 95
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualization-editor/data-transformation/index/
 redirect_from:
   - /dashboards/visualize/visualization-editor/data-transformation/
 ---

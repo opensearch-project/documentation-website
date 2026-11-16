@@ -4,6 +4,7 @@ title: Tiered cache
 parent: Caching
 grand_parent: Improving search performance
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/search-plugins/caching/tiered-cache/
 ---
 
 # Tiered cache

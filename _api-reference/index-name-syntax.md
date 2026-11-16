@@ -2,6 +2,7 @@
 layout: default
 title: Index name syntax
 nav_order: 155
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-name-syntax/
 ---
 
 # Index name syntax

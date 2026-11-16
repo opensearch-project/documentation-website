@@ -3,6 +3,7 @@ layout: default
 title: Significant text
 parent: Bucket aggregations
 nav_order: 190
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/significant-text/
 redirect_from:
   - /query-dsl/aggregations/bucket/significant-text/
 ---

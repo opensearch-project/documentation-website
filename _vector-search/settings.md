@@ -2,6 +2,7 @@
 layout: default
 title: Settings
 nav_order: 90
+canonical_url: https://docs.opensearch.org/latest/vector-search/settings/
 redirect_from:
   - /search-plugins/knn/settings/
 ---

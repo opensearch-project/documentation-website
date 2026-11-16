@@ -4,6 +4,7 @@ title: Snapshots
 nav_order: 5
 has_children: true
 parent: Availability and recovery
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/snapshots/index/
 redirect_from:
   - /opensearch/snapshots/
   - /opensearch/snapshots/index/

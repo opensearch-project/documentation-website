@@ -3,6 +3,7 @@ layout: default
 title: Predict model stream (gRPC)
 parent: gRPC APIs
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/api-reference/grpc-apis/predict-model-stream/
 ---
 
 # Predict Model Stream API (gRPC)

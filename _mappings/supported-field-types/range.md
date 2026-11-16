@@ -4,6 +4,7 @@ title: Range field types
 nav_order: 70
 has_children: false
 parent: Supported field types
+canonical_url: https://docs.opensearch.org/latest/mappings/supported-field-types/range/
 redirect_from:
   - /field-types/supported-field-types/range/
   - /opensearch/supported-field-types/range/

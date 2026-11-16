@@ -4,6 +4,7 @@ title: Component template APIs
 parent: Index templates
 grand_parent: Index APIs
 nav_order: 60
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/component-template/
 ---
 
 # Component template APIs

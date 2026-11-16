@@ -5,6 +5,7 @@ nav_order: 2
 parent: Asynchronous search
 grand_parent: Improving search performance
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/search-plugins/async/security/
 ---
 
 # Asynchronous search security

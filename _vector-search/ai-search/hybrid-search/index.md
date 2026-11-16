@@ -4,6 +4,7 @@ title: Hybrid search
 parent: AI search
 has_children: true
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/hybrid-search/index/
 redirect_from:
    - /search-plugins/hybrid-search/
    - /vector-search/ai-search/hybrid-search/

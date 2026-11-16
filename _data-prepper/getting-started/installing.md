@@ -3,6 +3,8 @@ layout: default
 title: Installing and configuring Data Prepper
 parent: Getting started
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/data-prepper/getting-started/installing/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/
 ---
 
 # Installing and configuring Data Prepper

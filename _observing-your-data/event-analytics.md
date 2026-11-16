@@ -3,6 +3,7 @@ layout: default
 title: Event analytics
 parent: Classic observability apps
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/event-analytics/
 redirect_from:
   - /observability-plugin/event-analytics/
 ---

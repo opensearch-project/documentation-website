@@ -3,6 +3,7 @@ layout: default
 title: Index context
 parent: Tuning indexes
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/im-plugin/index-context/
 redirect_from:
   - /opensearch/index-context/
 ---

@@ -4,6 +4,7 @@ title: Snapshot APIs
 has_children: true
 has_toc: false
 nav_order: 120
+canonical_url: https://docs.opensearch.org/latest/api-reference/snapshots/index/
 redirect_from:
   - /opensearch/rest-api/snapshots/
   - /api-reference/snapshots/

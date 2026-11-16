@@ -4,6 +4,7 @@ title: Transforms APIs
 nav_order: 10
 parent: Index transforms
 has_toc: true
+canonical_url: https://docs.opensearch.org/latest/im-plugin/index-transforms/transforms-apis/
 ---
 
 # Transforms APIs

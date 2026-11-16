@@ -4,6 +4,7 @@ title: Portuguese
 parent: Language analyzers
 grand_parent: Analyzers
 nav_order: 260
+canonical_url: https://docs.opensearch.org/latest/analyzers/language-analyzers/portuguese/
 ---
 
 # Portuguese analyzer

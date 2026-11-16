@@ -3,6 +3,7 @@ layout: default
 title: Explain
 parent: Search APIs
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/api-reference/search-apis/explain/
 redirect_from:
  - /opensearch/rest-api/explain/
  - /api-reference/explain/

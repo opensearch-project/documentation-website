@@ -3,6 +3,7 @@ layout: default
 title: Installing OpenSearch Dashboards
 nav_order: 3
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-dashboards/index/
 redirect_from:
   - /dashboards/install/index/
   - /dashboards/compatibility/

@@ -5,6 +5,7 @@ nav_order: 20
 parent: Vector search techniques
 has_children: true
 has_math: true
+canonical_url: https://docs.opensearch.org/latest/vector-search/vector-search-techniques/knn-score-script/
 redirect_from:
   - /search-plugins/knn/knn-score-script/ 
 ---

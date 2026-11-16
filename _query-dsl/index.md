@@ -6,6 +6,7 @@ has_children: true
 nav_exclude: true
 has_toc: false
 permalink: /query-dsl/
+canonical_url: https://docs.opensearch.org/latest/query-dsl/
 redirect_from:
   - /opensearch/query-dsl/
   - /opensearch/query-dsl/index/

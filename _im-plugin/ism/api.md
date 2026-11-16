@@ -3,6 +3,7 @@ layout: default
 title: ISM API
 parent: Index State Management
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/im-plugin/ism/api/
 ---
 
 # ISM API

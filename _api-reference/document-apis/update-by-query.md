@@ -3,6 +3,7 @@ layout: default
 title: Update by query
 parent: Document APIs
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/api-reference/document-apis/update-by-query/
 redirect_from: 
  - /opensearch/rest-api/document-apis/update-by-query/
 ---

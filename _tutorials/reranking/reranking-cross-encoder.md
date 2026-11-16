@@ -3,6 +3,7 @@ layout: default
 title: Reranking search results using a cross-encoder in Amazon SageMaker
 parent: Reranking search results
 nav_order: 110
+canonical_url: https://docs.opensearch.org/latest/tutorials/reranking/reranking-cross-encoder/
 redirect_from:
   - /ml-commons-plugin/tutorials/reranking-cross-encoder/
   - /vector-search/tutorials/reranking/reranking-cross-encoder/

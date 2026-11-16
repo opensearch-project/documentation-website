@@ -4,6 +4,7 @@ title: Workflow tutorial
 parent: AI search workflows
 grand_parent: AI search
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/workflows/workflow-tutorial/
 redirect_from:
   - /automating-configurations/workflow-tutorial/
 ---

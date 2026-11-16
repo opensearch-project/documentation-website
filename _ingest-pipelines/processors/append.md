@@ -3,6 +3,7 @@ layout: default
 title: Append
 parent: Ingest processors
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/append/
 redirect_from:
    - /api-reference/ingest-apis/processors/append/
 ---

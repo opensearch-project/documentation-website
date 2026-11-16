@@ -3,6 +3,7 @@ layout: default
 title: Boolean
 parent: Compound queries
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/query-dsl/compound/bool/
 redirect_from:
   - /opensearch/query-dsl/compound/bool/
   - /opensearch/query-dsl/bool/

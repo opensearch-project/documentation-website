@@ -2,6 +2,7 @@
 layout: default
 title: Copy to
 parent: Mapping parameters
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/copy-to/
 redirect_from:
   - /field-types/mapping-parameters/copy-to/
 nav_order: 20

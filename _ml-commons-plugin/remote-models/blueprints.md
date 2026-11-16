@@ -6,6 +6,7 @@ nav_order: 10
 parent: Connectors
 grand_parent: Connecting to externally hosted models
 great_grand_parent: Integrating ML models
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/remote-models/blueprints/
 redirect_from: 
   - /ml-commons-plugin/extensibility/blueprints/
 ---

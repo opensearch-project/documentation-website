@@ -3,6 +3,7 @@ layout: default
 title: Geodistance
 parent: Bucket aggregations
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/geo-distance/
 redirect_from:
   - /query-dsl/aggregations/bucket/geo-distance/
 ---

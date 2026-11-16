@@ -3,6 +3,7 @@ layout: default
 title: Index transforms
 nav_order: 60
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/im-plugin/index-transforms/index/
 redirect_from:
   - /im-plugin/index-transforms/
 has_toc: false

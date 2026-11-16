@@ -4,6 +4,7 @@ title: Patch audit configuration
 parent: Audit log APIs
 grand_parent: Security APIs
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/security/api/audit/patch-audit-configuration/
 ---
 
 # Patch Audit Configuration API
