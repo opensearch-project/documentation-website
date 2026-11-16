@@ -22,7 +22,7 @@ The container image installs Google Chrome dependencies that are available only 
 To use the Reporting CLI with AWS Lambda, you need to do the following preliminary steps.
 
 - Get an AWS account. For instructions, see [Creating an AWS account](https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-creating.html) in the AWS Account Management reference guide.
-- Set up an Amazon Elastic Container Registry (ECR). For instructions, see [Getting started with Amazon ECR using the AWS Management Console](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-console.html).
+- Set up an Amazon Elastic Container Registry (Amazon ECR). For instructions, see [Getting started with Amazon ECR using the AWS Management Console](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-console.html).
 
 ## Step 1: Create a container image with a Dockerfile
 
