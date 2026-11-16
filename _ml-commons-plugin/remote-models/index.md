@@ -57,6 +57,9 @@ This setting replaces the entire list of trusted endpoints, so include every pat
 
 If your model runs on a private network, for example, a model served by Ollama on the same host or on an internal server, also set `plugins.ml_commons.connector.private_ip_enabled` to `true`. If you change this setting after deploying a model, redeploy the model to apply the change. For more information, see [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/).
 
+Starting with OpenSearch 3.10, some addresses are always refused regardless of settings. For all endpoint address restrictions, see [Breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/#ml-commons-plugin-1).
+{: .important}
+
 ### Configuring connector access control
 
 To control which users can access a connector, enable the Security plugin and connector access control. Without the Security plugin, OpenSearch doesn't restrict connector access: any client that can send requests to the cluster can use all connectors.
