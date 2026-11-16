@@ -242,9 +242,9 @@ The following breaking changes were introduced in OpenSearch 3.10.0.
 
 ### ML Commons plugin
 
-The checks that connectors apply to private and internal IP addresses have changed. Key changes include the following:
+The validation of private and internal IP addresses has been updated as follows:
 
-- Link-local addresses (`169.254.0.0/16` and `fe80::/10`) and cloud instance metadata addresses (`fd00:ec2::/32`, `fd20:ce::254`, and `100.100.100.200`) are always refused, regardless of the `plugins.ml_commons.connector.private_ip_enabled` setting. Requests to these addresses fail with the error `Remote inference host name has restricted ip address: <host>`. Connectors that use such an endpoint need a different endpoint.
+- Link-local addresses (`169.254.0.0/16` and `fe80::/10`) and cloud instance metadata addresses (`fd00:ec2::/32`, `fd20:ce::254`, and `100.100.100.200`) are always refused, regardless of the `plugins.ml_commons.connector.private_ip_enabled` setting. Requests to these addresses fail with the error `Remote inference host name has restricted ip address: <host>`. Any connector using such an endpoint requires a different one.
 - IPv6 unique-local addresses (`fc00::/7`) and the local-use NAT64 range (`64:ff9b:1::/48`) are private addresses. Connectors that use them require `plugins.ml_commons.connector.private_ip_enabled` to be `true` and, if `plugins.ml_commons.trusted_connector_private_endpoints_regex` is not empty, a matching expression in that list.
 - The `plugins.ml_commons.connector.private_ip_enabled`, `plugins.ml_commons.trusted_connector_private_endpoints_regex`, and `plugins.ml_commons.connector.restricted_ip_patterns` settings also apply to streaming prediction requests that use the `openai/v1/chat/completions` or `gemini/v1beta/generatecontent` interface. These requests connect directly, without a JVM-wide HTTP proxy, and do not follow redirects.
 
