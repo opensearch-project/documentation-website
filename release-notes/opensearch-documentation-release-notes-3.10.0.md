@@ -5,6 +5,8 @@ The OpenSearch 3.10.0 documentation includes the following additions and updates
 ## New documentation for 3.10.0
 
 - Update the connector private IP address checks for ML Commons 3.10 [#13495](https://github.com/opensearch-project/documentation-website/pull/13495)
+- Document Azure snapshot transfer tuning [#13494](https://github.com/opensearch-project/documentation-website/pull/13494)
+- Add msearch/template to the composite ops action groups [#13489](https://github.com/opensearch-project/documentation-website/pull/13489)
 - Document the limit query parameter for CAT APIs [#13483](https://github.com/opensearch-project/documentation-website/pull/13483)
 - Add documentation for restoring plugin system indexes from a snapshot [#13472](https://github.com/opensearch-project/documentation-website/pull/13472)
 - Document workload group throttling [#13467](https://github.com/opensearch-project/documentation-website/pull/13467)
@@ -32,8 +34,3 @@ The OpenSearch 3.10.0 documentation includes the following additions and updates
 - Remove support for macOS x64 from the network settings [#13172](https://github.com/opensearch-project/documentation-website/pull/13172)
 - Document telemetry.otel.service.name setting [#13158](https://github.com/opensearch-project/documentation-website/pull/13158)
 - Document the hybrid collapse distinct-groups index setting [#13149](https://github.com/opensearch-project/documentation-website/pull/13149)
-- Add GCP deployment support and document the AWS Terraform module for Migration Assistant [#13120](https://github.com/opensearch-project/documentation-website/pull/13120)
-
-## In progress documentation for 3.10.0
-
-- Document Azure snapshot transfer tuning [#13494](https://github.com/opensearch-project/documentation-website/pull/13494)
