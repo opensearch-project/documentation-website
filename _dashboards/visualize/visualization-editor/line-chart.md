@@ -9,7 +9,7 @@ nav_order: 40
 
 # Line charts in the visualization editor
 
-A line chart plots data points connected by lines, making it ideal for visualizing trends and changes over time. You can compare multiple series on the same time axis and use a secondary Y-axis to correlate metrics with different scales.
+A line chart plots data points connected by lines. Use a line chart to show trends and changes over time. Compare multiple series on the same time axis, and use a secondary y-axis to correlate metrics that have different scales.
 
 ## Creating a line chart
 
@@ -48,7 +48,7 @@ The result is a multi-series line chart where each HTTP response code is display
 
 ![Multi-series line chart showing counts by HTTP response code]({{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/line-chart-multi-series.png){: width="100%" }
 
-### Multiple Y-Axis fields
+### Multiple y-axis fields
 
 When your query computes multiple metrics, you can plot them all on the same chart:
 
@@ -61,9 +61,9 @@ This query returns two numeric fields: `avg(bytes)` and `max(bytes)`. Select `av
 
 The result shows both the average and maximum byte values over time, as shown in the following image.
 
-![Line chart with two Y-Axis metrics plotted together]({{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/line-chart-multiple-y-result.png){: width="100%" }
+![Line chart with two y-axis metrics plotted together]({{site.url}}{{site.baseurl}}/images/dashboards/visualization-editor/line-chart-multiple-y-result.png){: width="100%" }
 
-### Secondary Y-Axis (dual axis)
+### Secondary y-axis (dual axis)
 
 When two metrics have significantly different scales, plotting them on the same axis can make one appear flat. Use the **Y-Axis (2nd)** field to give the second metric its own scale on the right side of the chart.
 
@@ -106,18 +106,29 @@ The following table describes the line style settings.
 
 | Setting | Description |
 | --- | --- |
-| **Style** | Controls whether the chart displays lines with dots (**Default**), lines without dots (**Line only**), or dots without connecting lines (**Dots only**). |
+| **Line style** | Controls whether the chart displays lines with points (**Default**), lines only (**Line only**), or points only (**Dots only**). |
+| **Line dash style** | Sets the line pattern to **Solid**, **Dashed**, or **Dotted**. |
 | **Interpolation** | Determines how points are connected. **Straight** draws direct lines between points. **Smooth** applies a curve. **Stepped** creates a staircase pattern, useful for data that changes at discrete intervals. |
 | **Line width** | Sets the thickness of the lines in pixels. Supports values in the 1–10 range. |
-| **Show current time marker** | When enabled, shows a vertical marker on the chart indicating the current time. |
+| **Point size** | Sets the size of data points. This setting is available when points are shown. |
+| **Show values** | Shows value labels on the chart. |
+| **Show current time marker** | Shows a vertical marker for the current time. This setting is available only when the X-axis uses a date field. |
 
 ### Thresholds
 
 For information about configuring thresholds, see [Thresholds]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/thresholds/).
 
+### Standard options
+
+For information about configuring units, unit suffixes, decimal precision, and minimum and maximum values, see [Standard options]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/standard-options/).
+
 ### Axes
 
 The X-axis and Y-axis share the same configuration options. For more information, see [Axes]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/#axes).
+
+### Legend
+
+For information about configuring the legend, see [Legend]({{site.url}}{{site.baseurl}}/dashboards/visualize/visualization-editor/configuring-visualizations/#legend).
 
 ### Tooltip
 

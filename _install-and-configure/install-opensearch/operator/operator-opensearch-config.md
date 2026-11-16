@@ -12,7 +12,7 @@ The operator deploys and manages OpenSearch clusters. You can configure node poo
 
 ## Node pools and scaling
 
-OpenSearch clusters consist of one or more node pools. Each node pool is a logical group of nodes with the same [role]({{site.url}}{{site.baseurl}}/tuning-your-cluster/) and can have its own resources. For each configured node pool, the operator creates a Kubernetes `StatefulSet` and `Service`, allowing you to communicate with specific node pools:
+OpenSearch clusters consist of one or more node pools. Each node pool is a logical group of nodes with the same [role]({{site.url}}{{site.baseurl}}/tuning-your-cluster/creating-a-cluster/#nodes) and can have its own resources. For each configured node pool, the operator creates a Kubernetes `StatefulSet` and `Service`, allowing you to communicate with specific node pools:
 
 ```yaml
 spec:

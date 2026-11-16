@@ -7,25 +7,67 @@ redirect_from:
   - /dashboards/install/tar/
 ---
 
-# Run OpenSearch Dashboards using the tarball
+# Installing OpenSearch Dashboards from a tarball
 
-1. Download the tarball from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
+## Prerequisites
 
-1. Extract the TAR file to a directory and change to that directory:
+Install OpenSearch. For more information, see [Installing OpenSearch from a tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/tar/).
+
+## Install OpenSearch Dashboards from a tarball
+
+To install OpenSearch Dashboards from a tarball, follow these steps:
+
+1. Download the tarball from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'} or by using the command line, for example, using `curl`.
+
+   For an x64 host, use the following command:
 
    ```bash
-   # x64
+   curl -fsSLO https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{site.opensearch_dashboards_version}}/opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.tar.gz
+   ```
+   {% include copy.html %}
+
+   For an ARM64 host, use the following command:
+
+   ```bash
+   curl -fsSLO https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{site.opensearch_dashboards_version}}/opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-arm64.tar.gz
+   ```
+   {% include copy.html %}
+
+1. Extract the TAR file to a directory.
+
+   For an x64 host, use the following command:
+
+   ```bash
    tar -zxf opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-x64.tar.gz
-   cd opensearch-dashboards-{{site.opensearch_dashboards_version}}
-   # ARM64
+   ```
+   {% include copy.html %}
+
+   For an ARM64 host, use the following command:
+
+   ```bash
    tar -zxf opensearch-dashboards-{{site.opensearch_dashboards_version}}-linux-arm64.tar.gz
+   ```
+   {% include copy.html %}
+
+   Then change to the extracted directory:
+
+   ```bash
    cd opensearch-dashboards-{{site.opensearch_dashboards_version}}
    ```
+   {% include copy.html %}
 
-1. If desired, modify `config/opensearch_dashboards.yml`.
-
-1. Run OpenSearch Dashboards:
+1. Start OpenSearch Dashboards:
 
    ```bash
    ./bin/opensearch-dashboards
    ```
+   {% include copy.html %}
+
+1. In a web browser, go to `http://localhost:5601` and log in as the `admin` user using the [custom admin password]({{site.url}}{{site.baseurl}}/security/configuration/passwords/#setting-the-initial-admin-password) that you set when you installed OpenSearch. If OpenSearch Dashboards runs on a remote host, replace `localhost` with the IP address or DNS name of that host. OpenSearch Dashboards can take about 1 minute to start. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).
+
+By default, OpenSearch Dashboards connects to OpenSearch at `https://localhost:9200` as the `kibanaserver` user and accepts connections only from the host on which it runs. To change these settings, edit `config/opensearch_dashboards.yml`. For more information, see [Configuring OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-dashboards/).
+{: .note}
+
+## Related documentation
+
+- [Preparing OpenSearch Dashboards for production]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#preparing-opensearch-dashboards-for-production)

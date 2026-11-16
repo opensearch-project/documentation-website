@@ -15,6 +15,9 @@ redirect_from:
 
 The **Visualize** application uses a point-and-click interface to create data visualizations from aggregations. You select a visualization type, configure metrics and buckets, and adjust display settings to build charts, tables, maps, and other visual representations of your data.
 
+If you're new to the Visualize application, see [Explore the Visualize application]({{site.url}}{{site.baseurl}}/dashboards/getting-started/explore-visualize/) for a hands-on introduction using sample data.
+{: .tip}
+
 ## Prerequisites
 
 The examples on this page use the [**Sample flight data**](https://playground.opensearch.org/app/home#/tutorial_directory) dataset that is already installed in [OpenSearch Playground](https://playground.opensearch.org/app/home#/).

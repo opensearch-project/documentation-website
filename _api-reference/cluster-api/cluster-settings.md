@@ -26,6 +26,8 @@ Using this API to manage cluster-wide settings is preferred over manually editin
 
 When updating cluster settings, you can specify whether changes should be persistent (persist after cluster restarts) or transient (cleared after restart). For more information about persistent and transient settings, setting precedence, and resetting settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
+Only dynamic settings can be updated using this API. To determine whether a setting is dynamic and to retrieve its default value and bounds, use the [Describe Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/describe-cluster-settings/).
+
 ## Endpoints
 
 ```json
@@ -39,7 +41,7 @@ The following table lists the available query parameters. All query parameters a
 
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
-| `cluster_manager_timeout` | String | The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#time-units). _(Default: `30s`)_ |
+| `cluster_manager_timeout` | String | The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters]({{site.url}}{{site.baseurl}}/api-reference/units/#time-units). _(Default: `30s`)_ |
 | `flat_settings` | Boolean | Whether to return settings in the flat form, which can improve readability, especially for heavily nested settings. For example, the flat form of `"cluster": { "max_shards_per_node": 500 }` is `"cluster.max_shards_per_node": "500"`. _(Default: `false`)_ |
 | `include_defaults` | Boolean | **`GET` only.** When `true`, returns default cluster settings from the local node. _(Default: `false`)_ |
 | `timeout` | String | **`PUT` only.** A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts `0` without a unit and `-1` to indicate an unspecified value. _(Default: `30s`)_ |
@@ -559,4 +561,5 @@ If you use the Security plugin, make sure you have the appropriate permissions: 
 
 ## Related documentation
 
-- For more information about transient settings, persistent settings, and setting precedence, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/).
+- [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/)
+- [Describe Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/describe-cluster-settings/)

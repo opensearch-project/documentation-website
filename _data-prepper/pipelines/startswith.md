@@ -66,7 +66,7 @@ startswith-demo:
         hosts: ["https://opensearch:9200"]  
         insecure: true  
         username: admin
-        password: admin_pass
+        password: "<custom-admin-password>"
         index_type: custom
         index: startswith-demo-%{yyyy.MM.dd}
 ```

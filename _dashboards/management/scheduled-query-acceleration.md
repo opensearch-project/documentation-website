@@ -39,7 +39,7 @@ Before configuring SQA, familiarize yourself with the following topics:
 Before configuring SQA, verify that the following requirements are met:
 
 - Ensure you're running OpenSearch version 2.17 or later.
-- Ensure you have the SQL plugin installed. The SQL plugin is included in most OpenSearch distributions. For more information, see [Installing plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
+- Ensure you have the SQL plugin installed. The SQL plugin is included in most OpenSearch distributions. For more information, see [Managing OpenSearch plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/).
 - Ensure you have configured a data source (in this example, Amazon S3): Configure a skipping index, covering index, or materialized view. These secondary data sources are additional data structures that improve query performance by optimizing queries sent to external data sources, such as Amazon S3. For more information, see [Optimizing query performance using OpenSearch indexing]({{site.url}}{{site.baseurl}}/dashboards/management/accelerate-external-data/).
 - Configure Amazon EMR Serverless (needed for access to Apache Spark). 
 

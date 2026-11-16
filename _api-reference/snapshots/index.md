@@ -13,7 +13,7 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple }
 
-The snapshot APIs allow you to manage snapshots and snapshot repositories.
+The snapshot APIs allow you to manage snapshots and snapshot repositories. For information about registering repositories and taking and restoring snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/index/).
 
 ## Snapshot API operations
 

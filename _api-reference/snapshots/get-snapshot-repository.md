@@ -2,7 +2,7 @@
 layout: default
 title: Get snapshot repository
 parent: Snapshot APIs
-nav_order: 2
+nav_order: 20
 ---
 
 # Get Snapshot Repository API
@@ -24,11 +24,15 @@ GET /_snapshot/{repository}
 
 ## Path parameters
 
+The following table lists the available path parameters. All path parameters are optional.
+
 | Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | `repository` | String | A comma-separated list of snapshot repository names to retrieve. Wildcard (`*`) expressions are supported including combining wildcards with exclude patterns starting with `-`. |
 
 ## Query parameters
+
+The following table lists the available query parameters. All query parameters are optional.
 
 | Parameter | Data type | Description | 
 :--- | :--- | :---
@@ -78,6 +82,8 @@ Upon success, the response returns repositry information. This sample is for an 
 ````
 
 ## Response body fields
+
+The following table lists all response body fields.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- | 

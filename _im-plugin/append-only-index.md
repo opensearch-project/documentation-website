@@ -100,4 +100,4 @@ PUT /my-new-append-only-index
 ```
 {% include copy-curl.html %}
 
-For more information, see [Dynamic settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/#dynamic-settings).
+For more information, see [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/).

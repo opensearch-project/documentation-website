@@ -1,17 +1,17 @@
 ---
 layout: default
 title: Connector APIs
-parent: ML Commons APIs
+parent: ML APIs
 has_children: true
 has_toc: false
-nav_order: 25
+nav_order: 30
 redirect_from:
   - /ml-commons-plugin/api/connector-apis/
 ---
 
 # Connector APIs
 
-ML Commons supports the following connector APIs:
+OpenSearch supports the following connector APIs:
 
 - [Create connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/)
 - [Get connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/get-connector/)

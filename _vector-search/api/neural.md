@@ -57,11 +57,12 @@ The following table lists the available query parameters. All query parameters a
 | `include_individual_nodes` | Boolean | When `true`, includes statistics for individual nodes in the `nodes` category. When `false`, excludes the `nodes` category from the response. Default is `true`. |
 | `include_all_nodes` | Boolean | When `true`, includes aggregated statistics across all nodes in the `all_nodes` category. When `false`, excludes the `all_nodes` category from the response. Default is `true`. |
 | `include_info` | Boolean | When `true`, includes cluster-wide information in the `info` category. When `false`, excludes the `info` category from the response. Default is `true`. |
+| `include_metric` | Boolean | When `true`, includes the [memory statistics](#available-statistics) in the `memory` object. When `false`, excludes the `memory` object from the response. Default is `true`. |
 
 #### Example request
 
 ```json
-GET /_plugins/_neural/node1,node2/stats/stat1,stat2?include_metadata=true,flat_stat_paths=true
+GET /_plugins/_neural/node1,node2/stats/stat1,stat2?include_metadata=true&flat_stat_paths=true
 ```
 {% include copy-curl.html %}
 
@@ -74,173 +75,202 @@ GET /_plugins/_neural/node1,node2/stats/stat1,stat2?include_metadata=true,flat_s
   {: .text-delta}
 
 ```json
-GET /_plugins/_neural/stats/
 {
-	"_nodes": {
-		"total": 1,
-		"successful": 1,
-		"failed": 0
-	},
-	"cluster_name": "integTest",
-	"info": {
-		"cluster_version": "3.1.0",
-		"processors": {
-			"search": {
-				"hybrid": {
-					"comb_geometric_processors": 0,
-					"comb_rrf_processors": 0,
-					"norm_l2_processors": 0,
-					"norm_minmax_processors": 0,
-					"comb_harmonic_processors": 0,
-					"comb_arithmetic_processors": 0,
-					"norm_zscore_processors": 0,
-					"rank_based_normalization_processors": 0,
-					"normalization_processors": 0
-				},
-				"rerank_ml_processors": 0,
-				"rerank_by_field_processors": 0,
-				"neural_sparse_two_phase_processors": 0,
-				"neural_query_enricher_processors": 0
-			},
-			"ingest": {
-				"sparse_encoding_processors": 0,
-				"skip_existing_processors": 0,
-				"text_image_embedding_processors": 0,
-				"text_chunking_delimiter_processors": 0,
-				"text_embedding_processors_in_pipelines": 0,
-				"text_chunking_fixed_token_length_processors": 0,
-				"text_chunking_fixed_char_length_processors": 0,
-				"text_chunking_processors": 0
-			}
-		}
-	},
-	"all_nodes": {
-		"query": {
-			"hybrid": {
-				"hybrid_query_with_pagination_requests": 0,
-				"hybrid_query_with_filter_requests": 0,
-				"hybrid_query_with_inner_hits_requests": 0,
-				"hybrid_query_requests": 0
-			},
-			"neural": {
-				"neural_query_against_semantic_sparse_requests": 0,
-				"neural_query_requests": 0,
-				"neural_query_against_semantic_dense_requests": 0,
-				"neural_query_against_knn_requests": 0
-			},
-			"neural_sparse": {
-				"neural_sparse_query_requests": 0,
-                "seismic_query_requests": 0
-			}
-		},
-		"semantic_highlighting": {
-			"semantic_highlighting_request_count": 0,
-			"semantic_highlighting_batch_request_count": 0
-		},
-		"processors": {
-			"search": {
-				"neural_sparse_two_phase_executions": 0,
-				"hybrid": {
-					"comb_harmonic_executions": 0,
-					"norm_zscore_executions": 0,
-					"comb_rrf_executions": 0,
-					"norm_l2_executions": 0,
-					"rank_based_normalization_processor_executions": 0,
-					"comb_arithmetic_executions": 0,
-					"normalization_processor_executions": 0,
-					"comb_geometric_executions": 0,
-					"norm_minmax_executions": 0
-				},
-				"rerank_by_field_executions": 0,
-				"neural_query_enricher_executions": 0,
-				"rerank_ml_executions": 0
-			},
-			"ingest": {
-				"skip_existing_executions": 0,
-				"text_chunking_fixed_token_length_executions": 0,
-				"sparse_encoding_executions": 0,
-				"text_chunking_fixed_char_length_executions": 0,
-				"text_chunking_executions": 0,
-				"text_embedding_executions": 0,
-				"semantic_field_executions": 0,
-				"semantic_field_chunking_executions": 0,
-				"text_chunking_delimiter_executions": 0,
-				"text_image_embedding_executions": 0
-			}
-		},
-        "memory": {
-            "sparse": {
-                "sparse_memory_usage": 0.13,
-                "clustered_posting_usage": 0.06,
-                "forward_index_usage": 0.06
-            }
+  "_nodes": {
+    "total": 1,
+    "successful": 1,
+    "failed": 0
+  },
+  "cluster_name": "integTest",
+  "info": {
+    "cluster_version": "3.9.0",
+    "index": {
+      "sparse": {
+        "sparse_vector_indices": 0,
+        "sparse_native_engine_indices": 0,
+        "sparse_vector_fields": 0,
+        "sparse_native_engine_fields": 0
+      }
+    },
+    "processors": {
+      "search": {
+        "hybrid": {
+          "comb_rrf_processors": 0,
+          "comb_geometric_processors": 0,
+          "norm_l2_processors": 0,
+          "norm_minmax_processors": 0,
+          "comb_harmonic_processors": 0,
+          "comb_arithmetic_processors": 0,
+          "norm_zscore_processors": 0,
+          "rank_based_normalization_processors": 0,
+          "normalization_processors": 0
+        },
+        "rerank_ml_processors": 0,
+        "rerank_by_field_processors": 0,
+        "neural_sparse_two_phase_processors": 0,
+        "agentic": {
+          "agentic_context_processors": 0,
+          "agentic_query_translator_processors": 0
+        },
+        "neural_query_enricher_processors": 0
+      },
+      "ingest": {
+        "sparse_encoding_processors": 0,
+        "skip_existing_processors": 0,
+        "text_image_embedding_processors": 0,
+        "text_chunking_delimiter_processors": 0,
+        "text_embedding_processors_in_pipelines": 0,
+        "text_chunking_fixed_token_length_processors": 0,
+        "text_chunking_fixed_char_length_processors": 0,
+        "text_chunking_processors": 0
+      }
+    }
+  },
+  "all_nodes": {
+    "memory": {
+      "sparse": {
+        "sparse_memory_usage": 0.13,
+        "clustered_posting_usage": 0.06,
+        "forward_index_usage": 0.06
+      }
+    },
+    "query": {
+      "hybrid": {
+        "hybrid_query_with_pagination_requests": 0,
+        "hybrid_query_with_filter_requests": 0,
+        "hybrid_query_with_inner_hits_requests": 0,
+        "hybrid_query_requests": 0
+      },
+      "neural": {
+        "neural_query_against_semantic_sparse_requests": 0,
+        "neural_query_requests": 0,
+        "neural_query_against_semantic_dense_requests": 0,
+        "neural_query_against_knn_requests": 0
+      },
+      "agentic": {
+        "agentic_query_requests": 0
+      },
+      "neural_sparse": {
+        "neural_sparse_query_requests": 0,
+        "seismic_query_requests": 0
+      }
+    },
+    "semantic_highlighting": {
+      "semantic_highlighting_request_count": 0,
+      "semantic_highlighting_batch_request_count": 0
+    },
+    "processors": {
+      "search": {
+        "neural_sparse_two_phase_executions": 0,
+        "hybrid": {
+          "comb_harmonic_executions": 0,
+          "norm_zscore_executions": 0,
+          "comb_rrf_executions": 0,
+          "norm_l2_executions": 0,
+          "rank_based_normalization_processor_executions": 0,
+          "comb_arithmetic_executions": 0,
+          "normalization_processor_executions": 0,
+          "comb_geometric_executions": 0,
+          "norm_minmax_executions": 0
+        },
+        "rerank_by_field_executions": 0,
+        "neural_query_enricher_executions": 0,
+        "mmr_neural_query_transformer_executions": 0,
+        "rerank_ml_executions": 0,
+        "agentic": {
+          "agentic_query_translator_executions": 0,
+          "agentic_context_executions": 0
         }
-	},
-	"nodes": {
-		"_cONimhxS6KdedymRZr6xg": {
-			"query": {
-				"hybrid": {
-					"hybrid_query_with_pagination_requests": 0,
-					"hybrid_query_with_filter_requests": 0,
-					"hybrid_query_with_inner_hits_requests": 0,
-					"hybrid_query_requests": 0
-				},
-				"neural": {
-					"neural_query_against_semantic_sparse_requests": 0,
-					"neural_query_requests": 0,
-					"neural_query_against_semantic_dense_requests": 0,
-					"neural_query_against_knn_requests": 0
-				},
-				"neural_sparse": {
-					"neural_sparse_query_requests": 0,
-                    "seismic_query_requests": 0
-				},
-                "memory": {
-                    "sparse": {
-                        "sparse_memory_usage_percentage": 0,
-                        "sparse_memory_usage": 0.13,
-                        "clustered_posting_usage": 0.06,
-                        "forward_index_usage": 0.06
-                    }
-                }
-			},
-			"semantic_highlighting": {
-				"semantic_highlighting_request_count": 0,
-				"semantic_highlighting_batch_request_count": 0
-			},
-			"processors": {
-				"search": {
-					"neural_sparse_two_phase_executions": 0,
-					"hybrid": {
-						"comb_harmonic_executions": 0,
-						"norm_zscore_executions": 0,
-						"comb_rrf_executions": 0,
-						"norm_l2_executions": 0,
-						"rank_based_normalization_processor_executions": 0,
-						"comb_arithmetic_executions": 0,
-						"normalization_processor_executions": 0,
-						"comb_geometric_executions": 0,
-						"norm_minmax_executions": 0
-					},
-					"rerank_by_field_executions": 0,
-					"neural_query_enricher_executions": 0,
-					"rerank_ml_executions": 0
-				},
-				"ingest": {
-					"skip_existing_executions": 0,
-					"text_chunking_fixed_token_length_executions": 0,
-					"sparse_encoding_executions": 0,
-					"text_chunking_fixed_char_length_executions": 0,
-					"text_chunking_executions": 0,
-					"text_embedding_executions": 0,
-					"semantic_field_executions": 0,
-					"semantic_field_chunking_executions": 0,
-					"text_chunking_delimiter_executions": 0,
-					"text_image_embedding_executions": 0
-				}
-			}
-		}
-	}
+      },
+      "ingest": {
+        "skip_existing_executions": 0,
+        "text_chunking_fixed_token_length_executions": 0,
+        "sparse_encoding_executions": 0,
+        "text_chunking_fixed_char_length_executions": 0,
+        "text_chunking_executions": 0,
+        "text_embedding_executions": 0,
+        "semantic_field_executions": 0,
+        "sparse_encoding_seismic_executions": 0,
+        "semantic_field_chunking_executions": 0,
+        "text_chunking_delimiter_executions": 0,
+        "text_image_embedding_executions": 0
+      }
+    }
+  },
+  "nodes": {
+    "_cONimhxS6KdedymRZr6xg": {
+      "memory": {
+        "sparse": {
+          "sparse_memory_usage_percentage": 0,
+          "sparse_memory_usage": 0.13,
+          "clustered_posting_usage": 0.06,
+          "forward_index_usage": 0.06
+        }
+      },
+      "query": {
+        "hybrid": {
+          "hybrid_query_with_pagination_requests": 0,
+          "hybrid_query_with_filter_requests": 0,
+          "hybrid_query_with_inner_hits_requests": 0,
+          "hybrid_query_requests": 0
+        },
+        "neural": {
+          "neural_query_against_semantic_sparse_requests": 0,
+          "neural_query_requests": 0,
+          "neural_query_against_semantic_dense_requests": 0,
+          "neural_query_against_knn_requests": 0
+        },
+        "agentic": {
+          "agentic_query_requests": 0
+        },
+        "neural_sparse": {
+          "neural_sparse_query_requests": 0,
+          "seismic_query_requests": 0
+        }
+      },
+      "semantic_highlighting": {
+        "semantic_highlighting_request_count": 0,
+        "semantic_highlighting_batch_request_count": 0
+      },
+      "processors": {
+        "search": {
+          "neural_sparse_two_phase_executions": 0,
+          "hybrid": {
+            "comb_harmonic_executions": 0,
+            "norm_zscore_executions": 0,
+            "comb_rrf_executions": 0,
+            "norm_l2_executions": 0,
+            "rank_based_normalization_processor_executions": 0,
+            "comb_arithmetic_executions": 0,
+            "normalization_processor_executions": 0,
+            "comb_geometric_executions": 0,
+            "norm_minmax_executions": 0
+          },
+          "rerank_by_field_executions": 0,
+          "neural_query_enricher_executions": 0,
+          "mmr_neural_query_transformer_executions": 0,
+          "rerank_ml_executions": 0,
+          "agentic": {
+            "agentic_query_translator_executions": 0,
+            "agentic_context_executions": 0
+          }
+        },
+        "ingest": {
+          "skip_existing_executions": 0,
+          "text_chunking_fixed_token_length_executions": 0,
+          "sparse_encoding_executions": 0,
+          "text_chunking_fixed_char_length_executions": 0,
+          "text_chunking_executions": 0,
+          "text_embedding_executions": 0,
+          "semantic_field_executions": 0,
+          "sparse_encoding_seismic_executions": 0,
+          "semantic_field_chunking_executions": 0,
+          "text_chunking_delimiter_executions": 0,
+          "text_image_embedding_executions": 0
+        }
+      }
+    }
+  }
 }
 ```
 
@@ -285,6 +315,15 @@ The following table lists the available statistics. For statistics with paths pr
 | :--- | :--- | :--- | :--- |
 | `cluster_version` | `info` | `cluster_version` | The version of the cluster. |
 
+**Info statistics: Sparse indexes**
+
+| Statistic name | Category | Statistic path within category | Description |
+| :--- | :--- | :--- | :--- |
+| `sparse_vector_indices` | `info` | `index.sparse.sparse_vector_indices` | The number of indexes containing at least one `sparse_vector` field. |
+| `sparse_vector_fields` | `info` | `index.sparse.sparse_vector_fields` | The number of `sparse_vector` fields across all indexes. |
+| `sparse_native_engine_indices` | `info` | `index.sparse.sparse_native_engine_indices` | The number of indexes containing at least one `sparse_vector` field that uses the native engine. |
+| `sparse_native_engine_fields` | `info` | `index.sparse.sparse_native_engine_fields` | The number of `sparse_vector` fields that use the native engine across all indexes. |
+
 **Info statistics: Processors**
 
 | Statistic name | Category | Statistic path within category | Description |
@@ -301,6 +340,8 @@ The following table lists the available statistics. For statistics with paths pr
 | `rerank_by_field_processors` | `info` | `processors.search.rerank_by_field_processors` | The number of `rerank` processors of the `by_field` type. |
 | `neural_sparse_two_phase_processors` | `info` | `processors.search.neural_sparse_two_phase_processors` | The number of `neural_sparse_two_phase_processor` processors in search pipelines. |
 | `neural_query_enricher_processors` | `info` | `processors.search.neural_query_enricher_processors` | The number of `neural_query_enricher` processors in search pipelines. |
+| `agentic_query_translator_processors` | `info` | `processors.search.agentic.agentic_query_translator_processors` | The number of `agentic_query_translator` processors in search pipelines. |
+| `agentic_context_processors` | `info` | `processors.search.agentic.agentic_context_processors` | The number of `agentic_context` processors in search pipelines. |
 
 **Info statistics: Hybrid processors**
 
@@ -330,10 +371,14 @@ The following table lists the available statistics. For statistics with paths pr
 | `semantic_field_chunking_executions` | `nodes`, `all_nodes` | `processors.ingest.semantic_field_chunking_executions` | The number of `semantic` field system chunking processor executions. |
 | `text_chunking_delimiter_executions` | `nodes`, `all_nodes` | `processors.ingest.text_chunking_delimiter_executions` | The number of `text_chunking` processor executions with the `delimiter` algorithm. |
 | `text_image_embedding_executions` | `nodes`, `all_nodes` | `processors.ingest.text_image_embedding_executions` | The number of `text_image_embedding` processor executions. |
+| `sparse_encoding_seismic_executions` | `nodes`, `all_nodes` | `processors.ingest.sparse_encoding_seismic_executions` | The number of `sparse_encoding` processor executions that generate token ID embeddings for `sparse_vector` fields. |
 | `neural_sparse_two_phase_executions` | `nodes`, `all_nodes` | `processors.search.neural_sparse_two_phase_executions` | The number of `neural_sparse_two_phase_processor` processor executions. |
 | `rerank_by_field_executions` | `nodes`, `all_nodes` | `processors.search.rerank_by_field_executions` | The number of `rerank` processor executions of the `by_field` type. |
 | `neural_query_enricher_executions` | `nodes`, `all_nodes` | `processors.search.neural_query_enricher_executions` | The number of `neural_query_enricher` processor executions. |
 | `rerank_ml_executions` | `nodes`, `all_nodes` | `processors.search.rerank_ml_executions` | The number of `rerank` processor executions of the `ml_opensearch` type. |
+| `mmr_neural_query_transformer_executions` | `nodes`, `all_nodes` | `processors.search.mmr_neural_query_transformer_executions` | The number of times a `neural` query was transformed for maximal marginal relevance (MMR) reranking. |
+| `agentic_query_translator_executions` | `nodes`, `all_nodes` | `processors.search.agentic.agentic_query_translator_executions` | The number of `agentic_query_translator` processor executions. |
+| `agentic_context_executions` | `nodes`, `all_nodes` | `processors.search.agentic.agentic_context_executions` | The number of `agentic_context` processor executions. |
 
 **Node-level statistics: Hybrid processors**
 
@@ -363,6 +408,7 @@ The following table lists the available statistics. For statistics with paths pr
 | `neural_query_against_knn_requests` | `nodes`, `all_nodes` | `query.neural.neural_query_against_knn_requests` | The number of `neural` query requests against k-NN fields.                                                                                 |
 | `neural_sparse_query_requests` | `nodes`, `all_nodes` | `query.neural_sparse.neural_sparse_query_requests` | The number of `neural_sparse` query requests against `rank_features` fields (traditional neural sparse search).                                                                                              |
 | `seismic_query_requests` | `nodes`, `all_nodes` | `query.neural_sparse.seismic_query_requests` | The number of `neural_sparse` query requests against `sparse_vector` fields (neural sparse approximate nearest neighbor (ANN) search using the SEISMIC algorithm). |
+| `agentic_query_requests` | `nodes`, `all_nodes` | `query.agentic.agentic_query_requests` | The number of `agentic` query requests. |
 
 **Node-level statistics: Memory**
 
@@ -542,7 +588,6 @@ The following request clears the sparse data of three specified indexes from JVM
 ```json
 POST /_plugins/_neural/clear_cache/index1,index2,index3
 ```
-
 {% include copy-curl.html %}
 
 You can also use index patterns to clear one or more indexes that match a pattern:
@@ -550,7 +595,6 @@ You can also use index patterns to clear one or more indexes that match a patter
 ```json
 POST /_plugins/_neural/clear_cache/index*
 ```
-
 {% include copy-curl.html %}
 
 #### Example response
@@ -574,7 +618,6 @@ To monitor the progress of the clear cache operation, use the [Tasks API]({{site
 ```json
 GET /_tasks
 ```
-
 {% include copy-curl.html %}
 
 After the operation finishes, use the [neural stats API operation](#stats) to check updated memory usage.

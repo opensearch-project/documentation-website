@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Analyzing metrics in Discover
-nav_order: 50
-parent: Using Discover for observability
+title: Metrics
+nav_order: 30
+parent: Observability workspace apps
 ---
 
 # Analyzing metrics in Discover
@@ -13,7 +13,7 @@ The **Metrics** page in OpenSearch Dashboards provides a dedicated interface for
 
 ![Metrics page interface]({{site.url}}{{site.baseurl}}/images/dashboards/prometheus.png){: width="700" }
 
-The **Metrics** page is available in observability workspaces. To access the **Metrics** page, navigate to an **Observability** workspace. Then, in the left navigation, expand **Discover** and select **Metrics**.
+The **Metrics** page is available in observability workspaces. To access the **Metrics** page, navigate to an **Observability** workspace. Then, in the left navigation, select **Metrics**.
 
 ## Prerequisites
 
@@ -23,7 +23,6 @@ Before using the **Metrics** page, ensure that you have fulfilled the following 
 
    ```yaml
    workspace.enabled: true
-   data_source.enabled: true
    explore.enabled: true
    explore.discoverMetrics.enabled: true
    ```

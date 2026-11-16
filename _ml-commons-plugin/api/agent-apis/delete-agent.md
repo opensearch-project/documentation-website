@@ -2,7 +2,7 @@
 layout: default
 title: Delete agent
 parent: Agent APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 40
 ---
 
@@ -17,6 +17,14 @@ You can use this API to delete an agent based on the `agent_id`.
 ```json
 DELETE /_plugins/_ml/agents/{agent_id}
 ```
+
+## Path parameters
+
+The following table lists the available path parameters.
+
+| Parameter | Data type | Description |
+| :--- | :--- | :--- |
+| `agent_id` | String | The ID of the agent to delete. Required. |
 
 ## Example request
 
@@ -33,6 +41,7 @@ DELETE /_plugins/_ml/agents/MzcIJX8BA7mbufL6DOwl
   "_id" : "MzcIJX8BA7mbufL6DOwl",
   "_version" : 2,
   "result" : "deleted",
+  "forced_refresh" : true,
   "_shards" : {
     "total" : 2,
     "successful" : 2,

@@ -13,7 +13,7 @@ When you have vector indexes with embeddings and want agentic search to automati
 
 When you configure agents for semantic search, the agents choose between traditional keyword searches and semantic vector searches at query time.
 
-Even when an embedding model ID is provided, the agent autonomously decides whether to use neural (semantic) search or lexical search based on the query intent and context. For example, date filters or exact-match queries will use lexical search, while conceptual queries will use neural search.
+Even when an embedding model ID is provided, the agent autonomously decides whether to use semantic search or lexical search based on the query intent and context. For example, date filters or exact-match queries will use lexical search, while conceptual queries will use semantic search.
 {: .note} 
 
 **PREREQUISITE**<br>

@@ -1,10 +1,10 @@
 ---
 layout: default
 title: Agentic memory APIs
-parent: ML Commons APIs
+parent: ML APIs
 has_children: true
 has_toc: false
-nav_order: 35
+nav_order: 70
 redirect_from: 
   - /ml-commons-plugin/api/agentic-memory-apis/
 ---

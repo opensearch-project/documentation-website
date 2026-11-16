@@ -6,11 +6,14 @@ nav_order: 20
 
 # Access data in a pipeline
 
-In ingest pipelines, you can access the document data using the `ctx` object. This object represents the processed document and allows you to read, modify, or enrich the document fields. Pipeline processors have read and write access to both the `_source` field of a document and its metadata fields.
+Pipeline processors have read and write access to both the `_source` field of a document and its metadata fields. How you refer to a field depends on where you refer to it:
+
+- In processor parameters such as `field` and `target_field`, use the field name.
+- In [`script` processors]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/script/) and `if` conditions, use the `ctx` object, which represents the document being processed, for example, `ctx.user`.
 
 ## Accessing document fields
 
-The `ctx` object exposes all document fields. You can access them directly using dot notation.
+In processor parameters, refer to a top-level field by its name. Refer to a nested field using dot notation.
 
 ### Example: Access a top-level field
 
@@ -25,8 +28,10 @@ Given the following example document:
 You can access `user` as follows:
 
 ```json
-"field": "ctx.user"
+"field": "user"
 ```
+
+In a script or condition, use `ctx.user`.
 
 ### Example: Access a nested field
 
@@ -43,8 +48,10 @@ Given the following example document:
 You can access `user.name` as follows:
 
 ```json
-"field": "ctx.user.name"
+"field": "user.name"
 ```
+
+In a script or condition, use `ctx.user.name`. If the `user` object might be missing, use the null-safe operator: `ctx.user?.name`.
 
 ## Accessing a field in the source
 
@@ -72,12 +79,15 @@ Alternatively, you can explicitly use `_source`:
 
 ## Accessing metadata fields
 
-You can read or write to metadata fields such as the following:
+A document's `_source` can't contain fields whose names match metadata fields, so you can refer to metadata fields by name, in the same way as source fields. Processors can read and write the following metadata fields:
 
 - `_index`
-- `_type`
 - `_id`
 - `_routing`
+- `_version`
+- `_version_type`
+- `_if_seq_no`
+- `_if_primary_term`
 
 ### Example: Set `_routing` dynamically
 
@@ -104,9 +114,24 @@ The `_ingest.timestamp` field represents the time at which the ingest node recei
 }
 ```
 
-## Using `ctx` in Mustache templates
+Ingest metadata exists only while the pipeline processes the document. OpenSearch doesn't index the `_ingest` fields, so to keep a value, copy it into a document field, as shown in the preceding example.
 
-Use Mustache templates to insert field values into processor settings. Use triple curly braces ({% raw %}`{{{` and `}}}`{% endraw %}) for unescaped field values.
+A document's `_source` can contain a field named `_ingest`. To access this field, use the `_source._ingest` prefix. Without the prefix, `_ingest` refers to the ingest metadata. The following processor copies the value of the `_ingest` source field into the `ingest_source` field:
+
+```json
+{
+  "set": {
+    "field": "ingest_source",
+    "value": "{% raw %}{{_source._ingest}}{% endraw %}"
+  }
+}
+```
+
+## Using field values in Mustache templates
+
+Use Mustache templates to insert field values into processor settings. Only some processor parameters support templates; each processor's parameter table states which ones do. For more information, see [Template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets). Templates refer to fields by name, without `ctx`.
+
+Double curly braces ({% raw %}`{{` and `}}`{% endraw %}) escape special characters in the value, such as quotation marks and backslashes, by adding a backslash before them. Triple curly braces ({% raw %}`{{{` and `}}}`{% endraw %}) insert the value without escaping. For example, if the `title` field contains `say "hi"`, then {% raw %}`{{title}}`{% endraw %} produces `say \"hi\"` and {% raw %}`{{{title}}}`{% endraw %} produces `say "hi"`.
 
 ### Example: Combining source fields
 
@@ -192,12 +217,12 @@ The following processor copies the value from the `timestamp` field into a new f
 
 ## Example of a complete pipeline
 
-The following example defines a complete ingest pipeline that sets a tagline using the `source` field, extracts the `year` from the `date` field, and records the document’s ingest timestamp in the `received_at` field:
+The following example defines a complete ingest pipeline that sets a tagline using the `user.first` and `department` fields, extracts the `year` from the `date` field, and records the document’s ingest timestamp in the `received_at` field:
 
 ```json
 PUT _ingest/pipeline/example-pipeline
 {
-  "description": "Sets tags, log label, and defaults error message",
+  "description": "Sets a tagline, extracts the year, and records the ingest time",
   "processors": [
     {
       "set": {

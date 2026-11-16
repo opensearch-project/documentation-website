@@ -14,7 +14,7 @@ To run your first migration, load the schema for your version, verify connectivi
 
 Before you start, ensure that you have fulfilled the following prerequisites:
 
-- Migration Assistant is deployed on Kubernetes or Amazon EKS.
+- Migration Assistant is deployed on Kubernetes, Amazon EKS, or Google Kubernetes Engine (GKE).
 - The source and target clusters are reachable from the cluster.
 - Snapshot storage is ready if you plan to run backfill.
 - You have created any required basic authentication secrets in the `ma` namespace.
@@ -29,10 +29,20 @@ kubectl exec -it migration-console-0 -n ma -- /bin/bash
 {% include copy.html %}
 
 This guide uses the default Migration Assistant namespace `ma`. If you installed Migration Assistant into a different namespace (using `--namespace <name>` with the bootstrap script or `helm install -n <name>`), replace `ma` with your namespace in all commands.
-If you are using Amazon Elastic Kubernetes Service (EKS) in a new shell, refresh your `kubeconfig` first:
+If you are using a managed cloud cluster in a new shell, refresh your `kubeconfig` first.
+
+On Amazon Elastic Kubernetes Service (EKS), run the following command:
 
 ```bash
 aws eks update-kubeconfig --region <REGION> --name migration-eks-cluster-<STAGE>-<REGION>
+```
+{% include copy.html %}
+
+On Google Kubernetes Engine (GKE), run the following command:
+
+```bash
+gcloud container clusters get-credentials $(terraform output -raw cluster_name) \
+  --region $(terraform output -raw cluster_location) --project <PROJECT_ID>
 ```
 {% include copy.html %}
 
@@ -74,7 +84,7 @@ The following table describes the fields to edit.
 | `sourceClusters.<name>.authConfig` | The authentication method: `basic` (with `secretName`) or `sigv4` (AWS Signature Version 4 with `region` and `service`). |
 | `targetClusters.<name>.endpoint` | The target cluster URL (required). |
 | `targetClusters.<name>.authConfig` | The authentication method for the target (same options as source). |
-| `sourceClusters.<name>.snapshotInfo` | The Amazon S3 repository and snapshot configuration (required for backfill). |
+| `sourceClusters.<name>.snapshotInfo` | The snapshot repository and snapshot configuration in object storage, such as Amazon S3 or Google Cloud Storage (required for backfill). |
 
 The migration pattern depends on which top-level configuration sections are present in the YAML file:
 
@@ -142,10 +152,12 @@ If any connectivity verification fails, resolve the connectivity or authenticati
 
 ## Step 7 (Optional): Verify AWS identity
 
-If your source or target uses AWS Signature Version 4 authentication for Amazon OpenSearch Service or Amazon OpenSearch Serverless NextGen:
+This step applies only when the source or target cluster uses AWS Signature Version 4 authentication, such as Amazon OpenSearch Service or Amazon OpenSearch Serverless NextGen. Because this requirement comes from the source or target cluster, it applies regardless of the deployment platform.
 
-- On EKS, verify that pod identity is working from the console pod.
-- On generic Kubernetes, make sure AWS credentials exist for both the console pod and the workflow executor pods.
+The method for providing AWS credentials to the pods depends on the deployment platform:
+
+- Amazon EKS: Pod identity is configured automatically. Verify that it works from the console pod.
+- Other platforms, including other Kubernetes distributions and Google Kubernetes Engine (GKE): AWS pod identity is not provisioned automatically. Ensure that AWS credentials are available to both the console pod and the workflow executor pods. Note that GKE Workload Identity grants access to GCP services, such as Cloud Storage, but does not provide credentials for accessing AWS Signature Version 4 clusters.
 
 To verify your AWS identity from the console pod, run the following command:
 
@@ -154,7 +166,7 @@ aws sts get-caller-identity
 ```
 {% include copy.html %}
 
-If identity verification fails, or if `console clusters connection-check` succeeds but the workflow later fails with 401 or 403, resolve the authentication issue before proceeding to the next step. The usual cause is that only the console pod has credentials and the workflow executor pods do not.
+If identity verification fails or if `console clusters connection-check` succeeds but the workflow later fails with a 401 or 403 error, resolve the authentication issue before proceeding to the next step. This error usually occurs when only the console pod contains the required credentials and the workflow executor pods do not.
 {: .warning }
 
 ## Step 8: Run a pilot migration
@@ -180,7 +192,7 @@ Before you expand scope, verify document counts and basic behavior on the target
 ```bash
 console clusters cat-indices
 console clusters curl target /<index>/_count
-console clusters curl target /<index>/_search?size=5&pretty
+console clusters curl target "/<index>/_search?size=5&pretty"
 ```
 {% include copy.html %}
 

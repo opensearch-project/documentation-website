@@ -11,26 +11,26 @@ The `parent_id` query returns child documents whose parent document has the spec
 
 ## Example
 
-Before you can run a `parent_id` query, your index must contain a [join]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/join/) field in order to establish parent/child relationships. The index mapping request uses the following format:
+Before you can run a `parent_id` query, your index must contain a [join]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/join/) field in order to establish parent/child relationships. This example uses the `testindex1` index, whose `product_to_brand` join field defines `brand` documents as parents and `product` documents as children:
 
 ```json
-PUT /example_index
+PUT testindex1
 {
   "mappings": {
     "properties": {
-      "relationship_field": {
+      "product_to_brand": {
         "type": "join",
         "relations": {
-          "parent_doc": "child_doc"
+          "brand": "product"
         }
       }
     }
   }
 }
 ```
-{% include copy-curl.html %} 
+{% include copy-curl.html %}
 
-For this example, first configure an index that contains documents representing products and their brands as described in the [`has_child` query example]({{site.url}}{{site.baseurl}}/query-dsl/joining/has-child/). 
+Index the brand and product documents as described in the [`has_child` query example]({{site.url}}{{site.baseurl}}/query-dsl/joining/has-child/).
 
 To search for child documents of a specific parent document, use a `parent_id` query. The following query returns child documents (products) whose parent document has the ID `1`:
 

@@ -35,9 +35,6 @@ POST /_plugins/_ml/agents/_register
   "name": "Test_Agent_For_Data_Distribution_Tool",
   "type": "flow",
   "description": "this is a test agent for the DataDistributionTool",
-  "memory": {
-    "type": "demo"
-  },
   "tools": [
     {
       "type": "DataDistributionTool",
@@ -93,7 +90,7 @@ OpenSearch returns a field-by-field comparison showing distribution changes betw
       "output": [
         {
           "name": "response",
-          "result": "{\"comparisonAnalysis\": [{\"field\": \"status\", \"divergence\": 0.2, \"topChanges\": [{\"value\": \"error\", \"selectionPercentage\": 0.3, \"baselinePercentage\": 0.1}, {\"value\": \"success\", \"selectionPercentage\": 0.7, \"baselinePercentage\": 0.9}]}]}"
+          "result": "{\"comparisonAnalysis\":[{\"field\":\"response_time\",\"divergence\":0.6666666666666667,\"topChanges\":[{\"value\":\"120\",\"selectionPercentage\":0.33,\"baselinePercentage\":1.0},{\"value\":\"200\",\"selectionPercentage\":0.67,\"baselinePercentage\":0.0}]},{\"field\":\"host\",\"divergence\":0.33333333333333337,\"topChanges\":[{\"value\":\"web-1\",\"selectionPercentage\":0.67,\"baselinePercentage\":1.0},{\"value\":\"web-2\",\"selectionPercentage\":0.33,\"baselinePercentage\":0.0}]}]}"
         }
       ]
     }
@@ -129,7 +126,7 @@ OpenSearch returns distribution patterns for the analyzed dataset:
       "output": [
         {
           "name": "response",
-          "result": "{\"singleAnalysis\": [{\"field\": \"status\", \"divergence\": 0.7, \"topChanges\": [{\"value\": \"error\", \"selectionPercentage\": 0.3}, {\"value\": \"success\", \"selectionPercentage\": 0.7}]}]}"
+          "result": "{\"singleAnalysis\":[{\"field\":\"status\",\"divergence\":0.7,\"topChanges\":[{\"value\":\"success\",\"selectionPercentage\":0.7,\"baselinePercentage\":null},{\"value\":\"error\",\"selectionPercentage\":0.3,\"baselinePercentage\":null}]},{\"field\":\"host\",\"divergence\":0.6,\"topChanges\":[{\"value\":\"web-1\",\"selectionPercentage\":0.6,\"baselinePercentage\":null},{\"value\":\"web-2\",\"selectionPercentage\":0.4,\"baselinePercentage\":null}]}]}"
         }
       ]
     }
@@ -184,7 +181,7 @@ The following table lists the available tool parameters for running the agent.
 | Parameter | Type | Required/Optional | Description |
 |:----------|:-----|:------------------|:------------|
 | `index` | String | Required | The name of the OpenSearch index containing the data to analyze. |
-| `timeField` | String | Required | A date/time field for time-based filtering. |
+| `timeField` | String | Optional | A date/time field for time-based filtering. Default is `@timestamp`. |
 | `selectionTimeRangeStart` | String | Required | The start time for the analysis period, in UTC date string format (for example, `2025-01-15 10:00:00`). |
 | `selectionTimeRangeEnd` | String | Required | The end time for the analysis period, in UTC date string format (for example, `2025-01-15 11:00:00`). |
 | `baselineTimeRangeStart` | String | Optional | The start time for the baseline comparison period, in UTC date string format (for example, `2025-01-15 10:00:00`). Required for the comparative analysis mode. |

@@ -2,7 +2,7 @@
 layout: default
 title: Anomaly Detection APIs
 parent: Anomaly detection
-nav_order: 1
+nav_order: 60
 redirect_from: 
   - /monitoring-plugins/ad/api/
 ---
@@ -626,12 +626,12 @@ GET _plugins/_anomaly_detection/detectors/{detectorId}
 
 A _job_ is something that you schedule to run periodically, so it's only applicable for real-time anomaly detection and not historical analysis that you run just one time.
 
-When you start a real-time detector, the Anomaly Detection plugin creates a job or if the job already exists updates it.
-When you start or a restart a real-time detector, the plugin creates a new real-time task that records run-time information like detector configuration snapshot, real-time job states (initializing/running/stopped), init progress, and so on.
+When you start a real-time detector, OpenSearch creates a job or if the job already exists updates it.
+When you start or restart a real-time detector, OpenSearch creates a new real-time task that records run-time information like detector configuration snapshot, real-time job states (initializing/running/stopped), init progress, and so on.
 
 A single detector can only have one real-time job (job ID is the same as detector ID), but it can have multiple real-time tasks because each restart of a real-time job creates a new real-time task. You can limit the number of real-time tasks with the `plugins.anomaly_detection.max_old_ad_task_docs_per_detector` setting.
 
-Historical analysis doesn't have an associated job. When you start or rerun historical analysis for a detector, the Anomaly Detection plugin creates a new historical batch task that tracks the historical analysis runtime information like state, coordinating/worker node, task progress, and so on. You can limit the historical task number with the `plugins.anomaly_detection.max_old_ad_task_docs_per_detector` setting.
+Historical analysis doesn't have an associated job. When you start or rerun historical analysis for a detector, OpenSearch creates a new historical batch task that tracks the historical analysis runtime information like state, coordinating/worker node, task progress, and so on. You can limit the historical task number with the `plugins.anomaly_detection.max_old_ad_task_docs_per_detector` setting.
 
 Use `job=true` to get real-time analysis task information.
 
@@ -2235,7 +2235,7 @@ POST _plugins/_anomaly_detection/detectors/results/_search/opensearch-ad-plugin-
 
 If you specify the custom result index like in this example, the search results API searches both the default result indexes and custom result indexes.
 
-If you don't specify the custom result index and you just use the `_plugins/_anomaly_detection/detectors/results/_search` URL, the Anomaly Detection plugin searches only the default result indexes.
+If you don't specify the custom result index and you just use the `_plugins/_anomaly_detection/detectors/results/_search` URL, OpenSearch searches only the default result indexes.
 
 Real-time detection doesn't persist the task ID in the anomaly result, so the task ID will be null.
 
@@ -2500,7 +2500,7 @@ Options | Description | Type | Required
 `size` |  Specify the number of top buckets that you want to see. Default is 10. The maximum number is 10,000. | `integer` | No
 `category_field` |  Specify the set of category fields that you want to aggregate on. Defaults to all category fields for the detector. | `list` | No
 `order` |  Specify `severity` (anomaly grade) or `occurrence` (number of anomalies). Default is `severity`. | `string` | No
-`task_id`  |  Specify a historical task ID to see results only from that specific task. Use only when `historical=true`, otherwise the Anomaly Detection plugin ignores this parameter. | `string` | No
+`task_id`  |  Specify a historical task ID to see results only from that specific task. Use only when `historical=true`, otherwise OpenSearch ignores this parameter. | `string` | No
 `start_time_ms` | Specify the time to start analyzing results, in Epoch milliseconds. | `long` | Yes
 `end_time_ms` |  Specify the time to end analyzing results, in Epoch milliseconds. | `long` | Yes
 
@@ -2510,7 +2510,7 @@ Options | Description | Type | Required
 Introduced 1.0
 {: .label .label-purple }
 
-Provides information about how the plugin is performing.
+Provides information about how anomaly detection is performing.
 
 To get all stats:
 
@@ -3020,7 +3020,7 @@ For a single-entity detector:
 
 The `total_entities` parameter shows you the total number of entities including the number of category fields for a detector.
 
-Getting the total count of entities is an expensive operation for real-time analysis of a detector with more than one category field. By default, for a real-time detection profile, a detector counts the number of entities up to a value of 10,000. For historical analysis, the Anomaly Detection plugin only detects the top 1,000 entities by default and caches the top entities in memory, so it doesn't cost much to get the total count of entities for historical analysis.
+Getting the total count of entities is an expensive operation for real-time analysis of a detector with more than one category field. By default, for a real-time detection profile, a detector counts the number of entities up to a value of 10,000. For historical analysis, anomaly detection only detects the top 1,000 entities by default and caches the top entities in memory, so it doesn't cost much to get the total count of entities for historical analysis.
 
 The `profile` operation also provides information about each entity, such as the entity’s `last_sample_timestamp` and `last_active_timestamp`. `last_sample_timestamp` shows the last document in the input data source index containing the entity, while `last_active_timestamp` shows the timestamp when the entity’s model was last seen in the model cache.
 

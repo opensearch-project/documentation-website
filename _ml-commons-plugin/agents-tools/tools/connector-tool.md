@@ -32,19 +32,19 @@ POST _plugins/_ml/connectors/_create
   "version": 1,
   "protocol": "aws_sigv4",
   "parameters": {
-    "region": "YOUR AWS REGION",
+    "region": "<YOUR AWS REGION>",
     "service_name": "lambda"
   },
   "credential": {
-    "access_key": "YOUR ACCESS KEY",
-    "secret_key": "YOUR SECRET KEY",
-    "session_token": "YOUR SESSION TOKEN"
+    "access_key": "<YOUR ACCESS KEY>",
+    "secret_key": "<YOUR SECRET KEY>",
+    "session_token": "<YOUR SESSION TOKEN>"
   },
   "actions": [
     {
       "action_type": "execute",
       "method": "POST",
-      "url": "YOUR LAMBDA FUNCTION URL",
+      "url": "<YOUR LAMBDA FUNCTION URL>",
       "headers": {
         "content-type": "application/json"
       },
@@ -89,7 +89,7 @@ POST /_plugins/_ml/agents/_register
       "type": "ConnectorTool",
       "name": "lambda_function",
       "parameters": {
-        "connector_id": "YOUR CONNECTOR ID",
+        "connector_id": "Zz1XEJABXWrLmr4mewEF",
         "response_filter": "$.result"
       }
     }
@@ -113,7 +113,7 @@ OpenSearch responds with an agent ID:
 Then, run the agent by sending the following request:
 
 ```json
-POST /_plugins/_ml/agents/9X7xWI0Bpc3sThaJdY9i/_execute
+POST /_plugins/_ml/agents/az1XEJABXWrLmr4miAFj/_execute
 {
   "parameters": {
     "number1": 2,
@@ -158,7 +158,7 @@ When running the agent, you can define any parameter needed for the API call in 
     {
       "action_type": "execute",
       "method": "POST",
-      "url": "YOUR LAMBDA FUNCTION URL",
+      "url": "<YOUR LAMBDA FUNCTION URL>",
       "headers": {
         "content-type": "application/json"
       },

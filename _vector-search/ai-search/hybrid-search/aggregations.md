@@ -15,6 +15,8 @@ You can enhance search results by combining a hybrid query clause with any aggre
 
 Most aggregations are performed on the subset of documents that is returned by a hybrid query. The only aggregation that operates on all documents is the [`global`]({{site.url}}{{site.baseurl}}/aggregations/bucket/global/) aggregation.
 
+Aggregations are also supported when the hybrid query runs in [fusion mode]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/). They require additional processing in that mode. For more information, see [Performance considerations]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/fusion-mode/#performance-considerations).
+
 To use aggregations with a hybrid query, first create an index. Aggregations are typically used on fields of special types, like `keyword` or `integer`. The following example creates an index with several such fields:
 
 ```json
@@ -63,7 +65,9 @@ POST /_bulk
 ```
 {% include copy-curl.html %}
 
-Now you can combine a hybrid query clause with a `min` aggregation:
+The following search uses a search pipeline named `nlp-search-pipeline` that contains a `normalization-processor` with the `min_max` normalization technique and the `arithmetic_mean` combination technique. For more information, see [Configure a search pipeline]({{site.url}}{{site.baseurl}}/vector-search/ai-search/hybrid-search/#step-3-configure-a-search-pipeline).
+
+Now you can combine a hybrid query clause with a `sum` aggregation and a `terms` aggregation:
 
 ```json
 GET /my-nlp-index/_search?search_pipeline=nlp-search-pipeline
@@ -178,9 +182,9 @@ The response contains the matching documents and the aggregation results:
   },
   "aggregations": {
     "total_price": {
-      "value": 680
+      "value": 680.0
     },
-    "doc_keywords": {
+    "keywords": {
       "doc_count_error_upper_bound": 0,
       "sum_other_doc_count": 0,
       "buckets": [

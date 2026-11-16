@@ -82,7 +82,7 @@ For your first experiment, you'll explore how adding a weight of `10` to the `ti
 PUT _plugins/_search_relevance/search_configurations
 {
   "name": "my_production_config",
-  "query": "{\"query\":{\"multi_match\":{\"query\":\"%SearchText%\",\"fields\":[\"id\",\"title\",\"category\",\"bullets\",\"description\",\"attrs.Brand\",\"attrs.Color\"]}}}",
+  "query": "{\"query\":{\"multi_match\":{\"query\":\"%queryText%\",\"fields\":[\"id\",\"title\",\"category\",\"bullets\",\"description\",\"attrs.Brand\",\"attrs.Color\"]}}}",
   "index": "ecommerce"
 }
 ```
@@ -103,7 +103,7 @@ Next, create another search configuration and apply a weight of `10` to the `tit
 PUT _plugins/_search_relevance/search_configurations
 {
   "name": "title_boost",
-  "query": "{\"query\":{\"multi_match\":{\"query\":\"%SearchText%\",\"fields\":[\"id\",\"title^10\",\"category\",\"bullets\",\"description\",\"attrs.Brand\",\"attrs.Color\"]}}}",
+  "query": "{\"query\":{\"multi_match\":{\"query\":\"%queryText%\",\"fields\":[\"id\",\"title^10\",\"category\",\"bullets\",\"description\",\"attrs.Brand\",\"attrs.Color\"]}}}",
   "index": "ecommerce"
 }
 ```

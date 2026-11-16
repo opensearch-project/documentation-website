@@ -36,9 +36,6 @@ POST /_plugins/_ml/agents/_register
   "name": "Test_Agent_For_Log_Pattern_Tool",
   "type": "flow",
   "description": "this is a test agent for the LogPatternTool",
-  "memory": {
-    "type": "demo"
-  },
   "tools": [
       {
       "type": "LogPatternTool",
@@ -62,6 +59,8 @@ OpenSearch responds with an agent ID:
 ```
 
 ## Step 2: Run the agent
+
+The following example searches the OpenSearch Dashboards sample web logs. To add the sample web logs, see [Adding sample data]({{site.url}}{{site.baseurl}}/dashboards/getting-started/data-setup/#add-sample-data). The query doesn't filter by time, so it returns the patterns shown in the example response regardless of when you add the sample data. To run the example on your own logs, change the `index` and the query.
 
 Run the agent by sending the following request:
 
@@ -103,10 +102,11 @@ The following table lists the available tool parameters for agent registration.
 | `input`          | String   | Required for DSL queries                         | A DSL query JSON as a string. If both `input` and `ppl` are provided, `input` (DSL) is used. |
 | `ppl`            | String   | Required for PPL queries                         | A PPL query string. Ignored if `input` is also provided. |
 | `source_field`   | String   | Optional                                         | The field(s) to return in the result. Can be a single field or an array (for example, `["field1", "field2"]`). |
-| `doc_size`       | Integer  | Optional                                         | The number of documents to fetch. Default is `2`. |
+| `doc_size`       | Integer  | Optional                                         | The number of documents to fetch. Default is `1000`. |
 | `top_n_pattern`  | Integer  | Optional                                         | Limits the output to the specified number of most frequent patterns. Default is `3`. |
 | `sample_log_size`| Integer  | Optional                                         | The number of sample logs to include per pattern. Default is `20`. |
 | `pattern_field`  | String   | Optional                                         | The field to analyze for pattern detection. If not specified, the tool selects the longest text field from the first document. |
+| `variable_count_threshold` | Integer | Optional                                 | The threshold used by the log parser to identify variable tokens when grouping logs into patterns. Default is `5`. |
 
 
 ## Execute parameters
@@ -118,6 +118,9 @@ Parameter	| Type | Required/Optional      | Description
 | `index`   | String | Required for DSL queries | The index to search for pattern analysis. |
 | `input`   | String | Required for DSL queries | A DSL query JSON as a string. If both `input` and `ppl` are provided, `input` (DSL) takes precedence. |
 | `ppl`     | String | Required for PPL queries | A PPL query string. Ignored if `input` is also provided. |
+| `top_n_pattern` | Integer | Optional | Limits the output to the specified number of most frequent patterns. Overrides the value set during registration. |
+| `sample_log_size` | Integer | Optional | The number of sample logs to include per pattern. Overrides the value set during registration. |
+| `pattern_field` | String | Optional | The field to analyze for pattern detection. Overrides the value set during registration. |
 
 ## Testing the tool
 

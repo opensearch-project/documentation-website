@@ -51,21 +51,21 @@ The following table lists all parameters available for `match_text_only` fields.
 
 Parameter | Description
 :--- | :---
-`analyzer` | The analyzer to be used for the field. By default, it will be used at index time and at search time. To override it at search time, set the `search_analyzer` parameter. Default is the `standard` analyzer, which uses grammar-based tokenization and is based on the [Unicode Text Segmentation](https://unicode.org/reports/tr29/) algorithm.
-`boost` |  All hits are assigned a score of 1 and are multiplied by `boost` to produce the final score for the query clause.
-`eager_global_ordinals` | Specifies whether global ordinals should be loaded eagerly on refresh. If the field is often used for aggregations, this parameter should be set to `true`. Default is `false`.
-`fielddata` | A Boolean value that specifies whether to access analyzed tokens for sorting, aggregation, and scripting. Default is `false`.
+`analyzer` | The analyzer to be used for the field. By default, it will be used at index time and at search time. To override it at search time, set the `search_analyzer` parameter. Default is the `standard` analyzer, which uses grammar-based tokenization and is based on the [Unicode Text Segmentation](https://unicode.org/reports/tr29/) algorithm. For more information, see [Analyzer]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/analyzer/).
+`boost` |  All hits are assigned a score of 1 and are multiplied by `boost` to produce the final score for the query clause. For more information, see [Boost]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/boost/).
+`eager_global_ordinals` | Specifies whether global ordinals should be loaded eagerly on refresh. If the field is often used for aggregations, this parameter should be set to `true`. Default is `false`. For more information, see [Eager global ordinals]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/eager_global_ordinals/).
+`fielddata` | A Boolean value that specifies whether to access analyzed tokens for sorting, aggregation, and scripting. Default is `false`. For more information, see [Field data]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/field-data/).
 `fielddata_frequency_filter` | A JSON object specifying that only those analyzed tokens whose document frequency is between the `min` and `max` values (provided as either an absolute number or a percentage) should be loaded into memory. Frequency is computed per segment. Parameters: `min`, `max`, `min_segment_size`. Default is to load all analyzed tokens.
-`fields` | To index the same string in several ways (for example, as a keyword and text), provide the `fields` parameter. You can specify one version of the field to be used for search and another to be used for sorting and aggregation.
-`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`.
+`fields` | To index the same string in several ways (for example, as a keyword and text), provide the `fields` parameter. You can specify one version of the field to be used for search and another to be used for sorting and aggregation. For more information, see [Fields]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/fields/).
+`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`. For more information, see [Index]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/index-parameter/).
 `index_options` | You cannot modify this parameter.
 `index_phrases` | Not supported.
 `index_prefixes` | Not supported.
-`meta` | Accepts metadata for this field.
-`norms` | Norms are disabled and cannot be enabled.
-`position_increment_gap` | Although positions are disabled, `position_increment_gap` behaves similarly to the `text` field when used in phrase queries. Such queries may be slower but are still functional.
-`similarity` | Setting similarity has no impact. The `match_only_text` field type doesn't support queries like `more_like_this`, which rely on similarity. Use a `keyword` or `text` field for queries that rely on similarity.
-`term_vector` | Term vectors are supported, but using them is discouraged because it contradicts the primary purpose of this field---storage optimization.
+`meta` | Accepts metadata for this field. For more information, see [Meta]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/meta/).
+`norms` | Norms are disabled and cannot be enabled. For more information, see [Norms]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/norms/).
+`position_increment_gap` | Although positions are disabled, `position_increment_gap` behaves similarly to the `text` field when used in phrase queries. Such queries may be slower but are still functional. For more information, see [Position increment gap]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/position-increment-gap/).
+`similarity` | Setting similarity has no impact. The `match_only_text` field type doesn't support queries like `more_like_this`, which rely on similarity. Use a `keyword` or `text` field for queries that rely on similarity. For more information, see [Similarity]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/similarity/).
+`term_vector` | Term vectors are supported, but using them is discouraged because it contradicts the primary purpose of this field---storage optimization. For more information, see [Term vector]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/term-vector/).
 
 ## Migrating a field from `text` to `match_only_text`
 

@@ -20,7 +20,7 @@ The target index's primary shard count must be a factor of the source index's pr
 
 Before you can shrink an index, it must meet the following conditions:
 
-- The index must be read-only. To make the index read-only, set the [dynamic index-level index setting]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-level-index-settings) `index.blocks.write` to `true`.
+- The index must be read-only. To make the index read-only, set the [dynamic index setting]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-index-settings) `index.blocks.write` to `true`.
 - A copy of every shard in the index (either primary or replica) must reside on the same node. You can use [shard allocation filtering]({{site.url}}{{site.baseurl}}/api-reference/index-apis/shard-allocation/) to move shards to the same node.
 - The cluster health status must be green.
 

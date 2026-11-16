@@ -249,6 +249,7 @@ tera
 [Uu]ncomment
 [Uu]ndeploy
 [Uu]ndock(ed|ing)?
+[Uu]nencrypted
 [Uu]nescaped
 [Uu]ngroup(s|ed|ing)?
 [Uu]nhid(e|ing)

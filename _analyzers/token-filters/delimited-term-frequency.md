@@ -112,9 +112,9 @@ The response contains both the original token and the parsed version with the te
       "name": "keyword",
       "tokens": [
         {
-          "token": "foo|100",
+          "token": "foo^3",
           "start_offset": 0,
-          "end_offset": 7,
+          "end_offset": 5,
           "type": "word",
           "position": 0,
           "termFrequency": 1
@@ -123,15 +123,15 @@ The response contains both the original token and the parsed version with the te
     },
     "tokenfilters": [
       {
-        "name": "delimited_term_freq",
+        "name": "my_delimited_term_freq",
         "tokens": [
           {
             "token": "foo",
             "start_offset": 0,
-            "end_offset": 7,
+            "end_offset": 5,
             "type": "word",
             "position": 0,
-            "termFrequency": 100
+            "termFrequency": 3
           }
         ]
       }

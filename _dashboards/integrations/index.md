@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Integrations
-nav_order: 130
+nav_order: 100
 has_children: false
 redirect_from:
   - /integrations/
@@ -19,7 +19,7 @@ Available OpenSearch Dashboards integration assets are shown in the following im
 
 ![Integrations assets available in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/integrations-assets.png)
 
----
+
 
 ## Use cases
 
@@ -33,7 +33,7 @@ OpenSearch adopted the [OpenTelemetry (OTel)](https://opentelemetry.io/) protoco
 
 This shared schema allows cross-correlation and analysis across different data sources. To this end, OpenSearch derived the [Simple Schema for Observability](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability), which encodes the OTel standard as OpenSearch mappings. OpenSearch also supports the [Piped Processing Language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/), which is designed for high-dimensionality querying in observability use cases.
 
----
+
 
 ## Ingesting data
 
@@ -55,7 +55,7 @@ Each integration asset contains the following metadata and assets:
 * Sample data for testing the feature
 * Assets such as dashboards, index patterns, queries, or alerts
 
----
+
 
 ## Installing an integration asset 
 
@@ -89,7 +89,7 @@ To load a custom integration asset, follow these steps:
 4. Select the saved object you uploaded to confirm that it was uploaded to **Saved objects**. An example of this step is shown in the following image.
   ![List of integrations saved objects]({{site.url}}{{site.baseurl}}/images/integrations/select-uploaded-integration.png)
 
----
+
 
 ## Developer resources
 
@@ -101,10 +101,6 @@ See the following developer resources for sample code, articles, tutorials, and 
 - [OpenSearch Observability Catalog release page](https://github.com/opensearch-project/opensearch-catalog/blob/main/docs/integrations/Release.md)
 - [Simple Schema for Observability](https://github.com/opensearch-project/opensearch-catalog/tree/main/docs/schema/observability)
 
----
+## Next steps
 
-## Community contribution
-
-The OpenSearch Project seeks your feedback on this feature. Post on the [OpenSearch forum](https://forum.opensearch.org/) to let us know how **Integrations** works for you or how it can be improved.
- 
-Contribute to the project by submitting an [integration request](https://github.com/opensearch-project/dashboards-observability/issues/new?assignees=&labels=integration%2C+untriaged&projects=&template=integration_request.md&title=%5BIntegration%5D).
+- To request an integration that isn't available in the catalog, submit an [integration request](https://github.com/opensearch-project/dashboards-observability/issues/new?assignees=&labels=integration%2C+untriaged&projects=&template=integration_request.md&title=%5BIntegration%5D).

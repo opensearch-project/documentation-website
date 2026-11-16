@@ -1,15 +1,15 @@
 ---
 layout: default
-title: API
+title: Alerting API
 parent: Alerting
-nav_order: 15
+nav_order: 60
 redirect_from:
   - /monitoring-plugins/alerting/api/
 ---
 
 # Alerting API
 
-Use the Alerting API to programmatically create, update, and manage monitors and alerts. For APIs that support the composite monitor specifically, see [Managing composite monitors with the API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/composite-monitors/#managing-composite-monitors-with-the-api). 
+Use the Alerting API to programmatically create, update, and manage monitors and alerts. For APIs that support the composite monitor specifically, see [Composite Monitor API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/composite-monitors-api/). 
 
 ## Create a query-level monitor
 
@@ -252,7 +252,7 @@ POST _plugins/_alerting/monitors
 </details>
 
 
-To specify a time zone, you can do so by including a [cron expression]({{site.url}}{{site.baseurl}}/api-reference/common-parameters/#cron-expressions) with a time zone name in the `schedule` section of your request. The following example creates a monitor that runs at 12:10 PM Pacific Time on the first day of each month.
+To specify a time zone, you can do so by including a [cron expression]({{site.url}}{{site.baseurl}}/api-reference/cron-expressions/) with a time zone name in the `schedule` section of your request. The following example creates a monitor that runs at 12:10 PM Pacific Time on the first day of each month.
 
 #### Example request
 ```json
@@ -319,7 +319,7 @@ To specify a time zone, you can do so by including a [cron expression]({{site.ur
 {% include copy-curl.html %}
 
 
-For a full list of time zone names, see [List of `tz` database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). The Alerting plugin uses the Java [`TimeZone`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/TimeZone.html) class to convert a [`ZoneId`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/ZoneId.html) to a valid time zone.
+For a full list of time zone names, see [List of `tz` database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). Alerting uses the Java [`TimeZone`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/TimeZone.html) class to convert a [`ZoneId`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/ZoneId.html) to a valid time zone.
 
 ---
 
@@ -627,9 +627,9 @@ The response returns the number of individual finding entries in the `total_find
 To get more specific results in a findings search, you can use any of the optional path parameters defined in the following table.
 
 Path parameter | Description | Usage
-:--- | :--- : :---
+:--- | :--- | :---
 `findingId` | The identifier for the finding entry. | The finding ID is returned in the initial query response.
-`sortString` | This field specifies which string the Alerting plugin uses to sort the findings. | The default value is `id`.
+`sortString` | This field specifies which string Alerting uses to sort the findings. | The default value is `id`.
 `sortOrder` | The order to sort the list of findings, either ascending or descending. | Use `sortOrder=asc` to indicate ascending, or `sortOrder=desc` for descending sort order.
 `size` | An optional limit for the maximum number of results returned in the response. | There is no minimum or maximum values.
 `startIndex` | The pagination indicator. | Default is `0`.
@@ -642,7 +642,7 @@ You can create a document-level monitor with a POST request that provides the mo
 The following table provides the syntax to use for each trigger option.
 
 Trigger options | Definition | Syntax
-:--- | :--- : :---
+:--- | :--- | :---
 Tag | Creates alerts for documents that match a multiple query with this tag applied. If you group multiple queries by a single tag, then you can set it to trigger an alert if the results are returned by this tag name.| `query[tag=<tag-name>]`
 Query by name | Creates alerts for documents matched or returned by the named query.  | `query[name=<query-name>]`
 Query by ID | Creates alerts for documents that were returned by the identified query. | `query[id=<query-id>]`
@@ -743,7 +743,7 @@ If you run a document-level query while the index is getting reindexed, the API 
 
 ## Update monitor
 
-When updating a monitor, you can optionally include the `if_seq_no` and `if_primary_term` query parameters, for example, `?if_seq_no=3&if_primary_term=1`. If these numbers do not match the existing monitor or the monitor does not exist, the Alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
+When updating a monitor, you can optionally include the `if_seq_no` and `if_primary_term` query parameters, for example, `?if_seq_no=3&if_primary_term=1`. If these numbers do not match the existing monitor or the monitor does not exist, OpenSearch returns an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
 #### Example request
 ```json

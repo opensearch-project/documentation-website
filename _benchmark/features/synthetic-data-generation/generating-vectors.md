@@ -392,7 +392,7 @@ The following table shows typical `num_tokens` values for different models and a
 
 | Model/Approach | Typical `num_tokens` | Use case |
 |----------------|-------------------|----------|
-| SPLADE v1 | 10--15 | Standard sparse neural search |
+| SPLADE v1 | 10--15 | Standard neural sparse search |
 | SPLADE v2 | 15--25 | Improved recall |
 | DeepImpact | 8--12 | Efficient sparse search |
 | Custom/Hybrid | 20--50 | Rich representations |

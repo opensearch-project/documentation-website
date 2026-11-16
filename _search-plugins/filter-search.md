@@ -90,6 +90,8 @@ GET /electronics/_search
 
 The result should show `BrandA` smartphones in the search hits and all brands in the aggregations.
 
+To keep facet options visible while users apply filters, combine `post_filter` with filter aggregations. For more information, see [Maintaining facet options during filtering]({{site.url}}{{site.baseurl}}/tutorials/faceted-search/#maintaining-facet-options-during-filtering).
+
 ## Refining aggregations with aggregation-level filtering
 
 You can use aggregation-level filtering to apply filters to specific aggregations without affecting the main aggregation to which they belong. 

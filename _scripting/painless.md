@@ -3,6 +3,7 @@ layout: default
 title: Painless scripting language
 nav_order: 30
 has_children: true
+has_toc: false
 ---
 
 # Painless scripting language

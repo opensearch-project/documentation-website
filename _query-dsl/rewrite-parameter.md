@@ -40,7 +40,7 @@ The following table summarizes the available rewrite methods.
 
 ## Boolean-based rewrite limits
 
-All Boolean-based rewrites, such as `scoring_boolean`, `constant_score_boolean`, and `top_terms_*`, are subject to the following [dynamic cluster-level index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/#dynamic-cluster-level-index-settings):
+All Boolean-based rewrites, such as `scoring_boolean`, `constant_score_boolean`, and `top_terms_*`, are subject to the following dynamic [cluster settings for indexes]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/cluster-settings-for-indexes/#dynamic-settings):
 
 ```json
 indices.query.bool.max_clause_count

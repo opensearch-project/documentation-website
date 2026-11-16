@@ -22,4 +22,4 @@ The settings on this page change how an index stores its data on disk, how its d
 
 - [Index settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index-settings/)
 - [Mappings and field types]({{site.url}}{{site.baseurl}}/field-types/)
-- [Tuning for indexing speed]({{site.url}}{{site.baseurl}}/tuning-your-cluster/performance/)
+- [Tuning for indexing speed]({{site.url}}{{site.baseurl}}/tuning-your-cluster/performance-tuning/indexing-speed/)

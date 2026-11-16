@@ -24,7 +24,7 @@ The algorithm uses the following variables to decide how to apply a filter:
 - P: The number of documents in the document subset after the filter is applied (P <= N).
 - k: The maximum number of vectors to return in the response.
 
-When P is less than k, both engines run an exact search over the P filtered documents, which would otherwise return far fewer than k results. When P is greater than k, the engines apply the filter as follows.
+When P is less than or equal to k, both engines run an exact search over the P filtered documents, which would otherwise return far fewer than k results. When P is greater than k, the engines apply the filter as follows.
 
 | Engine | How the filter is applied | Number of results |
 |:--- |:--- |:--- |

@@ -15,7 +15,7 @@ nav_order: 26
 The `kmeans` command is deprecated in favor of the [`ml` command]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/ml/).
 {: .warning}
 
-The `kmeans` command applies the k-means algorithm in the ML Commons plugin on the search results returned by a PPL command.
+The `kmeans` command applies the k-means algorithm to the search results returned by a PPL command.
 
 To use the `kmeans` command, `plugins.calcite.enabled` must be set to `false`.
 {: .note}

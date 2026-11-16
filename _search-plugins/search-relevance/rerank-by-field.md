@@ -209,3 +209,4 @@ The response contains documents sorted in descending order based on the `reviews
 
 - Learn more about the [`rerank` processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/rerank-processor/).
 - See a comprehensive example of [reranking by a field using an externally hosted cross-encoder model]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field-cross-encoder/).
+- For a tutorial that reranks results by a field using Cohere Rerank, see [Reranking search results by a field using Cohere Rerank]({{site.url}}{{site.baseurl}}/tutorials/reranking/reranking-by-field/).

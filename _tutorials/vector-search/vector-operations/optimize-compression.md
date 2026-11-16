@@ -149,8 +149,8 @@ The response contains the generated embeddings:
             "embeddings": {
               "int8": [
                 [
-                  -26.0,
-                  31.0,
+                  -27,
+                  31,
                   ...
                 ]
               ]
@@ -223,8 +223,8 @@ PUT _ingest/pipeline/ml_inference_pipeline_cohere
         "set": {
             "field": "title_desc_tmp",
             "value": [
-            "{{title}}",
-            "{{description}}"
+            {% raw %}"{{title}}"{% endraw %},
+            {% raw %}"{{description}}"{% endraw %}
             ]
         }
         },
@@ -576,7 +576,7 @@ Create a new ingest pipeline named `ml_inference_pipeline_cohere_binary` by usin
 ### Option 1: Invoke the model separately for `title` and `description`
 
 ```json
-PUT _ingest/pipeline/ml_inference_pipeline_cohere
+PUT _ingest/pipeline/ml_inference_pipeline_cohere_binary
 {
 "processors": [
     {
@@ -614,7 +614,7 @@ PUT _ingest/pipeline/ml_inference_pipeline_cohere
 ### Option 2: Invoke the model once by combining `title` and `description`
 
 ```json
-PUT _ingest/pipeline/ml_inference_pipeline_cohere
+PUT _ingest/pipeline/ml_inference_pipeline_cohere_binary
 {
     "description": "Concatenate title and description fields",
     "processors": [
@@ -622,8 +622,8 @@ PUT _ingest/pipeline/ml_inference_pipeline_cohere
         "set": {
             "field": "title_desc_tmp",
             "value": [
-            "{{title}}",
-            "{{description}}"
+            {% raw %}"{{title}}"{% endraw %},
+            {% raw %}"{{description}}"{% endraw %}
             ]
         }
         },
@@ -716,7 +716,7 @@ POST _bulk
 
 ### Step 5.3: Create a search pipeline
 
-Create a new search pipeline named `ml_inference_pipeline_cohere_search_binary` by using the same configuration as in [Step 2](#step-4-search-the-index) but replacing all occurrences of `int8` with `binary`.
+Create a new search pipeline named `ml_inference_pipeline_cohere_search_binary` by using the same configuration as in [Step 4](#step-4-search-the-index) but replacing all occurrences of `int8` with `binary`.
 
 1. Change `embeddings.int8[0]` to `embeddings.binary[0]`.
 1. Change `"embedding_types": ["int8"]` to `"embedding_types": ["binary"]`.
@@ -805,3 +805,11 @@ PUT _search/pipeline/ml_inference_pipeline_cohere_search_binary2
 {% include copy-curl.html %}
 
 Then you can use the search pipeline to run a vector search, as described in [Step 4](#step-4-search-the-index).
+
+## Related documentation
+
+- [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/)
+- [Connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/)
+- [ML inference processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/ml-inference/)
+- [ML inference search request processor]({{site.url}}{{site.baseurl}}/search-plugins/search-pipelines/ml-inference-search-request/)
+- [k-NN query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/k-nn/)

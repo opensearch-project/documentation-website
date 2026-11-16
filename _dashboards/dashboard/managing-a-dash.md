@@ -70,7 +70,7 @@ You can export a dashboard to a PDF file or PNG image file.
 Exporting a dashboard is a Reporting feature. You must have the Reporting plugin active to export a file.
 {: .note}
 
-This feature requires the Reporting plugin. See [Reporting using OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/reporting/report-dashboard-index/) for more information about reporting.
+This feature requires the Reporting plugin. See [Reporting using OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/reporting/report-dashboard-index/) for more information about reporting.
 
 1. Select **Reporting** from the application menu.
 
@@ -85,7 +85,7 @@ This feature requires the Reporting plugin. See [Reporting using OpenSearch Dash
 
 To delete one or more dashboards, follow these steps:
 
-1. In the [navigation panel]({{site.url}}{{site.baseurl}}/dashboards/navigating-ui/#navigating-opensearch-dashboards), select **OpenSearch Dashboards** > **Dashboards**.
+1. In the [navigation panel]({{site.url}}{{site.baseurl}}/dashboards/navigating-ui/#the-left-navigation-panel), select **OpenSearch Dashboards** > **Dashboards**.
 
 1. From the list in the **Dashboards** table, select the checkbox next to all the dashboards you want to delete.
 

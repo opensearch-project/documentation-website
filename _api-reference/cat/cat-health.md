@@ -12,7 +12,18 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple }
 
-The CAT health operation lists the status of the cluster, how long the cluster has been up, the number of nodes, and other useful information that helps you analyze the health of your cluster.
+The CAT health operation lists the status of the cluster, how long the cluster has been up, the number of nodes, and other useful information that helps you analyze the health of your cluster. It returns the same information as the [Cluster Health API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) in a compact, single-line format.
+
+Each response line starts with two timestamps: `epoch`, the time in seconds since the Unix epoch, and `timestamp`, the time of day in `HH:MM:SS` format. The `epoch` value includes the date, so use it to sort or compare results collected over several days. To omit both timestamps, set `ts` to `false`.
+
+Because each call returns one line, the CAT Health API is useful for monitoring a cluster over time, for example, while the cluster recovers after a restart. The following command checks the cluster health every 60 seconds:
+
+```bash
+while true; do curl -s "localhost:9200/_cat/health?h=epoch,timestamp,status,init,unassign"; sleep 60; done
+```
+{% include copy.html %}
+
+As the recovery progresses, the cluster status changes from `red` to `yellow` to `green`, and the number of unassigned shards (`unassign`) decreases. If `unassign` stays the same across several checks, use the [Cluster Allocation Explain API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-allocation/) to find out why shards are not being assigned.
 
 
 <!-- spec_insert_start

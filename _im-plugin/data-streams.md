@@ -17,7 +17,7 @@ Data streams are for continuously generated time-series data, such as logs, even
 Data streams have the following characteristics:
 
 - Every document must contain a timestamp field. A document without one is rejected.
-- A data stream is append-only. You cannot update or delete individual documents through the data stream name; you must address the backing index directly.
+- A data stream is append-only. Indexing requests sent to the data stream name can only create new documents. To update or delete existing documents, use an update by query or delete by query request, or send the request to the backing index that contains the document. For more information, see [Updating and deleting documents in a data stream](#updating-and-deleting-documents-in-a-data-stream).
 - Backing indexes are named `.ds-<data-stream>-<generation>` and are hidden. The generation number increases with each rollover.
 - A data stream can only be created from an index template that contains a `data_stream` object.
 
@@ -105,7 +105,29 @@ POST logs-redis/_doc?refresh=true
 
 The `refresh=true` parameter makes the document searchable immediately, so that the search in the next section returns it. Omit it in production, where the [refresh interval]({{site.url}}{{site.baseurl}}/im-plugin/index-maintenance/) handles this.
 
-A data stream accepts `create` operations only. An `index` operation that would overwrite a document, or an update or delete addressed to the data stream name, is rejected.
+A data stream accepts only write requests for which the operation type is `create`. A `POST <data-stream>/_doc` request with an automatically generated document ID is a `create` operation. To specify a document ID, use the `_create` endpoint or set the `op_type=create` query parameter. A `PUT <data-stream>/_doc/<id>` request without `op_type=create` is an `index` operation and is rejected. The following request creates a document with the ID `1`:
+
+```json
+PUT logs-redis/_create/1?refresh=true
+{
+  "message": "logout",
+  "@timestamp": "2013-03-01T00:05:00"
+}
+```
+{% include copy-curl.html %}
+
+In a [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) request, use the `create` action for each document. The `index` action is rejected for data streams:
+
+```json
+POST _bulk?refresh=true
+{ "create": { "_index": "logs-redis", "_id": "2" } }
+{ "message": "session expired", "@timestamp": "2013-03-01T00:10:00" }
+{ "create": { "_index": "logs-redis", "_id": "3" } }
+{ "message": "password reset", "@timestamp": "2013-03-01T00:15:00" }
+```
+{% include copy-curl.html %}
+
+Each item in the response shows the backing index that stores the document, for example, `"_index": ".ds-logs-redis-000001"`.
 
 ## Searching a data stream
 
@@ -164,6 +186,101 @@ The `_index` field of each hit contains the name of the backing index that holds
 </details>
 
 You can also query a data stream using [asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/index/), [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/), or [PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/), and build visualizations on it as you would on an index or an alias.
+
+## Updating and deleting documents in a data stream
+
+Single-document update and delete requests sent to the data stream name are rejected. To change documents in a data stream, use one of the following methods.
+
+### Updating or deleting documents by query
+
+The [Update by Query]({{site.url}}{{site.baseurl}}/api-reference/document-apis/update-by-query/) and [Delete by Query]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-by-query/) APIs accept a data stream name and process the matching documents in all of its backing indexes. The following request changes the message of the document that contains `expired`:
+
+```json
+POST logs-redis/_update_by_query?refresh=true
+{
+  "query": {
+    "match": {
+      "message": "expired"
+    }
+  },
+  "script": {
+    "source": "ctx._source.message = \"session timed out\""
+  }
+}
+```
+{% include copy-curl.html %}
+
+The following request deletes the document that contains `password`:
+
+```json
+POST logs-redis/_delete_by_query?refresh=true
+{
+  "query": {
+    "match": {
+      "message": "password"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Updating or deleting a single document
+
+To update or delete a single document, send the request to the backing index that contains it. To find the backing index, search the data stream for the document. The following request returns the document with the ID `1`, along with its sequence number and primary term:
+
+```json
+GET logs-redis/_search?seq_no_primary_term=true
+{
+  "query": {
+    "ids": {
+      "values": ["1"]
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The `_index` field of the hit contains the name of the backing index:
+
+```json
+{
+  ...
+  "hits": {
+    "hits": [
+      {
+        "_index": ".ds-logs-redis-000001",
+        "_id": "1",
+        "_seq_no": 1,
+        "_primary_term": 1,
+        "_score": 1.0,
+        "_source": {
+          "message": "logout",
+          "@timestamp": "2013-03-01T00:05:00"
+        }
+      }
+    ]
+  }
+}
+```
+
+Send the update to the backing index. To prevent overwriting a change made after your search, include the `if_seq_no` and `if_primary_term` values from the search response:
+
+```json
+POST .ds-logs-redis-000001/_update/1?if_seq_no=1&if_primary_term=1&refresh=true
+{
+  "doc": {
+    "message": "logout requested"
+  }
+}
+```
+{% include copy-curl.html %}
+
+Similarly, to delete the document, send the request to the backing index:
+
+```json
+DELETE .ds-logs-redis-000001/_doc/1?refresh=true
+```
+{% include copy-curl.html %}
 
 ## Rolling over a data stream
 
