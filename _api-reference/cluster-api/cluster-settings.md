@@ -26,6 +26,8 @@ Using this API to manage cluster-wide settings is preferred over manually editin
 
 When updating cluster settings, you can specify whether changes should be persistent (persist after cluster restarts) or transient (cleared after restart). For more information about persistent and transient settings, setting precedence, and resetting settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
+Only dynamic settings can be updated using this API. To determine whether a setting is dynamic and to retrieve its default value and bounds, use the [Describe Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/describe-cluster-settings/).
+
 ## Endpoints
 
 ```json
@@ -559,4 +561,5 @@ If you use the Security plugin, make sure you have the appropriate permissions: 
 
 ## Related documentation
 
-- For more information about transient settings, persistent settings, and setting precedence, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/).
+- [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/)
+- [Describe Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/describe-cluster-settings/)

@@ -75,7 +75,7 @@ POST _bulk
 
 ## Step 2: Register and deploy a model
 
-The following request registers a remote model from Amazon Bedrock and deploys it to your cluster. The API call creates the connector and model in one step. Replace the `region`, `access_key`, `secret_key`, and `session_token` with your own values. You can use any model that supports the `converse` API, such as [Anthropic Claude 4](https://www.anthropic.com/news/claude-4) or [GPT 5](https://openai.com/index/introducing-gpt-5). You can use other model providers by creating a connector to this model (see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/)).
+The following request registers a remote model from Amazon Bedrock and deploys it to your cluster. The API call creates the connector and model in one step. Replace the `region`, `access_key`, `secret_key`, and `session_token` with your own values. You can use any model that supports the `converse` API, such as [Anthropic Claude 4](https://www.anthropic.com/news/claude-4) or [GPT 5](https://openai.com/index/introducing-gpt-5). You can use other model providers by creating a connector to this model (see [OpenSearch-provided connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/)).
 
 **Important**: When creating connectors for the `QueryPlanningTool`, the request body must include the `system_prompt` and `user_prompt` parameters. These parameters are required for the tool to properly inject the system and user prompts into the model's request. 
 
@@ -197,6 +197,9 @@ The tool sets the `system_prompt` and `user_prompt` parameters itself, so values
 ### Using search templates
 
 You can add [search templates]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search-template/index/) as additional context to assist the LLM in OpenSearch DSL generation.
+
+With this approach, the LLM still writes the full query. To have the LLM fill only the template parameters while OpenSearch renders the query, see [Filling search templates]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agentic-search-templates/index/).
+{: .tip}
 
 First, create the search templates:
 
@@ -538,6 +541,7 @@ The following is the default user prompt:
 
 ```json
 Question: ${parameters.question}
+Index: ${parameters.index_name}
 Mapping: ${parameters.index_mapping:-}
 Query Fields: ${parameters.query_fields:-}
 Sample Document from index: ${parameters.sample_document:-}

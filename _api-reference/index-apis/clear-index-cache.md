@@ -12,13 +12,10 @@ nav_order: 10
 
 The clear cache API operation clears the caches of one or more indexes. For data streams, the API clears the caches of the stream’s backing indexes.
 
-
-If you use the Security plugin, you must have the `manage index` privileges.
-{: .note}
-
 ## Endpoints
 
 ```json
+POST /_cache/clear
 POST /{target}/_cache/clear
 ```
 
@@ -35,15 +32,20 @@ All query parameters are optional.
 
 | Parameter | Data type | Description |
 :--- | :--- | :---
-| `allow_no_indices` | Boolean | Whether to ignore wildcards, index aliases, or `_all` target (`target` path parameter) values that don’t match any indexes. If `false`, the request returns an error if any wildcard expression, index alias, or `_all` target value doesn't match any indexes. This behavior also applies if the request targets include other open indexes. For example, a request where the target is `fig*,app*` returns an error if an index starts with `fig` but no index starts with `app`. Defaults to `true`. |
-| `expand_wildcards` | String | Determines the index types that wildcard expressions can expand to. Accepts multiple values separated by a comma, such as  `open,hidden`. Valid values are: <br /><br /> `all` -- Expand to open, closed, and hidden indexes.<br /><br />`open` -- Expand only to open indexes.<br /><br />`closed` -- Expand only to closed indexes<br /><br />`hidden` -- Expand to include hidden indexes. Must be combined with `open`, `closed`, or `both`.<br /><br />`none` -- Expansions are not accepted.<br /><br /> Defaults to `open`. |
-| `fielddata` | Boolean | If `true`, clears the fields cache. Use the `fields` parameter to clear specific fields' caches. Defaults to `true`. |
-| `fields` | String | Used in conjunction with the `fielddata` parameter. Comma-delimited list of field names that are cleared out of the cache. Does not support objects or field aliases. Defaults to all fields. |
-| `file` | Boolean | If `true`, clears the unused entries from the file cache on nodes with the Search role. Defaults to `false`. |
-| `index` | String | Comma-delimited list of index names that are cleared out of the cache. |
-| `ignore_unavailable` | Boolean | If `true`, OpenSearch ignores missing or closed indexes. Defaults to `false`. |
-| `query` | Boolean | If `true`, clears the query cache. Defaults to `true`. |
-| `request` | Boolean | If `true`, clears the request cache. Defaults to `true`. |
+| `allow_no_indices` | Boolean | Whether to ignore wildcards, index aliases, or `_all` target (`target` path parameter) values that don’t match any indexes. If `false`, the request returns an error if any wildcard expression, index alias, or `_all` target value doesn't match any indexes. This behavior also applies if the request targets include other open indexes. For example, a request where the target is `fig*,app*` returns an error if an index starts with `fig` but no index starts with `app`. Default is `true`. |
+| `expand_wildcards` | String | Determines the index types that wildcard expressions can expand to. Accepts multiple values separated by a comma, such as  `open,hidden`. Valid values are: <br /><br /> `all` -- Expand to open, closed, and hidden indexes.<br /><br />`open` -- Expand only to open indexes.<br /><br />`closed` -- Expand only to closed indexes<br /><br />`hidden` -- Expand to include hidden indexes. Must be combined with `open` or `closed`.<br /><br />`none` -- Expansions are not accepted.<br /><br /> Default is `open`. Caches of closed indexes cannot be cleared, so a request using `closed` or `all` fails if a wildcard expression matches a closed index, unless `ignore_unavailable` is `true`. |
+| `fielddata` | Boolean | If `true`, clears the fields cache. Use the `fields` parameter to clear specific fields' caches. Default is `false`. |
+| `fields` | String | Comma-delimited list of field names whose fielddata is cleared from the cache. If specified without other cache parameters, clears only the fielddata of the listed fields. Does not support objects or field aliases. Default is all fields. |
+| `file` | Boolean | If `true`, clears the unused entries from the file cache on nodes with the Search role. Unless `query` or `fielddata` is also `true` or `fields` is specified, setting `file` to `true` also clears all index caches. Default is `false`. |
+| `index` | String | Comma-delimited list of indexes whose caches are cleared. An alternative to the `target` path parameter for the `POST /_cache/clear` endpoint. |
+| `ignore_unavailable` | Boolean | If `true`, OpenSearch ignores missing or closed indexes. Default is `false`. |
+| `query` | Boolean | If `true`, clears the query cache. Default is `false`. |
+| `request` | Boolean | If `true`, clears the request cache. Default is `false`. |
+
+If none of the `fielddata`, `query`, `request`, or `fields` parameters is specified, all caches are cleared. Setting `fielddata` or `query` to `true` clears only that cache. If `request` is the only cache parameter set to `true` and `fields` is not specified, all caches are cleared.
+
+Field data entries are removed during the next cache cleanup, which runs at the interval specified by the `indices.cache.cleanup_interval` setting (default `1m`). Until then, fielddata statistics can show the size before the cache was cleared.
+{: .note}
 
 ## Example requests
 
@@ -132,14 +134,14 @@ response = client.indices.clear_cache(
 
 ### Clear the cache for specific fields
 
-The following request clears the fields caches of `fielda` and `fieldb`:
+The following request clears the fields caches of `product_name` and `category`:
 
 <!-- spec_insert_start
 component: example_code
-rest: POST /my-index/_cache/clear?fields=fielda,fieldb
+rest: POST /my-index/_cache/clear?fields=product_name,category
 -->
 {% capture step1_rest %}
-POST /my-index/_cache/clear?fields=fielda,fieldb
+POST /my-index/_cache/clear?fields=product_name,category
 {% endcapture %}
 
 {% capture step1_python %}
@@ -147,7 +149,7 @@ POST /my-index/_cache/clear?fields=fielda,fieldb
 
 response = client.indices.clear_cache(
   index = "my-index",
-  params = { "fields": "fielda,fieldb" }
+  params = { "fields": "product_name,category" }
 )
 
 {% endcapture %}
@@ -183,7 +185,7 @@ response = client.indices.clear_cache(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-#### Clear caches for all data streams and indexes
+### Clear caches for all data streams and indexes
 
 The following request clears the cache for all data streams and indexes:
 
@@ -207,6 +209,8 @@ response = client.indices.clear_cache()
 
 
 ### Clear unused entries from the cache on search-capable nodes
+
+The following request clears unused entries from the file cache on nodes with the Search role:
 
 <!-- spec_insert_start
 component: example_code
@@ -252,6 +256,11 @@ The `POST /books,hockey/_cache/clear` request returns the following response fie
 | Field | Data type | Description | 
 :--- | :--- | :---
 | `_shards` | Object | Shard information. |
+
+The `_shards` object contains the following fields.
+
+| Field | Data type | Description |
+:--- | :--- | :---
 | `total` | Integer | Total number of shards. |
 | `successful` | Integer | Number of index shards with caches successfully cleared. |
 | `failed` | Integer | Number of index shards with caches that failed to clear. |

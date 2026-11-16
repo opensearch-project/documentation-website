@@ -83,6 +83,10 @@ swap:
   'is worth': we recommend (reword the sentence)
   'it is recommended': we recommend
   '(?<=k-NN (?:and|or) )neural (?:search|query|queries)': vector search (replace the whole phrase, including "k-NN and" or "k-NN or")
+  'keep(?! up)': retain
+  'keeps(?! up)': retains
+  'kept': retained
+  'keeping(?! up)': retaining
   'keep up': maintain throughput or match demand
   'keeps up': maintains throughput or matches demand
   'keeping up': maintaining throughput or matching demand
@@ -109,6 +113,10 @@ swap:
   'looks into': investigates
   'looking into': investigating
   'looks like this': appears as follows
+  'make sure': ensure
+  'makes sure': ensures
+  'made sure': ensured
+  'making sure': ensuring
   'means': indicates
   'narrow down': filter or limit
   'narrows down': filters or limits

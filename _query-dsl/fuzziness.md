@@ -15,7 +15,7 @@ Fuzziness is measured in edits. An edit is one of the following single-character
 - Substituting one character for another, for example, `tant` to `tent`
 - Swapping two adjacent characters (a _transposition_), for example, `tnet` to `tent`
 
-The number of edits needed to change one term into another is called the [Damerau–Levenshtein distance](https://en.wikipedia.org/wiki/Damerau–Levenshtein_distance). A term matches if its distance from the search term is no greater than the allowed number of edits.
+The number of edits needed to change one term into another is called the [Damerau–Levenshtein distance](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance). A term matches if its distance from the search term is no greater than the allowed number of edits.
 
 The following queries and features support `fuzziness`:
 

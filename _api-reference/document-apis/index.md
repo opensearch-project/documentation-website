@@ -132,7 +132,3 @@ This approach prevents lost updates in scenarios where multiple clients or proce
 
 - [Term vector]({{site.url}}{{site.baseurl}}/api-reference/document-apis/termvector/)
 - [Multi term vectors]({{site.url}}{{site.baseurl}}/api-reference/document-apis/mtermvectors/)
-
-## Pull-based ingestion
-
-- [Pull-based ingestion]({{site.url}}{{site.baseurl}}/api-reference/document-apis/pull-based-ingestion/)
