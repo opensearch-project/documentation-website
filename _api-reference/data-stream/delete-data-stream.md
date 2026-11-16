@@ -2,7 +2,7 @@
 layout: default
 title: Delete data stream
 parent: Data stream APIs
-nav_order: 40
+nav_order: 50
 ---
 
 # Delete Data Stream API

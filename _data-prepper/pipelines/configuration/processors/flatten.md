@@ -19,8 +19,9 @@ Option | Required | Type | Description
 `source` | Yes | String | The source key on which to perform the operation. If set to an empty string (`""`), then the processor uses the root of the event as the source.
 `target` | Yes | String | The target key to put into the flattened fields. If set to an empty string (`""`), then the processor uses the root of the event as the target.
 `exclude_keys` | No | List | The keys from the source field that should be excluded from processing. Default is an empty list (`[]`).
-`remove_processed_fields` | No | Boolean | When `true`, the processor removes all processed fields from the source. Default is `false`.
-`remove_list_indices` | No | Boolean | When `true`, the processor converts the fields from the source map into lists and puts the lists into the target field. Default is `false`.
+`remove_source_keys` | No | Boolean | When `true`, the processor removes all processed fields from the source. Default is `false`.
+`remove_list_elements` | No | Boolean | When `true`, the processor removes list indexes from the flattened keys and collects the values of matching keys into lists in the target field. For example, `list[0].name` and `list[1].name` become a single `list[].name` key containing a list of both values. Default is `false`.
+`remove_brackets` | No | Boolean | When `true`, the processor also removes the empty brackets (`[]`) that remain in the flattened keys after list indexes are removed. For example, `list[].name` becomes `list.name`. This setting takes effect only when `remove_list_elements` is `true`. Default is `false`.
 `flatten_when` | No | String | A [conditional expression]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/expression-syntax/), such as `/some-key == "test"'`, that determines whether the `flatten` processor will be run on the event. Default is `null`, which means that all events will be processed unless otherwise stated.
 `flatten_separator` | No | String | The character used to join nested key names into flattened keys. Must be a single character. Default is `.`.
 `tags_on_failure` | No | List | A list of tags to add to the event metadata when the event fails to process.
@@ -74,7 +75,7 @@ The `flatten` processor creates a flattened structure under the `flattened-key2`
 
 ### Remove processed fields
 
-Use the `remove_processed_fields` option when flattening all of an event's nested objects. This removes all the event's processed fields, as shown in the following example:
+Use the `remove_source_keys` option when flattening all of an event's nested objects. This removes all the event's processed fields, as shown in the following example:
 
 ```yaml
 ...
@@ -82,7 +83,7 @@ Use the `remove_processed_fields` option when flattening all of an event's neste
     - flatten:
         source: ""   # empty string represents root of event
         target: ""   # empty string represents root of event
-        remove_processed_fields: true
+        remove_source_keys: true
 ...
 ```
 {% include copy.html %}
@@ -138,7 +139,7 @@ Use the `exclude_keys` option to prevent specific keys from being flattened in t
     - flatten:
         source: ""   # empty string represents root of event
         target: ""   # empty string represents root of event
-        remove_processed_fields: true
+        remove_source_keys: true
         exclude_keys: ["key2"]
 ...
 ```
@@ -190,7 +191,7 @@ All other nested objects in the input event, excluding the `key2` key, will be f
 
 ### Remove list indexes
 
-Use the `remove_list_indices` option to convert the fields from the source map into lists and put the lists into the target field, as shown in the following example:
+Use the `remove_list_elements` option to convert the fields from the source map into lists and put the lists into the target field, as shown in the following example:
 
 ```yaml
 ...
@@ -198,8 +199,8 @@ Use the `remove_list_indices` option to convert the fields from the source map i
     - flatten:
         source: ""   # empty string represents root of event
         target: ""   # empty string represents root of event
-        remove_processed_fields: true
-        remove_list_indices: true
+        remove_source_keys: true
+        remove_list_elements: true
 ...
 ```
 {% include copy.html %}
@@ -242,6 +243,17 @@ The processor removes all indexes from the output and places them into the sourc
 }
 ```
 
+If you also set `remove_brackets` to `true`, the processor removes the empty brackets from the keys, as shown in the following output:
+
+```json
+{
+  "key1": "val1",
+  "key2.key3.key4": "val2",
+  "list1.list2.name": ["name1","name2"],
+  "list1.list2.value": ["value1","value2"]
+}
+```
+
 ### Custom separator
 
 Use the `flatten_separator` option to specify a custom character for joining nested key names. The default separator is `.`, but you can use any single character, such as `_`, as shown in the following example:
@@ -253,7 +265,7 @@ Use the `flatten_separator` option to specify a custom character for joining nes
         source: "log"
         target: ""
         flatten_separator: "_"
-        remove_processed_fields: true
+        remove_source_keys: true
 ...
 ```
 {% include copy.html %}
@@ -282,12 +294,13 @@ Consider an input event that contains the following nested objects:
 }
 ```
 
-The `flatten` processor flattens the `log` field using `_` as the separator and places the results at the root of the event, as shown in the following output:
+The `flatten` processor flattens the `log` field using `_` as the separator and places the results at the root of the event. Because `remove_source_keys` is `true`, the processed nested fields are removed, leaving an empty `log` object, as shown in the following output:
 
 ```json
 {
   "timestamp": "2026-07-29T12:00:00Z",
   "service": "user-service",
+  "log": {},
   "request_method": "POST",
   "request_url": "/api/v1/users",
   "request_headers_content_type": "application/json",

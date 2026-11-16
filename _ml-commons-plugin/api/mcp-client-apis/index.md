@@ -4,7 +4,7 @@ title: MCP client APIs
 parent: ML APIs
 has_children: true
 has_toc: false
-nav_order: 41
+nav_order: 120
 redirect_from:
   - /ml-commons-plugin/api/mcp-client-apis/
 ---

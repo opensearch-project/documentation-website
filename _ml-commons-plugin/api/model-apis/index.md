@@ -47,6 +47,12 @@ The Train and Predict API lets you train and invoke the model using the same dat
 
 - [Train and Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/train-and-predict/)
 
+# Execute Algorithm API
+
+Use the Execute Algorithm API to run algorithms that don't require a trained model, such as localization:
+
+- [Execute Algorithm]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/execute-algorithm/)
+
 ## Model access control considerations
 
 For clusters with model access control enabled, users can perform API operations on models in model groups with specified access levels as follows:

@@ -76,7 +76,7 @@ By default, ML Commons allows registration only of [pretrained models]({{site.ur
 When registering a model from a URL, make sure the source is trusted. Loading models from untrusted sources can pose security risks. For more information, see [PyTorch security guidelines for untrusted models](https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models).
 {: .warning}
 
-The default value of `plugins.ml_commons.trusted_url_regex` is not secure. For security, set it to a regular expression that matches only the trusted repository containing your models, for example, `https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/*`.
+The default value of `plugins.ml_commons.trusted_url_regex` is not secure. For security, set it to a regular expression that matches only the trusted repository containing your models, for example, `https://github.com/opensearch-project/ml-commons/blob/main/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/*`.
 {: .warning }
 
 ## Connector endpoint settings
@@ -158,5 +158,7 @@ ML Commons supports the following settings for enabling and disabling features:
 - `plugins.ml_commons.memory_feature_enabled` (Dynamic, Boolean): When `true`, enables conversational memory, which stores all messages from a conversation for conversational search. Default is `true`.
 
 - `plugins.ml_commons.agentic_memory_enabled` (Dynamic, Boolean): When `true`, enables [agentic memory]({{site.url}}{{site.baseurl}}/ml-commons-plugin/agentic-memory/), which provides memory management for AI agents, including session memory, working memory, long-term memory, and memory history organized by namespace. Default is `true`.
+
+- `plugins.ml_commons.agentic_search_template_enabled` (Dynamic, Boolean): When `true`, enables the agentic search template APIs and the `SearchTemplateFillTool`. For more information, see [Filling search templates]({{site.url}}{{site.baseurl}}/vector-search/ai-search/agentic-search/agentic-search-templates/index/). The APIs and the tool aren't available when multi-tenancy is enabled, regardless of this setting. Default is `false`.
 
 - `plugins.ml_commons.rag_pipeline_feature_enabled` (Dynamic, Boolean): When `true`, enables the search processors for retrieval-augmented generation (RAG). RAG enhances query results by generating responses using relevant information from memory and previous conversations. Default is `true`.

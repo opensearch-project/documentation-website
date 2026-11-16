@@ -29,7 +29,7 @@ The Security plugin supports the following common settings:
 
 - `plugins.security.dls.mode` (Static): Sets the document-level security (DLS) evaluation mode. Default is `adaptive`. See [How to set the DLS evaluation mode]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/#how-to-set-the-dls-evaluation-mode-in-opensearchyml).
 
-- `plugins.security.compliance.salt` (Static): The salt to use when generating the hash value for field masking. Must be at least 32 characters. Only ASCII characters are allowed. Optional.
+- `plugins.security.compliance.salt` (Static): The salt to use when generating the hash value for field masking. Must contain at least 16 ASCII characters. Only the first 16 bytes are used. Optional.
 
 - `plugins.security.compliance.immutable_indices` (Static): Documents in indexes that are marked as immutable follow the write-once, read-many paradigm. Documents created in these indexes cannot be changed and are therefore immutable.
 
@@ -48,6 +48,8 @@ The Security plugin supports the following REST management API settings:
 - `plugins.security.restapi.admin.enabled` (Static): Enables the `restapi:admin/*` cluster permissions, which grant a role access to the allow list, distinguished name, and certificate APIs. When this setting is `false`, these permissions have no effect, and those APIs are reachable only with an admin certificate. Default is `false`. See [REST API admin permissions]({{site.url}}{{site.baseurl}}/security/access-control/api/#rest-api-admin-permissions).
 
 - `plugins.security.restapi.max_string_length` (Static): Sets the maximum number of characters allowed for any individual string value in a Security REST API request body. Valid values are between `1` and `50000000`, inclusive. Default is `4096`. Increase this value if you submit large free-form values, such as document-level security (DLS) queries, through the REST API.
+
+- `plugins.security.restapi.bulk_max_entries` (Dynamic): Sets the maximum number of entries in one bulk create or update request to the Security REST API. Valid values are 1--100000. Default is `1000`. Only users with a role listed in `plugins.security.restapi.roles_enabled` can change this setting.
 
 - `plugins.security.restapi.password_validation_regex` (Static): Specifies a regular expression to set the criteria for the login password. For more information, see [Password settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings).
 
@@ -117,6 +119,10 @@ The Security plugin supports the following expert-level settings:
 - `plugins.security.system_indices.enabled` (Static): If set to `true`, enables system indexes. System indexes are similar to the security index, except that the contents are not encrypted. Indexes configured as system indexes can be accessed by either a super-admin or a user with a role that includes the [system index permission]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#system-index-permissions). For more information about system indexes, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/).
 
 - `plugins.security.system_indices.indices` (Static): A list of indexes to be used as system indexes. This setting is controlled by the `plugins.security.system_indices.enabled` setting.
+
+- `plugins.security.system_indices.restore.indices` (Dynamic): A list of system indexes that a user mapped to a role in `plugins.security.restapi.roles_enabled` can restore from a snapshot. The restore request must name each system index that it restores, or match it with a pattern that is no broader than an entry in this list, and it must not rename indexes. This setting doesn't apply to a super admin or to users who have the [system index permission]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#system-index-permissions). By default, the list contains the system indexes that have been tested for restoration to a new cluster running the same OpenSearch version as the original cluster. To view the default list, send `GET /_cluster/settings?include_defaults=true&filter_path=defaults.plugins.security.system_indices.restore.indices`. If you configure this setting, the specified list replaces the default list. To preserve the default entries, include them in your list. To update this setting using the Cluster Settings API, set `plugins.security.system_indices.restore.dynamic.enabled` to `true`. You can always set it in `opensearch.yml`.
+
+- `plugins.security.system_indices.restore.dynamic.enabled` (Static): When set to `true`, allows updating `plugins.security.system_indices.restore.indices` using the Cluster Settings API. Default is `false`.
 
 - `plugins.security.allow_default_init_securityindex` (Static): When set to `true`, sets the Security plugin to its default security settings if an attempt to create the security index fails when OpenSearch launches. Default security settings are stored in YAML files contained in the `opensearch-project/security/config` directory. Default is `false`.
 

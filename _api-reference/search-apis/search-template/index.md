@@ -22,13 +22,130 @@ When you're writing code to convert user input into OpenSearch queries, you can 
 Search templates use the Mustache language. For a list of all syntax options, see the [Mustache manual](https://mustache.github.io/mustache.5.html).
 {: .note }
 
+## Query parameters
+
+The `_search/template` endpoint accepts the same query parameters as the Search API, including `typed_keys` and `rest_total_hits_as_int`. For more information, see [Search API]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search/).
+
+## Request body fields
+
+The following table lists the available request body fields.
+
+Field | Data type | Description
+:--- | :--- | :---
+`id` | String | The ID of a stored search template to run. Required if `source` is not specified.
+`source` | Object or String | An inline search template. Specify the template as a string if it contains Mustache tags that make the JSON invalid. Required if `id` is not specified.
+`params` | Object | The values that replace the variables in the template.
+`explain` | Boolean | Whether to return details about how the score of each hit was calculated. Default is `false`.
+`profile` | Boolean | Whether to return timing information about the execution of the query. Default is `false`.
+`search_pipeline` | String | The name of the search pipeline to apply to the search request.
+
 ## Create search templates
 
 A search template has two components: the query and the parameters. Parameters are user-inputted values that get placed into variables. Variables are represented with double braces in Mustache notation. When encountering a variable like `{% raw %}{{var}}{% endraw %}` in the query, OpenSearch goes to the `params` section, looks for a parameter called `var`, and replaces it with the specified value.
 
 You can code your application to ask your user what they want to search for and then plug that value into the `params` object at runtime.
 
+The examples on this page use the `shakespeare` index. To try them, first create the index:
+
+```json
+PUT /shakespeare
+{
+  "mappings": {
+    "properties": {
+      "line_id": { "type": "integer" },
+      "play_name": { "type": "keyword" },
+      "speech_number": { "type": "integer" },
+      "speaker": { "type": "keyword" },
+      "text_entry": { "type": "text" }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Then add some lines from the plays to the index:
+
+```json
+POST /_bulk
+{ "index": { "_index": "shakespeare", "_id": "1" } }
+{ "line_id": 1, "play_name": "Henry IV", "speech_number": 1, "speaker": "KING HENRY IV", "text_entry": "So shaken as we are, so wan with care," }
+{ "index": { "_index": "shakespeare", "_id": "2" } }
+{ "line_id": 2, "play_name": "Henry IV", "speech_number": 1, "speaker": "KING HENRY IV", "text_entry": "Find we a time for frighted peace to pant," }
+{ "index": { "_index": "shakespeare", "_id": "3" } }
+{ "line_id": 3, "play_name": "Henry IV", "speech_number": 1, "speaker": "KING HENRY IV", "text_entry": "And breathe short-winded accents of new broils" }
+{ "index": { "_index": "shakespeare", "_id": "4" } }
+{ "line_id": 4, "play_name": "Othello", "speech_number": 1, "speaker": "IAGO", "text_entry": "I am not what I am." }
+{ "index": { "_index": "shakespeare", "_id": "5" } }
+{ "line_id": 5, "play_name": "Hamlet", "speech_number": 1, "speaker": "HAMLET", "text_entry": "To be, or not to be: that is the question:" }
+{ "index": { "_index": "shakespeare", "_id": "6" } }
+{ "line_id": 6, "play_name": "Romeo and Juliet", "speech_number": 1, "speaker": "ROMEO", "text_entry": "Did my heart love till now? forswear it, sight!" }
+{ "index": { "_index": "shakespeare", "_id": "7" } }
+{ "line_id": 7, "play_name": "As You Like It", "speech_number": 1, "speaker": "JAQUES", "text_entry": "Then a soldier, full of strange oaths," }
+```
+{% include copy-curl.html %}
+
 This command defines a search template to find a play by its name. The `{% raw %}{{play_name}}{% endraw %}` in the query is replaced by the value `Henry IV`:
+
+<!-- spec_insert_start
+component: example_code
+rest: GET /shakespeare/_search/template
+body: |
+{
+  "source": {
+    "query": {
+      "match": {
+        "play_name": "{% raw %}{{play_name}}{% endraw %}"
+      }
+    }
+  },
+  "params": {
+    "play_name": "Henry IV"
+  }
+}
+-->
+{% capture step1_rest %}
+GET /shakespeare/_search/template
+{
+  "source": {
+    "query": {
+      "match": {
+        "play_name": "{% raw %}{{play_name}}{% endraw %}"
+      }
+    }
+  },
+  "params": {
+    "play_name": "Henry IV"
+  }
+}
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.search_template(
+  index = "shakespeare",
+  body =   {
+    "source": {
+      "query": {
+        "match": {
+          "play_name": "{% raw %}{{play_name}}{% endraw %}"
+        }
+      }
+    },
+    "params": {
+      "play_name": "Henry IV"
+    }
+  }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
+This template runs the search on the `shakespeare` index. To run the search on all indexes in your cluster, omit the index name from the request:
 
 <!-- spec_insert_start
 component: example_code
@@ -79,30 +196,6 @@ response = client.search_template(
       "play_name": "Henry IV"
     }
   }
-)
-
-{% endcapture %}
-
-{% include code-block.html
-    rest=step1_rest
-    python=step1_python %}
-<!-- spec_insert_end -->
-
-This template runs the search on your entire cluster. To run this search on a specific index, add the index name to the request:
-
-<!-- spec_insert_start
-component: example_code
-rest: GET /shakespeare/_search/template
--->
-{% capture step1_rest %}
-GET /shakespeare/_search/template
-{% endcapture %}
-
-{% capture step1_python %}
-
-
-response = client.search_template(
-  index = "shakespeare"
 )
 
 {% endcapture %}
@@ -279,19 +372,18 @@ POST _scripts/play_search_template
           "play_name": "{% raw %}{{play_name}}{% endraw %}"
         }
       }
-    },
-    "params": {
-      "play_name": "Henry IV"
     }
   }
 }
 ```
 
+Stored scripts don't keep default parameter values. If you include a `params` object when saving the script, OpenSearch discards it. To set default values in a stored template, use the `{% raw %}{{var}}{{^var}}default value{{/var}}{% endraw %}` syntax in the template source, as shown for `from` and `size` in the preceding request.
+
 Now you can reuse the template by referring to its `id` parameter. You can reuse this source template for different input values:
 
 <!-- spec_insert_start
 component: example_code
-rest: GET /_search/template
+rest: GET /shakespeare/_search/template
 body: |
 {
   "id": "play_search_template",
@@ -303,7 +395,7 @@ body: |
 }
 -->
 {% capture step1_rest %}
-GET /_search/template
+GET /shakespeare/_search/template
 {
   "id": "play_search_template",
   "params": {
@@ -318,6 +410,7 @@ GET /_search/template
 
 
 response = client.search_template(
+  index = "shakespeare",
   body =   {
     "id": "play_search_template",
     "params": {
@@ -335,42 +428,40 @@ response = client.search_template(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-## Example response
+The response contains the first matching document:
 
 ```json
 {
-  "took": 7,
+  "took": 6,
   "timed_out": false,
   "_shards": {
-    "total": 6,
-    "successful": 6,
+    "total": 1,
+    "successful": 1,
     "skipped": 0,
     "failed": 0
   },
   "hits": {
     "total": {
-      "value": 3205,
+      "value": 3,
       "relation": "eq"
     },
-    "max_score": 3.641852,
+    "max_score": 1.0,
     "hits": [
       {
         "_index": "shakespeare",
-        "_type": "_doc",
-        "_id": "4",
-        "_score": 3.641852,
+        "_id": "1",
+        "_score": 1.0,
         "_source": {
-          "type": "line",
-          "line_id": 5,
+          "line_id": 1,
           "play_name": "Henry IV",
           "speech_number": 1,
-          "line_number": "1.1.2",
           "speaker": "KING HENRY IV",
-          "text_entry": "Find we a time for frighted peace to pant,"
+          "text_entry": "So shaken as we are, so wan with care,"
         }
       }
     ]
-  }
+  },
+  "status": 200
 }
 ```
 
@@ -437,7 +528,7 @@ When `var` is a Boolean value, this syntax acts as an `if` condition. The `{% ra
 Using section tags would make your JSON invalid, so you must write your query in a string format instead.
 
 This command includes the `size` parameter in the query only when the `limit` parameter is set to `true`.
-In the following example, the `limit` parameter is `true`, so the `size` parameter is activated. As a result, you would get back only two documents.
+In the following example, the `limit` parameter is `true`, so the rendered query includes `size` set to `2`:
 
 <!-- spec_insert_start
 component: example_code
@@ -539,14 +630,14 @@ You can also use the section tag to implement a for-each loop:
 ```
 {% include copy.html %}
 
-When `var` is an array, the search template iterates through it and creates a `terms` query.
+When `var` is an array, the content between the tags is repeated for each array element, and `{% raw %}{{.}}{% endraw %}` refers to the current element. A loop that writes each element followed by a comma leaves a trailing comma after the last element, which makes the query invalid JSON. To pass an array of values to a `terms` query, use the `toJson` tag, which converts the array to a JSON array:
 
 <!-- spec_insert_start
 component: example_code
-rest: GET /_search/template
+rest: GET /shakespeare/_search/template
 body: |
 {
-  "source": "{% raw %}{\"query\":{\"terms\":{\"play_name\":[\"{{#play_name}}\",\"{{.}}\",\"{{/play_name}}\"]}}}{% endraw %}",
+  "source": "{% raw %}{\"query\":{\"terms\":{\"play_name\":{{#toJson}}play_name{{/toJson}}}}}{% endraw %}",
   "params": {
     "play_name": [
       "Henry IV",
@@ -556,9 +647,9 @@ body: |
 }
 -->
 {% capture step1_rest %}
-GET /_search/template
+GET /shakespeare/_search/template
 {
-  "source": "{% raw %}{\"query\":{\"terms\":{\"play_name\":[\"{{#play_name}}\",\"{{.}}\",\"{{/play_name}}\"]}}}{% endraw %}",
+  "source": "{% raw %}{\"query\":{\"terms\":{\"play_name\":{{#toJson}}play_name{{/toJson}}}}}{% endraw %}",
   "params": {
     "play_name": [
       "Henry IV",
@@ -572,8 +663,9 @@ GET /_search/template
 
 
 response = client.search_template(
+  index = "shakespeare",
   body =   {
-    "source": "{% raw %}{\"query\":{\"terms\":{\"play_name\":[\"{{#play_name}}\",\"{{.}}\",\"{{/play_name}}\"]}}}{% endraw %}",
+    "source": "{% raw %}{\"query\":{\"terms\":{\"play_name\":{{#toJson}}play_name{{/toJson}}}}}{% endraw %}",
     "params": {
       "play_name": [
         "Henry IV",
@@ -590,12 +682,11 @@ response = client.search_template(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-This template is rendered as:
+When you send this template to the [Render Template API]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search-template/render-template/), the response contains the following query:
 
 ```json
-GET _search/template
 {
-  "source": {
+  "template_output": {
     "query": {
       "terms": {
         "play_name": [
@@ -610,17 +701,17 @@ GET _search/template
 
 ### Join
 
-You can use the `join` tag to concatenate values of an array (separated by commas):
+Use the `join` tag to concatenate the values of an array. By default, the values are separated by a comma with no space:
 
 <!-- spec_insert_start
 component: example_code
-rest: GET /_search/template
+rest: GET /shakespeare/_search/template
 body: |
 {
   "source": {
     "query": {
       "match": {
-        "text_entry": "{% raw %}{{#join}}{{text_entry}}{{/join}}{% endraw %}"
+        "text_entry": "{% raw %}{{#join}}text_entry{{/join}}{% endraw %}"
       }
     }
   },
@@ -633,12 +724,12 @@ body: |
 }
 -->
 {% capture step1_rest %}
-GET /_search/template
+GET /shakespeare/_search/template
 {
   "source": {
     "query": {
       "match": {
-        "text_entry": "{% raw %}{{#join}}{{text_entry}}{{/join}}{% endraw %}"
+        "text_entry": "{% raw %}{{#join}}text_entry{{/join}}{% endraw %}"
       }
     }
   },
@@ -655,11 +746,12 @@ GET /_search/template
 
 
 response = client.search_template(
+  index = "shakespeare",
   body =   {
     "source": {
       "query": {
         "match": {
-          "text_entry": "{% raw %}{{#join}}{{text_entry}}{{/join}}{% endraw %}"
+          "text_entry": "{% raw %}{{#join}}text_entry{{/join}}{% endraw %}"
         }
       }
     },
@@ -679,52 +771,58 @@ response = client.search_template(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-Renders as:
+The template renders the following query:
 
 ```json
-GET _search/template
 {
-  "source": {
+  "template_output": {
     "query": {
       "match": {
-        "text_entry": "{0=To be, 1=or not to be}"
+        "text_entry": "To be,or not to be"
       }
     }
   }
 }
 ```
 
+To use a different delimiter, specify it in both the opening and closing tags. The following tag separates the values with a space and renders `To be or not to be`:
+
+```
+{% raw %}{{#join delimiter=' '}}text_entry{{/join delimiter=' '}}{% endraw %}
+```
+{% include copy.html %}
+
 ### Convert to JSON
 
-You can use the `toJson` tag to convert parameters to their JSON representation:
+Use the `toJson` tag to convert parameters to their JSON representation. The following request passes an array of `match` queries as the `should` clauses of a `bool` query:
 
 <!-- spec_insert_start
 component: example_code
-rest: GET /_search/template
+rest: GET /shakespeare/_search/template
 body: |
 {
-  "source": "{\"query\":{\"bool\":{\"must\":[{\"terms\": {\"text_entries\": {% raw %}{{#toJson}}text_entries{{/toJson}}{% endraw %} }}] }}}",
+  "source": "{\"query\":{\"bool\":{\"should\":{% raw %}{{#toJson}}clauses{{/toJson}}{% endraw %}}}}",
   "params": {
-    "text_entries": [
-        { "term": { "text_entry" : "love" } },
-        { "term": { "text_entry" : "soldier" } }
+    "clauses": [
+      { "match": { "text_entry": "love" } },
+      { "match": { "text_entry": "soldier" } }
     ]
   }
 }
 -->
 {% capture step1_rest %}
-GET /_search/template
+GET /shakespeare/_search/template
 {
-  "source": "{\"query\":{\"bool\":{\"must\":[{\"terms\": {\"text_entries\": {% raw %}{{#toJson}}text_entries{{/toJson}}{% endraw %} }}] }}}",
+  "source": "{\"query\":{\"bool\":{\"should\":{% raw %}{{#toJson}}clauses{{/toJson}}{% endraw %}}}}",
   "params": {
-    "text_entries": [
+    "clauses": [
       {
-        "term": {
+        "match": {
           "text_entry": "love"
         }
       },
       {
-        "term": {
+        "match": {
           "text_entry": "soldier"
         }
       }
@@ -737,17 +835,18 @@ GET /_search/template
 
 
 response = client.search_template(
+  index = "shakespeare",
   body =   {
-    "source": "{\"query\":{\"bool\":{\"must\":[{\"terms\": {\"text_entries\": {% raw %}{{#toJson}}text_entries{{/toJson}}{% endraw %} }}] }}}",
+    "source": "{\"query\":{\"bool\":{\"should\":{% raw %}{{#toJson}}clauses{{/toJson}}{% endraw %}}}}",
     "params": {
-      "text_entries": [
+      "clauses": [
         {
-          "term": {
+          "match": {
             "text_entry": "love"
           }
         },
         {
-          "term": {
+          "match": {
             "text_entry": "soldier"
           }
         }
@@ -763,32 +862,60 @@ response = client.search_template(
     python=step1_python %}
 <!-- spec_insert_end -->
 
-Renders as:
+The template renders the following query:
 
 ```json
-GET _search/template
 {
-  "source": {
+  "template_output": {
     "query": {
       "bool": {
-        "must": [
+        "should": [
           {
-            "terms": {
-              "text_entries": [
-                {
-                  "term": {
-                    "text_entry": "love"
-                  }
-                },
-                {
-                  "term": {
-                    "text_entry": "soldier"
-                  }
-                }
-              ]
+            "match": {
+              "text_entry": "love"
+            }
+          },
+          {
+            "match": {
+              "text_entry": "soldier"
             }
           }
         ]
+      }
+    }
+  }
+}
+```
+
+### URL encoding
+
+Use the `url` tag to URL-encode the content between the tags. This is useful when a template builds a URL from user input:
+
+```json
+POST /_render/template
+{
+  "source": {
+    "query": {
+      "term": {
+        "source_url": "https://example.com/plays?name={% raw %}{{#url}}{{play_name}}{{/url}}{% endraw %}"
+      }
+    }
+  },
+  "params": {
+    "play_name": "Romeo and Juliet"
+  }
+}
+```
+{% include copy-curl.html %}
+
+The template renders the following query:
+
+```json
+{
+  "template_output": {
+    "query": {
+      "term": {
+        "source_url": "https://example.com/plays?name=Romeo+and+Juliet"
       }
     }
   }
@@ -799,6 +926,21 @@ GET _search/template
 
 You can bundle multiple search templates and send them to your OpenSearch cluster in a single request using the `msearch` operation.
 This saves network round trip time, so you get back the response more quickly as compared to independent requests.
+
+The following example runs two stored templates. First, store the conditional template from the [Conditions](#conditions) section as `if_search_template`:
+
+```json
+POST _scripts/if_search_template
+{
+  "script": {
+    "lang": "mustache",
+    "source": "{% raw %}{ {{#limit}} \"size\": \"{{size}}\", {{/limit}}  \"query\":{\"match\":{\"play_name\": \"{{play_name}}\"}}}{% endraw %}"
+  }
+}
+```
+{% include copy-curl.html %}
+
+Then run both `if_search_template` and `play_search_template` in a single request:
 
 ```json
 GET _msearch/template
