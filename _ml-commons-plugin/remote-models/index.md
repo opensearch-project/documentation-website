@@ -14,18 +14,15 @@ redirect_from:
 **Introduced 2.9**
 {: .label .label-purple }
 
-Integrations with machine learning (ML) models hosted on third-party platforms allow system administrators and data scientists to run ML workloads outside of their OpenSearch cluster. Connecting to externally hosted models enables ML developers to create integrations with other ML services, such as Amazon SageMaker or OpenAI. 
+OpenSearch can use machine learning (ML) models hosted outside your cluster, such as embedding models and large language models (LLMs) on Amazon Bedrock, Amazon SageMaker, OpenAI, or Cohere. OpenSearch calls the model API each time it needs a result, for example, to generate embeddings for documents during ingestion, to generate an embedding for a semantic search query, to rerank search results, or to generate answers in conversational search and agents.
 
-To integrate a model hosted on a third-party platform, choose from the following options:
-
-- If you're an ML developer wanting to create integrations with your specific ML services, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
-- If you're a system administrator or data scientist wanting to create a connection to an ML service, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
+To call a model, OpenSearch uses a _connector_, which stores the model endpoint URL, the credentials, and a template for the request body. After you create a connector, you can register the model and use it in search requests, ingest pipelines, and agents. For more information, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). 
 
 ## Prerequisites
 
-If you're an admin deploying an ML connector, make sure that the target model of the connector has already been deployed on your chosen platform. Furthermore, make sure that you have permissions to send and receive data to the third-party API for your connector. 
+Before you create a connector, ensure that the model is deployed on its platform and that you have credentials that allow you to call the model API.
 
-When access control is enabled on your third-party platform, you can enter your security settings using the `authorization` or `credential` settings inside the connector API.
+If your model platform requires authentication, provide the credentials in the connector `credential` object. Depending on the platform, OpenSearch either signs requests using these credentials or sends them in a request header that refers to them, for example, `"Authorization": "Bearer ${credential.openAI_key}"`. For more information, see [Connector authentication]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connector-authentication/).
 
 ### Adding trusted endpoints
 
@@ -58,12 +55,13 @@ PUT /_cluster/settings
 This setting replaces the entire list of trusted endpoints, so include every pattern your cluster needs.
 {: .note}
 
-### Setting up connector access control
+If your model runs on a private network, for example, a model served by Ollama on the same host or on an internal server, also set `plugins.ml_commons.connector.private_ip_enabled` to `true`. If you change this setting after deploying a model, redeploy the model to apply the change. For more information, see [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/).
 
-If you plan on using a remote connector, make sure to use an OpenSearch cluster with the Security plugin enabled. Using the Security plugin gives you access to connector access control, which is required when using a remote connector.
-{: .warning}
+### Configuring connector access control
 
-If you require granular access control for your connectors, use the following cluster setting:
+To control which users can access a connector, enable the Security plugin and connector access control. Without the Security plugin, OpenSearch doesn't restrict connector access: any client that can send requests to the cluster can use all connectors.
+
+To enable connector access control, update the following cluster setting:
 
 ```json
 PUT /_cluster/settings
@@ -93,43 +91,11 @@ If successful, OpenSearch returns the following response:
 
 When both the [Security plugin]({{site.url}}{{site.baseurl}}/security/index/) and connector access control are enabled, you can control access to a connector by providing the `backend_roles`, `add_all_backend_roles`, or `access_mode` options when you create it. If you don't provide any of these options, the connector is private. If either the Security plugin or connector access control is disabled, the Create Connector API rejects requests that contain these options.
 
-## Step 1: Register a model group
+## Step 1: Create a connector
 
-To register a model, you have the following options:
+OpenSearch provides connector blueprints that you can use to connect to different models and platforms. To find a connector to your model, see [OpenSearch-provided connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/). 
 
-- You can use `model_group_id` to register a model version to an existing model group.
-- If you do not use `model_group_id`, OpenSearch creates a model with a new model group.
-
-To register a model group, send the following request:
-
-```json
-POST /_plugins/_ml/model_groups/_register
-{
-  "name": "remote_model_group",
-  "description": "A model group for external models"
-}
-```
-{% include copy-curl.html %}
-
-The response contains the model group ID that you'll use to register a model to this model group:
-
-```json
-{
- "model_group_id": "wlcnb4kBJ1eYAeTMHlV6",
- "status": "CREATED"
-}
-```
-
-To learn more about model groups, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
-
-## Step 2: Create a connector
-
-You can create a standalone connector that can be reused by multiple model registrations in OpenSearch that share the same external endpoint and configuration. Alternatively, you can specify a connector when creating a model so that it can be used only for that model. For more information and example connectors, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
-
-If you're using Amazon OpenSearch Service, the process for creating connectors differs. For more information, see [Creating connectors in Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ml-amazon-connector.html).
-{: .note}
-
-The Connectors Create API, `/_plugins/_ml/connectors/_create`, creates connectors that facilitate registering and deploying external models in OpenSearch. Using the `endpoint` parameter, you can connect OpenSearch to any supported ML tool by using its specific API endpoint. For example, you can connect to a ChatGPT model by using the `api.openai.com` endpoint:
+To create a connector, send a [Create Connector API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/) request containing the connector definition from the blueprint for your model. The following request creates a connector to the OpenAI `gpt-4o-mini` chat model. The `endpoint` and `model` values in the connector `parameters` object fill the placeholders in the `url` and `request_body` templates:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -168,16 +134,17 @@ The response contains the connector ID for the newly created connector:
 }
 ```
 
-## Step 3: Register an externally hosted model
+The preceding request creates a standalone connector, which several models can use. To create a connector that only one model can use, provide the connector definition when you register the model. For more information, see [Creating a connector]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/#creating-a-connector).
 
-To register an externally hosted model to the model group created in step 1, provide the model group ID from step 1 and the connector ID from step 2 in the following request. You must specify the `function_name` as `remote`:
+## Step 2: Register an externally hosted model
+
+To register an externally hosted model, provide the connector ID from Step 1 in the following request. You must specify the `function_name` as `remote`:
 
 ```json
 POST /_plugins/_ml/models/_register
 {
     "name": "openAI-gpt-4o-mini",
     "function_name": "remote",
-    "model_group_id": "wlcnb4kBJ1eYAeTMHlV6",
     "description": "test model",
     "connector_id": "a1eMb4kBJ1eYAeTMAljY"
 }
@@ -193,6 +160,8 @@ OpenSearch returns the task ID of the register operation and the model ID of the
   "model_id": "cleMb4kBJ1eYAeTMFFg4"
 }
 ```
+
+OpenSearch creates a model group for the model. Model groups control which users can access a model. When the Security plugin and model access control are enabled, the new model group is private by default. For more information, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).
 
 To check the status of the operation, provide the task ID to the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
 
@@ -218,66 +187,13 @@ When the operation is complete, the state changes to `COMPLETED`:
 }
 ```
 
-Take note of the returned `model_id` because you’ll need it to deploy the model.
+Note the returned `model_id`; you'll need it to use the model.
 
-## Step 4: Deploy the model
+OpenSearch deploys the model automatically when you send the first Predict API request for it. If automatic deployment is turned off using the `plugins.ml_commons.model_auto_deploy.enable` setting, deploy the model using the [Deploy API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/deploy-model/) before you send requests to it. For more information, see [ML Commons cluster settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/).
 
-Externally hosted models are deployed automatically by default when you send a Predict API request for the first time. To disable automatic deployment for an externally hosted model, set `plugins.ml_commons.model_auto_deploy.enable` to `false`:
+## Step 3 (Optional): Test the model
 
-```json
-PUT _cluster/settings
-{
-  "persistent": {
-    "plugins.ml_commons.model_auto_deploy.enable" : "false"
-  }
-}
-```
-{% include copy-curl.html %}
-
-To deploy the model, use the [Deploy API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/deploy-model/).
-
-```json
-POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_deploy
-```
-{% include copy-curl.html %}
-
-The response contains the task ID that you can use to check the status of the deploy operation:
-
-```json
-{
-  "task_id": "vVePb4kBJ1eYAeTM7ljG",
-  "task_type": "DEPLOY_MODEL",
-  "status": "COMPLETED"
-}
-```
-
-As in the previous step, check the status of the operation by calling the [Get ML Task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/tasks-apis/get-task/):
-
-```json
-GET /_plugins/_ml/tasks/vVePb4kBJ1eYAeTM7ljG
-```
-{% include copy-curl.html %}
-
-When the operation is complete, the state changes to `COMPLETED`:
-
-```json
-{
-  "model_id": "cleMb4kBJ1eYAeTMFFg4",
-  "task_type": "DEPLOY_MODEL",
-  "function_name": "REMOTE",
-  "state": "COMPLETED",
-  "worker_node": [
-    "n-72khvBTBi3bnIIR8FTTw"
-  ],
-  "create_time": 1689793851077,
-  "last_update_time": 1689793851101,
-  "is_async": true
-}
-```
-
-## Step 5 (Optional): Test the model
-
-Use the [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) to test the model:
+To test the model, send a [Predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/train-predict/predict/) request. In the `parameters` object, provide values for the placeholders in the connector request body template. For this connector, provide only `messages`, because the connector `parameters` object provides a default value for `model`. For more information, see [Providing input as parameters]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connector-input-output/#providing-input-as-parameters):
 
 ```json
 POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_predict
@@ -300,7 +216,7 @@ POST /_plugins/_ml/models/cleMb4kBJ1eYAeTMFFg4/_predict
 
 To learn more about chat functionality within OpenAI, see the [OpenAI Chat API](https://platform.openai.com/docs/api-reference/chat).
 
-The response contains the inference results provided by the OpenAI model:
+The `dataAsMap` object in the response contains the OpenAI response:
 
 ```json
 {
@@ -337,23 +253,25 @@ The response contains the inference results provided by the OpenAI model:
   ]
 }
 ```
-## Step 6: Use the model for batch ingestion
 
-To learn how to use the model for batch ingestion in order to improve ingestion performance, see [Using externally hosted ML models for batch ingestion]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/batch-ingestion/).
+## Step 4: Use the model
 
-## Step 7: Use the model for search
+In this example, you connected to an OpenAI chat model, which you can use to generate answers from search results. For information about using chat models, see [Conversational search with RAG]({{site.url}}{{site.baseurl}}/vector-search/ai-search/conversational-search/).
 
-To learn how to use the model for vector search, see [AI search methods]({{site.url}}{{site.baseurl}}/vector-search/ai-search/#ai-search-methods).
+To learn how to use other types of models, such as embedding and rerank models, see [AI search methods]({{site.url}}{{site.baseurl}}/vector-search/ai-search/#ai-search-methods). 
 
-## Step 8 (Optional): Undeploy the model 
+To generate embeddings for large volumes of documents using an embedding model, see [Using externally hosted ML models for batch ingestion]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/batch-ingestion/).
 
-You can undeploy the model automatically by defining a TTL in the model settings or by using the Undeploy API to undeploy the model manually. For more information, see [Undeploy API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/).
+## Step 5 (Optional): Undeploy the model 
+
+You can undeploy the model automatically by defining a time to live (TTL) in the model settings or by using the Undeploy API to undeploy the model manually. For more information, see [Undeploy API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/undeploy-model/).
 
 ## Next steps
 
 - For more information about connectors, including example connectors, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/).
-- For more information about connector fields, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
+- To learn how a connector builds the request that it sends to the model and processes the model response, see [Connector input and output]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connector-input-output/).
+- For more information about connector fields, see [Create Connector API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/#request-body-fields).
 - To create a connector and register and deploy a model in a single request, use a workflow template. For more information, see [Model deployment templates]({{site.url}}{{site.baseurl}}/vector-search/ai-search/workflows/workflow-templates/#model-deployment-templates).
 - For more information about managing ML models in OpenSearch, see [Using ML models within OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
-- For more information about interacting with ML models in OpenSearch, see [Managing ML models in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-dashboard/)
-For instructions on how to configure model guardrails, see [Guardrails]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/guardrails/).
+- For more information about interacting with ML models in OpenSearch, see [Managing ML models in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/ml-commons-plugin/ml-dashboard/).
+- To configure model guardrails, see [Guardrails]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/guardrails/).
