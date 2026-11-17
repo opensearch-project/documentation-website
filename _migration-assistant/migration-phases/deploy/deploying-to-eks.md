@@ -5,6 +5,8 @@ nav_order: 2
 grand_parent: Migration workflows
 parent: Choose your deployment
 permalink: /migration-assistant/migration-phases/deploy/deploying-to-eks/
+redirect_from:
+  - /migration-assistant/migration-phases/deploy/provisioning-eks-with-cloudformation/
 ---
 
 # Deploy on Amazon EKS

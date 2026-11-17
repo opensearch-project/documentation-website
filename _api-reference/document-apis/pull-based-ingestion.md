@@ -4,6 +4,9 @@ title: Pull-based ingestion
 parent: Document APIs
 has_children: true
 nav_order: 90
+redirect_from:
+  - /im-plugin/pull-based-ingestion/
+  - /im-plugin/pull-based-ingestion/index/
 ---
 
 # Pull-based Ingestion API
