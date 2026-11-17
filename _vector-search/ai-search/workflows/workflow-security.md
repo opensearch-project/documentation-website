@@ -5,6 +5,7 @@ parent: AI search workflows
 grand_parent: AI search
 has_children: true
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/workflows/workflow-security/
 redirect_from:
   - /automating-configurations/workflow-security/
 ---

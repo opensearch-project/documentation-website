@@ -4,6 +4,7 @@ title: Close index
 parent: Core index APIs
 grand_parent: Index APIs
 nav_order: 60
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/close-index/
 redirect_from:
   - /opensearch/rest-api/index-apis/close-index/
 ---

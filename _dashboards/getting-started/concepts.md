@@ -3,6 +3,7 @@ layout: default
 title: Concepts
 parent: Getting started
 nav_order: 60
+canonical_url: https://docs.opensearch.org/latest/dashboards/getting-started/concepts/
 ---
 
 # OpenSearch Dashboards concepts

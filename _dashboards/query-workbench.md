@@ -3,6 +3,7 @@ layout: default
 title: Using Query Workbench
 parent: Exploring data
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/dashboards/query-workbench/
 redirect_from:
   - /search-plugins/sql/workbench/
 ---

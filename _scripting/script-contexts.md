@@ -2,6 +2,7 @@
 layout: default
 title: Script contexts
 nav_order: 45
+canonical_url: https://docs.opensearch.org/latest/scripting/script-contexts/
 ---
 
 # Script contexts

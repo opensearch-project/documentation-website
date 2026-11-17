@@ -3,6 +3,7 @@ layout: default
 title: Similarity
 parent: Tuning indexes
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/im-plugin/similarity/
 ---
 
 # Similarity

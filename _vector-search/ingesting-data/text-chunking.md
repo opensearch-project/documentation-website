@@ -3,6 +3,7 @@ layout: default
 title: Text chunking
 parent: Ingesting data
 nav_order: 80
+canonical_url: https://docs.opensearch.org/latest/vector-search/ingesting-data/text-chunking/
 redirect_from:
   - /search-plugins/text-chunking/
 ---

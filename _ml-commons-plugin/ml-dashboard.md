@@ -3,6 +3,7 @@ layout: default
 title: Managing ML models in OpenSearch Dashboards
 parent: Integrating ML models
 nav_order: 120
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/ml-dashboard/
 redirect_from:
   - /ml-commons-plugin/ml-dashbaord/
 ---

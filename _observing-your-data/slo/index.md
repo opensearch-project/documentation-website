@@ -5,6 +5,7 @@ parent: Application performance monitoring
 grand_parent: Observability workspace apps
 nav_order: 60
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/slo/index/
 redirect_from:
   - /observing-your-data/slo/
 ---

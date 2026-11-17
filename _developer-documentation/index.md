@@ -5,6 +5,7 @@ nav_order: 1
 has_children: false
 nav_exclude: true
 permalink: /developer-documentation/
+canonical_url: https://docs.opensearch.org/latest/developer-documentation/
 redirect_from:
   - /developer-documentation/index/
 ---

@@ -3,6 +3,7 @@ layout: default
 title: Field masking
 parent: Access control
 nav_order: 100
+canonical_url: https://docs.opensearch.org/latest/security/access-control/field-masking/
 redirect_from:
  - /security-plugin/access-control/field-masking/
 ---

@@ -4,6 +4,7 @@ title: HTTP basic authentication
 parent: Authentication backends
 nav_order: 46
 redirect_from:
+canonical_url: https://docs.opensearch.org/latest/security/authentication-backends/basic-authc/
 ---
 
 

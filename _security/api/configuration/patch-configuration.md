@@ -4,6 +4,7 @@ title: Patch configuration
 parent: Security configuration APIs
 grand_parent: Security APIs
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/security/api/configuration/patch-configuration/
 redirect_from:
   - /api-reference/security/configuration/patch-configuration/
 ---

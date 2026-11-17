@@ -2,6 +2,7 @@
 layout: default
 title: Identifiers
 nav_order: 6
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/identifiers/
 redirect_from:
   - /search-plugins/sql/identifiers/
   - /observability-plugin/ppl/identifiers/

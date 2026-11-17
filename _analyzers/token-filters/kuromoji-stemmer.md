@@ -3,6 +3,7 @@ layout: default
 title: Kuromoji stemmer
 parent: Token filters
 nav_order: 235
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/kuromoji-stemmer/
 ---
 
 # Kuromoji stemmer token filter

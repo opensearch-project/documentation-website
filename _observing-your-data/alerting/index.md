@@ -3,6 +3,7 @@ layout: default
 title: Alerting
 nav_order: 110
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/alerting/index/
 redirect_from:
   - /monitoring-plugins/alerting/
   - /monitoring-plugins/alerting/index/

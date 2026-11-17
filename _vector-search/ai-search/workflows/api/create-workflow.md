@@ -5,6 +5,7 @@ parent: Workflow APIs
 grand_parent: AI search workflows
 great_grand_parent: AI search
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/workflows/api/create-workflow/
 redirect_from:
   - /automating-configurations/api/create-workflow/
 ---

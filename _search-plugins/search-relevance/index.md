@@ -4,6 +4,7 @@ title: Optimizing search quality
 nav_order: 75
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-relevance/index/
 redirect_from:
   - /search-plugins/search-relevance/
 ---

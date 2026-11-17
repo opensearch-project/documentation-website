@@ -3,6 +3,7 @@ layout: default
 title: In-cluster MCP server
 parent: MCP servers and clients
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/mcp/in-cluster-mcp-server/
 ---
 
 # Using the in-cluster MCP server

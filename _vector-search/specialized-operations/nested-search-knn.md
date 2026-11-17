@@ -5,6 +5,7 @@ nav_order: 40
 parent: Specialized vector search
 has_children: false
 has_math: true
+canonical_url: https://docs.opensearch.org/latest/vector-search/specialized-operations/nested-search-knn/
 redirect_from:
   - /search-plugins/knn/nested-search-knn/ 
 ---

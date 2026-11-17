@@ -2,6 +2,7 @@
 layout: default
 title: Exporting data
 nav_order: 72
+canonical_url: https://docs.opensearch.org/latest/dashboards/exporting-data/
 ---
 
 # Exporting data

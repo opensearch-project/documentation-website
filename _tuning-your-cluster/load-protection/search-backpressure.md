@@ -4,6 +4,7 @@ title: Search backpressure
 nav_order: 10
 has_children: false
 parent: Load protection
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/load-protection/search-backpressure/
 redirect_from: 
   - /opensearch/search-backpressure/
   - /tuning-your-cluster/availability-and-recovery/search-backpressure/

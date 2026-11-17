@@ -4,6 +4,7 @@ title: OpenSearch JVector plugin
 parent: Additional plugins
 grand_parent: Managing OpenSearch plugins
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/additional-plugins/opensearch-jvector/
 ---
 
 # OpenSearch JVector plugin

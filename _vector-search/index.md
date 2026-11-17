@@ -6,6 +6,7 @@ has_children: false
 has_toc: false
 nav_exclude: true
 permalink: /vector-search/
+canonical_url: https://docs.opensearch.org/latest/vector-search/
 redirect_from:
   - /vector-search/index/
   - /search-plugins/vector-search/

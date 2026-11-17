@@ -4,6 +4,7 @@ title: MCP servers and clients
 nav_order: 25
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/mcp/index/
 redirect_from:
   - /ml-commons-plugin/mcp/
 ---

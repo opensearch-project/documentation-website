@@ -3,6 +3,7 @@ layout: default
 title: Bulk (gRPC)
 parent: gRPC APIs
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/api-reference/grpc-apis/bulk/
 ---
 
 # Bulk API (gRPC)

@@ -4,6 +4,7 @@ title: Get action groups
 parent: Action group APIs
 grand_parent: Security APIs
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/security/api/action-groups/get-action-groups/
 ---
 
 # Get Action Groups API

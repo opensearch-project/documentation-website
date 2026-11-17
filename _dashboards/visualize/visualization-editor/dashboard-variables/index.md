@@ -6,6 +6,7 @@ has_toc: false
 nav_order: 100
 parent: Creating visualizations using queries
 grand_parent: Building data visualizations
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualization-editor/dashboard-variables/index/
 redirect_from:
   - /dashboards/visualize/visualization-editor/dashboard-variables/
 ---

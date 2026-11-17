@@ -2,9 +2,11 @@
 layout: default
 title: Target throughput
 nav_order: 60
+canonical_url: https://docs.opensearch.org/latest/benchmark/target-throughput/
 redirect_from:
   - /benchmark/user-guide/target-throughput/
   - /benchmark/user-guide/optimizing-benchmarks/target-throughput/
+redirect_to: https://docs.opensearch.org/latest/benchmark/target-throughput/
 ---
 
 # Target throughput

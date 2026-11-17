@@ -3,6 +3,7 @@ layout: default
 title: ML inference
 parent: Ingest processors
 nav_order: 215
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/ml-inference/
 redirect_from:
 - /api-reference/ingest-apis/processors/ml-inference/
 ---

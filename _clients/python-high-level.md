@@ -2,6 +2,8 @@
 layout: default
 title: High-level Python client (deprecated)
 nav_order: 200
+canonical_url: https://docs.opensearch.org/latest/clients/python-high-level/
+redirect_to: https://docs.opensearch.org/latest/clients/python-high-level/
 ---
 
 # High-level Python client

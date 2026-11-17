@@ -2,6 +2,7 @@
 layout: default
 title: Exploring observability data
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/exploring-data/
 ---
 
 # Exploring observability data

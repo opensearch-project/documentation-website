@@ -4,6 +4,7 @@ title: Get role mappings
 parent: Role mapping APIs
 grand_parent: Security APIs
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/security/api/role-mappings/get-role-mappings/
 ---
 
 # Get Role Mappings API

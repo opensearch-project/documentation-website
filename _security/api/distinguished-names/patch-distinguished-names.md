@@ -4,6 +4,7 @@ title: Patch distinguished names
 parent: Distinguished name APIs
 grand_parent: Security APIs
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/security/api/distinguished-names/patch-distinguished-names/
 ---
 
 # Patch Distinguished Names API

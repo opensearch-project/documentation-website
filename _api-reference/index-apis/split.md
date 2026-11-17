@@ -4,6 +4,7 @@ title: Split index
 parent: Index operations
 grand_parent: Index APIs
 nav_order: 110
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/split/
 redirect_from:
   - /opensearch/rest-api/index-apis/split/
 ---

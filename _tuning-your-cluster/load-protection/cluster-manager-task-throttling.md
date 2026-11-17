@@ -4,6 +4,7 @@ title: Cluster manager task throttling
 nav_order: 40
 parent: Load protection
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/load-protection/cluster-manager-task-throttling/
 redirect_from:
   - /tuning-your-cluster/cluster-manager-task-throttling/
 ---

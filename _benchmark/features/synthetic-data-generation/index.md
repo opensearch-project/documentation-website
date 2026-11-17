@@ -5,6 +5,7 @@ nav_order: 5
 has_children: true
 parent: Additional features
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/benchmark/features/synthetic-data-generation/index/
 redirect_from:
   - /benchmark/features/synthetic-data-generation/
 cards:
@@ -22,6 +23,7 @@ tip_cards:
   - heading: "Tips and best practices"
     description: "Learn practical guidance and best practices to optimize your synthetic data generation workflows."
     link: "/benchmark/features/synthetic-data-generation/tips/"
+redirect_to: https://docs.opensearch.org/latest/benchmark/features/synthetic-data-generation/index/
 ---
 
 # Synthetic data generation

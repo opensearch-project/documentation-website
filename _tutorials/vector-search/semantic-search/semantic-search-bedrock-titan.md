@@ -4,6 +4,7 @@ title: Semantic search using Amazon Bedrock Titan
 parent: Semantic search
 grand_parent: Vector search
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/tutorials/vector-search/semantic-search/semantic-search-bedrock-titan/
 redirect_from:
   - /vector-search/tutorials/semantic-search/semantic-search-bedrock-titan/
 ---

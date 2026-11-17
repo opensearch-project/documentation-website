@@ -4,6 +4,7 @@ title: Rules API
 nav_order: 20
 parent: Rule-based auto-tagging
 grand_parent: Workload management
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/workload-management/rule-based-autotagging/rule-lifecycle-api/
 redirect_from:
   - /tuning-your-cluster/availability-and-recovery/rule-based-autotagging/rule-lifecycle-api/
 ---

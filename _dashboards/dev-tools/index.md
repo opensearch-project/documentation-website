@@ -5,6 +5,7 @@ parent: Exploring data
 nav_order: 20
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/dashboards/dev-tools/index/
 redirect_from:
   - /dashboards/run-queries/
   - /dashboards/dev-tools/run-queries/

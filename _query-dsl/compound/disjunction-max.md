@@ -3,6 +3,7 @@ layout: default
 title: Disjunction max
 parent: Compound queries
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/query-dsl/compound/disjunction-max/
 redirect_from:
   - /query-dsl/query-dsl/compound/disjunction-max/
 ---

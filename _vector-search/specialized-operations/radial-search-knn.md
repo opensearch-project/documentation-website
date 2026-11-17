@@ -5,6 +5,7 @@ nav_order: 50
 parent: Specialized vector search
 has_children: false
 has_math: true
+canonical_url: https://docs.opensearch.org/latest/vector-search/specialized-operations/radial-search-knn/
 redirect_from:
   - /search-plugins/knn/radial-search-knn/
 ---

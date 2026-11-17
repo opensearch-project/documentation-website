@@ -4,6 +4,7 @@ title: CAT nodes
 parent: CAT APIs
 nav_order: 40
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-nodes/
 redirect_from:
 - /opensearch/rest-api/cat/cat-nodes/
 ---

@@ -4,6 +4,7 @@ title: Query metrics
 parent: Query insights
 grand_parent: Monitoring your cluster
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/monitoring/query-insights/query-metrics/
 redirect_from:
   - /observing-your-data/query-insights/query-metrics/
 ---

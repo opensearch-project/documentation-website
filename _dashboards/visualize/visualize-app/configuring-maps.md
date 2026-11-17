@@ -6,6 +6,7 @@ grand_parent: Building data visualizations
 has_children: true
 has_toc: false
 nav_order: 210
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualize-app/configuring-maps/
 ---
 
 # Configuring maps

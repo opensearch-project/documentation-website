@@ -2,6 +2,7 @@
 layout: default
 title: Lucene expression language
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/scripting/expressions/
 ---
 
 # Lucene expression language

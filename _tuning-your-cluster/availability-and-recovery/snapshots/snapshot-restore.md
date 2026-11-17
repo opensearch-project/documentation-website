@@ -6,6 +6,7 @@ nav_order: 10
 has_toc: false
 has_children: false
 grand_parent: Availability and recovery
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/
 redirect_from: 
   - /opensearch/snapshots/snapshot-restore/
   - /upgrade-to/snapshot-migrate/

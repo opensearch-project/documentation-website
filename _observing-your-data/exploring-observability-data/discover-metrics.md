@@ -3,6 +3,7 @@ layout: default
 title: Metrics
 nav_order: 30
 parent: Observability workspace apps
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/exploring-observability-data/discover-metrics/
 ---
 
 # Analyzing metrics in Discover

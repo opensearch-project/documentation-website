@@ -3,6 +3,7 @@ layout: default
 title: Resource access management
 parent: Dashboards management
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/dashboards/management/resource-sharing/
 ---
 
 # Resource access management

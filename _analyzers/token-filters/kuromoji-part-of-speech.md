@@ -3,6 +3,7 @@ layout: default
 title: Kuromoji part of speech
 parent: Token filters
 nav_order: 233
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/kuromoji-part-of-speech/
 ---
 
 # Kuromoji part of speech token filter

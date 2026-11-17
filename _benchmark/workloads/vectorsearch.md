@@ -3,6 +3,8 @@ layout: default
 title: Vector search
 parent: Workload types
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/benchmark/workloads/vectorsearch/
+redirect_to: https://docs.opensearch.org/latest/benchmark/workloads/vectorsearch/
 ---
 
 # Vector search workload

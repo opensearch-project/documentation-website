@@ -3,6 +3,7 @@ layout: default
 title: Advanced settings
 parent: Dashboards management
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/dashboards/management/advanced-settings/
 ---
 
 # Advanced settings in OpenSearch Dashboards

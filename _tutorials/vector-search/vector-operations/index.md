@@ -5,6 +5,7 @@ parent: Vector search
 has_children: true
 has_toc: false
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/tutorials/vector-search/vector-operations/index/
 redirect_from:
   - /vector-search/tutorials/vector-operations/
   - /tutorials/vector-search/vector-operations/

@@ -3,6 +3,7 @@ layout: default
 title: Workload groups
 nav_order: 20
 parent: Workload management
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/workload-management/workload-groups/
 redirect_from:
   - /tuning-your-cluster/availability-and-recovery/workload-management/workload-group-lifecycle-api/
   - /tuning-your-cluster/availability-and-recovery/workload-management/query-group-lifecycle-api/

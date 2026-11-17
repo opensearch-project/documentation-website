@@ -4,6 +4,7 @@ title: Reporting CLI options
 nav_order: 30
 parent: Reporting using the CLI
 grand_parent: Reporting
+canonical_url: https://docs.opensearch.org/latest/dashboards/reporting/rep-cli-options/
 redirect_from:
   - /reporting/rep-cli-options/
   - /dashboards/reporting-cli/rep-cli-options/

@@ -5,6 +5,7 @@ parent: Generative AI
 has_children: true
 has_toc: false
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/model-controls/index/
 redirect_from:
   - /vector-search/tutorials/model-controls/
   - /tutorials/gen-ai/model-controls/

@@ -3,6 +3,7 @@ layout: default
 title: Date
 parent: Ingest processors
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/date/
 redirect_from:
    - /api-reference/ingest-apis/processors/date/
 ---

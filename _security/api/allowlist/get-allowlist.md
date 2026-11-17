@@ -4,6 +4,7 @@ title: Get allow list
 parent: Allow list APIs
 grand_parent: Security APIs
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/security/api/allowlist/get-allowlist/
 ---
 
 # Get Allow List API

@@ -4,6 +4,7 @@ title: Using agentic memory with Strands Agents
 parent: Agentic AI
 grand_parent: Generative AI
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/agents/agentic-memory-strands/
 ---
 
 # Using agentic memory with Strands Agents

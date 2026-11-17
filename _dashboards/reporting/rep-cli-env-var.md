@@ -4,6 +4,7 @@ title: Use environment variables with the Reporting CLI
 nav_order: 35
 parent: Reporting using the CLI
 grand_parent: Reporting
+canonical_url: https://docs.opensearch.org/latest/dashboards/reporting/rep-cli-env-var/
 redirect_from:
   - /reporting/rep-cli-env-var/
   - /dashboards/reporting-cli/rep-cli-env-var/

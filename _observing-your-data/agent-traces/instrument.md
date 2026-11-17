@@ -4,6 +4,7 @@ title: Instrumenting your application
 parent: Agent monitoring
 grand_parent: Observability workspace apps
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/agent-traces/instrument/
 ---
 
 # Instrumenting your application

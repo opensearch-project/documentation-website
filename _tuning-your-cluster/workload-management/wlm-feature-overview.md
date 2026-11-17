@@ -3,6 +3,7 @@ layout: default
 title: Workload management
 nav_order: 40
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/workload-management/wlm-feature-overview/
 redirect_from:
   - /tuning-your-cluster/availability-and-recovery/workload-management/wlm-feature-overview/
 ---

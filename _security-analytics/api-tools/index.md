@@ -4,6 +4,7 @@ title: Security Analytics APIs
 nav_order: 30
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/security-analytics/api-tools/index/
 redirect_from:
   - /security-analytics/api-tools/
 ---

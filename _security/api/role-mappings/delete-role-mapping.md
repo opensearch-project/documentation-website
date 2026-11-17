@@ -4,6 +4,7 @@ title: Delete role mapping
 parent: Role mapping APIs
 grand_parent: Security APIs
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/security/api/role-mappings/delete-role-mapping/
 ---
 
 # Delete Role Mapping API

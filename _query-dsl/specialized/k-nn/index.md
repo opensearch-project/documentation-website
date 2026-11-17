@@ -4,6 +4,7 @@ title: k-NN
 parent: AI and vector search queries
 has_children: true
 nav_order: 15
+canonical_url: https://docs.opensearch.org/latest/query-dsl/specialized/k-nn/index/
 redirect_from:
   - /query-dsl/specialized/k-nn/
 ---

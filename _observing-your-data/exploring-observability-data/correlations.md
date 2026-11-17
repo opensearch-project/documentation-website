@@ -3,6 +3,7 @@ layout: default
 title: Correlations
 nav_order: 40
 parent: Observability workspace apps
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/exploring-observability-data/correlations/
 redirect_from:
   - /observability-plugin/correlations/
 ---

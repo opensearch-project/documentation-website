@@ -3,6 +3,8 @@ layout: default
 title: operations
 parent: Anatomy of a workload
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/workloads/operations/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/workloads/operations/
 ---
 
 <!-- vale off -->

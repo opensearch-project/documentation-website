@@ -3,6 +3,7 @@ layout: default
 title: ICU transform
 parent: Token filters
 nav_order: 175
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/icu-transform/
 ---
 
 # ICU transform token filter

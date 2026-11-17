@@ -3,6 +3,7 @@ layout: default
 title: Job Scheduler
 nav_order: 30
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/developer-documentation/job-scheduler/index/
 redirect_from:
   - /job-scheduler-plugin/index/
   - /monitoring-your-cluster/job-scheduler/

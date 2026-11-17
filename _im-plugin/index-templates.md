@@ -2,6 +2,7 @@
 layout: default
 title: Index templates
 nav_order: 15
+canonical_url: https://docs.opensearch.org/latest/im-plugin/index-templates/
 redirect_from:
   - /opensearch/index-templates/
   - /dashboards/im-dashboards/component-templates/

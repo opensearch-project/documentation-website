@@ -5,6 +5,7 @@ parent: Hybrid search
 grand_parent: AI search
 has_children: false
 nav_order: 38
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/hybrid-search/pre-filtering/
 ---
 
 # Hybrid search with pre-filtering

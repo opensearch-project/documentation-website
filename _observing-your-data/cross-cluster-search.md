@@ -2,6 +2,7 @@
 layout: default
 title: Using observability apps for cross-cluster search
 nav_order: 180
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/cross-cluster-search/
 redirect_from:
   - /observing-your-data/cross-cluster-replication/
 ---

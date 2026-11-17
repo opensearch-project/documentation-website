@@ -3,6 +3,7 @@ layout: default
 title: Defining users and roles
 parent: Access control
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/security/access-control/users-roles/
 redirect_from:
  - /security-plugin/access-control/users-roles/
 ---

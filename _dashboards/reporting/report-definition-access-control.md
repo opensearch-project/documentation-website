@@ -3,6 +3,7 @@ layout: default
 title: Report definition access control
 nav_order: 40
 parent: Reporting
+canonical_url: https://docs.opensearch.org/latest/dashboards/reporting/report-definition-access-control/
 redirect_from:
   - /reporting/report-definition-access-control/
 ---

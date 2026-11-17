@@ -4,6 +4,7 @@ title: Query Insights health
 parent: Query insights
 grand_parent: Monitoring your cluster
 nav_order: 70
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/monitoring/query-insights/health/
 redirect_from:
   - /observing-your-data/query-insights/health/
 ---

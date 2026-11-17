@@ -3,6 +3,7 @@ layout: default
 title: Authorization basics
 parent: Access control
 nav_order: 74
+canonical_url: https://docs.opensearch.org/latest/security/access-control/authorization-basics/
 ---
 
 # Authorization basics

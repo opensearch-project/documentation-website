@@ -4,6 +4,7 @@ title: CAT repositories
 parent: CAT APIs
 nav_order: 52
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/api-reference/cat/cat-repositories/
 redirect_from:
  - /opensearch/rest-api/cat/cat-repositories/
 ---

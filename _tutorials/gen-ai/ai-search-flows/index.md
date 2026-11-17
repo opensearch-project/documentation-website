@@ -5,6 +5,7 @@ parent: Generative AI
 has_children: false
 has_toc: false
 nav_order: 40
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/ai-search-flows/index/
 redirect_from:
   - /tutorials/ai-search-flows/
   - /tutorials/gen-ai/ai-search-flows/

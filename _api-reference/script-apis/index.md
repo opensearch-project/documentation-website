@@ -4,6 +4,7 @@ title: Script APIs
 has_children: true
 has_toc: false
 nav_order: 90
+canonical_url: https://docs.opensearch.org/latest/api-reference/script-apis/index/
 redirect_from:
   - /opensearch/rest-api/script-apis/
   - /api-reference/script-apis/

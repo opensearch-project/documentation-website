@@ -4,6 +4,7 @@ title: Grok Debugger
 parent: Using Dev Tools
 grand_parent: Exploring data
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/dashboards/dev-tools/grok-debugger/
 ---
 
 # Grok Debugger

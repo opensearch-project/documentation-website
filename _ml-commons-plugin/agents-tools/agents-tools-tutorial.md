@@ -3,6 +3,7 @@ layout: default
 title: Agents and tools tutorial
 parent: Agents and tools
 nav_order: 5
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/agents-tools/agents-tools-tutorial/
 ---
 
 # Agents and tools tutorial

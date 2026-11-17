@@ -4,6 +4,7 @@ title: Getting started
 parent: Trace analytics
 grand_parent: Classic observability apps
 nav_order: 1
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/trace/getting-started/
 redirect_from:
   - /observability-plugin/trace/get-started/
   - /monitoring-plugins/trace/get-started/

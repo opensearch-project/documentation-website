@@ -5,10 +5,12 @@ nav_order: 60
 parent: Migration workflows
 has_children: true
 permalink: /migration-assistant/migration-phases/backfill/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/migration-phases/backfill/
 redirect_from:
   - /migration-phases/backfill/
   - /migration-assistant/migration-phases/create-snapshot/
   - /migration-phases/create-snapshot/
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/migration-phases/backfill/
 ---
 
 # Backfill

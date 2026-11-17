@@ -4,6 +4,7 @@ title: Notification access control
 nav_order: 30
 parent: Notifications
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/notifications/notification-access-control/
 ---
 
 # Notification access control

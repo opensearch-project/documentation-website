@@ -4,6 +4,7 @@ title: Create index
 parent: Core index APIs
 grand_parent: Index APIs
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/api-reference/index-apis/create-index/
 redirect_from:
   - /opensearch/rest-api/index-apis/create-index/
   - /opensearch/rest-api/create-index/

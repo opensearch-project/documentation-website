@@ -2,6 +2,7 @@
 layout: default
 title: Troubleshooting
 nav_order: 88
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/troubleshoot/
 redirect_from:
   - /search-plugins/sql/troubleshoot/
 ---

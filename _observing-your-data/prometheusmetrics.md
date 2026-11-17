@@ -3,6 +3,7 @@ layout: default
 title: Metric analytics
 parent: Classic observability apps
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/prometheusmetrics/
 ---
 
 # Metric analytics

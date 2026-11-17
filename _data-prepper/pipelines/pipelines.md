@@ -3,11 +3,13 @@ layout: default
 title: Pipelines
 has_children: true
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/pipelines/
 redirect_from:
   - /data-prepper/pipelines/
   - /clients/data-prepper/pipelines/
   - /data-prepper/pipelines/configuration/processors/routes/
   - /data-prepper/pipelines/pipelines-configuration-options/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/pipelines/
 ---
 
 # Data Prepper pipelines

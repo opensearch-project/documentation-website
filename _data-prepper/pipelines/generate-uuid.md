@@ -4,6 +4,8 @@ title: generateUuid()
 parent: Functions
 grand_parent: Pipelines
 nav_order: 11
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/generate-uuid/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/generate-uuid/
 ---
 
 <!-- vale off -->

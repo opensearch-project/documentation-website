@@ -4,6 +4,7 @@ title: AI search
 nav_order: 45
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/vector-search/ai-search/index/
 redirect_from: 
   - /neural-search-plugin/index/
   - /search-plugins/neural-search/

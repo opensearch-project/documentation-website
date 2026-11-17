@@ -4,8 +4,10 @@ title: list
 nav_order: 80
 parent: Command reference
 grand_parent: Reference
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/commands/list/
 redirect_from:
   - /benchmark/commands/list/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/commands/list/
 ---
 
 <!-- vale off -->

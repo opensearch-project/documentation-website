@@ -3,6 +3,7 @@ layout: default
 title: Reranking search results by a field
 parent: Reranking search results
 nav_order: 120
+canonical_url: https://docs.opensearch.org/latest/tutorials/reranking/reranking-by-field/
 redirect_from:
   - /vector-search/tutorials/reranking/reranking-by-field/
 ---

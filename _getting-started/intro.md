@@ -3,6 +3,7 @@ layout: default
 title: Intro to OpenSearch
 nav_order: 2
 description: "An introduction to OpenSearch and how it works, including core concepts such as documents, indexes, clusters, nodes, shards, and how search results are ranked."
+canonical_url: https://docs.opensearch.org/latest/getting-started/intro/
 redirect_from: 
  - /intro/
 ---

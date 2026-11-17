@@ -2,6 +2,7 @@
 layout: default
 title: Boost
 parent: Mapping parameters
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/boost/
 redirect_from:
   - /field-types/mapping-parameters/boost/
 nav_order: 10

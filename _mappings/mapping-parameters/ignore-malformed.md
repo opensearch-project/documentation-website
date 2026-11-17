@@ -2,6 +2,7 @@
 layout: default
 title: Ignore malformed
 parent: Mapping parameters
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/ignore-malformed/
 redirect_from:
   - /field-types/mapping-parameters/ignore-malformed/
 nav_order: 130

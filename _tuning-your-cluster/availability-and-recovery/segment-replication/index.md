@@ -5,6 +5,7 @@ nav_order: 70
 has_children: true
 parent: Availability and recovery
 datatable: true
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/availability-and-recovery/segment-replication/index/
 redirect_from:
   - /opensearch/segment-replication/
   - /opensearch/segment-replication/index/

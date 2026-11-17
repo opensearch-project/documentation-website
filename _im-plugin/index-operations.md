@@ -2,6 +2,7 @@
 layout: default
 title: Index operations
 nav_order: 5
+canonical_url: https://docs.opensearch.org/latest/im-plugin/index-operations/
 redirect_from:
   - /dashboards/im-dashboards/index-management/
   - /dashboards/admin-ui-index/index-management/

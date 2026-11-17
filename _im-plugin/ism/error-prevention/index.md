@@ -5,6 +5,7 @@ parent: Index State Management
 nav_order: 40
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/im-plugin/ism/error-prevention/index/
 redirect_from:
   - /im-plugin/ism/error-prevention/
 ---

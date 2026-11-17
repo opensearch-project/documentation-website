@@ -2,6 +2,7 @@
 layout: default
 title: Cron expressions
 nav_order: 165
+canonical_url: https://docs.opensearch.org/latest/api-reference/cron-expressions/
 redirect_from:
   - /monitoring-plugins/alerting/cron/
   - /observing-your-data/alerting/cron/

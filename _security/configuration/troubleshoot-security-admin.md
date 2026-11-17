@@ -4,6 +4,7 @@ title: Troubleshooting securityadmin.sh
 parent: Applying changes to configuration files
 grand_parent: Configuration
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/security/configuration/troubleshoot-security-admin/
 redirect_from:
   - /troubleshoot/security-admin/
 ---

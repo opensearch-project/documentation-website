@@ -3,6 +3,7 @@ layout: default
 title: Rank feature
 parent: Specialized queries
 nav_order: 75
+canonical_url: https://docs.opensearch.org/latest/query-dsl/specialized/rank-feature/
 ---
 
 # Rank feature

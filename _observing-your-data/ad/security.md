@@ -4,6 +4,7 @@ title: Anomaly detection security
 nav_order: 40
 parent: Anomaly detection
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/ad/security/
 redirect_from: 
   - /monitoring-plugins/ad/security/
 ---

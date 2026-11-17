@@ -4,6 +4,7 @@ title: Querqy
 parent: Query rewriting
 grand_parent: Optimizing search quality
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/search-plugins/querqy/index/
 redirect_from:
   - /search-plugins/querqy/
 nav_order: 60

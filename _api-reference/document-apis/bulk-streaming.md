@@ -3,6 +3,7 @@ layout: default
 title: Streaming bulk
 parent: Document APIs
 nav_order: 25
+canonical_url: https://docs.opensearch.org/latest/api-reference/document-apis/bulk-streaming/
 redirect_from:
  - /opensearch/rest-api/document-apis/bulk/streaming/
 ---

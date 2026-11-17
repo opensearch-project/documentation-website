@@ -2,6 +2,7 @@
 layout: default
 title: Ingesting observability data
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/ingesting-observability-data/
 ---
 
 # Ingesting observability data

@@ -3,8 +3,10 @@ layout: default
 title: Randomizing queries
 nav_order: 65
 has_math: true
+canonical_url: https://docs.opensearch.org/latest/benchmark/randomizing-queries/
 redirect_from:
   - /benchmark/user-guide/optimizing-benchmarks/randomizing-queries/
+redirect_to: https://docs.opensearch.org/latest/benchmark/randomizing-queries/
 ---
 
 # Randomizing queries

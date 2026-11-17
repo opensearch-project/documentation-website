@@ -6,6 +6,7 @@ grand_parent: Generative AI
 nav_order: 150
 has_children: false
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/chatbots/rag-chatbot/
 redirect_from:
   - /ml-commons-plugin/tutorials/rag-chatbot/
   - /vector-search/tutorials/chatbots/rag-chatbot/

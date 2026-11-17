@@ -2,6 +2,7 @@
 layout: default
 title: Access data in a pipeline
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/accessing-data/
 ---
 
 # Access data in a pipeline

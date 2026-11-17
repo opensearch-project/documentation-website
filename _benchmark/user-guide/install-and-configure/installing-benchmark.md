@@ -4,9 +4,11 @@ title: Installing
 nav_order: 5
 grand_parent: User guide
 parent: Install and configure OpenSearch Benchmark
+canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/install-and-configure/installing-benchmark/
 redirect_from:
   - /benchmark/installing-benchmark/
   - /benchmark/user-guide/installing-benchmark/
+redirect_to: https://docs.opensearch.org/latest/benchmark/user-guide/install-and-configure/installing-benchmark/
 ---
 
 # Installing OpenSearch Benchmark

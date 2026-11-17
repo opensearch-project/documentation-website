@@ -4,6 +4,7 @@ title: Cluster routing and awareness
 nav_order: 48
 parent: Cluster APIs
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/api-reference/cluster-api/cluster-awareness/
 redirect_from:
   - /api-reference/cluster-awareness/
   - /opensearch/rest-api/cluster-awareness/

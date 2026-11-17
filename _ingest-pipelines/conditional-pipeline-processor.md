@@ -3,6 +3,7 @@ layout: default
 title: Conditionals with the pipeline processor
 parent: Conditional execution
 nav_order: 60
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/conditional-pipeline-processor/
 ---
 
 # Conditionals with the pipeline processor

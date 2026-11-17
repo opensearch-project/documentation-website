@@ -3,6 +3,7 @@ layout: default
 title: Missing
 parent: Bucket aggregations
 nav_order: 120
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/missing/
 redirect_from:
   - /query-dsl/aggregations/bucket/missing/
 ---

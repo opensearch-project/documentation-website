@@ -3,6 +3,7 @@ layout: default
 title: Keyword search
 has_children: false
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/search-plugins/keyword-search/
 ---
 
 # Keyword search

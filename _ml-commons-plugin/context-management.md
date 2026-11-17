@@ -3,6 +3,7 @@ layout: default
 title: Context management
 parent: Memory and context
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/ml-commons-plugin/context-management/
 ---
 
 # Context management

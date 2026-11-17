@@ -4,6 +4,7 @@ title: Reranking search results
 has_children: true
 has_toc: false
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/tutorials/reranking/index/
 redirect_from:
   - /vector-search/tutorials/reranking/
   - /tutorials/reranking/

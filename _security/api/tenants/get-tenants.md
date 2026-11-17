@@ -4,6 +4,7 @@ title: Get tenants
 parent: Tenant APIs
 grand_parent: Security APIs
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/security/api/tenants/get-tenants/
 ---
 
 # Get Tenants API

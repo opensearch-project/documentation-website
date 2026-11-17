@@ -4,6 +4,7 @@ title: Performance Analyzer
 parent: Telemetry
 grand_parent: Monitoring your cluster
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/monitoring/telemetry/performance-analyzer/
 redirect_from:
   - /monitoring-plugins/pa/
   - /monitoring-plugins/pa/index/

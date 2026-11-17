@@ -4,8 +4,10 @@ title: Metric records
 nav_order: 30
 parent: Metrics reference
 grand_parent: Reference
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/metrics/metric-records/
 redirect_from:
   - /benchmark/metrics/metric-records/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/metrics/metric-records/
 ---
 
 # Metric records

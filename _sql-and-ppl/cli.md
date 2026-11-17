@@ -2,6 +2,7 @@
 layout: default
 title: SQL and PPL CLI
 nav_order: 3
+canonical_url: https://docs.opensearch.org/latest/sql-and-ppl/cli/
 redirect_from:
  - /search-plugins/sql/cli/
 ---

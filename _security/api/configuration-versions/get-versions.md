@@ -4,6 +4,7 @@ title: Get configuration versions
 parent: Security configuration version APIs
 grand_parent: Security APIs
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/security/api/configuration-versions/get-versions/
 ---
 
 # Get Security Configuration Versions API

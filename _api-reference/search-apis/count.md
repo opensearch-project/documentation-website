@@ -3,6 +3,7 @@ layout: default
 title: Count
 parent: Search APIs
 nav_order: 35
+canonical_url: https://docs.opensearch.org/latest/api-reference/search-apis/count/
 redirect_from:
  - /opensearch/rest-api/count/
  - /api-reference/count/

@@ -3,6 +3,7 @@ layout: default
 title: Kuromoji reading form
 parent: Token filters
 nav_order: 234
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/kuromoji-readingform/
 ---
 
 # Kuromoji reading form token filter

@@ -3,8 +3,10 @@ layout: default
 title: Reference
 nav_order: 75
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/benchmark/reference/index/
 redirect_from:
   - /benchmark/reference/
+redirect_to: https://docs.opensearch.org/latest/benchmark/reference/index/
 ---
 
 # OpenSearch Benchmark reference

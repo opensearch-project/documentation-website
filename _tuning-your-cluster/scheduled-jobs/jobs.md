@@ -3,6 +3,7 @@ layout: default
 title: Jobs API
 parent: Scheduled jobs
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/scheduled-jobs/jobs/
 redirect_from:
     - /monitoring-plugins/job-scheduler/api/
     - /monitoring-your-cluster/job-scheduler/jobs/

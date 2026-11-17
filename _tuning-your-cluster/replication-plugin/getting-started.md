@@ -3,6 +3,7 @@ layout: default
 title: Getting started
 nav_order: 15
 parent: Cross-cluster replication
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/replication-plugin/getting-started/
 redirect_from:
   - /replication-plugin/get-started/
 ---

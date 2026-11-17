@@ -4,6 +4,7 @@ title: Generating embeddings
 parent: Vector operations
 grand_parent: Vector search
 nav_order: 5
+canonical_url: https://docs.opensearch.org/latest/tutorials/vector-search/vector-operations/generate-embeddings/
 redirect_from:
   - /ml-commons-plugin/tutorials/generate-embeddings/
   - /vector-search/tutorials/vector-operations/generate-embeddings/

@@ -2,6 +2,7 @@
 layout: default
 title: Ignore above
 parent: Mapping parameters
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/ignore-above/
 redirect_from:
   - /field-types/mapping-parameters/ignore-above/
 nav_order: 120

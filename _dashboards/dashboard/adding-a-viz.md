@@ -4,6 +4,7 @@ title: Adding a visualization to a dashboard
 parent: Creating dashboards
 nav_order: 20
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/dashboards/dashboard/adding-a-viz/
 ---
 
 # Adding a visualization to a dashboard

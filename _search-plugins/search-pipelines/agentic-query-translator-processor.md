@@ -5,6 +5,7 @@ nav_order: 5
 has_children: false
 parent: Search processors
 grand_parent: Search pipelines
+canonical_url: https://docs.opensearch.org/latest/search-plugins/search-pipelines/agentic-query-translator-processor/
 ---
 
 # Agentic query translator processor

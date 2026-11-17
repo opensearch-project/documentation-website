@@ -2,6 +2,7 @@
 layout: default
 title: Similarity
 parent: Mapping parameters
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/similarity/
 redirect_from:
   - /field-types/mapping-parameters/similarity/
 nav_order: 250

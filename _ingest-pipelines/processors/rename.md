@@ -3,6 +3,7 @@ layout: default
 title: Rename
 parent: Ingest processors
 nav_order: 227
+canonical_url: https://docs.opensearch.org/latest/ingest-pipelines/processors/rename/
 redirect_from:
    - /api-reference/ingest-apis/processors/rename/
 ---

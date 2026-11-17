@@ -3,6 +3,7 @@ layout: default
 title: Autocomplete
 parent: Customizing search results
 nav_order: 80
+canonical_url: https://docs.opensearch.org/latest/search-plugins/searching-data/autocomplete/
 redirect_from:
   - /opensearch/search/autocomplete/
 ---

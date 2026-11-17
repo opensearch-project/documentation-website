@@ -5,6 +5,7 @@ parent: Managing OpenSearch plugins
 nav_order: 10
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/additional-plugins/index/
 redirect_from:
   - /install-and-configure/additional-plugins/
 ---

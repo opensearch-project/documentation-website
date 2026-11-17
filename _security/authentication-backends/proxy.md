@@ -3,6 +3,7 @@ layout: default
 title: Proxy-based authentication
 parent: Authentication backends
 nav_order: 65
+canonical_url: https://docs.opensearch.org/latest/security/authentication-backends/proxy/
 redirect_from:
  - /security-plugin/configuration/proxy/
 ---

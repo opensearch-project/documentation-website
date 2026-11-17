@@ -3,6 +3,7 @@ layout: default
 title: Geo-bounding box
 parent: Geographic and xy queries
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/query-dsl/geo-and-xy/geo-bounding-box/
 redirect_from:
   - /opensearch/query-dsl/geo-and-xy/geo-bounding-box/
   - /query-dsl/query-dsl/geo-and-xy/geo-bounding-box/

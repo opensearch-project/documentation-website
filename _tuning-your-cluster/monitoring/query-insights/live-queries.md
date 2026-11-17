@@ -4,6 +4,7 @@ title: Live queries
 parent: Query insights
 grand_parent: Monitoring your cluster
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/monitoring/query-insights/live-queries/
 redirect_from:
   - /observing-your-data/query-insights/live-queries/
 ---

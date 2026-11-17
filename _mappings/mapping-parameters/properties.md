@@ -2,6 +2,7 @@
 layout: default
 title: Properties
 parent: Mapping parameters
+canonical_url: https://docs.opensearch.org/latest/mappings/mapping-parameters/properties/
 redirect_from:
   - /field-types/mapping-parameters/properties/
 nav_order: 230

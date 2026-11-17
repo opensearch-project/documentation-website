@@ -3,6 +3,7 @@ layout: default
 title: Search
 parent: Search APIs
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/api-reference/search-apis/search/
 redirect_from:
   - /opensearch/rest-api/search/
   - /api-reference/search/

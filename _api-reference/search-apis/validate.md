@@ -3,6 +3,7 @@ layout: default
 title: Validate query
 nav_order: 87
 parent: Search APIs
+canonical_url: https://docs.opensearch.org/latest/api-reference/search-apis/validate/
 redirect_from: 
  - /api-reference/validate/
 ---

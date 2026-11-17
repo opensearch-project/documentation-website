@@ -5,6 +5,7 @@ nav_order: 60
 parent: Specialized vector search
 has_children: false
 has_math: true
+canonical_url: https://docs.opensearch.org/latest/vector-search/specialized-operations/vector-search-mmr/
 ---
 
 # Vector search with MMR reranking

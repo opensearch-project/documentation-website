@@ -3,6 +3,7 @@ layout: default
 title: Creating a cluster
 nav_order: 2
 has_children: false
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/creating-a-cluster/
 redirect_from:
   - /opensearch/cluster/
   - /tuning-your-cluster/cluster/

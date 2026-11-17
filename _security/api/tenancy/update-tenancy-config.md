@@ -4,6 +4,7 @@ title: Create or update multi-tenancy configuration
 parent: Multi-tenancy configuration APIs
 grand_parent: Security APIs
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/security/api/tenancy/update-tenancy-config/
 ---
 
 # Create or Update Multi-Tenancy Configuration API

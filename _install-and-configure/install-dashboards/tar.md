@@ -3,6 +3,7 @@ layout: default
 title: Tarball
 parent: Installing OpenSearch Dashboards
 nav_order: 30
+canonical_url: https://docs.opensearch.org/latest/install-and-configure/install-dashboards/tar/
 redirect_from: 
   - /dashboards/install/tar/
 ---

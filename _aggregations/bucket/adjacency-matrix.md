@@ -3,6 +3,7 @@ layout: default
 title: Adjacency matrix
 parent: Bucket aggregations
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/aggregations/bucket/adjacency-matrix/
 redirect_from:
   - /query-dsl/aggregations/bucket/adjacency-matrix/
 ---

@@ -4,6 +4,7 @@ title: Asynchronous search
 nav_order: 40
 parent: Improving search performance
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/search-plugins/async/index/
 redirect_from:
   - /search-plugins/async/
 ---

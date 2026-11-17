@@ -6,6 +6,7 @@ has_children: false
 has_toc: false
 nav_exclude: true
 permalink: /tuning-your-cluster/
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/
 redirect_from: 
   - /tuning-your-cluster/index/
 setup_steps:

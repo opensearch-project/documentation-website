@@ -4,6 +4,7 @@ title: Trace analytics in OpenSearch Dashboards
 parent: Trace analytics
 grand_parent: Classic observability apps
 nav_order: 50
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/trace/ta-dashboards/
 redirect_from:
   - /observability-plugin/trace/ta-dashboards/
   - /monitoring-plugins/trace/ta-dashboards/

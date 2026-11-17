@@ -6,6 +6,7 @@ parent: Building data visualizations
 grand_parent: OpenSearch Dashboards
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualization-editor/index/
 redirect_from:
   - /dashboards/visualize/visualization-editor/
 ---

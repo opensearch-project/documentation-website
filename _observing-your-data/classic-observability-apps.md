@@ -4,6 +4,7 @@ title: Classic observability apps
 nav_order: 40
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/classic-observability-apps/
 ---
 
 # Classic observability apps

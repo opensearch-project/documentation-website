@@ -5,6 +5,7 @@ parent: Security APIs
 nav_order: 130
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/security/api/distinguished-names/index/
 redirect_from:
   - /security/api/distinguished-names/
 ---

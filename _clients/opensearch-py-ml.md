@@ -3,6 +3,8 @@ layout: default
 title: Python ML client
 parent: Python client
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/clients/opensearch-py-ml/
+redirect_to: https://docs.opensearch.org/latest/clients/opensearch-py-ml/
 ---
 
 # Python machine learning client

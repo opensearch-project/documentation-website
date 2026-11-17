@@ -3,6 +3,7 @@ layout: default
 title: ICU folding
 parent: Token filters
 nav_order: 172
+canonical_url: https://docs.opensearch.org/latest/analyzers/token-filters/icu-folding/
 ---
 
 # ICU folding token filter

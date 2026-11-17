@@ -2,6 +2,7 @@
 layout: default
 title: Language identification
 nav_order: 65
+canonical_url: https://docs.opensearch.org/latest/tutorials/language-identification/
 ---
 
 # Identifying document language for multilingual search

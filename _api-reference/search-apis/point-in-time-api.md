@@ -4,6 +4,7 @@ title: Point in Time
 nav_order: 25
 has_children: false
 parent: Search APIs
+canonical_url: https://docs.opensearch.org/latest/api-reference/search-apis/point-in-time-api/
 redirect_from:
   - /opensearch/point-in-time-api/
   - /search-plugins/point-in-time-api/

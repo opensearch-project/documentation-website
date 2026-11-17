@@ -5,6 +5,7 @@ parent: Generative AI
 has_children: true
 has_toc: false
 nav_order: 10
+canonical_url: https://docs.opensearch.org/latest/tutorials/gen-ai/rag/index/
 redirect_from:
   - /vector-search/tutorials/rag/
   - /vector-search/tutorials/conversational-search/

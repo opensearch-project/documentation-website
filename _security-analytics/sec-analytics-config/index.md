@@ -4,6 +4,7 @@ title: Setting up Security Analytics
 nav_order: 10
 has_children: true
 has_toc: false
+canonical_url: https://docs.opensearch.org/latest/security-analytics/sec-analytics-config/index/
 redirect_from:
   - /security-analytics/sec-analytics-config/
 ---

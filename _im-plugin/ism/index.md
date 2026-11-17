@@ -3,6 +3,7 @@ layout: default
 title: Index State Management
 nav_order: 40
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/im-plugin/ism/index/
 redirect_from:
   - /im-plugin/ism/
 has_toc: false

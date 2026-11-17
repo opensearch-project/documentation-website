@@ -4,8 +4,10 @@ title: Service map
 parent: Processors
 grand_parent: Pipelines
 nav_order: 330
+canonical_url: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/service-map/
 redirect_from:
   - /data-prepper/pipelines/configuration/processors/service-map-stateful/
+redirect_to: https://docs.opensearch.org/latest/data-prepper/pipelines/configuration/processors/service-map/
 ---
 
 # Service map processor

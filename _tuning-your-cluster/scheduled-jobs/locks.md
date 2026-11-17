@@ -3,6 +3,7 @@ layout: default
 title: Locks API
 parent: Scheduled jobs
 nav_order: 20
+canonical_url: https://docs.opensearch.org/latest/tuning-your-cluster/scheduled-jobs/locks/
 redirect_from:
   - /monitoring-your-cluster/job-scheduler/locks/
 ---

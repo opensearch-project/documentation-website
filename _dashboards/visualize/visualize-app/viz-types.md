@@ -7,6 +7,7 @@ nav_order: 5
 has_children: true
 has_toc: false
 description: "The recommended visualization types for creating data visualizations in OpenSearch Dashboards using the Visualize application, including charts, tables, and maps."
+canonical_url: https://docs.opensearch.org/latest/dashboards/visualize/visualize-app/viz-types/
 redirect_from:
   - /dashboards/visualize/viz-types/
 ---

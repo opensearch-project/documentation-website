@@ -3,6 +3,7 @@ layout: default
 title: Explore the Visualize application
 parent: Getting started
 nav_order: 35
+canonical_url: https://docs.opensearch.org/latest/dashboards/getting-started/explore-visualize/
 ---
 
 # Explore the Visualize application

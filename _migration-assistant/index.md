@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 nav_exclude: true
 permalink: /migration-assistant/
+canonical_url: https://docs.opensearch.org/latest/migration-assistant/
 redirect_from:
   - /migration-assistant/overview/
   - /migration-assistant/index/
@@ -29,6 +30,7 @@ items:
   - heading: "Use a playbook"
     description: "Follow path-specific guides for common source and target combinations."
     link: "/migration-assistant/playbooks/"
+redirect_to: https://docs.opensearch.org/latest/migration-assistant/
 ---
 
 # ![Migration Assistant icon]({{site.url}}{{site.baseurl}}/images/icons/MigrationUpgrade_Color_Icon.svg){: .heading-icon} Migration Assistant for OpenSearch

@@ -4,10 +4,12 @@ title: Configuring
 nav_order: 7
 grand_parent: User guide
 parent: Install and configure OpenSearch Benchmark
+canonical_url: https://docs.opensearch.org/latest/benchmark/user-guide/install-and-configure/configuring-benchmark/
 redirect_from:
   - /benchmark/configuring-benchmark/
   - /benchmark/user-guide/configuring-benchmark/
   - /benchmark/tutorials/sigv4/
+redirect_to: https://docs.opensearch.org/latest/benchmark/user-guide/install-and-configure/configuring-benchmark/
 ---
 
 # Configuring OpenSearch Benchmark

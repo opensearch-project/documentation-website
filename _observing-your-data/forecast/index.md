@@ -3,6 +3,7 @@ layout: default
 title: Forecasting
 nav_order: 130
 has_children: true
+canonical_url: https://docs.opensearch.org/latest/observing-your-data/forecast/index/
 redirect_from:
   - /observing-your-data/forecast/
 ---
