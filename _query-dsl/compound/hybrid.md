@@ -266,7 +266,3 @@ GET /my-index/_search
 
 When using a `bool` query containing `should` clauses instead of a `hybrid` query, the search pipeline's normalization and combination processors are not applied. Instead, scores from the subqueries are combined using standard Boolean scoring (sum of matching clauses). The `function_score` functions are then applied to the combined score.
 {: .note}
-
-## Disabling hybrid queries
-
-By default, hybrid queries are enabled. To disable hybrid queries in your cluster, set the `plugins.neural_search.hybrid_search_disabled` setting to `true` in `opensearch.yml`.
