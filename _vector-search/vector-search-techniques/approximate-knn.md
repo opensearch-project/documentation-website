@@ -269,16 +269,16 @@ After data is ingested, it can be searched in the same way as any other `knn_vec
 
 ### Restoring k-NN models from a snapshot
 
-The k-NN plugin stores trained models in the `.opensearch-knn-models` system index. When you restore `.opensearch-knn-models` from a snapshot, for example, onto another cluster, restore the indexes built from its models in the same request or after it. These indexes need their models' metadata from `.opensearch-knn-models` to open their shards. Indexes that don't use a model aren't affected.
+The k-NN plugin stores trained models in the `.opensearch-knn-models` system index. When you restore `.opensearch-knn-models` from a snapshot, for example, to another cluster, restore the indexes that reference trained models in the same request or after it. These indexes need the model metadata in `.opensearch-knn-models` to open their shards. Indexes that don't use a model aren't affected.
 
-Before you restore, make sure that:
+Before you restore, ensure that:
 
-- **No model has been trained on the cluster you restore to.** Training a model creates `.opensearch-knn-models`, and OpenSearch can't restore an index when an open index with the same name exists, so the restore operation fails.
-- **You have permission to restore the index.** If the Security plugin protects system indexes in your cluster, restoring `.opensearch-knn-models` requires permission to restore system indexes. A user mapped to a role in `plugins.security.restapi.roles_enabled` can restore a system index if the index is listed in the `plugins.security.system_indices.restore.indices` setting. `.opensearch-knn-models` is listed by default. You can also restore system indexes as a super admin or using system index permissions. For more information, see [Who can restore system indexes]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#who-can-restore-system-indexes).
+- No model has been trained on the cluster you restore to. Training a model creates a `.opensearch-knn-models` index, and OpenSearch cannot restore an index when an open index with the same name exists, so the restore operation fails.
+- You have permissions to restore the index. If the Security plugin protects system indexes in your cluster, restoring `.opensearch-knn-models` requires permissions to restore system indexes. A user mapped to a role in `plugins.security.restapi.roles_enabled` can restore a system index if the index is listed in the `plugins.security.system_indices.restore.indices` setting. The `.opensearch-knn-models` index is included in this setting by default. You can also restore system indexes as a super admin or using system index permissions. For more information, see [Who can restore system indexes]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#who-can-restore-system-indexes).
 
 To restore the models, follow these steps:
 
-1. Restore `.opensearch-knn-models` and the indexes built from its models in the same request:
+1. Restore the `.opensearch-knn-models` index and any indexes that reference trained models in the same request:
 
    ```json
    POST /_snapshot/my-repository/snapshot-1/_restore
@@ -289,12 +289,10 @@ To restore the models, follow these steps:
    ```
    {% include copy-curl.html %}
 
-   If you already restored an index built from a model without `.opensearch-knn-models`, its shards failed to restore with the error `Model ID '<model ID>' is not created.` Restoring `.opensearch-knn-models` now doesn't fix them. Delete the index, and then restore it in the same request as `.opensearch-knn-models`.
+   If you already restored an index that references a trained model without restoring `.opensearch-knn-models`, the affected shards fail to restore with the error `Model ID '<model ID>' is not created`. To recover the failed shards, delete the index and restore it in the same request as `.opensearch-knn-models`.
 
-1. Check the state of each model using the [Get a model]({{site.url}}{{site.baseurl}}/vector-search/api/knn#get-a-model) API. The following table shows the state to expect, based on the model's state while the snapshot was being taken.
+1. Verify the state for each model by using the [Get a model]({{site.url}}{{site.baseurl}}/vector-search/api/knn#get-a-model) API. The expected state after restoration depends on the model state during snapshot creation:
 
-| Cluster that took the snapshot | Cluster you restore to | What to do |
-| :--- | :--- | :--- |
-| The model was in the `created` or `failed` state for the whole time the snapshot was being taken, and wasn't deleted. | The model is in the same state. | None. |
-| The model was in the `training` state at any time while the snapshot was being taken. | The model is in the `created` or `failed` state, or doesn't exist. | If the model is in the `failed` state, delete it and train it again. If it doesn't exist, train it again. |
-| The model was deleted while the snapshot was being taken. | The model doesn't exist. | None. |
+   - If the model was in the `created` or `failed` state for the entire duration of snapshot creation and was not deleted, it should be in the same state after restoration. No action is needed.
+   - If the model was in the `training` state at any point during snapshot creation, it may be in the `created` or `failed` state or may not exist after restoration. If the model is in the `failed` state, delete it and train it again. If it does not exist, train it again.
+   - If the model was deleted during snapshot creation, it does not exist after restoration. No action is needed.
