@@ -26,7 +26,7 @@ Operating system | Version
 :--- | :---
 Windows | Windows 10, Windows 11
 macOS | Catalina 10.15.4, Mojave 10.14.6, Big Sur 11.6.7, Monterey 12.4
-Linux | x86_64 distributions with unixODBC, built from source (tested on Ubuntu)
+Linux | x86_64 distributions with unixODBC, built from source (tested on Ubuntu 24.04 with unixODBC 2.3.12)
 
 
 ## Concepts
@@ -162,10 +162,10 @@ The driver is not distributed as a Linux package. Starting with driver version 1
    ```
    {% include copy.html %}
 
-5. Verify the connection using `isql`, which is installed with unixODBC:
+5. Verify the connection using `iusql`, the Unicode version of the `isql` tool that is installed with unixODBC:
 
    ```bash
-   echo "SELECT 1 AS one" | isql -v opensearch -b
+   echo "SELECT 1 AS one" | iusql -v opensearch -b
    ```
    {% include copy.html %}
 
