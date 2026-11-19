@@ -76,18 +76,20 @@ By default, ML Commons allows registration only of [pretrained models]({{site.ur
 When registering a model from a URL, make sure the source is trusted. Loading models from untrusted sources can pose security risks. For more information, see [PyTorch security guidelines for untrusted models](https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models).
 {: .warning}
 
-The default value of `plugins.ml_commons.trusted_url_regex` is not secure. For security, set it to a regular expression that matches only the trusted repository containing your models, for example, `https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/*`.
+The default value of `plugins.ml_commons.trusted_url_regex` is not secure. For security, set it to a regular expression that matches only the trusted repository containing your models, for example, `https://github.com/opensearch-project/ml-commons/blob/main/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/*`.
 {: .warning }
 
 ## Connector endpoint settings
 
-ML Commons supports the following settings for controlling the endpoints to which connectors send requests:
+ML Commons supports the following settings for controlling the endpoints to which connectors send requests. These settings apply to all connector requests, including streaming prediction requests:
 
 - `plugins.ml_commons.trusted_connector_endpoints_regex` (Dynamic, list): A list of Java regular expressions. OpenSearch accepts a connector only if its endpoint URL matches one of these expressions. The value you provide replaces the entire default list. For the default list, see [Adding trusted endpoints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/#adding-trusted-endpoints).
 
-- `plugins.ml_commons.connector.private_ip_enabled` (Dynamic, Boolean): When `true`, connectors can send requests to hosts that resolve to a private, link-local, or loopback IP address, such as `10.0.0.1` or `127.0.0.1`. When `false`, OpenSearch rejects prediction requests for models whose connector endpoint resolves to such an address. To apply a change to a deployed model, redeploy the model. Default is `false`.
+- `plugins.ml_commons.connector.private_ip_enabled` (Dynamic, Boolean): When `true`, connectors can send requests to hosts that resolve to a private IP address. When `false`, OpenSearch rejects prediction requests for models whose connector endpoint resolves to such an address. The following addresses are private: the RFC 1918 ranges (`10.0.0.0/8`, `172.16.0.0/12`, and `192.168.0.0/16`), loopback addresses (`127.0.0.0/8` and `::1`), the unspecified addresses (`0.0.0.0` and `::`), IPv6 unique-local (`fc00::/7`) and site-local (`fec0::/10`) addresses, the local-use NAT64 range (`64:ff9b:1::/48`), and any IPv6 address that carries one of these IPv4 ranges in an IPv4-mapped (`::ffff:a.b.c.d`), IPv4-compatible (`::a.b.c.d`), or NAT64 (`64:ff9b::/96` or `64:ff9b:1::/48`) form, including when a DNS AAAA record returns such an address. Link-local addresses (`169.254.0.0/16` and `fe80::/10`) and cloud instance metadata addresses (`fd00:ec2::/32`, `fd20:ce::254`, and `100.100.100.200`) are always refused, regardless of this setting, including when one of the IPv4 addresses in this list is carried in an IPv4-mapped, IPv4-compatible, or NAT64 form (for example, `::ffff:169.254.169.254`). To apply a change to a deployed model, redeploy the model. Default is `false`.
 
 - `plugins.ml_commons.trusted_connector_private_endpoints_regex` (Dynamic, list): A list of Java regular expressions that limits the private endpoints to which connectors can send requests. This setting applies only when `plugins.ml_commons.connector.private_ip_enabled` is `true`. If the list contains expressions, a connector URL whose host resolves to a private IP address must match one of them. If the list is empty, connectors can send requests to any private endpoint. To apply a change to a deployed model, redeploy the model. Default is `[]`.
+
+- `plugins.ml_commons.connector.restricted_ip_patterns` (Static, list): A list of Java regular expressions, each of which must match a whole IP address. OpenSearch matches them against every IP address to which a connector host resolves, in the format Java uses to print the address (for example, `10.0.0.1` or `fd00:ec2:0:0:0:0:0:254`), and against the dotted-decimal format of an IPv4 address carried in an IPv6 address. OpenSearch refuses requests to an address that matches any of the expressions, regardless of the `plugins.ml_commons.connector.private_ip_enabled` setting. Default is `[]`.
 
 ## Circuit breaker settings
 

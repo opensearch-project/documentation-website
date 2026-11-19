@@ -149,7 +149,7 @@ PUT /_plugins/_ml/models/IMcNB5UB7judm8f45nXo
 ```
 {% include copy-curl.html %}
 
-If the model was registered using the [Amazon Bedrock AI21 Labs Jurassic blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_ai21labs_jurassic_blueprint.md), a default interface is applied automatically.
+If the model was registered using the [Amazon Bedrock AI21 Labs Jurassic blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/bedrock_connector_ai21labs_jurassic_blueprint.md), a default interface is applied automatically.
 {: .note}
 
 If the model interface is no longer needed, you can remove both the input and output schemas in order to bypass model schema validation:

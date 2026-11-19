@@ -9,7 +9,6 @@ redirect_from:
   - /observability-plugin/ppl/commands/
   - /search-plugins/ppl/commands/
   - /search-plugins/ppl/functions/
-  - /sql-and-ppl/ppl/functions/
   - /sql-and-ppl/ppl/commands/
 ---
 
