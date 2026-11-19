@@ -33,7 +33,7 @@ The request body is required. When you specify an action group name, the body is
 
 | Field | Data type | Description | Required |
 | :--- | :--- | :--- | :--- |
-| `allowed_actions` | Array of strings | The actions that the action group permits. Specify individual actions, such as `indices:data/write/index`, or the names of other action groups. | Yes |
+| `allowed_actions` | Array of strings | The actions that the action group permits. Specify individual actions, such as `indices:data/write/index`, the names of other action groups, or wildcard or regular-expression patterns. Entries that match none of these are rejected. | Yes |
 | `type` | String | The scope of the action group. Valid values are `cluster`, `index`, and `kibana`. If omitted, the action group can be used at any level. | No |
 | `description` | String | A description of the action group. | No |
 | `hidden` | Boolean | Whether the action group is hidden from the API and OpenSearch Dashboards. Default is `false`. | No |
@@ -75,7 +75,7 @@ To create or replace multiple action groups in one request, omit the action grou
 
 If an action group name or definition is invalid, or a change is not permitted, none of the action groups in the request are written. Each action group in the request is subject to the same permissions and restrictions as a single-action-group request. These include restrictions on modifying reserved or hidden action groups, naming an action group after an existing role, listing an action group in its own `allowed_actions`, and creating action groups that contain REST API admin permissions. For API access requirements, see [Security REST API permissions]({{site.url}}{{site.baseurl}}/security/access-control/api/).
 
-An action group can list other action groups in `allowed_actions`, including action groups defined in the same request, in any order. References are resolved when permissions are evaluated, so a referenced action group does not need to exist when the request is validated.
+An action group can list other action groups in `allowed_actions`, including action groups defined in the same request, in any order. A referenced action group must already exist or be defined in the same request; references are then resolved when permissions are evaluated.
 
 The number of action groups in one request is limited by the `plugins.security.restapi.bulk_max_entries` cluster setting. Default is `1000`. For more information, see [Security settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/#rest-management-api-settings).
 

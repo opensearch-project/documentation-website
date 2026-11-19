@@ -49,6 +49,8 @@ The request body is required. It is an array of JSON objects. Each object contai
 | `path` | String | The path to modify. When you specify an action group name, the path is relative to that action group, such as `/allowed_actions`. When you omit the name, the path names the action group, such as `/CREATE_INDEX`. | Yes |
 | `value` | Object | The new value. Required for the `add`, `replace`, and `test` operations. | No |
 
+A patch that sets `allowed_actions` is subject to the same validation as a [create or update request]({{site.url}}{{site.baseurl}}/security/api/action-groups/create-action-group/#request-body-fields).
+
 ## Example request
 
 The following request replaces the allowed actions of the `custom_action_group` action group:
