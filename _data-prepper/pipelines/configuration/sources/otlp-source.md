@@ -24,7 +24,7 @@ You can configure the `otlp` source with the following options.
 | `metrics_path` | String | The path for sending unframed HTTP requests for metrics. Must start with `/` and have a minimum length of 1. Default is `/opentelemetry.proto.collector.metrics.v1.MetricsService/Export`. |
 | `traces_path` | String | The path for sending unframed HTTP requests for traces. Must start with `/` and have a minimum length of 1. Default is `/opentelemetry.proto.collector.trace.v1.TraceService/Export`. |
 | `request_timeout` | Duration | The request timeout duration. Default is `10s`. |
-| `retry_info` | Object | Configures retry behavior. Supports `min_delay` (default `100ms`) and `max_delay` (default `2s`) parameters to control exponential backoff. See [Retry information](#retry-information).|
+| `retry_info` | Object | Configures retry behavior. Supports `min_delay` (default `100ms`) and `max_delay` (default `2s`) parameters to control exponential backoff. See [Retry configuration](#retry-configuration).|
 | `health_check_service` | Boolean | Enables a gRPC health check service under `grpc.health.v1.Health/Check`. When `unframed_requests` is `true`, enables HTTP health check at `/health`. Default is `false`. |
 | `unauthenticated_health_check` | Boolean | Determines whether or not authentication is required on the HTTP health check endpoint. OpenSearch Data Prepper ignores this option if no authentication is defined. Default is `false`. |
 | `proto_reflection_service` | Boolean | Enables a reflection service for Protobuf services (see [ProtoReflectionService](https://grpc.github.io/grpc-java/javadoc/io/grpc/protobuf/services/ProtoReflectionService.html) and [gRPC reflection](https://github.com/grpc/grpc-java/blob/master/documentation/server-reflection-tutorial.md)). Default is `false`. |
@@ -87,9 +87,9 @@ source:
 
 This plugin uses pluggable authentication for gRPC servers. To provide custom authentication, create a plugin that implements [`GrpcAuthenticationProvider`](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/armeria-common/src/main/java/org/opensearch/dataprepper/armeria/authentication/GrpcAuthenticationProvider.java).
 
-### Retry information
+### Retry configuration
 
-You can set retry behavior using the `retry_info` setting, specifying how long to wait for the next request when backpressure occurs, including when the [circuit breaker]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#circuit-breakers) is open. The retry mechanism applies exponential backoff with a configurable maximum delay:
+To configure retry behavior, use the `retry_info` setting. The setting specifies the amount of time to wait before the next request when backpressure occurs, including when the [circuit breaker]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#circuit-breakers) is open. The retry mechanism applies exponential backoff with a configurable maximum delay:
 
 ```yaml
 source:
