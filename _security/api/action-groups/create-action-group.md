@@ -33,7 +33,7 @@ The request body is required. When you specify an action group name, the body is
 
 | Field | Data type | Description | Required |
 | :--- | :--- | :--- | :--- |
-| `allowed_actions` | Array of strings | The actions that the action group permits. Specify individual actions, such as `indices:data/write/index`, the names of other action groups, or wildcard or regular-expression patterns. Entries that match none of these are rejected. | Yes |
+| `allowed_actions` | Array of strings | The actions that the action group permits. Specify individual actions, such as `indices:data/write/index`, the names of other action groups, or wildcard or regular expression patterns. | Yes |
 | `type` | String | The scope of the action group. Valid values are `cluster`, `index`, and `kibana`. If omitted, the action group can be used at any level. | No |
 | `description` | String | A description of the action group. | No |
 | `hidden` | Boolean | Whether the action group is hidden from the API and OpenSearch Dashboards. Default is `false`. | No |
