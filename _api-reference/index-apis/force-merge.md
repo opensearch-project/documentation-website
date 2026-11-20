@@ -58,6 +58,16 @@ When you force merge multiple indexes, each node merges its shards using the `fo
 It can be useful to force merge data streams in order to manage a data stream's backing indexes, especially after a rollover operation. Time-based indexes receive indexing requests only during a specified time period. Once that time period has elapsed and the index receives no more write requests, you can force merge segments of all index shards into one segment. Searches on single-segment shards are more efficient because they use simpler data structures.
 
 
+## Upgrading segments
+**Introduced 3.11**
+{: .label .label-purple }
+
+After you upgrade OpenSearch, existing segments remain in the format of the Lucene version that wrote them until they are merged. Background merges never select segments that have reached `index.merge.policy.max_merged_segment` (the default is 5 GB), so large segments can stay in the older format indefinitely.
+
+To rewrite these segments using the current Lucene version, set `upgrade` to `true`. If you don't specify `max_num_segments`, each older segment is rewritten as a single new segment, so the number and size of segments on each shard stay the same. If you specify `max_num_segments`, the older segments are upgraded and then merged into at most that number of segments. Segments that are already in the current format are not rewritten unless they are selected for merging.
+
+You can't set `upgrade` and `only_expunge_deletes` in the same request. Like any force merge, upgrading rewrites segment files, so the shard temporarily requires additional storage.
+
 ## Path parameters
 
 The following table lists the available path parameters. All path parameters are optional.
@@ -79,6 +89,7 @@ The following table lists the available query parameters. All query parameters a
 | `max_num_segments` | Integer | The maximum number of segments per shard after the merge. Set this parameter to `1` to merge all segments of each shard into one segment. By default, segments are merged as determined by the merge policy. |
 | `only_expunge_deletes` | Boolean | If `true`, the merge operation only expunges segments containing a certain percentage of deleted documents. The percentage is 10% by default and is configurable in the `index.merge.policy.expunge_deletes_allowed` setting. Using `only_expunge_deletes` does not produce segments larger than `index.merge.policy.max_merged_segment` (by default, 5 GB). Combining `only_expunge_deletes` with `max_num_segments` is deprecated. For more information, see [Deleted documents](#deleted-documents). Default is `false`. |
 | `primary_only` | Boolean | If set to `true`, then the merge operation is performed only on the primary shards of an index. This can be useful when you want to take a snapshot of the index after the merge is complete. Snapshots only copy segments from the primary shards. Merging the primary shards can reduce resource consumption. Default is `false`. |
+| `upgrade` | Boolean | If `true`, segments written by an older Lucene version are rewritten using the current Lucene version. When `max_num_segments` is not set, each older segment is rewritten individually and no segments are merged together. When `max_num_segments` is set, segments are upgraded and then merged into at most that number of segments. Cannot be combined with `only_expunge_deletes`. For more information, see [Upgrading segments](#upgrading-segments). Default is `false`. _(Introduced 3.11)_ |
 | `wait_for_completion` | Boolean | If `false`, OpenSearch runs the force merge operation asynchronously without waiting for it to complete. The request returns immediately, and the task continues in the background. You can monitor its progress using the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/). Default is `true`, which means the operation runs synchronously. |
 
 ## Example requests
@@ -208,6 +219,33 @@ POST /testindex-logs/_forcemerge?primary_only=true
 response = client.indices.forcemerge(
   index = "testindex-logs",
   params = { "primary_only": "true" }
+)
+
+{% endcapture %}
+
+{% include code-block.html
+    rest=step1_rest
+    python=step1_python %}
+<!-- spec_insert_end -->
+
+### Upgrade segments to the current Lucene version
+
+The following example rewrites all segments of an index that were written by an older Lucene version, without merging segments together:
+
+<!-- spec_insert_start
+component: example_code
+rest: POST /testindex1/_forcemerge?upgrade=true
+-->
+{% capture step1_rest %}
+POST /testindex1/_forcemerge?upgrade=true
+{% endcapture %}
+
+{% capture step1_python %}
+
+
+response = client.indices.forcemerge(
+  index = "testindex1",
+  params = { "upgrade": "true" }
 )
 
 {% endcapture %}
