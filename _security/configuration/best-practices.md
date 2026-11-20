@@ -100,6 +100,8 @@ config:
 ```
 {% include copy.html %}
 
+If you keep private tenants enabled, give your custom tenants names that don't match the name of any user in the cluster. A private tenant is identified by the name of the user it belongs to, so a custom tenant and a user with the same name resolve to a single index and share the objects saved in it. For more information, see [Choose tenant names that don't match usernames]({{site.url}}{{site.baseurl}}/security/multi-tenancy/multi-tenancy-config/#choose-tenant-names-that-dont-match-usernames).
+
 ## 8. Manage the configuration using `securityadmin.sh`
 
 Use `securityadmin.sh` to manage the configuration of your clusters. `securityadmin.sh` is a command-line tool provided by OpenSearch for managing security configurations. It allows administrators to efficiently manage security settings, including roles, role mappings, and other security-related configurations within an OpenSearch cluster.

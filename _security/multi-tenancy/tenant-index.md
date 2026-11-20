@@ -18,6 +18,9 @@ redirect_from:
 - **Private** -- This tenant is exclusive to each user and can't be shared. It does not allow you to access routes or index patterns created by the user's global tenant.
 - **Custom** -- Administrators can create custom tenants and assign them to specific roles. Once created, these tenants can then provide spaces for specific groups of users.
 
+Give custom tenants names that don't match the name of any user in the cluster. A private tenant is identified by the name of the user it belongs to, so a custom tenant and a user with the same name resolve to the same underlying index, and the objects saved in one appear in the other. For more information, see [Choose tenant names that don't match usernames]({{site.url}}{{site.baseurl}}/security/multi-tenancy/multi-tenancy-config/#choose-tenant-names-that-dont-match-usernames).
+{: .note}
+
 The global tenant in OpenSearch Dashboards doesn't synchronize its content with private tenants. When you make modifications inside your global tenant, these changes are exclusive to the global tenant. They aren't automatically mirrored or replicated in the private tenant. Some example changes to both private and global tenants include the following:
 
 - Change advanced settings

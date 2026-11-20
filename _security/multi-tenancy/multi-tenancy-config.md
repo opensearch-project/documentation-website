@@ -84,6 +84,24 @@ admin_tenant:
   description: "Demo tenant for admin user"
 ```
 
+## Choose tenant names that don't match usernames
+
+Give each tenant a name that doesn't match the name of any user in the cluster. The Security plugin stores every tenant's objects in an index whose name is derived from a single value: the tenant name for a custom tenant, and the username for a private tenant. A custom tenant and a user with identical names therefore resolve to the same index.
+
+When those names match, the user's private tenant and the custom tenant are the same storage rather than two separate spaces. Objects that the user saves in their private tenant appear in the custom tenant, and objects saved in the custom tenant appear in the user's private tenant. This applies no matter which permissions the user holds on the custom tenant.
+
+Because tenant names are scrubbed of special characters when the index name is derived, names that differ only by punctuation or case remain distinct. Only an exact match produces a shared index.
+{: .note}
+
+When you choose names, consider the following recommendations:
+
+- Avoid tenant names that match the names of existing users, including service accounts.
+- Avoid tenant names that match names that users might be assigned later. Team names such as `finance`, `platform`, or `support` are common choices for both tenants and accounts.
+- Avoid tenant names that match usernames supplied by an external identity provider. When users authenticate through SAML or OpenID Connect, usernames originate outside the cluster, so a name that doesn't exist today might appear later.
+- Prefer a naming convention that keeps the two sets apart, such as a suffix on every tenant name (`finance-tenant` rather than `finance`).
+
+If a tenant and a user already share a name, rename one of them. To move existing objects, export the saved objects from the tenant before renaming it and import them into the renamed tenant. For more information, see [Managing saved objects]({{site.url}}{{site.baseurl}}/dashboards/management/saved-objects/).
+
 ## Give roles access to tenants
 
 After creating a tenant, give a role access to it using OpenSearch Dashboards, the REST API, or `roles.yml`.
@@ -145,6 +163,9 @@ The open source version of OpenSearch Dashboards saves all objects to a single i
 
 The Security plugin scrubs these index names of special characters, so they might not be a perfect match of tenant names and usernames.
 {: .tip }
+
+Both patterns are derived in the same way, so a custom tenant and a user with the same name produce a single index rather than two. For more information, see [Choose tenant names that don't match usernames](#choose-tenant-names-that-dont-match-usernames).
+{: .note}
 
 To back up your OpenSearch Dashboards data, [take a snapshot]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/) of all tenant indexes using an index pattern such as `.kibana*`.
 
