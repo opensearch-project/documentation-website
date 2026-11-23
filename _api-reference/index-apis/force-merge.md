@@ -35,7 +35,7 @@ OpenSearch retains a shard's history of operations, including deleted documents,
 
 In addition to periodic merging, you can force a segment merge using the Force Merge API. By default, the merge policy determines which segments to merge, so a force merge request might not change the number of segments. To merge all segments of each shard into one segment, set `max_num_segments` to `1`.
 
-Use the Force Merge API on an index only after all write requests sent to the index are completed. The force merge operation can produce very large segments. If write requests are still sent to the index, then the merge policy does not merge these segments until they primarily consist of deleted documents. This can increase disk space usage and lead to performance degradation.
+Use the Force Merge API on an index only after all write requests sent to the index are completed. The force merge operation can produce very large segments. If write requests are still sent to the index, then the merge policy does not merge these segments until they primarily consist of deleted documents. This can increase disk space usage and lead to performance degradation. During a force merge, the shard temporarily requires additional storage to rewrite segment files.
 {: .warning}
 
 By default, the Force Merge API call does not return until the merge completes. If the connection is lost during this time, the force merge operation continues in the background. To run the operation asynchronously, set `wait_for_completion` to `false`.
@@ -48,7 +48,7 @@ To force merge multiple indexes, you can call the Force Merge API on the followi
 
 - Multiple indexes
 - One or more data streams containing multiple backing indexes
-- One or more index aliases pointing to multiple indexes
+- One or more index aliases referencing multiple indexes
 - All data streams and indexes in a cluster
 
 When you force merge multiple indexes, each node merges its shards using the `force_merge` thread pool. The pool size is one-eighth of the node's allocated processors, with a minimum of 1, so on most nodes shards are merged one at a time. While the force merge operation is in progress, the storage for the shard temporarily increases so that all segments can be rewritten into a new segment. When `max_num_segments` is set to `1`, the storage for the shard can temporarily double.
@@ -57,6 +57,16 @@ When you force merge multiple indexes, each node merges its shards using the `fo
 
 It can be useful to force merge data streams in order to manage a data stream's backing indexes, especially after a rollover operation. Time-based indexes receive indexing requests only during a specified time period. Once that time period has elapsed and the index receives no more write requests, you can force merge segments of all index shards into one segment. Searches on single-segment shards are more efficient because they use simpler data structures.
 
+
+## Upgrading segments
+**Introduced 3.11**
+{: .label .label-purple }
+
+After you upgrade OpenSearch, segments written by an older Lucene version remain in that format until they are merged. Background merge operations never select segments that have reached `index.merge.policy.max_merged_segment`, so large segments can stay in the older format indefinitely.
+
+To rewrite these segments using the current Lucene version, set `upgrade` to `true`. If you don't specify `max_num_segments`, each segment in an older format is rewritten as a single new segment, so the number and size of segments on each shard stay the same. If you specify `max_num_segments`, the segments in an older format are upgraded and then merged into at most `max_num_segments` segments. Segments that are already in the current format are not rewritten unless they are selected for merging.
+
+You cannot set `upgrade` and `only_expunge_deletes` in the same request. The `only_expunge_deletes` parameter limits merging to segments that contain more than a specified percentage of deleted documents, which conflicts with rewriting all segments in an older format.
 
 ## Path parameters
 
@@ -77,9 +87,10 @@ The following table lists the available query parameters. All query parameters a
 | `flush` | Boolean | Performs a flush on the indexes after the force merge. A flush ensures that the files are persisted to disk. Default is `true`. |
 | `ignore_unavailable` | Boolean | If `true`, OpenSearch ignores missing or closed indexes. If `false`, OpenSearch returns an error if the force merge operation encounters missing or closed indexes. Default is `false`. |
 | `max_num_segments` | Integer | The maximum number of segments per shard after the merge. Set this parameter to `1` to merge all segments of each shard into one segment. By default, segments are merged as determined by the merge policy. |
-| `only_expunge_deletes` | Boolean | If `true`, the merge operation only expunges segments containing a certain percentage of deleted documents. The percentage is 10% by default and is configurable in the `index.merge.policy.expunge_deletes_allowed` setting. Using `only_expunge_deletes` does not produce segments larger than `index.merge.policy.max_merged_segment` (by default, 5 GB). Combining `only_expunge_deletes` with `max_num_segments` is deprecated. For more information, see [Deleted documents](#deleted-documents). Default is `false`. |
+| `only_expunge_deletes` | Boolean | If `true`, the merge operation only expunges segments containing a certain percentage of deleted documents. The percentage is 10% by default and is configurable in the `index.merge.policy.expunge_deletes_allowed` setting. Using `only_expunge_deletes` does not produce segments larger than `index.merge.policy.max_merged_segment` (by default, 5 GB). Combining `only_expunge_deletes` with `max_num_segments` is deprecated. Cannot be combined with `upgrade`. For more information, see [Deleted documents](#deleted-documents). Default is `false`. |
 | `primary_only` | Boolean | If set to `true`, then the merge operation is performed only on the primary shards of an index. This can be useful when you want to take a snapshot of the index after the merge is complete. Snapshots only copy segments from the primary shards. Merging the primary shards can reduce resource consumption. Default is `false`. |
-| `wait_for_completion` | Boolean | If `false`, OpenSearch runs the force merge operation asynchronously without waiting for it to complete. The request returns immediately, and the task continues in the background. You can monitor its progress using the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/). Default is `true`, which means the operation runs synchronously. |
+| `upgrade` | Boolean | If `true`, segments written by an older Lucene version are rewritten using the current Lucene version. When `max_num_segments` is not set, each segment in an older format is rewritten individually and no segments are merged together. When `max_num_segments` is set, segments are upgraded and then merged into at most `max_num_segments` segments. Cannot be combined with `only_expunge_deletes`. For more information, see [Upgrading segments](#upgrading-segments). Default is `false`. |
+| `wait_for_completion` | Boolean | If `false`, OpenSearch runs the force merge operation asynchronously without waiting for it to complete. The request returns immediately, and the task continues in the background. You can monitor its progress using the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/). Default is `true`, which indicates that the operation runs synchronously. |
 
 ## Example requests
 
@@ -163,60 +174,6 @@ response = client.indices.forcemerge()
     python=step1_python %}
 <!-- spec_insert_end -->
 
-### Force merge a data stream's backing indexes into one segment
-
-The following example force merges a data stream's backing indexes into one segment:
-
-<!-- spec_insert_start
-component: example_code
-rest: POST /testindex-logs/_forcemerge?max_num_segments=1
--->
-{% capture step1_rest %}
-POST /testindex-logs/_forcemerge?max_num_segments=1
-{% endcapture %}
-
-{% capture step1_python %}
-
-
-response = client.indices.forcemerge(
-  index = "testindex-logs",
-  params = { "max_num_segments": "1" }
-)
-
-{% endcapture %}
-
-{% include code-block.html
-    rest=step1_rest
-    python=step1_python %}
-<!-- spec_insert_end -->
-
-### Force merge primary shards
-
-The following example force merges an index's primary shards:
-
-<!-- spec_insert_start
-component: example_code
-rest: POST /testindex-logs/_forcemerge?primary_only=true
--->
-{% capture step1_rest %}
-POST /testindex-logs/_forcemerge?primary_only=true
-{% endcapture %}
-
-{% capture step1_python %}
-
-
-response = client.indices.forcemerge(
-  index = "testindex-logs",
-  params = { "primary_only": "true" }
-)
-
-{% endcapture %}
-
-{% include code-block.html
-    rest=step1_rest
-    python=step1_python %}
-<!-- spec_insert_end -->
-
 ## Example response
 
 The `total` count includes both primary and replica shards. In the following example response, the index has one primary shard and one replica shard. The replica shard is unassigned, so the operation succeeded only on the primary shard:
@@ -258,4 +215,4 @@ The `_shards` object contains the following fields.
 
 ## Required permissions
 
-If you use the Security plugin, make sure you have the appropriate permissions: `indices:admin/forcemerge`.
+If you use the Security plugin, ensure that you have the appropriate permissions: `indices:admin/forcemerge`.
