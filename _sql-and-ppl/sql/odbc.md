@@ -250,15 +250,21 @@ Option | Description | Type | Default
 `LogLevel` | The severity level for driver logs. Valid values are `0` (off), `1` (fatal), `2` (error), `3` (warning), `4` (info), `5` (debug), `6` (trace), and `7` (all). | `integer` | `3`
 `LogOutput` | The directory in which driver logs are stored. | `string` | `C:\` (Windows) or `/tmp` (macOS and Linux)
 
-The driver reads the log directory from its driver-level configuration when it loads, so a `LogOutput` value in a DSN or connection string does not change where logs are written. On Windows, set the log directory in the DSN setup dialog in ODBC Data Source Administrator, which saves it to the driver-level configuration.
+On Windows, set the log directory in the DSN setup dialog in ODBC Data Source Administrator.
 
-On Linux, set the log directory by adding an `[OpenSearch Unicode]` section to `odbcinst.ini`. This section is separate from the section in which you registered the driver, and a `LogOutput` value in the registration section has no effect. The directory must exist; otherwise, the driver does not write any log files:
+On macOS and Linux, the driver reads the log directory from the `[OpenSearch Unicode]` section of `odbcinst.ini` when it loads. This section is separate from the section in which you registered the driver. On each connection, the driver then writes the `LogOutput` value from the DSN or connection string to this section, or writes `C:\` if neither contains `LogOutput`. Because the driver reads the value before writing it, the way you set the log directory depends on whether the operating system account that runs the ODBC application can write to `odbcinst.ini`.
+
+If the account cannot write to `odbcinst.ini` (for example, a regular account on Linux using a driver registered in `/etc/odbcinst.ini`), add the following section to `odbcinst.ini`. In this case, a `LogOutput` value in a DSN or connection string has no effect:
 
 ```ini
 [OpenSearch Unicode]
 LogOutput=<path-to-log-directory>
 ```
 {% include copy.html %}
+
+If the account can write to `odbcinst.ini` (for example, the root account on Linux or a macOS account that has its own `~/Library/ODBC/odbcinst.ini` file), set `LogOutput` in every DSN and connection string. The value takes effect the next time the driver loads. The driver stores one value for all DSNs, so specify the same directory in each. If a connection does not specify `LogOutput`, the driver stops writing log files after that connection.
+
+The driver does not create the log directory. If the directory does not exist, no log files are written.
 
 On Windows, you need administrative privileges to change the logging options.
 {: .note }
