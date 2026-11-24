@@ -9,6 +9,8 @@ redirect_from:
 
 # Installing OpenSearch Dashboards from a tarball
 
+You can install OpenSearch Dashboards on any Linux distribution by extracting a tarball archive on x64 or arm64 hosts. The tarball is a self-contained directory that includes everything you need to run OpenSearch Dashboards, including the configuration files in the `config` directory. The tarball does not create a system service, so you start OpenSearch Dashboards manually from the extracted directory.
+
 ## Prerequisites
 
 Install OpenSearch. For more information, see [Installing OpenSearch from a tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/tar/).
