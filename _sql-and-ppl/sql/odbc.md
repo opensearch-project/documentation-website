@@ -250,7 +250,15 @@ Option | Description | Type | Default
 `LogLevel` | The severity level for driver logs. Valid values are `0` (off), `1` (fatal), `2` (error), `3` (warning), `4` (info), `5` (debug), `6` (trace), and `7` (all). | `integer` | `3`
 `LogOutput` | The directory in which driver logs are stored. | `string` | `C:\` (Windows) or `/tmp` (macOS and Linux)
 
-The driver reads the log directory from its driver-level configuration when it loads, so a `LogOutput` value in a DSN or connection string does not change where logs are written. On Windows, set the log directory in the DSN setup dialog in ODBC Data Source Administrator, which saves it to the driver-level configuration. On macOS and Linux, logs are written to `/tmp`.
+The driver reads the log directory from its driver-level configuration when it loads, so a `LogOutput` value in a DSN or connection string does not change where logs are written. On Windows, set the log directory in the DSN setup dialog in ODBC Data Source Administrator, which saves it to the driver-level configuration.
+
+On Linux, set the log directory by adding an `[OpenSearch Unicode]` section to `odbcinst.ini`. This section is separate from the section in which you registered the driver, and a `LogOutput` value in the registration section has no effect. The directory must exist; otherwise, the driver does not write any log files:
+
+```ini
+[OpenSearch Unicode]
+LogOutput=<path-to-log-directory>
+```
+{% include copy.html %}
 
 On Windows, you need administrative privileges to change the logging options.
 {: .note }
