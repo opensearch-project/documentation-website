@@ -129,30 +129,23 @@ See [Create role mapping]({{site.url}}{{site.baseurl}}/security/api/role-mapping
 A read-only role grants a user the ability to read data from the OpenSearch cluster but not to modify or delete any data. The read-only role is useful when you want to provide access to data for reporting, analysis, or visualization purposes without allowing modifications to the data or the cluster itself. This maintains data integrity and prevents accidental or unauthorized changes.
 
 As with any role in OpenSearch, a read-only role can be configured using the following methods:
- 
+
 - Using OpenSearch Dashboards
 - Modifying the `yml` configuration files
-- Using the Cluster Settings API 
+- Using the [Create or Update Roles API]({{site.url}}{{site.baseurl}}/security/api/roles/create-role/)
 
 The simplest way to get familiar with roles and role mappings is to use OpenSearch Dashboards. The interface simplifies creating roles and assigning those roles to users, with an easy-to-navigate workflow. 
 {: .tip}
 
 ### Defining a basic read-only role
 
-To create a basic read-only role that allows a user to access OpenSearch Dashboards, view existing dashboards and visualizations, and query different indexes, use the following permissions. These permissions give the user access to all tenants and indexes on the cluster.
+To create a basic read-only role that allows a user to access OpenSearch Dashboards, view existing dashboards and visualizations, and query different indexes, use the following cluster, index, and tenant permissions. These permissions give the user access to all tenants and indexes on the cluster.
 
+For a user requiring read-only access to cluster-wide resources, such as visualizations or dashboards, add the `cluster_composite_ops_ro` action group to the role's cluster permissions.
 
-#### Cluster permissions
+A user requiring access to view visualizations also requires access to the index used to create the visualization. To give a user read-only access to all indexes, in **Index permissions**, specify all (`*`) in the **Index** dropdown and select **Read**.
 
-For a user requiring read-only access to cluster-wide resources, such as visualizations or dashboards, add the `cluster_composite_ops_ro` permission to that user's role.
-
-#### Index permissions
-
-A user requiring access to view visualizations will also require access to the index used to create the visualization. To give a user read-only access to all indexes, specify all (`*`) under the **Index** dropdown and **Read** in **Index Permissions**.
-
-#### Tenant permissions
-
-If you use tenants to split work between teams or projects, use the all (`*`) option followed by the **Read only** option, as shown in the following image.
+If you use tenants to split work between teams or projects, in **Tenant permissions**, use the all (`*`) option followed by the **Read only** option, as shown in the following image.
 
 ![creating role]({{site.url}}{{site.baseurl}}/images/role_creation_read_only.png)
 
@@ -166,7 +159,10 @@ The OpenSearch Dashboards `readonly_mode` functionality is used to give a user a
 
 To configure this role, add the following line to your `opensearch_dashboards.yml` file:
 
-`opensearch_security.readonly_mode.roles: [new_role]`
+```yml
+opensearch_security.readonly_mode.roles: [new_role]
+```
+{% include copy.html %}
 
 Even if the assigned role grants additional privileges or a user is mapped to other roles with write access to indexes, OpenSearch Dashboards restricts this access. Direct access to OpenSearch data using cURL or API is still allowed. OpenSearch Dashboards is not involved in this communication. 
 
@@ -182,7 +178,7 @@ If a user is also mapped to any role listed under `plugins.security.restapi.role
 
 ### Additional permissions
 
-If a user requires permissions in addition to those included in the `read_only` role, such as for alerting or anomaly detection tasks, you can assign predefined roles, such as `alerting_read_access` or `anomaly_read_access`.
+If a user requires permissions in addition to those included in the read-only role, such as for alerting or anomaly detection tasks, you can assign predefined roles, such as `alerting_read_access` or `anomaly_read_access`.
 
 ## Predefined roles
 
@@ -195,6 +191,8 @@ The following table lists built-in static roles that are always provided.
 | Role | Description |
 | :--- | :--- |
 | `all_access`| Superuser role with full cluster access. Grants permissions to perform all cluster operations, write to all indexes, and access all tenants.|
+| `base_dashboards_user` | Grants the base permissions for using OpenSearch Dashboards: the `cluster_composite_ops` action group and read, index, delete, and manage permissions on the `.kibana` and `.opensearch_dashboards` aliases. Doesn't grant tenant permissions. Grant tenant permissions through separate roles. |
+| `base_dashboards_user_read_only` | Grants the base read-only permissions for using OpenSearch Dashboards: the `cluster_composite_ops_ro` action group and read permissions on the `.kibana` and `.opensearch_dashboards` aliases. Doesn't grant tenant permissions. Grant tenant permissions through separate roles. |
 | `kibana_server` | The role used by the OpenSearch Dashboards server user to read/write its internal saved objects and system indexes. Don't assign to human users. |
 | `kibana_user` | Lets a user sign in and use OpenSearch Dashboards. Grants permissions for cluster read and search, index monitoring, and writing to OpenSearch Dashboards indexes. Combine with read permissions for your data. |
 | `logstash`| Grants Logstash the permissions it needs to interact with OpenSearch. |
@@ -207,7 +205,7 @@ For a detailed breakdown of the individual permissions for these roles, see [sta
 
 ### Demo roles
 
-The following table lists the demo roles that are created by default if the `roles.yml` file is not provided when initializing the Security plugin.
+The following table lists the reserved roles defined in the default `roles.yml` file that ships with OpenSearch.
 
 | **Role** | **Description** |
 | :--- | :--- |
@@ -220,17 +218,42 @@ The following table lists the demo roles that are created by default if the `rol
 | `asynchronous_search_read_access`| Grants permissions to view asynchronous searches but not to submit, modify, or delete them. |
 | `cross_cluster_replication_follower_full_access` | Grants full access to perform cross-cluster replication actions on the follower cluster. |
 | `cross_cluster_replication_leader_full_access` | Grants full access to perform cross-cluster replication actions on the leader cluster. |
+| `cross_cluster_search_remote_full_access` | Grants the index permissions needed on the remote cluster to run cross-cluster searches. |
+| `flow_framework_full_access` | Grants full permissions to use all Flow Framework functionality. |
+| `flow_framework_read_access` | Grants permissions to view Flow Framework workflows and their states but not to create or modify them. |
+| `forecast_full_access` | Grants full permissions to use all forecasting functionality. |
+| `forecast_read_access` | Grants permissions to view forecasters and forecast results but not to create or modify forecasters. |
 | `index_management_full_access` | Grants full permissions to perform all index management actions, including ISM, transforms, and rollups. |
+| `ip2geo_datasource_full_access` | Grants full permissions to manage IP2Geo data sources. |
+| `ip2geo_datasource_read_access` | Grants permissions to view IP2Geo data sources. |
+| `kibana_read_only` | Contains no permissions. Intended for use with OpenSearch Dashboards [read-only mode](#opensearch-dashboards-readonly_mode). |
+| `knn_full_access` | Grants full permissions to use all k-NN functionality. |
+| `knn_read_access` | Grants permissions to view k-NN models and statistics but not to create, modify, or delete models. |
+| `ltr_full_access` | Grants full permissions to use all Learning to Rank functionality. |
+| `ltr_read_access` | Grants permissions to view Learning to Rank feature stores, caches, and statistics. |
 | `ml_full_access` | Grants full permissions to use all machine learning (ML) features, including starting tasks and managing models. |
 | `ml_read_access` | Grants permissions to view ML configuration, stats, models, and tasks without modifying them. |
+| `notebooks_full_access` | Grants full permissions to create, view, modify, and delete notebooks. |
+| `notebooks_read_access` | Grants permissions to view notebooks but not to create, modify, or delete them. |
 | `notifications_full_access`| Grants full permissions to perform all Notifications actions. |
 | `notifications_read_access`| Grants permissions to view Notifications configuration/channels and features but not modify them. |
 | `notifications_send_access`| Grants permissions to send messages through existing notifications channels and to view channels and features, but not to create, modify, or delete channels. |
+| `observability_full_access` | Grants full permissions to create, view, modify, and delete observability objects. |
+| `observability_read_access` | Grants permissions to view observability objects but not to create, modify, or delete them. |
 | `point_in_time_full_access`| Grants full permissions to perform all Point-in-Time operations.|
+| `ppl_full_access` | Grants permissions to run Piped Processing Language (PPL) queries on all indexes. |
+| `query_assistant_access` | Grants permissions to use the query assistant in OpenSearch Dashboards. |
+| `query_insights_full_access` | Grants full permissions to use all Query Insights APIs and to access the `top_queries-*` indexes. |
+| `reports_full_access` | Grants full permissions to create, view, modify, and delete report definitions and to generate and download reports. |
 | `reports_instances_read_access`| Grants permissions to generate on-demand reports and download existing report instances but not to view/create report definitions. |
+| `reports_read_access` | Grants permissions to view report definitions and to view and download existing report instances but not to create or modify report definitions. |
+| `search_relevance_full_access` | Grants full permissions to use all Search Relevance functionality. |
+| `search_relevance_read_access` | Grants permissions to view Search Relevance experiments, judgments, query sets, and search configurations. |
 | `security_analytics_ack_alerts`| Grants permissions to view and acknowledge Security Analytics alerts. |
 | `security_analytics_full_access` | Grants full permissions to use all Security Analytics functionality. |
 | `security_analytics_read_access` | Grants permissions to view Security Analytics detectors, alerts, findings, mappings, and rules. |
+| `security_rest_api_access` | Contains no permissions. The demo configuration lists this role in `plugins.security.restapi.roles_enabled`, which grants users mapped to it access to the [Security REST API]({{site.url}}{{site.baseurl}}/security/access-control/api/). |
+| `security_rest_api_full_access` | Grants the `restapi:admin` permissions for most Security REST API endpoints. For more information, see [REST API admin permissions]({{site.url}}{{site.baseurl}}/security/access-control/api/#rest-api-admin-permissions). |
 | `snapshot_management_full_access`| Grants full permissions to perform all snapshot management actions (including repositories and snapshots).|
 | `snapshot_management_read_access`| Grants permissions to view snapshot management policies, repositories, and snapshots without modifying them. |
 
@@ -282,14 +305,12 @@ Super admin users have unrestricted access to all settings and data within the c
 - Access and manage the security index `.opendistro_security`.
 - Override any security limitations.
 
-#### Authentication of the super admin role
+Super admin users are authenticated through certificates, not passwords. The distinguished names (DNs) of the necessary certificates are defined in the `plugins.security.authcz.admin_dn` setting in the `opensearch.yml` file, and the certificates must be signed with the same root certificate authority (CA), as shown in the following example:
 
-Super admin users are authenticated through certificates, not passwords. The necessary certificates are defined in the `admin_dn` section of the `opensearch.yml` file and must be signed with the same root certificate authority (CA), as shown in the following example:
-```
-YAML
+```yml
 plugins.security.authcz.admin_dn:
-- CN=kirk,OU=client,O=client,L=test, C=de
-``` 
+  - CN=kirk,OU=client,O=client,L=test,C=de
+```
 
 If the super admin certificate is signed by a different CA, then the admin CA must be concatenated with the node's CA in the file defined in `plugins.security.ssl.http.pemtrustedcas_filepath` in `opensearch.yml`. 
 
