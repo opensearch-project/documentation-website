@@ -34,7 +34,7 @@ We provide a fully functional example that can help you understand how to use an
 
    * `roles_mapping.yml` maps the `Administrator` and `Developers` LDAP groups (as backend roles) to security roles so that users gain the appropriate permissions after authenticating.
 
-   * `internal_users.yml` removes all default users except `administrator` and `kibanaserver`.
+   * `internal_users.yml` removes all default users except `admin` and `kibanaserver`.
 
    * `config.yml` includes all necessary LDAP settings.
 
@@ -59,10 +59,10 @@ We provide a fully functional example that can help you understand how to use an
 
 ## Connection settings
 
-To enable LDAP authentication and authorization, add the following lines to `config/opensearch-security/config.yml`:
-
 The internal user database authentication should also be enabled because OpenSearch Dashboards connects to OpenSearch using the `kibanaserver` internal user.
 {: .note}
+
+To enable LDAP authentication and authorization, add the following lines to `config/opensearch-security/config.yml`:
 
 ```yml
 authc:
@@ -116,6 +116,8 @@ config:
 
 You can configure more than one server here. If the Security plugin cannot connect to the first server, it tries to connect to the remaining servers sequentially.
 
+If you omit the port, the Security plugin uses port `636` when `enable_ssl` is `true` and port `389` otherwise.
+
 
 ### LDAP referrals
 
@@ -124,6 +126,7 @@ An LDAP referral directs a client to another directory location to continue a lo
 ```yml
 config:
   follow_referrals: false
+```
 
 Add this setting to the LDAP `authentication_backend.config` section under `authc` and the LDAP `authorization_backend.config` section under `authz`, as needed. Each backend reads its own setting. To disable referral following for both authentication and authorization, configure both sections.
 
@@ -169,24 +172,23 @@ config:
 
 Name | Description
 :--- | :---
-`enable_ssl` | Whether to use LDAP over SSL (LDAPS).
-`enable_start_tls` | Whether to use STARTTLS. Can't be used in combination with LDAPS.
-`enable_ssl_client_auth` | Whether to send the client certificate to the LDAP server.
-`verify_hostnames` | Whether to verify the hostnames of the server's TLS certificate.
+`enable_ssl` | Whether to use LDAP over SSL (LDAPS). Default is `false`.
+`enable_start_tls` | Whether to use STARTTLS. Can't be used in combination with LDAPS. Default is `false`.
+`enable_ssl_client_auth` | Whether to send the client certificate to the LDAP server. Default is `false`.
+`verify_hostnames` | Whether to verify the hostnames of the server's TLS certificate. Default is `true`.
 
 
 ### Certificate validation
 
-By default, the Security plugin validates the TLS certificate of the LDAP servers against the root CA configured in `opensearch.yml`, either as a PEM certificate or a truststore:
+If you don't configure a separate root CA for LDAP, the Security plugin validates the TLS certificate of the LDAP servers against the transport layer truststore configured in `opensearch.yml`:
 
-```
-plugins.security.ssl.transport.pemtrustedcas_filepath: ...
+```yml
 plugins.security.ssl.transport.truststore_filepath: ...
 ```
 
-If your server uses a certificate signed by a different CA, import this CA into your truststore or add it to your trusted CA file on each node.
+The transport layer PEM settings, such as `plugins.security.ssl.transport.pemtrustedcas_filepath`, are not used for LDAP connections. If your nodes use PEM certificates instead of a truststore, configure a separate root CA for LDAP as described in this section. Otherwise, the connection to the LDAP server fails.
 
-You can also use a separate root CA in PEM format.
+If your server uses a certificate signed by a different CA, import this CA into your truststore on each node or configure a separate root CA in PEM format.
 
 When configuring a separate root CA for LDAP, make sure to include the setting in all instances of the LDAP `config:` settings, including in both the `authc` and `authz` options of the configuration.
 {: .note}
@@ -212,16 +214,19 @@ config:
 
 Name | Description
 :--- | :---
-`pemtrustedcas_filepath` | Absolute path to the PEM file containing the root CAs of your Active Directory/LDAP server.
+`pemtrustedcas_filepath` | Path to the PEM file containing the root CAs of your Active Directory/LDAP server. Relative paths are resolved against the OpenSearch `config` directory.
 `pemtrustedcas_content` | The root CA content of your Active Directory/LDAP server. Cannot be used when `pemtrustedcas_filepath` is set.
 
 
 ### Client authentication
 
-If you use TLS client authentication, the Security plugin sends the PEM certificate of the node, as configured in `opensearch.yml`. Set one of the following configuration options:
+To send a client certificate to the LDAP server, set `enable_ssl_client_auth` to `true` and configure the client certificate and private key. The Security plugin reads the following settings only if you configure a separate root CA using `pemtrustedcas_filepath` or `pemtrustedcas_content`. Otherwise, the plugin uses the transport layer keystore configured in `opensearch.yml` (`plugins.security.ssl.transport.keystore_filepath`), and you must specify the alias of the client certificate in the keystore using the `cert_alias` setting.
+
+Set one of the following configuration options:
 
 ```yml
 config:
+  enable_ssl_client_auth: true
   pemkey_filepath: /full/path/to/private.key.pem
   pemkey_password: private_key_password
   pemcert_filepath: /full/path/to/certificate.pem
@@ -231,6 +236,7 @@ or
 
 ```yml
 config:
+  enable_ssl_client_auth: true
   pemkey_content: |-
     -----BEGIN PRIVATE KEY-----
     MIID2jCCAsKgAwIBAgIBBTANBgkqhkiG9w0BAQUFADCBlTETMBEGCgmSJomT8ixk
@@ -270,10 +276,10 @@ ldap:
     type: ldap
     config:
       enabled_ssl_ciphers:
-        - "TLS_DHE_RSA_WITH_AES_256_CBC_SHA"
-        - "TLS_DHE_DSS_WITH_AES_128_CBC_SHA256"
+        - "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384"
+        - "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
       enabled_ssl_protocols:
-        - "TLSv1.1"
+        - "TLSv1.3"
         - "TLSv1.2"
 ```
 
@@ -326,7 +332,7 @@ The Security plugin first takes the configured LDAP query and replaces the place
 usersearch: '(sAMAccountName={0})'
 ```
 
-Then it issues this query against the user subtree. Currently, the entire subtree under the configured `userbase` is searched:
+Then it issues this query against the user subtree. The entire subtree under the configured `userbase` is searched:
 
 ```yml
 userbase: 'ou=people,dc=example,dc=com'
@@ -347,8 +353,10 @@ Name | Description
 :--- | :---
 `userbase` | Specifies the subtree in the directory where user information is stored.
 `follow_referrals` | Boolean. Whether to follow LDAP referrals during searches and lookups. Default is `true`. See [LDAP referrals](#ldap-referrals).
-`usersearch` | The actual LDAP query that the Security plugin executes when trying to authenticate a user. The variable {0} is substituted with the user name.
+`usersearch` | The actual LDAP query that the Security plugin executes when trying to authenticate a user. The variable {0} is substituted with the user name. Default is `(sAMAccountName={0})`.
 `username_attribute` | The Security plugin uses this attribute of the directory entry to look for the user name. If set to null, the DN is used (default).
+`custom_attr_allowlist`  | String array. Specifies the LDAP attributes that should be made available for variable substitution. See [Control LDAP user attributes](#advanced-control-ldap-user-attributes).
+`custom_attr_maxval_len`  | Integer. Specifies the maximum allowed length of each attribute. All attributes longer than this value are discarded. A value of `0` disables custom attributes altogether. Default is 36.
 
 
 ### Complete authentication example
@@ -433,7 +441,7 @@ rolebase: 'ou=groups,dc=example,dc=com'
 If you use nested roles (roles that are members of other roles), you can configure the Security plugin to resolve them:
 
 ```yml
-resolve_nested_roles: false
+resolve_nested_roles: true
 ```
 
 After all roles have been fetched, the Security plugin extracts the final role names from a configurable attribute of the role entries:
@@ -442,7 +450,7 @@ After all roles have been fetched, the Security plugin extracts the final role n
 rolename: cn
 ```
 
-If this is not set, the DN of the role entry is used. You can now use this role name for mapping it to one or more of the Security plugin roles, as defined in `roles_mapping.yml`.
+If this is not set, the Security plugin uses the `name` attribute of the role entries. If a role entry has no such attribute, the role is skipped. To use the DN of the role entry as the role name, set `rolename` to `dn`. You can now use this role name for mapping it to one or more of the Security plugin roles, as defined in `roles_mapping.yml`.
 
 
 ### Approach 2: Use a user's attribute as the role name
@@ -458,6 +466,8 @@ You can configure multiple attribute names:
 ```yml
 userrolename: roles, otherroles
 ```
+
+If a value of the attribute is a DN, the Security plugin treats it as a role entry and extracts the role name using the `rolename` setting. Other values are used as role names as they are.
 
 This approach can be combined with querying the role subtree. The Security plugin fetches the roles from the user's role attribute and then executes the role search.
 
@@ -519,7 +529,7 @@ skip_users:
 
 If the users in your LDAP installation have a large number of roles, and you have the requirement to resolve nested roles as well, you might run into performance issues.
 
-In most cases, however, not all user roles are related to OpenSearch and OpenSearch Dashboards. You might need only a couple of roles. In this case, you can use the nested role filter feature to define a list of roles that are filtered out from the list of the user's roles. Wildcards and regular expressions are supported.
+In most cases, however, not all user roles are related to OpenSearch and OpenSearch Dashboards. You might need only a couple of roles. In this case, you can use the nested role filter feature to define a list of role DNs for which nested roles are not resolved. The listed roles remain in the user's list of roles, but the Security plugin does not search for the roles that contain them. Wildcards and regular expressions are supported.
 
 This has an effect only if `resolve_nested_roles` is `true`:
 
@@ -538,16 +548,14 @@ Name | Description
 `follow_referrals` | Boolean. Whether to follow LDAP referrals during searches and lookups. Default is `true`. See [LDAP referrals](#ldap-referrals).
 `rolesearch` | The actual LDAP query that the Security plugin executes when trying to determine the roles of a user. You can use three variables here (see the following description).
 `userroleattribute`  | The attribute in a user entry to use for `{2}` variable substitution.
-`userrolename`  | If the roles/groups of a user are not stored in the groups subtree, but as an attribute of the user's directory entry, define this attribute name here.
-`rolename`  | The attribute of the role entry that should be used as the role name.
+`userrolename`  | If the roles/groups of a user are not stored in the groups subtree, but as an attribute of the user's directory entry, define this attribute name here. Default is `memberOf`.
+`rolename`  | The attribute of the role entry that should be used as the role name. Set to `dn` to use the DN of the role entry. Default is `name`.
 `resolve_nested_roles`  | Boolean. Whether or not to resolve nested roles. Default is `false`.
-`max_nested_depth`  | Integer. When `resolve_nested_roles` is `true`, this defines the maximum number of nested roles to traverse. Setting smaller values can reduce the amount of data retrieved from LDAP and improve authentication times at the cost of failing to discover deeply nested roles. Default is `30`.
+`max_nested_depth`  | Integer. When `resolve_nested_roles` is `true`, this defines the maximum depth of nested role lookups. Setting smaller values can reduce the amount of data retrieved from LDAP and improve authentication times at the cost of failing to discover deeply nested roles. Default is `30`.
 `skip_users`  | Array of users that should be skipped when retrieving roles. Wildcards and regular expressions are supported.
 `exclude_roles`  | Array of roles that should be excluded when retrieving roles. Wildcards are supported.
-`nested_role_filter`  | Array of role DNs that should be filtered before resolving nested roles. Wildcards and regular expressions are supported.
+`nested_role_filter`  | Array of role DNs for which nested roles are not resolved. Wildcards and regular expressions are supported.
 `rolesearch_enabled`  | Boolean. Enable or disable the role search. Default is `true`.
-`custom_attr_allowlist`  | String array. Specifies the LDAP attributes that should be made available for variable substitution.
-`custom_attr_maxval_len`  | Integer. Specifies the maximum allowed length of each attribute. All attributes longer than this value are discarded. A value of `0` disables custom attributes altogether. Default is 36.
 `custom_return_attributes`  | String array. Specifies which attributes to request from the LDAP server.
 
 
@@ -619,7 +627,7 @@ Similarly, use the following setup to configure multiple role bases in the `auth
         ...
 ```
 
-### Complete authentication and authorization with multiple user and role bases example:
+### Example: Authentication and authorization with multiple user and role bases
 
 ```yml
 authc:
