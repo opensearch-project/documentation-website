@@ -15,7 +15,7 @@ The following liquid syntax declares a variable, major_version_mask, which is tr
 
 # Installing OpenSearch Dashboards using RPM
 
-OpenSearch Dashboards is the default visualization tool for data in OpenSearch. It also serves as a user interface for many of the OpenSearch plugins, including security, alerting, Index State Management, SQL, and more.
+You can install OpenSearch Dashboards on RPM-based Linux distributions, such as Red Hat Enterprise Linux, Amazon Linux, Alma Linux, and Rocky Linux, using the RPM Package Manager (RPM). Install the package that you download from the OpenSearch downloads page or from the OpenSearch Dashboards YUM repository. The package manager sets the installation path and the location of the configuration files and creates an `opensearch-dashboards` service managed by `systemd`.
 
 ## Prerequisites
 
@@ -23,7 +23,7 @@ Install OpenSearch. For more information, see [Installing OpenSearch using RPM](
 
 ## Install OpenSearch Dashboards from a package
 
-1. Download the RPM Package Manager (RPM) package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The RPM package can be download for both **x64** and **arm64** architectures.
+1. Download the RPM package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The RPM package is available for both **x64** and **arm64** architectures.
 1. Import the public GPG key. This key verifies that your OpenSearch instance is signed.
     ```bash
     sudo rpm --import https://artifacts.opensearch.org/publickeys/opensearch-release.pgp
