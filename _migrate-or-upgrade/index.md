@@ -148,7 +148,7 @@ Back up important files such as `opensearch.yml`, plugin configurations, and TLS
 - `opensearch/config`
 - `opensearch-dashboards/config`
 
-See [this security configuration guidance]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution).
+See [this security configuration guidance]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/#a-word-of-caution).
 
 ---
 
