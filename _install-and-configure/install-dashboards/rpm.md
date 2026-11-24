@@ -15,7 +15,7 @@ The following liquid syntax declares a variable, major_version_mask, which is tr
 
 # Installing OpenSearch Dashboards using RPM
 
-You can install OpenSearch Dashboards on RPM-based Linux distributions, such as Red Hat Enterprise Linux, Amazon Linux, Alma Linux and Rocky Linux, using the RPM Package Manager (RPM). Install the package that you download from the OpenSearch downloads page or from the OpenSearch Dashboards YUM repository. The package manager sets the installation path and the location of the configuration files and creates an `opensearch-dashboards` service managed by `systemd`.
+You can install OpenSearch Dashboards on RPM-based Linux distributions, such as Red Hat Enterprise Linux, Amazon Linux, Alma Linux, and Rocky Linux, using the RPM Package Manager (RPM). Install the package that you download from the OpenSearch downloads page or from the OpenSearch Dashboards YUM repository. The package manager sets the installation path and the location of the configuration files and creates an `opensearch-dashboards` service managed by `systemd`.
 
 ## Prerequisites
 
