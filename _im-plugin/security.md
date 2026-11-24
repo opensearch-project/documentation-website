@@ -17,7 +17,7 @@ The Security plugin comes with one role that offers full access to index managem
 
 With security enabled, users not only need the correct index management permissions, but they also need permissions to execute actions to involved indexes. For example, if a user wants to use the REST API to attach a policy that executes a rollup job to an index named `system-logs`, they would need the permissions to attach a policy and execute a rollup job, as well as access to `system-logs`.
 
-Finally, users also need the `indices:admin/opensearch/ism/managedindex` permission for the target indexes to use the following [ISM APIs]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/): Add Policy, Remove Policy, Update Managed Index Policy, Retry Failed Index, and Explain Index.
+Finally, users also need the `indices:admin/opensearch/ism/managedindex` permission for the target indexes to use the following [ISM APIs]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/): add policy, remove policy from index, update managed index policy, retry failed index, and explain index. The remove, update, and retry operations fail if the user lacks this permission for any target index. The add policy and explain index operations skip the indexes for which the user lacks this permission.
 
 ## (Advanced) Limit access by backend role
 

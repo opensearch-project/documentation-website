@@ -29,7 +29,7 @@ The Security plugin supports the following common settings:
 
 - `plugins.security.dls.write_blocked` (Dynamic): When set to `true`, the Security plugin rejects index and delete operations, including those in bulk requests, from users to whom document-level security (DLS), field-level security (FLS), or field masking applies on the target index. Default is `false`.
 
-- `plugins.security.dfm_empty_overrides_all` (Static): When set to `true`, a role that grants access to an index without DLS, FLS, or field masking restrictions overrides the restrictions that other roles of the same user apply to that index. Default is `false`. Set this setting in `opensearch.yml`. For more information, see [Document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/).
+- `plugins.security.dfm_empty_overrides_all` (Dynamic): When set to `true`, a role that grants access to an index without DLS, FLS, or field masking restrictions overrides the restrictions that other roles of the same user apply to that index. Default is `false`. Set this setting in `opensearch.yml`. Although the Cluster Settings API accepts this setting, a value set using the API reverts to the `opensearch.yml` value the next time the security configuration changes. For more information, see [Document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/).
 
 - `plugins.security.compliance.salt` (Static): The salt to use when generating the hash value for field masking. Must contain at least 16 ASCII characters. Only the first 16 bytes are used. Optional.
 

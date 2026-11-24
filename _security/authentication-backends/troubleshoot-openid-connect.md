@@ -46,7 +46,7 @@ curl -X GET "https://localhost:9200/_plugins/_security/authinfo?pretty" \
 ```
 {% include copy.html %}
 
-The `user_name` field contains the value of the claim configured in `subject_key`, and the `backend_roles` field contains the values of the claim configured in `roles_key`. The `custom_attribute_names` field lists the names of all claims in the token, each prefixed with `attr.jwt.`. The response does not include the claim values.
+The `user_name` field contains the value of the claim configured in `subject_key`, and the `backend_roles` field contains the values of the claim configured in `roles_key`. The `custom_attribute_names` field lists the name of each claim in the token, prefixed with `attr.jwt.`. Claims nested in objects appear as dotted paths, such as `attr.jwt.realm_access.roles`. The response does not include the claim values.
 
 The following example response is for a token that contains six claims:
 
