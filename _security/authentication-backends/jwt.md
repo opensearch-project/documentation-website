@@ -124,6 +124,7 @@ Name | Description
 `roles_key` | The key in the JSON payload that stores the user's roles. The value must be a comma-separated list of roles. You can configure `roles_key` as a list to extract roles from nested JWT claims.
 `required_audience` | The name of the audience that the JWT must specify. You can set a single value (for example, `project1`) or multiple comma-separated values (for example, `project1,admin`). If you set multiple values, the JWT must have at least one required audience. This parameter corresponds to the [`aud` claim of the JWT](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.3).
 `required_issuer` | The target issuer of JWT stored in the JSON payload. This corresponds to the [`iss` claim of the JWT](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.1).
+`required_claims` | A list of claim names that every JWT must contain with a non-null value, for example `exp` and `nbf`. The Security plugin rejects a token that is missing any listed claim. Default is an empty list. For more information, see [Requiring claims](#requiring-claims).
 `jwt_clock_skew_tolerance_seconds` | Sets a window of time, in seconds, to compensate for any disparity between the JWT authentication server and OpenSearch node clock times, thereby preventing authentication failures due to the misalignment. Security sets 30 seconds as the default. Use this setting to apply a custom value.
 
 Because JWTs are self-contained and the user is authenticated at the HTTP level, no additional `authentication_backend` is needed. Set this value to `noop`.
@@ -200,6 +201,34 @@ The following registered claims are validated automatically:
 * `nbf` (Not Before) Claim
 * `exp` (Expiration Time) Claim
 
+### Requiring claims
+
+**Introduced 3.11**
+{: .label .label-purple }
+
+The Security plugin validates the `exp` and `nbf` claims only when they are present in a token. A correctly signed token without an `exp` claim never expires. To require tokens to contain specific claims, use the `required_claims` setting. The setting is a list of claim names:
+
+```yml
+http_authenticator:
+  type: jwt
+  challenge: false
+  config:
+    signing_key: "base64 encoded key"
+    required_claims:
+      - exp
+      - nbf
+```
+{% include copy.html %}
+
+The Security plugin rejects a token if any listed claim is missing or has a `null` value. The check runs after the token signature is verified. The default is an empty list, which means that no claims are required.
+
+Note the following:
+
+- You can list any top-level claim in the token payload, for example `exp`, `nbf`, `iat`, `jti`, or a custom claim such as `department`. Claim names are case sensitive. Nested claims, such as `attributes.department`, are not supported.
+- The setting checks only that a claim is present. It does not validate the claim value. For example, requiring `iat` does not limit the age of a token. To validate claim values, use settings such as `required_audience`, `required_issuer`, and `jwt_clock_skew_tolerance_seconds`.
+- Specify the setting as a list of claim names. A comma-separated string, such as `exp, nbf`, is also accepted. Empty entries and other formats, such as `exp: true`, prevent the authentication domain from initializing.
+- If you misspell a claim name or list a claim that your identity provider does not include in every token, the Security plugin rejects every token. Verify the claims in your tokens before you enable this setting.
+- The `required_claims` setting also applies to JSON Web Key Set (JWKS) and OpenID Connect authentication. It does not apply to SAML authentication.
 
 ### Supported formats and algorithms
 
