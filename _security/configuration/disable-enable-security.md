@@ -39,7 +39,7 @@ Do the following to remove the plugin from OpenSearch.
 1. Disable shard allocation and stop all nodes so that shards don't move when the cluster is restarted:
 
    ```bash
-   curl -XPUT "https://localhost:9200/_cluster/settings" -u "admin:<password>" -H 'Content-Type: application/json' -d '{
+   curl --cacert <path-to-root-ca.pem> -XPUT "https://localhost:9200/_cluster/settings" -u "admin:<password>" -H 'Content-Type: application/json' -d '{
       "persistent": {
          "cluster.routing.allocation.enable": "none"
       }
@@ -184,7 +184,7 @@ Use the following steps to reinstall the plugin:
 5. Restart the nodes and reenable shard allocation:
 
    ```bash
-   curl -XPUT "https://localhost:9200/_cluster/settings" -u "admin:<password>" -H 'Content-Type: application/json' -d '{
+   curl --cacert <path-to-root-ca.pem> -XPUT "https://localhost:9200/_cluster/settings" -u "admin:<password>" -H 'Content-Type: application/json' -d '{
      "persistent": {
        "cluster.routing.allocation.enable": "all"
      }
