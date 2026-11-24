@@ -9,7 +9,7 @@ permalink: /:path/
 opensearch_version: '3.10.0'
 opensearch_dashboards_version: '3.10.0'
 opensearch_major_minor_version: '3.10'
-lucene_version: '10_6_0'
+lucene_version: '10_5_2' # OpenSearch 3.10 uses Lucene 10.6.0; restore '10_6_0' once Lucene publishes the full 10.6.0 javadocs
 
 # Build settings
 markdown: kramdown
