@@ -10,211 +10,291 @@ redirect_from:
 
 # ODBC driver
 
-The Open Database Connectivity (ODBC) driver is a read-only ODBC driver for Windows and macOS that lets you connect business intelligence (BI) and data visualization applications like [Microsoft Excel](https://github.com/opensearch-project/sql-odbc/blob/main/docs/user/microsoft_excel_support.md) and [Power BI](https://github.com/opensearch-project/sql-odbc/blob/main/bi-connectors/PowerBIConnector/README.md) to the SQL plugin.
+The Open Database Connectivity (ODBC) driver is a read-only driver for Windows, macOS, and Linux that lets you connect business intelligence (BI) and data visualization applications such as [Microsoft Excel](https://github.com/opensearch-project/sql-odbc/blob/main/docs/user/microsoft_excel_support.md) and [Microsoft Power BI](https://github.com/opensearch-project/sql-odbc/blob/main/bi-connectors/PowerBIConnector/README.md) to the SQL plugin.
 
-For information about downloading and using the driver, see [the SQL repository on GitHub](https://github.com/opensearch-project/sql-odbc).
+For information about downloading and using the driver, see [the `sql-odbc` repository on GitHub](https://github.com/opensearch-project/sql-odbc).
 
-## Specifications
+## ODBC compatibility
 
 The ODBC driver is compatible with ODBC version 3.51.
 
 ## Supported operating system versions
 
-The following operating systems are supported:
+The following operating systems are supported.
 
 Operating system | Version
 :--- | :---
 Windows | Windows 10, Windows 11
-macOS | Catalina 10.15.4, Mojave 10.14.6, Big Sur 11.6.7, Monterey 12.4
+macOS | Mojave 10.14.6, Catalina 10.15.4, Big Sur 11.6.7, Monterey 12.4
+Linux | x86_64 distributions that use unixODBC (build from source; tested on Ubuntu 24.04 using unixODBC 2.3.12)
 
+## Terminology
 
-## Concepts
+Before configuring the ODBC driver, review the following terms:
 
-Term | Definition
-:--- | :---
-**DSN** | A DSN (Data Source Name) is used to store driver information in the system. By storing the information in the system, the information does not need to be specified each time the driver connects.
-**.tdc** file | The TDC file contains configuration information that Tableau applies to any connection matching the database vendor name and driver name defined in the file. This configuration allows you to fine-tune parts of your ODBC data connection and turn on/off certain features not supported by the data source.
+- **Data Source Name (DSN)**: A named configuration that stores the driver connection information so that you do not need to specify it each time you connect.
+- **`.tdc` file**: A file containing configuration information that Tableau applies to any connection matching the database vendor name and driver name defined in the file. Use it to fine-tune your ODBC data connection and enable or disable features not supported by the data source.
 
+## Installing the ODBC driver
 
-## Install driver
-
-To install the driver, download the bundled distribution installer from [here](https://opensearch.org/downloads.html) or by build from the source.
-
+To install the driver, download the [bundled distribution installer](https://opensearch.org/downloads.html) or build it from source.
 
 ### Windows
 
+To install the ODBC driver on Windows, follow these steps:
+
 1. Open the downloaded `OpenSearch SQL ODBC Driver-<version>-Windows.msi` installer.
 
-   The installer is unsigned and shows a security dialog. Choose **More info** and **Run anyway**.
+   The installer is unsigned and shows a security dialog. Select **More info**, then select **Run anyway**.
 
-2. Choose **Next** to proceed with the installation.
+2. Select **Next** to proceed with the installation.
 
-3. Accept the agreement, and choose **Next**.
+3. Accept the license agreement and select **Next**.
 
-4. The installer comes bundled with documentation and useful resource files to connect to various BI tools (for example, a `.tdc` file for Tableau). You can choose to keep or remove these resources. Choose **Next**.
+4. The installer includes documentation and resource files for connecting to various BI tools (for example, a `.tdc` file for Tableau). You can retain or remove these resources. Select **Next**.
 
-5. Choose **Install** and **Finish**.
+5. Select **Install**, then select **Finish**.
 
-The following connection information is set up as part of the default DSN:
+The default DSN contains the following connection settings:
 
-```
-Host: localhost
-Port: 9200
-Auth: NONE
-```
-{% include copy.html %}
+<!-- vale off -->
+- **Host**: `localhost`
+- **Port**: `9200`
+- **Auth**: `NONE`
+<!-- vale on -->
 
-
-To customize the DSN, use **ODBC Data Source Administrator** which is pre-installed on Windows 10.
+To customize the DSN, use ODBC Data Source Administrator, which is preinstalled on Windows 10 and Windows 11.
 
 ### macOS
 
-Before installing the ODBC Driver on macOS, install the iODBC Driver Manager.
+Before installing the ODBC driver on macOS, install the iODBC Driver Manager.
+
+To install the ODBC driver on macOS, follow these steps:
 
 1. Open the downloaded `OpenSearch SQL ODBC Driver-<version>-Darwin.pkg` installer.
 
-   The installer is unsigned and shows a security dialog. Right-click on the installer and choose **Open**.
+   The installer is unsigned and shows a security dialog. Select and hold (or right-click) the installer, then select **Open**.
 
-2. Choose **Continue** several times to proceed with the installation.
+2. Select **Continue** on each screen to proceed through the installation.
 
-3. Choose the **Destination** to install the driver files.
+3. Select the **Destination** to install the driver files.
 
-4. The installer comes bundled with documentation and useful resources files to connect to various BI tools (for example, a `.tdc` file for Tableau). You can choose to keep or remove these resources. Choose **Continue**.
+4. The installer includes documentation and resource files for connecting to various BI tools (for example, a `.tdc` file for Tableau). You can retain or remove these resources. Select **Continue**.
 
-5. Choose **Install** and **Close**.
+5. Select **Install**, then select **Close**.
 
-Currently, the DSN is not set up as part of the installation and needs to be configured manually. First, open `iODBC Administrator`:
+The DSN is not configured as part of the installation. To configure it manually, run the following command to open iODBC Administrator. Running the application using `sudo` lets it save the driver and DSN configurations.
 
-```
+```bash
 sudo /Applications/iODBC/iODBC\ Administrator64.app/Contents/MacOS/iODBC\ Administrator64
 ```
 {% include copy.html %}
 
+To configure the driver and DSN, follow these steps:
 
-This command gives the application permissions to save the driver and DSN configurations.
+1. Select the **ODBC Drivers** tab.
 
-1. Choose **ODBC Drivers** tab.
-2. Choose **Add a Driver** and fill in the following details:
-   - **Description of the Driver**: Enter the driver name that you used for the ODBC connection (for example, OpenSearch SQL ODBC Driver).
-   - **Driver File Name**: Enter the path to the driver file (default: `<driver-install-dir>/bin/libopensearchsqlodbc.dylib`).
-   - **Setup File Name**: Enter the path to the setup file (default: `<driver-install-dir>/bin/libopensearchsqlodbc.dylib`).
+2. Select **Add a Driver** and enter the following information:
 
-3. Choose the user driver.
-4. Choose **OK** to save the options.
-5. Choose the **User DSN** tab.
+   - **Description of the Driver**: Enter the driver name for the ODBC connection (for example, `OpenSearch SQL ODBC Driver`). To use the driver with the Tableau connector, the name must start with `OpenSearch SQL ODBC`.
+   - **Driver File Name**: Enter the path to the driver file (default: `/Library/ODBC/opensearch-sql-odbc/bin/libsqlodbc.dylib`).
+   - **Setup File Name**: Enter the path to the setup file (default: `/Library/ODBC/opensearch-sql-odbc/bin/libsqlodbc.dylib`).
+
+3. Select **System** to register the driver as a system driver.
+
+4. Select **OK** to save the driver.
+
+5. Select the **User DSN** tab.
+
 6. Select **Add**.
-7. Choose the driver that you added previously.
-8. For **Data Source Name (DSN)**, enter the name of the DSN used to store connection options (for example, OpenSearch SQL ODBC DSN).
-9. For **Comment**, add an optional comment.
-10. Add key-value pairs by using the `+` button. We recommend the following options for a default local OpenSearch installation:
-<!-- vale off -->
 
-   - **Host**: `localhost` - OpenSearch server endpoint
-   - **Port**: `9200` - The server port
-   - **Auth**: `NONE` - The authentication mode
-   - **Username**: `(blank)` - The username used for BASIC auth
-   - **Password**: `(blank)`- The password used for BASIC auth
-   - **ResponseTimeout**: `10` - The number of seconds to wait for a response from the server
-   - **UseSSL**: `0` - Do not use SSL for connections
+7. Select the driver that you added previously.
 
-<!-- vale on -->
+8. In the **Data Source Name (DSN)** field, enter a name for the data source (for example, `OpenSearch SQL ODBC DSN`).
 
-11. Choose **OK** to save the DSN configuration.
-12. Choose **OK** to exit the iODBC Administrator.
+9. In the **Comment** field, add an optional comment.
 
+10. Add key-value pairs using the **+** button. We recommend the following settings for a default local OpenSearch installation.
 
-## Customizing the ODBC driver
+    <!-- vale off -->
 
-The driver is in the form of a library file: `opensearchsqlodbc.dll` for Windows and `libopensearchsqlodbc.dylib` for macOS.
+    Key | Value | Description
+    :--- | :--- | :---
+    `Host` | `localhost` | The OpenSearch server endpoint.
+    `Port` | `9200` | The server port.
+    `Auth` | `NONE` | The authentication mode.
+    `Username` | Leave blank. | The username used for Basic authentication.
+    `Password` | Leave blank. | The password used for Basic authentication.
+    `ResponseTimeout` | `10` | The number of seconds to wait for a response from the server.
+    `UseSSL` | `0` | Whether to use SSL for the connection (`0` = disabled, `1` = enabled).
 
-If you're using with ODBC compatible BI tools, refer to your BI tool documentation for configuring a new ODBC driver.
-Typically, all that's required is to make the BI tool aware of the location of the driver library file and then use it to set up the database (i.e., OpenSearch) connection.
+    <!-- vale on -->
 
+11. Select **OK** to save the DSN configuration.
 
-### Connection strings and other settings
+12. Select **OK** to exit iODBC Administrator.
 
-The ODBC driver uses an ODBC connection string.
-The connection strings are semicolon-delimited strings that specify the set of options that you can use for a connection.
-Typically, a connection string will either:
-  - Specify a Data Source Name (DSN) that contains a preconfigured set of options (`DSN=xxx;User=xxx;Password=xxx;`).
-  - Or, configure options explicitly using the string (`Host=xxx;Port=xxx;LogLevel=ES_DEBUG;...`).
+### Linux
 
-You can configure the following driver options using a DSN or connection string:
+The driver is not distributed as a Linux package. Linux support requires driver version 1.7.0.0 or later, which you build from source and register in the unixODBC driver manager.
+
+To install the ODBC driver on Linux, follow these steps:
+
+1. Install unixODBC, CMake, a C++ toolchain, and [`vcpkg`](https://vcpkg.io/).
+
+2. Clone the driver repository and build the driver:
+
+   ```bash
+   git clone https://github.com/opensearch-project/sql-odbc.git
+   cd sql-odbc
+   ./build_linux_release64.sh
+   ```
+   {% include copy.html %}
+
+   The compiled driver library is saved to `build/odbc/lib/libsqlodbc.so`.
+
+3. To find the location of `odbcinst.ini`, run `odbcinst -j`. Add the following entry to the file:
+
+   ```ini
+   [OpenSearch SQL ODBC Driver]
+   Description=OpenSearch SQL ODBC driver
+   Driver=<path-to-sql-odbc>/build/odbc/lib/libsqlodbc.so
+   ```
+   {% include copy.html %}
+
+4. Define a data source in `~/.odbc.ini`. We recommend the following settings for a default local OpenSearch installation:
+
+   ```ini
+   [opensearch]
+   Driver=OpenSearch SQL ODBC Driver
+   Host=localhost
+   Port=9200
+   Auth=NONE
+   UseSSL=0
+   ResponseTimeout=10
+   ```
+   {% include copy.html %}
+
+5. Verify the connection using `iusql`, the Unicode version of the `isql` tool included in the unixODBC package:
+
+   ```bash
+   echo "SELECT 1 AS one" | iusql -v opensearch -b
+   ```
+   {% include copy.html %}
+
+## Configuring the ODBC driver
+
+The driver is a library file: `sqlodbc.dll` for Windows, `libsqlodbc.dylib` for macOS, and `libsqlodbc.so` for Linux.
+
+If you're using ODBC-compatible BI tools, see your BI tool documentation for configuring a new ODBC driver. In the BI tool, specify the location of the driver library file, and then configure the connection to OpenSearch.
+
+### Connection options
+
+ODBC connection strings are semicolon-delimited key-value pairs that specify connection options. A connection string contains one of the following components:
+
+- A DSN containing a preconfigured set of options (`DSN=<dsn-name>;User=<username>;Password=<password>;`).
+- Explicit options configured as key-value pairs (`Host=<host>;Port=<port>;LogLevel=5;...`).
+
+You can configure the following driver options using a DSN or connection string.
 
 All option names are case-insensitive.
 {: .note }
 
-
 #### Basic options
 
+The following table lists the core connection options.
+
 Option | Description | Type | Default
-:--- | :---
-`DSN` | Data source name that you used for configuring the connection. | `string` | -
-`Host / Server` | Hostname or IP address for the target cluster. | `string` | -
-`Port` | Port number on which the OpenSearch cluster's REST interface is listening. | `string` | -
+:--- | :--- | :--- | :---
+`DSN` | The data source name for the connection. | `string` | -
+`Host / Server` | The hostname or IP address of the target cluster. | `string` | -
+`Port` | The port for the OpenSearch cluster's REST interface. | `string` | -
 
 #### Authentication options
+
+The following table lists the authentication options.
 
 <!-- vale off -->
 
 Option | Description | Type | Default
-:--- | :---
-`Auth` | Authentication mechanism to use. | `BASIC` (basic HTTP), `AWS_SIGV4` (AWS auth), or `NONE` | `NONE`
-`User / UID` | [`Auth=BASIC`] Username for the connection. | `string` | -
-`Password / PWD` | [`Auth=BASIC`] Password for the connection. | `string` | -
-`Region` | [`Auth=AWS_SIGV4`] Region used for signing requests. | `AWS region (for example, us-west-1)` | -
+:--- | :--- | :--- | :---
+`Auth` | The authentication mechanism. Valid values are `BASIC` (HTTP Basic authentication), `AWS_SIGV4` (AWS Signature Version 4), and `NONE`. | `string` | `NONE`
+`User / UID` | The username for the connection. Used when `Auth` is `BASIC`. | `string` | -
+`Password / PWD` | The password for the connection. Used when `Auth` is `BASIC`. | `string` | -
+`Region` | The AWS Region used for signing requests (for example, `us-west-1`). Used when `Auth` is `AWS_SIGV4`. | `string` | -
+`TunnelHost` | The domain endpoint hostname used to sign requests when you connect through an SSH tunnel or proxy. Set `Host` to the local tunnel address and `TunnelHost` to the domain endpoint. Used when `Auth` is `AWS_SIGV4`. | `string` | -
 
 <!-- vale on -->
 
+To use `AWS_SIGV4` authentication, add an `opensearchodbc` profile to your `~/.aws/credentials` file. The profile must contain your AWS access key ID and secret access key, and a session token if you use temporary credentials.
+
 #### Advanced options
 
+The following table lists the advanced connection options.
+
 Option | Description | Type | Default
-:--- | :---
-`UseSSL` | Whether to establish the connection over SSL/TLS. | `boolean (0 or 1)` | `false (0)`
-`HostnameVerification` | Indicates whether certificate hostname verification should be performed for an SSL/TLS connection. | `boolean` (0 or 1) | `true (1)`
-`ResponseTimeout` | The maximum time to wait for responses from the host, in seconds. | `integer` | `10`
+:--- | :--- | :--- | :---
+`UseSSL` | Whether to establish the connection over SSL/TLS. | Boolean (`0` or `1`) | `0`
+`HostnameVerification` | Whether to verify the certificate hostname for an SSL/TLS connection. | Boolean (`0` or `1`) | `1`
+`ResponseTimeout` | The maximum amount of time to wait for a response from the host, in seconds. | `integer` | `10`
+`FetchSize` | The number of rows to retrieve per page using cursor-based pagination. Valid values are `-1`, `0`, or an integer from 1 to 10,000. | `integer` | `-1`
+
+If `FetchSize` is `-1` or `0`, the driver does not paginate results, so each query returns at most the number of rows set in `plugins.query.size_limit` (default 10,000), without an error or warning. To retrieve larger results, set `FetchSize` to a positive value, such as `1000`. The driver then retrieves the entire result page by page. Values greater than the index's `index.max_result_window` setting (default 10,000) return an error. For more information, see [SQL settings]({{site.url}}{{site.baseurl}}/sql-and-ppl/settings/) and [Paginating results]({{site.url}}{{site.baseurl}}/sql-and-ppl/sql-and-ppl-api/#paginating-results).
 
 #### Logging options
 
-Option | Description | Type | Default
-:--- | :---
-`LogLevel` | Severity level for driver logs. | `LOG_OFF`, `LOG_FATAL`, `LOG_ERROR`, `LOG_INFO`, `LOG_DEBUG`, `LOG_TRACE`, or `LOG_ALL` | `LOG_WARNING`
-`LogOutput` | Location for storing driver logs. | `string` | `WIN: C:\`, `MAC: /tmp`
+The following table lists the logging options.
 
-You need administrative privileges to change the logging options.
+Option | Description | Type | Default
+:--- | :--- | :--- | :---
+`LogLevel` | The severity level for driver logs. Valid values are `0` (off), `1` (fatal), `2` (error), `3` (warning), `4` (info), `5` (debug), `6` (trace), and `7` (all). | `integer` | `3`
+`LogOutput` | The directory in which driver logs are stored. | `string` | `C:\` (Windows) or `/tmp` (macOS and Linux)
+
+On Windows, set the log directory in the DSN setup dialog in ODBC Data Source Administrator.
+
+On macOS and Linux, the driver reads the log directory from the `[OpenSearch Unicode]` section of `odbcinst.ini` when it loads. This section is separate from the section in which you registered the driver. On each connection, the driver then writes the `LogOutput` value from the DSN or connection string to this section, or writes `C:\` if neither contains `LogOutput`. Because the driver reads the value before writing it, the way you set the log directory depends on whether the operating system account that runs the ODBC application can write to `odbcinst.ini`.
+
+If the account cannot write to `odbcinst.ini` (for example, a regular account on Linux using a driver registered in `/etc/odbcinst.ini`), add the following section to `odbcinst.ini`. In this case, a `LogOutput` value in a DSN or connection string has no effect:
+
+```ini
+[OpenSearch Unicode]
+LogOutput=<path-to-log-directory>
+```
+{% include copy.html %}
+
+If the account can write to `odbcinst.ini` (for example, the root account on Linux or a macOS account that has its own `~/Library/ODBC/odbcinst.ini` file), set `LogOutput` in every DSN and connection string. The value takes effect the next time the driver loads. The driver stores one value for all DSNs, so specify the same directory in each. If a connection does not specify `LogOutput`, the driver stops writing log files after that connection.
+
+The driver does not create the log directory. If the directory does not exist, no log files are written.
+
+On Windows, you need administrative privileges to change the logging options.
 {: .note }
 
 ## Connecting to Tableau
 
-Pre-requisites:
+Before connecting to Tableau, ensure that the following prerequisites are met:
 
-- Make sure the DSN is already set up.
-- Make sure OpenSearch is running on _host_ and _port_ as configured in DSN.
-- Make sure the `.tdc` is copied to `<user_home_directory>/Documents/My Tableau Repository/Datasources` in both macOS and Windows.
+- The DSN is configured.
+- OpenSearch is running on the host and port configured in the DSN.
+- The `.tdc` file is copied to `<user_home_directory>/Documents/My Tableau Repository/Datasources` on both macOS and Windows.
 
-1. Start Tableau. Under the **Connect** section, go to **To a Server** and choose **Other Databases (ODBC)**.
+To connect to Tableau, follow these steps:
 
-2. In the **DSN drop-down**, select the OpenSearch DSN you set up in the previous set of steps. The options you added will be automatically filled in under the **Connection Attributes**.
+1. Start Tableau. In the **Connect** section, select **To a Server**, then select **Other Databases (ODBC)**.
 
-3. Select **Sign In**. After a few seconds, Tableau connects to your OpenSearch server. Once connected, you will be directed to the **Datasource** window. The **Database** will be already be populated with the name of the OpenSearch cluster.
-To list all the indexes, click the search icon under **Table**.
+2. In the **DSN** dropdown list, select the OpenSearch DSN that you configured when you installed the driver. **Connection Attributes** is automatically populated using the options you added.
 
-4. Start experimenting with data by dragging the table to the connection area. Choose **Update Now** or **Automatically Update** to populate the table data.
+3. Select **Sign In**. After Tableau connects to OpenSearch, the **Data Source** window opens, and the **Database** field contains the cluster name. To list all indexes, select the search icon in **Table**.
 
-See more detailed instructions in the [GitHub repository](https://github.com/opensearch-project/sql/blob/1.x/sql-odbc/docs/user/tableau_support.md).
+4. Drag the table to the connection area. Select **Update Now** or **Automatically Update** to load the data.
+
+<!-- vale off -->
+For more information, see [Connecting OpenSearch to Tableau Desktop via the Tableau Connector](https://github.com/opensearch-project/sql/blob/1.x/sql-odbc/docs/user/tableau_support.md).
+<!-- vale on -->
 
 ### Troubleshooting
 
-**Problem**
-
-Unable to connect to server.
-
-**Workaround**
-
-This is most likely due to OpenSearch server not running on **host** and **post** configured in DSN.
-Confirm **host** and **post** are correct and OpenSearch server is running with OpenSearch SQL plugin.
-Also make sure `.tdc` that was downloaded with the installer is copied correctly to `<user_home_directory>/Documents/My Tableau Repository/Datasources` directory.
+If Tableau cannot connect to OpenSearch, confirm that OpenSearch is running on the host and port configured in the DSN. Also confirm that the `.tdc` file prerequisite is met.
 
 ## Connecting to Microsoft Power BI
 
-Follow the [installation instructions](https://github.com/opensearch-project/sql-odbc/tree/main/bi-connectors/PowerBIConnector/README.md) and the [configuration instructions](https://github.com/opensearch-project/sql-odbc/blob/main/bi-connectors/PowerBIConnector/power_bi_support.md) published in the GitHub repository.
+For information about connecting to Power BI, see [Installation instructions](https://github.com/opensearch-project/sql-odbc/tree/main/bi-connectors/PowerBIConnector/README.md) and [Configuration instructions](https://github.com/opensearch-project/sql-odbc/blob/main/bi-connectors/PowerBIConnector/power_bi_support.md) in the `sql-odbc` repository.

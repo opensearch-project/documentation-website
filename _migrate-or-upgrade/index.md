@@ -183,7 +183,7 @@ The following table lists the Lucene version that each OpenSearch and Elasticsea
 
 | Lucene version | OpenSearch version | Elasticsearch version |
 | :--- | :--- | :--- |
-| 10.6.0 | 3.10.0 | --- |
+| 10.6.0 | 3.10.0--3.10.1 | --- |
 | 10.5.1 | 3.9.0 | 9.5 |
 | 10.5.0 | 3.8.0 | 9.5 |
 | 10.4.0 | 3.7.0<br>3.6.0 | 9.4 |
@@ -194,7 +194,7 @@ The following table lists the Lucene version that each OpenSearch and Elasticsea
 | 10.1.0 | 3.0.0 | 9.0 |
 | 9.12.3 | 2.19.4--2.19.8 | --- |
 | 9.12.2 | 2.19.3 | 8.19 |
-| 9.12.1 | 2.19.0 to 2.19.2 | 8.18 |
+| 9.12.1 | 2.19.0--2.19.2 | 8.18 |
 | 9.12.0 | 2.18.0 | 8.17<br>8.16 |
 | 9.11.1 | 2.17.x<br>2.16.0 | 8.15 |
 | 9.10.0 | 2.15.0<br>2.14.0<br>2.13.0 | 8.14<br>8.13 |

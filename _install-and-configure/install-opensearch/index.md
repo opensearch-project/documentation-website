@@ -63,7 +63,7 @@ OpenSearch version | Compatible Java versions | Java version bundled in the late
 3.0.0--3.1.x        | 21 | 21.0.7+6
 3.2.0--3.3.x        | 21, 24 | 24.0.2+12
 3.4.0--3.6.0   | 21, 25 | 25.0.2+10
-3.7.0--3.10.x  | 21, 25, 26 | 25.0.5+8
+3.7.0--3.10.x  | 21, 25, 26 | 25.0.5.1+2
 
 To use a different Java installation, set the `OPENSEARCH_JAVA_HOME` or `JAVA_HOME` environment variable to the Java installation location. For example:
 
@@ -88,7 +88,15 @@ No UDP ports are used.
 
 ## Important settings
 
-For production workloads running on Linux, make sure the [Linux setting](https://www.kernel.org/doc/Documentation/sysctl/vm.txt) `vm.max_map_count` is set to at least `262144`. 
+The following settings apply to every Linux host that runs OpenSearch. Some installation methods configure them for you, as described in each section. The [Java heap size](#java-heap-size) settings also apply to Windows.
+
+If OpenSearch binds to a non-loopback address, for example, using `network.host: 0.0.0.0`, it runs bootstrap checks at startup unless `discovery.type` is set to `single-node`. OpenSearch fails to start if `vm.max_map_count`, the Java heap size, or the file descriptor limit does not meet the requirements in this section or if `bootstrap.memory_lock` is `true` but OpenSearch cannot lock the memory.
+
+### `vm.max_map_count`
+
+For production workloads running on Linux, make sure the [Linux setting](https://www.kernel.org/doc/Documentation/sysctl/vm.txt) `vm.max_map_count` is set to at least `262144`.
+
+The RPM and Debian packages set `vm.max_map_count` to `262144` when you install them, using the `/usr/lib/sysctl.d/opensearch.conf` file. The Helm chart and the OpenSearch Kubernetes Operator can set it using an init container. For other installation methods, set the value manually.
 
 Even if you use the Docker image, set this value on the host machine. To check the current value, run this command:
 
@@ -125,27 +133,59 @@ sysctl -w vm.max_map_count=262144
 ```
 {% include copy.html %}
 
-The [sample `docker-compose.yml`]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#sample-docker-composeyml) file also contains several key settings:
+### Memory lock
 
-- `bootstrap.memory_lock=true`
+Swapping can dramatically decrease performance and stability, so make sure that the OpenSearch heap is never swapped to disk on production clusters. To lock the heap in memory, set `bootstrap.memory_lock` to `true` in `opensearch.yml` and allow the user that runs OpenSearch to lock an unlimited amount of memory. The way you set the memory lock limit depends on the installation method:
 
-  Disables swapping (along with `memlock`). Swapping can dramatically decrease performance and stability, so you should ensure it is disabled on production clusters.
+- If you use Docker, the [sample `docker-compose.yml`]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#sample-docker-composeyml) file sets `bootstrap.memory_lock=true` and sets the `memlock` ulimits to `-1` (unlimited).
+- If you installed OpenSearch from an RPM or Debian package, the `opensearch` systemd service does not set a memory lock limit. To add one, run `sudo systemctl edit opensearch` and add the following lines:
 
-  Enabling the `bootstrap.memory_lock` setting will cause the JVM to reserve any memory it needs. The [Java SE Hotspot VM Garbage Collection Tuning Guide](https://docs.oracle.com/javase/9/gctuning/other-considerations.htm#JSGCT-GUID-B29C9153-3530-4C15-9154-E74F44E3DAD9) documents a default 1 gigabyte (GB) Class Metadata native memory reservation. Combined with Java heap, this may result in an error due to the lack of native memory on VMs with less memory than these requirements. To prevent errors, limit the reserved memory size using `-XX:CompressedClassSpaceSize` or `-XX:MaxMetaspaceSize` and set the size of the Java heap to make sure you have enough system memory.
+  ```
+  [Service]
+  LimitMEMLOCK=infinity
+  ```
+  {% include copy.html %}
 
-- `OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m`
+  Then restart OpenSearch by running `sudo systemctl restart opensearch`.
 
-  Sets the size of the Java heap (we recommend half of system RAM).
-  
- OpenSearch defaults to `-Xms1g -Xmx1g` for heap memory allocation, which takes precedence over configurations specified using percentage notation (`-XX:MinRAMPercentage`, `-XX:MaxRAMPercentage`). For example, if you set `OPENSEARCH_JAVA_OPTS=-XX:MinRAMPercentage=30 -XX:MaxRAMPercentage=70`, the predefined `-Xms1g -Xmx1g` values will override these settings. When using `OPENSEARCH_JAVA_OPTS` to define memory allocation, make sure you use the `-Xms` and `-Xmx` notation.
+- If you installed OpenSearch from a tarball, set the limit in `/etc/security/limits.conf`, as described in [Setting limits for tarball installations](#setting-limits-for-tarball-installations).
+
+Alternatively, disable swapping on the host by running `sudo swapoff -a`.
+
+When the memory lock is enabled, the JVM reserves all the memory it needs at startup. The [Java SE Hotspot VM Garbage Collection Tuning Guide](https://docs.oracle.com/javase/9/gctuning/other-considerations.htm#JSGCT-GUID-B29C9153-3530-4C15-9154-E74F44E3DAD9) documents a default 1 gigabyte (GB) native memory reservation for class metadata. On VMs with limited memory, this reservation combined with the Java heap can exhaust native memory and cause an error. To prevent errors, limit the reserved memory size using `-XX:CompressedClassSpaceSize` or `-XX:MaxMetaspaceSize` and make sure that the host has enough memory for the Java heap.
+
+### Java heap size
+
+OpenSearch uses a 1 GB Java heap by default (`-Xms1g -Xmx1g`). We recommend setting the heap size to half of the system RAM. Set the initial heap size (`-Xms`) and the maximum heap size (`-Xmx`) to the same value. You can set the heap size in either of the following locations:
+
+- The `jvm.options` file in the OpenSearch configuration directory (`config/` for tarball and Windows installations, `/etc/opensearch/` for RPM and Debian installations).
+- The `OPENSEARCH_JAVA_OPTS` environment variable, for example, `OPENSEARCH_JAVA_OPTS="-Xms4g -Xmx4g"`. The sample `docker-compose.yml` file uses this variable.
+
+The default `-Xms1g -Xmx1g` values take precedence over heap sizes specified using percentage notation (`-XX:MinRAMPercentage`, `-XX:MaxRAMPercentage`). For example, if you set `OPENSEARCH_JAVA_OPTS=-XX:MinRAMPercentage=30 -XX:MaxRAMPercentage=70`, OpenSearch uses a 1 GB heap. To set the heap size, use the `-Xms` and `-Xmx` notation.
 {: .note}
 
-- `nofile 65536`
-
-  Sets a limit of 65536 open files for the OpenSearch user.
-
-Do not declare the same JVM options in multiple locations because it can result in unexpected behavior or a failure of the OpenSearch service to start. If you declare JVM options using an environment variable, such as `OPENSEARCH_JAVA_OPTS=-Xms3g -Xmx3g`, then you should comment out any references to that JVM option in `config/jvm.options`. Conversely, if you define JVM options in `config/jvm.options`, then you should not define those JVM options using environment variables.
+Do not declare the same JVM options in multiple locations because it can result in unexpected behavior or a failure of the OpenSearch service to start. If you declare JVM options using an environment variable, such as `OPENSEARCH_JAVA_OPTS=-Xms3g -Xmx3g`, then comment out any references to that JVM option in `jvm.options`. Conversely, if you define JVM options in `jvm.options`, then do not define those JVM options using environment variables.
 {: .note}
+
+### File descriptors
+
+OpenSearch requires the user that runs it to be able to open at least 65,535 files. The way you set this limit depends on the installation method:
+
+- If you use Docker, the sample `docker-compose.yml` file sets the `nofile` ulimits to `65536`.
+- If you installed OpenSearch from an RPM or Debian package, the `opensearch` systemd service sets `LimitNOFILE=65535`, so no action is needed.
+- If you installed OpenSearch from a tarball, set the limit in `/etc/security/limits.conf`, as described in [Setting limits for tarball installations](#setting-limits-for-tarball-installations).
+
+### Setting limits for tarball installations
+
+A user without root privileges cannot raise a limit higher than its hard limit using `ulimit`, so set the limits for the user that runs OpenSearch in `/etc/security/limits.conf`. Add the following lines, replacing `opensearch` with the name of that user. Include the `memlock` line only if you set `bootstrap.memory_lock` to `true`:
+
+```
+opensearch  -  nofile   65535
+opensearch  -  memlock  unlimited
+```
+{% include copy.html %}
+
+The limits apply to new login sessions, so log out and log back in before starting OpenSearch. To verify the limits, run `ulimit -n` and `ulimit -l` as that user.
 
 ## Important system properties
 

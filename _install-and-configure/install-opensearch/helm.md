@@ -153,6 +153,8 @@ opensearch-cluster-master-1   1/1     Running   0          41s
 opensearch-cluster-master-2   1/1     Running   0          41s
 ```
 
+The chart names the OpenSearch service and pods using the `clusterName` and `nodeGroup` parameters, in the `<clusterName>-<nodeGroup>` format. The commands in this section use the default name, `opensearch-cluster-master`. If you changed either parameter, replace `opensearch-cluster-master` with your service name. To list the services, run `kubectl get svc`.
+
 Once all pods are ready, you can verify that OpenSearch is running. Use one of the following methods.
 
 ### Port forwarding from your local machine
