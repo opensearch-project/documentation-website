@@ -44,7 +44,6 @@ config:
     authc:
       openid_auth_domain:
         http_enabled: true
-        transport_enabled: true
         order: 0
         http_authenticator:
           type: openid
@@ -448,7 +447,6 @@ config:
     authc:
       basic_internal_auth_domain:
         http_enabled: true
-        transport_enabled: true
         order: 0
         http_authenticator:
           type: basic
@@ -457,7 +455,6 @@ config:
           type: internal
       openid_auth_domain:
         http_enabled: true
-        transport_enabled: true
         order: 1
         http_authenticator:
           type: openid
