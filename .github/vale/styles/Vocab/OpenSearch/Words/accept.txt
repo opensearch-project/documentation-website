@@ -21,6 +21,7 @@
 [Bb]lockquotes?
 Boolean
 [Bb]roadcasted
+CMake
 [Cc]allout
 [Cc]hatbots?
 [Cc]heckpointing
@@ -233,6 +234,7 @@ peta
 [Ss]yslog
 t-digest
 tebibyte
+toolchain
 [Tt]emplated
 tera
 [Tt]iering
