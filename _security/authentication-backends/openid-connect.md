@@ -338,7 +338,7 @@ OpenID Connect providers usually publish their configuration in JSON format unde
 
 - Client secret
 
-  A confidential client also has a client secret assigned. The client secret is usually generated when the client is created, and the IdP issues an identity token only when the application provides the client secret. You can find this secret in the settings of the client on your IdP. A public client has no client secret.
+  A confidential client also has a client secret assigned. The client secret is usually generated when the client is created, and the IdP issues an identity token only when the application provides the client secret. You can find this secret in the settings of the client on your IdP. A public client has no client secret. OpenSearch Dashboards does not support Proof Key for Code Exchange (PKCE), so we recommend using a confidential client.
 
 
 ### Configuration settings
@@ -347,9 +347,9 @@ Name | Description
 :--- | :---
 `opensearch_security.openid.connect_url` | The URL where the IdP publishes the OpenID metadata. Required.
 `opensearch_security.openid.client_id` | The ID of the OpenID Connect client configured in your IdP. Required.
-`opensearch_security.openid.client_secret` | The client secret of the OpenID Connect client configured in your IdP. Required if the client is a confidential client. If the client is a public client, omit this setting.
+`opensearch_security.openid.client_secret` | The client secret of the OpenID Connect client configured in your IdP. Required for a confidential client. OpenSearch Dashboards does not support PKCE, so we recommend using a confidential client.
 `opensearch_security.openid.scope` | The [scope of the identity token](https://openid.net/specs/openid-connect-messages-1_0-20.html#scopes) issued by the IdP. Optional. Default is `openid profile email address phone`.
-`opensearch_security.openid.header` | HTTP header name of the JWT token. Optional. Default is `Authorization`.
+`opensearch_security.openid.header` | HTTP header name of the JWT token. Optional. Default is `Authorization`. Keep the default: the OpenID Connect authentication domain reads the token from the `Authorization` header by default.
 `opensearch_security.openid.logout_url` | The logout URL of your IdP. Optional. Only necessary if your IdP does not publish the logout URL in its metadata.
 `opensearch_security.openid.base_redirect_url` | The base of the redirect URL that will be sent to your IdP. Optional. Only necessary when OpenSearch Dashboards is behind a reverse proxy, in which case it should be different than `server.host` and `server.port` in `opensearch_dashboards.yml`.
 `opensearch_security.openid.trust_dynamic_headers` | Compute `base_redirect_url` from the reverse proxy HTTP headers (`X-Forwarded-Host` / `X-Forwarded-Proto`). Optional. Default is `false`.

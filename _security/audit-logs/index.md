@@ -240,12 +240,21 @@ config:
 
 ### Exclude headers
 
-By default, the Security plugin excludes sensitive headers, such as the `Authorization` header, from the logs. This is controlled by the following setting:
+By default, the Security plugin excludes the `Authorization` header from the logs. This is controlled by the following setting:
 
 ```yml
 config:
   audit:
     exclude_sensitive_headers: true
+```
+{% include copy.html %}
+
+Other headers, including `Cookie`, are logged. To exclude additional headers, list them in the `ignore_headers` setting. Header name matching is case sensitive, and the case of a header name in the log depends on the request: HTTP/2 header names are lowercase, while HTTP/1.1 header names keep the case sent by the client. To match a header name regardless of case, use a regular expression enclosed in slashes:
+
+```yml
+config:
+  audit:
+    ignore_headers: ["/(?i)cookie/"]
 ```
 {% include copy.html %}
 
@@ -273,7 +282,7 @@ FGAC | The entire `plugins.security.audit.*` subtree is filtered for all callers
 The `plugins.security.audit.enabled` runtime toggle applies only to standalone audit logging. See [Standalone audit logging]({{site.url}}{{site.baseurl}}/security/audit-logs/standalone/) for instructions.
 {: .note}
 
-### Exclude categories
+### Exclude categories in `opensearch.yml`
 
 You can configure disabled categories in `opensearch.yml` using the `plugins.security.audit.config` prefix. This is useful for non-FGAC modes (SSL-only or security-disabled), in which the `audit.yml` security index is not available:
 

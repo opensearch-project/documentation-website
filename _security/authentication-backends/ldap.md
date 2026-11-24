@@ -256,10 +256,10 @@ config:
 
 Name | Description
 :--- | :---
-`pemkey_filepath` | Absolute path to the file containing the private key of your certificate.
+`pemkey_filepath` | Path to the file containing the private key of your certificate. Relative paths are resolved against the OpenSearch `config` directory.
 `pemkey_content` | The content of the private key of your certificate. Cannot be used when `pemkey_filepath` is set.
 `pemkey_password` | The password of your private key, if any.
-`pemcert_filepath` | Absolute path to the client certificate.
+`pemcert_filepath` | Path to the client certificate. Relative paths are resolved against the OpenSearch `config` directory.
 `pemcert_content` | The content of the client certificate. Cannot be used when `pemcert_filepath` is set.
 
 
@@ -276,6 +276,8 @@ ldap:
     type: ldap
     config:
       enabled_ssl_ciphers:
+        - "TLS_AES_256_GCM_SHA384"
+        - "TLS_AES_128_GCM_SHA256"
         - "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384"
         - "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
       enabled_ssl_protocols:
