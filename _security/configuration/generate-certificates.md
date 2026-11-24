@@ -73,7 +73,7 @@ To generate an admin certificate, first create a new key:
 openssl genrsa -out admin-key-temp.pem 2048
 ```
 
-Then convert that key to PKCS#8 format for use in Java using a PKCS#12-compatible algorithm (3DES):
+Then convert that key to PKCS#8 format for use in Java:
 
 ```bash
 openssl pkcs8 -inform PEM -outform PEM -in admin-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out admin-key.pem
@@ -110,7 +110,7 @@ To generate a node or client certificate, first create a new key:
 openssl genrsa -out node1-key-temp.pem 2048
 ```
 
-Then convert that key to PKCS#8 format for use in Java using a PKCS#12-compatible algorithm (3DES):
+Then convert that key to PKCS#8 format for use in Java:
 
 ```bash
 openssl pkcs8 -inform PEM -outform PEM -in node1-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out node1-key.pem
@@ -148,7 +148,7 @@ openssl x509 -req -in node1.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreate
 
 ## Sample script to generate self-signed PEM certificates
 
-If you already know the certificate details and don't want to specify them interactively, use the `-subj` option in your `root-ca.pem` and CSR commands. This script creates a root certificate, admin certificate, two node certificates, and a client certificate, all with an expiration dates of two years (730 days):
+If you already know the certificate details and don't want to specify them interactively, use the `-subj` option in your `root-ca.pem` and CSR commands. This script creates a root certificate, admin certificate, two node certificates, and a client certificate, all with an expiration date of two years (730 days):
 
 ```bash
 #!/bin/sh
@@ -239,16 +239,22 @@ plugins.security.nodes_dn:
 But if you look at the `subject` of the certificate after creating it, you might see different formatting:
 
 ```
-subject=/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=node1.dns.a-record
+subject=C=CA, ST=ONTARIO, L=TORONTO, O=ORG, OU=UNIT, CN=node1.dns.a-record
 ```
 
-If you compare this string to the preceding ones, you can see that you need to invert the order of elements and use commas rather than slashes. Enter this command to get the correct string:
+If you compare this string to the preceding ones, you can see that you need to invert the order of elements and remove the spaces. Enter this command to get the correct string:
 
 ```bash
-openssl x509 -subject -nameopt RFC2253 -noout -in node.pem
+openssl x509 -subject -nameopt RFC2253 -noout -in node1.pem
 ```
 
-Then copy and paste the output into `opensearch.yml`.
+The command returns the following output:
+
+```
+subject=CN=node1.dns.a-record,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA
+```
+
+Then copy and paste the output, without the `subject=` prefix, into `opensearch.yml`.
 
 
 ## Add certificate files to opensearch.yml
@@ -281,7 +287,7 @@ plugins.security.nodes_dn:
   - 'CN=node2.dns.a-record,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'
 ```
 
-For more information about adding and using these certificates in your own setup, see [Configuring basic security settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#configuring-basic-security-settings) for Docker, [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/), and [Client certificate authentication]({{site.url}}{{site.baseurl}}/security/configuration/client-auth/).
+For more information about adding and using these certificates in your own setup, see [Configuring basic security settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#configuring-basic-security-settings) for Docker, [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/), and [Client certificate authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/client-auth/).
 
 ## OpenSearch Dashboards
 
