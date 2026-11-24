@@ -133,7 +133,7 @@ System index permissions also work with the wildcard to include all variations o
   Entering the wildcard `*` by itself under `allowed_actions` does not automatically grant access to system indexes. The allowed action `system:admin/system_index` must be explicitly added.
   {: .note }
 
-The following example shows a role that grants read access to all system indexes except the security index:
+The following example shows a role that grants read access to all indexes, including all system indexes except the security index:
 
 ```yml
 index_permissions:
@@ -461,11 +461,11 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:admin/data_stream/delete` |  Permission to [delete data streams]({{site.url}}{{site.baseurl}}/api-reference/data-stream/delete-data-stream/). |
 | `indices:admin/data_stream/get` |  Permission to [get data streams]({{site.url}}{{site.baseurl}}/api-reference/data-stream/data-stream-info/). |
 | `indices:admin/delete` |  Permission to [delete indexes]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index/). |
-| `indices:admin/exists` |  Permission to check whether [an index exists]({{site.url}}{{site.baseurl}}/api-reference/index-apis/exists/). |
+| `indices:admin/exists` |  Permission for the internal index exists action. The [Index Exists API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/exists/) requires `indices:admin/get`. |
 | `indices:admin/flush` |  Permission to [flush an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/flush/). |
 | `indices:admin/flush*` |  Permission to [flush an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/flush/). |
 | `indices:admin/forcemerge` |  Permission to force merge indexes and data streams. |
-| `indices:admin/get` |  Permission to get index and mapping. |
+| `indices:admin/get` |  Permission to get index and mapping information and to check whether an index exists. |
 | `indices:admin/mapping/put` |  Permission to add new mappings and fields to an index. |
 | `indices:admin/mappings/fields/get` |  Permission to get mappings fields. |
 | `indices:admin/mappings/fields/get*` |  Permission to get mappings fields. |

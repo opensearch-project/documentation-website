@@ -251,8 +251,6 @@ plugins.security.dfm_empty_overrides_all: true
 ```
 {% include copy.html %}
 
-You can also update this setting dynamically using the [Cluster Settings API]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
-
 The following examples show the level of access that a user has when the user is mapped to both a role with DLS and a role without DLS. These examples can help you decide when to enable the `plugins.security.dfm_empty_overrides_all` setting.
 
 The first example demonstrates that enabling `plugins.security.dfm_empty_overrides_all` is beneficial in scenarios where you need specific users to have unrestricted access to documents despite being part of a broader group with restricted access. Role A is granted to a broad group of users and includes DLS to restrict access to specific documents, as shown in the following permission set:
