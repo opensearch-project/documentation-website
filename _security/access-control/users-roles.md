@@ -176,6 +176,20 @@ Mapping a user to only the `readonly_mode` role does not allow them to view rele
 
 If a user is also mapped to any role listed under `plugins.security.restapi.roles_enabled` in `opensearch.yml`, for example, `all_access` or `security_rest_api_access`, then `readonly_mode` is ignored, giving them access to the standard UI elements.
 
+### Allowing Discover and Visualize in read-only mode
+**Introduced 3.10**
+{: .label .label-purple }
+
+By default, users mapped to a `readonly_mode` role can access only the **Dashboards** app. To also give these users access to Discover or Visualize, add the following settings to `opensearch_dashboards.yml`. Both settings default to `false`:
+
+```yml
+opensearch_security.readonly_mode.allow_discover: true
+opensearch_security.readonly_mode.allow_visualize: true
+```
+{% include copy.html %}
+
+These settings control only which apps are available. The user's roles still determine access to indexes and saved objects.
+
 ### Additional permissions
 
 If a user requires permissions in addition to those included in the read-only role, such as for alerting or anomaly detection tasks, you can assign predefined roles, such as `alerting_read_access` or `anomaly_read_access`.
@@ -245,7 +259,7 @@ The following table lists the reserved roles defined in the default `roles.yml` 
 | `query_assistant_access` | Grants permissions to use the query assistant in OpenSearch Dashboards. |
 | `query_insights_full_access` | Grants full permissions to use all Query Insights APIs and to access the `top_queries-*` indexes. |
 | `reports_full_access` | Grants full permissions to create, view, modify, and delete report definitions and to generate and download reports. |
-| `reports_instances_read_access`| Grants permissions to generate on-demand reports and download existing report instances but not to view/create report definitions. |
+| `reports_instances_read_access`| Grants permissions to generate reports from the **Reporting** menu in Discover, dashboards, and visualizations and to view and download existing report instances, but not to view report definitions or generate reports from them. |
 | `reports_read_access` | Grants permissions to view report definitions and to view and download existing report instances but not to create or modify report definitions. |
 | `search_relevance_full_access` | Grants full permissions to use all Search Relevance functionality. |
 | `search_relevance_read_access` | Grants permissions to view Search Relevance experiments, judgments, query sets, and search configurations. |
