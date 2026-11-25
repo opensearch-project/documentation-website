@@ -145,9 +145,9 @@ Name | Description
 
 ## Time disparity compensation for JWT validation
 
-Occasionally you may find that the clock times between the authentication server and the OpenSearch node are not perfectly synchronized. When this is the case, even by a few seconds, the system that either issues or receives a JSON Web Token (JWT) may try to validate `nbf` (not before) and `exp` (expiration) claims and fail to authenticate the user due to the time disparity.
+After a successful SAML login, the Security plugin exchanges the SAML response for a JSON Web Token (JWT) that it signs itself. On every subsequent request, the plugin validates the `nbf` (not before) and `exp` (expiration) claims of this token. If the clocks of your OpenSearch nodes are not synchronized, this validation can fail.
 
-By default, OpenSearch Security allows for a window of 30 seconds to compensate for possible misalignment between server clock times. To set a custom value for this feature and override the default, you can add the `jwt_clock_skew_tolerance_seconds` setting to the `config.yml`.
+By default, the Security plugin allows a tolerance of 30 seconds. To change it, set `jwt_clock_skew_tolerance_seconds` in the `jwt` section of the SAML `config`. This setting does not affect validation of the SAML assertion:
 
 ```yml
 http_authenticator:
@@ -156,7 +156,8 @@ http_authenticator:
   config:
     idp:
       metadata_file: okta.xml
-    jwt_clock_skew_tolerance_seconds: 20
+    jwt:
+      jwt_clock_skew_tolerance_seconds: 20
 ```
 
 ## OpenSearch Dashboards settings
