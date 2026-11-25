@@ -228,7 +228,7 @@ Note the following:
 - The setting checks only that a claim is present. It does not validate the claim value. For example, requiring `iat` does not limit the age of a token. To validate claim values, use settings such as `required_audience`, `required_issuer`, and `jwt_clock_skew_tolerance_seconds`.
 - Specify the setting as a list of claim names. A comma-separated string, such as `exp, nbf`, is also accepted. Empty entries and other formats, such as `exp: true`, prevent the authentication domain from initializing.
 - If you misspell a claim name or list a claim that your identity provider does not include in every token, the Security plugin rejects every token. Verify the claims in your tokens before you enable this setting.
-- The `required_claims` setting also applies to JSON Web Key Set (JWKS) and OpenID Connect authentication. It does not apply to SAML authentication.
+- The `required_claims` setting also applies to JSON Web Key Set (JWKS) and OpenID Connect authentication.
 
 ### Supported formats and algorithms
 
