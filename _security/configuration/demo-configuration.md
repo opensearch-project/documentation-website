@@ -7,7 +7,7 @@ nav_order: 10
 
 # Setting up a security demo configuration
 
-Welcome to the OpenSearch Security plugin demo configuration setup guide. This tool provides a quick and easy way to replicate a production environment for testing purposes. The demo configuration includes the setup of security-related components, such as internal users, roles, role mappings, audit configuration, basic authentication, tenants, and allow lists.
+The demo configuration sets up the Security plugin with demo certificates and default settings so that you can test security features. The demo configuration includes the setup of security-related components, such as internal users, roles, role mappings, audit configuration, basic authentication, tenants, and allow lists. The demo certificates and settings are not secure, so do not use the demo configuration in production. For information about configuring security for production, see [Security configuration]({{site.url}}{{site.baseurl}}/security/configuration/).
 
 The demo configuration tool performs the following tasks:
 
@@ -37,7 +37,8 @@ To change the admin password after installation, and for an overview of the othe
 
 The demo configuration is automatically called as part of the setup for each supported distribution of OpenSearch. The following are instructions for each distribution.
 
-**Note**: Starting with OpenSearch 2.12, a custom admin password is required in order to install the demo configuration. If none is provided, the cluster will fail to start. Note that this change only affects new clusters. Existing clusters are not affected because they already have `opensearch.yml` configured, so the installation tool will not run. 
+A custom admin password is required in order to install the demo configuration. If none is provided, the cluster fails to start. Existing clusters are not affected because they already have `opensearch.yml` configured, so the installation tool does not run.
+{: .note}
 
 ### Docker
 
@@ -54,51 +55,60 @@ docker compose up
 If you want to disable the Security plugin when using Docker, set the `DISABLE_SECURITY_PLUGIN` environment variable  to `true` in the `docker-compose.yml` file. Disabling the Security plugin is not recommended. For more information, see the [Docker image release README](https://github.com/opensearch-project/opensearch-build/tree/main/docker/release#disable-security-plugin-security-dashboards-plugin-security-demo-configurations-and-related-configurations) in GitHub.
 
 ### Setting up a custom admin password
-**Note**: For OpenSearch versions 2.12 and later, you must set the initial admin password before installation. To customize the admin password, you can take the following steps:
+You must set the initial admin password before installation. To set the admin password, take the following steps:
 
 1. Download the following sample [`docker-compose.yml`](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/docker-compose.yml) file.
 2. Create a `.env` file.
 3. Add the variable `OPENSEARCH_INITIAL_ADMIN_PASSWORD` and set it to a password that meets the [admin password requirements](#admin-password-requirements).
-4. Make sure that Docker is running on your local machine
+4. Make sure that Docker is running on your local machine.
 5. Run `docker compose up` from the file directory where your `docker-compose.yml` file and `.env` file are located.
 
 <!-- vale off -->
 ### TAR (Linux) and macOS
 
 For TAR distributions on Linux, download the Linux setup files from the OpenSearch [Download & Get Started](https://opensearch.org/downloads.html) page.
-<!-- vale on --> Then use the following command to run the demo configuration: 
-
-```bash
-./opensearch-tar-install.sh
-```
-{% include copy.html %}
-
-For OpenSearch 2.12 or later, set a new custom admin password before installation by using the following command:
+<!-- vale on --> Set a custom admin password before installation by using the following command:
 
 ```bash
 export OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
 ```
 {% include copy.html %}
 
-### Windows
+Then use the following command to run the demo configuration:
 
-For ZIP distributions on Windows, after downloading and extracting the setup files, run the following command:
-
-```powershell
-> .\opensearch-windows-install.bat
+```bash
+./opensearch-tar-install.sh
 ```
 {% include copy.html %}
 
-For OpenSearch 2.12 or later, set a new custom admin password before installation by running the following command:
+### Windows
+
+For ZIP distributions on Windows, download and extract the setup files, and then set a custom admin password before installation.
+
+In Command Prompt, use the following command:
+
+```bat
+set OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
+```
+{% include copy.html %}
+
+In PowerShell, use the following command:
 
 ```powershell
-> set OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password>
+$env:OPENSEARCH_INITIAL_ADMIN_PASSWORD="<custom-admin-password>"
+```
+{% include copy.html %}
+
+Then run the following command:
+
+```powershell
+.\opensearch-windows-install.bat
 ```
 {% include copy.html %}
 
 ### Helm
 
-For Helm charts, the demo configuration is automatically installed during the OpenSearch installation. For OpenSearch 2.12 or later, customize the admin password in `values.yaml` under `extraEnvs`, following the [admin password requirements](#admin-password-requirements):
+For Helm charts, the demo configuration is automatically installed during the OpenSearch installation. Set the admin password in the `extraEnvs` section of `values.yaml`, following the [admin password requirements](#admin-password-requirements):
 
 ```yaml
 extraEnvs:
@@ -108,14 +118,7 @@ extraEnvs:
 
 ### RPM
 
-For RPM packages, install OpenSearch and set up the demo configuration by running the following command:
-
-```bash
-sudo yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
-```
-{% include copy.html %}
-
-For OpenSearch 2.12 or later, set a new custom admin password before installation by using the following command:
+For RPM packages, install OpenSearch, set the custom admin password, and set up the demo configuration by running the following command:
 
 ```bash
 sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
@@ -124,14 +127,7 @@ sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> yum install o
 
 ### DEB
 
-For DEB packages, install OpenSearch and set up the demo configuration by running the following command:
-
-```bash
-sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
-```
-{% include copy.html %}
-
-For OpenSearch 2.12 or later, set a new custom admin password before installation by using the following command:
+For DEB packages, install OpenSearch, set the custom admin password, and set up the demo configuration by running the following command:
 
 ```bash
 sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
@@ -142,4 +138,4 @@ sudo env OPENSEARCH_INITIAL_ADMIN_PASSWORD=<custom-admin-password> dpkg -i opens
 
 If you are building a local distribution, refer to [DEVELOPER_GUIDE.md](https://github.com/opensearch-project/security/blob/main/docs/DEVELOPER_GUIDE.md) for instructions on building a local binary for the Security plugin.
 
-For OpenSearch 2.12 or later, make sure that you set a strong password before installation.
+Make sure that you set an admin password that meets the [admin password requirements](#admin-password-requirements) before installation.

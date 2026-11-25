@@ -47,7 +47,7 @@ Anonymous login for OpenSearch Dashboards requires anonymous authentication to b
 
 When anonymous authentication is enabled, your defined HTTP authenticators still try to find user credentials inside your HTTP request. If credentials are found, the user is authenticated. If none are found, the user is authenticated as an `anonymous` user.
 
-All anonymous users have the username `anonymous` and a single role named `anonymous_backendrole`.
+All anonymous users have the username `opendistro_security_anonymous` and a single backend role named `opendistro_security_anonymous_backendrole`.
 
 You can configure the privileges associated with the `opendistro_security_anonymous_backendrole` in the [roles.yml]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/) file. 
 

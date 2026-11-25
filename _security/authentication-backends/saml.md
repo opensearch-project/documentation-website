@@ -32,7 +32,7 @@ We provide a fully functional example that can help you understand how to use SA
 
    * `.env`: 
      * Defines the OpenSearch and OpenSearch Dashboards version to use. The default is the latest version ({{site.opensearch_major_minor_version}}).
-     * Defines the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` variable required by versions 2.12 and later.
+     * Defines the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` variable, which is required to start OpenSearch with the demo security configuration.
    * `./custom-config/opensearch_dashboards.yml`: Includes the SAML settings for the default `opensearch_dashboards.yml` file.
    * `./custom-config/config.yml`: Configures SAML for authentication.
    * `docker-compose.yml`: Defines an OpenSearch server node, an OpenSearch Dashboards server node, and a SAML server node.
@@ -40,7 +40,7 @@ We provide a fully functional example that can help you understand how to use SA
 
 1. From the command line, run:
    ```zsh
-   $ docker compose up.
+   $ docker compose up
    ```
 
 1. Access OpenSearch Dashboards at [http://localhost:5601](http://localhost:5601){:target='\_blank'}.
@@ -58,7 +58,7 @@ We provide a fully functional example that can help you understand how to use SA
 
 ## Activating SAML
 
-To use SAML for authentication, you need to configure a respective authentication domain in the `authc` section of `config/opensearch-security/config.yml`. Because SAML works solely on the HTTP layer, you do not need any `authentication_backend` and can set it to `noop`. Place all SAML-specific configuration options in this chapter in the `config` section of the SAML HTTP authenticator:
+To use SAML for authentication, you need to configure a respective authentication domain in the `authc` section of `config/opensearch-security/config.yml`. Because SAML works solely on the HTTP layer, you do not need any `authentication_backend` and can set it to `noop`. Place all SAML-specific settings described on this page in the `config` section of the SAML HTTP authenticator:
 
 ```yml
 _meta:
@@ -70,7 +70,6 @@ config:
     authc:
       saml_auth_domain:
         http_enabled: true
-        transport_enabled: false
         order: 1
         http_authenticator:
           type: saml
@@ -100,7 +99,6 @@ config:
     authc:
       basic_internal_auth_domain:
         http_enabled: true
-        transport_enabled: true
         order: 0
         http_authenticator:
           type: basic
@@ -109,7 +107,6 @@ config:
           type: internal
       saml_auth_domain:
         http_enabled: true
-        transport_enabled: false
         order: 1
         http_authenticator:
           type: saml
@@ -128,12 +125,25 @@ For more information, see [The challenge setting]({{site.url}}{{site.baseurl}}/s
 
 ## Identity provider metadata
 
-A SAML identity provider (IdP) provides a SAML 2.0 metadata file describing the IdP's capabilities and configuration. The Security plugin can read IdP metadata either from a URL or a file. The choice that you make depends on your IdP and your preferences. The SAML 2.0 metadata file is required.
+A SAML identity provider (IdP) provides a SAML 2.0 metadata file describing the IdP's capabilities and configuration. The Security plugin can read IdP metadata from a URL, from a file, or directly from the configuration. The choice that you make depends on your IdP and your preferences. You must configure one of these sources.
 
 Name | Description
 :--- | :---
-`idp.metadata_file` | The path to the SAML 2.0 metadata file of your IdP. Place the metadata file in the `config` directory of OpenSearch. The path has to be specified relative to the `config` directory. Required if `idp.metadata_url` is not set.
-`idp.metadata_url` | The SAML 2.0 metadata URL of your IdP. Required if `idp.metadata_file` is not set.
+`idp.metadata_file` | The path to the SAML 2.0 metadata file of your IdP. Place the metadata file in the `config` directory of OpenSearch. The path has to be specified relative to the `config` directory. Required if neither `idp.metadata_url` nor `idp.metadata_content` is set.
+`idp.metadata_url` | The SAML 2.0 metadata URL of your IdP. Required if neither `idp.metadata_file` nor `idp.metadata_content` is set.
+`idp.metadata_content` | The SAML 2.0 metadata XML of your IdP. Required if neither `idp.metadata_url` nor `idp.metadata_file` is set.
+
+### Metadata refresh
+
+If you configure `idp.metadata_url`, the Security plugin periodically reloads the metadata from the URL. The time until the next refresh is the validity period of the metadata multiplied by `idp.refresh_delay_factor`. The validity period is `idp.max_refresh_delay` or, if the metadata specifies a shorter validity period, that period. With the default settings and metadata that does not specify a validity period, the Security plugin reloads the metadata every 3 hours.
+
+Use the following settings to configure the refresh interval.
+
+Name | Description
+:--- | :---
+`idp.min_refresh_delay` | The minimum amount of time, in milliseconds, between metadata refreshes. If a refresh fails, the Security plugin retries after this amount of time. Default is `60000` (1 minute).
+`idp.max_refresh_delay` | The maximum validity period of the metadata, in milliseconds. Default is `14400000` (4 hours).
+`idp.refresh_delay_factor` | The fraction of the metadata validity period after which the Security plugin reloads the metadata. Default is `0.75`.
 
 
 ## IdP and service provider entity ID
@@ -147,9 +157,9 @@ Name | Description
 
 ## Time disparity compensation for JWT validation
 
-Occasionally you may find that the clock times between the authentication server and the OpenSearch node are not perfectly synchronized. When this is the case, even by a few seconds, the system that either issues or receives a JSON Web Token (JWT) may try to validate `nbf` (not before) and `exp` (expiration) claims and fail to authenticate the user due to the time disparity.
+After a successful SAML login, the Security plugin exchanges the SAML response for a JSON Web Token (JWT) that it signs itself. On every subsequent request, the plugin validates the `nbf` (not before) and `exp` (expiration) claims of this token. If the clocks of your OpenSearch nodes are not synchronized, this validation can fail.
 
-By default, OpenSearch Security allows for a window of 30 seconds to compensate for possible misalignment between server clock times. To set a custom value for this feature and override the default, you can add the `jwt_clock_skew_tolerance_seconds` setting to the `config.yml`.
+By default, the Security plugin allows a tolerance of 30 seconds. To change it, set `jwt_clock_skew_tolerance_seconds` in the `jwt` section of the SAML `config`. This setting does not affect validation of the SAML assertion:
 
 ```yml
 http_authenticator:
@@ -158,7 +168,8 @@ http_authenticator:
   config:
     idp:
       metadata_file: okta.xml
-    jwt_clock_skew_tolerance_seconds: 20
+    jwt:
+      jwt_clock_skew_tolerance_seconds: 20
 ```
 
 ## OpenSearch Dashboards settings
@@ -198,6 +209,7 @@ Name | Description
 :--- | :---
 `subject_key` | The attribute in the SAML response where the subject is stored. Optional. If not configured, the `NameID` attribute is used.
 `roles_key` | The attribute in the SAML response where the roles are stored. Optional. If not configured, no roles are used.
+`roles_separator` | A regular expression used to split each value of the roles attribute into multiple roles. For example, if the roles attribute contains the value `admin,developer`, setting `roles_separator` to `,` produces the roles `admin` and `developer`. Optional. If not configured, each attribute value is used as one role.
 
 
 ## Request signing
@@ -206,10 +218,10 @@ Requests from the Security plugin to the IdP can optionally be signed. Use the f
 
 Name | Description
 :--- | :---
-`sp.signature_private_key` | The private key used to sign the requests or to decode encrypted assertions. Optional. Cannot be used when `private_key_filepath` is set.
+`sp.signature_private_key` | The private key used to sign the requests or to decode encrypted assertions. Optional. Cannot be used when `sp.signature_private_key_filepath` is set.
 `sp.signature_private_key_password` | The password of the private key, if any.
 `sp.signature_private_key_filepath` | Path to the private key. The file must be placed under the OpenSearch `config` directory, and the path must be specified relative to that same directory.
-`sp.signature_algorithm` | The algorithm used to sign the requests. See the next table for possible values.
+`sp.signature_algorithm` | The algorithm used to sign the requests. Specify the algorithm URI listed in the **Value** column of the next table. Default is `http://www.w3.org/2001/04/xmldsig-more#rsa-sha256`.
 
 The private key must be in PKCS#8 format. If you want to use an encrypted key, it must be encrypted with a PKCS#12-compatible algorithm (3DES).
 
@@ -217,11 +229,11 @@ The Security plugin supports the following signature algorithms.
 
 Algorithm | Value
 :--- | :---
-`DSA_SHA1` | http://www.w3.org/2000/09/xmldsig#dsa-sha1;
-`RSA_SHA1` | http://www.w3.org/2000/09/xmldsig#rsa-sha1;
-`RSA_SHA256` | http://www.w3.org/2001/04/xmldsig-more#rsa-sha256;
-`RSA_SHA384` | http://www.w3.org/2001/04/xmldsig-more#rsa-sha384;
-`RSA_SHA512` | http://www.w3.org/2001/04/xmldsig-more#rsa-sha512;
+`DSA_SHA1` | `http://www.w3.org/2000/09/xmldsig#dsa-sha1`
+`RSA_SHA1` | `http://www.w3.org/2000/09/xmldsig#rsa-sha1`
+`RSA_SHA256` | `http://www.w3.org/2001/04/xmldsig-more#rsa-sha256`
+`RSA_SHA384` | `http://www.w3.org/2001/04/xmldsig-more#rsa-sha384`
+`RSA_SHA512` | `http://www.w3.org/2001/04/xmldsig-more#rsa-sha512`
 
 
 ## Logout
@@ -230,7 +242,7 @@ Usually, IdPs provide information about their individual logout URL in their SAM
 
 Name | Description
 :--- | :---
-`sp.forceAuthn` | Force a re-login even if the user has an active session with the IdP.
+`sp.forceAuthn` | Force a re-login even if the user has an active session with the IdP. If not set, re-login is forced only when the IdP metadata does not contain a logout URL for the `HTTP-Redirect` binding.
 
 The Security plugin supports only the `HTTP-Redirect` logout binding. Make sure this is configured correctly in your IdP.
 
@@ -241,7 +253,33 @@ SAML, unlike other protocols, is not meant to be used for exchanging user creden
 
 Name | Description
 :--- | :---
-`exchange_key` | The key to sign the token. The algorithm is HMACSHA512, therefore we recommend to use 64 characters, for example `9a2h8ajasdfhsdiydfn7dtd6d5ashsd89a2h8ajasdHhsdiyLfn7dtd6d5ashsdI`. Ensure that you enter a value for `exchange_key`, otherwise an error is returned. 
+`exchange_key` | The key to sign the token. The algorithm is HMACSHA512, therefore we recommend to use 64 characters, for example `9a2h8ajasdfhsdiydfn7dtd6d5ashsd89a2h8ajasdHhsdiyLfn7dtd6d5ashsdI`. The Security plugin decodes the value as a Base64URL string, so the key must be valid Base64URL. For example, it cannot contain spaces, `+`, or `/`. Ensure that you enter a value for `exchange_key`, otherwise an error is returned.
+`jwt.expiry` | The expiration time of the token that the Security plugin issues after a successful SAML login. Specify the value in the `<base>[ + <minutes>]` format. See [Token expiration](#token-expiration). Default is `AUTO`.
+
+### Token expiration
+
+The `jwt.expiry` setting consists of a base value, optionally followed by `+` and an offset in whole minutes. The following table lists the supported base values.
+
+Base value | Token expiration time
+:--- | :---
+`AUTO` | The `SessionNotOnOrAfter` time of the SAML response. The offset is ignored. If the SAML response does not contain `SessionNotOnOrAfter`, the token expires after the offset or, if no offset is specified, after 60 minutes.
+`NOW` | The offset after the token is issued. Without an offset, the token expires as soon as it is issued, so always specify an offset when using `NOW`.
+`SESSION` | The offset after the `SessionNotOnOrAfter` time of the SAML response. If the SAML response does not contain `SessionNotOnOrAfter`, the login fails.
+
+If the value is not in a valid format, the Security plugin logs an error and uses `AUTO`.
+
+For example, the following configuration issues tokens that expire 8 hours after they are issued:
+
+```yml
+http_authenticator:
+  type: saml
+  challenge: true
+  config:
+    idp:
+      metadata_file: okta.xml
+    jwt:
+      expiry: NOW + 480
+```
 
 
 
@@ -252,7 +290,7 @@ If you are loading the IdP metadata from a URL, we recommend that you use SSL/TL
 Name | Description
 :--- | :---
 `idp.enable_ssl` | Whether to enable the custom TLS configuration. Default is `false` (JDK settings are used).
-`idp.verify_hostnames` | Whether to verify the hostnames of the server's TLS certificate.
+`idp.verify_hostnames` | Whether to verify the hostnames of the server's TLS certificate. Default is `true`.
 
 Example:
 
@@ -260,7 +298,6 @@ Example:
 authc:
   saml_auth_domain:
     http_enabled: true
-    transport_enabled: false
     order: 1
     http_authenticator:
       type: saml
@@ -276,6 +313,8 @@ authc:
 
 
 ### Certificate validation
+
+If `idp.enable_ssl` is `true` and you don't configure a root CA using one of the following settings, the Security plugin validates the IdP's TLS certificate against the transport layer truststore configured in `plugins.security.ssl.transport.truststore_filepath` in `opensearch.yml`. If your nodes use PEM certificates instead of a truststore, you must configure a root CA. Otherwise, the SAML authentication domain fails to initialize.
 
 Configure the root CA used for validating the IdP TLS certificate by setting **one** of the following configuration options:
 
@@ -340,7 +379,6 @@ config:
     authc:
       saml_auth_domain:
         http_enabled: true
-        transport_enabled: false
         order: 1
         http_authenticator:
           type: saml
@@ -353,14 +391,14 @@ config:
               entity_id: https://opensearch-dashboards.example.com
             kibana_url: https://opensearch-dashboards.example.com:5601/
             roles_key: Role
-            exchange_key: 'peuvgOLrjzuhXf ...'
+            exchange_key: '<exchange-key>'
         authentication_backend:
           type: noop
 ```
 
 ## OpenSearch Dashboards configuration
 
-Because most of the SAML-specific configuration is done in the Security plugin, just activate SAML in your `opensearch_dashboards.yml` by adding the following:
+Because most of the SAML-specific configuration is done in the Security plugin, activate SAML in your `opensearch_dashboards.yml` by adding the following:
 
 ```yml
 opensearch_security.auth.type: "saml"
@@ -372,16 +410,10 @@ In addition, you must add the OpenSearch Dashboards endpoint for validating the 
 server.xsrf.allowlist: ["/_opendistro/_security/saml/acs"]
 ```
 
-If you use the logout POST binding, you also need to ad the logout endpoint to your allow list:
-
-```yml
-server.xsrf.allowlist: ["/_opendistro/_security/saml/acs", "/_opendistro/_security/saml/logout"]
-```
-
 To include SAML with other authentication types in the Dashboards sign-in window, see [Configuring sign-in options]({{site.url}}{{site.baseurl}}/security/configuration/multi-auth/).
 {: .note }
 
-#### Session management with additional cookies
+### Session management with additional cookies
 
 To improve session management---especially for users who have multiple roles assigned to them---Dashboards provides an option to split cookie payloads into multiple cookies and then recombine the payloads when receiving them. This can help prevent larger SAML assertions from exceeding size limits for each cookie. The two settings in the following example allow you to set a prefix name for additional cookies and specify the number of them. They are added to the `opensearch_dashboards.yml` file. The default number of additional cookies is three:
 
@@ -406,7 +438,7 @@ To use IdP-initiated SSO, set the Assertion Consumer Service endpoint of your Id
 Then add this endpoint to `server.xsrf.allowlist` in `opensearch_dashboards.yml`:
 
 ```yml
-server.xsrf.allowlist: ["/_opendistro/_security/saml/acs/idpinitiated", "/_opendistro/_security/saml/acs", "/_opendistro/_security/saml/logout"]
+server.xsrf.allowlist: ["/_opendistro/_security/saml/acs/idpinitiated", "/_opendistro/_security/saml/acs"]
 ```
 
 ## Troubleshooting

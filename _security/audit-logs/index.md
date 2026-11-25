@@ -62,13 +62,14 @@ Audit logging records events in two ways: HTTP requests (REST) and the transport
 
 Event | Logged on REST | Logged on transport | Description
 :--- | :--- | :--- | :---
-`FAILED_LOGIN` | Yes | Yes | The credentials of a request could not be validated, most likely because the user does not exist or the password is incorrect.
-`AUTHENTICATED` | Yes | Yes | A user successfully authenticated.
-`MISSING_PRIVILEGES` | No | Yes | The user does not have the required permissions to make the request.
-`GRANTED_PRIVILEGES` | No | Yes | A user made a successful request to OpenSearch.
+`FAILED_LOGIN` | Yes | No | The credentials of a request could not be validated, most likely because the user does not exist or the password is incorrect.
+`AUTHENTICATED` | Yes | No | A user successfully authenticated. Disabled by default.
+`MISSING_PRIVILEGES` | Yes | Yes | The user does not have the required permissions to make the request.
+`GRANTED_PRIVILEGES` | Yes | Yes | A user made a successful request to OpenSearch. Disabled by default.
 `SSL_EXCEPTION` | Yes | Yes | An attempt was made to access OpenSearch without a valid SSL/TLS certificate.
-`opensearch_SECURITY_INDEX_ATTEMPT` | No | Yes | An attempt was made to modify the Security plugin internal user and privileges index without the required permissions or TLS admin certificate.
-`BAD_HEADERS` | Yes | Yes | An attempt was made to spoof a request to OpenSearch with the Security plugin internal headers.
+`OPENDISTRO_SECURITY_INDEX_ATTEMPT` | No | Yes | An attempt was made to modify the Security plugin internal user and privileges index without the required permissions or TLS admin certificate.
+`BAD_HEADERS` | Yes | No | An attempt was made to spoof a request to OpenSearch with the Security plugin internal headers.
+`INDEX_EVENT` | No | Yes | A request for an index administration action (`indices:admin/*`), such as creating an index or updating a mapping, was granted.
 `CLUSTER_SETTINGS_CHANGED` | No | Yes | A persistent or transient cluster setting was changed. Disabled by default.
 `INDEX_SETTINGS_CHANGED` | No | Yes | An index setting was changed. Disabled by default.
 `REQUEST_AUDIT` | Yes | Yes | A REST request was received and processed. Generated in [standalone audit logging]({{site.url}}{{site.baseurl}}/security/audit-logs/standalone/) mode only. For more information about suppressing this event, see [Suppressing `REQUEST_AUDIT` events](#request-audit-suppression).
@@ -77,6 +78,8 @@ Event | Logged on REST | Logged on transport | Description
 `RESOURCE_ACCESS_DENIED` | No | Yes | Access to a shared resource was denied. Disabled by default.
 `RESOURCE_SHARING_CHANGED` | No | Yes | A resource sharing configuration was changed. Disabled by default.
 
+The `COMPLIANCE_DOC_READ`, `COMPLIANCE_DOC_WRITE`, `COMPLIANCE_INTERNAL_CONFIG_READ`, `COMPLIANCE_INTERNAL_CONFIG_WRITE`, and `COMPLIANCE_EXTERNAL_CONFIG` categories are not tied to the REST or transport layer and are controlled by the compliance settings. The `API_TOKEN_WRITE` category records the creation and revocation of [API keys]({{site.url}}{{site.baseurl}}/security/access-control/api-keys/).
+
 <p id="request-audit-suppression"></p>
 
 `REQUEST_AUDIT` originates from a REST request (`audit_request_origin: REST`), but the event itself is recorded with `audit_request_layer: TRANSPORT`. As a result, it can be suppressed by any of `disabled_categories`, `disabled_transport_categories`, or `disabled_rest_categories`---adding `REQUEST_AUDIT` to any one of these settings suppresses the event.
@@ -84,39 +87,17 @@ Event | Logged on REST | Logged on transport | Description
 
 ## Audit log settings
 
-The following default log settings work well for most use cases. However, you can change settings to save storage space or adapt the information to your exact needs. 
+The following default log settings work well for most use cases. However, you can change settings to save storage space or adapt the information to your exact needs. Depending on the setting, you configure it in the `audit.yml` file or in the `opensearch.yml` file, as described in the following sections.
 
 
-### Settings in audit.yml
+## Settings in audit.yml
 
 The following settings are stored in the `audit.yml` file.
 
 
-#### Exclude categories
+### Exclude categories
 
-To exclude categories, list them in the following setting:
-
-```yml
-config:
-  audit:
-    disabled_rest_categories: <disabled categories>
-    disabled_transport_categories: <disabled categories>
-```
-{% include copy.html %}
-
-For example:
-
-```yml
-config:
-  audit:
-    disabled_rest_categories:
-      - AUTHENTICATED
-      - GRANTED_PRIVILEGES
-    disabled_transport_categories: [ GRANTED_PRIVILEGES ]
-```
-{% include copy.html %}
-
-Alternatively, you can use the unified `disabled_categories` setting to disable categories on both layers simultaneously:
+To exclude categories on both the REST and transport layers, list them in the `disabled_categories` setting:
 
 ```yml
 config:
@@ -126,6 +107,20 @@ config:
       - GRANTED_PRIVILEGES
 ```
 {% include copy.html %}
+
+The `audit.yml` file provided by the Security plugin disables the `AUTHENTICATED`, `GRANTED_PRIVILEGES`, `CLUSTER_SETTINGS_CHANGED`, and `INDEX_SETTINGS_CHANGED` categories. The list that you configure replaces this list. For example, the preceding configuration enables the `CLUSTER_SETTINGS_CHANGED` and `INDEX_SETTINGS_CHANGED` categories.
+
+If you want to log events in all categories, use `NONE`:
+
+```yml
+config:
+  audit:
+    disabled_categories: [NONE]
+```
+{% include copy.html %}
+
+The layer-specific settings `disabled_rest_categories` and `disabled_transport_categories` are deprecated. Use the unified `disabled_categories` setting instead.
+{: .warning}
 
 When `disabled_categories` is configured alongside `disabled_rest_categories` or `disabled_transport_categories`, a category is disabled on a given layer if it appears in either the unified setting or the layer-specific setting.
 
@@ -143,29 +138,8 @@ config:
 ```
 {% include copy.html %}
 
-By default, the `CLUSTER_SETTINGS_CHANGED` and `INDEX_SETTINGS_CHANGED` categories are disabled on the transport layer. To enable them, remove them from `disabled_transport_categories`:
 
-```yml
-config:
-  audit:
-    disabled_transport_categories:
-      - AUTHENTICATED
-      - GRANTED_PRIVILEGES
-```
-{% include copy.html %}
-
-If you want to log events in all categories, use `NONE`:
-
-```yml
-config:
-  audit:
-    disabled_rest_categories: NONE
-    disabled_transport_categories: NONE
-```
-{% include copy.html %}
-
-
-#### Disable REST or the transport layer
+### Disable REST or the transport layer
 
 By default, the Security plugin logs events on both REST and the transport layer. You can disable either type:
 
@@ -177,7 +151,7 @@ config:
 ```
 {% include copy.html %}
 
-#### Disable request body logging
+### Disable request body logging
 
 By default, the Security plugin includes the body of the request (if available) for both REST and the transport layer. If you do not want or need the request body, you can disable it:
 
@@ -188,7 +162,7 @@ config:
 ```
 {% include copy.html %}
 
-#### Log index names
+### Log index names
 
 By default, the Security plugin logs all indexes affected by a request. Because index names can be aliases and contain wildcards/date patterns, the Security plugin logs the index name that the user submitted *and* the actual index name to which it resolves.
 
@@ -217,7 +191,7 @@ This feature is only disabled if `config.audit.log_request_body` is also set to 
 {: .note }
 
 
-#### Configure bulk request handling
+### Configure bulk request handling
 
 Bulk requests can contain many indexing operations. By default, the Security plugin only logs the single bulk request, not each individual operation.
 
@@ -233,7 +207,7 @@ config:
 This change can create an extremely large number of events in the audit logs, so we don't recommend enabling this setting if you frequently use the `_bulk` API.
 
 
-#### Exclude requests
+### Exclude requests
 
 To exclude certain requests from being logged, configure actions for transport requests, HTTP request paths (REST), or both:
 
@@ -244,7 +218,7 @@ config:
 ```
 {% include copy.html %}
 
-#### Exclude users
+### Exclude users
 
 By default, the Security plugin logs events from all users but excludes the internal OpenSearch Dashboards server user `kibanaserver`. You can exclude other users:
 
@@ -262,14 +236,14 @@ If requests from all users should be logged, use `NONE`:
 ```yml
 config:
   audit:
-    ignore_users: NONE
+    ignore_users: [NONE]
 ```
 {% include copy.html %}
 
 
-#### Exclude headers
+### Exclude headers
 
-You can exclude sensitive headers from being included in the logs---for example, the `Authorization:` header:
+By default, the Security plugin excludes the `Authorization` header from the logs. This is controlled by the following setting:
 
 ```yml
 config:
@@ -278,8 +252,17 @@ config:
 ```
 {% include copy.html %}
 
+Other headers, including `Cookie`, are logged. To exclude additional headers, list them in the `ignore_headers` setting. Header name matching is case sensitive, and the case of a header name in the log depends on the request: HTTP/2 header names are lowercase, while HTTP/1.1 header names keep the case sent by the client. To match a header name regardless of case, use a regular expression enclosed in slashes:
 
-### Settings in opensearch.yml
+```yml
+config:
+  audit:
+    ignore_headers: ["/(?i)cookie/"]
+```
+{% include copy.html %}
+
+
+## Settings in opensearch.yml
 
 The following settings are stored in the `opensearch.yml` file. How they are applied at runtime depends on the audit logging mode:
 
@@ -302,7 +285,7 @@ FGAC | The entire `plugins.security.audit.*` subtree is filtered for all callers
 The `plugins.security.audit.enabled` runtime toggle applies only to standalone audit logging. See [Standalone audit logging]({{site.url}}{{site.baseurl}}/security/audit-logs/standalone/) for instructions.
 {: .note}
 
-#### Exclude categories
+### Exclude categories in `opensearch.yml`
 
 You can configure disabled categories in `opensearch.yml` using the `plugins.security.audit.config` prefix. This is useful for non-FGAC modes (SSL-only or security-disabled), in which the `audit.yml` security index is not available:
 
@@ -333,9 +316,66 @@ When both `disabled_categories` and the layer-specific settings are configured, 
 The `disabled_categories` settings suppress only REST and transport categories. They do not affect `COMPLIANCE_*` categories, which are governed solely by the compliance settings (`compliance.enabled`, the watched indexes and fields, and the compliance ignore-users settings).
 {: .note}
 
-#### Body logging exclusions
+### Log4j MDC routing
 
-Use `body_logging_exclusions` to suppress request bodies for specific actions or REST paths while continuing to log bodies for all other requests. The `log_request_body` setting applies to every request, so it cannot exclude high-volume operations such as bulk ingestion selectively.
+When using the `log4j` audit sink, enable Mapped Diagnostic Context (MDC) routing so that Log4j routes audit events to different appenders based on event properties:
+
+```yml
+plugins.security.audit.config.log4j.enable_mdc_routing: true
+```
+{% include copy.html %}
+
+When enabled, the following MDC keys are set on each audit event:
+
+- `audit_category` --- The audit event category (for example, `REQUEST_AUDIT` or `GRANTED_PRIVILEGES`)
+- `audit_action` --- The action name
+- `audit_user` --- The effective user
+- `audit_request_type` --- The request type
+
+Use Log4j routing appenders in `log4j2.properties` to split audit logs by category, user, or any other MDC key.
+
+This is a static setting and requires a node restart.
+{: .note}
+
+
+### Configure the audit log index name
+
+By default, the Security plugin stores audit events in a daily rolling index named `security-auditlog-YYYY.MM.dd`:
+
+```yml
+plugins.security.audit.config.index: myauditlogindex
+```
+{% include copy.html %}
+
+Use a date pattern in the index name to configure daily, weekly, or monthly rolling indexes:
+
+```yml
+plugins.security.audit.config.index: "'auditlog-'YYYY.MM.dd"
+```
+{% include copy.html %}
+
+For a reference on the date pattern format, see the [Joda DateTimeFormat documentation](https://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html).
+
+
+### (Advanced) Tune the thread pool
+
+The Security plugin logs events asynchronously, which minimizes the performance impact on your cluster. The plugin uses a fixed thread pool to log events:
+
+```yml
+plugins.security.audit.threadpool.size: <integer>
+```
+{% include copy.html %}
+
+The default thread pool size is `10`, and the value must be greater than `0`. To set the maximum queue length (default `100000`), use the following setting:
+
+```yml
+plugins.security.audit.threadpool.max_queue_len: 100000
+```
+{% include copy.html %}
+
+## Body logging exclusions
+
+Use the `body_logging_exclusions` setting in `opensearch.yml` to suppress request bodies for specific actions or REST paths while continuing to log bodies for all other requests. Configure `body_logging_exclusions` and the action groups it references only in `opensearch.yml` or using the Cluster Settings API. The `audit.yml` file and the Audit API accept `body_logging_exclusions` and `action_groups` fields, but the Security plugin always replaces them with the node-level settings, so they have no effect. The `log_request_body` setting applies to every request, so it cannot exclude high-volume operations such as bulk ingestion selectively.
 
 All expanded action-group patterns and raw exclusion patterns form a single combined wildcard matcher. For each audit layer, this matcher is tested against the corresponding identifier described in the following table. When a match is found, the request body field is omitted from the audit event. All other fields, such as the user, IP address, indexes, and timestamp, are preserved.
 
@@ -346,7 +386,7 @@ REST path | The HTTP request path (for example, `/_bulk`). REST paths always sta
 
 Both identifiers support wildcard patterns using `*` (for example, `indices:data/write/bulk*` matches `indices:data/write/bulk[s][p]`).
 
-##### Configuring action groups
+### Configuring action groups
 
 Action groups are named collections of action patterns, REST paths, or both, defined statically in `opensearch.yml`. You choose the group name, so use any name that is meaningful for your operations:
 
@@ -361,7 +401,7 @@ Each action group maps a name to a comma-separated list of literal or wildcard p
 
 Action groups are static settings and require a node restart to change. The group names themselves are case-sensitive.
 
-##### Configuring body logging exclusions
+### Configuring body logging exclusions
 
 The `body_logging_exclusions` setting references action group names or raw patterns. To set the initial exclusions, configure the setting in `opensearch.yml`:
 
@@ -390,15 +430,15 @@ Each entry in the list is processed as follows:
 
 For entries that do not match a defined group name, a warning is logged if the entry contains no `:`, does not start with `/`, and contains no `*`, since it is unlikely to match an action or REST path. Note that this check looks for a leading `/` only, not a `/` anywhere in the entry: an entry such as `_bulk/items` contains a `/` but does not start with one, so the warning is still logged for it. This check only determines whether to log a warning; the entry is still included in the combined matcher.
 
-##### Bulk requests
+### Bulk requests
 
 When `resolve_bulk_requests: true` is configured (logging individual bulk sub-items), the exclusion check uses the parent bulk action string. As a result, excluding the `BULK` group suppresses bodies for every sub-item (index, update, and delete) within that bulk request. You cannot keep index-item bodies while dropping delete-item bodies within the same bulk request.
 
-##### Interaction with `log_request_body`
+### Interaction with `log_request_body`
 
 Body logging exclusions only apply when `log_request_body` is `true`. If `log_request_body` is `false`, no bodies are logged regardless of the exclusion configuration.
 
-##### Example configuration
+### Example configuration
 
 The following configuration defines three action groups and excludes the request bodies of bulk requests:
 
@@ -446,63 +486,6 @@ PUT _cluster/settings
     "plugins.security.audit.config.body_logging_exclusions": []
   }
 }
-```
-{% include copy.html %}
-
-#### Log4j MDC routing
-
-When using the `log4j` audit sink, enable Mapped Diagnostic Context (MDC) routing so that Log4j routes audit events to different appenders based on event properties:
-
-```yml
-plugins.security.audit.config.log4j.enable_mdc_routing: true
-```
-{% include copy.html %}
-
-When enabled, the following MDC keys are set on each audit event:
-
-- `audit_category` --- The audit event category (for example, `REQUEST_AUDIT` or `GRANTED_PRIVILEGES`)
-- `audit_action` --- The action name
-- `audit_user` --- The effective user
-- `audit_request_type` --- The request type
-
-Use Log4j routing appenders in `log4j2.properties` to split audit logs by category, user, or any other MDC key.
-
-This is a static setting and requires a node restart.
-{: .note}
-
-
-#### Configure the audit log index name
-
-By default, the Security plugin stores audit events in a daily rolling index named `security-auditlog-YYYY.MM.dd`:
-
-```yml
-plugins.security.audit.config.index: myauditlogindex
-```
-{% include copy.html %}
-
-Use a date pattern in the index name to configure daily, weekly, or monthly rolling indexes:
-
-```yml
-plugins.security.audit.config.index: "'auditlog-'YYYY.MM.dd"
-```
-{% include copy.html %}
-
-For a reference on the date pattern format, see the [Joda DateTimeFormat documentation](https://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html).
-
-
-#### (Advanced) Tune the thread pool
-
-The Search plugin logs events asynchronously, which minimizes the performance impact on your cluster. The plugin uses a fixed thread pool to log events:
-
-```yml
-plugins.security.audit.config.threadpool.size: <integer>
-```
-{% include copy.html %}
-
-The default setting is `10`. Setting this value to `0` disables the thread pool, which means the plugin logs events synchronously. To set the maximum queue length per thread:
-
-```yml
-plugins.security.audit.config.threadpool.max_queue_len: 100000
 ```
 {% include copy.html %}
 
