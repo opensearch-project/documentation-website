@@ -133,7 +133,7 @@ Name | Description
 
 ## Using `securityadmin` with keystore and truststore files
 
-JKS format keystore files are compatible with `securityadmin.sh`, as shown in the following example setting:
+Keystore and truststore files in JKS, PKCS#12, or BCFKS format and PKCS#11 tokens are compatible with `securityadmin.sh`, as shown in the following example setting:
 
 ```bash
 ./securityadmin.sh -cd ../../../config/opensearch-security -icl -nhnv
@@ -147,11 +147,11 @@ Name | Description
 :--- | :---
 `-ks` | The location of the keystore containing the admin certificate and all intermediate certificates, if any. You can use an absolute or relative path. Relative paths are resolved relative to the `securityadmin.sh` execution directory.
 `-kspass` | The keystore password.
-`-kst` | The keystore type, either JKS or PKCS#12/PFX. If not specified, the Security plugin tries to determine the type based on the file extension.
+`-kst` | The keystore type: `JKS`, `PKCS12`, `BCFKS`, or `PKCS11`. If not specified, the type is detected from the file content. With `PKCS11`, `-ks` is not needed, and `securityadmin.sh` prompts for the token PIN if `-kspass` is not set.
 `-ksalias` | The alias of the admin certificate, if any.
 `-ts` | The location of the truststore containing the root certificate. You can use an absolute or relative path. Relative paths are resolved relative to the `securityadmin.sh` execution directory.
 `-tspass` | The truststore password.
-`-tst` | The truststore type, either JKS or PKCS#12/PFX. If not specified, the Security plugin tries to determine the type based on the file extension.
+`-tst` | The truststore type: `JKS`, `PKCS12`, `BCFKS`, or `PKCS11`. If not specified, the type is detected from the file content. With `PKCS11`, `securityadmin.sh` prompts for the token PIN if `-tspass` is not set.
 `-tsalias` | The alias for the root certificate, if any.
 
 The certificate authority (CA) that signs the `admin` certificate can differ from the one used for signing transport or HTTP certificates. The CA does, however, need to be added to the truststore in order to validate the certificate. See [Generate node and client certificates]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/#optional-generate-node-and-client-certificates) for more information.

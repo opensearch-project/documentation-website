@@ -54,12 +54,12 @@ The following settings configure the location and password of your keystore and 
 
 Name | Description
 :--- | :---
-`plugins.security.ssl.transport.keystore_type` | The type of the keystore file, `JKS` or `PKCS12/PFX`. Optional. Default is `JKS`.
+`plugins.security.ssl.transport.keystore_type` | The type of the keystore file: `JKS`, `PKCS12`, `BCFKS`, or `PKCS11`. Optional. If not set, the type is detected from the file content.
 `plugins.security.ssl.transport.keystore_filepath` | Path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
 `plugins.security.ssl.transport.keystore_alias` | The alias name of the keystore. Optional. Default is the first alias.
 `plugins.security.ssl.transport.keystore_password` | The password for the keystore file. Optional. Default is `changeit`.
 `plugins.security.ssl.transport.keystore_keypassword` | The password for the private key in the keystore. If not set, `keystore_password` is used. Optional.
-`plugins.security.ssl.transport.truststore_type` | The type of the truststore file, `JKS` or `PKCS12/PFX`. Default is `JKS`.
+`plugins.security.ssl.transport.truststore_type` | The type of the truststore file: `JKS`, `PKCS12`, `BCFKS`, or `PKCS11`. Optional. If not set, the type is detected from the file content.
 `plugins.security.ssl.transport.truststore_filepath` | Path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
 `plugins.security.ssl.transport.truststore_alias` | The alias name of the truststore. Optional. Default is all certificates.
 `plugins.security.ssl.transport.truststore_password` | Truststore password. Default is `changeit`.
@@ -69,12 +69,12 @@ Name | Description
 Name | Description
 :--- | :---
 `plugins.security.ssl.http.enabled` | Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is `false`.
-`plugins.security.ssl.http.keystore_type` | The type of the keystore file, JKS or PKCS12/PFX. Optional. Default is JKS.
+`plugins.security.ssl.http.keystore_type` | The type of the keystore file: `JKS`, `PKCS12`, `BCFKS`, or `PKCS11`. Optional. If not set, the type is detected from the file content.
 `plugins.security.ssl.http.keystore_filepath` | Path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
 `plugins.security.ssl.http.keystore_alias` | The alias name of the keystore. Optional. Default is the first alias.
 `plugins.security.ssl.http.keystore_password` | The password for the keystore file. Optional. Default is `changeit`.
 `plugins.security.ssl.http.keystore_keypassword` | The password for the private key in the keystore. If not set, `keystore_password` is used. Optional.
-`plugins.security.ssl.http.truststore_type` | The type of the truststore file, JKS or PKCS12/PFX. Default is JKS.
+`plugins.security.ssl.http.truststore_type` | The type of the truststore file: `JKS`, `PKCS12`, `BCFKS`, or `PKCS11`. Optional. If not set, the type is detected from the file content.
 `plugins.security.ssl.http.truststore_filepath` | Path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
 `plugins.security.ssl.http.truststore_alias` | The alias name of the truststore. Optional. Default is all certificates.
 `plugins.security.ssl.http.truststore_password` | The password for the truststore. Default is `changeit`.
@@ -102,7 +102,7 @@ Name | Description
 
 Name | Description
 :--- | :---
-`plugins.security.ssl.transport.keystore_type` | The type of the keystore file, either `JKS` or `PKCS12/PFX`. Optional. Default is `JKS`.
+`plugins.security.ssl.transport.keystore_type` | The type of the keystore file: `JKS`, `PKCS12`, `BCFKS`, or `PKCS11`. Optional. If not set, the type is detected from the file content.
 `plugins.security.ssl.transport.keystore_filepath` | The path to the keystore file. Must be specified using a relative path under the `config` directory. Required.
 `plugins.security.ssl.transport.keystore_password` | The password for the keystore file. Optional. Default is `changeit`.
 `plugins.security.ssl.transport.server.keystore_alias` | The alias name of the server key. Optional. Default is the first alias.
@@ -112,7 +112,7 @@ Name | Description
 `plugins.security.ssl.transport.server.truststore_alias` | The alias name of the server. Optional. Default is all certificates.
 `plugins.security.ssl.transport.client.truststore_alias` | The alias name of the client. Optional. Default is all certificates.
 `plugins.security.ssl.transport.truststore_filepath` | The path to the `truststore` file. Must be specified using a relative path under the `config` directory. Required.
-`plugins.security.ssl.transport.truststore_type` | The type of the `truststore` file, either `JKS` or `PKCS12/PFX`. Default is `JKS`.
+`plugins.security.ssl.transport.truststore_type` | The type of the truststore file: `JKS`, `PKCS12`, `BCFKS`, or `PKCS11`. Optional. If not set, the type is detected from the file content.
 `plugins.security.ssl.transport.truststore_password` | The `truststore` password. Default is `changeit`.
 
 
@@ -338,11 +338,11 @@ The following table lists the available gRPC keystore and truststore settings.
 Name | Description
 :--- | :---
 `plugins.security.ssl.aux.secure-transport-grpc.enabled` | Whether to enable TLS for gRPC. If enabled, only HTTPS is allowed. Optional. Default is `false`.
-`plugins.security.ssl.aux.secure-transport-grpc.keystore_type` | The type of the keystore file, JKS or PKCS12/PFX. Optional. Default is JKS.
+`plugins.security.ssl.aux.secure-transport-grpc.keystore_type` | The type of the keystore file: `JKS`, `PKCS12`, `BCFKS`, or `PKCS11`. Optional. If not set, the type is detected from the file content.
 `plugins.security.ssl.aux.secure-transport-grpc.keystore_filepath` | The path to the keystore file, specified as a relative path from the `config` directory. The file must reside within the `config` directory. Required.
 `plugins.security.ssl.aux.secure-transport-grpc.keystore_alias` | The alias of the key pair to use from the provided keystore. Optional. Defaults to the first key pair added to the keystore.
 `plugins.security.ssl.aux.secure-transport-grpc.keystore_password` | The password for the keystore. Default is `changeit`.
-`plugins.security.ssl.aux.secure-transport-grpc.truststore_type` | The type of the truststore file, JKS or PKCS12/PFX. Default is JKS.
+`plugins.security.ssl.aux.secure-transport-grpc.truststore_type` | The type of the truststore file: `JKS`, `PKCS12`, `BCFKS`, or `PKCS11`. Optional. If not set, the type is detected from the file content.
 `plugins.security.ssl.aux.secure-transport-grpc.truststore_filepath` | The path to the truststore file, specified as a relative path from the `config` directory. The file must reside within the `config` directory. Required.
 `plugins.security.ssl.aux.secure-transport-grpc.truststore_alias` | The alias of the certificate to use from the provided truststore. Optional. Default is all certificates.
 `plugins.security.ssl.aux.secure-transport-grpc.truststore_password` | The password for the truststore. Default is `changeit`.

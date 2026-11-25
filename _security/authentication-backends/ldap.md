@@ -270,10 +270,10 @@ ldap:
     type: ldap
     config:
       enabled_ssl_ciphers:
-        - "TLS_DHE_RSA_WITH_AES_256_CBC_SHA"
-        - "TLS_DHE_DSS_WITH_AES_128_CBC_SHA256"
+        - "TLS_AES_256_GCM_SHA384"
+        - "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
       enabled_ssl_protocols:
-        - "TLSv1.1"
+        - "TLSv1.3"
         - "TLSv1.2"
 ```
 
