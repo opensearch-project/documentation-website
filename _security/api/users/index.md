@@ -19,6 +19,7 @@ OpenSearch supports the following internal user APIs.
 | :--- | :--- |
 | [Create or Update User API]({{site.url}}{{site.baseurl}}/security/api/users/create-user/) | Creates or replaces the specified internal user. |
 | [Patch Users API]({{site.url}}{{site.baseurl}}/security/api/users/patch-users/) | Updates individual attributes of one internal user, or creates, updates, or deletes multiple internal users in a single call. |
+| [Rename User API]({{site.url}}{{site.baseurl}}/security/api/users/rename-user/) | Renames an internal user and updates the role mappings that reference it. |
 | [Get Users API]({{site.url}}{{site.baseurl}}/security/api/users/get-users/) | Retrieves one internal user or all internal users. |
 | [Delete User API]({{site.url}}{{site.baseurl}}/security/api/users/delete-user/) | Deletes the specified internal user. |
 | [Generate User Token API]({{site.url}}{{site.baseurl}}/security/api/users/generate-user-token/) | Generates an authorization token for the specified internal user. |
