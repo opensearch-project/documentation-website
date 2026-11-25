@@ -70,6 +70,7 @@ config:
     authc:
       saml_auth_domain:
         http_enabled: true
+        transport_enabled: false
         order: 1
         http_authenticator:
           type: saml
@@ -99,6 +100,7 @@ config:
     authc:
       basic_internal_auth_domain:
         http_enabled: true
+        transport_enabled: true
         order: 0
         http_authenticator:
           type: basic
@@ -107,6 +109,7 @@ config:
           type: internal
       saml_auth_domain:
         http_enabled: true
+        transport_enabled: false
         order: 1
         http_authenticator:
           type: saml
@@ -298,6 +301,7 @@ Example:
 authc:
   saml_auth_domain:
     http_enabled: true
+    transport_enabled: false
     order: 1
     http_authenticator:
       type: saml
@@ -379,6 +383,7 @@ config:
     authc:
       saml_auth_domain:
         http_enabled: true
+        transport_enabled: false
         order: 1
         http_authenticator:
           type: saml

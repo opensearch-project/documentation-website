@@ -60,6 +60,7 @@ The `authc` section has the following format:
 authc:
   <domain_name>:
     http_enabled: <true|false>
+    transport_enabled: <true|false>
     order: <integer>
     http_authenticator:
       ...
@@ -69,13 +70,14 @@ authc:
 
 An entry in the `authc` section is called an *authentication domain*. It specifies where to get the user credentials and against which backend they should be authenticated.
 
-You can use more than one authentication domain. Each authentication domain has a name (for example, `basic_auth_internal`), a setting for enabling the domain on the REST layer, and an `order`. The order makes it possible to chain authentication domains together. The Security plugin uses them in the order that you provide. If the user successfully authenticates with one domain, the Security plugin skips the remaining domains.
+You can use more than one authentication domain. Each authentication domain has a name (for example, `basic_auth_internal`), settings for enabling the domain on the REST and transport layers, and an `order`. The order makes it possible to chain authentication domains together. The Security plugin uses them in the order that you provide. If the user successfully authenticates with one domain, the Security plugin skips the remaining domains.
 
 Settings that are typically found in this part of the configuration are included in the following table.
 
 | Setting | Description |
 | :--- | :--- |
 | `http_enabled` | Enables or disables authentication on the REST layer. Default is `true` (enabled). |
+| `transport_enabled` | Enables or disables authentication on the transport layer. Default is `true` (enabled). |
 | `order` | Determines the order in which an authentication domain is queried with an authentication request when multiple backends are configured in combination. Once authentication succeeds, any remaining domains do not need to be queried. Its value is an integer. |
 
 The `http_authenticator` definition specifies the authentication method for the HTTP layer. The following example shows the syntax used for defining an HTTP authenticator:
@@ -126,6 +128,7 @@ The `authz` configuration is used to extract backend roles from an LDAP implemen
 authz:
   <name>:
     http_enabled: <true|false>
+    transport_enabled: <true|false>
     authorization_backend:
       type: <type>
       config:

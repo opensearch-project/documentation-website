@@ -70,6 +70,7 @@ authc:
     order: 0
     description: "HTTP basic authentication using the internal user database"
     http_enabled: true
+    transport_enabled: true
     http_authenticator:
       type: basic
       challenge: false
@@ -77,6 +78,7 @@ authc:
       type: internal
   ldap:
     http_enabled: true
+    transport_enabled: true
     order: 1
     http_authenticator:
       type: basic
@@ -91,6 +93,7 @@ authc:
 authz:
   ldap:
     http_enabled: true
+    transport_enabled: true
     authorization_backend:
       type: ldap
       config:
@@ -282,6 +285,7 @@ You can limit the allowed ciphers and TLS protocols for the LDAP connection. For
 ```yml
 ldap:
   http_enabled: true
+  transport_enabled: true
   ...
   authentication_backend:
     type: ldap
@@ -312,6 +316,7 @@ To use Active Directory/LDAP for authentication, first configure a respective au
 authc:
   ldap:
     http_enabled: true
+    transport_enabled: true
     order: 1
     http_authenticator:
       type: basic
@@ -376,6 +381,7 @@ Name | Description
 ```yml
 ldap:
   http_enabled: true
+  transport_enabled: true
   order: 1
   http_authenticator:
     type: basic
@@ -407,6 +413,7 @@ To use Active Directory/LDAP for authorization, first configure a respective aut
 authz:
   ldap:
     http_enabled: true
+    transport_enabled: true
     authorization_backend:
       type: ldap
       config:
@@ -505,6 +512,7 @@ Example:
 authc:
   ldap:
     http_enabled: true
+    transport_enabled: true
     authentication_backend:
       type: ldap
       config:
@@ -574,6 +582,7 @@ Name | Description
 authz:
   ldap:
     http_enabled: true
+    transport_enabled: true
     authorization_backend:
       type: ldap
       config:
@@ -644,6 +653,7 @@ authc:
   ...
   ldap:
     http_enabled: true
+    transport_enabled: true
     order: 1
     http_authenticator:
       type: basic
@@ -670,6 +680,7 @@ authc:
 authz:
   ldap:
     http_enabled: true
+    transport_enabled: true
     authorization_backend:
       type: ldap
       config:

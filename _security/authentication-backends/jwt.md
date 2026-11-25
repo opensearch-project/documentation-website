@@ -95,6 +95,7 @@ Set up an authentication domain and choose `jwt` as the HTTP authentication type
 ```yml
 jwt_auth_domain:
   http_enabled: true
+  transport_enabled: true
   order: 0
   http_authenticator:
     type: jwt
@@ -236,6 +237,7 @@ You can configure JWKS endpoints directly in the JWT authentication domain. This
 jwt_auth_domain:
   description: "Authenticate via JSON Web Token"
   http_enabled: true
+  transport_enabled: true
   order: 0
   http_authenticator:
     type: jwt
@@ -419,6 +421,7 @@ config:
       basic_internal_auth_domain:
         description: "Authenticate via HTTP Basic against internal users database"
         http_enabled: true
+        transport_enabled: true
         order: 1
         http_authenticator:
             type: basic
@@ -429,6 +432,7 @@ config:
       jwt_auth_domain:
         description: "Authenticate via Json Web Token provide by Teleport"
         http_enabled: true
+        transport_enabled: true
         order: 0
         http_authenticator:
             type: jwt

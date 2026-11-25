@@ -60,6 +60,7 @@ For example, to use the internal authentication backend, add the following setti
 authc:
   basic_internal_auth:
     http_enabled: true
+    transport_enabled: true
     order: 1
     http_authenticator:
       type: basic

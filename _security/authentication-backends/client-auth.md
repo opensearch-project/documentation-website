@@ -30,6 +30,7 @@ Next, enable client certificate authentication in the `clientcert_auth_domain` s
 clientcert_auth_domain:
   description: "Authenticate via SSL client certificates"
   http_enabled: true
+  transport_enabled: true
   order: 1
   http_authenticator:
     type: clientcert

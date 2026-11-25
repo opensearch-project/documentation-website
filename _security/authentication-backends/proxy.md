@@ -54,6 +54,7 @@ Configure the names of the HTTP header fields that carry the authenticated usern
 ```yml
 proxy_auth_domain:
   http_enabled: true
+  transport_enabled: true
   order: 0
   http_authenticator:
     type: proxy
@@ -79,6 +80,7 @@ The Security plugin has an extended version of the `proxy` type that lets you pa
 ```yml
 proxy_auth_domain:
   http_enabled: true
+  transport_enabled: true
   order: 0
   http_authenticator:
     type: extended-proxy
@@ -147,6 +149,7 @@ config:
     authc:
       proxy_auth_domain:
         http_enabled: true
+        transport_enabled: true
         order: 0
         http_authenticator:
           type: proxy

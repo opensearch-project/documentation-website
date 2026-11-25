@@ -22,6 +22,7 @@ config:
       basic_internal_auth_domain:
         description: "Authenticate using HTTP basic against the internal users database"
         http_enabled: true
+        transport_enabled: true
         order: 1
         http_authenticator:
           type: basic
