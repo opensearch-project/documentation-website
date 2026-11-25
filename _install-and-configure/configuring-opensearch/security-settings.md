@@ -27,7 +27,9 @@ The Security plugin supports the following common settings:
     - `BACKENDROLES_ONLY`: Backend roles are mapped to security roles directly. Settings in `roles_mapping.yml` have no effect.
     - `BOTH`: Backend roles are mapped to security roles both directly and through `roles_mapping.yml`.
 
-- `plugins.security.dls.mode` (Static): Sets the document-level security (DLS) evaluation mode. Default is `adaptive`. See [How to set the DLS evaluation mode]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/#how-to-set-the-dls-evaluation-mode-in-opensearchyml).
+- `plugins.security.dls.write_blocked` (Dynamic): When set to `true`, the Security plugin rejects index and delete operations, including those in bulk requests, from users to whom document-level security (DLS), field-level security (FLS), or field masking applies on the target index. Default is `false`.
+
+- `plugins.security.dfm_empty_overrides_all` (Dynamic): When set to `true`, a role that grants access to an index without DLS, FLS, or field masking restrictions overrides the restrictions that other roles of the same user apply to that index. Default is `false`. Set this setting in `opensearch.yml`. Although the Cluster Settings API accepts this setting, a value set using the API reverts to the `opensearch.yml` value the next time the security configuration changes. For more information, see [Document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/).
 
 - `plugins.security.compliance.salt` (Static): The salt to use when generating the hash value for field masking. Must contain at least 16 ASCII characters. Only the first 16 bytes are used. Optional.
 
@@ -55,9 +57,9 @@ The Security plugin supports the following REST management API settings:
 
 - `plugins.security.restapi.password_validation_error_message` (Static): Specifies an error message that loads when a password doesn’t pass validation. This setting is used in conjunction with `plugins.security.restapi.password_validation_regex`.
 
-- `plugins.security.restapi.password_min_length` (Static): Sets the minimum number of characters for the password length when using the score-based password strength estimator. The default is 8. This is also the minimum. For more information, see [Password settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings).
+- `plugins.security.restapi.password_min_length` (Static): Sets the minimum number of characters for the password length. Default is `-1`, which means that no minimum length is enforced. For more information, see [Password settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings).
 
-- `plugins.security.restapi.password_score_based_validation_strength` (Static): Sets a threshold to determine whether the password is strong or weak. Valid values are `fair`, `good`, `strong`, and `very_strong`. This setting is used in conjunction with `plugins.security.restapi.password_min_length`.
+- `plugins.security.restapi.password_score_based_validation_strength` (Static): Sets a threshold to determine whether the password is strong or weak. Valid values are `fair`, `good`, `strong`, and `very_strong`. Default is `strong`. This setting is used in conjunction with `plugins.security.restapi.password_min_length`.
 
 - `plugins.security.unsupported.restapi.allow_securityconfig_modification` (Static): Enables the use of the PUT and PATCH methods for the configuration APIs.
 
@@ -191,9 +193,9 @@ The Security plugin supports the following audit log settings:
 
 - `plugins.security.audit.ignore_requests` (Dynamic): Excludes the specified requests from being logged. Allows wildcards and regular expressions containing actions or REST request paths.
 
-- `plugins.security.audit.threadpool.size` (Static): Determines the number of threads in the thread pool used to log events. Default is `10`. Setting this value to `0` disables the thread pool, which means the plugin logs events synchronously.
+- `plugins.security.audit.threadpool.size` (Static): Determines the number of threads in the thread pool used to log events. Default is `10`. If the value is `0` or less, the node fails to start.
 
-- `plugins.security.audit.threadpool.max_queue_len` (Static): Sets the maximum queue length per thread. Default is `100000`.
+- `plugins.security.audit.threadpool.max_queue_len` (Static): Sets the maximum number of audit events that can wait in the queue shared by all threads in the thread pool. Default is `100000`. If the value is `0` or less, the node fails to start.
 
 - `plugins.security.audit.ignore_users` (Dynamic): An array of users. Audit requests from the users in the list will not be logged.
 
@@ -303,7 +305,7 @@ For more information, see [Enabled ciphers and protocols]({{site.url}}{{site.bas
 
 The Security plugin supports the following transport layer TLS keystore and truststore settings:
 
-- `plugins.security.ssl.transport.keystore_type` (Static): The type of the keystore file. Optional. Valid values are `JKS` or `PKCS12/PFX`. Default is `JKS`.
+- `plugins.security.ssl.transport.keystore_type` (Static): The type of the keystore file. Optional. Valid values are `JKS` or `PKCS12/PFX`. If not set, the Security plugin detects the type from the file contents.
 
 - `plugins.security.ssl.transport.keystore_filepath` (Static): The path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
 
@@ -311,7 +313,7 @@ The Security plugin supports the following transport layer TLS keystore and trus
 
 - `plugins.security.ssl.transport.keystore_password` (Static): The keystore password. Default is `changeit`.
 
-- `plugins.security.ssl.transport.truststore_type` (Static): The type of the truststore file. Optional. Valid values are `JKS` or `PKCS12/PFX`. Default is `JKS`.
+- `plugins.security.ssl.transport.truststore_type` (Static): The type of the truststore file. Optional. Valid values are `JKS` or `PKCS12/PFX`. If not set, the Security plugin detects the type from the file contents.
 
 - `plugins.security.ssl.transport.truststore_filepath` (Static): The path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
 
@@ -327,7 +329,7 @@ The Security plugin supports the following REST layer TLS keystore and truststor
 
 - `plugins.security.ssl.http.enabled` (Static): Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is `false`.
 
-- `plugins.security.ssl.http.keystore_type` (Static): The type of the keystore file. Optional. Valid values are `JKS` or `PKCS12/PFX`. Default is `JKS`.
+- `plugins.security.ssl.http.keystore_type` (Static): The type of the keystore file. Optional. Valid values are `JKS` or `PKCS12/PFX`. If not set, the Security plugin detects the type from the file contents.
 
 - `plugins.security.ssl.http.keystore_filepath` (Static): The path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
 
@@ -335,7 +337,7 @@ The Security plugin supports the following REST layer TLS keystore and truststor
 
 - `plugins.security.ssl.http.keystore_password`: The keystore password. Default is `changeit`.
 
-- `plugins.security.ssl.http.truststore_type`: The type of the truststore file. Optional. Valid values are `JKS` or `PKCS12/PFX`. Default is `JKS`.
+- `plugins.security.ssl.http.truststore_type`: The type of the truststore file. Optional. Valid values are `JKS` or `PKCS12/PFX`. If not set, the Security plugin detects the type from the file contents.
 
 - `plugins.security.ssl.http.truststore_filepath`: The path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
 

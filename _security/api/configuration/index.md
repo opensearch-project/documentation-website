@@ -52,7 +52,6 @@ The following example configures an authentication domain to extract the user na
   "authc": {
     "oidc_auth_domain": {
       "http_enabled": true,
-      "transport_enabled": false,
       "order": 1,
       "http_authenticator": {
         "type": "openid",
@@ -104,7 +103,6 @@ The following example connects to an LDAP directory, uses the `rolesearch` filte
   "authz": {
     "ldap_role_authz": {
       "http_enabled": true,
-      "transport_enabled": true,
       "authorization_backend": {
         "type": "ldap",
         "config": {

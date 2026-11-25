@@ -11,7 +11,7 @@ redirect_from:
 
 # OpenID Connect authentication
 
-The Security plugin can integrate with identify providers that use the OpenID Connect standard. This feature enables the following:
+The Security plugin can integrate with identity providers that use the OpenID Connect standard. This feature enables the following:
 
 * Automatic configuration
 
@@ -44,7 +44,6 @@ config:
     authc:
       openid_auth_domain:
         http_enabled: true
-        transport_enabled: true
         order: 0
         http_authenticator:
           type: openid
@@ -52,7 +51,7 @@ config:
           config:
             subject_key: preferred_username
             roles_key: roles
-            openid_connect_url: https://keycloak.example.com:8080/auth/realms/master/.well-known/openid-configuration
+            openid_connect_url: https://keycloak.example.com:8080/realms/master/.well-known/openid-configuration
             required_audience: your-openid-client-id
         authentication_backend:
           type: noop
@@ -62,15 +61,17 @@ The following table shows the configuration parameters.
 
 Name | Description
 :--- | :---
-`openid_connect_url` | The URL of your IdP where the Security plugin can find the OpenID Connect metadata/configuration settings. This URL differs between IdPs. Required when using OpenID Connect as your backend.
-`jwt_header` | The HTTP header that stores the token. Typically the `Authorization` header with the `Bearer` schema: `Authorization: Bearer <token>`. Optional. Default is `Authorization`.
+`openid_connect_url` | The URL of your IdP where the Security plugin can find the OpenID Connect metadata/configuration settings. This URL differs between IdPs. Required if `jwks_uri` is not set.
+`jwks_uri` | The URL of the JWKS endpoint of your IdP. If this setting is specified, the Security plugin retrieves the public keys directly from this URL and does not use `openid_connect_url`. Required if `openid_connect_url` is not set.
 `jwt_url_parameter` | If the token is not transmitted in the HTTP header, but as an URL parameter, define the name of the parameter here. Optional.
 `subject_key` | The key in the JSON payload that stores the user's name. If not defined, the [subject](https://tools.ietf.org/html/rfc7519#section-4.1.2) registered claim is used. Most IdP providers use the `preferred_username` claim. To extract a username from nested JWT claims, you can configure `subject_key` as a list. Optional. 
-`roles_key` | The key in the JSON payload that stores the user's roles. The value must be a comma-separated list of roles. This key is required only if you want to use roles in the JWT. You can configure `roles_key` as a list to extract roles from nested JWT claims.
+`roles_key` | The key in the JSON payload that stores the user's roles. The value can be a JSON array of roles or a string containing a comma-separated list of roles. This key is required only if you want to use roles in the JWT. You can configure `roles_key` as a list to extract roles from nested JWT claims.
 `required_audience` | The name of the audience that the JWT must specify. You can specify a single value (for example, `project1`) or multiple comma-separated values (for example, `project1,admin`). If you specify multiple values, the JWT must have at least one required audience. This parameter corresponds to the [`aud` claim of the JWT](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.3).
 `required_issuer` | The target issuer of the JWT stored in the JSON payload. This corresponds to the [`iss` claim of the JWT](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.1).
 `jwt_clock_skew_tolerance_seconds` | Specifies a window of time, in seconds, to compensate for any disparity between the JWT authentication server and OpenSearch node clock times, thereby preventing authentication failures due to the misalignment. The Security plugin sets 30 seconds as the default. Use this setting to apply a custom value.
 `cache_jwks_endpoint` | Whether to cache the public keys retrieved from the IdP's JWKS endpoint. Caching these keys reduces the number of requests sent to the IdP during JWT validation. Default is `false`. For more information, see [Caching and performance](#caching-and-performance).
+`idp_request_timeout_ms` | The maximum amount of time, in milliseconds, to wait for the IdP when retrieving the OpenID Connect metadata and the public keys. If the IdP does not respond within this time, authentication fails. Default is `5000`.
+`idp_queued_thread_timeout_ms` | The maximum amount of time, in milliseconds, that a request waits for a key refresh started by another request to complete. If the refresh does not complete within this time, authentication of the waiting request fails. Default is `2500`.
 
 
 ## OpenID Connect URL
@@ -82,25 +83,39 @@ The URL differs between IdPs, but usually ends in `/.well-known/openid-configura
 Keycloak example:
 
 ```
-http(s)://<server>:<port>/auth/realms/<realm>/.well-known/openid-configuration
+http(s)://<server>:<port>/realms/<realm>/.well-known/openid-configuration
 ```
 
 The main information that the Security plugin needs is `jwks_uri`. This URI specifies where the IdP's public keys in JWKS format can be found. For example:
 
 ```
-jwks_uri: "https://keycloak.example.com:8080/auth/realms/master/protocol/openid-connect/certs"
+jwks_uri: "https://keycloak.example.com:8080/realms/master/protocol/openid-connect/certs"
 ```
 
+If your IdP does not provide a metadata endpoint, set `jwks_uri` in the `config` section of the authentication domain to the URL of the JWKS endpoint. The Security plugin then retrieves the public keys directly from this URL:
+
+```yml
+http_authenticator:
+  type: openid
+  challenge: false
+  config:
+    subject_key: preferred_username
+    roles_key: roles
+    jwks_uri: https://keycloak.example.com:8080/realms/master/protocol/openid-connect/certs
 ```
+
+The JWKS endpoint returns the public keys in the following format:
+
+```json
 {
-   keys:[
+   "keys":[
       {
-         kid:"V-diposfUJIk5jDBFi_QRouiVinG5PowskcSWy5EuCo",
-         kty:"RSA",
-         alg:"RS256",
-         use:"sig",
-         n:"rI8aUrAcI_auAdF10KUopDOmEFa4qlUUaNoTER90XXWADtKne6VsYoD3ZnHGFXvPkRAQLM5d65ScBzWungcbLwZGWtWf5T2NzQj0wDyquMRwwIAsFDFtAZWkXRfXeXrFY0irYUS9rIJDafyMRvBbSz1FwWG7RTQkILkwiC4B8W1KdS5d9EZ8JPhrXvPMvW509g0GhLlkBSbPBeRSUlAS2Kk6nY5i3m6fi1H9CP3Y_X-TzOjOTsxQA_1pdP5uubXPUh5YfJihXcgewO9XXiqGDuQn6wZ3hrF6HTlhNWGcSyQPKh1gEcmXWQlRENZMvYET-BuJEE7eKyM5vRhjNoYR3w",
-         e:"AQAB"
+         "kid":"V-diposfUJIk5jDBFi_QRouiVinG5PowskcSWy5EuCo",
+         "kty":"RSA",
+         "alg":"RS256",
+         "use":"sig",
+         "n":"rI8aUrAcI_auAdF10KUopDOmEFa4qlUUaNoTER90XXWADtKne6VsYoD3ZnHGFXvPkRAQLM5d65ScBzWungcbLwZGWtWf5T2NzQj0wDyquMRwwIAsFDFtAZWkXRfXeXrFY0irYUS9rIJDafyMRvBbSz1FwWG7RTQkILkwiC4B8W1KdS5d9EZ8JPhrXvPMvW509g0GhLlkBSbPBeRSUlAS2Kk6nY5i3m6fi1H9CP3Y_X-TzOjOTsxQA_1pdP5uubXPUh5YfJihXcgewO9XXiqGDuQn6wZ3hrF6HTlhNWGcSyQPKh1gEcmXWQlRENZMvYET-BuJEE7eKyM5vRhjNoYR3w",
+         "e":"AQAB"
       }
    ]
 }
@@ -128,7 +143,7 @@ http_authenticator:
   config:
     subject_key: preferred_username
     roles_key: roles
-    openid_connect_url: https://keycloak.example.com:8080/auth/realms/master/.well-known/openid-configuration
+    openid_connect_url: https://keycloak.example.com:8080/realms/master/.well-known/openid-configuration
     cache_jwks_endpoint: true
 ```
 {% include copy.html %}
@@ -155,16 +170,16 @@ http_authenticator:
   config:
     subject_key: preferred_username
     roles_key: roles
-    openid_connect_url: https://keycloak.example.com:8080/auth/realms/master/.well-known/openid-configuration
+    openid_connect_url: https://keycloak.example.com:8080/realms/master/.well-known/openid-configuration
     jwt_clock_skew_tolerance_seconds: 20
 ```
 
 
 ## Fetching public keys
 
-When an IdP generates and signs a JWT, it must add the ID of the key to the JWT header. For example:
+When an IdP generates and signs a JWT, it adds the ID of the key to the JWT header. For example:
 
-```
+```json
 {
   "alg": "RS256",
   "typ": "JWT",
@@ -172,7 +187,7 @@ When an IdP generates and signs a JWT, it must add the ID of the key to the JWT 
 }
 ```
 
-As per the [OpenID Connect specification](https://openid.net/specs/openid-connect-messages-1_0-20.html), the `kid` (key ID) is mandatory. Token verification does not work if an IdP fails to add the `kid` field to the JWT.
+If the JWKS of your IdP contains more than one key, the JWT header must contain the `kid` (key ID) field. Otherwise, token verification fails. If the JWKS contains only one key, the Security plugin uses this key to verify JWTs that don't contain a `kid`.
 
 If the Security plugin receives a JWT with an unknown `kid`, it visits the IdP's `jwks_uri` and retrieves all available, valid keys. These keys are used and cached until a refresh is triggered by retrieving another unknown key ID.
 
@@ -214,11 +229,13 @@ config:
 
 Name | Description
 :--- | :---
-`enable_ssl` | Whether to use TLS. Default is `false`.
+`enable_ssl` | Whether to apply the custom TLS settings described in [TLS settings](#tls-settings) to connections to the IdP. If `false`, the Security plugin uses the JDK default TLS settings, which are sufficient for an IdP that uses a certificate signed by a publicly trusted CA. Default is `false`.
 `verify_hostnames` | Whether to verify the hostnames of the IdP's TLS certificate. Default is `true`.
 
 
 ### Certificate validation
+
+If `enable_ssl` is `true` and you don't configure a root CA using one of the following settings, the Security plugin validates the IdP's TLS certificate against the transport layer truststore configured in `plugins.security.ssl.transport.truststore_filepath` in `opensearch.yml`. If your nodes use PEM certificates instead of a truststore, you must configure a root CA. Otherwise, the OpenID Connect authentication domain fails to initialize.
 
 To validate the TLS certificate of your IdP, configure either the path to the IdP's root CA or the root certificate's content:
 
@@ -251,12 +268,13 @@ config:
 
 ### TLS client authentication
 
-To use TLS client authentication, configure the PEM certificate and private key the Security plugin should send for TLS client authentication (or its content):
+To use TLS client authentication, set `enable_ssl_client_auth` to `true` and configure the PEM certificate and private key the Security plugin should send for TLS client authentication (or its content):
 
 ```yml
 config:
   openid_connect_idp:
     enable_ssl: true
+    enable_ssl_client_auth: true
     pemkey_filepath: /full/path/to/private.key.pem
     pemkey_password: private_key_password
     pemcert_filepath: /full/path/to/certificate.pem
@@ -266,6 +284,7 @@ config:
 config:
   openid_connect_idp:
     enable_ssl: true
+    enable_ssl_client_auth: true
     pemkey_content: |-
       -----BEGIN PRIVATE KEY-----
       MIID2jCCAsKgAwIBAgIBBTANBgkqhkiG9w0BAQUFADCBlTETMBEGCgmSJomT8ixk
@@ -333,7 +352,7 @@ OpenID Connect providers usually publish their configuration in JSON format unde
 
 - Client secret
 
-  Beyond the ID, each client also has a client secret assigned. The client secret is usually generated when the client is created. Applications can obtain an identity token only when they provide a client secret. You can find this secret in the settings of the client on your IdP.
+  A confidential client also has a client secret assigned. The client secret is usually generated when the client is created, and the IdP issues an identity token only when the application provides the client secret. You can find this secret in the settings of the client on your IdP. A public client has no client secret. OpenSearch Dashboards does not support Proof Key for Code Exchange (PKCE), so we recommend using a confidential client.
 
 
 ### Configuration settings
@@ -342,9 +361,9 @@ Name | Description
 :--- | :---
 `opensearch_security.openid.connect_url` | The URL where the IdP publishes the OpenID metadata. Required.
 `opensearch_security.openid.client_id` | The ID of the OpenID Connect client configured in your IdP. Required.
-`opensearch_security.openid.client_secret` | The client secret of the OpenID Connect client configured in your IdP. Required.
+`opensearch_security.openid.client_secret` | The client secret of the OpenID Connect client configured in your IdP. Required for a confidential client. OpenSearch Dashboards does not support PKCE, so we recommend using a confidential client.
 `opensearch_security.openid.scope` | The [scope of the identity token](https://openid.net/specs/openid-connect-messages-1_0-20.html#scopes) issued by the IdP. Optional. Default is `openid profile email address phone`.
-`opensearch_security.openid.header` | HTTP header name of the JWT token. Optional. Default is `Authorization`.
+`opensearch_security.openid.header` | HTTP header name of the JWT token. Optional. Default is `Authorization`. Keep the default: the OpenID Connect authentication domain reads the token from the `Authorization` header by default.
 `opensearch_security.openid.logout_url` | The logout URL of your IdP. Optional. Only necessary if your IdP does not publish the logout URL in its metadata.
 `opensearch_security.openid.base_redirect_url` | The base of the redirect URL that will be sent to your IdP. Optional. Only necessary when OpenSearch Dashboards is behind a reverse proxy, in which case it should be different than `server.host` and `server.port` in `opensearch_dashboards.yml`.
 `opensearch_security.openid.trust_dynamic_headers` | Compute `base_redirect_url` from the reverse proxy HTTP headers (`X-Forwarded-Host` / `X-Forwarded-Proto`). Optional. Default is `false`.
@@ -353,7 +372,8 @@ Name | Description
 `opensearch_security.openid.private_key` | Private keys (PEM format) to be used for mTLS when obtaining endpoints from your IdP. Optional.
 `opensearch_security.openid.passphrase` | Passphrase used for a single `private_key` or a `pfx`. Optional.
 `opensearch_security.openid.pfx` | PFX or PKCS12 encoded private key and certificate chain to be used for mTLS when obtaining endpoints from your IdP. Alternative to `certificate` and `private_key`. Optional.
-`opensearch_security.openid.verify_hostnames` | Whether to verify the hostnames of the IdP's TLS certificate. Default is `true`. Optional. 
+`opensearch_security.openid.verify_hostnames` | Whether to verify the hostnames of the IdP's TLS certificate. Default is `true`. Optional.
+`opensearch_security.openid.refresh_tokens` | Whether to store the refresh token issued by the IdP in the session cookie and use it to obtain a new identity token when the current one expires. Optional. Default is `true`.
 
 
 ### Configuration example
@@ -363,7 +383,7 @@ Name | Description
 opensearch_security.auth.type: "openid"
 
 # The IdP metadata endpoint
-opensearch_security.openid.connect_url: "http://keycloak.example.com:8080/auth/realms/master/.well-known/openid-configuration"
+opensearch_security.openid.connect_url: "http://keycloak.example.com:8080/realms/master/.well-known/openid-configuration"
 
 # The ID of the OpenID Connect client in your IdP
 opensearch_security.openid.client_id: "opensearch-dashboards-sso"
@@ -377,7 +397,7 @@ opensearch_security.openid.certificate: /usr/share/opensearch-dashboards/config/
 opensearch_security.openid.private_key: /usr/share/opensearch-dashboards/config/certs/key.pem
 
 # Use HTTPS instead of HTTP
-opensearch.url: "https://<hostname>.com:<http port>"
+opensearch.hosts: ["https://<hostname>.com:<http port>"]
 
 # Configure the OpenSearch Dashboards internal server user
 opensearch.username: "kibanaserver"
@@ -407,13 +427,13 @@ opensearch_security.openid.additional_parameters.acr_values: "1"
 
 
 
-#### Session management with additional cookies
+### Session management with additional cookies
 
-To improve session management---especially for users who have multiple roles assigned to them---Dashboards provides an option to split cookie payloads into multiple cookies and then recombine the payloads when receiving them. This can help prevent larger OpenID Connect assertions from exceeding size limits for each cookie. The two settings in the following example allow you to set a prefix name for additional cookies and specify the number of them. They are added to the `opensearch_dashboards.yml` file. The default number of additional cookies is three:
+To improve session management---especially for users who have multiple roles assigned to them---Dashboards provides an option to split cookie payloads into multiple cookies and then recombine the payloads when receiving them. This can help prevent larger OpenID Connect assertions from exceeding size limits for each cookie. The two settings in the following example allow you to set a prefix name for additional cookies and specify the number of them. They are added to the `opensearch_dashboards.yml` file. The default number of additional cookies is five:
 
 ```yml
 opensearch_security.openid.extra_storage.cookie_prefix: security_authentication_oidc
-opensearch_security.openid.extra_storage.additional_cookies: 3
+opensearch_security.openid.extra_storage.additional_cookies: 5
 ```
 
 Note that reducing the number of additional cookies can cause some of the cookies that were in use before the change to stop working. We recommend establishing a fixed number of additional cookies and not changing the configuration after that.
@@ -442,7 +462,6 @@ config:
     authc:
       basic_internal_auth_domain:
         http_enabled: true
-        transport_enabled: true
         order: 0
         http_authenticator:
           type: basic
@@ -451,7 +470,6 @@ config:
           type: internal
       openid_auth_domain:
         http_enabled: true
-        transport_enabled: true
         order: 1
         http_authenticator:
           type: openid
@@ -459,7 +477,7 @@ config:
           config:
             subject_key: preferred_username
             roles_key: roles
-            openid_connect_url: https://keycloak.example.com:8080/auth/realms/master/.well-known/openid-configuration
+            openid_connect_url: https://keycloak.example.com:8080/realms/master/.well-known/openid-configuration
         authentication_backend:
           type: noop
 ```
@@ -471,7 +489,7 @@ The following steps use Docker and [Keycloak IdP](https://www.keycloak.org/) to 
 
 1. Download and unzip the [example OpenID Connect zip file]({{site.url}}{{site.baseurl}}/assets/examples/oidc_example.zip)
 2. Update the `.env` file with a strong password for the `admin` user.
-3. Substitute the `{IP}` placeholders in `config.yml` and `opensearch_dashboards.yml` with the IP of the local machine.
+3. Substitute the `{% raw %}{{IP}}{% endraw %}` placeholder in `config.yml` and the `{IP}` placeholder in `opensearch_dashboards.yml` with the IP of the local machine.
 4. Review the following files:
   - `docker-compose.yml` defines a single OpenSearch node, OpenSearch Dashboards, and Keycloak server.
   - `new-realm.json` specifies the details of the [realm](https://www.keycloak.org/docs/latest/server_admin/#core-concepts-and-terms). In this example, the realm is named `new`.
