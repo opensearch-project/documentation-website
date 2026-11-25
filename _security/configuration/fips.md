@@ -27,7 +27,7 @@ export OPENSEARCH_FIPS_MODE=true
 ```
 {% include copy.html %}
 
-In FIPS mode, OpenSearch uses only the security providers listed in `config/fips_java.security` and requires Bouncy Castle FIPS to run in approved-only mode. If the Bouncy Castle FIPS JAR files are missing from the `lib` directory, OpenSearch fails to start instead of starting without FIPS.
+In FIPS mode, OpenSearch uses only the security providers listed in `config/fips_java.security` and runs Bouncy Castle FIPS in approved-only mode (`-Dorg.bouncycastle.fips.approved_only=true`). If the Bouncy Castle FIPS JAR files are missing from the `lib` directory, OpenSearch fails to start instead of starting without FIPS.
 
 OpenSearch no longer reads the `OPENSEARCH_CRYPTO_STANDARD` environment variable. Use `OPENSEARCH_FIPS_MODE` instead.
 {: .note}
@@ -207,25 +207,19 @@ org.bouncycastle.crypto.fips.FipsUnapprovedOperationError: password must be at l
 
 In FIPS mode, Bouncy Castle enforces a minimum password strength of 112 bits, which is approximately 14 characters.
 
-Because FIPS mode is already active, the `opensearch-keystore passwd` command does not accept the existing weak password. Alternatively, you can recreate the keystore as follows:
+In FIPS mode, OpenSearch cannot open the keystore, so change its password in default mode. Stop OpenSearch, and then run the following command without FIPS mode:
 
-1. List existing secrets for backup (if needed):
 ```bash
-./bin/opensearch-keystore list
+OPENSEARCH_FIPS_MODE=false ./bin/opensearch-keystore passwd
 ```
 {% include copy.html %}
 
-2. Create a new keystore with a FIPS-compliant password (at least 14 characters):
-```bash
-./bin/opensearch-keystore create --password
-```
-{% include copy.html %}
+Enter the current password and then a new password of at least 14 characters. Then start OpenSearch with `OPENSEARCH_FIPS_MODE=true` again.
 
-3. Re-add any secrets that were stored in the old keystore (if needed):
-```bash
-./bin/opensearch-keystore add <setting-name>
-```
-{% include copy.html %}
+Stop OpenSearch before you run the command, because all processes that share the `config` directory must use the same `OPENSEARCH_FIPS_MODE` value.
+{: .note}
+
+If you no longer know the current password, create a new keystore with `./bin/opensearch-keystore create --password` and add the secrets again with `./bin/opensearch-keystore add <setting-name>`.
 
 Ensure that your new password is at least 14 characters long and includes a mix of uppercase characters, lowercase characters, numbers, and special characters. For security best practices, consider using a password manager to generate and store complex passwords.
 {: .note}
