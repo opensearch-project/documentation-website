@@ -270,17 +270,17 @@ ldap:
     type: ldap
     config:
       enabled_ssl_ciphers:
-        - "TLS_DHE_RSA_WITH_AES_256_CBC_SHA"
-        - "TLS_DHE_DSS_WITH_AES_128_CBC_SHA256"
+        - "TLS_AES_256_GCM_SHA384"
+        - "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
       enabled_ssl_protocols:
-        - "TLSv1.1"
+        - "TLSv1.3"
         - "TLSv1.2"
 ```
 
-Name | Description
-:--- | :---
-`enabled_ssl_ciphers` | Array, enabled TLS ciphers. Only the Java format is supported.
-`enabled_ssl_protocols` | Array, enabled TLS protocols. Only the Java format is supported.
+Name | Description | Default
+:--- | :--- | :---
+`enabled_ssl_ciphers` | Array, enabled TLS ciphers. Only the Java format is supported. | The default cipher suites of the Java TLS provider: SunJSSE, or Bouncy Castle JSSE in FIPS mode.
+`enabled_ssl_protocols` | Array, enabled TLS protocols. Only the Java format is supported. | `TLSv1.3`, `TLSv1.2`, and `TLSv1.1`. In FIPS mode, `TLSv1.3` and `TLSv1.2`.
 
 
 ---

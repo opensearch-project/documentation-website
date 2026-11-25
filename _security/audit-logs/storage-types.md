@@ -74,6 +74,8 @@ Name | Data type | Description
 :--- | :--- | :---
 `plugins.security.audit.config.enable_ssl` | Boolean | If you enabled SSL/TLS on the receiving cluster, set to true. The Default is `false`.
 `plugins.security.audit.config.verify_hostnames` |  Boolean | Whether to verify the hostname of the SSL/TLS certificate of the receiving cluster. Default is `true`.
+`plugins.security.audit.config.enabled_ssl_protocols` | Array | The TLS protocols to use for the connection to the receiving cluster. Only the Java format is supported. Default is `TLSv1.3`, `TLSv1.2`, and `TLSv1.1`. In FIPS mode, the default is `TLSv1.3` and `TLSv1.2`.
+`plugins.security.audit.config.enabled_ssl_ciphers` | Array | The TLS cipher suites to use for the connection to the receiving cluster. Only the Java format is supported. Default is the default cipher suites of the Java TLS provider: SunJSSE, or Bouncy Castle JSSE in FIPS mode.
 `plugins.security.audit.config.pemtrustedcas_filepath` | String | The trusted root certificate of the external OpenSearch cluster, relative to the `config` directory.
 `plugins.security.audit.config.pemtrustedcas_content` | String | Instead of specifying the path (`plugins.security.audit.config.pemtrustedcas_filepath`), you can configure the Base64-encoded certificate content directly.
 `plugins.security.audit.config.enable_ssl_client_auth` | Boolean | Whether to enable SSL/TLS client authentication. If you set this to true, the audit log module sends the node's certificate along with the request. The receiving cluster can use this certificate to verify the identity of the caller.

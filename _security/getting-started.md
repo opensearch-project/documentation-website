@@ -75,6 +75,9 @@ opensearch_security.cookie.secure: false
 ```
 {% include copy.html %}
 
+In FIPS mode, the demo user `kibanaserver` has the password `kibanaserver@OpenSearch`. For more information, see [Demo configuration]({{site.url}}{{site.baseurl}}/security/configuration/fips/#demo-configuration).
+{: .note}
+
 You can start the binary or service, depending on which method was used to install OpenSearch and OpenSearch Dashboards.
 
 When using binary, you need to supply `--no-base-path` to `yarn start` command to set a URL without a base path. If this is not set, a random three-letter base path will be added.

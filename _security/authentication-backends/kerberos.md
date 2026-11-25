@@ -54,9 +54,9 @@ As with [HTTP Basic Authentication]({{site.url}}{{site.baseurl}}/security/authen
 
 If set to `true`, the Security plugin sends a response with status code 401 and a `WWW-Authenticate` header set to `negotiate`. This tells the client (browser) to resend the request with the `Authorization` header set. If set to `false`, the Security plugin cannot extract the credentials from the request, and authentication fails. Setting `challenge` to `false` thus makes sense only if the Kerberos credentials are sent in the initial request.
 
-Name | Description
-:--- | :---
-`krb_debug` | As the name implies, setting it to `true` outputs Kerberos-specific debugging messages to `stdout`. Use this setting if you encounter problems with your Kerberos integration. Default is `false`.
-`strip_realm_from_principal` | When set it to `true`, the Security plugin strips the realm from the user name. Default: `true`.
+Name | Description | Default
+:--- | :--- | :---
+`krb_debug` | Setting it to `true` enables the debug output of the JAAS Kerberos login module that the Security plugin uses to log in the acceptor principal from the keytab. The JDK prints this output to `stdout`. It does not cover the SPNEGO negotiation and ticket validation of each request; for those, add `-Dsun.security.krb5.debug=true` and `-Dsun.security.spnego.debug=true` to `config/jvm.options`. Use these settings if you encounter problems with your Kerberos integration. | `false`
+`strip_realm_from_principal` | When set it to `true`, the Security plugin strips the realm from the user name. | `true`
 
 Because Kerberos/SPNEGO authenticates users on an HTTP level, no additional `authentication_backend` is needed. Set this value to `noop`.

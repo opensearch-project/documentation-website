@@ -55,7 +55,7 @@ The Security plugin supports the following REST management API settings:
 
 - `plugins.security.restapi.password_validation_error_message` (Static): Specifies an error message that loads when a password doesn’t pass validation. This setting is used in conjunction with `plugins.security.restapi.password_validation_regex`.
 
-- `plugins.security.restapi.password_min_length` (Static): Sets the minimum number of characters for the password length when using the score-based password strength estimator. The default is 8. This is also the minimum. For more information, see [Password settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings).
+- `plugins.security.restapi.password_min_length` (Static): Sets the minimum number of characters for the password length when using the score-based password strength estimator. The default is 8. This is also the minimum. In FIPS mode, the default is 14, and OpenSearch does not start if the value is lower. For more information, see [Password settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings).
 
 - `plugins.security.restapi.password_score_based_validation_strength` (Static): Sets a threshold to determine whether the password is strong or weak. Valid values are `fair`, `good`, `strong`, and `very_strong`. This setting is used in conjunction with `plugins.security.restapi.password_min_length`.
 
@@ -303,7 +303,7 @@ For more information, see [Enabled ciphers and protocols]({{site.url}}{{site.bas
 
 The Security plugin supports the following transport layer TLS keystore and truststore settings:
 
-- `plugins.security.ssl.transport.keystore_type` (Static): The type of the keystore file. Optional. Valid values are `JKS` or `PKCS12/PFX`. Default is `JKS`.
+- `plugins.security.ssl.transport.keystore_type` (Static): The type of the keystore file. Optional. Valid values are `JKS`, `PKCS12`, `BCFKS`, and `PKCS11`. If not set, the type is detected from the file content.
 
 - `plugins.security.ssl.transport.keystore_filepath` (Static): The path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
 
@@ -311,7 +311,7 @@ The Security plugin supports the following transport layer TLS keystore and trus
 
 - `plugins.security.ssl.transport.keystore_password` (Static): The keystore password. Default is `changeit`.
 
-- `plugins.security.ssl.transport.truststore_type` (Static): The type of the truststore file. Optional. Valid values are `JKS` or `PKCS12/PFX`. Default is `JKS`.
+- `plugins.security.ssl.transport.truststore_type` (Static): The type of the truststore file. Optional. Valid values are `JKS`, `PKCS12`, `BCFKS`, and `PKCS11`. If not set, the type is detected from the file content.
 
 - `plugins.security.ssl.transport.truststore_filepath` (Static): The path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
 
@@ -327,7 +327,7 @@ The Security plugin supports the following REST layer TLS keystore and truststor
 
 - `plugins.security.ssl.http.enabled` (Static): Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is `false`.
 
-- `plugins.security.ssl.http.keystore_type` (Static): The type of the keystore file. Optional. Valid values are `JKS` or `PKCS12/PFX`. Default is `JKS`.
+- `plugins.security.ssl.http.keystore_type` (Static): The type of the keystore file. Optional. Valid values are `JKS`, `PKCS12`, `BCFKS`, and `PKCS11`. If not set, the type is detected from the file content.
 
 - `plugins.security.ssl.http.keystore_filepath` (Static): The path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
 
@@ -335,7 +335,7 @@ The Security plugin supports the following REST layer TLS keystore and truststor
 
 - `plugins.security.ssl.http.keystore_password`: The keystore password. Default is `changeit`.
 
-- `plugins.security.ssl.http.truststore_type`: The type of the truststore file. Optional. Valid values are `JKS` or `PKCS12/PFX`. Default is `JKS`.
+- `plugins.security.ssl.http.truststore_type`: The type of the truststore file. Optional. Valid values are `JKS`, `PKCS12`, `BCFKS`, and `PKCS11`. If not set, the type is detected from the file content.
 
 - `plugins.security.ssl.http.truststore_filepath`: The path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
 

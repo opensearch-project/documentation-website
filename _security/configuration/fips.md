@@ -125,6 +125,59 @@ After running the FIPS demo installer, the following properties are added to you
 
 These properties configure the JVM to use the FIPS-compliant truststore for all SSL/TLS connections if no other truststore is defined.
 
+## Security plugin in FIPS mode
+
+When `OPENSEARCH_FIPS_MODE` is set to `true`, the Security plugin enforces the following rules in addition to the requirements listed above.
+
+### Password hashing and password length
+
+- PBKDF2 is the only allowed password hashing algorithm. Set `plugins.security.password.hashing.algorithm: pbkdf2` in `opensearch.yml`; otherwise, OpenSearch does not start. Internal user hashes created with BCrypt or Argon2 cannot be verified in FIPS mode. Before you apply the security configuration, regenerate them with the following command:
+
+  ```bash
+  ./plugins/opensearch-security/tools/hash.sh -a pbkdf2
+  ```
+  {% include copy.html %}
+
+- Passwords must contain at least 14 characters because Bouncy Castle FIPS rejects PBKDF2 passwords with less than 112 bits. If `plugins.security.restapi.password_min_length` is not set, it is raised to `14`. If it is set to a lower value, OpenSearch does not start.
+- OpenSearch does not start if `plugins.security.password.hashing.pbkdf2.length` is lower than `112` or `plugins.security.password.hashing.pbkdf2.iterations` is lower than `1000`. The defaults are `256` and `600000`.
+
+### Demo configuration
+
+When `OPENSEARCH_FIPS_MODE` is set to `true`, `install_demo_configuration.sh` performs the following additional actions:
+
+- Replaces the shipped `internal_users.yml`, which contains BCrypt hashes, with a file containing PBKDF2 hashes. A modified `internal_users.yml` is kept.
+- Adds `plugins.security.password.hashing.algorithm: pbkdf2` to `opensearch.yml`.
+- Requires an `OPENSEARCH_INITIAL_ADMIN_PASSWORD` of at least 14 characters.
+
+The shipped demo passwords are shorter than 14 characters, so the demo users have different passwords in FIPS mode.
+
+| User | Password without FIPS mode | Password in FIPS mode |
+|:---|:---|:---|
+| `admin` | The value of `OPENSEARCH_INITIAL_ADMIN_PASSWORD` | The value of `OPENSEARCH_INITIAL_ADMIN_PASSWORD` (at least 14 characters) |
+| `kibanaserver` | `kibanaserver` | `kibanaserver@OpenSearch` |
+| `kibanaro`, `logstash`, `readall`, `snapshotrestore`, `anomalyadmin` | The shipped demo passwords | `<username>@OpenSearch` |
+
+OpenSearch Dashboards connects to OpenSearch as `kibanaserver`. In FIPS mode, set `opensearch.password: kibanaserver@OpenSearch` in `opensearch_dashboards.yml`.
+{: .note}
+
+### TLS
+
+- Only `BCFKS` and `PKCS11` keystores and truststores are supported. JKS, JCEKS, and PKCS12 stores are rejected.
+- TLS 1.1 is not offered. The default protocols are TLS 1.3 and TLS 1.2, including for LDAP and the external OpenSearch audit log sink.
+- Encrypted PEM private keys must use PBES2 (for example, AES with PBKDF2). Keys encrypted with a PBES1 scheme, such as `PBEWithMD5AndDES` or `PBEWithSHA1AndDESede`, cannot be read. PBES2 keys created by older OpenSSL versions, which use HMAC-SHA1 and 3DES or AES, can be read. The key password must contain at least 14 characters. To re-encrypt a key, run the following command:
+
+  ```bash
+  openssl pkcs8 -topk8 -v2 aes-256-cbc -v2prf hmacWithSHA256 -in <old-key> -out <new-key>
+  ```
+  {% include copy.html %}
+
+- If you validate certificate revocation using CRL distribution points (`plugins.security.ssl.http.crl.validate: true` without `plugins.security.ssl.http.crl.disable_crldp`), add `org.bouncycastle.x509.enableCRLDP=true` to `config/fips_java.security`. The JDK property `com.sun.security.enableCRLDP`, which the Security plugin sets, has no effect on Bouncy Castle FIPS.
+
+### Known limitations
+
+- **SAML**: If the service provider signs authentication requests and the identity provider encrypts assertions, only the first login succeeds. The SAML library uses one RSA key for signing and decryption, and Bouncy Castle FIPS does not allow a key that has been used for decryption to sign again.
+- **Kerberos**: Kerberos uses the JDK's SunJGSS provider, which `config/fips_java.security` keeps. Use only AES encryption types in `krb5.conf` and in the keytab. RC4 and DES encryption types are not approved.
+
 ## Troubleshooting FIPS
 
 This section covers common issues encountered when running OpenSearch in FIPS mode.
