@@ -15,7 +15,7 @@ To get started with DLS, open OpenSearch Dashboards and choose **Security**. The
 
 ![Document- and field-level security screen in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/security-dls.png)
 
-The maximum size for the document-level security configuration is 1024 KB (1,048,404 characters). When you define a role using the REST API, each DLS query is also limited by the `plugins.security.restapi.max_string_length` setting, which defaults to 4,096 characters. For more information, see [REST management API settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/#rest-management-api-settings).
+When you define a role using the REST API or OpenSearch Dashboards, each DLS query is limited by the `plugins.security.restapi.max_string_length` setting, which defaults to 4,096 characters. This limit does not apply to roles defined in `roles.yml` and uploaded using `securityadmin.sh`. For more information, see [REST management API settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/#rest-management-api-settings).
 {: .warning}
 
 ## Simple roles
@@ -222,7 +222,7 @@ The Security plugin evaluates DLS in one of two modes and automatically chooses 
 
 ## DLS and multiple roles
 
-OpenSearch combines all DLS queries with the logical `OR` operator. However, when a role that uses DLS is combined with another security role that doesn't use DLS, the query results are filtered to display only documents matching the DLS from the first role. This filter rule also applies to roles that do not grant read documents.
+OpenSearch combines all DLS queries with the logical `OR` operator. However, when a role that uses DLS is combined with another security role that doesn't use DLS, the query results are filtered to display only documents matching the DLS from the first role. When `plugins.security.dfm_empty_overrides_all` is `true`, a role without DLS removes the DLS restriction if any of its index permissions apply to the index, even if those permissions don't include read access (for example, a role that grants only `write` or `indices:monitor/*` permissions on the index).
 
 ### DLS and write permissions
 
