@@ -277,10 +277,10 @@ ldap:
         - "TLSv1.2"
 ```
 
-Name | Description
-:--- | :---
-`enabled_ssl_ciphers` | Array, enabled TLS ciphers. Only the Java format is supported.
-`enabled_ssl_protocols` | Array, enabled TLS protocols. Only the Java format is supported.
+Name | Description | Default
+:--- | :--- | :---
+`enabled_ssl_ciphers` | Array, enabled TLS ciphers. Only the Java format is supported. | The default cipher suites of the Java TLS provider: SunJSSE, or Bouncy Castle JSSE in FIPS mode.
+`enabled_ssl_protocols` | Array, enabled TLS protocols. Only the Java format is supported. | `TLSv1.3`, `TLSv1.2`, and `TLSv1.1`. In FIPS mode, `TLSv1.3` and `TLSv1.2`.
 
 
 ---
