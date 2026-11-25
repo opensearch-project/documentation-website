@@ -62,13 +62,14 @@ Audit logging records events in two ways: HTTP requests (REST) and the transport
 
 Event | Logged on REST | Logged on transport | Description
 :--- | :--- | :--- | :---
-`FAILED_LOGIN` | Yes | Yes | The credentials of a request could not be validated, most likely because the user does not exist or the password is incorrect.
-`AUTHENTICATED` | Yes | Yes | A user successfully authenticated.
-`MISSING_PRIVILEGES` | No | Yes | The user does not have the required permissions to make the request.
-`GRANTED_PRIVILEGES` | No | Yes | A user made a successful request to OpenSearch.
+`FAILED_LOGIN` | Yes | No | The credentials of a request could not be validated, most likely because the user does not exist or the password is incorrect.
+`AUTHENTICATED` | Yes | No | A user successfully authenticated. Disabled by default.
+`MISSING_PRIVILEGES` | Yes | Yes | The user does not have the required permissions to make the request.
+`GRANTED_PRIVILEGES` | Yes | Yes | A user made a successful request to OpenSearch. Disabled by default.
 `SSL_EXCEPTION` | Yes | Yes | An attempt was made to access OpenSearch without a valid SSL/TLS certificate.
 `OPENDISTRO_SECURITY_INDEX_ATTEMPT` | No | Yes | An attempt was made to modify the Security plugin internal user and privileges index without the required permissions or TLS admin certificate.
-`BAD_HEADERS` | Yes | Yes | An attempt was made to spoof a request to OpenSearch with the Security plugin internal headers.
+`BAD_HEADERS` | Yes | No | An attempt was made to spoof a request to OpenSearch with the Security plugin internal headers.
+`INDEX_EVENT` | No | Yes | A request for an index administration action (`indices:admin/*`), such as creating an index or updating a mapping, was granted.
 `CLUSTER_SETTINGS_CHANGED` | No | Yes | A persistent or transient cluster setting was changed. Disabled by default.
 `INDEX_SETTINGS_CHANGED` | No | Yes | An index setting was changed. Disabled by default.
 `REQUEST_AUDIT` | Yes | Yes | A REST request was received and processed. Generated in [standalone audit logging]({{site.url}}{{site.baseurl}}/security/audit-logs/standalone/) mode only. For more information about suppressing this event, see [Suppressing `REQUEST_AUDIT` events](#request-audit-suppression).
@@ -76,6 +77,8 @@ Event | Logged on REST | Logged on transport | Description
 `RESOURCE_ACCESS_GRANTED` | No | Yes | Access to a shared resource was granted. Disabled by default.
 `RESOURCE_ACCESS_DENIED` | No | Yes | Access to a shared resource was denied. Disabled by default.
 `RESOURCE_SHARING_CHANGED` | No | Yes | A resource sharing configuration was changed. Disabled by default.
+
+The `COMPLIANCE_DOC_READ`, `COMPLIANCE_DOC_WRITE`, `COMPLIANCE_INTERNAL_CONFIG_READ`, `COMPLIANCE_INTERNAL_CONFIG_WRITE`, and `COMPLIANCE_EXTERNAL_CONFIG` categories are not tied to the REST or transport layer and are controlled by the compliance settings. The `API_TOKEN_WRITE` category records the creation and revocation of [API keys]({{site.url}}{{site.baseurl}}/security/access-control/api-keys/).
 
 <p id="request-audit-suppression"></p>
 
@@ -372,7 +375,7 @@ plugins.security.audit.threadpool.max_queue_len: 100000
 
 ## Body logging exclusions
 
-Use the `body_logging_exclusions` setting in `opensearch.yml` to suppress request bodies for specific actions or REST paths while continuing to log bodies for all other requests. The `log_request_body` setting applies to every request, so it cannot exclude high-volume operations such as bulk ingestion selectively.
+Use the `body_logging_exclusions` setting in `opensearch.yml` to suppress request bodies for specific actions or REST paths while continuing to log bodies for all other requests. Configure `body_logging_exclusions` and the action groups it references only in `opensearch.yml` or using the Cluster Settings API. The `audit.yml` file and the Audit API accept `body_logging_exclusions` and `action_groups` fields, but the Security plugin always replaces them with the node-level settings, so they have no effect. The `log_request_body` setting applies to every request, so it cannot exclude high-volume operations such as bulk ingestion selectively.
 
 All expanded action-group patterns and raw exclusion patterns form a single combined wildcard matcher. For each audit layer, this matcher is tested against the corresponding identifier described in the following table. When a match is found, the request body field is omitted from the audit event. All other fields, such as the user, IP address, indexes, and timestamp, are preserved.
 
