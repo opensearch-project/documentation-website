@@ -103,7 +103,7 @@ System index permissions are unique among other permissions in that they extend 
 
 Along with standard index permissions, you specify system index permissions in the `roles.yml` configuration file under `index_permissions` (see [roles.yml]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#rolesyml)). This involves a two-step process: 1) adding the system index in the `index_patterns` section and 2) specifying `system:admin/system_index` in the role's `allowed_actions` section.
 
-The `system:admin/system_index` permission does not grant any operations by itself. Grant it together with the index permissions for the operations that the user performs on the system index, such as `read`.
+The `system:admin/system_index` permission does not grant any operations by itself. Grant it together with the index permissions for the operations that the user performs on the system index, such as `read` or `write`. To index or delete documents in a system index, the user also needs the `indices:data/write/bulk` cluster permission, because OpenSearch processes these requests as bulk requests.
 {: .note }
 
 For example, the system index permission that gives a user access to the system index that stores configurations for the Alerting plugin is defined by the index pattern `.opendistro-alerting-config`, and its allowed action is defined as `system:admin/system_index`. The following role shows how this system index permission is configured along with other attributes:
