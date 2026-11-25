@@ -48,9 +48,9 @@ For full documentation about the command, see [cryptsetup(8) — Linux manual pa
 
 ### Authentication
 
-Authentication is used to validate the identity of users and works by verifying an end user’s credentials against a backend configuration. These credentials can be a simple name and password, a JSON web token, or a TLS certificate. Once the authentication domain extracts those credentials from a user’s request, it can check their validity against the authentication backend.
+Authentication is used to validate the identity of users and works by verifying an end user’s credentials against a backend configuration. These credentials can be a simple name and password, a JSON Web Token (JWT), or a TLS certificate. After the authentication domain extracts those credentials from a user’s request, it can check their validity against the authentication backend.
 
-The backend used for validation can be OpenSearch's built-in internal user database—used for storing user and role configurations and hashed passwords—or one of a wide range of industry-standard identification protocols such as LDAP, Active Directory, SAML, or OpenID Connect. A common practice is to chain together more than one authentication method to create a more robust defense against unauthorized access. This might involve, for example, HTTP basic authentication followed by a backend configuration that specifies the LDAP protocol. See the [Configuring the Security backend]({{site.url}}{{site.baseurl}}/security/configuration/configuration/) section to learn more about setting up the backend.
+The backend used for validation can be OpenSearch's built-in internal user database---used for storing user and role configurations and hashed passwords---or one of a wide range of industry-standard identification protocols such as LDAP, Active Directory, SAML, or OpenID Connect. A common practice is to chain together more than one authentication method. This might involve, for example, HTTP basic authentication followed by a backend configuration that specifies the LDAP protocol. See the [Configuring the Security backend]({{site.url}}{{site.baseurl}}/security/configuration/configuration/) section to learn more about setting up the backend.
 
 ### Access control
 
@@ -74,13 +74,13 @@ OpenSearch includes other features that complement the security infrastructure.
 
 ### Dashboards multi-tenancy
 
-One such feature is OpenSearch Dashboards multi-tenancy. Tenants are work spaces that include visualizations, index patterns, and other Dashboards objects. Multi-tenancy allows for the sharing of tenants among users of Dashboards and leverages OpenSearch roles to manage access to tenants and safely make them available to others.
+One such feature is OpenSearch Dashboards multi-tenancy. Tenants are work spaces that include visualizations, index patterns, and other Dashboards objects. Multi-tenancy allows for the sharing of tenants among users of Dashboards and uses OpenSearch roles to manage access to tenants and safely make them available to others.
 For more information about creating tenants, see [OpenSearch Dashboards multi-tenancy]({{site.url}}{{site.baseurl}}/security/multi-tenancy/tenant-index/).
 
 ### Cross-cluster search
 
 Another notable feature is cross-cluster search. This feature provides users with the ability to perform searches from one node in a cluster across other clusters that have been set up to coordinate this type of search. As with other features, cross-cluster search is supported by the OpenSearch access control infrastructure, which defines the permissions users have for working with this feature.
-To learn more, see [Cross-cluster search]({{site.url}}{{site.baseurl}}/security/access-control/cross-cluster-search/).
+To learn more, see [Cross-cluster search]({{site.url}}{{site.baseurl}}/search-plugins/cross-cluster-search/).
 
 ## Next steps
 
