@@ -61,7 +61,8 @@ The following table shows the configuration parameters.
 
 Name | Description
 :--- | :---
-`openid_connect_url` | The URL of your IdP where the Security plugin can find the OpenID Connect metadata/configuration settings. This URL differs between IdPs. Required when using OpenID Connect as your backend.
+`openid_connect_url` | The URL of your IdP where the Security plugin can find the OpenID Connect metadata/configuration settings. This URL differs between IdPs. Required if `jwks_uri` is not set.
+`jwks_uri` | The URL of the JWKS endpoint of your IdP. If this setting is specified, the Security plugin retrieves the public keys directly from this URL and does not use `openid_connect_url`. Required if `openid_connect_url` is not set.
 `jwt_url_parameter` | If the token is not transmitted in the HTTP header, but as an URL parameter, define the name of the parameter here. Optional.
 `subject_key` | The key in the JSON payload that stores the user's name. If not defined, the [subject](https://tools.ietf.org/html/rfc7519#section-4.1.2) registered claim is used. Most IdP providers use the `preferred_username` claim. To extract a username from nested JWT claims, you can configure `subject_key` as a list. Optional. 
 `roles_key` | The key in the JSON payload that stores the user's roles. The value can be a JSON array of roles or a string containing a comma-separated list of roles. This key is required only if you want to use roles in the JWT. You can configure `roles_key` as a list to extract roles from nested JWT claims.
@@ -69,6 +70,8 @@ Name | Description
 `required_issuer` | The target issuer of the JWT stored in the JSON payload. This corresponds to the [`iss` claim of the JWT](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.1).
 `jwt_clock_skew_tolerance_seconds` | Specifies a window of time, in seconds, to compensate for any disparity between the JWT authentication server and OpenSearch node clock times, thereby preventing authentication failures due to the misalignment. The Security plugin sets 30 seconds as the default. Use this setting to apply a custom value.
 `cache_jwks_endpoint` | Whether to cache the public keys retrieved from the IdP's JWKS endpoint. Caching these keys reduces the number of requests sent to the IdP during JWT validation. Default is `false`. For more information, see [Caching and performance](#caching-and-performance).
+`idp_request_timeout_ms` | The maximum amount of time, in milliseconds, to wait for the IdP when retrieving the OpenID Connect metadata and the public keys. If the IdP does not respond within this time, authentication fails. Default is `5000`.
+`idp_queued_thread_timeout_ms` | The maximum amount of time, in milliseconds, that a request waits for a key refresh started by another request to complete. If the refresh does not complete within this time, authentication of the waiting request fails. Default is `2500`.
 
 
 ## OpenID Connect URL
@@ -87,6 +90,18 @@ The main information that the Security plugin needs is `jwks_uri`. This URI spec
 
 ```
 jwks_uri: "https://keycloak.example.com:8080/realms/master/protocol/openid-connect/certs"
+```
+
+If your IdP does not provide a metadata endpoint, set `jwks_uri` in the `config` section of the authentication domain to the URL of the JWKS endpoint. The Security plugin then retrieves the public keys directly from this URL:
+
+```yml
+http_authenticator:
+  type: openid
+  challenge: false
+  config:
+    subject_key: preferred_username
+    roles_key: roles
+    jwks_uri: https://keycloak.example.com:8080/realms/master/protocol/openid-connect/certs
 ```
 
 The JWKS endpoint returns the public keys in the following format:

@@ -133,6 +133,18 @@ Name | Description
 `idp.metadata_url` | The SAML 2.0 metadata URL of your IdP. Required if neither `idp.metadata_file` nor `idp.metadata_content` is set.
 `idp.metadata_content` | The SAML 2.0 metadata XML of your IdP. Required if neither `idp.metadata_url` nor `idp.metadata_file` is set.
 
+### Metadata refresh
+
+If you configure `idp.metadata_url`, the Security plugin periodically reloads the metadata from the URL. The time until the next refresh is the validity period of the metadata multiplied by `idp.refresh_delay_factor`. The validity period is `idp.max_refresh_delay` or, if the metadata specifies a shorter validity period, that period. With the default settings and metadata that does not specify a validity period, the Security plugin reloads the metadata every 3 hours.
+
+Use the following settings to configure the refresh interval.
+
+Name | Description
+:--- | :---
+`idp.min_refresh_delay` | The minimum amount of time, in milliseconds, between metadata refreshes. If a refresh fails, the Security plugin retries after this amount of time. Default is `60000` (1 minute).
+`idp.max_refresh_delay` | The maximum validity period of the metadata, in milliseconds. Default is `14400000` (4 hours).
+`idp.refresh_delay_factor` | The fraction of the metadata validity period after which the Security plugin reloads the metadata. Default is `0.75`.
+
 
 ## IdP and service provider entity ID
 
@@ -197,6 +209,7 @@ Name | Description
 :--- | :---
 `subject_key` | The attribute in the SAML response where the subject is stored. Optional. If not configured, the `NameID` attribute is used.
 `roles_key` | The attribute in the SAML response where the roles are stored. Optional. If not configured, no roles are used.
+`roles_separator` | A regular expression used to split each value of the roles attribute into multiple roles. For example, if the roles attribute contains the value `admin,developer`, setting `roles_separator` to `,` produces the roles `admin` and `developer`. Optional. If not configured, each attribute value is used as one role.
 
 
 ## Request signing
@@ -241,6 +254,32 @@ SAML, unlike other protocols, is not meant to be used for exchanging user creden
 Name | Description
 :--- | :---
 `exchange_key` | The key to sign the token. The algorithm is HMACSHA512, therefore we recommend to use 64 characters, for example `9a2h8ajasdfhsdiydfn7dtd6d5ashsd89a2h8ajasdHhsdiyLfn7dtd6d5ashsdI`. The Security plugin decodes the value as a Base64URL string, so the key must be valid Base64URL. For example, it cannot contain spaces, `+`, or `/`. Ensure that you enter a value for `exchange_key`, otherwise an error is returned.
+`jwt.expiry` | The expiration time of the token that the Security plugin issues after a successful SAML login. Specify the value in the `<base>[ + <minutes>]` format. See [Token expiration](#token-expiration). Default is `AUTO`.
+
+### Token expiration
+
+The `jwt.expiry` setting consists of a base value, optionally followed by `+` and an offset in whole minutes. The following table lists the supported base values.
+
+Base value | Token expiration time
+:--- | :---
+`AUTO` | The `SessionNotOnOrAfter` time of the SAML response. The offset is ignored. If the SAML response does not contain `SessionNotOnOrAfter`, the token expires after the offset or, if no offset is specified, after 60 minutes.
+`NOW` | The offset after the token is issued. Without an offset, the token expires as soon as it is issued, so always specify an offset when using `NOW`.
+`SESSION` | The offset after the `SessionNotOnOrAfter` time of the SAML response. If the SAML response does not contain `SessionNotOnOrAfter`, the login fails.
+
+If the value is not in a valid format, the Security plugin logs an error and uses `AUTO`.
+
+For example, the following configuration issues tokens that expire 8 hours after they are issued:
+
+```yml
+http_authenticator:
+  type: saml
+  challenge: true
+  config:
+    idp:
+      metadata_file: okta.xml
+    jwt:
+      expiry: NOW + 480
+```
 
 
 

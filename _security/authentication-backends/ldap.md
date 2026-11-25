@@ -141,6 +141,11 @@ config:
 
 If your server supports two-factor authentication (2FA), the default timeout settings might result in login errors. You can increase `connect_timeout` to accommodate the 2FA process. Setting `response_timeout` to 0 (the default) indicates an indefinite waiting period.
 
+Name | Description
+:--- | :---
+`connect_timeout` | The maximum amount of time, in milliseconds, to wait when opening a connection to the LDAP server. Default is `5000`.
+`response_timeout` | The maximum amount of time, in milliseconds, to wait for the LDAP server to respond to a request. A value of `0` means no timeout. Default is `0`.
+
 
 ### Bind DN and password
 
@@ -187,6 +192,14 @@ The transport layer PEM settings, such as `plugins.security.ssl.transport.pemtru
 
 If your server uses a certificate signed by a different CA, import this CA into your truststore on each node or configure a separate root CA in PEM format.
 
+By default, the Security plugin trusts all certificates in the transport layer truststore. To trust only specific certificates, list their aliases in the `ca_alias` setting:
+
+```yml
+config:
+  ca_alias:
+    - <truststore-alias>
+```
+
 When configuring a separate root CA for LDAP, make sure to include the setting in all instances of the LDAP `config:` settings, including in both the `authc` and `authz` options of the configuration.
 {: .note}
 
@@ -213,6 +226,7 @@ Name | Description
 :--- | :---
 `pemtrustedcas_filepath` | Path to the PEM file containing the root CAs of your Active Directory/LDAP server. Relative paths are resolved against the OpenSearch `config` directory.
 `pemtrustedcas_content` | The root CA content of your Active Directory/LDAP server. Cannot be used when `pemtrustedcas_filepath` is set.
+`ca_alias` | Array of aliases of the certificates in the transport layer truststore that the Security plugin trusts for LDAP connections. Used only if neither `pemtrustedcas_filepath` nor `pemtrustedcas_content` is set. If not set, all certificates in the truststore are trusted.
 
 
 ### Client authentication
@@ -258,6 +272,7 @@ Name | Description
 `pemkey_password` | The password of your private key, if any.
 `pemcert_filepath` | Path to the client certificate. Relative paths are resolved against the OpenSearch `config` directory.
 `pemcert_content` | The content of the client certificate. Cannot be used when `pemcert_filepath` is set.
+`cert_alias` | The alias of the client certificate and its private key in the transport layer keystore. Used only if neither `pemtrustedcas_filepath` nor `pemtrustedcas_content` is set. Required if `enable_ssl_client_auth` is `true` and the transport layer keystore is used.
 
 
 ### Enabled ciphers and protocols
@@ -354,7 +369,7 @@ Name | Description
 `username_attribute` | The Security plugin uses this attribute of the directory entry to look for the user name. If set to null, the DN is used (default).
 `custom_attr_allowlist`  | String array. Specifies the LDAP attributes that should be made available for variable substitution. See [Control LDAP user attributes](#advanced-control-ldap-user-attributes).
 `custom_attr_maxval_len`  | Integer. Specifies the maximum allowed length of each attribute. All attributes longer than this value are discarded. A value of `0` disables custom attributes altogether. Default is 36.
-
+`search_all_bases` | Boolean. Whether to search all configured user bases for the user. If `true`, a user found in more than one user base cannot log in. See [Configuring multiple user and role bases](#advanced-configuring-multiple-user-and-role-bases). Default is `false`.
 
 ### Complete authentication example
 
@@ -603,6 +618,8 @@ To configure multiple user bases in the `authc` and/or `authz` section, use the 
         username_attribute: uid
         ...
 ```
+
+During authentication, the Security plugin searches the user bases one at a time and uses the first user base that contains a matching entry. To search all user bases, set `search_all_bases` to `true` in the `authc` section. In this case, if a user name matches entries in more than one user base, the login fails.
 
 Similarly, use the following setup to configure multiple role bases in the `authz` section:
 
