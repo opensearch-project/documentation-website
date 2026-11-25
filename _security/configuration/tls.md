@@ -133,7 +133,17 @@ If your node certificates have an Object ID (OID) identifier in the SAN section,
 
 ## Configuring admin certificates
 
-Super admin certificates are regular client certificates that have elevated rights to perform administrative security tasks. You need an admin certificate to change the Security plugin configuration using [`plugins/opensearch-security/tools/securityadmin.sh`]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/) or the REST API. Super admin certificates are configured in `opensearch.yml` by stating their DN(s):
+Super admin certificates are regular client certificates that have elevated rights to perform administrative security tasks. You need an admin certificate to run [`securityadmin.sh`]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/).
+
+Users mapped to a role listed in `plugins.security.restapi.roles_enabled` can manage users, roles, role mappings, action groups, tenants, and the audit configuration using the REST API without an admin certificate. The following REST API operations require an admin certificate:
+
+- Using the allowlist, nodes DN, and SSL certificate APIs.
+- Changing reserved resources.
+- Creating or modifying roles and action groups that contain `restapi:admin/*` permissions.
+
+By default, the security configuration (`config.yml`) cannot be updated using the REST API, even with an admin certificate. To allow users without an admin certificate to update the security configuration or use the allowlist, nodes DN, and SSL certificate APIs, set `plugins.security.restapi.admin.enabled` to `true` and grant the corresponding `restapi:admin/*` permissions. For more information, see [Security REST permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#security-rest-permissions).
+
+Super admin certificates are configured in `opensearch.yml` by stating their DN(s):
 
 ```yml
 plugins.security.authcz.admin_dn:
@@ -232,7 +242,14 @@ The plain-text SSL password settings in `opensearch.yml` are deprecated. Each of
 * plugins.security.ssl.transport.client.keystore_keypassword_secure
 * plugins.security.ssl.transport.truststore_password_secure
 
-You cannot specify both a plain-text password setting and its secure alternative.
+The plain-text settings still work, but OpenSearch logs a deprecation warning at startup when you use them. You cannot specify both a plain-text password setting and its secure alternative; if you do, the node does not start.
+
+To add a secure setting to the keystore, run the following command from the OpenSearch home directory and enter the password when prompted:
+
+```bash
+./bin/opensearch-keystore add plugins.security.ssl.http.pemkey_password_secure
+```
+{% include copy.html %}
 
 ## Hot reloading TLS certificates
 
