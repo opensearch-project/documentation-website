@@ -263,4 +263,4 @@ Fields of these types remain searchable because OpenSearch serves `range`, `term
 
 Setting `index` to `true` for these fields is not supported.
 
-Because the default value is not stored in the mapping, the `index` parameter does not appear in the response to a `GET _mapping` request for these fields, and the Field Capabilities API reports them as `"searchable": false`.
+Because the default value is not stored in the mapping, the `index` parameter does not appear in the response to a `GET _mapping` request for these fields. In OpenSearch 3.10 and later, the Field Capabilities API reports these fields as `"searchable": true` when `doc_values` is enabled because they can be queried from doc values. In OpenSearch 3.9, the Field Capabilities API reports them as `"searchable": false`.
