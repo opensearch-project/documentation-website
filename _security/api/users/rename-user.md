@@ -12,7 +12,7 @@ nav_order: 25
 
 Renames an internal user and updates the role mappings that reference the user by name.
 
-The user's password hash, backend roles, security roles, and attributes are kept under the new name. In each role mapping whose `users` list contains the old name, the old name is replaced with the new one. Entries that use wildcard patterns, such as `ali*`, are not changed. All changes are validated before any are written, so a rejected request does not modify the user or any role mapping.
+The user's password hash, backend roles, security roles, and attributes are kept under the new name. In each role mapping whose `users` list contains the old name, the old name is replaced with the new one. Entries that use wildcard patterns, such as `ali*`, are not changed. If a role mapping already lists the new name, for example because it was never updated after a previous user with that name was deleted, the renamed user also receives that role. All changes are validated before any are written, so a rejected request does not modify the user or any role mapping.
 
 Only role mappings are updated. Other data that stores the username, such as resource sharing records or documents that plugins store, is not changed.
 {: .note}
@@ -83,4 +83,4 @@ The response body is a JSON object with the following fields.
 | `403` | The user, or a role mapping that references the user, is reserved and the caller does not have permission to change it. |
 | `404` | The user does not exist, or the user or a role mapping that references it is hidden and the caller does not have permission to change it. |
 | `409` | A user named `new_username` already exists, or the security configuration was changed by another request at the same time. Retry the request. |
-| `500` | The rename was only partially applied. The response names the role mappings that still reference the old name and must be updated manually. |
+| `500` | The rename could not be completed. If its changes were rolled back, the message says so and you can retry the request. If they could not be rolled back, the message names the role mappings that still reference the old name, which you must update manually. |
