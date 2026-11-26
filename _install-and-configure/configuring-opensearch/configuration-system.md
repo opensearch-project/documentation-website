@@ -17,7 +17,7 @@ These are the fundamental settings required to identify your cluster and nodes:
 
 - `node.name` (Static, string): A descriptive name for the node. Required.
 
-- `node.roles` (Static, list): Defines one or more roles for an OpenSearch node. Valid values are `cluster_manager`, `data`, `ingest`, `search`, `ml`, `remote_cluster_client`, and `coordinating_only`. Default is `cluster_manager,data,ingest,remote_cluster_client`.
+- `node.roles` (Static, list): Defines one or more roles for an OpenSearch node. Valid values are `cluster_manager`, `data`, `ingest`, `search`, `ml`, `remote_cluster_client`, and `warm`. Default is `cluster_manager,data,ingest,remote_cluster_client`. To configure a dedicated coordinating-only node, set `node.roles: []`
 
 - `node.id.seed` (Static, long): Provides a seed value for determining the persisted unique UUID of a node. When a node starts for the first time, this seed helps generate a unique node identifier. If the node already has a persisted UUID on disk from a previous startup, this seed is ignored and the existing UUID is reused. This setting is useful for ensuring consistent node identification in automated deployments. Default is `0`. Accepts any long value including negative numbers.
 
