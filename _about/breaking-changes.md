@@ -168,7 +168,7 @@ For more information, see pull request [#2564](https://github.com/opensearch-pro
 
 ### Performance Analyzer plugin
 
-The `performance-analyzer-rca` agent has been removed. We recommend transitioning to the [Telemetry plugin](https://github.com/opensearch-project/performance-analyzer/issues/585) for performance monitoring and analysis. The Telemetry plugin, using the OpenTelemetry framework, allows for seamless integration with lightweight open-source agents in order to publish performance metrics to observability stores. For more information, see issue [#591](https://github.com/opensearch-project/performance-analyzer-rca/issues/591).
+The `performance-analyzer-rca` agent has been removed. The agent served the Performance Analyzer API on port 9600, so the metrics, batch metrics, and root cause analysis (RCA) APIs and the PerfTop dashboards are no longer available. The Performance Analyzer plugin remains installed by default and can publish its metrics using the [metrics framework]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/telemetry/metrics/), which exports them using OpenTelemetry. For more information, see [Performance Analyzer]({{site.url}}{{site.baseurl}}/tuning-your-cluster/monitoring/telemetry/performance-analyzer/) and issue [#591](https://github.com/opensearch-project/performance-analyzer-rca/issues/591).
 
 ### SQL plugin
 
@@ -230,18 +230,22 @@ For more information, see pull request [#9813](https://github.com/opensearch-pro
 ### ML Commons plugin
 
 - The `CatIndexTool` is removed in favor of the `ListIndexTool`.
+- The Asynchronous Batch Ingestion API (`POST /_plugins/_ml/_batch_ingestion`) is removed. For similar functionality, use [OpenSearch Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/). For more information, see pull request [#3688](https://github.com/opensearch-project/ml-commons/pull/3688).
 
 ### Romanian analysis
 
 The `romanian` analyzer now supports Romanian in its modern Unicode form and normalizes cedilla characters to their comma-based equivalents. Because both forms are still in use, we recommend reindexing existing Romanian documents to ensure consistent analysis and search behavior.
 
-## 3.8.0
+## 3.10.0
 
-The following breaking change was introduced in OpenSearch 3.8.0.
+The following breaking changes were introduced in OpenSearch 3.10.0.
 
-### Default S3 repository server-side encryption type
+### ML Commons plugin
 
-The default value of the `server_side_encryption_type` setting for `s3` repositories changed from `bucket_default` to `AES256`. When the setting is `bucket_default`, OpenSearch sends no `x-amz-server-side-encryption` header on S3 upload requests. With `AES256`, OpenSearch sends the header on every upload request. This change corrects silent snapshot failures on buckets whose policies require the encryption header, such as those with a `DenyUnEncryptedObjectUploads` statement.
+The validation of private and internal IP addresses has been updated as follows:
 
-After you upgrade, any `s3` repository registered without an explicit `server_side_encryption_type`, including snapshot repositories and [remote-backed storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/remote-store/) repositories, begins sending the `AES256` header. S3-compatible storage services that reject this header return an error, which causes previously working repositories to fail. For example, MinIO returns the HTTP 501 error `Server side encryption specified but KMS is not configured` unless you configure its own KMS backend. To restore the previous encryption type, set `server_side_encryption_type` to `bucket_default` explicitly. For snapshot repositories, set it when you register or update the repository. For remote-backed storage repositories, set the `node.attr.remote_store.repository.<repository-name>.settings.server_side_encryption_type` node attribute in `opensearch.yml`. For more information, see pull request [#22144](https://github.com/opensearch-project/OpenSearch/pull/22144).
+- Link-local addresses (`169.254.0.0/16` and `fe80::/10`) and cloud instance metadata addresses (`fd00:ec2::/32`, `fd20:ce::254`, and `100.100.100.200`) are always refused, regardless of the `plugins.ml_commons.connector.private_ip_enabled` setting. Requests to these addresses fail with the error `Remote inference host name has restricted ip address: <host>`. Any connector using such an endpoint requires a different one.
+- IPv6 unique-local addresses (`fc00::/7`) and the local-use NAT64 range (`64:ff9b:1::/48`) are private addresses. Connectors that use them require `plugins.ml_commons.connector.private_ip_enabled` to be `true` and, if `plugins.ml_commons.trusted_connector_private_endpoints_regex` is not empty, a matching expression in that list.
+- The `plugins.ml_commons.connector.private_ip_enabled`, `plugins.ml_commons.trusted_connector_private_endpoints_regex`, and `plugins.ml_commons.connector.restricted_ip_patterns` settings also apply to streaming prediction requests that use the `openai/v1/chat/completions` or `gemini/v1beta/generatecontent` interface. These requests connect directly, without a JVM-wide HTTP proxy, and do not follow redirects.
 
+For more information, see [Connector endpoint settings]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings/#connector-endpoint-settings) and pull requests [#5204](https://github.com/opensearch-project/ml-commons/pull/5204) and [#5206](https://github.com/opensearch-project/ml-commons/pull/5206).

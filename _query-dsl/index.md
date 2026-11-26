@@ -96,6 +96,7 @@ Expensive queries can consume a lot of memory and lead to a decline in cluster p
 - [`regexp`]({{site.url}}{{site.baseurl}}/query-dsl/term/regexp/) queries 
 - [`wildcard`]({{site.url}}{{site.baseurl}}/query-dsl/term/wildcard/) queries 
 - [`query_string`]({{site.url}}{{site.baseurl}}/query-dsl/full-text/query-string/) queries that are internally transformed into prefix queries
+- [`geo_shape`]({{site.url}}{{site.baseurl}}/query-dsl/geo-and-xy/geoshape/) queries on geoshape fields that store shapes in a prefix tree
 
 To disallow expensive queries, you can disable the `search.allow_expensive_queries` cluster setting as follows:
 
@@ -109,5 +110,5 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-To track expensive queries, enable [shard slow logs]({{site.url}}{{site.baseurl}}/monitoring-your-cluster/logs/#shard-slow-logs).
+To track expensive queries, enable [shard slow logs]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/logs/#shard-slow-logs).
 {: .tip}

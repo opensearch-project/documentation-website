@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Index management security
-nav_order: 140
+nav_order: 90
 has_children: false
 ---
 
@@ -17,13 +17,13 @@ The Security plugin comes with one role that offers full access to index managem
 
 With security enabled, users not only need the correct index management permissions, but they also need permissions to execute actions to involved indexes. For example, if a user wants to use the REST API to attach a policy that executes a rollup job to an index named `system-logs`, they would need the permissions to attach a policy and execute a rollup job, as well as access to `system-logs`.
 
-Finally, with the exceptions of Create Policy, Get Policy, and Delete Policy, users also need the `indices:admin/opensearch/ism/managedindex` permission to execute [ISM APIs]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/).
+Finally, users also need the `indices:admin/opensearch/ism/managedindex` permission for the target indexes to use the following [ISM APIs]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/): add policy, remove policy from index, update managed index policy, retry failed index, and explain index. The remove, update, and retry operations fail if the user lacks this permission for any target index. The add policy and explain index operations skip the indexes for which the user lacks this permission.
 
 ## (Advanced) Limit access by backend role
 
 You can use backend roles to configure fine-grained access to index management policies and actions. For example, users of different departments in an organization might view different policies depending on what roles and permissions they are assigned.
 
-First, ensure your users have the appropriate [backend roles]({{site.url}}{{site.baseurl}}/security/access-control/index/). Backend roles usually come from an [LDAP server]({{site.url}}{{site.baseurl}}/security/configuration/ldap/) or [SAML provider]({{site.url}}{{site.baseurl}}/security/configuration/saml/). However, if you use the internal user database, you can use the REST API to [add them manually]({{site.url}}{{site.baseurl}}/security/access-control/api#create-user).
+First, ensure your users have the appropriate [backend roles]({{site.url}}{{site.baseurl}}/security/access-control/index/). Backend roles usually come from an [LDAP server]({{site.url}}{{site.baseurl}}/security/configuration/ldap/) or [SAML provider]({{site.url}}{{site.baseurl}}/security/configuration/saml/). However, if you use the internal user database, you can use the REST API to [add them manually]({{site.url}}{{site.baseurl}}/security/api/users/create-user/).
 
 Use the REST API to enable the following setting:
 
@@ -35,6 +35,10 @@ PUT _cluster/settings
   }
 }
 ```
+{% include copy-curl.html %}
+
+Only enable this setting on a cluster that has the Security plugin enabled. On a cluster with security disabled, the setting is accepted but every index management write request then fails with `403 Filter by user backend roles in IndexManagement is not supported with security disabled`.
+{: .warning}
 
 With security enabled, only users who share at least one backend role can see and execute the policies and actions relevant to their roles.
 

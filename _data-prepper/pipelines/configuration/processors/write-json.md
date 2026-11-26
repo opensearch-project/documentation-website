@@ -4,6 +4,8 @@ title: Write JSON
 parent: Processors
 grand_parent: Pipelines
 nav_order: 440
+redirect_from:
+  - /data-prepper/pipelines/configuration/processors/write_json/
 ---
 
 # Write JSON processor
@@ -49,7 +51,7 @@ write-json-demo-pipeline:
         hosts: ["https://opensearch:9200"]
         insecure: true
         username: admin
-        password: admin_pass
+        password: "<custom-admin-password>"
         index_type: custom
         index: write-json-demo-%{yyyy.MM.dd}
 ```

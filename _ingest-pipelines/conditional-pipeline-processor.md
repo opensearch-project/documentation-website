@@ -130,6 +130,58 @@ The response confirms that the first document was processed by the `webapp_logs`
 }
 ```
 
+### Rejecting unmatched documents
+
+In the preceding example, documents that don't match any condition are indexed without processing. To reject these documents, add a [`fail` processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/fail/) whose condition matches when none of the other conditions do:
+
+```json
+PUT _ingest/pipeline/service_router
+{
+  "processors": [
+    {
+      "pipeline": {
+        "name": "webapp_logs",
+        "if": "ctx.service?.name == 'webapp'"
+      }
+    },
+    {
+      "pipeline": {
+        "name": "api_logs",
+        "if": "ctx.service?.name == 'api'"
+      }
+    },
+    {
+      "fail": {
+        "if": "!['webapp', 'api'].contains(ctx.service?.name)",
+        "message": "The service.name field must be webapp or api. Received: {% raw %}{{service.name}}{% endraw %}"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+When you simulate the pipeline using the same documents as in the preceding example, the first two documents are processed as before. The third document fails with the message `The service.name field must be webapp or api. Received: worker`, and OpenSearch doesn't index it. If a document has no `service.name` field, the message ends with an empty value.
+
+### Applying the router to all indexing requests
+
+To route every document indexed into an index without specifying the `pipeline` parameter in each request, set the routing pipeline as the index's default pipeline. To apply it to all indexes that match a pattern, set `index.default_pipeline` in an [index template]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/):
+
+```json
+PUT _index_template/service_logs
+{
+  "index_patterns": ["service-logs-*"],
+  "template": {
+    "settings": {
+      "index.default_pipeline": "service_router"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+For more information, see [Applying a pipeline to documents]({{site.url}}{{site.baseurl}}/ingest-pipelines/#applying-a-pipeline-to-documents).
+
 ## Example: Type-specific processing
 
 You can also use the pipeline processor to apply type-specific pipelines. The following pipeline directs logs to a `numeric_handler` if the `code` field is a number and to a `string_handler` if it is of type `String`.

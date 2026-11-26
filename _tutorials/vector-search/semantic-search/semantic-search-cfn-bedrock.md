@@ -14,7 +14,7 @@ This tutorial shows you how to implement semantic search in [Amazon OpenSearch S
 
 If you are using self-managed OpenSearch instead of Amazon OpenSearch Service, create a connector to the Amazon Bedrock models using [the blueprints](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/). For more information about creating a connector, see [Connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/). 
 
-The CloudFormation integration automates the steps in the [Semantic search using Amazon Bedrock Titan]({{site.url}}{{site.baseurl}}/vector-search/tutorials/semantic-search/semantic-search-bedrock-cohere/) tutorials. The CloudFormation template creates an AWS Identity and Access Management (IAM) role and invokes an AWS Lambda function to set up an AI connector and model.
+The CloudFormation integration automates the steps in the [Semantic search using Amazon Bedrock Titan]({{site.url}}{{site.baseurl}}/vector-search/tutorials/semantic-search/semantic-search-bedrock-titan/) and [Semantic search using Cohere Embed on Amazon Bedrock]({{site.url}}{{site.baseurl}}/vector-search/tutorials/semantic-search/semantic-search-bedrock-cohere/) tutorials. The CloudFormation template creates an AWS Identity and Access Management (IAM) role and invokes an AWS Lambda function to set up an AI connector and model.
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
 {: .note}
@@ -39,6 +39,8 @@ arn:aws:iam::your_aws_account_id:role/*
 
 Because `all_access` includes more permissions than `ml_full_access`, mapping the backend role to `all_access` is also acceptable.
 
+If your domain access policy doesn't already allow this IAM role, add the role to the domain access policy.
+
 ## Step 2: Run the CloudFormation template  
 
 The CloudFormation template integration is available in the [Amazon OpenSearch Service console](https://console.aws.amazon.com/aos/home). From the left navigation pane, select **Integrations**, as shown in the following image.
@@ -48,6 +50,8 @@ The CloudFormation template integration is available in the [Amazon OpenSearch S
 To create a connector, complete the following form.
 
 ![Deploy a pretrained model to Amazon Bedrock]({{site.url}}{{site.baseurl}}/images/vector-search-tutorials/semantic_search_bedrock_integration_2.png)
+
+The console provides separate templates for public domains and virtual private cloud (VPC) domains. The VPC domain template runs the Lambda function in your VPC, so it also requires the security group and subnets in which to run the Lambda function.
 
 Complete the following fields, keeping all other fields at their default values:  
 
@@ -85,7 +89,7 @@ PUT /_ingest/pipeline/my_bedrock_embedding_pipeline
     "processors": [
         {
             "text_embedding": {
-                "model_id": "your_bedrock_embedding_model_id_created_in_step3",
+                "model_id": "your_model_id_from_stack_outputs",
                 "field_map": {
                     "text": "text_knn"
                 }
@@ -98,14 +102,13 @@ PUT /_ingest/pipeline/my_bedrock_embedding_pipeline
 
 ### Step 3.2: Create a vector index
 
-Next, create a vector index for storing the input text and generated embeddings:
+Next, create a vector index for storing the input text and generated embeddings. Set `dimension` to the embedding size of the model that you selected in the template (in this example, 1536 for `amazon.titan-embed-text-v1`):
 
 ```json
 PUT my_index
 {
   "settings": {
     "index": {
-      "knn.space_type": "cosinesimil",
       "default_pipeline": "my_bedrock_embedding_pipeline",
       "knn": "true"
     }
@@ -114,7 +117,8 @@ PUT my_index
     "properties": {
       "text_knn": {
         "type": "knn_vector",
-        "dimension": 1536
+        "dimension": 1536,
+        "space_type": "cosinesimil"
       }
     }
   }
@@ -145,7 +149,7 @@ POST /my_index/_search
     "neural": {
       "text_knn": {
         "query_text": "hello",
-        "model_id": "your_embedding_model_id_created_in_step4",
+        "model_id": "your_model_id_from_stack_outputs",
         "k": 100
       }
     }
@@ -155,3 +159,10 @@ POST /my_index/_search
 }
 ```
 {% include copy-curl.html %}
+
+## Related documentation
+
+- [Semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/semantic-search/)
+- [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/)
+- [Text embedding processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-embedding/)
+- [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/)

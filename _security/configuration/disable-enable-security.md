@@ -2,7 +2,7 @@
 layout: default
 title: Disabling and enabling the Security plugin
 parent: Configuration
-nav_order: 40
+nav_order: 65
 has_toc: true
 redirect_from:
  - /security-plugin/configuration/disable/
@@ -30,7 +30,7 @@ You can then enable the plugin by removing the `plugins.security.disabled` setti
 
 ## Removing and adding the Security plugin
 
-You can completely remove the Security plugin from your OpenSearch instance. Note that OpenSearch Dashboards can only run against a secure cluster, so if you uninstall the Security plugin, you'll also need to uninstall the OpenSearch Dashboards plugin. 
+You can completely remove the Security plugin from your OpenSearch instance. The OpenSearch Dashboards Security plugin requires the Security plugin in OpenSearch, so if you uninstall the Security plugin, you'll also need to uninstall the OpenSearch Dashboards Security plugin.
 
 ### Removing the Security plugin from OpenSearch
 
@@ -38,9 +38,9 @@ Do the following to remove the plugin from OpenSearch.
 
 1. Disable shard allocation and stop all nodes so that shards don't move when the cluster is restarted:
 
-   ```json
-   curl -XPUT "https://localhost:9200/_cluster/settings" -u "admin:<password>" -H 'Content-Type: application/json' -d '{
-      "transient": {
+   ```bash
+   curl --cacert <path-to-root-ca.pem> -XPUT "https://localhost:9200/_cluster/settings" -u "admin:<password>" -H 'Content-Type: application/json' -d '{
+      "persistent": {
          "cluster.routing.allocation.enable": "none"
       }
    }'
@@ -52,21 +52,25 @@ Do the following to remove the plugin from OpenSearch.
    ```bash
    ./bin/opensearch-plugin remove opensearch-security
    ```
+   {% include copy.html %}
+
 4. Restart the nodes and enable shard allocation:
-   ```json
+
+   ```bash
    curl -XPUT "http://localhost:9200/_cluster/settings" -H 'Content-Type: application/json' -d '{
-    "transient": {
-      "cluster.routing.allocation.enable": "all"
-      }
+     "persistent": {
+       "cluster.routing.allocation.enable": "all"
+     }
    }'
    ```
+   {% include copy.html %}
 
-To perform these steps on the Docker image, see [Working with plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker#working-with-plugins).
+To perform these steps on the Docker image, see [Working with plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#working-with-plugins).
 {: .note }
 
 ### Removing the Security plugin from OpenSearch Dashboards 
 
-If you disable the Security plugin in `opensearch.yml` and still want to use OpenSearch Dashboards, you must remove the corresponding OpenSearch Dashboards Security plugin. For more information, see [Remove plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/#removing-a-plugin).
+If you disable the Security plugin in `opensearch.yml` and still want to use OpenSearch Dashboards, you must remove the corresponding OpenSearch Dashboards Security plugin. For more information, see [Remove plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/plugins/#removing-plugins).
 
 Refer to the following installation types to remove the OpenSearch Dashboards plugin.
 
@@ -101,9 +105,9 @@ Refer to the following installation types to remove the OpenSearch Dashboards pl
 
 #### Tarball 
 
-1. Navigate to the `/bin` directory in your OpenSearch Dashboards installation folder and stop the running OpenSearch Dashboards instance by pressing `Ctrl + C`.
+1. Stop the running OpenSearch Dashboards instance by pressing `Ctrl+C`.
 
-1. Run the following command to uninstall the Security plugin:
+1. From your OpenSearch Dashboards installation directory, run the following command to uninstall the Security plugin:
 
    ```bash
    ./bin/opensearch-dashboards-plugin remove securityDashboards
@@ -156,22 +160,22 @@ Use the following steps to reinstall the plugin:
 
 1. Disable shard allocation and stop all nodes so that shards don't move when the cluster is restarted:
 
-    ```json
+    ```bash
     curl -XPUT "http://localhost:9200/_cluster/settings" -H 'Content-Type: application/json' -d '{
-      "transient": {
+      "persistent": {
         "cluster.routing.allocation.enable": "none"
-        }
-     }'
+      }
+    }'
     ```
     {% include copy.html %}
- 
-2. Install the Security plugin on all nodes in your cluster using one of the [installation methods]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#install):
+
+2. Install the Security plugin on all nodes in your cluster using one of the [installation methods]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#installing-plugins). For example, the following command installs the plugin using its Maven coordinates:
 
     ```bash
-    bin/opensearch-plugin install opensearch-security
+    bin/opensearch-plugin install org.opensearch.plugin:opensearch-security:{{site.opensearch_version}}.0
     ```
     {% include copy.html %}
-    
+
 3. Add the necessary configuration to `opensearch.yml` for TLS encryption. See
 [Configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/security-settings/) for information about the settings that need to be configured.
 
@@ -179,10 +183,10 @@ Use the following steps to reinstall the plugin:
   
 5. Restart the nodes and reenable shard allocation:
 
-   ```json
-   curl -XPUT "https://localhost:9200/_cluster/settings" -u "admin:<password>" -H 'Content-Type: application/json' -d '{
-     "transient": {
-      "cluster.routing.allocation.enable": "all"
+   ```bash
+   curl --cacert <path-to-root-ca.pem> -XPUT "https://localhost:9200/_cluster/settings" -u "admin:<password>" -H 'Content-Type: application/json' -d '{
+     "persistent": {
+       "cluster.routing.allocation.enable": "all"
      }
    }'
    ```
@@ -192,12 +196,13 @@ Use the following steps to reinstall the plugin:
 
 Use the following steps to reinstall the plugin on OpenSearch Dashboards:
 
-1. Stop running your OpenSearch Dashboards cluster. 
+1. Stop OpenSearch Dashboards.
 2. Install the Security plugin:
 
    ```bash
-      ./bin/opensearch-dashboards-plugin install securityDashboards
+   ./bin/opensearch-dashboards-plugin install securityDashboards
    ```
-   
-4. Add the necessary [configuration]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tls/) settings in the `opensearch_dashboards.yml` file.
-5. Start OpenSearch Dashboards. If the plugin was successfully installed, you'll be prompted to enter your login credentials.
+   {% include copy.html %}
+
+3. Add the necessary [configuration]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tls/) settings in the `opensearch_dashboards.yml` file.
+4. Start OpenSearch Dashboards. If the plugin was successfully installed, you'll be prompted to enter your login credentials.

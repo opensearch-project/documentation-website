@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Rethrottle
+title: Rethrottle task
 parent: Tasks APIs
-nav_order: 40
+nav_order: 50
 ---
 
-# Rethrottle API
+# Rethrottle Task API
 **Introduced 1.0**
 {: .label .label-purple }
 

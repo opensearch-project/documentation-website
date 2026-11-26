@@ -10,59 +10,55 @@ redirect_from:
   - /ml-commons-plugin/extensibility/connectors/
 ---
 
-# Creating connectors for third-party ML platforms
+# Connectors for third-party ML platforms
 **Introduced 2.9**
 {: .label .label-purple }
 
-Connectors facilitate access to models hosted on third-party machine learning (ML) platforms. 
-
-OpenSearch provides connectors for several platforms, for example:
-
-- [Amazon SageMaker](https://aws.amazon.com/sagemaker/) allows you to host and manage the lifecycle of text embedding models, powering semantic search queries in OpenSearch. When connected, Amazon SageMaker hosts your models and OpenSearch is used to query inferences. This benefits Amazon SageMaker users who value its functionality, such as model monitoring, serverless hosting, and workflow automation for continuous training and deployment.
-- [OpenAI ChatGPT](https://platform.openai.com/docs/introduction) enables you to invoke an OpenAI chat model from inside an OpenSearch cluster.
-- [Cohere](https://cohere.com/) allows you to use data from OpenSearch to power the Cohere large language models.
-- [Amazon Bedrock](https://aws.amazon.com/bedrock/) supports models like [Bedrock Titan Embeddings](https://aws.amazon.com/bedrock/titan/), which can drive semantic search and retrieval-augmented generation in OpenSearch.
+A connector defines how OpenSearch calls a model hosted on an external platform, such as Amazon Bedrock, Amazon SageMaker, OpenAI, Cohere, or Google Cloud Vertex AI. The connector contains the model endpoint URL, the credentials, and a template for the request body that OpenSearch sends to the model.
 
 ## Connector blueprints
 
-A _connector blueprint_ defines the set of parameters (the request body) you need to provide when sending an API request to create a specific connector. Connector blueprints may differ based on the platform and the model that you are accessing.
+To create a connector, start from a _connector blueprint_, a connector definition for a specific model that you can copy and complete with your own values. You can use one of the following blueprints:
 
-OpenSearch provides connector blueprints for several ML platforms and models. For a full list of connector blueprints provided by OpenSearch, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/). 
+- An OpenSearch-provided blueprint. To find the blueprint for your model, see [OpenSearch-provided connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/).
+- Your own blueprint, if OpenSearch doesn't provide one for your model. For more information, see [Creating a custom blueprint]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
 
-As an ML developer, you can also create connector blueprints for other platforms and models. Data scientists and administrators can then use the blueprint to create connectors. They are only required to enter their `credential` settings, such as `openAI_key`, for the service to which they are connecting. For information about creating connector blueprints, including descriptions of all parameters, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
-
+The connector `protocol` field determines how OpenSearch authenticates to the model platform. For more information, see [Connector authentication]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connector-authentication/).
 
 ## Creating a connector
 
-You can provision connectors in two ways:
+You can create a connector in one of the following ways.
 
-1. [Create a standalone connector](#creating-a-standalone-connector): A standalone connector can be reused by multiple model registrations in OpenSearch that share the same external endpoint and configuration. Standalone connectors require access to both the connector and the model in OpenSearch as well as the third-party platform. Standalone connectors are saved in a connector index.
+| Connector type | How to create it | Models that can use it | Access required to use it |
+| :--- | :--- | :--- | :--- |
+| [Standalone connector](#creating-a-standalone-connector) | Send a Create Connector API request. | Any number of models that call the same model endpoint using the same configuration. | Access to the connector and to the model. |
+| [Connector for a specific model](#creating-a-connector-for-a-specific-model) | Provide the connector definition in the `connector` object of a Register Model API request. | Only the model registered in the same request. | Access to the model. |
 
-2. [Create a connector for a specific externally hosted model](#creating-a-connector-for-a-specific-model): Alternatively, you can create a connector that can only be used with the model for which it was created. To access such a connector, you only need access to the model itself because the connection is established inside the model. These connectors are saved in the model index.
+The access requirements apply when connector access control and model access control are enabled. For more information, see [Configuring connector access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/#configuring-connector-access-control).
 
-If you need to connect to a different external model (for example, switching from `gpt-3.5-turbo` to `gpt-4`), we recommend creating a separate standalone connector. Alternatively, advanced users can override connector `parameters` at predict time if the connector blueprint uses placeholders. For more information, see [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/).
+If you need to connect to a different external model (for example, switching from `gpt-4o-mini` to `gpt-4o`), we recommend creating a separate standalone connector. Alternatively, if the connector request body template uses a placeholder for the model name, you can override the model name in each Predict request. For more information, see [Providing input as parameters]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connector-input-output/#providing-input-as-parameters).
 {: .note}
 
 If using Python, you can create connectors using the [`opensearch-py-ml`](https://github.com/opensearch-project/opensearch-py-ml) client CLI. The CLI automates many configuration steps, making setup faster and reducing the chance of errors. For more information about using the CLI, see the [CLI documentation](https://opensearch-project.github.io/opensearch-py-ml/cli/index.html#).
 {: .tip}
 
-## Creating a standalone connector
+### Creating a standalone connector
 
-To create a standalone connector, send a request to the `connectors/_create` endpoint and provide all of the parameters described in [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/):
+To create a standalone connector, send a request to the `connectors/_create` endpoint and provide all of the parameters described in [Create Connector API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/#request-body-fields):
 
 ```json
 POST /_plugins/_ml/connectors/_create
 {
     "name": "OpenAI Chat Connector",
-    "description": "The connector to public OpenAI model service for GPT 3.5",
+    "description": "The connector to public OpenAI model service for gpt-4o-mini",
     "version": 1,
     "protocol": "http",
     "parameters": {
         "endpoint": "api.openai.com",
-        "model": "gpt-3.5-turbo"
+        "model": "gpt-4o-mini"
     },
     "credential": {
-        "openAI_key": "..."
+        "openAI_key": "<openai_key>"
     },
     "actions": [
         {
@@ -79,40 +75,37 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-## Creating a connector for a specific model
+### Creating a connector for a specific model
 
-To create a connector for a specific model, provide all of the parameters described in [Connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/) within the `connector` object of a request to the `models/_register` endpoint:
+To create a connector for a specific model, provide all of the parameters described in [Create Connector API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/#request-body-fields) within the `connector` object of a request to the `models/_register` endpoint:
 
 ```json
 POST /_plugins/_ml/models/_register
 {
-    "name": "openAI-GPT-3.5 model with a connector",
+    "name": "openAI-gpt-4o-mini",
     "function_name": "remote",
-    "model_group_id": "lEFGL4kB4ubqQRzegPo2",
-    "description": "test model",
+    "description": "OpenAI gpt-4o-mini model with a connector",
     "connector": {
-        "name": "OpenAI Connector",
-        "description": "The connector to public OpenAI model service for GPT 3.5",
+        "name": "OpenAI Chat Connector",
+        "description": "The connector to public OpenAI model service for gpt-4o-mini",
         "version": 1,
         "protocol": "http",
         "parameters": {
             "endpoint": "api.openai.com",
-            "max_tokens": 7,
-            "temperature": 0,
-            "model": "text-davinci-003"
+            "model": "gpt-4o-mini"
         },
         "credential": {
-            "openAI_key": "..."
+            "openAI_key": "<openai_key>"
         },
         "actions": [
             {
                 "action_type": "predict",
                 "method": "POST",
-                "url": "https://${parameters.endpoint}/v1/completions",
+                "url": "https://${parameters.endpoint}/v1/chat/completions",
                 "headers": {
                     "Authorization": "Bearer ${credential.openAI_key}"
                 },
-                "request_body": "{ \"model\": \"${parameters.model}\", \"prompt\": \"${parameters.prompt}\", \"max_tokens\": ${parameters.max_tokens}, \"temperature\": ${parameters.temperature} }"
+                "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": ${parameters.messages} }"
             }
         ]
     }
@@ -120,168 +113,44 @@ POST /_plugins/_ml/models/_register
 ```
 {% include copy-curl.html %}
 
-## Connector examples
+## Updating connector credentials
 
-The following sections contain examples of connectors for popular ML platforms. For a full list of supported connectors, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/).
+In some cases, you may need to update the credentials used to connect to an externally hosted model, such as an expiring API key. To do this without undeploying the model, provide the new credentials in an update request.
 
-### OpenAI chat connector
+### Connector for a specific model
 
-You can use the following example request to create a standalone OpenAI chat connector:
+To update credentials for a connector linked to a specific model, provide the new credentials in the following request:
 
 ```json
-POST /_plugins/_ml/connectors/_create
+PUT /_plugins/_ml/models/{model_id}
 {
-    "name": "OpenAI Chat Connector",
-    "description": "The connector to public OpenAI model service for GPT 3.5",
-    "version": 1,
-    "protocol": "http",
-    "parameters": {
-        "endpoint": "api.openai.com",
-        "model": "gpt-3.5-turbo"
-    },
+  "connector": {
     "credential": {
-        "openAI_key": "..."
-    },
-    "actions": [
-        {
-            "action_type": "predict",
-            "method": "POST",
-            "url": "https://${parameters.endpoint}/v1/chat/completions",
-            "headers": {
-                "Authorization": "Bearer ${credential.openAI_key}"
-            },
-            "request_body": "{ \"model\": \"${parameters.model}\", \"messages\": ${parameters.messages} }"
-        }
-    ]
-}
-```
-{% include copy-curl.html %}
-
-### Amazon SageMaker connector
-
-You can use the following example request to create a standalone Amazon SageMaker connector:
-
-```json
-POST /_plugins/_ml/connectors/_create
-{
-    "name": "sagemaker: embedding",
-    "description": "Test connector for Sagemaker embedding model",
-    "version": 1,
-    "protocol": "aws_sigv4",
-    "credential": {
-        "access_key": "...",
-        "secret_key": "...",
-        "session_token": "..."
-    },
-    "parameters": {
-        "region": "us-west-2",
-        "service_name": "sagemaker"
-    },
-    "actions": [
-        {
-            "action_type": "predict",
-            "method": "POST",
-            "headers": {
-                "content-type": "application/json"
-            },
-            "url": "https://runtime.sagemaker.${parameters.region}.amazonaws.com/endpoints/lmi-model-2023-06-24-01-35-32-275/invocations",
-            "request_body": "[\"${parameters.inputs}\"]"
-        }
-    ]
-}
-```
-{% include copy-curl.html %}
-
-The `credential` parameter contains the following options reserved for `aws_sigv4` authentication:
-
-- `access_key`: Required. Provides the access key for the AWS instance.
-- `secret_key`: Required. Provides the secret key for the AWS instance.
-- `session_token`: Optional. Provides a temporary set of credentials for the AWS instance.
-
-The `parameters` section requires the following options when using `aws_sigv4` authentication:
-
-- `region`: The AWS Region in which the AWS instance is located.
-- `service_name`: The name of the AWS service for the connector.
-
-### Cohere connector
-
-You can use the following example request to create a standalone Cohere connector using the Embed V3 model. For more information, see [Cohere connector blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/cohere_connector_embedding_blueprint.md). 
-
-```json
-POST /_plugins/_ml/connectors/_create
-{
-  "name": "Cohere Embed Model",
-  "description": "The connector to Cohere's public embed API",
-  "version": "1",
-  "protocol": "http",
-  "credential": {
-    "cohere_key": "<ENTER_COHERE_API_KEY_HERE>"
-  },
-  "parameters": {
-    "model": "embed-english-v3.0",
-    "input_type":"search_document",
-    "truncate": "END"
-  },
-  "actions": [
-    {
-      "action_type": "predict",
-      "method": "POST",
-      "url": "https://api.cohere.ai/v1/embed",
-      "headers": {
-        "Authorization": "Bearer ${credential.cohere_key}",
-        "Request-Source": "unspecified:opensearch"
-      },
-      "request_body": "{ \"texts\": ${parameters.texts}, \"truncate\": \"${parameters.truncate}\", \"model\": \"${parameters.model}\", \"input_type\": \"${parameters.input_type}\" }",
-      "pre_process_function": "connector.pre_process.cohere.embedding",
-      "post_process_function": "connector.post_process.cohere.embedding"
+      "openAI_key": "<new_openai_key>"
     }
-  ]
+  }
 }
 ```
 {% include copy-curl.html %}
 
-### Amazon Bedrock connector
+### Standalone connector
 
-You can use the following example request to create a standalone Amazon Bedrock connector:
+To update credentials for a standalone connector, provide the new credentials in the following request:
 
 ```json
-POST /_plugins/_ml/connectors/_create
+PUT /_plugins/_ml/connectors/{connector_id}
 {
-  "name": "Amazon Bedrock Connector: embedding",
-  "description": "The connector to the Bedrock Titan embedding model",
-  "version": 1,
-  "protocol": "aws_sigv4",
-  "parameters": {
-    "region": "<YOUR AWS REGION>",
-    "service_name": "bedrock"
-  },
   "credential": {
-    "access_key": "<YOUR AWS ACCESS KEY>",
-    "secret_key": "<YOUR AWS SECRET KEY>",
-    "session_token": "<YOUR AWS SECURITY TOKEN>"
-  },
-  "actions": [
-    {
-      "action_type": "predict",
-      "method": "POST",
-      "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/amazon.titan-embed-text-v1/invoke",
-      "headers": {
-        "content-type": "application/json",
-        "x-amz-content-sha256": "required"
-      },
-      "request_body": "{ \"inputText\": \"${parameters.inputText}\" }",
-      "pre_process_function": "\n    StringBuilder builder = new StringBuilder();\n    builder.append(\"\\\"\");\n    String first = params.text_docs[0];\n    builder.append(first);\n    builder.append(\"\\\"\");\n    def parameters = \"{\" +\"\\\"inputText\\\":\" + builder + \"}\";\n    return  \"{\" +\"\\\"parameters\\\":\" + parameters + \"}\";",
-      "post_process_function": "\n      def name = \"sentence_embedding\";\n      def dataType = \"FLOAT32\";\n      if (params.embedding == null || params.embedding.length == 0) {\n        return params.message;\n      }\n      def shape = [params.embedding.length];\n      def json = \"{\" +\n                 \"\\\"name\\\":\\\"\" + name + \"\\\",\" +\n                 \"\\\"data_type\\\":\\\"\" + dataType + \"\\\",\" +\n                 \"\\\"shape\\\":\" + shape + \",\" +\n                 \"\\\"data\\\":\" + params.embedding +\n                 \"}\";\n      return json;\n    "
-    }
-  ]
+    "openAI_key": "<new_openai_key>"
+  }
 }
 ```
 {% include copy-curl.html %}
 
 ## Next steps
 
-- For a full list of connector blueprints provided by OpenSearch, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/).
-- To update the credentials of an existing connector or configure client certificate authentication, see [Connector authentication]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connector-authentication/).
+- To learn how a connector builds the request that it sends to the model and processes the model response, see [Connector input and output]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connector-input-output/).
+- To find the blueprint and protocol for your platform and model, see [OpenSearch-provided connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/).
 - To pass per-request values in connector headers, see [Dynamic header substitution]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/dynamic-header-substitution/).
 - To learn more about connecting to external models, see [Connecting to externally hosted models]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/index/).
 - To learn more about model access control and model groups, see [Model access control]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/).

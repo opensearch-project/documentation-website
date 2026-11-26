@@ -231,7 +231,7 @@ The response contains the sorted documents:
 }
 ```
 
-You can also use a Painless script to access the nanoseconds part of the field:
+You can also use a [Painless]({{site.url}}{{site.baseurl}}/scripting/painless/) script to access the nanoseconds part of the field:
 
 ```json
 GET testindex/_search
@@ -294,7 +294,7 @@ The response contains only the nanosecond parts of the fields:
 
 ## Derived source
 
-When an index uses [derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source), OpenSearch may sort values in multi-value date fields during source reconstruction. When configuring multiple date formats separated by `||` under the `format` mapping parameter, derived source returns results in the first provided format.
+When an index uses [derived source]({{site.url}}{{site.baseurl}}/field-types/metadata-fields/source/#derived-source), OpenSearch may sort values in multi-value date fields during source reconstruction. Derived source returns dates in the format specified in `print_format`. If `print_format` is not specified and `format` contains multiple date formats separated by `||`, derived source returns dates in the first format.
 
 Create an index that enables derived source and configures a `date_nanos` field with multiple formats:
 

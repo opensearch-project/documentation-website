@@ -3,7 +3,7 @@ layout: default
 title: Cluster APIs
 has_children: true
 has_toc: false
-nav_order: 15
+nav_order: 30
 redirect_from:
   - /opensearch/api-reference/cluster-api/
   - /api-reference/cluster-api/
@@ -23,6 +23,7 @@ The following cluster API operations are available.
 - [Cluster health]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/)
 - [Cluster pending tasks]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-pending-tasks/)
 - [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/)
+- [Describe cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/describe-cluster-settings/)
 - [Cluster state]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-state/)
 - [Cluster stats]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-stats/)
 - [Info]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/info/)

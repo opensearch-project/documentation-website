@@ -2,7 +2,6 @@
 layout: default
 title: Agents and tools tutorial
 parent: Agents and tools
-grand_parent: ML Commons APIs
 nav_order: 5
 ---
 
@@ -20,7 +19,7 @@ The following tutorial illustrates creating a flow agent for retrieval-augmented
 To use the memory feature, first configure the following cluster settings. This tutorial assumes that you have no dedicated machine learning (ML) nodes:
 
 ```json
-PUT _cluster/settings
+PUT /_cluster/settings
 {
   "persistent": {
     "plugins.ml_commons.only_run_on_ml_node": "false",
@@ -108,7 +107,7 @@ PUT /_ingest/pipeline/test-pipeline-local-model
 Now you'll ingest supplementary data into an OpenSearch index. In OpenSearch, vectors are stored in a vector index. You can create a [vector index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/) by sending the following request:
 
 ```json
-PUT my_test_data
+PUT /my_test_data
 {
   "mappings": {
     "properties": {
@@ -117,13 +116,13 @@ PUT my_test_data
       },
       "embedding": {
         "type": "knn_vector",
-        "dimension": 384
+        "dimension": 384,
+        "space_type": "cosinesimil"
       }
     }
   },
   "settings": {
     "index": {
-      "knn.space_type": "cosinesimil",
       "default_pipeline": "test-pipeline-local-model",
       "knn": "true"
     }
@@ -135,7 +134,7 @@ PUT my_test_data
 Then, ingest data into the index by using a bulk request:
 
 ```json
-POST _bulk
+POST /_bulk
 {"index": {"_index": "my_test_data", "_id": "1"}}
 {"text": "Chart and table of population level and growth rate for the Ogden-Layton metro area from 1950 to 2023. United Nations population projections are also included through the year 2035.\nThe current metro area population of Ogden-Layton in 2023 is 750,000, a 1.63% increase from 2022.\nThe metro area population of Ogden-Layton in 2022 was 738,000, a 1.79% increase from 2021.\nThe metro area population of Ogden-Layton in 2021 was 725,000, a 1.97% increase from 2020.\nThe metro area population of Ogden-Layton in 2020 was 711,000, a 2.16% increase from 2019."}
 {"index": {"_index": "my_test_data", "_id": "2"}}
@@ -169,9 +168,9 @@ POST /_plugins/_ml/connectors/_create
       "endpoint": "bedrock.us-east-1.amazonaws.com",
       "auth": "Sig_V4",
       "content_type": "application/json",
-      "max_tokens_to_sample": 8000,
+      "max_tokens": 8000,
       "temperature": 0.0001,
-      "response_filter": "$.completion"
+      "response_filter": "$.content[0].text"
   },
   "credential": {
       "access_key": "<bedrock_access_key>",
@@ -182,12 +181,12 @@ POST /_plugins/_ml/connectors/_create
     {
       "action_type": "predict",
       "method": "POST",
-      "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/anthropic.claude-v2/invoke",
+      "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-6/invoke",
       "headers": { 
         "content-type": "application/json",
         "x-amz-content-sha256": "required"
       },
-      "request_body": "{\"prompt\":\"${parameters.prompt}\", \"max_tokens_to_sample\":${parameters.max_tokens_to_sample}, \"temperature\":${parameters.temperature},  \"anthropic_version\":\"${parameters.anthropic_version}\" }"
+      "request_body": "{\"messages\":[{\"role\":\"user\",\"content\":\"${parameters.prompt}\"}], \"max_tokens\":${parameters.max_tokens}, \"temperature\":${parameters.temperature}, \"anthropic_version\":\"${parameters.anthropic_version}\" }"
     }
   ]
 }
@@ -230,7 +229,7 @@ Next, register and deploy the externally hosted Claude model:
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
 {
-    "name": "Bedrock Claude V2 model",
+    "name": "Bedrock Claude Sonnet 4.6 model",
     "function_name": "remote",
     "model_group_id": "wlcnb4kBJ1eYAeTMHlV6",
     "description": "test model",
@@ -245,14 +244,14 @@ Similarly to [Step 1](#step-1-register-and-deploy-a-text-embedding-model), the r
 {
   "model_id": "NWR9YIsBUysqmzBdifVJ",
   "task_type": "REGISTER_MODEL",
-  "function_name": "remote",
+  "function_name": "REMOTE",
   "state": "COMPLETED",
   "worker_node": [
     "4p6FVOmJRtu3wehDD74hzQ"
   ],
   "create_time": 1694358489722,
   "last_update_time": 1694358499139,
-  "is_async": true
+  "is_async": false
 }
 ```
 
@@ -262,7 +261,7 @@ To test the LLM, send the following predict request:
 POST /_plugins/_ml/models/NWR9YIsBUysqmzBdifVJ/_predict
 {
   "parameters": {
-    "prompt": "\n\nHuman:hello\n\nAssistant:"
+    "prompt": "hello"
   }
 }
 ```
@@ -294,7 +293,7 @@ POST /_plugins/_ml/agents/_register
       "description": "A general tool to answer any question",
       "parameters": {
         "model_id": "NWR9YIsBUysqmzBdifVJ",
-        "prompt": "\n\nHuman:You are a professional data analyst. You will always answer a question based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say you don't know. \n\n Context:\n${parameters.VectorDBTool.output}\n\nHuman:${parameters.question}\n\nAssistant:"
+        "prompt": "You are a professional data analyst. You will always answer a question based on the given context first. If the answer is not directly shown in the context, you will analyze the data and find the answer. If you don't know the answer, just say you don't know. \n\n Context:\n${parameters.VectorDBTool.output}\n\nQuestion: ${parameters.question}"
       }
     }
   ]
@@ -337,6 +336,7 @@ The LLM does not have the recent information in its knowledge base, so it infers
     {
       "output": [
         {
+          "name": "MLModelTool",
           "result": """ Based on the given context, the key information is:
 
 The metro area population of Seattle in 2021 was 3,461,000.

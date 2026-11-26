@@ -25,7 +25,7 @@ Certain aspects of this configuration, such as demo certificates and default pas
 
 ## Setting up the demo configuration
 
-Prior to running the `install_demo_configuration.sh` script, you must create an environment variable named `OPENSEARCH_INITIAL_ADMIN_PASSWORD` with a strong password. This will be used as the password for the admin user to authenticate with OpenSearch. Use the online tool [`Zxcvbn`](https://lowe.github.io/tryzxcvbn/) to test the strength of any password. After this, you can execute `install_demo_configuration.sh` and follow the terminal prompt to enter necessary details.
+Before running the `install_demo_configuration.sh` script, you must create an environment variable named `OPENSEARCH_INITIAL_ADMIN_PASSWORD` with a strong password. This password is used as the password for the admin user to authenticate with OpenSearch. For the rules the password must satisfy, see [Admin password requirements]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/#admin-password-requirements). For an overview of the other passwords in a cluster and how to change them, see [Managing passwords]({{site.url}}{{site.baseurl}}/security/configuration/passwords/). After this, you can execute `install_demo_configuration.sh` and follow the terminal prompt to enter necessary details.
 
 After the script is executed, you can start OpenSearch and test the configuration by running the following command:
 
@@ -36,21 +36,21 @@ curl -k -XGET -u admin:<password> https://<opensearch-ip>:9200
 
 You should see output similar to the following:
 
-```
+```json
 {
-  "name" : "smoketestnode",
-  "cluster_name" : "opensearch",
-  "cluster_uuid" : "0a5DYAk0Rbi14wqT3TqMiQ",
+  "name" : "7db3b6c72244",
+  "cluster_name" : "docker-cluster",
+  "cluster_uuid" : "_ew8YOsARjGRyF9IqHaXIA",
   "version" : {
     "distribution" : "opensearch",
-    "number" : "2.13.0",
+    "number" : "3.10.0",
     "build_type" : "tar",
-    "build_hash" : "7ec678d1b7c87d6e779fdef94e33623e1f1e2647",
-    "build_date" : "2024-03-26T00:04:51.025238748Z",
+    "build_hash" : "b9f09249b4a9922f0d0bc5bb8f62f90cf95e5eea",
+    "build_date" : "2026-11-12T21:09:43.420089453Z",
     "build_snapshot" : false,
-    "lucene_version" : "9.10.0",
-    "minimum_wire_compatibility_version" : "7.10.0",
-    "minimum_index_compatibility_version" : "7.0.0"
+    "lucene_version" : "10.6.0",
+    "minimum_wire_compatibility_version" : "2.19.0",
+    "minimum_index_compatibility_version" : "2.0.0"
   },
   "tagline" : "The OpenSearch Project: https://opensearch.org/"
 }
@@ -58,14 +58,14 @@ You should see output similar to the following:
 
 ## Setting up OpenSearch Dashboards
 
-In order to quickly get started with OpenSearch Dashboards, you can add the following configuration to `opensearch_dashboards.yml`:
+To quickly get started with OpenSearch Dashboards, you can add the following configuration to `opensearch_dashboards.yml`:
 
 ```
 opensearch.hosts: [https://localhost:9200]
 opensearch.ssl.verificationMode: none
 opensearch.username: kibanaserver
 opensearch.password: kibanaserver
-opensearch.requestHeadersWhitelist: [authorization, securitytenant]
+opensearch.requestHeadersAllowlist: [authorization, securitytenant]
 
 opensearch_security.multitenancy.enabled: true
 opensearch_security.multitenancy.tenants.preferred: [Private, Global]
@@ -77,7 +77,7 @@ opensearch_security.cookie.secure: false
 
 You can start the binary or service, depending on which method was used to install OpenSearch and OpenSearch Dashboards.
 
-When using binary, you need to supply `--no-base-path` to `yarn start` command to set a URL without a base path. If this is not set, a random three-letter base path will be added.
+When running OpenSearch Dashboards from source code, you need to supply `--no-base-path` to the `yarn start` command to set a URL without a base path. If this is not set, a random three-letter base path is added.
 {: .note}
 
 After starting OpenSearch Dashboards, you should see the following two log lines:
@@ -90,7 +90,7 @@ After starting OpenSearch Dashboards, you should see the following two log lines
 
 You can now access OpenSearch Dashboards using http://localhost:5601 in your browser. Use the username `admin` and the password that was configured in the `OPENSEARCH_INITIAL_ADMIN_PASSWORD` environment variable.
 
-# Adding users
+## Adding users
 
 There are three ways to add users, roles, and other security-related configurations:
 
@@ -141,7 +141,7 @@ human_resources:
     - index_patterns:
       - "humanresources"
       allowed_actions:
-        - "READ"
+        - "read"
 ```
 {% include copy.html %}
 
@@ -162,7 +162,7 @@ When a user logs in to OpenSearch, they need to be mapped to the appropriate rol
 ```
 {% include copy.html %}
 
-In order to map the newly created user `test-user` to the role `human_resources`, you can use the following configuration in the `roles_mapping.yml` file:
+To map the newly created user `test-user` to the role `human_resources`, you can use the following configuration in the `roles_mapping.yml` file:
 
 ```
 human_resources:
@@ -171,7 +171,7 @@ human_resources:
 ```
 {% include copy.html %}
 
-As an additional example, the `roles_mappings.yml` file includes the backend role `kibanauser` that has been mapped to the `kibana_user` role:
+As an additional example, the `roles_mapping.yml` file includes the backend role `kibanauser` that has been mapped to the `kibana_user` role:
 
 ```
 kibana_user:
@@ -184,12 +184,12 @@ kibana_user:
 
 ## Uploading the configuration to a security index
 
-The final step in configuring a user, role, or any other security configuration is uploading it to a OpenSearch security index. Only updating the files, without uploading them, will not change the configuration of an already running OpenSearch cluster. 
+The final step in configuring a user, role, or any other security configuration is uploading it to an OpenSearch security index. Only updating the files, without uploading them, does not change the configuration of an already running OpenSearch cluster.
 
-To upload a configuration, the following command can be used with the admin certificate that was generated during `install_demo_configuration.sh` execution:
+To upload a configuration, run the following command from the OpenSearch home directory. The command uses the admin certificate that was generated when you ran `install_demo_configuration.sh`:
 
 ```
-./plugins/opensearch-security/tools/securityadmin.sh -cd "config/opensearch-security" -icl -key "../kirk-key.pem" -cert "../kirk.pem" -cacert "../root-ca.pem" -nhnv
+./plugins/opensearch-security/tools/securityadmin.sh -cd "config/opensearch-security" -icl -key "config/kirk-key.pem" -cert "config/kirk.pem" -cacert "config/root-ca.pem" -nhnv
 ```
 {% include copy.html %}
 

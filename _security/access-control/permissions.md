@@ -31,19 +31,21 @@ POST _bulk
 
 ```
 
-For this request to succeed, you must have the following permissions for `test-index`:
+For this request to succeed, you must have the `indices:data/write/bulk` cluster permission and the following index permissions for `test-index`:
 
 - `indices:data/write/bulk*`
 - `indices:data/write/delete`
 - `indices:data/write/index`
 - `indices:data/write/update`
 
-These permissions also allow you add, update, or delete documents (e.g. `PUT test-index/_doc/tt0816711`), because they govern the underlying OpenSearch actions of indexing and deleting documents rather than a specific API path and HTTP method.
+If the documents contain fields that are not yet in the index mapping, you also need the `indices:admin/mapping/put` index permission.
+
+These permissions also allow you to add, update, or delete individual documents (for example, `PUT test-index/_doc/tt0816711`) because they govern the underlying OpenSearch actions of indexing and deleting documents rather than a specific API path and HTTP method.
 
 
 ## Test permissions
 
-If you want a user to have the absolute minimum set of permissions necessary to perform some function—the [principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege)—the best way is to send representative requests to your cluster as a new test user. In the case of a permissions error, the Security plugin is very explicit about which permissions are missing. Consider this request and response:
+If you want a user to have the absolute minimum set of permissions necessary to perform some function---the [principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege)---the best way is to send representative requests to your cluster as a new test user. In the case of a permissions error, the Security plugin is very explicit about which permissions are missing. Consider this request and response:
 
 ```json
 GET _cat/shards?v
@@ -52,7 +54,7 @@ GET _cat/shards?v
   "error": {
     "root_cause": [{
       "type": "security_exception",
-      "reason": "no permissions for [indices:monitor/stats] and User [name=test-user, backend_roles=[], requestedTenant=null]"
+      "reason": "no permissions for [cluster:monitor/shards] and User [name=test-user, backend_roles=[], requestedTenant=null]"
     }]
   },
   "status": 403
@@ -67,7 +69,7 @@ PUT /my_index/_doc/1?perform_permission_check=true
    "title": "Test Document"
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 The response indicates whether the user has sufficient permissions to perform the operation and lists any missing privileges. This option is particularly useful for safely testing operations such as `POST`, `PUT`, and `DELETE`.
 
@@ -101,7 +103,10 @@ System index permissions are unique among other permissions in that they extend 
 
 Along with standard index permissions, you specify system index permissions in the `roles.yml` configuration file under `index_permissions` (see [roles.yml]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#rolesyml)). This involves a two-step process: 1) adding the system index in the `index_patterns` section and 2) specifying `system:admin/system_index` in the role's `allowed_actions` section.
 
-For example, the system index permission that gives a user permission to modify the system index that stores configurations for the Alerting plugin is defined by the index pattern `.opendistro-alerting-config`, and its allowed action is defined as `system:admin/system_index`. The following role shows how this system index permission is configured along with other attributes:
+The `system:admin/system_index` permission does not grant any operations by itself. Grant it together with the index permissions for the operations that the user performs on the system index, such as `read` or `write`. To index or delete documents in a system index, the user also needs the `indices:data/write/bulk` cluster permission, because OpenSearch processes these requests as bulk requests.
+{: .note }
+
+For example, the system index permission that gives a user access to the system index that stores configurations for the Alerting plugin is defined by the index pattern `.opendistro-alerting-config`, and its allowed action is defined as `system:admin/system_index`. The following role shows how this system index permission is configured along with other attributes:
 
 ```yml
 alerting-role:
@@ -113,7 +118,8 @@ alerting-role:
   index_permissions:
     - index_patterns:
         - .opendistro-alerting-config
-    - allowed_actions:
+      allowed_actions:
+        - 'read'
         - 'system:admin/system_index'
 ```
 {% include copy.html %}
@@ -127,82 +133,41 @@ System index permissions also work with the wildcard to include all variations o
   Entering the wildcard `*` by itself under `allowed_actions` does not automatically grant access to system indexes. The allowed action `system:admin/system_index` must be explicitly added.
   {: .note }
 
-The following example shows a role that grants access to all system indexes:
+The following example shows a role that grants read access to all indexes, including all system indexes except the security index:
 
 ```yml
 index_permissions:
-    - index_patterns:
-        - '*'
-    - allowed_actions:
-        - 'system:admin/system_index'
+  - index_patterns:
+      - '*'
+    allowed_actions:
+      - 'read'
+      - 'system:admin/system_index'
 ```
 
 
 ### Verifying system index access
 
-You can use the [CAT indices]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/) operation to see all indexes associated with any index pattern in your permissions configuration and verify that the permissions provide the access you intended. For example, if you want to verify a permission that includes system indexes beginning with the prefix `.kibana`, you can run the `GET /_cat/indices/.kibana*` call to return all indexes associated with that prefix.
-
-The following example response shows the three system indexes associated with the index pattern `.kibana*`:
+You can use the [CAT indices]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/) operation to see all indexes associated with any index pattern in your permissions configuration and verify that the permissions provide the access you intended. For example, if you want to verify a permission that includes system indexes beginning with the prefix `.plugins-ml`, send the following request to return all indexes associated with that prefix:
 
 ```json
-health | status | index | uuid | pri | rep | docs.count | docs.deleted | store.size | pri.store.size
-green open .kibana_1 XmTePICFRoSNf5O5uLgwRw 1 1 220 0 468.3kb 232.1kb
-green open .kibana_2 XmTePICFRoSNf5O5uLgwRw 1 1 220 0 468.3kb 232.1kb
-green open .kibana_3 XmTePICFRoSNf5O5uLgwRw 1 1 220 0 468.3kb 232.1kb
+GET /_cat/indices/.plugins-ml*?v
+```
+{% include copy-curl.html %}
+
+The following example response shows the system index associated with the index pattern `.plugins-ml*`:
+
+```
+health status index              uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+green  open   .plugins-ml-config WHtErqEaTxmjlecZhclD2A   1   0          1            0      4.8kb          4.8kb
 ```
 
 
 ### Enabling system index permissions
 
-Users that have the permission [`restapi:admin/roles`]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api) are able to map system index permissions to all users in the same way they would for a cluster or index permission in the `roles.yml` file. However, to preserve some control over this permission, the `plugins.security.system_indices.permission.enabled` setting allows you to enable or disable the system index permissions feature. This setting is disabled by default. To enable the system index permissions feature, set `plugins.security.system_indices.permissions.enabled` to `true`. For more information about this setting, see [Enabling user access to system indexes]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#enabling-user-access-to-system-indexes).
+Users that have the permission [`restapi:admin/roles`]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api) are able to map system index permissions to all users in the same way they would for a cluster or index permission in the `roles.yml` file. However, to preserve some control over this permission, the `plugins.security.system_indices.permission.enabled` setting allows you to enable or disable the system index permissions feature. This setting is disabled by default. To enable the system index permissions feature, set `plugins.security.system_indices.permission.enabled` to `true`. For more information about this setting, see [Enabling user access to system indexes]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#enabling-user-access-to-system-indexes).
 
 Keep in mind that enabling this feature and mapping system index permissions to normal users gives those users access to indexes that may contain sensitive information and configurations essential to a cluster's health. We also recommend caution when mapping users to `restapi:admin/roles` because this permission gives a user not only the ability to assign the system index permission to another user but also the ability to self-assign access to any system index.
 {: .warning }
-
-### `do_not_fail_on_forbidden`
-
-If a user attempts to query multiple indexes, some of which they lack permissions for, by default they get an `error` in OpenSearch Dashboards or an `exception` when using `cURL` or an API. If you instead want the user to receive the search results for any of the indexes for which they _do_ have permissions, you can set the option `do_not_fail_on_forbidden` to `true` in `config.yml`. See the following example:
-
-```
-_meta:
-  type: "config"
-  config_version: 2
-config:
-  dynamic:
-    http:
-      anonymous_auth_enabled: false
-      xff:
-        enabled: false
-        internalProxies: "192\\.168\\.0\\.10|192\\.168\\.0\\.11"
-    do_not_fail_on_forbidden: true
-    authc:
-      basic_internal_auth_domain:
-      ...
-```
-It is important to remember that if this option is set to `true`, then the user is served the data as if it is the complete dataset. There is no indication that some data may be omitted.
-{: .warning }
-
-### `do_not_fail_on_forbidden_empty`
-
-When a user attempts to view a visualization for which they lack index permissions, they will see `error` in place of the visualization. To change this behavior to display `No results displayed because all values equal 0.`, you can set `do_not_fail_on_forbidden_empty` to `true` in `config.yml`. This option is only valid if `do_not_fail_on_forbidden` is also set to `true`. See the following example:
-
-```
-_meta:
-  type: "config"
-  config_version: 2
-config:
-  dynamic:
-    http:
-      anonymous_auth_enabled: false
-      xff:
-        enabled: false
-        internalProxies: "192\\.168\\.0\\.10|192\\.168\\.0\\.11"
-    do_not_fail_on_forbidden: true
-    do_not_fail_on_forbidden_empty: true
-    authc:
-      basic_internal_auth_domain:
-      ...
-```
 
 ## Cluster permissions
 
@@ -216,15 +181,15 @@ Cross-references to API documentation in the permissions that follow are only in
 
 | **Permission** | **Description** |
 | :--- | :--- |
-| `indices:admin/template/delete` |  Permission to [delete index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/#delete-a-template). |
-| `indices:admin/template/get` |  Permission to [get index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/#retrieve-a-template). |
-| `indices:admin/template/put` |  Permission to [create index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/#create-a-template). |
+| `indices:admin/template/delete` |  Permission to [delete index templates]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index-template/). |
+| `indices:admin/template/get` |  Permission to [get index templates]({{site.url}}{{site.baseurl}}/api-reference/index-apis/get-index-template/). |
+| `indices:admin/template/put` |  Permission to [create index templates]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index-template/). |
 | `indices:data/read/scroll` |  Permission to scroll through data. This setting must be configured as both a cluster- and index-level permission. |
 | `indices:data/read/scroll/clear` | Permission to clear the scroll object. This setting must be configured as both a cluster- and index-level permission. |
 | `indices:data/read/mget` |  Permission to run [multiple GET operations]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/) in one request. |
 | `indices:data/read/mget*` |  Permission to run multiple GET operations in one request. This setting must be configured as both a cluster- and index-level permission. |
 | `indices:data/read/msearch` |  Permission to run [multiple search]({{site.url}}{{site.baseurl}}/api-reference/multi-search/) requests in a single API request. This setting must be configured as both a cluster- and index-level permission. |
-| `indices:data/read/msearch/template` |  Permission to bundle [multiple search templates]({{site.url}}{{site.baseurl}}/api-reference/search-template/#multiple-search-templates) and send them to your OpenSearch cluster in a single request. This setting must be configured as both a cluster- and index-level permission. |
+| `indices:data/read/msearch/template` |  Permission to bundle [multiple search templates]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search-template/index/#multiple-search-templates) and send them to your OpenSearch cluster in a single request. This setting must be configured as both a cluster- and index-level permission. |
 | `indices:data/read/mtv` |  Permission to retrieve multiple term vectors with a single request. This setting must be configured as both a cluster- and index-level permission. |
 | `indices:data/read/mtv*` |  Permission to retrieve multiple term vectors with a single request. This setting must be configured as both a cluster- and index-level permission. |
 | `indices:data/read/search/template/render` |  Permission to render search templates. This setting must be configured as both a cluster- and index-level permission. |
@@ -266,17 +231,11 @@ See [Alerting API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api
 
 - `cluster:admin/opendistro/alerting/alerts/ack`
 - `cluster:admin/opendistro/alerting/alerts/get`
-- `cluster:admin/opendistro/alerting/destination/delete`
-- `cluster:admin/opendistro/alerting/destination/email_account/delete`
 - `cluster:admin/opendistro/alerting/destination/email_account/get`
 - `cluster:admin/opendistro/alerting/destination/email_account/search`
-- `cluster:admin/opendistro/alerting/destination/email_account/write`
-- `cluster:admin/opendistro/alerting/destination/email_group/delete`
 - `cluster:admin/opendistro/alerting/destination/email_group/get`
 - `cluster:admin/opendistro/alerting/destination/email_group/search`
-- `cluster:admin/opendistro/alerting/destination/email_group/write`
 - `cluster:admin/opendistro/alerting/destination/get`
-- `cluster:admin/opendistro/alerting/destination/write`
 - `cluster:admin/opendistro/alerting/monitor/delete`
 - `cluster:admin/opendistro/alerting/monitor/execute`
 - `cluster:admin/opendistro/alerting/monitor/get`
@@ -297,7 +256,6 @@ See [Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/inde
 
 See [ISM API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/).
 
-- `cluster:indices:admin/opensearch/ism/managedindex`
 - `cluster:admin/opendistro/ism/managedindex/add`
 - `cluster:admin/opendistro/ism/managedindex/change`
 - `cluster:admin/opendistro/ism/managedindex/remove`
@@ -307,6 +265,8 @@ See [ISM API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/).
 - `cluster:admin/opendistro/ism/policy/get`
 - `cluster:admin/opendistro/ism/policy/search`
 - `cluster:admin/opendistro/ism/policy/delete`
+
+The ISM APIs that add, change, remove, explain, and retry policies on managed indexes also require the `indices:admin/opensearch/ism/managedindex` permission for those indexes. For more information, see [Index management security]({{site.url}}{{site.baseurl}}/im-plugin/security/).
 
 ### Index rollups permissions
 
@@ -322,7 +282,7 @@ See [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rol
 
 ### Reporting permissions
 
-See [Creating reports with the Dashboards interface]({{site.url}}{{site.baseurl}}/dashboards/reporting/).
+See [Creating reports with the Dashboards interface]({{site.url}}{{site.baseurl}}/dashboards/reporting/report-dashboard-index/).
 
 - `cluster:admin/opendistro/reports/definition/create`
 - `cluster:admin/opendistro/reports/definition/update`
@@ -378,7 +338,7 @@ See [Snapshot APIs]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/)
 
 ### Reroute
 
-See [Cluster manager task throttling]({{site.url}}{{site.baseurl}}/tuning-your-cluster/cluster-manager-task-throttling/).
+See [Cluster reroute]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-reroute/).
 
 - `cluster:admin/reroute`
 
@@ -392,7 +352,7 @@ See [Script APIs]({{site.url}}{{site.baseurl}}/api-reference/script-apis/index/)
 
 ### Update settings permission
 
-See [Update settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/update-settings/) on the Index APIs page.
+See [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
 
 - `cluster:admin/settings/update`
 
@@ -412,8 +372,6 @@ See [Snapshot APIs]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/)
 See [Tasks]({{site.url}}{{site.baseurl}}/api-reference/tasks/) in the API Reference section.
 
 - `cluster:admin/tasks/cancel`
-- `cluster:admin/tasks/test`
-- `cluster:admin/tasks/testunblock`
 
 ### Data source permissions
 
@@ -448,7 +406,7 @@ See [API tools]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/
 | `cluster:admin/opensearch/securityanalytics/rules/categories` | Permission to get all rule categories |
 | `cluster:admin/opensearch/securityanalytics/rule/write` | Permission to create and update rules |
 | `cluster:admin/opensearch/securityanalytics/rule/search` | Permission to search for rules |
-| `cluster:admin/opensearch/securityanalytics/rules/validate` | Permission to validate rules |
+| `cluster:admin/opendistro/securityanalytics/rules/validate` | Permission to validate rules |
 | `cluster:admin/opensearch/securityanalytics/rule/delete` | Permission to delete rules |
 
 ### Monitoring permissions
@@ -466,6 +424,7 @@ See [REST API reference]({{site.url}}{{site.baseurl}}/api-reference/index/).
 - `cluster:monitor/nodes/stats`
 - `cluster:monitor/nodes/usage`
 - `cluster:monitor/remote/info`
+- `cluster:monitor/shards`
 - `cluster:monitor/state`
 - `cluster:monitor/stats`
 - `cluster:monitor/task`
@@ -498,19 +457,19 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:admin/close` |  Permission to [close an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index/). |
 | `indices:admin/close*` |  Permission to [close an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index/). |
 | `indices:admin/create` |  Permission to [create indexes]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/). |
-| `indices:admin/data_stream/create` |  Permission to create [data streams]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/datastream/#creating-a-data-stream). |
-| `indices:admin/data_stream/delete` |  Permission to [delete data streams]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/datastream/#deleting-a-data-stream). |
-| `indices:admin/data_stream/get` |  Permission to [get data streams]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/datastream/#viewing-a-data-stream). |
+| `indices:admin/data_stream/create` |  Permission to create [data streams]({{site.url}}{{site.baseurl}}/api-reference/data-stream/create-data-stream/). |
+| `indices:admin/data_stream/delete` |  Permission to [delete data streams]({{site.url}}{{site.baseurl}}/api-reference/data-stream/delete-data-stream/). |
+| `indices:admin/data_stream/get` |  Permission to [get data streams]({{site.url}}{{site.baseurl}}/api-reference/data-stream/data-stream-info/). |
 | `indices:admin/delete` |  Permission to [delete indexes]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index/). |
-| `indices:admin/exists` |  Permission to use [exists query]({{site.url}}{{site.baseurl}}/query-dsl/term/exists/). |
-| `indices:admin/flush` |  Permission to [flush an index]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index-management/#flushing-an-index). |
-| `indices:admin/flush*` |  Permission to [flush an index]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index-management/#flushing-an-index). |
+| `indices:admin/exists` |  Permission for the internal index exists action. The [Index Exists API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/exists/) requires `indices:admin/get`. |
+| `indices:admin/flush` |  Permission to [flush an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/flush/). |
+| `indices:admin/flush*` |  Permission to [flush an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/flush/). |
 | `indices:admin/forcemerge` |  Permission to force merge indexes and data streams. |
-| `indices:admin/get` |  Permission to get index and mapping. |
+| `indices:admin/get` |  Permission to get index and mapping information and to check whether an index exists. |
 | `indices:admin/mapping/put` |  Permission to add new mappings and fields to an index. |
 | `indices:admin/mappings/fields/get` |  Permission to get mappings fields. |
 | `indices:admin/mappings/fields/get*` |  Permission to get mappings fields. |
-| `indices:admin/mappings/get` |  Permission to [get mappings]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/mappings-api/#get-mappings).  |
+| `indices:admin/mappings/get` |  Permission to [get index mappings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/get-mapping/).  |
 | `indices:admin/open` |  Permission to [open an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/open-index/). |
 | `indices:admin/plugins/replication/index/setup/validate` |  Permission to validate a connection to a [remote cluster]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/getting-started/#set-up-a-cross-cluster-connection). |
 | `indices:admin/plugins/replication/index/start` |  Permission to [start cross-cluster replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/getting-started/#start-replication). |
@@ -519,10 +478,10 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:admin/plugins/replication/index/stop` |  Permission to stop cross-cluster replication. |
 | `indices:admin/plugins/replication/index/update` |  Permission to update cross-cluster replication settings. |
 | `indices:admin/plugins/replication/index/status_check` |  Permission to check the status of cross-cluster replication. |
-| `indices:admin/refresh` |  Permission to use the [index refresh API]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index-management/#refreshing-an-index). |
+| `indices:admin/refresh` |  Permission to use the [Refresh Index API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/refresh/). |
 | `indices:admin/refresh*` |  Permission to use the index refresh API. |
 | `indices:admin/resolve/index` |  Permission to resolve index names, index aliases and data streams. |
-| `indices:admin/rollover` |  Permission to perform [index rollover]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/rollover/). |
+| `indices:admin/rollover` |  Permission to perform [index rollover]({{site.url}}{{site.baseurl}}/api-reference/index-apis/rollover/). |
 | `indices:admin/seq_no/global_checkpoint_sync` | Permission to perform a global checkpoint sync. |
 | `indices:admin/settings/update` |  Permission to [update index settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/update-settings/). |
 | `indices:admin/shards/search_shards` |  Permission to perform [cross cluster search]({{site.url}}{{site.baseurl}}/security/access-control/cross-cluster-search/). |
@@ -535,29 +494,29 @@ These permissions apply to an index or index pattern. You might want a user to h
 | `indices:data/read/mget` |  Permission to run [multiple GET operations]({{site.url}}{{site.baseurl}}/api-reference/document-apis/multi-get/) in one request. |
 | `indices:data/read/mget*` |  Permission to run multiple GET operations in one request. This setting must be configured as both a cluster- and index-level permission. |
 | `indices:data/read/msearch` |  Permission to run [multiple search]({{site.url}}{{site.baseurl}}/api-reference/multi-search/)  requests in a single request. This setting must be configured as both a cluster- and index-level permission. |
-| `indices:data/read/msearch/template` |  Permission to bundle [multiple search templates]({{site.url}}{{site.baseurl}}/api-reference/search-template/#multiple-search-templates) and send them to your OpenSearch cluster in a single request. This setting must be configured as both a cluster- and index-level permission. |
+| `indices:data/read/msearch/template` |  Permission to bundle [multiple search templates]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search-template/index/#multiple-search-templates) and send them to your OpenSearch cluster in a single request. This setting must be configured as both a cluster- and index-level permission. |
 | `indices:data/read/mtv` |  Permission to retrieve multiple term vectors with a single request. This setting must be configured as both a cluster- and index-level permission. |
 | `indices:data/read/mtv*` |  Permission to retrieve multiple term vectors with a single request. This setting must be configured as both a cluster- and index-level permission. |
-| `indices:data/read/plugins/replication/file_chunk` | Permission to check files during segment replication. |
-| `indices:data/read/plugins/replication/changes` | Permission to make changes to segment replication settings. |
+| `indices:data/read/plugins/replication/file_chunk` | Permission for a follower cluster to read index files from the leader index during [cross-cluster replication]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/index/). |
+| `indices:data/read/plugins/replication/changes` | Permission for a follower cluster to read changes from the leader index during cross-cluster replication. |
 | `indices:data/read/scroll` |  Permission to scroll through data. This setting must be configured as both a cluster- and index-level permission. |
 | `indices:data/read/scroll/clear` | Permission to clear the scroll object. This setting must be configured as both a cluster- and index-level permission. |
 | `indices:data/read/search` |  Permission to [search]({{site.url}}{{site.baseurl}}/api-reference/search/) data. |
 | `indices:data/read/search*` |  Permission to search data. |
-| `indices:data/read/search/template` |  Permission to read a search template. |
+| `indices:data/read/search/template` |  Permission to run a search using a [search template]({{site.url}}{{site.baseurl}}/api-reference/search-apis/search-template/index/). |
 | `indices:data/read/tv` |  Permission to retrieve information and statistics for terms in the fields of a particular document. |
 | `indices:data/write/delete` |  Permission to [delete documents]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-document/). |
 | `indices:data/write/delete/byquery` |  Permission to delete all documents that [match a query]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-by-query/). |
-| `indices:data/write/plugins/replication/changes` |  Permission to change data replication configurations and settings within indexes. |
+| `indices:data/write/plugins/replication/changes` |  Permission for a follower index to apply changes replicated from the leader index during cross-cluster replication. |
 | `indices:data/write/bulk` |  Permission to run a [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) request. This setting must be configured as both a cluster- and index-level permission. |
 | `indices:data/write/bulk*` |  Permission to run a bulk request. This setting must be configured as both a cluster- and index-level permission. |
 | `indices:data/write/index` |  Permission to add documents to existing indexes. See also [Index document]( {{site.url}}{{site.baseurl}}/api-reference/document-apis/index-document/ ). |
-| `indices:data/write/update` | Permission to update an index. |
+| `indices:data/write/update` | Permission to [update a document]({{site.url}}{{site.baseurl}}/api-reference/document-apis/update-document/). |
 | `indices:data/write/update/byquery` |  Permission to run the script to update all of the documents that [match the query]({{site.url}}{{site.baseurl}}/api-reference/document-apis/update-by-query/). |
-| `indices:monitor/data_stream/stats` | Permission to stream stats.  |
+| `indices:monitor/data_stream/stats` | Permission to [get data stream stats]({{site.url}}{{site.baseurl}}/api-reference/data-stream/data-stream-stats/).  |
 | `indices:monitor/recovery` | Permission to access recovery stats. |
 | `indices:monitor/segments` |  Permission to access segment stats. |
-| `indices:monitor/settings/get` | Permission to get monitor settings.  |
+| `indices:monitor/settings/get` | Permission to [get index settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/get-settings/).  |
 | `indices:monitor/shard_stores` |  Permission to access shard store stats. |
 | `indices:monitor/stats` | Permission to access monitoring stats.  |
 | `indices:monitor/upgrade` | Permission to access upgrade stats.  |
@@ -571,10 +530,17 @@ The following REST API permissions control access to the endpoints. Granting acc
 
 - `restapi:admin/actiongroups`
 - `restapi:admin/allowlist`
+- `restapi:admin/config/update`
 - `restapi:admin/internalusers`
 - `restapi:admin/nodesdn`
+- `restapi:admin/ratelimiters`
+- `restapi:admin/resource_sharing/migrate`
 - `restapi:admin/roles`
 - `restapi:admin/rolesmapping`
+- `restapi:admin/rollback_version`
 - `restapi:admin/ssl/certs/info`
 - `restapi:admin/ssl/certs/reload`
 - `restapi:admin/tenants`
+- `restapi:admin/view_version`
+
+These permissions take effect only when `plugins.security.restapi.admin.enabled` is set to `true` in `opensearch.yml`. For the endpoints that each permission controls and the restrictions on roles that contain these permissions, see [REST API admin permissions]({{site.url}}{{site.baseurl}}/security/access-control/api/#rest-api-admin-permissions).

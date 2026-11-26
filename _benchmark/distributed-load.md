@@ -4,6 +4,7 @@ title: Running distributed loads
 nav_order: 32
 redirect_from:
   - /benchmark/user-guide/optimizing-benchmarks/distributed-load/
+  - /benchmark/user-guide/distributed-load/
 ---
 
 # Running distributed loads

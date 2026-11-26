@@ -3,6 +3,8 @@ layout: default
 title: Applying changes to configuration files
 parent: Configuration
 nav_order: 25
+has_children: true
+has_toc: false
 redirect_from:
   - /security-plugin/configuration/security-admin/
 ---
@@ -44,6 +46,8 @@ To avoid this situation, back up your current configuration before making change
   -key ../../../config/kirk-key.pem
 ```
 
+You can also have OpenSearch keep a history of the security configuration so that you can restore an earlier version after an unintended change. For more information, see [Security configuration version APIs]({{site.url}}{{site.baseurl}}/security/api/configuration-versions/).
+
 If you use the `-f` argument rather than `-cd`, you can load a single YAML file into the index rather than the entire directory of YAML files. For example, if you create ten new roles, you can safely load `internal_users.yml` into the index without losing your roles; only the internal users get overwritten.
 
 ```bash
@@ -60,10 +64,10 @@ To resolve all environment variables before applying the security configurations
 
 ```bash
 ./securityadmin.sh -cd ../../../config/opensearch-security/ \
- -rev \
- -cacert ../../../root-ca.pem \
- -cert ../../../kirk.pem \
- -key ../../../kirk.key.pem
+  -rev \
+  -cacert ../../../config/root-ca.pem \
+  -cert ../../../config/kirk.pem \
+  -key ../../../config/kirk-key.pem
 ```
 
 The following example shows an environment variable in the `config.yml` file:
@@ -114,7 +118,7 @@ To load your initial configuration (all YAML files), you might use the following
 ```
 
 - The `-cd` option specifies where the Security plugin configuration files can be found.
-- The `-icl` (`--ignore-clustername`) option tells the Security plugin to upload the configuration regardless of the cluster name. As an alternative, you can also specify the cluster name with the `-cn` (`--clustername`) option.
+- The `-icl` (`--ignore-clustername`) option tells the script to upload the configuration regardless of the cluster name. This is the default. To verify the cluster name before the script makes any changes, specify the expected cluster name with the `-cn` (`--clustername`) option instead.
 - Because the demo certificates are self-signed, this command disables hostname verification with the `-nhnv` (`--disable-host-name-verification`) option.
 - The `-cacert`, `-cert` and `-key` options define the location of your root CA certificate, the admin certificate, and the private key for the admin certificate. If the private key has a password, specify it with the `-keypass` option.
 
@@ -132,8 +136,8 @@ Name | Description
 JKS format keystore files are compatible with `securityadmin.sh`, as shown in the following example setting:
 
 ```bash
-./securityadmin.sh -cd ../../../config/opensearch-security -icl -nhnv
-  -ts <path/to/truststore> -tspass <truststore password>
+./securityadmin.sh -cd ../../../config/opensearch-security -icl -nhnv \
+  -ts <path/to/truststore> -tspass <truststore password> \
   -ks <path/to/keystore> -kspass <keystore password>
 ```
 
@@ -148,7 +152,6 @@ Name | Description
 `-ts` | The location of the truststore containing the root certificate. You can use an absolute or relative path. Relative paths are resolved relative to the `securityadmin.sh` execution directory.
 `-tspass` | The truststore password.
 `-tst` | The truststore type, either JKS or PKCS#12/PFX. If not specified, the Security plugin tries to determine the type based on the file extension.
-`-tsalias` | The alias for the root certificate, if any.
 
 The certificate authority (CA) that signs the `admin` certificate can differ from the one used for signing transport or HTTP certificates. The CA does, however, need to be added to the truststore in order to validate the certificate. See [Generate node and client certificates]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/#optional-generate-node-and-client-certificates) for more information.
 {: .note}
@@ -184,23 +187,22 @@ Apply all YAML files in `config/opensearch-security/` with keystore and truststo
   -ks /path/to/keystore.jks \
   -kspass changeit \
   -ts /path/to/truststore.jks \
-  -tspass changeit
-  -nhnv
+  -tspass changeit \
+  -nhnv \
   -icl
 ```
 
 
 ### OpenSearch settings
 
-If you run a default OpenSearch installation, which listens on port 9200 and uses `opensearch` as a cluster name, you can omit the following settings altogether. Otherwise, specify your OpenSearch settings by using the following switches.
+If you run `securityadmin.sh` on a node of a default OpenSearch installation, which listens on `localhost` on port 9200, you can omit the `-h` and `-p` settings. Otherwise, specify your OpenSearch settings by using the following switches.
 
 Name | Description
 :--- | :---
 `-h` | OpenSearch hostname. Default is `localhost`.
 `-p` | OpenSearch port. Default is 9200
-`-cn` | Cluster name. Default is `opensearch`.
-`-icl` | Ignore cluster name.
-`-sniff` | Sniff cluster nodes. Sniffing detects available nodes using the OpenSearch `_cluster/state` API.
+`-cn` | The expected cluster name. If specified, the script verifies that it is connected to a cluster with this name before making any changes. Can't be used with `-icl`. By default, the cluster name is not checked.
+`-icl` | Ignore the cluster name. This is the default. Can't be used with `-cn`.
 `-arc,--accept-red-cluster` | Execute `securityadmin.sh` even if the cluster state is red. Default is `false`, which means the script will not execute on a red cluster.
 
 
@@ -211,7 +213,6 @@ Use the following options to control certificate validation.
 Name | Description
 :--- | :---
 `-nhnv` | Do not validate hostname. Default is `false`.
-`-nrhn` | Do not resolve hostname. Only relevant if `-nhnv` is not set.
 
 
 ### Configuration files settings
@@ -222,8 +223,9 @@ Name | Description
 :--- | :---
 `-cd` | Directory containing multiple Security plugin configuration files.
 `-f` | Single configuration file. Can't be used with `-cd`.
-`-t` | File type.
+`-t` | File type. If not specified, the script reads the type from the `_meta.type` field of the file.
 `-rl` | Reload the current configuration and flush the internal cache.
+`-vc` | Validate the configuration files specified using `-cd` or `-f` and exit. The script does not connect to the cluster, so you don't need to specify certificates.
 
 To upload all configuration files in a directory, use this:
 
@@ -240,11 +242,15 @@ If you want to push a single configuration file, use this:
 
 The file type must be one of the following:
 
+* `actiongroups`
+* `allowlist`
+* `audit`
 * `config`
+* `internalusers`
+* `nodesdn`
 * `roles`
 * `rolesmapping`
-* `internalusers`
-* `actiongroups`
+* `tenants`
 
 
 ### Cipher settings
@@ -283,16 +289,9 @@ To upload the dumped files to another cluster:
 ./securityadmin.sh -h production.example.com -p 9301 -cd /etc/backup/ -ts ... -tspass ... -ks ... -kspass ...
 ```
 
-To migrate configuration YAML files from the Open Distro for Elasticsearch 0.x.x format to the OpenSearch 1.x.x format:
-
-```bash
-./securityadmin.sh -migrate ../../../config/opensearch-security -ts ... -tspass ... -ks ... -kspass ...
-```
-
 Name | Description
 :--- | :---
-`-backup` | Retrieve the current Security plugin configuration from a running cluster and dump it to the working directory.
-`-migrate` | Migrate configuration YAML files from Open Distro for Elasticsearch 0.x.x to OpenSearch 1.x.x.
+`-backup` | Retrieve the current Security plugin configuration from a running cluster and save it to the specified directory.
 
 
 ### Other options
@@ -305,7 +304,7 @@ Name | Description
 `-w` | Displays information about the used admin certificate.
 `-rl` | By default, the Security plugin caches authenticated users, along with their roles and permissions, for one hour. This option reloads the current Security plugin configuration stored in your cluster, invalidating any cached users, roles, and permissions.
 `-i` | The Security plugin index name. Default is `.opendistro_security`.
-`-er` | Set explicit number of replicas or auto-expand expression for the `opensearch_security` index.
+`-er` | Set explicit number of replicas or auto-expand expression for the `.opendistro_security` index.
 `-era` | Enable replica auto-expand.
 `-dra` | Disable replica auto-expand.
 `-us` | Update the replica settings.
@@ -332,3 +331,7 @@ For example, to load your initial configuration (all YAML files), use the follow
   -cert ..\..\..\config\kirk.pem ^
   -key ..\..\..\config\kirk-key.pem
 ```
+
+## Troubleshooting
+
+- For solutions to common `securityadmin.sh` configuration issues, see [Troubleshooting securityadmin.sh]({{site.url}}{{site.baseurl}}/security/configuration/troubleshoot-security-admin/).

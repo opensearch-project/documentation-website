@@ -7,7 +7,101 @@ nav_order: 50
 
 # Complex conditionals
 
-In ingest pipelines, the `if` parameter in processors can evaluate complex conditions using Painless scripts. These conditionals help fine-tune document processing, allowing advanced logic such as type checking, regular expressions, and combining multiple criteria.
+In ingest pipelines, the `if` parameter in processors can evaluate complex conditions using Painless scripts. These conditionals help fine-tune document processing, allowing advanced logic such as type checking, regular expressions, and combining multiple criteria. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/).
+
+OpenSearch evaluates the condition for every document that passes through the processor, so expensive conditions slow down ingestion. Keep conditions as simple as possible.
+{: .tip}
+
+## Writing multi-statement conditions
+
+A condition can contain multiple Painless statements, such as variable declarations and loops, as long as it returns a Boolean value. Because JSON strings can't contain line breaks, write the entire script on one line and separate the statements using semicolons. In OpenSearch Dashboards Dev Tools, you can instead enclose a multi-line script in triple quotation marks (`"""`). For more information, see [Using triple quotation marks in queries]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/console/#using-triple-quotation-marks-in-queries).
+
+The following pipeline calculates the total value of an order from its `items` array and flags orders whose total exceeds `1000` for review. Orders without an `items` field aren't flagged:
+
+```json
+PUT _ingest/pipeline/flag_large_orders
+{
+  "processors": [
+    {
+      "set": {
+        "field": "review_required",
+        "value": true,
+        "if": "if (ctx.items == null) { return false; } double total = 0; for (def item : ctx.items) { total += item.price * item.quantity; } return total > 1000;"
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+Test the pipeline using the following `_simulate` request:
+
+```json
+POST _ingest/pipeline/flag_large_orders/_simulate
+{
+  "docs": [
+    {
+      "_source": {
+        "order_id": "A-2001",
+        "items": [
+          { "name": "Laptop stand", "price": 45.0, "quantity": 2 },
+          { "name": "Monitor", "price": 329.0, "quantity": 1 }
+        ]
+      }
+    },
+    {
+      "_source": {
+        "order_id": "A-2002",
+        "items": [
+          { "name": "Monitor", "price": 329.0, "quantity": 4 }
+        ]
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+The first order totals `419` and isn't flagged. The second order totals `1316`, so the `review_required` field is added:
+
+```json
+{
+  "docs": [
+    {
+      "doc": {
+        "_index": "_index",
+        "_id": "_id",
+        "_source": {
+          "order_id": "A-2001",
+          "items": [
+            { "name": "Laptop stand", "price": 45.0, "quantity": 2 },
+            { "name": "Monitor", "price": 329.0, "quantity": 1 }
+          ]
+        },
+        "_ingest": {
+          "timestamp": "2026-10-14T20:23:18.723081887Z"
+        }
+      }
+    },
+    {
+      "doc": {
+        "_index": "_index",
+        "_id": "_id",
+        "_source": {
+          "review_required": true,
+          "order_id": "A-2002",
+          "items": [
+            { "name": "Monitor", "price": 329.0, "quantity": 4 }
+          ]
+        },
+        "_ingest": {
+          "timestamp": "2026-10-14T20:23:18.723092429Z"
+        }
+      }
+    }
+  ]
+}
+```
 
 ## Multiple condition checks
 
@@ -170,7 +264,7 @@ Only the second document has a new field added:
 
 ## Using regular expressions
 
-Painless scripting supports the `=~` operator to evaluate regular expressions. The following pipeline flags suspicious IP patterns beginning with `192.168.`:
+Painless scripting supports the `=~` operator to evaluate regular expressions. For more examples and the limits that apply to regular expressions, see [Regex conditionals]({{site.url}}{{site.baseurl}}/ingest-pipelines/regex-conditionals/). The following pipeline flags suspicious IP patterns beginning with `192.168.`:
 
 ```json
 PUT _ingest/pipeline/flag_suspicious_ips
@@ -180,7 +274,7 @@ PUT _ingest/pipeline/flag_suspicious_ips
       "set": {
         "field": "alert",
         "value": "suspicious_ip",
-        "if": "ctx.ip != null && ctx.ip =~ /^192\.168\.\d+\.\d+$/"
+        "if": "ctx.ip != null && ctx.ip =~ /^192\\.168\\.\\d+\\.\\d+$/"
       }
     }
   ]
@@ -345,7 +439,7 @@ PUT _ingest/pipeline/advanced_log_pipeline
     },
     {
       "drop": {
-        "if": "ctx.env == 'test' && ctx.message?.contains('debug')"
+        "if": "ctx.env == 'test' && ctx.message != null && ctx.message.contains('debug')"
       }
     }
   ]
@@ -437,4 +531,52 @@ Safe syntax:
 
 ```
 "if": "ctx.message != null && ctx.message.contains('debug')"
+```
+
+## Debugging conditions
+
+To check how each condition was evaluated, run the [Simulate Pipeline API]({{site.url}}{{site.baseurl}}/ingest-pipelines/simulate-ingest/) with the `verbose` parameter set to `true`. For each processor, the response contains a `status` field. If a processor's condition evaluates to `false`, the `status` is `skipped`, and the `if` object shows the condition and its result.
+
+The following request simulates a processor whose condition evaluates to `false` for the provided document:
+
+```json
+POST _ingest/pipeline/_simulate?verbose=true
+{
+  "pipeline": {
+    "processors": [
+      {
+        "set": {
+          "field": "severity",
+          "value": "major",
+          "if": "ctx.status != null && ctx.status >= 500"
+        }
+      }
+    ]
+  },
+  "docs": [
+    { "_source": { "status": 200 } }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+The response shows that the `set` processor was skipped because the condition returned `false`:
+
+```json
+{
+  "docs": [
+    {
+      "processor_results": [
+        {
+          "processor_type": "set",
+          "status": "skipped",
+          "if": {
+            "condition": "ctx.status != null && ctx.status >= 500",
+            "result": false
+          }
+        }
+      ]
+    }
+  ]
+}
 ```

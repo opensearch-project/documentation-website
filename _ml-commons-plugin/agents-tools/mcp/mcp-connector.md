@@ -24,16 +24,17 @@ Before using MCP tools, you must complete the following prerequisites.
 ### Enable MCP and configure trusted connector endpoints
 
 - Enable the MCP protocol by configuring the `plugins.ml_commons.mcp_connector_enabled` setting.
-- Configure trusted connector endpoints in the `plugins.ml_commons.trusted_connector_endpoints_regex` setting. For security purposes, this setting uses regex patterns to define which MCP server URLs are allowed.
+- Configure trusted connector endpoints in the `plugins.ml_commons.trusted_connector_endpoints_regex` setting. For security purposes, this setting uses regex patterns to define which MCP server URLs are allowed. The value you provide replaces the default list of trusted endpoints, so also include the endpoints of any other connectors that you use, such as the OpenAI endpoint used in [Step 2](#step-2-register-a-model).
 
 To configure both settings, send the following request:
 
 ```json
-PUT /_cluster/settings/
+PUT /_cluster/settings
 {
   "persistent": {
     "plugins.ml_commons.trusted_connector_endpoints_regex": [
-      "<mcp server url>"
+      "<mcp server url>",
+      "^https://api\\.openai\\.com/.*$"
     ],
     "plugins.ml_commons.mcp_connector_enabled": "true"
   }
@@ -72,7 +73,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-To create an MCP connector using Streamable HTTP, set `protocol` to `mcp_streamable_http`. Optionally, set `parameters.endpoint` to override the default endpoint (`/_plugins/_ml/mcp`). No SSE-specific endpoint is required:
+To create an MCP connector using Streamable HTTP, set `protocol` to `mcp_streamable_http`. Optionally, set `parameters.endpoint` to override the default endpoint (`/mcp/`). For example, to connect to the OpenSearch MCP server, set `parameters.endpoint` to `/_plugins/_ml/mcp`. No SSE-specific endpoint is required:
 
 ```json
 POST /_plugins/_ml/connectors/_create
@@ -95,7 +96,7 @@ POST /_plugins/_ml/connectors/_create
 ```
 {% include copy-curl.html %}
 
-The following table describes the connector parameters. For more information about standard connector parameters, see [Configuration parameters]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#configuration-parameters).
+The following table describes the connector parameters. For more information about standard connector parameters, see [Create Connector API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/#request-body-fields).
 
 | Parameter | Data type | Required | Description |
 |:----------|:---------|:---|:------------|
@@ -104,31 +105,31 @@ The following table describes the connector parameters. For more information abo
 | `credential` | Object | Yes | Contains sensitive authentication information such as API keys or tokens. Values stored in this object can be securely referenced in the `headers` section using the `${credential.*}` syntax. |
 | `parameters` | Object | No | Contains configuration parameters for the MCP connector. |
 | `parameters.sse_endpoint` | String | No | Applicable for SSE only. The SSE endpoint path for the MCP server. Default is `/sse`. |
-| `parameters.endpoint` | String | No | Applicable for Streamable HTTP only. The MCP server endpoint path. Default is `/mcp`. |
+| `parameters.endpoint` | String | No | Applicable for Streamable HTTP only. The MCP server endpoint path. Default is `/mcp/`. |
 | `headers` | Object | No | The HTTP headers to include with requests to the MCP server. For authentication headers, use the `${credential.*}` syntax to reference values from the `credential` object (for example, `"Authorization": "Bearer ${credential.mcp_server_key}"`).  |
 
 The response contains the connector ID:
 
 ```json
 {
-  "connector_id": "NZ2W2ZUBZ_3SyqdOvh2n",
+  "connector_id": "NZ2W2ZUBZ_3SyqdOvh2n"
 }
 ```
 
 ## Step 2: Register a model
 
-Register any externally hosted large language model (LLM) using a connector. For a list of supported models, see [Supported connectors]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/).
+Register any externally hosted large language model (LLM) using a connector. For a list of supported models, see [OpenSearch-provided connector blueprints]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/supported-connectors/).
 
 For example, to register an OpenAI chat model, send the following request:
 
 ```json
 POST /_plugins/_ml/models/_register
 {
-  "name": "My OpenAI model: gpt-4",
+  "name": "My OpenAI model: gpt-4o-mini",
   "function_name": "remote",
   "description": "Test model registration (this example uses OpenAI, but you can register any model)",
   "connector": {
-    "name": "My OpenAI Connector: gpt-4",
+    "name": "My OpenAI Connector: gpt-4o-mini",
     "description": "Connector for the OpenAI chat model",
     "version": 1,
     "protocol": "http",

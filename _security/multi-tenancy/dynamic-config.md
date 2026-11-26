@@ -47,7 +47,7 @@ The GET call retrieves settings for the dynamic configuration:
 ```json
 GET /_plugins/_security/api/tenancy/config
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 #### Example response
 
@@ -71,7 +71,7 @@ PUT /_plugins/_security/api/tenancy/config
     "mulitenancy_enabled": true
 }
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ### Example response
 
@@ -90,7 +90,7 @@ You can also use the `dashboardsinfo` API to retrieve the status of multi-tenanc
 ```json
 GET /_plugins/_security/dashboardsinfo
 ```
-{% include copy-curl.html %}
+{% include copy-curl.html security=true %}
 
 ### Example response
 

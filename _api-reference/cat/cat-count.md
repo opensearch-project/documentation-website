@@ -15,6 +15,8 @@ redirect_from:
 
 The CAT count operation lists the number of documents in your cluster.
 
+The count includes only live documents. Documents that you deleted are not counted, even if they have not yet been removed from disk by a segment merge. To see the number of deleted documents in each index, use the [CAT Indices API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/).
+
 
 <!-- spec_insert_start
 api: cat.count
@@ -40,9 +42,10 @@ The following table lists the available query parameters. All query parameters a
 
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
-| `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
+| `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. <br> Valid values are: `cbor`, `json`, `smile`, `text`, and `yaml`. | `text` |
 | `h` | List | A comma-separated list of column names to display. | N/A |
 | `help` | Boolean | Returns help information. | `false` |
+| `limit` | Integer | The maximum number of rows to return. Must be greater than 0. Applied after sorting (`s`). | N/A |
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
 | `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
 

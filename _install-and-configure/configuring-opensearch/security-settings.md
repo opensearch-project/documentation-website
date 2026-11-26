@@ -9,7 +9,7 @@ nav_order: 40
 
 The Security plugin provides a number of YAML configuration files that are used to store the necessary settings that define the way the Security plugin manages users, roles, and activity within the cluster. For a full list of the Security plugin configuration files, see [Modifying the YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/).
 
-The following sections describe security-related settings in `opensearch.yml`. You can find the `opensearch.yml` in the `<OPENSEARCH_HOME>/config/opensearch.yml`. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+The following sections describe security-related settings in `opensearch.yml`. You can find the `opensearch.yml` in the `<OPENSEARCH_HOME>/config/opensearch.yml`. To learn how to apply these settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 ## Common settings
 
@@ -27,9 +27,11 @@ The Security plugin supports the following common settings:
     - `BACKENDROLES_ONLY`: Backend roles are mapped to security roles directly. Settings in `roles_mapping.yml` have no effect.
     - `BOTH`: Backend roles are mapped to security roles both directly and through `roles_mapping.yml`.
 
-- `plugins.security.dls.mode` (Static): Sets the document-level security (DLS) evaluation mode. Default is `adaptive`. See [How to set the DLS evaluation mode]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/#how-to-set-the-dls-evaluation-mode-in-opensearchyml).
+- `plugins.security.dls.write_blocked` (Dynamic): When set to `true`, the Security plugin rejects index and delete operations, including those in bulk requests, from users to whom document-level security (DLS), field-level security (FLS), or field masking applies on the target index. Default is `false`.
 
-- `plugins.security.compliance.salt` (Static): The salt to use when generating the hash value for field masking. Must be at least 32 characters. Only ASCII characters are allowed. Optional.
+- `plugins.security.dfm_empty_overrides_all` (Dynamic): When set to `true`, a role that grants access to an index without DLS, FLS, or field masking restrictions overrides the restrictions that other roles of the same user apply to that index. Default is `false`. Set this setting in `opensearch.yml`. Although the Cluster Settings API accepts this setting, a value set using the API reverts to the `opensearch.yml` value the next time the security configuration changes. For more information, see [Document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/).
+
+- `plugins.security.compliance.salt` (Static): The salt to use when generating the hash value for field masking. Must contain at least 16 ASCII characters. Only the first 16 bytes are used. Optional.
 
 - `plugins.security.compliance.immutable_indices` (Static): Documents in indexes that are marked as immutable follow the write-once, read-many paradigm. Documents created in these indexes cannot be changed and are therefore immutable.
 
@@ -43,15 +45,21 @@ The Security plugin supports the following REST management API settings:
 
 - `plugins.security.restapi.roles_enabled` (Static): Enables role-based access to the REST management API for listed roles. Roles are separated by a comma. Default is an empty list (no role is allowed to access the REST management API). See [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api).
 
-- `plugins.security.restapi.endpoints_disabled.<role>.<endpoint>` (Static): Disables specific endpoints and their HTTP methods for roles. Values for this setting compose an array of HTTP methods. For example: `plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"]`. By default, all endpoints and methods are allowed. Existing endpoints include `ACTIONGROUPS`, `CACHE`, `CONFIG`, `ROLES`, `ROLESMAPPING`, `INTERNALUSERS`, `SYSTEMINFO`, `PERMISSIONSINFO`, and `LICENSE`. See [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api).
+- `plugins.security.restapi.endpoints_disabled.<role>.<endpoint>` (Static): Disables specific endpoints and their HTTP methods for roles. Values for this setting compose an array of HTTP methods. For example: `plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"]`. By default, all endpoints and methods are allowed. To disable an endpoint for every role, use `global` in place of the role name. For the valid `<endpoint>` values, see [Endpoint values]({{site.url}}{{site.baseurl}}/security/access-control/api/#endpoint-values).
+
+- `plugins.security.restapi.admin.enabled` (Static): Enables the `restapi:admin/*` cluster permissions, which grant a role access to the allow list, distinguished name, and certificate APIs. When this setting is `false`, these permissions have no effect, and those APIs are reachable only with an admin certificate. Default is `false`. See [REST API admin permissions]({{site.url}}{{site.baseurl}}/security/access-control/api/#rest-api-admin-permissions).
+
+- `plugins.security.restapi.max_string_length` (Static): Sets the maximum number of characters allowed for any individual string value in a Security REST API request body. Valid values are between `1` and `50000000`, inclusive. Default is `4096`. Increase this value if you submit large free-form values, such as document-level security (DLS) queries, through the REST API.
+
+- `plugins.security.restapi.bulk_max_entries` (Dynamic): Sets the maximum number of entries in one bulk create or update request to the Security REST API. Valid values are 1--100000. Default is `1000`. Only users with a role listed in `plugins.security.restapi.roles_enabled` can change this setting.
 
 - `plugins.security.restapi.password_validation_regex` (Static): Specifies a regular expression to set the criteria for the login password. For more information, see [Password settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings).
 
 - `plugins.security.restapi.password_validation_error_message` (Static): Specifies an error message that loads when a password doesn’t pass validation. This setting is used in conjunction with `plugins.security.restapi.password_validation_regex`.
 
-- `plugins.security.restapi.password_min_length` (Static): Sets the minimum number of characters for the password length when using the score-based password strength estimator. The default is 8. This is also the minimum. For more information, see [Password settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings).
+- `plugins.security.restapi.password_min_length` (Static): Sets the minimum number of characters for the password length. Default is `-1`, which means that no minimum length is enforced. For more information, see [Password settings]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#password-settings).
 
-- `plugins.security.restapi.password_score_based_validation_strength` (Static): Sets a threshold to determine whether the password is strong or weak. Valid values are `fair`, `good`, `strong`, and `very_strong`. This setting is used in conjunction with `plugins.security.restapi.password_min_length`.
+- `plugins.security.restapi.password_score_based_validation_strength` (Static): Sets a threshold to determine whether the password is strong or weak. Valid values are `fair`, `good`, `strong`, and `very_strong`. Default is `strong`. This setting is used in conjunction with `plugins.security.restapi.password_min_length`.
 
 - `plugins.security.unsupported.restapi.allow_securityconfig_modification` (Static): Enables the use of the PUT and PATCH methods for the configuration APIs.
 
@@ -113,6 +121,10 @@ The Security plugin supports the following expert-level settings:
 - `plugins.security.system_indices.enabled` (Static): If set to `true`, enables system indexes. System indexes are similar to the security index, except that the contents are not encrypted. Indexes configured as system indexes can be accessed by either a super-admin or a user with a role that includes the [system index permission]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#system-index-permissions). For more information about system indexes, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/).
 
 - `plugins.security.system_indices.indices` (Static): A list of indexes to be used as system indexes. This setting is controlled by the `plugins.security.system_indices.enabled` setting.
+
+- `plugins.security.system_indices.restore.indices` (Dynamic): A list of system indexes that a user mapped to a role in `plugins.security.restapi.roles_enabled` can restore from a snapshot. The restore request must name each system index that it restores, or match it with a pattern that is no broader than an entry in this list, and it must not rename indexes. This setting doesn't apply to a super admin or to users who have the [system index permission]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#system-index-permissions). By default, the list contains the system indexes that have been tested for restoration to a new cluster running the same OpenSearch version as the original cluster. To view the default list, send `GET /_cluster/settings?include_defaults=true&filter_path=defaults.plugins.security.system_indices.restore.indices`. If you configure this setting, the specified list replaces the default list. To preserve the default entries, include them in your list. To update this setting using the Cluster Settings API, set `plugins.security.system_indices.restore.dynamic.enabled` to `true`. You can always set it in `opensearch.yml`.
+
+- `plugins.security.system_indices.restore.dynamic.enabled` (Static): When set to `true`, allows updating `plugins.security.system_indices.restore.indices` using the Cluster Settings API. Default is `false`.
 
 - `plugins.security.allow_default_init_securityindex` (Static): When set to `true`, sets the Security plugin to its default security settings if an attempt to create the security index fails when OpenSearch launches. Default security settings are stored in YAML files contained in the `opensearch-project/security/config` directory. Default is `false`.
 
@@ -181,17 +193,25 @@ The Security plugin supports the following audit log settings:
 
 - `plugins.security.audit.ignore_requests` (Dynamic): Excludes the specified requests from being logged. Allows wildcards and regular expressions containing actions or REST request paths.
 
-- `plugins.security.audit.threadpool.size` (Static): Determines the number of threads in the thread pool used to log events. Default is `10`. Setting this value to `0` disables the thread pool, which means the plugin logs events synchronously.
+- `plugins.security.audit.threadpool.size` (Static): Determines the number of threads in the thread pool used to log events. Default is `10`. If the value is `0` or less, the node fails to start.
 
-- `plugins.security.audit.threadpool.max_queue_len` (Static): Sets the maximum queue length per thread. Default is `100000`.
+- `plugins.security.audit.threadpool.max_queue_len` (Static): Sets the maximum number of audit events that can wait in the queue shared by all threads in the thread pool. Default is `100000`. If the value is `0` or less, the node fails to start.
 
 - `plugins.security.audit.ignore_users` (Dynamic): An array of users. Audit requests from the users in the list will not be logged.
 
 - `plugins.security.audit.type` (Static): The destination of audit log events. Valid values are `internal_opensearch`, `external_opensearch`, `debug`, and `webhook`.
 
+- `plugins.security.audit.enable_standalone` (Static): Enables standalone audit logging for clusters running without fine-grained access control (SSL-only or security-disabled modes). Set this to `true` and also set `plugins.security.audit.type` to activate standalone audit logging. Default is `false`. For more information, see [Standalone audit logging]({{site.url}}{{site.baseurl}}/security/audit-logs/standalone/).
+
+- `plugins.security.audit.config.body_logging_exclusions` (Dynamic): A list of action group names or raw action and path patterns for which request body logging is suppressed. Default is `[]`, which logs all request bodies. For more information, see [Body logging exclusions]({{site.url}}{{site.baseurl}}/security/audit-logs/index/#body-logging-exclusions).
+
+- `plugins.security.audit.config.action_groups.<NAME>` (Static): Defines named groups of action and path patterns for use with `body_logging_exclusions`. Each group is a comma-separated string of transport action patterns, REST paths, or both. Supports wildcards.
+
+- `plugins.security.audit.config.log4j.enable_mdc_routing` (Static): Enables Mapped Diagnostic Context (MDC) routing for the Log4j audit sink. When enabled, audit events set the `audit_category`, `audit_action`, `audit_user`, and `audit_request_type` MDC keys, which Log4j routing appenders can use. Default is `false`.
+
 - `plugins.security.audit.config.http_endpoints` (Static): A list of endpoints for `localhost`.
 
-- `plugins.security.audit.config.index` (Static): The audit log index. The default is `auditlog6`. The index can be static or an index that includes a date so that it rotates on a daily basis, for example, `"'auditlog6-'YYYY.MM.dd"`. In either case, make sure to secure the index properly.
+- `plugins.security.audit.config.index` (Static): The audit log index. The default is the date-rolling pattern `"'security-auditlog-'YYYY.MM.dd"`, which produces a new index daily (for example, `security-auditlog-2023.06.15`). You can also specify a fixed index name instead. In either case, make sure to secure the index properly.
 
 - `plugins.security.audit.config.type` (Static): Specify the audit log type as `auditlog`.
 
@@ -239,6 +259,16 @@ The Security plugin supports the following audit log settings:
 
 - `opendistro_security.audit.config.disabled_transport_categories` (Dynamic): A list of transport layer categories to be ignored by the logger. Valid values are `AUTHENTICATED` and `GRANTED_PRIVILEGES`.
 
+When fine-grained access control (FGAC) is enabled, a `PUT _cluster/settings` request that updates a dynamic audit filter setting or any `plugins.security.audit.compliance.*` setting is rejected unless the caller holds a role listed in `plugins.security.restapi.roles_enabled`. This restriction is not enforced in SSL-only or security-disabled mode. The `plugins.security.audit.config.body_logging_exclusions` and `plugins.security.audit.config.action_groups.<NAME>` settings are exceptions and do not require the elevated role.
+
+The following table describes the audit settings that a caller can read using `GET _cluster/settings` in each mode.
+
+Mode | Audit settings visible in settings responses
+:--- | :---
+SSL-only | Any caller can read the non-secret dynamic configuration under `plugins.security.audit.config.*` and `plugins.security.audit.compliance.*`. Credential-bearing sink settings remain hidden.
+Security disabled | No `plugins.security.audit.*` settings are filtered, so sink credentials and PEM content may be visible.
+FGAC | The entire `plugins.security.audit.*` subtree is filtered for all callers. This filtering is not role based.
+
 ## Hostname verification and DNS lookup settings
 
 The Security plugin supports the following hostname verification and DNS lookup settings:
@@ -275,7 +305,7 @@ For more information, see [Enabled ciphers and protocols]({{site.url}}{{site.bas
 
 The Security plugin supports the following transport layer TLS keystore and truststore settings:
 
-- `plugins.security.ssl.transport.keystore_type` (Static): The type of the keystore file. Optional. Valid values are `JKS` or `PKCS12/PFX`. Default is `JKS`.
+- `plugins.security.ssl.transport.keystore_type` (Static): The type of the keystore file. Optional. Valid values are `JKS` or `PKCS12/PFX`. If not set, the Security plugin detects the type from the file contents.
 
 - `plugins.security.ssl.transport.keystore_filepath` (Static): The path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
 
@@ -283,7 +313,7 @@ The Security plugin supports the following transport layer TLS keystore and trus
 
 - `plugins.security.ssl.transport.keystore_password` (Static): The keystore password. Default is `changeit`.
 
-- `plugins.security.ssl.transport.truststore_type` (Static): The type of the truststore file. Optional. Valid values are `JKS` or `PKCS12/PFX`. Default is `JKS`.
+- `plugins.security.ssl.transport.truststore_type` (Static): The type of the truststore file. Optional. Valid values are `JKS` or `PKCS12/PFX`. If not set, the Security plugin detects the type from the file contents.
 
 - `plugins.security.ssl.transport.truststore_filepath` (Static): The path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
 
@@ -299,7 +329,7 @@ The Security plugin supports the following REST layer TLS keystore and truststor
 
 - `plugins.security.ssl.http.enabled` (Static): Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is `false`.
 
-- `plugins.security.ssl.http.keystore_type` (Static): The type of the keystore file. Optional. Valid values are `JKS` or `PKCS12/PFX`. Default is `JKS`.
+- `plugins.security.ssl.http.keystore_type` (Static): The type of the keystore file. Optional. Valid values are `JKS` or `PKCS12/PFX`. If not set, the Security plugin detects the type from the file contents.
 
 - `plugins.security.ssl.http.keystore_filepath` (Static): The path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
 
@@ -307,7 +337,7 @@ The Security plugin supports the following REST layer TLS keystore and truststor
 
 - `plugins.security.ssl.http.keystore_password`: The keystore password. Default is `changeit`.
 
-- `plugins.security.ssl.http.truststore_type`: The type of the truststore file. Optional. Valid values are `JKS` or `PKCS12/PFX`. Default is `JKS`.
+- `plugins.security.ssl.http.truststore_type`: The type of the truststore file. Optional. Valid values are `JKS` or `PKCS12/PFX`. If not set, the Security plugin detects the type from the file contents.
 
 - `plugins.security.ssl.http.truststore_filepath`: The path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
 
@@ -425,7 +455,7 @@ plugins.security.cache.ttl_minutes: 60
 #
 # REST Management API configuration settings
 plugins.security.restapi.roles_enabled: ["all_access","xyz_role"]
-plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"] # Alternative example: plugins.security.restapi.endpoints_disabled.xyz_role.LICENSE: ["DELETE"] #
+plugins.security.restapi.endpoints_disabled.all_access.ACTIONGROUPS: ["PUT","POST","DELETE"] # Alternative example: plugins.security.restapi.endpoints_disabled.xyz_role.INTERNALUSERS: ["DELETE"] #
 # Audit log configuration settings
 plugins.security.audit.enable_rest: true
 plugins.security.audit.enable_transport: false
@@ -439,7 +469,7 @@ plugins.security.audit.type: internal_opensearch
 #
 # external_opensearch settings
 plugins.security.audit.config.http_endpoints: ['localhost:9200','localhost:9201','localhost:9202']
-plugins.security.audit.config.index: "'auditlog6-'2023.06.15"
+plugins.security.audit.config.index: "'security-auditlog-'2023.06.15"
 plugins.security.audit.config.type: auditlog
 plugins.security.audit.config.username: auditloguser
 plugins.security.audit.config.password: auditlogpassword

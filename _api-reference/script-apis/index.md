@@ -3,7 +3,7 @@ layout: default
 title: Script APIs
 has_children: true
 has_toc: false
-nav_order: 70
+nav_order: 90
 redirect_from:
   - /opensearch/rest-api/script-apis/
   - /api-reference/script-apis/
@@ -13,7 +13,7 @@ redirect_from:
 **Introduced 1.0**
 {: .label .label-purple }
 
-The script APIs allow you to work with both stored and inline scripts in OpenSearch. The default scripting language is Painless.
+The script APIs allow you to work with both stored and inline scripts in OpenSearch. The default scripting language is Painless. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/).
 
 ## Types of scripts
 

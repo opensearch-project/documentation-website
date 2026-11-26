@@ -1,15 +1,16 @@
 ---
 layout: default
-title: Analyzing traces in Discover
-nav_order: 40
-parent: Using Discover for observability
+title: Traces
+nav_order: 30
+parent: Application performance monitoring
+grand_parent: Observability workspace apps
 ---
 
 # Analyzing traces in Discover
 **Introduced 3.5**
 {: .label .label-purple }
 
-The Discover **Traces** page in OpenSearch Dashboards provides an enhanced way to explore and analyze trace data within the Observability plugin. This page extends the traditional Discover experience by offering specialized capabilities for working with trace data.
+The Discover **Traces** page in OpenSearch Dashboards provides an enhanced way to explore and analyze trace data within Observability workspaces. This page extends the traditional Discover experience by offering specialized capabilities for working with trace data.
 
 ## Prerequisites
 
@@ -19,7 +20,6 @@ Before using the **Traces** page, ensure that you have fulfilled the following p
 
    ```yaml
    workspace.enabled: true
-   data_source.enabled: true
    explore.enabled: true
    explore.discoverTraces.enabled: true
    ```
@@ -32,14 +32,14 @@ Before using the **Traces** page, ensure that you have fulfilled the following p
    Note: Workspaces are not compatible with multi-tenancy. To enable workspaces, you must first disable multi-tenancy by setting `opensearch_security.multitenancy.enabled: false`.
    {: .note}
 
-3. **Configure multiple data sources**: You must have multiple data sources configured. For instructions, see [Multiple data sources]({{site.url}}{{site.baseurl}}/dashboards/management/multi-data-sources/).
+3. **Configure a traces dataset**: You must have at least one traces dataset configured. For detailed instructions, see [Datasets]({{site.url}}{{site.baseurl}}/observing-your-data/exploring-observability-data/datasets/).
 
 ## Accessing the traces page
 
 To access the **Traces** page:
 
 1. Navigate to an **Observability** workspace in OpenSearch Dashboards.
-2. In the left navigation, expand **Discover** and select **Traces**, as shown in the following image.
+2. In the left navigation, select **Application performance** > **Traces**.
 
 ![Discover Traces page in navigation]({{site.url}}{{site.baseurl}}/images/discover-traces/trace-page.png)
 

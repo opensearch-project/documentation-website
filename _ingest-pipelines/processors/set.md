@@ -7,7 +7,7 @@ nav_order: 240
 
 # Set processor
 
-The `set` processor adds or updates fields in a document. It sets one field and associates it with the specified value. If the field already exists, then its value is replaced with the provided one unless the `override` parameter is set to `false`. When `override` is `false` and the specified field exists, the value of the field remains unchanged.
+The `set` processor adds or updates fields in a document. It sets one field and associates it with the specified value. If the field already exists, then its value is replaced with the provided one unless the `override` parameter is set to `false`. When `override` is `false` and the specified field exists and isn't `null`, the value of the field remains unchanged. A field whose value is `null` is always overwritten.
 
 The following is the syntax for the `set` processor:
 
@@ -26,7 +26,7 @@ The following is the syntax for the `set` processor:
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `set` processor.
 
@@ -34,13 +34,13 @@ Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
 `field` | Required | The name of the field to be set or updated. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).
 `value` | Required | The value assigned to the field. Supports [template snippets]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#template-snippets).
-`override` | Optional | A Boolean flag that determines whether the processor should override the existing value of the field.
+`override` | Optional | A Boolean flag that determines whether the processor should override the existing value of the field. Default is `true`.
 `ignore_empty_value` | Optional | A Boolean flag that determines whether the processor should ignore `null` values or empty strings. Default is `false`.
 `description`  | Optional  | A description of the processor's purpose or configuration.
 `if` | Optional | Specifies to conditionally execute the processor.
 `ignore_failure` | Optional | Specifies to ignore processor failures. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
 `on_failure` | Optional | Specifies a list of processors to run if the processor fails during execution. These processors are executed in the order they are specified.
-`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type.
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging).
 
 ## Using the processor
 
@@ -87,8 +87,6 @@ POST _ingest/pipeline/set-pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Response
-
 The following example response confirms that the pipeline is working as expected:
 
 ```json
@@ -110,9 +108,8 @@ The following example response confirms that the pipeline is working as expected
   ]
 }
 ```
-{% include copy-curl.html %}
 
-### Step 3: Ingest a document 
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `testindex1`:
 
@@ -124,9 +121,7 @@ POST testindex1/_doc?pipeline=set-pipeline
 ```
 {% include copy-curl.html %}
 
-#### Response
-
-The request indexes the document into the index `testindex1` and then indexes all documents with the `new_field` set to `some_value`, as shown in the following response:
+The request indexes the document into the `testindex1` index with the `new_field` field set to `some_value`, as shown in the following response:
 
 ```json
 {
@@ -143,7 +138,6 @@ The request indexes the document into the index `testindex1` and then indexes al
   "_primary_term": 1
 }
 ```
-{% include copy-curl.html %}
 
 ### Step 4 (Optional): Retrieve the document
 
@@ -153,3 +147,67 @@ To retrieve the document, run the following query:
 GET testindex1/_doc/1
 ```
 {% include copy-curl.html %}
+
+The response contains the ingested document, transformed as shown in the response in Step 2.
+
+## Copying a value from another field
+
+To copy a value from one field to another, reference the source field in `value` using a template snippet. The following request copies the value of the `customer.address.city` field to the `shipping.city` field:
+
+```json
+POST _ingest/pipeline/_simulate
+{
+  "pipeline": {
+    "processors": [
+      {
+        "set": {
+          "field": "shipping.city",
+          "value": "{% raw %}{{{customer.address.city}}}{% endraw %}"
+        }
+      }
+    ]
+  },
+  "docs": [
+    {
+      "_source": {
+        "customer": {
+          "address": {
+            "city": "Portland"
+          }
+        }
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+The response shows that the `shipping.city` field contains the copied value:
+
+```json
+{
+  "docs": [
+    {
+      "doc": {
+        "_index": "_index",
+        "_id": "_id",
+        "_source": {
+          "shipping": {
+            "city": "Portland"
+          },
+          "customer": {
+            "address": {
+              "city": "Portland"
+            }
+          }
+        },
+        "_ingest": {
+          "timestamp": "2026-10-14T19:44:03.269176256Z"
+        }
+      }
+    }
+  ]
+}
+```
+
+Template snippets always produce a string. For example, copying a numeric field value of `24.99` produces the string `"24.99"`. To copy a value while preserving its type, or to copy an entire object, use the [`copy` processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/copy/).

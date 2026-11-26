@@ -11,7 +11,7 @@ You can perform efficient k-NN filtering with the `lucene`, `faiss`, or `jvector
 
 ## Lucene k-NN filter implementation
 
-OpenSearch version 2.2 introduced support for running k-NN searches with the Lucene engine using HNSW graphs. Starting with version 2.4, which is based on Lucene version 9.4, you can use Lucene filters for k-NN searches.
+The Lucene engine supports Lucene filters for k-NN searches that use HNSW graphs.
 
 When you specify a Lucene filter for a k-NN search, the Lucene algorithm decides whether to perform an exact k-NN search with pre-filtering or an approximate search with modified post-filtering. The algorithm uses the following variables:
 

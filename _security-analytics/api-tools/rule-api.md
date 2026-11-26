@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Rule APIs
-parent: API tools
+parent: Security Analytics APIs
 nav_order: 40
 ---
 

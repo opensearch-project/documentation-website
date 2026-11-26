@@ -174,9 +174,9 @@ POST _plugins/_ml/connectors/_create
     "region": "your_aws_region like us-east-1",
     "service_name": "bedrock",
     "anthropic_version": "bedrock-2023-05-31",
-    "max_tokens_to_sample": 8000,
+    "max_tokens": 8000,
     "temperature": 0.0001,
-    "response_filter": "$.completion"
+    "response_filter": "$.content[0].text"
   },
   "credential": {
     "access_key": "your_aws_access_key",
@@ -187,12 +187,12 @@ POST _plugins/_ml/connectors/_create
     {
       "action_type": "predict",
       "method": "POST",
-      "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/anthropic.claude-v2/invoke",
+      "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-6/invoke",
       "headers": {
         "content-type": "application/json",
         "x-amz-content-sha256": "required"
       },
-      "request_body": "{\"prompt\":\"${parameters.prompt}\", \"max_tokens_to_sample\":${parameters.max_tokens_to_sample}, \"temperature\":${parameters.temperature},  \"anthropic_version\":\"${parameters.anthropic_version}\" }"
+      "request_body": "{\"messages\":[{\"role\":\"user\",\"content\":\"${parameters.prompt}\"}], \"max_tokens\":${parameters.max_tokens}, \"temperature\":${parameters.temperature}, \"anthropic_version\":\"${parameters.anthropic_version}\" }"
     }
   ]
 }
@@ -206,9 +206,9 @@ Register the Claude model with input guardrails enabled. This configuration ensu
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
 {
-    "name": "Bedrock Claude V2 model",
+    "name": "Bedrock Claude Sonnet 4.6 model",
     "function_name": "remote",
-    "description": "Bedrock Claude V2 model",
+    "description": "Bedrock Claude Sonnet 4.6 model",
     "connector_id": "your_connector_id",
     "guardrails": {
         "input_guardrail": {
@@ -230,7 +230,7 @@ First, test the model with acceptable input:
 POST /_plugins/_ml/models/your_model_id/_predict
 {
   "parameters": {
-    "prompt": "\n\nHuman:${parameters.question}\n\nnAssistant:",
+    "prompt": "${parameters.question}",
     "question": "hello"
   }
 }
@@ -263,7 +263,7 @@ Next, test the model with inappropriate input:
 POST /_plugins/_ml/models/your_model_id/_predict
 {
   "parameters": {
-    "prompt": "\n\nHuman:${parameters.question}\n\nnAssistant:",
+    "prompt": "${parameters.question}",
     "question": "how to rob a bank"
   }
 }
@@ -306,7 +306,8 @@ POST /_plugins/_ml/connectors/_create
   "parameters": {
       "region": "your_aws_region like us-east-1",
       "service_name": "bedrock",
-      "max_tokens_to_sample": 8000,
+      "anthropic_version": "bedrock-2023-05-31",
+      "max_tokens": 8000,
       "temperature": 0.0001
   },
   "credential": {
@@ -318,7 +319,7 @@ POST /_plugins/_ml/connectors/_create
     {
       "action_type": "predict",
       "method": "POST",
-      "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/anthropic.claude-v2/invoke",
+      "url": "https://bedrock-runtime.us-east-1.amazonaws.com/model/us.anthropic.claude-sonnet-4-6/invoke",
       "headers": { 
         "content-type": "application/json",
         "x-amz-content-sha256": "required",
@@ -326,7 +327,7 @@ POST /_plugins/_ml/connectors/_create
         "X-Amzn-Bedrock-GuardrailIdentifier": "your_GuardrailIdentifier",
         "X-Amzn-Bedrock-GuardrailVersion": "your_bedrock_guardrail_version"
       },
-      "request_body": "{\"prompt\":\"${parameters.prompt}\", \"max_tokens_to_sample\":${parameters.max_tokens_to_sample}, \"temperature\":${parameters.temperature},  \"anthropic_version\":\"${parameters.anthropic_version}\" }",
+      "request_body": "{\"messages\":[{\"role\":\"user\",\"content\":\"${parameters.prompt}\"}], \"max_tokens\":${parameters.max_tokens}, \"temperature\":${parameters.temperature}, \"anthropic_version\":\"${parameters.anthropic_version}\" }",
       "post_process_function": "\n      if (params['amazon-bedrock-guardrailAction']=='INTERVENED') throw new IllegalArgumentException(\"test guardrail from post process function\");\n    "
     }
   ]
@@ -357,7 +358,7 @@ Verify that the embedded guardrails are functioning by testing them with potenti
 POST _plugins/_ml/models/your_model_id/_predict
 {
   "parameters": {
-    "input": "\n\nHuman:how to rob a bank\n\nAssistant:"
+    "prompt": "how to rob a bank"
   }
 }
 ```
@@ -399,3 +400,9 @@ The response shows that the inappropriate input was blocked:
   "status": 500
 }
 ```
+
+## Related documentation
+
+- [Configuring model guardrails]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/guardrails/)
+- [Connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/)
+- [Create Connector API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/connector-apis/create-connector/)

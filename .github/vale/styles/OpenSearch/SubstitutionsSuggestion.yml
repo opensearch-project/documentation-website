@@ -6,13 +6,22 @@ action:
   name: replace
 swap:
   'app server': application server
+  'are worth': we recommend (reword the sentence)
   'as well as': and
+  'break': fail or stop working
+  'breaks': fails or stops working
   'bring up': start or launch
   'brings up': starts or launches
   'bringing up': starting or launching
   'build out': expand or implement
   'builds out': expands or implements
   'building out': expanding or implementing
+  'cap': limit or maximum
+  'caps': limits or restricts
+  'capping': limiting or restricting
+  'carry out': perform or run
+  'carries out': performs or runs
+  'carrying out': performing or running
   'catch up': synchronize with
   'catches up': synchronizes with
   'catching up': synchronizing with
@@ -21,11 +30,20 @@ swap:
   'cleans up': removes or normalizes
   'cleaning up': removing or normalizing
   'cleaned up': removed or normalized
+  'come back': return
+  'comes back': returns
+  'coming back': returning
+  'come up with': devise or create
+  'come from': are read from, are taken from, or are supplied by
+  'comes from': is read from, is taken from, or is supplied by
+  'coming from': read from, taken from, or supplied by
   'covers': includes, describes, or provides
+  'cut down on': reduce
   'deal with': process or resolve
   'deals with': processes or resolves
   'dealing with': processing or resolving
   'due to': because of
+  'expects': requires
   'fall back': revert
   'fall back to': default to
   'falls back': reverts
@@ -34,6 +52,9 @@ swap:
   'figure out': determine or identify
   'figures out': determines or identifies
   'figuring out': determining or identifying
+  'find out': determine or learn
+  'finds out': determines or learns
+  'finding out': determining or learning
   'fire up': start or launch
   'fires up': starts or launches
   'firing up': starting or launching
@@ -42,17 +63,47 @@ swap:
   'fleshing out': elaborating or defining
   'from scratch': manually, from the beginning, or without a template
   'get': receive, obtain, or retrieve
+  'get back': receive
+  'gets back': receives
+  'get right': configure correctly
+  'gets right': configures correctly
   'gets': receives, returns, or retrieves
   'getting': retrieving or obtaining
+  'get rid of': remove or eliminate
+  'grow': increase
+  'grows': increases
+  'growing': increasing
   'handle': manage, process, or resolve
   'handles': manages, processes, or resolves
   'handling': managing, processing, or resolving
+  'holds': stores or contains
+  'in flight': in progress or active
+  'in-flight': in-progress or active
+  'in place': configured (keep "in place" only for an operation that modifies data without copying it)
+  'is worth': we recommend (reword the sentence)
   'it is recommended': we recommend
+  '(?<=k-NN (?:and|or) )neural (?:search|query|queries)': vector search (replace the whole phrase, including "k-NN and" or "k-NN or")
+  'keep(?! up)': retain
+  'keeps(?! up)': retains
+  'kept': retained
+  'keeping(?! up)': retaining
+  'keep up': maintain throughput or match demand
+  'keeps up': maintains throughput or matches demand
+  'keeping up': maintaining throughput or matching demand
   'kick off': start or initiate
   'kicks off': starts or initiates
   'kicking off': starting or initiating
   'know about': detect or recognize
+  'knows': determines
   'knows about': detects or recognizes
+  'land': become available, be released, or be routed to
+  'lands': becomes available, is released, or is routed to
+  'landed': was introduced, was released, or became available
+  'landing': introducing, releasing, or routing to
+  'leave out': exclude or omit
+  'leaves out': excludes or omits
+  'leaving out': excluding or omitting
+  'left out': excluded or omitted
   'leverage': use
   'life cycle': lifecycle
   'live in': are located in
@@ -62,9 +113,19 @@ swap:
   'looks into': investigates
   'looking into': investigating
   'looks like this': appears as follows
+  'make sure': ensure
+  'makes sure': ensures
+  'made sure': ensured
+  'making sure': ensuring
   'means': indicates
+  'narrow down': filter or limit
+  'narrows down': filters or limits
+  'narrowing down': filtering or limiting
   'navigate in': navigate to
-  'one-off': single-use or ad-hoc
+  'neural search (?:query|queries|request|requests)': "`neural` query, semantic search, or AI search (choose by context)"
+  '(?<!k-NN (?:and|or) )neural search(?! plugin| stats| api| quer| request)': semantic search, vector search, or AI search (choose by context)
+  'one-off': single-use
+  'opt-in': optional or disabled by default
   'out of the box': by default, natively, or is built-in
   'out-of-the-box': default, native, or built-in
   'pick up': load or detect
@@ -76,12 +137,15 @@ swap:
   'plug into': integrate with
   'plugs into': integrates with
   'plumbing': configuration or infrastructure
+  'point out': note or indicate
+  'points out': notes or indicates
   'point to': reference
   'points to': references
   'pointing to': referencing
   'pull in': import or retrieve
   'pulls in': imports or retrieves
   'pulling in': importing or retrieving
+  'purpose-built': designed for or built for
   'push back': postpone
   'pushes back': postpones
   'pushing back': postponing
@@ -91,6 +155,9 @@ swap:
   'roll out': deploy or release
   'rolls out': deploys or releases
   'rolling out': deploying or releasing
+  'run into': encounter
+  'runs into': encounters
+  'running into': encountering
   'scale up': scale or increase capacity
   'scales up': scales or increases capacity
   'scaling up': scaling or increasing capacity
@@ -98,14 +165,22 @@ swap:
   'set up': configure or initialize
   'sets up': configures or initializes
   'setting up': configuring or initializing
+  'ship': provide or include
+  'ships': provides or includes
+  'shipped': provided or included
+  'shipping': providing or including
   'show up': appear
   'shows up': appears
   'showing up': appearing
+  'shrink': decrease or reduce
+  'shrinks': decreases or reduces
+  'shrinking': decreasing or reducing
   'shut down': stop or terminate
   'shuts down': stops or terminates
   'shutting down': stopping or terminating
   'slow down': delay, reduce throughput, or increase latency
   'slows down': delays or reduces throughput
+  'sparse neural search': neural sparse search
   'slowing down': delaying or reducing throughput
   'speed up': accelerate
   'speeds up': accelerates
@@ -118,7 +193,14 @@ swap:
   'splitting up': dividing or partitioning
   'spot': detect or identify
   'start here': getting started
+  'starting (?:with|in)(?= (?:OpenSearch|version))': remove the version unless the change is breaking
+  'stays put': is preserved or remains unchanged
+  'stay put': are preserved or remain unchanged
   'stitching together': chaining or combining
+  'surface': return, report, display, or expose
+  'surfaces': returns, reports, displays, or exposes
+  'surfaced': returned, reported, displayed, or exposed
+  'surfacing': returning, reporting, displaying, or exposing
   'talk to': communicate with or connect to
   'talks to': communicates with or connects to
   'talking to': communicating with or connecting to
@@ -133,6 +215,12 @@ swap:
   'think': evaluate or determine
   'thinks': evaluates or determines
   'thinking': evaluating or determining
+  'trip': trigger or raise
+  'trips': triggers or raises
+  'tripping': triggering or raising
+  'try out': test or evaluate
+  'tries out': tests or evaluates
+  'typically': reword the sentence or remove "typically"
   'under the hood': internally
   'walks you through': describes or explains
   'wants': requires or expects
@@ -146,3 +234,5 @@ swap:
   'working around': mitigating or bypassing
   'workaround': mitigation or alternative approach
   'works with': supports, integrates with, or is compatible with
+  'work out': determine or calculate
+  'works out': determines or calculates

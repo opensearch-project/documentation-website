@@ -15,7 +15,7 @@ nav_order: 2
 The `ad` command is deprecated in favor of the [`ml` command]({{site.url}}{{site.baseurl}}/sql-and-ppl/ppl/commands/ml/).
 {: .warning}
 
-The `ad` command applies the Random Cut Forest (RCF) algorithm in the ML Commons plugin to the search results returned by a PPL command. The command provides two anomaly detection approaches:
+The `ad` command applies the Random Cut Forest (RCF) algorithm to the search results returned by a PPL command. The command provides two anomaly detection approaches:
 
 - [Anomaly detection for time-series data](#anomaly-detection-for-time-series-data) using the fixed-in-time RCF algorithm
 - [Anomaly detection for non-time-series data](#anomaly-detection-for-non-time-series-data) using the batch RCF algorithm

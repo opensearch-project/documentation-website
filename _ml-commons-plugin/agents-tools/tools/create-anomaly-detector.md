@@ -32,9 +32,6 @@ POST /_plugins/_ml/agents/_register
   "name": "Test_Agent_For_Create_Anomaly_Detector_Tool",
   "type": "flow",
   "description": "this is a test agent for the CreateAnomalyDetectorTool",
-  "memory": {
-    "type": "demo"
-  },
   "tools": [
       {
       "type": "CreateAnomalyDetectorTool",
@@ -55,7 +52,6 @@ OpenSearch responds with an agent ID, for example, as follows:
   "agent_id": "EuJYYo0B9RaBCvhuy1q8"
 }
 ```
-{% include copy-curl.html %} 
 
 ## Step 2: Run the agent
 
@@ -87,7 +83,6 @@ OpenSearch responds with a JSON string containing all of the recommended paramet
   ]
 }
 ```
-{% include copy-curl.html %} 
 
 You can then create an anomaly detector containing the recommended parameters by sending a request similar to the following: 
 
@@ -158,7 +153,8 @@ The following table lists the available tool parameters for agent registration.
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
 `model_id` | String | Required | The LLM model ID used for suggesting required Create Anomaly Detector API parameters.
-`model_type` | String | Optional | The model type. Valid values are `CLAUDE` (Anthropic Claude models) and `OPENAI` (OpenAI models). 
+`model_type` | String | Optional | The model type. Valid values are `CLAUDE` (Anthropic Claude models) and `OPENAI` (OpenAI models). Default is `CLAUDE`. The model type determines the default prompt sent to the LLM.
+`prompt` | String | Optional | A custom prompt that the tool sends to the LLM. If not specified, the tool uses the default prompt for the specified `model_type`.
 
 ## Execute parameters
 

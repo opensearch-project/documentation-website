@@ -2,7 +2,9 @@
 layout: default
 title: Configuring TLS certificates
 parent: Configuration
-nav_order: 15
+nav_order: 35
+has_children: true
+has_toc: false
 redirect_from:
   - /security-plugin/configuration/tls/
 ---
@@ -24,10 +26,10 @@ The following tables contain the settings you can use to configure the location 
 
 Name | Description
 :--- | :---
-`plugins.security.ssl.transport.pemkey_filepath` | Path to the certificate's key file (PKCS \#8), which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.transport.pemkey_filepath` | Path to the certificate's key file (PKCS \#8). Relative paths are resolved against the `config` directory. Required.
 `plugins.security.ssl.transport.pemkey_password` | The key password. Omit this setting if the key has no password. Optional.
-`plugins.security.ssl.transport.pemcert_filepath` | Path to the X.509 node certificate chain (PEM format), which must be under the `config` directory, specified using a relative path. Required.
-`plugins.security.ssl.transport.pemtrustedcas_filepath` | Path to the root certificate authorities (CAs) (PEM format), which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.transport.pemcert_filepath` | Path to the X.509 node certificate chain (PEM format). Relative paths are resolved against the `config` directory. Required.
+`plugins.security.ssl.transport.pemtrustedcas_filepath` | Path to the root certificate authorities (CAs) (PEM format). Relative paths are resolved against the `config` directory. Required.
 
 
 ### REST layer TLS
@@ -35,10 +37,10 @@ Name | Description
 Name | Description
 :--- | :---
 `plugins.security.ssl.http.enabled` | Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is `false`.
-`plugins.security.ssl.http.pemkey_filepath` | Path to the certificate's key file (PKCS \#8), which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.http.pemkey_filepath` | Path to the certificate's key file (PKCS \#8). Relative paths are resolved against the `config` directory. Required.
 `plugins.security.ssl.http.pemkey_password` | The key password. Omit this setting if the key has no password. Optional.
-`plugins.security.ssl.http.pemcert_filepath` | Path to the X.509 node certificate chain (PEM format), which must be under the `config` directory, specified using a relative path. Required.
-`plugins.security.ssl.http.pemtrustedcas_filepath` | Path to the root CAs (PEM format), which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.http.pemcert_filepath` | Path to the X.509 node certificate chain (PEM format). Relative paths are resolved against the `config` directory. Required.
+`plugins.security.ssl.http.pemtrustedcas_filepath` | Path to the root CAs (PEM format). Relative paths are resolved against the `config` directory. Required.
 
 
 ## Keystore and truststore files
@@ -52,13 +54,13 @@ The following settings configure the location and password of your keystore and 
 
 Name | Description
 :--- | :---
-`plugins.security.ssl.transport.keystore_type` | The type of the keystore file, `JKS` or `PKCS12/PFX`. Optional. Default is `JKS`.
-`plugins.security.ssl.transport.keystore_filepath` | Path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.transport.keystore_type` | The type of the keystore file, `JKS` or `PKCS12/PFX`. Optional. If not set, the type is detected from the file contents.
+`plugins.security.ssl.transport.keystore_filepath` | Path to the keystore file. Relative paths are resolved against the `config` directory. Required.
 `plugins.security.ssl.transport.keystore_alias` | The alias name of the keystore. Optional. Default is the first alias.
 `plugins.security.ssl.transport.keystore_password` | The password for the keystore file. Optional. Default is `changeit`.
 `plugins.security.ssl.transport.keystore_keypassword` | The password for the private key in the keystore. If not set, `keystore_password` is used. Optional.
-`plugins.security.ssl.transport.truststore_type` | The type of the truststore file, `JKS` or `PKCS12/PFX`. Default is `JKS`.
-`plugins.security.ssl.transport.truststore_filepath` | Path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.transport.truststore_type` | The type of the truststore file, `JKS` or `PKCS12/PFX`. Optional. If not set, the type is detected from the file contents.
+`plugins.security.ssl.transport.truststore_filepath` | Path to the truststore file. Relative paths are resolved against the `config` directory. Required.
 `plugins.security.ssl.transport.truststore_alias` | The alias name of the truststore. Optional. Default is all certificates.
 `plugins.security.ssl.transport.truststore_password` | Truststore password. Default is `changeit`.
 
@@ -67,13 +69,13 @@ Name | Description
 Name | Description
 :--- | :---
 `plugins.security.ssl.http.enabled` | Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is `false`.
-`plugins.security.ssl.http.keystore_type` | The type of the keystore file, JKS or PKCS12/PFX. Optional. Default is JKS.
-`plugins.security.ssl.http.keystore_filepath` | Path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.http.keystore_type` | The type of the keystore file, JKS or PKCS12/PFX. Optional. If not set, the type is detected from the file contents.
+`plugins.security.ssl.http.keystore_filepath` | Path to the keystore file. Relative paths are resolved against the `config` directory. Required.
 `plugins.security.ssl.http.keystore_alias` | The alias name of the keystore. Optional. Default is the first alias.
 `plugins.security.ssl.http.keystore_password` | The password for the keystore file. Optional. Default is `changeit`.
 `plugins.security.ssl.http.keystore_keypassword` | The password for the private key in the keystore. If not set, `keystore_password` is used. Optional.
-`plugins.security.ssl.http.truststore_type` | The type of the truststore file, JKS or PKCS12/PFX. Default is JKS.
-`plugins.security.ssl.http.truststore_filepath` | Path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.http.truststore_type` | The type of the truststore file, JKS or PKCS12/PFX. Optional. If not set, the type is detected from the file contents.
+`plugins.security.ssl.http.truststore_filepath` | Path to the truststore file. Relative paths are resolved against the `config` directory. Required.
 `plugins.security.ssl.http.truststore_alias` | The alias name of the truststore. Optional. Default is all certificates.
 `plugins.security.ssl.http.truststore_password` | The password for the truststore. Default is `changeit`.
 
@@ -87,21 +89,21 @@ If you want to use separate certificates for the client and server, add the `plu
 
 Name | Description
 :--- | :---
-`plugins.security.ssl.transport.server.pemkey_filepath` | The path to the server certificate's key file (PKCS \#8). Must be specified using a relative path under the `config` directory. Required.
+`plugins.security.ssl.transport.server.pemkey_filepath` | The path to the server certificate's key file (PKCS \#8). Relative paths are resolved against the `config` directory. Required.
 `plugins.security.ssl.transport.server.pemkey_password` | The server key password. Omit this setting if the key has no password. Optional.
-`plugins.security.ssl.transport.server.pemcert_filepath` | The path to the X.509 node server certificate chain (PEM format). Must be specified using a relative path under the `config` directory. Required.
-`plugins.security.ssl.transport.server.pemtrustedcas_filepath` | The path to the root CAs (PEM format). Must be specified using a relative path under the `config` directory. Required.
-`plugins.security.ssl.transport.client.pemkey_filepath` | The path to the client certificate's key file (PKCS \#8). Must be specified using a relative path under the `config` directory. Required.
+`plugins.security.ssl.transport.server.pemcert_filepath` | The path to the X.509 node server certificate chain (PEM format). Relative paths are resolved against the `config` directory. Required.
+`plugins.security.ssl.transport.server.pemtrustedcas_filepath` | The path to the root CAs (PEM format). Relative paths are resolved against the `config` directory. Required.
+`plugins.security.ssl.transport.client.pemkey_filepath` | The path to the client certificate's key file (PKCS \#8). Relative paths are resolved against the `config` directory. Required.
 `plugins.security.ssl.transport.client.pemkey_password` | The client key password. Omit this setting if the key has no password. Optional.
-`plugins.security.ssl.transport.client.pemcert_filepath` | The path to the X.509 node client certificate chain (PEM format). Must be specified using a relative path under the `config` directory. Required.
-`plugins.security.ssl.transport.client.pemtrustedcas_filepath` | The path to the root CAs (PEM format). Must be specified using a relative path under the `config` directory. Required.
+`plugins.security.ssl.transport.client.pemcert_filepath` | The path to the X.509 node client certificate chain (PEM format). Relative paths are resolved against the `config` directory. Required.
+`plugins.security.ssl.transport.client.pemtrustedcas_filepath` | The path to the root CAs (PEM format). Relative paths are resolved against the `config` directory. Required.
 
 ### Separate client and server keystore and truststore files
 
 Name | Description
 :--- | :---
-`plugins.security.ssl.transport.keystore_type` | The type of the keystore file, either `JKS` or `PKCS12/PFX`. Optional. Default is `JKS`.
-`plugins.security.ssl.transport.keystore_filepath` | The path to the keystore file. Must be specified using a relative path under the `config` directory. Required.
+`plugins.security.ssl.transport.keystore_type` | The type of the keystore file, either `JKS` or `PKCS12/PFX`. Optional. If not set, the type is detected from the file contents.
+`plugins.security.ssl.transport.keystore_filepath` | The path to the keystore file. Relative paths are resolved against the `config` directory. Required.
 `plugins.security.ssl.transport.keystore_password` | The password for the keystore file. Optional. Default is `changeit`.
 `plugins.security.ssl.transport.server.keystore_alias` | The alias name of the server key. Optional. Default is the first alias.
 `plugins.security.ssl.transport.client.keystore_alias` | The alias name of the client key. Optional. Default is the first alias.
@@ -109,8 +111,8 @@ Name | Description
 `plugins.security.ssl.transport.client.keystore_keypassword` | The password for the client's private key in the keystore. If not set, `keystore_password` is used. Optional. Default is `changeit`.
 `plugins.security.ssl.transport.server.truststore_alias` | The alias name of the server. Optional. Default is all certificates.
 `plugins.security.ssl.transport.client.truststore_alias` | The alias name of the client. Optional. Default is all certificates.
-`plugins.security.ssl.transport.truststore_filepath` | The path to the `truststore` file. Must be specified using a relative path under the `config` directory. Required.
-`plugins.security.ssl.transport.truststore_type` | The type of the `truststore` file, either `JKS` or `PKCS12/PFX`. Default is `JKS`.
+`plugins.security.ssl.transport.truststore_filepath` | The path to the `truststore` file. Relative paths are resolved against the `config` directory. Required.
+`plugins.security.ssl.transport.truststore_type` | The type of the `truststore` file, either `JKS` or `PKCS12/PFX`. Optional. If not set, the type is detected from the file contents.
 `plugins.security.ssl.transport.truststore_password` | The `truststore` password. Default is `changeit`.
 
 
@@ -131,7 +133,17 @@ If your node certificates have an Object ID (OID) identifier in the SAN section,
 
 ## Configuring admin certificates
 
-Super admin certificates are regular client certificates that have elevated rights to perform administrative security tasks. You need an admin certificate to change the Security plugin configuration using [`plugins/opensearch-security/tools/securityadmin.sh`]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/) or the REST API. Super admin certificates are configured in `opensearch.yml` by stating their DN(s):
+Super admin certificates are regular client certificates that have elevated rights to perform administrative security tasks. You need an admin certificate to run [`securityadmin.sh`]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/).
+
+Users mapped to a role listed in `plugins.security.restapi.roles_enabled` can manage users, roles, role mappings, action groups, tenants, and the audit configuration using the REST API without an admin certificate. The following REST API operations require an admin certificate:
+
+- Using the allowlist, nodes DN, and SSL certificate APIs.
+- Changing reserved resources.
+- Creating or modifying roles and action groups that contain `restapi:admin/*` permissions.
+
+By default, the security configuration (`config.yml`) cannot be updated using the REST API, even with an admin certificate. To allow users without an admin certificate to update the security configuration or use the allowlist, nodes DN, and SSL certificate APIs, set `plugins.security.restapi.admin.enabled` to `true` and grant the corresponding `restapi:admin/*` permissions. For more information, see [Security REST permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#security-rest-permissions).
+
+Super admin certificates are configured in `opensearch.yml` by stating their DN(s):
 
 ```yml
 plugins.security.authcz.admin_dn:
@@ -147,22 +159,16 @@ For more information about admin and super admin user roles, see [Admin and supe
 
 In addition to verifying the TLS certificates against the root CA and/or intermediate CA(s), the Security plugin can apply additional checks on the transport layer.
 
-With `enforce_hostname_verification` enabled, the Security plugin verifies that the hostname of the communication partner matches the hostname in the certificate. The hostname is taken from the `subject` or `SAN` entries of your certificate. For example, if the hostname of your node is `node-0.example.com`, then the hostname in the TLS certificate has to be set to `node-0.example.com`, as well. Otherwise, errors are thrown:
+With `enforce_hostname_verification` enabled, the Security plugin verifies that the hostname of the communication partner matches the hostname in the certificate. The hostname is taken from the `subject` or `SAN` entries of your certificate. For example, if the hostname of your node is `node-0.example.com`, then the hostname in the TLS certificate has to be set to `node-0.example.com`, as well. Otherwise, the TLS connection between the nodes fails.
 
-```
-[ERROR][c.a.o.s.s.t.opensearchSecuritySSLNettyTransport] [WX6omJY] SSL Problem No name matching <hostname> found
-[ERROR][c.a.o.s.s.t.opensearchSecuritySSLNettyTransport] [WX6omJY] SSL Problem Received fatal alert: certificate_unknown
-```
+In addition, when `resolve_hostname` is enabled, the Security plugin resolves the (verified) hostname against your DNS. If the hostname does not resolve, the connection fails.
 
-In addition, when `resolve_hostname` is enabled, the Security plugin resolves the (verified) hostname against your DNS. If the hostname does not resolve, errors are thrown:
-
+You can configure hostname verification and DNS lookup by using the following settings.
 
 Name | Description
 :--- | :---
 `transport.ssl.enforce_hostname_verification` | Whether to verify hostnames on the transport layer. Optional. Default is `true`.
-`plugins.security.ssl.transport.enforce_hostname_verification` (Deprecated) | This setting has been deprecated. Use `transport.ssl.enforce_hostname_verification` instead.
 `transport.ssl.resolve_hostname` | Whether to resolve hostnames using DNS on the transport layer. Optional. Default is `true`. Only works if hostname verification is enabled.
-`plugins.security.ssl.transport.resolve_hostname` (Deprecated) | This setting has been deprecated. Use `transport.ssl.resolve_hostname` instead.
 
 
 ## (Advanced) Client authentication
@@ -179,7 +185,7 @@ TLS client authentication has three modes:
 * `OPTIONAL`: The Security plugin accepts TLS client certificates if they are sent, but does not require them.
 * `REQUIRE`: The Security plugin only accepts REST requests when a valid client TLS certificate is sent.
 
-For the REST management API, the client authentication modes has to be OPTIONAL at a minimum.
+For the REST management API, the client authentication mode has to be `OPTIONAL` at a minimum.
 
 You can configure the client authentication mode by using the following setting:
 
@@ -190,9 +196,9 @@ Name | Description
 
 ## (Advanced) Enabled ciphers and protocols
 
-You can limit the allowed ciphers and TLS protocols for the REST layer. For example, you can only allow strong ciphers and limit the TLS versions to the most recent ones.
+You can limit the allowed ciphers and TLS protocols for the REST and transport layers. For example, you can only allow strong ciphers and limit the TLS versions to the most recent ones.
 
-If this setting is not enabled, the ciphers and TLS versions are negotiated between the browser and the Security plugin automatically, which in some cases can lead to a weaker cipher suite being used. You can configure the ciphers and protocols using the following settings.
+If you do not configure these settings, the Security plugin uses its built-in list of allowed cipher suites and the `TLSv1.3`, `TLSv1.2`, and `TLSv1.1` protocols. In all cases, the Security plugin uses only the ciphers and protocols that the JVM supports and enables, and it ignores the rest. The JDK bundled with OpenSearch disables `TLSv1` and `TLSv1.1` in its `java.security` file, so these protocols are not used even if you list them. You can configure the ciphers and protocols using the following settings.
 
 Name | Data type | Description
 :--- | :--- | :---
@@ -203,31 +209,25 @@ Name | Data type | Description
 
 ### Example settings
 
+The following example allows only TLS 1.3 and TLS 1.2 connections that use AES-256-GCM cipher suites on the REST layer:
+
 ```yml
 plugins.security.ssl.http.enabled_ciphers:
-  - "TLS_DHE_RSA_WITH_AES_256_CBC_SHA"
-  - "TLS_DHE_DSS_WITH_AES_128_CBC_SHA256"
+  - "TLS_AES_256_GCM_SHA384"
+  - "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
 plugins.security.ssl.http.enabled_protocols:
-  - "TLSv1.1"
+  - "TLSv1.3"
   - "TLSv1.2"
 ```
+{% include copy.html %}
 
-Because it is insecure, the Security plugin disables `TLSv1` by default. If you need to use `TLSv1` and accept the risks, you can still enable it:
+## (Advanced) Client-initiated renegotiation
 
-```yml
-plugins.security.ssl.http.enabled_protocols:
-  - "TLSv1"
-  - "TLSv1.1"
-  - "TLSv1.2"
-```
-
-## (Advanced) Disabling client initiated renegotiation for Java 8
-
-Set `-Djdk.tls.rejectClientInitiatedRenegotiation=true` to disable secure client initiated renegotiation, which is enabled by default. This can be set via `OPENSEARCH_JAVA_OPTS` in `config/jvm.options`.
+The Security plugin disables client-initiated TLS renegotiation by default, which helps prevent denial-of-service attacks. To do this, the plugin sets the `jdk.tls.rejectClientInitiatedRenegotiation` JVM system property to `true` when the node starts.
 
 ## (Advanced) Using encrypted password settings for SSL
 
-The default insecure SSL password settings have been deprecated. In order to use the secure alternative of these settings users can use their alternative forms. Specifically, users can append the `_secure` suffix to the SSL settings. The resulting secure alternatives are:
+The plain-text SSL password settings in `opensearch.yml` are deprecated. Each of these settings has a secure alternative that has the same name with the `_secure` suffix appended. Store the secure alternatives in the OpenSearch keystore rather than in `opensearch.yml`. For more information, see [OpenSearch keystore]({{site.url}}{{site.baseurl}}/security/configuration/opensearch-keystore/). The secure alternatives are the following:
 
 * plugins.security.ssl.http.pemkey_password_secure
 * plugins.security.ssl.http.keystore_password_secure
@@ -242,11 +242,18 @@ The default insecure SSL password settings have been deprecated. In order to use
 * plugins.security.ssl.transport.client.keystore_keypassword_secure
 * plugins.security.ssl.transport.truststore_password_secure
 
-These settings allow for the use of encrypted passwords in the settings.
+The plain-text settings still work, but OpenSearch logs a deprecation warning at startup when you use them. You cannot specify both a plain-text password setting and its secure alternative; if you do, the node does not start.
+
+To add a secure setting to the keystore, run the following command from the OpenSearch home directory and enter the password when prompted:
+
+```bash
+./bin/opensearch-keystore add plugins.security.ssl.http.pemkey_password_secure
+```
+{% include copy.html %}
 
 ## Hot reloading TLS certificates
 
-Updating expired or nearly expired TLS certificates on the HTTP and transport layers does not require restarting the cluster. Instead, you can enable hot reloading of TLS certificates. When enabled, in-place hot reloading monitors your keystore resources for updates every 5 seconds. If you add or modify a certificate, key file, or keystore setting in the Opensearch `config` directory, the nodes in the cluster detect the change and automatically reload the keys and certificates.
+Updating expired or nearly expired TLS certificates on the HTTP and transport layers does not require restarting the cluster. Instead, you can enable hot reloading of TLS certificates. When enabled, in-place hot reloading monitors your keystore resources for updates every 5 seconds. If you add or modify a certificate, key file, or keystore file, the nodes in the cluster detect the change and automatically reload the keys and certificates.
 
 To enable in-place hot reloading, add the following line to `opensearch.yml`:
 
@@ -257,7 +264,7 @@ plugins.security.ssl.certificates_hot_reload.enabled: true
 
 ### Using the Reload Certificates API
 
-When not using hot reloading, you can use the Reload Certificates API to reread the replaced certificates.
+When not using hot reloading, you can use the Reload Certificates API to reread the replaced certificates. You cannot enable both hot reloading and the Reload Certificates API. If both `plugins.security.ssl.certificates_hot_reload.enabled` and `plugins.security.ssl_cert_reload_enabled` are set to `true`, the node fails to start.
 
 To enable the Reload Certificates API, add the following line to `opensearch.yml`:
 
@@ -287,30 +294,30 @@ Only a [superadmin]({{site.url}}{{site.baseurl}}/security/configuration/tls/#con
 
  The following command reloads TLS certificates on the transport layer using the Reload Certificates API:
 
-```json
+```bash
 curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_plugins/_security/api/ssl/transport/reloadcerts
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 You should receive the following response:
 
 ```
-{ "message": "successfully updated transport certs"}
+{"message":"updated transport certs"}
 ```
 
 #### Reload TLS certificates on the HTTP layer
 
 The following command reloads TLS certificates on the HTTP layer using the Reload Certificates API:
 
-```json
+```bash
 curl --cacert <ca.pem> --cert <admin.pem> --key <admin.key> -XPUT https://localhost:9200/_plugins/_security/api/ssl/http/reloadcerts
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 You should receive the following response:
 
 ```
-{ "message": "successfully updated http certs"}
+{"message":"updated http certs"}
 ```
 
 ## Configuring TLS certificates for gRPC
@@ -344,3 +351,7 @@ Name | Description
 `plugins.security.ssl.aux.secure-transport-grpc.truststore_filepath` | The path to the truststore file, specified as a relative path from the `config` directory. The file must reside within the `config` directory. Required.
 `plugins.security.ssl.aux.secure-transport-grpc.truststore_alias` | The alias of the certificate to use from the provided truststore. Optional. Default is all certificates.
 `plugins.security.ssl.aux.secure-transport-grpc.truststore_password` | The password for the truststore. Default is `changeit`.
+
+## Troubleshooting
+
+- For solutions to common TLS configuration issues, see [Troubleshooting TLS]({{site.url}}{{site.baseurl}}/security/configuration/troubleshoot-tls/).

@@ -8,10 +8,9 @@ has_children: false
 
 # Forecaster access control
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
-{: .warning}
-
 The forecaster resource integrates with the Security plugin's resource sharing and access control framework to provide document-level authorization for forecaster resources. This replaces the legacy `plugins.forecast.filter_by_backend_roles` setting with a more flexible sharing system that allows resource owners to grant specific access levels to users, roles, or backend roles.
+
+For the predefined forecasting roles and permissions, see [Forecasting security]({{site.url}}{{site.baseurl}}/observing-your-data/forecast/security/).
 
 For the end-to-end framework concepts and APIs, see [Resource sharing and access control]({{site.url}}{{site.baseurl}}/security/access-control/resources/).
 {: .note}
@@ -40,9 +39,9 @@ Admin-only: These settings can be configured only by cluster administrators with
 Add the following settings to your `opensearch.yml` configuration file to enable resource sharing for forecasters:
 
 ```yaml
-plugins.security.experimental.resource_sharing.enabled: true
+plugins.security.resource_sharing.enabled: true
 plugins.security.system_indices.enabled: true
-plugins.security.experimental.resource_sharing.protected_types:
+plugins.security.resource_sharing.protected_types:
   - "forecaster"
 ```
 {% include copy.html %}
@@ -55,8 +54,8 @@ Alternatively, you can enable resource sharing dynamically using the Cluster Set
 PUT _cluster/settings
 {
   "transient": {
-    "plugins.security.experimental.resource_sharing.enabled": true,
-    "plugins.security.experimental.resource_sharing.protected_types": ["forecaster"]
+    "plugins.security.resource_sharing.enabled": true,
+    "plugins.security.resource_sharing.protected_types": ["forecaster"]
   }
 }
 ```
@@ -67,7 +66,7 @@ When adding the forecaster resource type to an existing configuration, include a
 
 ## Forecaster access levels
 
-The forecaster plugin provides three predefined access levels for forecaster documents. These access levels determine the specific permissions granted to users who have been granted access to a forecaster resource.
+Forecasting provides three predefined access levels for forecaster documents. These access levels determine the specific permissions granted to users who have been granted access to a forecaster resource.
 
 ### forecast_read_only
 
@@ -79,7 +78,7 @@ The `forecast_read_only` read-only access level grants users the ability to view
 - 'cluster:admin/plugin/forecast/forecaster/suggest'
 - 'cluster:admin/plugin/forecast/forecaster/validate'
 - 'cluster:admin/plugin/forecast/forecasters/get'
-- 'cluster:admin/plugin/forecast/forecasters/info'
+- 'cluster:admin/plugin/forecast/forecaster/info'
 - 'cluster:admin/plugin/forecast/result/topForecasts'
 ```
 {% include copy.html %}

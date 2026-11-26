@@ -52,6 +52,23 @@ The **Workspace details** page features the following buttons in the upper-right
 
 Access the **Sample data** in the navigation menu on the left. Select the appropriate dataset to install it in your cluster and OpenSearch Dashboards.
 
+## Migrating unassigned assets into a workspace
+
+Saved objects created before workspaces were enabled don't belong to any workspace. A workspace displays only the assets assigned to it, so these assets aren't visible in any workspace even though they still exist in the cluster. A [dashboard admin]({{site.url}}{{site.baseurl}}/dashboards/workspace/workspace-acl/#configuring-dashboard-administrators) can move all unassigned assets into a new workspace using the migration wizard.
+
+When unassigned assets exist, the workspaces landing page displays a **Migrate existing assets (N)** button to dashboard admins, where N is the number of unassigned assets.
+
+To migrate unassigned assets into a new workspace, follow these steps:
+
+1. On the workspaces landing page, select **Migrate existing assets (N)**.
+1. In the **Workspace name** field, enter a name for the new workspace.
+1. Review the list of unassigned assets. You can search the list and filter it by asset type. The wizard migrates all unassigned assets, regardless of the search term or filter.
+1. Select **Create workspace and migrate**. OpenSearch Dashboards creates the workspace, connects all data sources and data connections to it so that migrated dashboards continue to display data, and then migrates the assets. You can't close the wizard while the migration is running.
+1. Review the summary, which shows the number of migrated assets, failed assets, and connected data sources.
+1. Select **Go to \<workspace name\>** to open the new workspace.
+
+Assets that fail to migrate remain unassigned, and the summary lists each one with the reason it failed. To migrate them into the same workspace, select **Retry failed assets**. If the migration stops before it finishes, select **Continue migrating** to migrate the remaining assets into the same workspace.
+
 ## Copying assets between workspaces
 
 Data sources and configuration copying are not supported.

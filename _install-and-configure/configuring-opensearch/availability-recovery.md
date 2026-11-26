@@ -2,7 +2,7 @@
 layout: default
 title: Availability and recovery settings
 parent: Configuring OpenSearch
-nav_order: 80
+nav_order: 100
 ---
 
 # Availability and recovery settings
@@ -14,11 +14,12 @@ Availability and recovery settings include settings for the following:
 - [Cluster manager task throttling](#cluster-manager-task-throttling-settings)
 - [Remote-backed storage](#remote-backed-storage-settings)
 - [Search backpressure](#search-backpressure-settings)
+- [Concurrency limits](#concurrency-limit-settings)
 - [Shard indexing backpressure](#shard-indexing-backpressure-settings)
 - [Segment replication](#segment-replication-settings)
 - [Cross-cluster replication](#cross-cluster-replication-settings)
 
-To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+To learn how to apply these settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
 
 ## General recovery settings
 
@@ -48,9 +49,13 @@ For information about using a shared file system, see [Shared file system]({{sit
 
 For information about Amazon S3 repository settings, see [Amazon S3]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#amazon-s3).
 
+### Azure Blob Storage settings
+
+For information about Azure Blob Storage repository settings, see [Configuring Microsoft Azure Blob Storage]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#configuring-microsoft-azure-blob-storage).
+
 ## Cluster manager task throttling settings
 
-For information about cluster manager task throttling settings, see [Setting throttling limits]({{site.url}}{{site.baseurl}}/tuning-your-cluster/cluster-manager-task-throttling/#setting-throttling-limits).
+For information about cluster manager task throttling settings, see [Setting throttling limits]({{site.url}}{{site.baseurl}}/tuning-your-cluster/load-protection/cluster-manager-task-throttling/#setting-throttling-limits).
 
 ## Remote-backed storage settings
 
@@ -66,11 +71,15 @@ For remote segment warmer settings, see [Remote segment warmer settings]({{site.
 
 ## Search backpressure settings
 
-Search backpressure is a mechanism used to identify resource-intensive search requests and cancel them when the node is under duress. For more information, see [Search backpressure settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/search-backpressure/#search-backpressure-settings).
+Search backpressure is a mechanism used to identify resource-intensive search requests and cancel them when the node is under duress. For more information, see [Search backpressure settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/load-protection/search-backpressure/#search-backpressure-settings).
+
+## Concurrency limit settings
+
+Concurrency limits adaptively restrict the number of active requests for any transport action. For more information, see [Concurrency limit settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/load-protection/concurrency-limits/#concurrency-limit-settings).
 
 ## Shard indexing backpressure settings
 
-Shard indexing backpressure is a smart rejection mechanism at a per-shard level that dynamically rejects indexing requests when your cluster is under strain. For more information, see shard indexing backpressure [settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/shard-indexing-settings/).
+Shard indexing backpressure is a smart rejection mechanism at a per-shard level that dynamically rejects indexing requests when your cluster is under strain. For more information, see shard indexing backpressure [settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/load-protection/shard-indexing-settings/).
 
 ## Segment replication settings
 

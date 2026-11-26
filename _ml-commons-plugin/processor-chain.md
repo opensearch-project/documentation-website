@@ -2,7 +2,7 @@
 layout: default
 title: Processor chains
 has_children: false
-nav_order: 30
+nav_order: 40
 ---
 
 # Processor chains
@@ -274,7 +274,7 @@ Applies a chain of processors to the input and sets the result at a specified JS
 
 ### regex_capture
 
-Captures specific groups from regex matches. For regex syntax details, see [Java regex syntax](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html).
+Captures specific groups from the first regex match in the input. If the pattern doesn't match, the input is returned unchanged. For regex syntax details, see [Java regex syntax](https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html).
 
 **Parameters**:
 
@@ -465,8 +465,9 @@ POST /_plugins/_ml/agents/_register
             "replacement": ""
           },
           {
-            "type": "regex_capture",
-            "pattern": "(\\d+,\\w+,\\w+,([^,]+))"
+            "type": "regex_replace",
+            "pattern": "(\\d+,\\w+,\\w+,[^,\n]+)[^\n]*",
+            "replacement": "$1"
           }
         ]
       }
@@ -493,7 +494,7 @@ POST /_plugins/_ml/agents/{agent_id}/_execute
 Without output processors, the raw `ListIndexTool` returns verbose CSV output with headers and extra columns:
 
 ```cs
-row,health,status,index,uuid,pri,rep,docs.count,docs.deleted,store.size,pri.store.size
+row,health,status,index,uuid,pri(number of primary shards),rep(number of replica shards),docs.count(number of available documents),docs.deleted(number of deleted documents),store.size(store size of primary and replica shards),pri.store.size(store size of primary shards)
 1,green,open,.plugins-ml-model-group,DCJHJc7pQ6Gid02PaSeXBQ,1,0,1,0,12.7kb,12.7kb
 2,green,open,.plugins-ml-memory-message,6qVpepfRSCi9bQF_As_t2A,1,0,7,0,53kb,53kb
 3,green,open,.plugins-ml-memory-meta,LqP3QMaURNKYDZ9p8dTq3Q,1,0,2,0,44.8kb,44.8kb
@@ -502,14 +503,23 @@ row,health,status,index,uuid,pri,rep,docs.count,docs.deleted,store.size,pri.stor
 The output processors transform the verbose CSV output into a clean, readable format by:
 
 1. **`regex_replace`**: Removing the CSV header row.
-2. **`regex_capture`**: Extracting only essential information (row number, health, status, and index name).
+2. **`regex_replace`**: Keeping only the row number, health, status, and index name in each row. The pattern captures the first four columns of a row and matches the rest of the row, and the replacement `$1` replaces the whole row with the captured columns. Because `replace_all` defaults to `true`, every row is processed.
 
-With output processors, the agent returns clean, formatted data with only essential index information:
+With output processors, the agent returns one line for each index:
 
-```cs
-1,green,open,.plugins-ml-model-group
-2,green,open,.plugins-ml-memory-message
-3,green,open,.plugins-ml-memory-meta
+```json
+{
+  "inference_results": [
+    {
+      "output": [
+        {
+          "name": "response",
+          "result": "1,green,open,.plugins-ml-model-group\n2,green,open,.plugins-ml-memory-message\n3,green,open,.plugins-ml-memory-meta\n"
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ## Example usage with models

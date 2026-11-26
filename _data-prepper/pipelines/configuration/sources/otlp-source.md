@@ -1,6 +1,6 @@
 ---
 layout: default
-title: OTLP source
+title: OTLP
 parent: Sources
 grand_parent: Pipelines
 nav_order: 85
@@ -24,14 +24,18 @@ You can configure the `otlp` source with the following options.
 | `metrics_path` | String | The path for sending unframed HTTP requests for metrics. Must start with `/` and have a minimum length of 1. Default is `/opentelemetry.proto.collector.metrics.v1.MetricsService/Export`. |
 | `traces_path` | String | The path for sending unframed HTTP requests for traces. Must start with `/` and have a minimum length of 1. Default is `/opentelemetry.proto.collector.trace.v1.TraceService/Export`. |
 | `request_timeout` | Duration | The request timeout duration. Default is `10s`. |
-| `retry_info` | Object | Configures retry behavior. Supports `min_delay` (default `100ms`) and `max_delay` (default `2s`) parameters to control exponential backoff. See [Retry information](#retry-information).|
+| `retry_info` | Object | Configures retry behavior. Supports `min_delay` (default `100ms`) and `max_delay` (default `2s`) parameters to control exponential backoff. See [Retry configuration](#retry-configuration).|
 | `health_check_service` | Boolean | Enables a gRPC health check service under `grpc.health.v1.Health/Check`. When `unframed_requests` is `true`, enables HTTP health check at `/health`. Default is `false`. |
+| `unauthenticated_health_check` | Boolean | Determines whether or not authentication is required on the HTTP health check endpoint. OpenSearch Data Prepper ignores this option if no authentication is defined. Default is `false`. |
 | `proto_reflection_service` | Boolean | Enables a reflection service for Protobuf services (see [ProtoReflectionService](https://grpc.github.io/grpc-java/javadoc/io/grpc/protobuf/services/ProtoReflectionService.html) and [gRPC reflection](https://github.com/grpc/grpc-java/blob/master/documentation/server-reflection-tutorial.md)). Default is `false`. |
 | `unframed_requests` | Boolean | Enables requests not framed using the gRPC wire protocol. Default is `false`. |
 | `thread_count` | Integer | The number of threads to keep in the scheduled thread pool. Default is `200`. |
 | `max_connection_count` | Integer | The maximum allowed number of open connections. Default is `500`. |
+| `max_connection_age` | Duration | The maximum amount of time that a client connection can remain open. When a connection reaches this age, the source closes it gracefully, and the client must open a new connection. Use this setting when multiple Data Prepper nodes run behind DNS-based load balancing: gRPC clients resolve DNS only when they open a connection, so closing connections periodically allows clients to connect to newly added nodes. Must be between 1 second and 24 hours. By default, connections have no maximum age. |
+| `connection_drain_duration` | Duration | The amount of time that the source waits for in-flight requests to complete when it gracefully closes a connection, for example, after the connection reaches the `max_connection_age`. Must be between 0 seconds and 1 hour. |
 | `max_request_length` | String | The maximum number of bytes allowed in the payload of a single gRPC or HTTP request. Default is `10mb`. |
 | `compression` | String | The compression type applied to the client request payload. Valid values are `none` (no compression) or `gzip` (apply `gzip` decompression). Default is `none`. |
+| `authentication` | Object | The authentication configuration. By default, the source runs without authentication. See [Authentication configuration](#authentication-configuration). |
 | `output_format` | String | Specifies the decoded output format for all signals (logs, metrics, and traces) if individual output format options are not set. Valid values are `otel` (OpenTelemetry format) and `opensearch` (OpenSearch format). Default is `otel`. |
 | `logs_output_format` | String | Specifies the decoded output format specifically for logs. Takes precedence over `output_format` for logs. Valid values are `otel` and `opensearch`. Default is `otel`. |
 | `metrics_output_format` | String | Specifies the decoded output format specifically for metrics. Takes precedence over `output_format` for metrics. Valid values are `otel` and `opensearch`. Default is `otel`. |
@@ -49,10 +53,11 @@ You can configure SSL/TLS in the `otlp` source with the following options.
 | `ssl` | Boolean | Enables SSL/TLS. Default is `true`. |
 | `ssl_certificate_file` | String | The SSL certificate chain file path or Amazon Simple Storage Service (Amazon S3) path (for example, `s3://<bucketName>/<path>`). Required if `ssl` is set to `true`. |
 | `ssl_key_file` | String | The SSL key file path or Amazon S3 path (for example, `s3://<bucketName>/<path>`). Required if `ssl` is set to `true`. |
-| `use_acm_cert_for_ssl` | Boolean | Enables SSL/TLS using a certificate and private key from AWS Certificate Manager (ACM). Default is `false`. |
-| `acm_certificate_arn` | String | The ACM certificate Amazon Resource Name (ARN). ACM certificates take precedence over Amazon S3 or local file system certificates. Required if `use_acm_cert_for_ssl` is set to `true`. |
-| `acm_private_key_password` | String | The ACM private key password that decrypts the private key. If not provided, OpenSearch Data Prepper uses the private key without encryption. |
-| `aws_region` | String | The AWS Region used by ACM or Amazon S3. Required if `use_acm_cert_for_ssl` is set to `true` or if `ssl_certificate_file` and `ssl_key_file` are Amazon S3 paths. |
+| `use_acm_certificate_for_ssl` | Boolean | Enables SSL/TLS using a certificate and private key from AWS Certificate Manager (ACM). Default is `false`. |
+| `acm_certificate_arn` | String | The ACM certificate Amazon Resource Name (ARN). ACM certificates take precedence over Amazon S3 or local file system certificates. Required if `use_acm_certificate_for_ssl` is set to `true`. |
+| `acm_private_key_password` | String | The ACM private key password that decrypts the private key. If not provided, OpenSearch Data Prepper generates a random password. |
+| `acm_certificate_timeout` | Duration | The maximum amount of time that Data Prepper waits to retrieve the certificate from ACM. Must be between `5s` and `3600s`. Default is `120s`. |
+| `aws_region` | String | The AWS Region used by ACM or Amazon S3. Required if `use_acm_certificate_for_ssl` is set to `true` or if `ssl_certificate_file` and `ssl_key_file` are Amazon S3 paths. |
 
 ### Authentication configuration
 
@@ -82,9 +87,9 @@ source:
 
 This plugin uses pluggable authentication for gRPC servers. To provide custom authentication, create a plugin that implements [`GrpcAuthenticationProvider`](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/armeria-common/src/main/java/org/opensearch/dataprepper/armeria/authentication/GrpcAuthenticationProvider.java).
 
-### Retry information
+### Retry configuration
 
-You can set retry behavior using the `retry_info` setting, specifying how long to wait for the next request when backpressure occurs. The retry mechanism applies exponential backoff with a configurable maximum delay:
+To configure retry behavior, use the `retry_info` setting. The setting specifies the amount of time to wait before the next request when backpressure occurs, including when the [circuit breaker]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#circuit-breakers) is open. The retry mechanism applies exponential backoff with a configurable maximum delay:
 
 ```yaml
 source:
@@ -134,7 +139,7 @@ otel-telemetry:
         hosts: [ "https://opensearch:9200" ]
         index: logs-%{yyyy.MM.dd}
         username: admin
-        password: yourStrongPassword123!
+        password: "<custom-admin-password>"
         insecure: true
     - pipeline:
         name: traces-raw
@@ -156,7 +161,7 @@ traces-raw:
         hosts: [ "https://opensearch:9200" ]
         index_type: trace-analytics-raw
         username: admin
-        password: yourStrongPassword123!
+        password: "<custom-admin-password>"
         insecure: true
 
 otel-metrics:
@@ -174,7 +179,7 @@ otel-metrics:
         hosts: [ "https://opensearch:9200" ]
         index: metrics-otel-%{yyyy.MM.dd}
         username: admin
-        password: yourStrongPassword123!
+        password: "<custom-admin-password>"
         insecure: true
 ```
 {% include copy.html %}
@@ -220,7 +225,7 @@ To use the ACM, specify the following settings:
 source:
   otlp:
     ssl: true
-    use_acm_cert_for_ssl: true
+    use_acm_certificate_for_ssl: true
     acm_certificate_arn: "arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012"
     aws_region: "us-east-1"
 ```
@@ -237,6 +242,7 @@ The following counters track request activity and errors in the `otlp` source.
 | Metric | Description |
 | :--- | :--- |
 | `requestTimeouts` | The total number of requests that timed out. |
+| `requestsRejectedByCircuitBreaker` | The total number of requests rejected because the [circuit breaker]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-data-prepper/#circuit-breakers) is open. These requests are rejected before the request body is read and are not counted in `requestTimeouts`. |
 | `requestsReceived` | The total number of requests received by the `otlp` source. |
 | `successRequests` | The total number of requests successfully processed by the `otlp` source. |
 | `badRequests` | The total number of requests with an invalid format processed by the `otlp` source. |

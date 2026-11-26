@@ -24,7 +24,7 @@ class SpecInsert < BaseMustacheRenderer
   def arguments
     @args.raw.map do |key, value|
       if value.is_a?(String) && value.include?("\n")
-        { key: key, value: "|\n" + value }
+        { key: key, value: "|\n#{value}" }
       else
         { key: key, value: value }
       end
@@ -35,7 +35,7 @@ class SpecInsert < BaseMustacheRenderer
   def component; @args.component end
 
   def content
-    return "" if @args.skip?
+    return '' if @args.skip?
     raise SpecInsertError, '`component` argument not specified.' unless @args.component
     case @args.component.to_sym
     when :query_parameters

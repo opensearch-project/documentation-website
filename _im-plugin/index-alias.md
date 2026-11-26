@@ -1,36 +1,47 @@
 ---
 layout: default
 title: Index aliases
-nav_order: 5
+nav_order: 20
 redirect_from:
   - /opensearch/index-alias/
 ---
 
 # Index aliases
 
-If your data is spread across multiple indexes, rather than keeping track of which indexes to query, you can create an _alias_ and query it instead. An alias is a virtual index name that can point to one or more indexes. Aliases provide a flexible way to manage your data without changing your application code.
+An alias is a virtual index name that points to one or more indexes. Query the alias and OpenSearch resolves it to the indexes behind it, so your clients can keep using one stable name while the indexes it covers change.
 
-Index aliases are useful in several scenarios. You can use them to maintain a consistent query endpoint while rotating daily or monthly log indexes, switch between different data sets for A/B testing, and manage environments with aliases such as `production-data` and `staging-data`. For example, if you're storing logs into indexes based on the month and you frequently query the logs for the previous two months, you can create a `last_2_months` alias and update the indexes it points to each month. Aliases also help during data migrations, allowing you to transition gradually from old to new index structures without interrupting queries. 
+For example, if you store logs in monthly indexes and you usually query the last two months, create a `last_2_months` alias and update the indexes it points to each month. The queries in your application never change.
 
-Because you can change the indexes an alias points to at any time, referring to indexes using aliases in your applications allows you to reindex your data without any downtime.
+Aliases are also how you do the following:
 
-Aliases provide several key benefits:
+- Switch from one index to another with no downtime, such as when you reindex into a new mapping and cut over once the copy is complete.
+- Serve different views of the same data by attaching a filter to the alias.
+- Keep environment-specific names, such as `production-data` and `staging-data`, independent of the indexes they resolve to.
+- Route the requests that go through the alias to specific shards, so that a search reads fewer shards. For more information, see [Manage aliases]({{site.url}}{{site.baseurl}}/api-reference/alias/aliases-api/#example-basic-routing).
+- Roll over time-series indexes behind a single write target. See [Rolling over an index]({{site.url}}{{site.baseurl}}/im-plugin/index-maintenance/#rolling-over-an-index).
 
-- Switch between indexes without interrupting client applications, enabling zero-downtime operations.
-- Group related indexes under a single logical name for flexible data organization.
-- Use routing and filtering to optimize query performance.
-- Applications can reference stable alias names instead of changing index names, simplifying application logic.
+Aliases have the following characteristics:
 
-When working with aliases, keep in mind these important behaviors:
+- Alias changes are atomic. An alias never points to an unintended set of indexes, even for a moment.
+- A wildcard pattern is resolved when the alias is created. Indexes created later that match the pattern are not added automatically.
+- To write to an alias that points to more than one index, designate one of them as the write index.
+- The filter on a filtered alias applies to all search, count, and delete-by-query operations through that alias.
 
-- All alias changes happen atomically—there's never a moment when an alias points to an unintended set of indexes.
-- When using wildcard patterns, aliases capture indexes that match at creation time and don't automatically include new indexes created later.
-- Writing to an alias that points to multiple indexes requires designating a write index.
-- Filtered aliases automatically apply their filters to all search, count, and delete by query operations.
+## Creating an alias
 
-## Creating a simple alias
+The examples in this section use two indexes, which you can create with the following requests:
 
-The most basic way to create an alias is to point it to a single index:
+```json
+PUT /logs-2024-01
+```
+{% include copy-curl.html %}
+
+```json
+PUT /logs-2024-02
+```
+{% include copy-curl.html %}
+
+The most basic alias points to a single index:
 
 ```json
 POST /_aliases
@@ -47,9 +58,22 @@ POST /_aliases
 ```
 {% include copy-curl.html %}
 
+You can also attach aliases when you create the index:
+
+```json
+PUT /logs-2024-03
+{
+  "aliases": {
+    "current-logs": {},
+    "all-logs": {}
+  }
+}
+```
+{% include copy-curl.html %}
+
 ## Switching an alias to a different index
 
-You can atomically switch an alias from one index to another:
+Combine `remove` and `add` in one request so that the alias moves between indexes in a single atomic step:
 
 ```json
 POST /_aliases
@@ -74,7 +98,7 @@ POST /_aliases
 
 ## Pointing an alias to multiple indexes
 
-An alias can point to multiple indexes for broader queries:
+Use the `indices` field to cover several indexes with one alias:
 
 ```json
 POST /_aliases
@@ -91,48 +115,9 @@ POST /_aliases
 ```
 {% include copy-curl.html %}
 
-## Creating an alias during index creation
+## Designating a write index
 
-You can add an alias when creating an index:
-
-```json
-PUT /logs-2024-03
-{
-  "aliases": {
-    "current-logs": {},
-    "all-logs": {}
-  }
-}
-```
-{% include copy-curl.html %}
-
-## Filtered aliases
-
-Create different "views" of the same data using filters:
-
-```json
-POST /_aliases
-{
-  "actions": [
-    {
-      "add": {
-        "index": "application-logs",
-        "alias": "error-logs",
-        "filter": {
-          "term": {
-            "level": "ERROR"
-          }
-        }
-      }
-    }
-  ]
-}
-```
-{% include copy-curl.html %}
-
-## Write indexes for multi-index aliases
-
-When an alias points to multiple indexes, designate one as the write index:
+An alias that points to multiple indexes rejects indexing requests until one of those indexes is marked as the write index:
 
 ```json
 POST /_aliases
@@ -156,15 +141,106 @@ POST /_aliases
 ```
 {% include copy-curl.html %}
 
-## API reference
+## Filtering an alias
 
-The following table provides commonly used alias commands.
+Attach a filter to an alias to expose a subset of an index under its own name. Create an index with a `level` field to filter on:
 
-| Task | Command |
-|------|---------|
+```json
+PUT /application-logs
+{
+  "mappings": {
+    "properties": {
+      "level": {
+        "type": "keyword"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The following alias returns only the documents in `application-logs` whose `level` field is `ERROR`:
+
+```json
+POST /_aliases
+{
+  "actions": [
+    {
+      "add": {
+        "index": "application-logs",
+        "alias": "error-logs",
+        "filter": {
+          "term": {
+            "level": "ERROR"
+          }
+        }
+      }
+    }
+  ]
+}
+```
+{% include copy-curl.html %}
+
+## Inspecting and querying aliases
+
+The following table lists common alias requests.
+
+| Task | Request |
+| :--- | :--- |
 | List all aliases | `GET /_cat/aliases?v` |
-| Get specific alias | `GET /_alias/my-alias` |
-| Check if alias exists | `HEAD /_alias/my-alias` |
-| Query through alias | `GET /my-alias/_search` |
+| Get one alias | `GET /_alias/current-logs` |
+| Check whether an alias exists | `HEAD /_alias/current-logs` |
+| Search through an alias | `GET /current-logs/_search` |
 
-For complete documentation of all alias operations, parameters, and advanced configurations, see the [Alias APIs]({{site.url}}{{site.baseurl}}/api-reference/alias/) reference section.
+For all alias operations and their parameters, see [Alias APIs]({{site.url}}{{site.baseurl}}/api-reference/alias/).
+
+## Index aliases in OpenSearch Dashboards
+
+To navigate to the **Index Management** page, go to **Management > Index Management** on the top menu. Select **Aliases** to list the aliases in your cluster, with the write index and the indexes of each one.
+
+The following image shows the **Aliases** page.
+
+![Aliases page]({{site.url}}{{site.baseurl}}/images/admin-ui-index/aliases-list.png)
+
+### Creating an alias
+
+An alias covers at least one index, so create the indexes before the alias. To create an index, see [Creating an index]({{site.url}}{{site.baseurl}}/im-plugin/index-operations/#creating-an-index-1).
+
+1. In **Index Management**, select **Aliases**, and then select **Create alias**.
+1. Enter a name for the alias.
+1. In **Indexes or index patterns**, select or enter the indexes and index patterns that the alias covers.
+1. Select **Create alias**.
+
+### Editing an alias
+
+1. In **Index Management**, select **Aliases**.
+1. Select the alias name in the **Alias name** column.
+1. In **Indexes or index patterns**, add or remove indexes and index patterns. You cannot rename an existing alias.
+1. Select **Save changes**.
+
+### Deleting an alias
+
+1. In **Index Management**, select **Aliases**.
+1. Select the checkbox next to each alias that you want to delete.
+1. Select **Actions**, and then select **Delete**.
+1. Enter `delete` in the confirmation dialog, and then select **Delete**.
+
+Deleting an alias does not delete the indexes behind it.
+
+### Rolling over an alias
+
+1. In **Index Management**, select **Aliases**.
+1. Select **Actions**, and then select **Roll over**.
+1. In **Configure source**, select the alias to roll over. Its current write index is displayed as **Assigned source index**.
+1. In **Configure new rollover index**, enter a name for the new write index, then enter its definition, settings, and mappings. To reuse the configuration of the current write index, select **Import from old write index**.
+1. Select **Roll over**.
+
+The **Write index** column shows the new write index, and the **Index name** column lists all of the indexes in the alias.
+
+Refresh, flush, clear cache, and force merge are also available from the **Aliases** page and apply to the open backing indexes of the selected aliases. For those procedures, see [Index maintenance in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/im-plugin/index-maintenance/#index-maintenance-in-opensearch-dashboards).
+
+## Related documentation
+
+- [Alias APIs]({{site.url}}{{site.baseurl}}/api-reference/alias/)
+- [Data streams]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/)
+- [Index maintenance]({{site.url}}{{site.baseurl}}/im-plugin/index-maintenance/)

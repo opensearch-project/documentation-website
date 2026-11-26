@@ -5,6 +5,7 @@ nav_order: 45
 parent: Reference
 redirect_from:
   - /benchmark/user-guide/understanding-results/telemetry/
+  - /benchmark/user-guide/telemetry/
 ---
 
 # Telemetry devices
@@ -116,7 +117,7 @@ This device supports the `shard-stats-sample-interval` parameter, which defines 
 ## data-stream-stats
 <!-- vale on -->
 
-The `data-stream-stats` telemetry device regularly calls the [Data Stream Stats API]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/#step-2-create-a-data-stream) and records one metrics document for cluster-level stats (`_all`) and one metrics document per data stream.
+The `data-stream-stats` telemetry device regularly calls the [Get Data Stream Stats API]({{site.url}}{{site.baseurl}}/api-reference/data-stream/data-stream-stats/) and records one metrics document for cluster-level stats (`_all`) and one metrics document per data stream.
 
 The following is an example of recorded documents given two data streams in the cluster:
 

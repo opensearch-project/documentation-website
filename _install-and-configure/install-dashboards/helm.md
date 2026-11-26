@@ -2,12 +2,12 @@
 layout: default
 title: Helm
 parent: Installing OpenSearch Dashboards
-nav_order: 35
+nav_order: 15
 redirect_from: 
   - /dashboards/install/helm/
 ---
 
-# Run OpenSearch Dashboards using Helm
+# Installing OpenSearch Dashboards using Helm
 
 Helm is a package manager that allows you to easily install and manage OpenSearch Dashboards in a Kubernetes cluster. You can define your OpenSearch configurations in a YAML file and use Helm to deploy your applications in a version-controlled and reproducible way.
 
@@ -29,133 +29,156 @@ The instructions here assume you have a Kubernetes cluster with Helm preinstalle
 
 ## Prerequisites
 
-Before you get started, you must first use [Helm to install OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/helm/).
+Install OpenSearch. For more information, see [Installing OpenSearch using Helm]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/helm/).
 
-Make sure that you can send requests to your OpenSearch pod:
-
-```json
-$ curl -XGET https://localhost:9200 -u 'admin:<custom-admin-password>' --insecure
-{
-  "name" : "opensearch-cluster-master-0",
-  "cluster_name" : "opensearch-cluster",
-  "cluster_uuid" : "72e_wDs1QdWHmwum_E2feA",
-  "version" : {
-    "distribution" : "opensearch",
-    "number" : "3.1.0",
-    "build_type" : "tar",
-    "build_hash" : "8ff7c6ee924a49f0f59f80a6e1c73073c8904214",
-    "build_date" : "2025-06-21T08:05:50.445588571Z",
-    "build_snapshot" : false,
-    "lucene_version" : "10.2.1",
-    "minimum_wire_compatibility_version" : "2.19.0",
-    "minimum_index_compatibility_version" : "2.0.0"
-  },
-  "tagline" : "The OpenSearch Project: https://opensearch.org/"
-}
-```
+Before you install OpenSearch Dashboards, make sure that OpenSearch is running. For more information, see [Verify the deployment]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/helm/#verify-the-deployment).
 
 ## Install OpenSearch Dashboards using Helm
 
-1. Clone the [`helm-charts` repo](https://github.com/opensearch-project/helm-charts/tree/main):
+The following steps use the `opensearch` Helm repository that you added when you installed OpenSearch.
+
+1. Deploy OpenSearch Dashboards. The chart's default CPU limit of `100m` is too low for OpenSearch Dashboards to start before the startup probe fails, so the following command sets the CPU request and limit to 1 CPU:
 
    ```bash
-   git clone https://github.com/opensearch-project/helm-charts.git
+   helm install my-dashboards opensearch/opensearch-dashboards \
+     --set resources.requests.cpu=1 \
+     --set resources.limits.cpu=1
    ```
    {% include copy.html %}
 
-1. Navigate to the `opensearch-dashboards` directory:
+   To customize the deployment, pass in the values that you want to override using a custom YAML file. Include the CPU settings in the file:
 
-   ```bash
-   cd helm-charts/charts/opensearch-dashboards
+   ```yaml
+   resources:
+     requests:
+       cpu: "1"
+     limits:
+       cpu: "1"
    ```
    {% include copy.html %}
 
-1. Package the Helm chart:
+   Then deploy OpenSearch Dashboards using the custom file:
 
    ```bash
-   helm package .
+   helm install my-dashboards opensearch/opensearch-dashboards -f customvalues.yaml
    ```
    {% include copy.html %}
 
-1. Deploy OpenSearch Dashboards:
+   The output shows the deployed release:
+
+   ```yaml
+   NAME: my-dashboards
+   LAST DEPLOYED: Fri Oct  2 02:30:49 2026
+   NAMESPACE: default
+   STATUS: deployed
+   REVISION: 1
+   TEST SUITE: None
+   NOTES:
+   1. Get the application URL by running these commands:
+     export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=opensearch-dashboards,app.kubernetes.io/instance=my-dashboards" -o jsonpath="{.items[0].metadata.name}")
+     export CONTAINER_PORT=$(kubectl get pod --namespace default $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+     echo "Visit http://127.0.0.1:8080 to use your application"
+     kubectl --namespace default port-forward $POD_NAME 8080:$CONTAINER_PORT
+   ```
+
+After the deployment completes, follow these steps to access OpenSearch Dashboards:
+
+1. To ensure that your OpenSearch Dashboards pod is running, use the following command:
 
    ```bash
-   helm install --generate-name opensearch-dashboards-3.1.0.tgz
+   kubectl get pods
    ```
    {% include copy.html %}
-   
-   The output shows you the specifications instantiated from the install.
-   To customize the deployment, pass in the values that you want to override with a custom YAML file:
+
+   Wait until the OpenSearch Dashboards pod shows `1/1` in the `READY` column:
 
    ```bash
-   helm install --values=customvalues.yaml opensearch-dashboards-3.1.0.tgz
+   NAME                                                   READY   STATUS    RESTARTS   AGE
+   my-dashboards-opensearch-dashboards-567b777979-xx8jj   1/1     Running   0          70s
+   opensearch-cluster-master-0                            1/1     Running   0          3m
+   opensearch-cluster-master-1                            1/1     Running   0          3m
+   opensearch-cluster-master-2                            1/1     Running   0          3m
+   ```
+
+1. Configure port forwarding from the OpenSearch Dashboards service:
+
+   ```bash
+   kubectl port-forward svc/my-dashboards-opensearch-dashboards 5601
    ```
    {% include copy.html %}
 
-#### Sample output
+1. In a web browser, go to `http://localhost:5601` and log in as the `admin` user using the [custom admin password]({{site.url}}{{site.baseurl}}/security/configuration/passwords/#setting-the-initial-admin-password) that you set when you installed OpenSearch. For more information, see [Accessing OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#accessing-opensearch-dashboards).
 
-```yaml
-NAME: opensearch-dashboards-1-1629223356
-LAST DEPLOYED: Tue Aug 12 11:32:42 2025
-NAMESPACE: default
-STATUS: deployed
-REVISION: 1
-TEST SUITE: None
-NOTES:
-1. Get the application URL by running these commands:
-  export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=opensearch-dashboards,app.kubernetes.io/instance=dashboards" -o jsonpath="{.items[0].metadata.name}")
-  export CONTAINER_PORT=$(kubectl get pod --namespace default $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
-  echo "Visit http://127.0.0.1:8080 to use your application"
-  kubectl --namespace default port-forward $POD_NAME 8080:$CONTAINER_PORT
-```
-
-To make sure your OpenSearch Dashboards pod is up and running, run the following command:
-
-```bash
-$ kubectl get pods
-```
-{% include copy.html %}
-
-The running containers are listed in the response:
-
-```bash
-NAME                                                  READY   STATUS    RESTARTS   AGE
-opensearch-cluster-master-0                           1/1     Running   0          4m35s
-opensearch-cluster-master-1                           1/1     Running   0          4m35s
-opensearch-cluster-master-2                           1/1     Running   0          4m35s
-opensearch-dashboards-1-1629223356-758bd8747f-8www5   1/1     Running   0          66s
-```
-
-To set up port forwarding to access OpenSearch Dashboards, exit the OpenSearch shell and run the following command:
-
-```bash
-$ k port-forward opensearch-dashboards-1-1629223356-758bd8747f-8www5 5601
-```
-{% include copy.html %}
-
-You can now access OpenSearch Dashboards from your browser at: http://localhost:5601.
-
+   OpenSearch Dashboards can take about 1 minute after the pod is ready to finish starting. Until then, requests return a `503` error. If you receive this error, wait and then reload the page.
+   {: .note}
 
 ## Uninstall using Helm
 
-To identify the OpenSearch Dashboards deployment that you want to delete:
+To identify the OpenSearch Dashboards deployment that you want to delete, run the following command:
 
 ```bash
-$ helm list
+helm list
 ```
 {% include copy.html %}
 
-The existing Helm deployments are listed in the response:
+The response lists the current Helm deployments:
 
 ```bash
-NAME                   	NAMESPACE	REVISION	UPDATED                             	STATUS  	CHART                      	APP VERSION
-opensearch-dashboards-1-1629223356             	default  	1       	2025-08-12 11:32:42.798313 +0100 IST	deployed	opensearch-dashboards-3.1.0	3.1.0      
-opensearch-3-1754994664	default  	1       	2025-08-12 11:31:04.710386 +0100 IST	deployed	opensearch-3.1.0           	3.1.0      
+NAME         	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART                      	APP VERSION
+my-dashboards	default  	1       	2026-10-02 02:30:49.128429961 +0000 UTC	deployed	opensearch-dashboards-{{site.opensearch_dashboards_version}}	{{site.opensearch_dashboards_version}}
+my-deployment	default  	1       	2026-10-02 02:28:00.553978943 +0000 UTC	deployed	opensearch-{{site.opensearch_version}}           	{{site.opensearch_version}}
 ```
 
-To delete or uninstall a deployment, run the following command:
+To uninstall a deployment, run the following command:
 
 ```bash
-helm delete opensearch-dashboards-1-1629223356
+helm uninstall my-dashboards
 ```
 {% include copy.html %}
+
+## Common issues
+
+The following issues can occur when you install OpenSearch Dashboards using Helm.
+
+### The OpenSearch Dashboards pod restarts repeatedly and never becomes ready
+
+If the OpenSearch Dashboards pod shows `0/1` in the `READY` column and its `RESTARTS` count keeps increasing, the pod might not have enough CPU to start before the startup probe fails. To confirm, run the following command:
+
+```bash
+kubectl describe pod -l app.kubernetes.io/instance=my-dashboards
+```
+{% include copy.html %}
+
+The `Events` section of the output contains `Startup probe failed` messages and the `Container dashboards failed startup probe, will be restarted` message. To fix this issue, increase the CPU request and limit to 1 CPU:
+
+```bash
+helm upgrade my-dashboards opensearch/opensearch-dashboards --reuse-values \
+  --set resources.requests.cpu=1 \
+  --set resources.limits.cpu=1
+```
+{% include copy.html %}
+
+The `--reuse-values` flag keeps the values that you set when you installed OpenSearch Dashboards. Without this flag, `helm upgrade` resets all values that you do not specify in the command to the chart defaults.
+
+### OpenSearch Dashboards returns "OpenSearch Dashboards server is not ready yet"
+
+If the OpenSearch Dashboards pod shows `1/1` in the `READY` column but OpenSearch Dashboards returns a `503` error with the `OpenSearch Dashboards server is not ready yet` message for more than a few minutes, OpenSearch Dashboards might not be able to reach OpenSearch. To confirm, check the OpenSearch Dashboards logs:
+
+```bash
+kubectl logs deploy/my-dashboards-opensearch-dashboards
+```
+{% include copy.html %}
+
+If the logs contain `ConnectionError` messages and the `Unable to retrieve version information from OpenSearch nodes` message, OpenSearch Dashboards cannot connect to the OpenSearch service. OpenSearch Dashboards connects to OpenSearch at the address specified in the `opensearchHosts` parameter, which defaults to `https://opensearch-cluster-master:9200`. If your OpenSearch service has a different name, set `opensearchHosts` to `https://<service-name>:9200`, replacing `<service-name>` with the name of your OpenSearch service:
+
+```bash
+helm upgrade my-dashboards opensearch/opensearch-dashboards --reuse-values \
+  --set opensearchHosts=https://<service-name>:9200
+```
+{% include copy.html %}
+
+For information about how the OpenSearch chart names the service, see [Verify the deployment]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/helm/#verify-the-deployment).
+
+## Related documentation
+
+- [Preparing OpenSearch Dashboards for production]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/#preparing-opensearch-dashboards-for-production)

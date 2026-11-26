@@ -59,12 +59,14 @@ The following table lists the required and optional parameters for the `ml-infer
 | `function_name` | String    | Optional for externally hosted models<br/><br/>Required for local models | The function name of the ML model configured in the processor. For local models, valid values are `sparse_encoding`, `sparse_tokenize`, `text_embedding`, and `text_similarity`. For externally hosted models, valid value is `remote`. Default is `remote`.   |
 | `model_config` | Object    | Optional   | Custom configuration options for the ML model. For externally hosted models, if set, this configuration overrides the default connector parameters. For local models, you can add `model_config` to `model_input` to override the model configuration set during registration. For more information, see [The `model_config` object]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/register-model/#the-model_config-object).  |
 | `model_input` | String    | Optional for externally hosted models<br/><br/>Required for local models | A template that defines the input field format expected by the model. Each local model type might use a different set of inputs. For externally hosted models, default is `"{ \"parameters\": ${ml_inference.parameters} }`. |
-| `input_map` | Array | Required  | An array specifying how to map query string fields to the model input fields. Each element of the array is a map in the `"<model_input_field>": "<query_input_field>"` format and corresponds to one model invocation of a document field. If no input mapping is specified for an externally hosted model, then all document fields are passed to the model directly as input. The `input_map` size indicates the number of times the model is invoked (the number of Predict API requests). |
+| `input_map` | Array | Required if `optional_input_map` is not specified | An array specifying how to map query string fields to the model input fields. Each element of the array is a map in the `"<model_input_field>": "<query_input_field>"` format and corresponds to one model invocation of a document field. If no input mapping is specified for an externally hosted model, then all document fields are passed to the model directly as input. The `input_map` size indicates the number of times the model is invoked (the number of Predict API requests). |
 | `<model_input_field>`  | String    | Required | The model input field name.  |
 | `<query_input_field>`  | String    | Required | The name or JSON path of the query field used as the model input. |
-| `output_map`  | Array | Required | An array specifying how to map the model output fields to new fields in the query string. Each element of the array is a map in the `"<query_output_field>": "<model_output_field>"` format. |
+| `output_map`  | Array | Required if `optional_output_map` is not specified | An array specifying how to map the model output fields to new fields in the query string. Each element of the array is a map in the `"<query_output_field>": "<model_output_field>"` format. |
 | `<query_output_field>` | String    | Required | The name of the query field in which the model's output (specified by `model_output`) is stored.  |
 | `<model_output_field>` | String    | Required | The name or JSON path of the field in the model output to be stored in the `query_output_field`.  |
+| `optional_input_map` | Array | Optional | An array specifying query fields to map to the model input when they are present in the query, in the same format as `input_map`. If a field is missing from the query, it is not passed to the model. The processor invokes the model even if none of the optional fields are present, in which case the model receives no input from this mapping and may return an error. Each element is merged with the `input_map` element at the same position, and together they define one model invocation. Use this option when the model accepts several inputs and a query contains only some of them, for example, text, an image, or both. |
+| `optional_output_map` | Array | Optional | An array specifying additional mappings from model output fields to query fields, in the same format as `output_map`. Each element is merged with the `output_map` element at the same position. |
 | `full_response_path`   | Boolean   | Optional  | Set this parameter to `true` if the `model_output_field` contains a full JSON path to the field instead of the field name. The model output will then be fully parsed to get the value of the field. Default is `true` for local models and `false` for externally hosted models.  |
 | `ignore_missing`       | Boolean   | Optional  | If `true` and any of the input fields defined in the `input_map` or `output_map` are missing, then this processor is ignored. Otherwise, a missing field causes a failure. Default is `false`.  |
 | `ignore_failure` | Boolean   | Optional | Specifies whether the processor continues execution even if it encounters an error. If `true`, then this processor is ignored and the search continues. If `false`, then any failure causes the search to be canceled. Default is `false`.  |
@@ -77,7 +79,7 @@ The `input_map` and `output_map` mappings support standard [JSON path](https://g
 
 ## Using the processor
 
-Follow these steps to use the processor in a pipeline. You must provide a model ID, `input_map`, and `output_map` when creating the processor. Before testing a pipeline using the processor, make sure that the model is successfully deployed. You can check the model state using the [Get Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/get-model/).
+Follow these steps to use the processor in a pipeline. You must provide a model ID, an `input_map` or `optional_input_map`, and an `output_map` or `optional_output_map` when creating the processor. Before testing a pipeline using the processor, make sure that the model is successfully deployed. You can check the model state using the [Get Model API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/model-apis/get-model/).
 
 For local models, you must provide a `model_input` field that specifies the model input format. Add any input fields in `model_config` to `model_input`.
 
@@ -529,3 +531,9 @@ The response confirms that the processor ran a k-NN query, which returned docume
   }
 }
 ```
+
+## Next steps
+
+- For a complete example of searching by text and image, see [Multimodal search using ML inference processors]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-search/multimodal-search-ml-inference/).
+- For a complete example of rewriting a query into a vector search, see [Semantic search using text chunking]({{site.url}}{{site.baseurl}}/tutorials/vector-search/semantic-search/long-document/).
+- For a complete example that uses compressed embeddings at search time, see [Optimizing vector search using Cohere compressed embeddings]({{site.url}}{{site.baseurl}}/tutorials/vector-search/vector-operations/optimize-compression/).

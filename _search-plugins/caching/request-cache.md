@@ -58,6 +58,10 @@ GET /students/_search?request_cache=true
 ```
 {% include copy-curl.html %}
 
+## Matching requests to cached results
+
+The request cache stores results for each shard. To find a cached result, OpenSearch compares the parsed search request, so requests that differ only in formatting share a cached result. For example, requests that differ only in white space or in the order of JSON keys return the same cached result. So do two `terms` aggregations that differ only in whether they specify the default `size` of `10`. Requests that differ in content, such as an aggregation with a different name, are cached separately.
+
 ## Monitoring the request cache
 
 Monitoring cache usage and performance is crucial to maintaining an efficient caching strategy. OpenSearch provides several APIs to help monitor the cache.

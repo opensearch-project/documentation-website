@@ -8,6 +8,9 @@ has_toc: false
 redirect_from:
   - /search-plugins/knn/knn-vector-quantization/
 outside_cards:
+  - heading: "Half-float vectors"
+    description: "Store vectors natively in the 16-bit floating-point format"
+    link: "/mappings/supported-field-types/knn-memory-optimized/#half-float-vectors"
   - heading: "Byte vectors"
     description: "Quantize vectors into byte vectors"
     link: "/mappings/supported-field-types/knn-memory-optimized/#byte-vectors"

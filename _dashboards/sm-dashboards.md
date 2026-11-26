@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Snapshot management
-nav_order: 110
+nav_order: 90
 redirect_from:
   - /dashboards/admin-ui-index/sm-dashboards/
 ---

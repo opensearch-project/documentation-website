@@ -2,7 +2,7 @@
 layout: default
 title: Modifying the YAML files
 parent: Configuration
-nav_order: 10
+nav_order: 15
 redirect_from: 
   - /security-plugin/configuration/yaml/
 ---
@@ -17,7 +17,7 @@ The approach we recommend for using the YAML files is to first configure [reserv
 
 ## action_groups.yml
 
-This file contains any role mappings required for your security configuration. You can find the `role_mapping.yml` file in `<OPENSEARCH_HOME>/config/opensearch-security/roles_mapping.yml`.
+This file contains any action groups that you want to add to the Security plugin. You can find this file in `<OPENSEARCH_HOME>/config/opensearch-security/action_groups.yml`.
 
 Aside from some metadata, the default file is empty, because the Security plugin has a number of static action groups that it adds automatically. These static action groups cover a wide variety of use cases and are a great way to get started with the plugin.
 
@@ -46,6 +46,9 @@ You can use `allowlist.yml` to add any endpoints and HTTP requests to a list of 
 You can find the `allowlist.yml` file in `<OPENSEARCH_HOME>/config/opensearch-security/allowlist.yml`.
 
 Note that while you can configure access to endpoints this way, for most cases, it is still best to configure permissions using the Security plugin's users and roles, which have more granular settings.
+
+If you enable the allowlist and plan to run [`securityadmin.sh`]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/), add `GET` requests to `/_plugins/_security/whoami` to the allowlist. The `securityadmin.sh` script calls this endpoint and fails if the allowlist blocks it, even when you use an admin certificate.
+{: .note}
 
 ```yml
 ---
@@ -172,7 +175,9 @@ snapshotrestore:
 
 `nodes_dn.yml` lets you add a certificate's [distinguished name (DN)]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/#add-distinguished-names-to-opensearchyml) to an allow list to enable communication between any number of nodes or clusters. For example, a node that has the DN `CN=node1.example.com` in its allow list accepts communication from any other node or certificate that uses that DN.
 
-The DNs get indexed into a [system index]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/) that only a super admin or an admin with a Transport Layer Security (TLS) certificate can access. If you want to programmatically add DNs to your allow lists, use the [REST API]({{site.url}}{{site.baseurl}}/security/access-control/api/#distinguished-names).
+The DNs get indexed into a [system index]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/) that only a super admin or an admin with a Transport Layer Security (TLS) certificate can access. If you want to programmatically add DNs to your allow lists, use the [REST API]({{site.url}}{{site.baseurl}}/security/api/distinguished-names/).
+
+The Security plugin uses the DNs in `nodes_dn.yml` to identify nodes only if you set `plugins.security.nodes_dn_dynamic_config_enabled` to `true` in `opensearch.yml`. By default, this setting is `false`.
 
 ```yml
 ---
@@ -187,6 +192,10 @@ _meta:
 ```
 
 ## roles_mapping.yml
+
+This file maps roles to users, backend roles, and hosts. A user receives a role if the user matches the role mapping. Backend roles typically come from an external authentication backend, such as LDAP, or from the `backend_roles` field of an internal user. Users from an external authentication backend receive roles through role mappings. For internal users, you can also assign roles directly by using the `opendistro_security_roles` field in `internal_users.yml`. For more information, see [Mapping users to roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#mapping-users-to-roles).
+
+You can find this file in `<OPENSEARCH_HOME>/config/opensearch-security/roles_mapping.yml`. The following example shows a `roles_mapping.yml` file:
 
 ```yml
 ---
@@ -265,7 +274,7 @@ kibana_server:
 
 ## roles.yml
 
-This file contains any initial roles that you want to add to the Security plugin. By default, this file contains predefined roles that grant usage to plugins within the default distribution of OpenSearch. The Security plugin will also add a number static roles automatically.
+This file contains any initial roles that you want to add to the Security plugin. By default, this file contains predefined roles that grant usage to plugins within the default distribution of OpenSearch. The Security plugin also adds a number of static roles automatically.
 
 ```yml
 ---
@@ -301,7 +310,7 @@ _meta:
 
 You can use this file to specify and add any number of OpenSearch Dashboards tenants to your OpenSearch cluster. For more information about tenants, see [OpenSearch Dashboards multi-tenancy]({{site.url}}{{site.baseurl}}/security/multi-tenancy/tenant-index/).
 
-Like all of the other YAML files, we recommend you use `tenants.yml` to add any tenants you must have in your cluster, and then use OpenSearch Dashboards or the [REST API]({{site.url}}{{site.baseurl}}/security/access-control/api/#tenants) if you need to further configure or create any other tenants.
+Like all of the other YAML files, we recommend you use `tenants.yml` to add any tenants you must have in your cluster, and then use OpenSearch Dashboards or the [REST API]({{site.url}}{{site.baseurl}}/security/api/tenants/) if you need to further configure or create any other tenants.
 
 ```yml
 ---
@@ -315,7 +324,9 @@ admin_tenant:
 
 ## opensearch.yml
 
-In addition to many OpenSearch settings, the `opensearch.yml` file contains paths to TLS certificates and their attributes, such as distinguished names and trusted certificate authorities. You can find this file in  `<OPENSEARCH_HOME>/config/`.
+In addition to many OpenSearch settings, the `opensearch.yml` file contains paths to TLS certificates and their attributes, such as distinguished names and trusted certificate authorities. You can find this file in `<OPENSEARCH_HOME>/config/`.
+
+The following example contains Security plugin settings similar to those that the demo configuration adds. These settings use the demo certificates, so revise them before you use them in production:
 
 ```yml
 plugins.security.ssl.transport.pemcert_filepath: esnode.pem
@@ -329,7 +340,7 @@ plugins.security.ssl.http.pemtrustedcas_filepath: root-ca.pem
 plugins.security.allow_unsafe_democertificates: true
 plugins.security.allow_default_init_securityindex: true
 plugins.security.authcz.admin_dn:
-  - CN=kirk,OU=client,O=client,L=test, C=de
+  - CN=kirk,OU=client,O=client,L=test,C=de
 
 plugins.security.audit.type: internal_opensearch
 plugins.security.enable_snapshot_restore_privilege: true
@@ -337,7 +348,6 @@ plugins.security.check_snapshot_restore_write_privileges: true
 plugins.security.cache.ttl_minutes: 60
 plugins.security.restapi.roles_enabled: ["all_access", "security_rest_api_access"]
 plugins.security.system_indices.enabled: true
-plugins.security.system_indices.indices: [".opendistro-alerting-config", ".opendistro-alerting-alert*", ".opendistro-anomaly-results*", ".opendistro-anomaly-detector*", ".opendistro-anomaly-checkpoints", ".opendistro-anomaly-detection-state", ".opendistro-reports-*", ".opendistro-notifications-*", ".opendistro-notebooks", ".opendistro-asynchronous-search-response*"]
 node.max_local_storage_nodes: 3
 ```
 
@@ -346,7 +356,7 @@ For a full list of `opensearch.yml` Security plugin settings, see [Security sett
 
 ### Refining your configuration
 
-The `plugins.security.allow_default_init_securityindex` setting, when set to `true`, sets the Security plugin to its default security settings if an attempt to create the security index fails when OpenSearch launches. Default security settings are stored in YAML files contained in the `opensearch-project/security/config` directory. By default, this setting is `false`.
+When the `plugins.security.allow_default_init_securityindex` setting is `true` and the security index does not exist when OpenSearch starts, the Security plugin creates the index and loads the YAML files from the `config/opensearch-security` directory into it. When the setting is `false`, you must initialize the security index by running [`securityadmin.sh`]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/). By default, this setting is `false`.
 
 ```yml
 plugins.security.allow_default_init_securityindex: true
@@ -377,26 +387,26 @@ To learn more about system index permissions, see [System index permissions]({{s
 
 If you want to run your users' passwords against some validation, specify a regular expression (regex) in this file. You can also include an error message that loads when passwords don't pass validation. The following example demonstrates how to include a regex so OpenSearch requires new passwords to be a minimum of eight characters with at least one uppercase, one lowercase, one digit, and one special character.
 
-Note that OpenSearch validates only users and passwords created through OpenSearch Dashboards or the REST API.
+Note that OpenSearch validates only users and passwords created through OpenSearch Dashboards or the REST API. The initial admin password that the demo configuration installer requires is validated against a separate, fixed set of rules. For more information, see [Admin password requirements]({{site.url}}{{site.baseurl}}/security/configuration/demo-configuration/#admin-password-requirements) and [Managing passwords]({{site.url}}{{site.baseurl}}/security/configuration/passwords/).
 
 ```yml
 plugins.security.restapi.password_validation_regex: '(?=.*[A-Z])(?=.*[^a-zA-Z\d])(?=.*[0-9])(?=.*[a-z]).{8,}'
 plugins.security.restapi.password_validation_error_message: "Password must be minimum 8 characters long and must contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
 ```
 
-In addition, a score-based password strength estimator allows you to set a threshold for password strength when creating a new internal user or updating a user's password. This feature makes use of the [`zxcvbn` library](https://github.com/dropbox/zxcvbn) to apply a policy that emphasizes a password's complexity rather than its capacity to meet traditional criteria such as uppercase keys, numerals, and special characters.
+In addition, a score-based password strength estimator checks password strength when you create a new internal user or update a user's password. By default, a password must receive a `strong` rating. This feature makes use of the [`zxcvbn` library](https://github.com/dropbox/zxcvbn) to apply a policy that emphasizes a password's complexity rather than its capacity to meet traditional criteria such as uppercase keys, numerals, and special characters.
 
 For information about defining users, see [Defining users]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#defining-users).
 
 This feature is not compatible with users specified as reserved. For information about reserved resources, see [Reserved and hidden resources]({{site.url}}{{site.baseurl}}/security/access-control/api#reserved-and-hidden-resources).
 {: .important }
 
-Score-based password strength requires two settings to configure the feature. The following table describes the two settings.
+The following table describes the settings for password length and score-based password strength.
 
 | Setting | Description |
 | :--- | :--- |
-| `plugins.security.restapi.password_min_length` | Sets the minimum number of characters for the password length. The default is `8`. This is also the minimum. |
-| `plugins.security.restapi.password_score_based_validation_strength` | Sets a threshold to determine whether the password is strong or weak. There are four values that represent a threshold's increasing complexity.<br>`fair`--A very "guessable" password: provides protection from throttled online attacks.<br>`good`--A somewhat guessable password: provides protection from unthrottled online attacks.<br>`strong`--A safely "unguessable" password: provides moderate protection from an offline, slow-hash scenario.<br>`very_strong`--A very unguessable password: provides strong protection from an offline, slow-hash scenario. |
+| `plugins.security.restapi.password_min_length` | Sets the minimum number of characters for the password length. By default, no minimum length is enforced. |
+| `plugins.security.restapi.password_score_based_validation_strength` | Sets a threshold to determine whether the password is strong or weak. There are four values that represent a threshold's increasing complexity.<br>`fair`--A very "guessable" password: provides protection from throttled online attacks.<br>`good`--A somewhat guessable password: provides protection from unthrottled online attacks.<br>`strong`--A safely "unguessable" password: provides moderate protection from an offline, slow-hash scenario.<br>`very_strong`--A very unguessable password: provides strong protection from an offline, slow-hash scenario.<br>Default is `strong`. |
 
 The following example shows the settings configured for the `opensearch.yml` file and enabling a password with a minimum of 10 characters and a threshold requiring the highest strength:
 
@@ -407,7 +417,7 @@ plugins.security.restapi.password_score_based_validation_strength: very_strong
 
 When you try to create a user with a password that doesn't reach the specified threshold, the system generates a "weak password" warning, indicating that the password needs to be modified before you can save the user.
 
-The following example shows the response from the [Create user]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-user) API when the password is weak:
+The following example shows the response from the [Create user]({{site.url}}{{site.baseurl}}/security/api/users/create-user/) API when the password is weak:
 
 ```json
 {

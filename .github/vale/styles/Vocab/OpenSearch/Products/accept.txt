@@ -26,6 +26,8 @@ Apache HttpClient 5 Transport
 Apache Hive
 Apache Kafka
 Apache Spark
+Application Default Credentials
+Azure
 arXiv
 Aryn
 Auditbeat
@@ -42,6 +44,7 @@ Capture and Replay
 Chebyshev
 Claude Code
 Claude Desktop
+Cloud Storage
 Cognito
 Confluence
 Cohere Command
@@ -68,6 +71,7 @@ Dockerfile
 DoS
 Ehcache
 Elasticsearch
+Entra
 Eszett
 Faiss
 Filebeat
@@ -77,6 +81,8 @@ Fluent Bit
 Fluentd
 GeoJSON
 GitHub
+Google Cloud
+Google Kubernetes Engine
 Google Normalized Distance
 Google Workspace
 Gradle
@@ -139,7 +145,7 @@ Mustache
 Nagle
 Nagios
 NVMe
-OAuth2
+OAuth
 Okta
 Ollama
 Oniguruma
@@ -170,6 +176,8 @@ Performance Analyzer
 Piped Processing Language
 Point in Time
 Powershell
+Private Google Access
+Private Service Connect
 Prometheus
 Python
 PyTorch
@@ -202,12 +210,14 @@ Strimzi
 SVMRank
 Sycamore
 Tableau
+Terraform
 Textract
 Tika
 Titan
 Titan Multimodal Embeddings
 Titan Text Embeddings
 TorchScript
+Traceloop
 Traffic Capture Proxy
 Traffic Replayer
 Tribuo
@@ -221,6 +231,7 @@ Wikitravel
 Wiktionary
 Winlogbeat
 Workflow CLI
+Workload Identity Federation for GKE
 XGBoost
 Yandex
 Zipf

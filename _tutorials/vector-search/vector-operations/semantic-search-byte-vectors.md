@@ -255,7 +255,7 @@ Register the model, providing its connector ID:
 ```json
 POST /_plugins/_ml/models/_register?deploy=true
 {
-    "name": "Cohere embedding model for INT8 with search_document input type",
+    "name": "Cohere embedding model for INT8 with search_query input type",
     "function_name": "remote",
     "description": "test model",
     "connector_id": "your_connector_id"
@@ -316,3 +316,10 @@ The response contains the query results:
   }
 }
 ```
+
+## Related documentation
+
+- [Semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/semantic-search/)
+- [Memory-optimized vectors]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/knn-memory-optimized/)
+- [Text embedding processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-embedding/)
+- [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/)

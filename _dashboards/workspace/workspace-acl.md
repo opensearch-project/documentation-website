@@ -86,7 +86,7 @@ Access to collaborator management is limited to admins. The **Collaborators** fe
 
 #### Permission modes
 
-When you assign collaborators through the UI, access levels are applied automatically. When you assign collaborators through the [Workspaces APIs]({{site.url}}{{site.baseurl}}/dashboards/workspace/apis/), each access level corresponds to a specific combination of permission modes. The following table describes the available permission modes.
+When you assign collaborators through the UI, access levels are applied automatically. When you assign collaborators through the [Workspace APIs]({{site.url}}{{site.baseurl}}/dashboards/workspace/apis/), each access level corresponds to a specific combination of permission modes. The following table describes the available permission modes.
 
 | Permission mode | Target | Description |
 | :--- | :--- | :--- |

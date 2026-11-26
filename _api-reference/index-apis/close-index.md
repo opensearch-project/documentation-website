@@ -14,6 +14,13 @@ redirect_from:
 
 The close index API operation closes an index. Once an index is closed, you cannot add data to it or search for any data within the index.
 
+OpenSearch blocks all read and write operations on a closed index. Requests that search or index documents in a closed index fail. Because a closed index does not serve requests, OpenSearch does not maintain the in-memory structures used for indexing and searching, which reduces the index's overhead on the cluster. To make the index available again, use the [Open Index API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/open-index/).
+
+When you close or open an index, the cluster manager restarts the index's shards, which then go through the normal recovery process. OpenSearch continues to replicate the data of closed indexes so that enough shard copies remain available.
+
+Closed indexes still occupy disk space. Closing an index does not free disk space. To reclaim space, delete indexes that you no longer need. To prevent users from closing indexes, set the `cluster.indices.close.enable` cluster setting to `false`. OpenSearch then rejects all requests to close an index. For more information, see [Cluster settings for indexes]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/cluster-settings-for-indexes/).
+{: .warning}
+
 
 ## Endpoints
 
@@ -25,7 +32,7 @@ POST /{index}/_close
 
 Parameter | Type | Description
 :--- | :--- | :---
-&lt;index&gt; | String | The index to close. Can be a comma-separated list of multiple index names. Use `_all` or * to close all indexes.
+`index` | String | The index to close. Can be a comma-separated list of multiple index names. Use `_all` or `*` to close all indexes. To prevent closing indexes using `_all` or wildcard expressions, set the `action.destructive_requires_name` cluster setting to `true`.
 
 ## Query parameters
 

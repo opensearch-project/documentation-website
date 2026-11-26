@@ -2,7 +2,7 @@
 layout: default
 title: List MCP tools 
 parent: MCP server APIs
-grand_parent: ML Commons APIs
+grand_parent: ML APIs
 nav_order: 30
 ---
 
@@ -65,3 +65,7 @@ OpenSearch responds with the MCP tool list:
     ]
 }
 ```
+
+## Required permissions
+
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:admin/opensearch/ml/mcp_tools/list`.

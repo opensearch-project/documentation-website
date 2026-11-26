@@ -63,7 +63,7 @@ split-event-pipeline:
     - split_event:
         field: body
         delimiter: "\n"
-        split_when: 'contains(/body, "\n")'
+        split_when: "contains(/body, \"\n\")"
   sink:
     - stdout:
 ```

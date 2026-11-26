@@ -99,9 +99,6 @@ POST /_plugins/_ml/agents/_register
   "name": "Test_Agent_For_PPL",
   "type": "flow",
   "description": "this is a test agent",
-  "memory": {
-    "type": "demo"
-  },
   "tools": [
     {
       "type": "PPLTool",
@@ -187,7 +184,7 @@ The following table lists all tool parameters that are available when registerin
 Parameter	| Type | Required/Optional | Description	
 :--- | :--- | :--- | :---
 `model_id` | String | Required | The model ID of the large language model (LLM) to use for translating text into a PPL query.
-`model_type` | String | Optional | The model type. Valid values are `CLAUDE` (Anthropic Claude model), `OPENAI` (OpenAI models), and `FINETUNE` (custom fine-tuned model). 
+`model_type` | String | Optional | The model type. Valid values are `CLAUDE` (Anthropic Claude model), `OPENAI` (OpenAI models), and `FINETUNE` (custom fine-tuned model). Default is `CLAUDE`.
 `prompt` | String | Optional | The prompt to provide to the LLM.
 `execute` | Boolean | Optional | Specifies whether to run the PPL query. Default is `true`.
 `input` | Object | Optional | Contains two parameters that specify the index to search and the question for the LLM. For example, `"input": "{\"index\": \"${parameters.index}\", \"question\": ${parameters.question} }"`.

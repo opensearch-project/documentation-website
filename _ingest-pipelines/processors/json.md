@@ -7,24 +7,22 @@ nav_order: 170
 
 # JSON processor
 
-The `json` processor serializes a string value field into a map of maps, which can be useful for various data processing and enrichment tasks.
+The `json` processor parses a JSON-formatted string into structured data, which can be useful for various data processing and enrichment tasks. The processor parses all JSON data types: objects, arrays, strings, numbers, Booleans, and `null`. For example, the string `"[1,2,3]"` is parsed into an array, and the string `"42"` is parsed into a number.
 
 The following is the syntax for the `json` processor:
 
 ```json
 {
-  "processor": {
-    "json": {
-      "field": "<field_name>",
-      "target_field": "<target_field_name>",
-      "add_to_root": <boolean>
-    }
+  "json": {
+    "field": "<field_name>",
+    "target_field": "<target_field_name>",
+    "add_to_root": <boolean>
   }
 }
 ```
 {% include copy.html %}
 
-## Configuration parameters
+## Parameters
 
 The following table lists the required and optional parameters for the `json` processor.
 
@@ -32,12 +30,12 @@ Parameter | Required/Optional | Description |
 |-----------|-----------|-----------|
 `field` | Required | The name of the field containing the JSON-formatted string to be deserialized.
 `target_field` | Optional | The name of the field in which the deserialized JSON data is stored. When not provided, the data is stored in the `field` field. If `target_field` exists, its existing value is overwritten with the new JSON data.
-`add_to_root` | Optional | A Boolean flag that determines whether the deserialized JSON data should be added to the root of the document (`true`) or stored in the target_field (`false`). If `add_to_root` is `true`, then `target-field` is invalid. Default value is `false`. 
+`add_to_root` | Optional | A Boolean flag that determines whether the deserialized JSON data should be added to the root of the document (`true`) or stored in the target_field (`false`). If `add_to_root` is `true`, then `target_field` is invalid. Parsed fields overwrite root fields with the same names. The processor fails if `add_to_root` is `true` and the parsed value isn't a JSON object. Default value is `false`. 
 `description` | Optional | A description of the processor's purpose or configuration.
 `if` | Optional | Specifies to conditionally execute the processor.
 `ignore_failure` | Optional | Specifies to ignore processor failures. See [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
 `on_failure`| Optional | Specifies a list of processors to run if the processor fails during execution. These processors are executed in the order they are specified. 
-`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type.
+`tag` | Optional | An identifier tag for the processor. Useful for debugging in order to distinguish between processors of the same type. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging).
 
 ## Using the processor
 
@@ -55,7 +53,7 @@ PUT _ingest/pipeline/my-json-pipeline
     {
       "json": {
         "field": "raw_data",
-        "target_field": "parsed_data"
+        "target_field": "parsed_data",
         "on_failure": [
           {
             "set": {
@@ -74,7 +72,7 @@ PUT _ingest/pipeline/my-json-pipeline
     {
       "set": {
         "field": "processed_timestamp",
-        "value": "{{_ingest.timestamp}}"
+        "value": "{% raw %}{{_ingest.timestamp}}{% endraw %}"
       }
     }
   ]
@@ -108,8 +106,6 @@ POST _ingest/pipeline/my-json-pipeline/_simulate
 ```
 {% include copy-curl.html %}
 
-#### Response
-
 The following example response confirms that the pipeline is working as expected:
 
 ```json
@@ -121,7 +117,7 @@ The following example response confirms that the pipeline is working as expected
         "_id": "_id",
         "_source": {
           "processed_timestamp": "2024-05-30T15:24:48.064472090Z",
-          "raw_data": """{"name":"John","age":30,"city":"New York"}""",
+          "raw_data": "{\"name\":\"John\",\"age\":30,\"city\":\"New York\"}",
           "parsed_data": {
             "name": "John",
             "city": "New York",
@@ -139,7 +135,7 @@ The following example response confirms that the pipeline is working as expected
         "_id": "_id",
         "_source": {
           "processed_timestamp": "2024-05-30T15:24:48.064543006Z",
-          "raw_data": """{"name":"Jane","age":25,"city":"Los Angeles"}""",
+          "raw_data": "{\"name\":\"Jane\",\"age\":25,\"city\":\"Los Angeles\"}",
           "parsed_data": {
             "name": "Jane",
             "city": "Los Angeles",
@@ -154,28 +150,25 @@ The following example response confirms that the pipeline is working as expected
   ]
 }
 ```
-{% include copy-curl.html %}
 
-### Step 3: Ingest a document 
+### Step 3: Ingest a document
 
 The following query ingests a document into an index named `my-index`:
 
 ```json
-POST my-index/_doc?pipeline=my-json-pipeline
+PUT my-index/_doc/1?pipeline=my-json-pipeline
 {
   "raw_data": "{\"name\":\"John\",\"age\":30,\"city\":\"New York\"}"
 }
 ```
 {% include copy-curl.html %}
 
-#### Response
-
 The response confirms that the document containing the JSON data from the `raw_data` field was successfully indexed:
 
 ```json
 {
   "_index": "my-index",
-  "_id": "mo8yyo8BwFahnwl9WpxG",
+  "_id": "1",
   "_version": 1,
   "result": "created",
   "_shards": {
@@ -187,7 +180,6 @@ The response confirms that the document containing the JSON data from the `raw_d
   "_primary_term": 2
 }
 ```
-{% include copy-curl.html %}
 
 ### Step 4 (Optional): Retrieve the document
 
@@ -197,3 +189,5 @@ To retrieve the document, run the following query:
 GET my-index/_doc/1
 ```
 {% include copy-curl.html %}
+
+The response contains the ingested document, transformed as shown in the response in Step 2.

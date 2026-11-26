@@ -198,3 +198,4 @@ POST /book-index/_search?search_pipeline=rerank_byfield_pipeline
 - See a complete example of [reranking using a cross-encoder model]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-cross-encoder/).
 - See a complete example of [reranking by a document field]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field/).
 - See a comprehensive example of [reranking by a field using an externally hosted cross-encoder model]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance/rerank-by-field-cross-encoder/).
+- For tutorials that rerank results using models hosted on Amazon Bedrock, Amazon SageMaker, and Cohere, see [Reranking search results tutorials]({{site.url}}{{site.baseurl}}/tutorials/reranking/).

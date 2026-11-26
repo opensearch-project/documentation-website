@@ -19,7 +19,9 @@ GET /_nodes/ingest?filter_path=nodes.*.ingest.processors
 ```
 {% include copy-curl.html %}
 
-To set up and deploy ingest processors, make sure you have the necessary permissions and access rights. See [Security plugin REST API]({{site.url}}{{site.baseurl}}/security/access-control/api/) to learn more.
+Every processor in a pipeline must be installed on all nodes in the cluster. If a processor is missing from any node, the Create or Update Pipeline API request fails. If you use processors provided by a plugin, list the plugin in the [`plugin.mandatory`]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/plugin-settings/) setting so that a node without the plugin doesn't start.
+
+To set up and deploy ingest processors, make sure you have the necessary permissions and access rights. For more information, see [API permissions]({{site.url}}{{site.baseurl}}/security/access-control/api/).
 {:.note}
 
 ## Supported processors
@@ -41,8 +43,7 @@ Processor type | Description
 `drop` |Drops a document without indexing it or raising any errors.
 `fail` | Raises an exception and stops the execution of a pipeline. 
 `fingerprint` | Generates a hash value for either certain specified fields or all fields in a document. 
-`foreach` | Allows for another processor to be applied to each element of an array or an object field in a document.
-`geoip` | Adds information about the geographical location of an IP address.
+`foreach` | Applies another processor to each element of an array field in a document.
 `geojson-feature` | Indexes GeoJSON data into a geospatial field.
 `grok` | Parses and structures unstructured data using pattern matching. 
 `gsub` | Replaces or deletes substrings within a string field of a document. 
@@ -52,6 +53,7 @@ Processor type | Description
 `json` | Converts a JSON string into a structured JSON object. 
 `kv` | Automatically parses key-value pairs in a field.
 `lowercase` | Converts text in a specific field to lowercase letters.
+`ml_inference` | Runs a machine learning model registered in OpenSearch and adds the model outputs to the document.
 `pipeline` | Runs an inner pipeline.
 `remove` | Removes fields from a document.
 `remove_by_pattern` | Removes fields from a document by field pattern.
@@ -63,11 +65,45 @@ Processor type | Description
 `split` | Splits a field into an array using a separator character.
 `text_chunking` | Splits long documents into smaller chunks.
 `text_embedding` | Generates vector embeddings from text fields for semantic search.
-`text_image_embedding` | Generates combined vector embeddings from text and image fields for multimodal neural search.
+`text_image_embedding` | Generates combined vector embeddings from text and image fields for multimodal search.
 `trim` | Removes leading and trailing white space from a string field.
 `uppercase` | Converts text in a specific field to uppercase letters.
 `urldecode` | Decodes a string from URL-encoded format.
 `user_agent` | Extracts details from the user agent sent by a browser to its web requests. 
+
+## Common processor parameters
+
+Each processor has its own parameters. Additionally, all processors support the following optional parameters.
+
+Parameter | Type | Description
+:--- | :--- | :---
+`description` | String | A description of the processor.
+`if` | String or object | A Painless script condition, specified either as a string or as a script object containing `source`, `lang`, and `params`. The processor runs only if the condition evaluates to `true`. For more information, see [Conditional execution]({{site.url}}{{site.baseurl}}/ingest-pipelines/conditional-execution/).
+`ignore_failure` | Boolean | If `true`, the pipeline continues to run if the processor fails. Default is `false`. For more information, see [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
+`on_failure` | Array of processor objects | Processors to run if the processor fails. For more information, see [Handling pipeline failures]({{site.url}}{{site.baseurl}}/ingest-pipelines/pipeline-failures/).
+`tag` | String | An identifier for the processor. The tag appears in error metadata and in ingest statistics returned by the [Nodes Stats API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats/), which helps you identify a specific processor in a pipeline. For more information, see [Using processor tags for monitoring and debugging]({{site.url}}{{site.baseurl}}/ingest-pipelines/create-ingest/#using-processor-tags-for-monitoring-and-debugging).
+
+The following `lowercase` processor normalizes the `coupon_code` field. It runs only for documents in which the coupon code is longer than four characters, and if it fails, it records the error message in the `coupon_error` field so that the pipeline continues:
+
+```json
+{
+  "lowercase": {
+    "description": "Normalizes coupon codes",
+    "tag": "normalize-coupon",
+    "if": "ctx.coupon_code instanceof String && ctx.coupon_code.length() > 4",
+    "field": "coupon_code",
+    "on_failure": [
+      {
+        "set": {
+          "field": "coupon_error",
+          "value": "{% raw %}{{ _ingest.on_failure_message }}{% endraw %}"
+        }
+      }
+    ]
+  }
+}
+```
+{% include copy.html %}
 
 ## Processor limit settings
 
@@ -77,8 +113,8 @@ The default value for `cluster.ingest.max_number_processors` is `Integer.MAX_VAL
 
 ## Batch-enabled processors
 
-Some processors support batch ingestion---they can process multiple documents at the same time as a batch. These batch-enabled processors usually provide better performance when using batch processing. For batch processing, use the [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) and provide a `batch_size` parameter. All batch-enabled processors have a batch mode and a single-document mode. When you ingest documents using the `PUT` method, the processor functions in single-document mode and processes documents in series. Currently, only the `text_embedding` and `sparse_encoding` processors are batch enabled. All other processors process documents one at a time.
+Some processors support batch ingestion---they can process multiple documents at the same time as a batch. These batch-enabled processors usually provide better performance when using batch processing. For batch processing, use the [Bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) and provide a `batch_size` parameter. All batch-enabled processors have a batch mode and a single-document mode. When you ingest documents using the `PUT` method, the processor functions in single-document mode and processes documents in series. Only the `text_embedding` and `sparse_encoding` processors are batch enabled. All other processors process documents one at a time.
 
 ## Selectively enabling processors
 
-Processors defined by the [ingest-common module](https://github.com/opensearch-project/OpenSearch/blob/2.x/modules/ingest-common/src/main/java/org/opensearch/ingest/common/IngestCommonPlugin.java) can be selectively enabled by providing the `ingest-common.processors.allowed` cluster setting. If not provided, then all processors are enabled by default. Specifying an empty list disables all processors. If the setting is changed to remove previously enabled processors, then any pipeline using a disabled processor will fail after node restart when the new setting takes effect.
+Processors defined by the [ingest-common module](https://github.com/opensearch-project/OpenSearch/blob/main/modules/ingest-common/src/main/java/org/opensearch/ingest/common/IngestCommonModulePlugin.java) can be selectively enabled by providing the `ingest.common.processors.allowed` static setting in `opensearch.yml`. If not provided, then all processors are enabled by default. Specifying an empty list disables all processors. If the setting is changed to remove previously enabled processors, then any pipeline using a disabled processor will fail after node restart when the new setting takes effect.

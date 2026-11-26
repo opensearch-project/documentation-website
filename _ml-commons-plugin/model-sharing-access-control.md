@@ -8,9 +8,6 @@ nav_order: 30
 
 # Model access control through resource sharing
 
-This is an experimental feature and is not recommended for use in a production environment. For updates on the progress of the feature or if you want to leave feedback, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/).
-{: .warning}
-
 In ML Commons, access to models is controlled through [model groups]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/#model-groups)---collections of versions of a particular model that share the same access permissions. ML Commons integrates with the Security plugin's resource sharing and access control framework to provide document-level authorization for these model group resources.
 
 This resource sharing approach is the new method for controlling model group access and provides more flexible sharing capabilities than the [original model access control system]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-access-control/). Resource owners can grant specific access levels to users, roles, or backend roles for individual model groups.
@@ -42,9 +39,9 @@ Admin-only: These settings can be configured only by cluster administrators with
 Add the following settings to your `opensearch.yml` configuration file to enable resource sharing for ML model groups:
 
 ```yaml
-plugins.security.experimental.resource_sharing.enabled: true
+plugins.security.resource_sharing.enabled: true
 plugins.security.system_indices.enabled: true
-plugins.security.experimental.resource_sharing.protected_types:
+plugins.security.resource_sharing.protected_types:
   - "ml-model-group"
 ```
 {% include copy.html %}
@@ -57,8 +54,8 @@ Alternatively, you can enable resource sharing dynamically using the Cluster Set
 PUT _cluster/settings
 {
   "transient": {
-    "plugins.security.experimental.resource_sharing.enabled": true,
-    "plugins.security.experimental.resource_sharing.protected_types": ["ml-model-group"]
+    "plugins.security.resource_sharing.enabled": true,
+    "plugins.security.resource_sharing.protected_types": ["ml-model-group"]
   }
 }
 ```

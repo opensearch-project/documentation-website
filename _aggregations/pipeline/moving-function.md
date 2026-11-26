@@ -307,7 +307,7 @@ The response shows the standard deviation of the moving window starting with a z
 
 ## Custom scripts
 
-You can supply an arbitrary custom script to calculate `moving_fn` results. Custom scripts use the Painless scripting language.
+You can supply an arbitrary custom script to calculate `moving_fn` results. Custom scripts use the Painless scripting language. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/).
 
 ### Example: Custom scripts
 

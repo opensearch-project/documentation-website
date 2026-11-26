@@ -2,7 +2,7 @@
 layout: default
 title: Generating self-signed certificates
 parent: Configuration
-nav_order: 20
+nav_order: 30
 redirect_from:
   - /security-plugin/configuration/generate-certificates/
 ---
@@ -47,7 +47,7 @@ Next, use the private key to generate a self-signed certificate for the root CA.
 openssl req -new -x509 -sha256 -key root-ca-key.pem -out root-ca.pem -days 730 \
   -addext 'basicConstraints = critical, CA:TRUE, pathlen:0' \
   -addext 'keyUsage = critical, keyCertSign, cRLSign' \
-  -addext 'authorityKeyIdentifier = keyid'
+  -addext 'subjectKeyIdentifier = hash'
 ```
 
 The default `-days` value of 30 is only useful for testing purposes. This sample command specifies 730 (two years) for the certificate expiration date, but use whatever value makes sense for your organization.
@@ -57,7 +57,7 @@ The default `-days` value of 30 is only useful for testing purposes. This sample
 - The `-addext` options add X.509 v3 extensions to the certificate:
   - `basicConstraints = critical, CA:TRUE, pathlen:0` marks this as a CA certificate that can sign certificates but cannot sign subordinate CAs (only end-entity certificates).
   - `keyUsage = critical, keyCertSign, cRLSign` allows the CA to sign certificates and certificate revocation lists.
-  - `authorityKeyIdentifier = keyid` helps identify the CA public key, which is useful for certificate chain validation.
+  - `subjectKeyIdentifier = hash` adds an identifier for the CA public key. Certificates signed by this CA can reference this identifier in their Authority Key Identifier extension, which helps clients build the certificate chain.
 
 These extensions ensure compliance with X.509 v3 standards and help prevent low-level SSL errors in Java applications. For more information about certificate extensions, see the [OpenSSL x509v3_config documentation](https://docs.openssl.org/master/man5/x509v3_config/).
 {: .note}
@@ -73,7 +73,7 @@ To generate an admin certificate, first create a new key:
 openssl genrsa -out admin-key-temp.pem 2048
 ```
 
-Then convert that key to PKCS#8 format for use in Java using a PKCS#12-compatible algorithm (3DES):
+Then convert that key to PKCS#8 format for use in Java:
 
 ```bash
 openssl pkcs8 -inform PEM -outform PEM -in admin-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out admin-key.pem
@@ -110,7 +110,7 @@ To generate a node or client certificate, first create a new key:
 openssl genrsa -out node1-key-temp.pem 2048
 ```
 
-Then convert that key to PKCS#8 format for use in Java using a PKCS#12-compatible algorithm (3DES):
+Then convert that key to PKCS#8 format for use in Java:
 
 ```bash
 openssl pkcs8 -inform PEM -outform PEM -in node1-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out node1-key.pem
@@ -148,7 +148,7 @@ openssl x509 -req -in node1.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreate
 
 ## Sample script to generate self-signed PEM certificates
 
-If you already know the certificate details and don't want to specify them interactively, use the `-subj` option in your `root-ca.pem` and CSR commands. This script creates a root certificate, admin certificate, two node certificates, and a client certificate, all with an expiration dates of two years (730 days):
+If you already know the certificate details and don't want to specify them interactively, use the `-subj` option in your `root-ca.pem` and CSR commands. This script creates a root certificate, admin certificate, two node certificates, and a client certificate, all with an expiration date of two years (730 days):
 
 ```bash
 #!/bin/sh
@@ -157,7 +157,7 @@ openssl genrsa -out root-ca-key.pem 2048
 openssl req -new -x509 -sha256 -key root-ca-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=root.dns.a-record" -out root-ca.pem -days 730 \
   -addext 'basicConstraints = critical, CA:TRUE, pathlen:0' \
   -addext 'keyUsage = critical, keyCertSign, cRLSign' \
-  -addext 'authorityKeyIdentifier = keyid'
+  -addext 'subjectKeyIdentifier = hash'
 # Admin cert
 openssl genrsa -out admin-key-temp.pem 2048
 openssl pkcs8 -inform PEM -outform PEM -in admin-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out admin-key.pem
@@ -217,7 +217,7 @@ echo "Enter password for keystore.jks"
 keytool -importkeystore -srckeystore admin-cert.p12 -srcstoretype pkcs12 -destkeystore keystore.jks
 
 # Import certificates to truststore
-keytool -importcert -keystore truststore.jks -file root-ca.cer -storepass changeit -trustcacerts -deststoretype pkcs12
+keytool -importcert -keystore truststore.jks -file root-ca.pem -storepass changeit -trustcacerts -deststoretype pkcs12
 
 # Cleanup
 rm combined-admin.pem
@@ -239,16 +239,22 @@ plugins.security.nodes_dn:
 But if you look at the `subject` of the certificate after creating it, you might see different formatting:
 
 ```
-subject=/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=node1.dns.a-record
+subject=C=CA, ST=ONTARIO, L=TORONTO, O=ORG, OU=UNIT, CN=node1.dns.a-record
 ```
 
-If you compare this string to the preceding ones, you can see that you need to invert the order of elements and use commas rather than slashes. Enter this command to get the correct string:
+If you compare this string to the preceding ones, you can see that you need to invert the order of elements and remove the spaces. Enter this command to get the correct string:
 
 ```bash
-openssl x509 -subject -nameopt RFC2253 -noout -in node.pem
+openssl x509 -subject -nameopt RFC2253 -noout -in node1.pem
 ```
 
-Then copy and paste the output into `opensearch.yml`.
+The command returns the following output:
+
+```
+subject=CN=node1.dns.a-record,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA
+```
+
+Then copy and paste the output, without the `subject=` prefix, into `opensearch.yml`.
 
 
 ## Add certificate files to opensearch.yml
@@ -269,7 +275,7 @@ On one node, the security configuration portion of `opensearch.yml` might look l
 plugins.security.ssl.transport.pemcert_filepath: node1.pem
 plugins.security.ssl.transport.pemkey_filepath: node1-key.pem
 plugins.security.ssl.transport.pemtrustedcas_filepath: root-ca.pem
-plugins.security.ssl.transport.enforce_hostname_verification: false
+transport.ssl.enforce_hostname_verification: false
 plugins.security.ssl.http.enabled: true
 plugins.security.ssl.http.pemcert_filepath: node1.pem
 plugins.security.ssl.http.pemkey_filepath: node1-key.pem
@@ -281,7 +287,7 @@ plugins.security.nodes_dn:
   - 'CN=node2.dns.a-record,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'
 ```
 
-For more information about adding and using these certificates in your own setup, see [Configuring basic security settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#configuring-basic-security-settings) for Docker, [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/), and [Client certificate authentication]({{site.url}}{{site.baseurl}}/security/configuration/client-auth/).
+For more information about adding and using these certificates in your own setup, see [Configuring basic security settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#configuring-basic-security-settings) for Docker, [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/), and [Client certificate authentication]({{site.url}}{{site.baseurl}}/security/authentication-backends/client-auth/).
 
 ## OpenSearch Dashboards
 

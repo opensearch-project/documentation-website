@@ -6,10 +6,10 @@ latesturl: "/latest" # The subpath of the latest version. Used for non-version-s
 url: "https://docs.opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
-opensearch_version: '3.8.0'
-opensearch_dashboards_version: '3.8.0'
-opensearch_major_minor_version: '3.8'
-lucene_version: '10_5_0'
+opensearch_version: '3.10.1'
+opensearch_dashboards_version: '3.10.1'
+opensearch_major_minor_version: '3.10'
+lucene_version: '10_5_2'  # TODO: OpenSearch 3.10 uses Lucene 10.6.0; restore '10_6_0' once Lucene publishes the full 10.6.0 javadocs
 
 # Build settings
 markdown: kramdown
@@ -56,13 +56,7 @@ collections:
   ml-commons-plugin:
     permalink: /:collection/:path/
     output: true
-  monitoring-your-cluster:
-    permalink: /:collection/:path/
-    output: true
   observing-your-data:
-    permalink: /:collection/:path/
-    output: true
-  reporting:
     permalink: /:collection/:path/
     output: true
   analyzers:
@@ -75,6 +69,9 @@ collections:
     permalink: /:collection/:path/
     output: true
   aggregations:
+    permalink: /:collection/:path/
+    output: true
+  scripting:
     permalink: /:collection/:path/
     output: true
   mappings:
@@ -104,16 +101,10 @@ collections:
   api-reference:
     permalink: /:collection/:path/
     output: true  
-  troubleshoot:
-    permalink: /:collection/:path/
-    output: true
   developer-documentation:
     permalink: /:collection/:path/
     output: true
   about:
-    permalink: /:collection/:path/
-    output: true
-  automating-configurations:
     permalink: /:collection/:path/
     output: true
   getting-started:
@@ -148,28 +139,25 @@ opensearch_collection:
       name: Migrate or upgrade
       nav_fold: true
     tuning-your-cluster:
-      name: Creating and tuning your cluster
-      nav_fold: true
-    im-plugin:
-      name: Managing Indexes
-      nav_fold: true
-    ingest-pipelines:
-      name: Ingest Pipelines
-      nav_fold: true
-    dashboards:
-      name: OpenSearch Dashboards
+      name: Managing your cluster
       nav_fold: true
     security:
       name: Security
       nav_fold: true
-    security-analytics:
-      name: Security analytics 
+    im-plugin:
+      name: Managing indexes
+      nav_fold: true
+    ingest-pipelines:
+      name: Ingest Pipelines
       nav_fold: true
     mappings:
       name: Mappings
       nav_fold: true
     analyzers:
       name: Text analysis
+      nav_fold: true
+    search-plugins:
+      name: Search
       nav_fold: true
     query-dsl:
       name: Query DSL
@@ -180,38 +168,32 @@ opensearch_collection:
     aggregations:
       name: Aggregations
       nav_fold: true
-    search-plugins:
-      name: Search
+    scripting:
+      name: Scripting
       nav_fold: true
     vector-search:
-      name: Vector search 
+      name: Vector search
       nav_fold: true
     ml-commons-plugin:
-      name: Machine learning
+      name: AI and machine learning
       nav_fold: true
     ai-agent-integrations:
       name: AI agent integrations
       nav_fold: true
-    automating-configurations:
-      name: Automating configurations
-      nav_fold: true
-    monitoring-your-cluster:
-      name: Monitoring your cluster
+    dashboards:
+      name: OpenSearch Dashboards
       nav_fold: true
     observing-your-data:
       name: Observability
       nav_fold: true
-    reporting:
-      name: Reporting
+    security-analytics:
+      name: Security analytics
       nav_fold: true
     tools:
       name: Tools
       nav_fold: true
     api-reference:
       name: API reference
-      nav_fold: true
-    troubleshoot:
-      name: Troubleshooting
       nav_fold: true
     developer-documentation:
       name: Developer documentation

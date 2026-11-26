@@ -12,9 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
-    - uses: ruby/setup-ruby@afeafc3d1ab54a631816aba4c914a0081c12ff2f # v1
+    - uses: ruby/setup-ruby@f9c4492e86def3e644ab32a0ef185eda5b0c20d0 # v1.342.0
       with:
-        ruby-version: '3.4.5'
+        ruby-version: '3.4.13'
         bundler-cache: true
     - run: |
         JEKYLL_FATAL_LINK_CHECKER=all bundle exec jekyll build --future

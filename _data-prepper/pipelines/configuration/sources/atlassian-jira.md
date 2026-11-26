@@ -15,7 +15,7 @@ You can use the OpenSearch Data Prepper `jira` source to ingest records from one
 Set up Jira project access credentials by choosing one of the following options:
 
 - **Basic authentication** (API key authentication): Follow [these instructions](https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/).
-- **OAuth2 authentication**: Follow [these instructions](https://developer.atlassian.com/cloud/jira/platform/oauth-2-3lo-apps/#faq-rrt-config).
+- **OAuth 2.0 authentication**: Follow [these instructions](https://developer.atlassian.com/cloud/jira/platform/oauth-2-3lo-apps/#faq-rrt-config).
 
 As an additional optional step, store the credentials in AWS Secrets Manager. If you don't store the credentials in AWS Secrets Manager, then you must provide plain-text credentials directly in the pipeline configuration.
 
@@ -41,10 +41,10 @@ atlassian-jira-pipeline:
         basic:
           username: {% raw %}  ${{aws_secrets:jira-account-credentials:username}} {% endraw %} 
           password: {% raw %}  ${{aws_secrets:jira-account-credentials:password}} {% endraw %} 
-          # For OAuth2 based authentication, we require the following 4 key values stored in the secret
+          # For OAuth 2.0-based authentication, we require the following 4 key values stored in the secret
           # Follow atlassian instructions at the following link to generate these keys
           # https://developer.atlassian.com/cloud/confluence/oauth-2-3lo-apps/
-          # If you are using OAuth2 authentication, we also require, write permission to your aws secret to
+          # If you are using OAuth 2.0 authentication, we also require, write permission to your aws secret to
           # be able to write the renewed tokens back into the secret
           # oauth2:
           # client_id: {% raw %} ${{aws_secrets:jira-account-credentials:clientId}} {% endraw %} 
@@ -57,8 +57,8 @@ atlassian-jira-pipeline:
             include:
               # This is not project name.
               # It is an alphanumeric project key that you can find under project details in jira
-              - "project1"
-              - "project2"
+              - "PROJECT1"
+              - "PROJECT2"
               # exclude:
               # - "<<project key>>"
               # - "<<project key>>"
@@ -85,34 +85,32 @@ The `jira` source supports the following configuration options.
 
 | Option            | Required | Type                              | Description                                                                                                                                                                                                                   |
 |:------------------|:---------|:----------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `hosts`           | Yes      | List                              | The Atlassian Confluence hostname. Currently, only one host is supported, so this list is expected to be of size 1.                                                                                                                        |
+| `hosts`           | Yes      | List                              | The Atlassian Jira hostname. Currently, only one host is supported, so this list is expected to be of size 1.                                                                                                                        |
 | `acknowledgments` | No       | Boolean                           | When set to `true`, enables the `jira` source to receive [end-to-end acknowledgments]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines#end-to-end-acknowledgments) when events are received by OpenSearch sinks. |
 | `authentication`  | Yes      | [authentication](#Authentication) | Configures the authentication method used to access `jira` source records from the specified host.                                                                                                                                         |
 | `filter`          | No       | [filter](#Filter)                 | Applies specific filter criteria while extracting Jira tickets.                                                                                                                                                     |
 
 ### Authentication
 
-You can use one the following authentication methods to access the specified Jira host. You must provide one of the following parameters.
+You can use one of the following authentication methods to access the specified Jira host. You must provide one of the following parameters.
 
 | Option   | Required | Type              | Description                                            |
 |:---------|:---------|:------------------|:-------------------------------------------------------|
 | `basic`  | Yes      | [Basic](#basic-authentication)   | Basic authentication credentials used to access a Jira host.  |
-| `oauth2` | Yes      | [OAuth2](#oauth2-authentication)| OAuth2 authentication credentials used to access a Jira host. |
+| `oauth2` | Yes      | [OAuth 2.0](#oauth-20-authentication)| OAuth 2.0 authentication credentials used to access a Jira host. |
 
 #### Basic authentication
 
-Either basic or OAuth2 credentials are required to access the Jira site. If you use `basic` authentication, the following fields are required.
+Either basic or OAuth 2.0 credentials are required to access the Jira site. If you use `basic` authentication, the following fields are required.
 
 | Option     | Required | Type   | Description                                                                                     |
 |:-----------|:---------|:-------|:------------------------------------------------------------------------------------------------|
 | `username` | Yes      | String | A username or reference to the secret key storing the username.           |
 | `password` | Yes      | String | A password (API key) or reference to the secret key storing the password. |
 
-#### OAuth2 authentication
+#### OAuth 2.0 authentication
 
-Either basic or OAuth2 credentials are required to access the `jira` site. If OAuth2 is used, the following fields are mandatory.
-
-Either basic or OAuth2 credentials are required to access the Confluence site. If you use OAuth2, the following fields are required.
+Either basic or OAuth 2.0 credentials are required to access the Jira site. If you use OAuth 2.0, the following fields are required.
 
 | Option          | Required | Type   | Description                                                                                     |
 |:----------------|:---------|:-------|:------------------------------------------------------------------------------------------------|
@@ -127,15 +125,17 @@ Optionally, you can specify filters to select specific content. If no filters ar
 
 | Option       | Required | Type   | Description                                    |
 |:-------------|:---------|:-------|:-----------------------------------------------|
-| `project`    | No       | String | A list of project keys to include or exclude.        |
-| `issue_type` | No       | String | A list of issue type filters to include or exclude. |
-| `status`     | No       | String | A list of status filters to include or exclude.     |
+| `project`    | No       | Object | Filters issues by project. Contains the `key` object, which accepts `include` and `exclude` lists of project keys. Each project key must be 2--100 characters long and contain only uppercase letters and digits. A project key cannot appear in both lists. |
+| `issue_type` | No       | Object | Filters issues by issue type. Accepts `include` and `exclude` lists of issue type names, for example, `Story` or `Bug`. |
+| `status`     | No       | Object | Filters issues by status. Accepts `include` and `exclude` lists of status names, for example, `In Progress` or `Done`. |
+
+The source validates project keys when it starts crawling. If a project filter contains an invalid key, the source logs an error and does not ingest issues.
 
 ### AWS secrets
 
 You can use the following options in the `aws` secrets configuration if you plan to store the credentials in AWS Secrets Manager. Storing secrets in AWS Secrets Manager is optional. If AWS Secrets Manager is not used, credentials must be specified in the pipeline YAML itself, in plain text.
 
-If OAuth2 authentication is used in combination with `aws` secrets, this source requires write permissions to the secret to be able to write back the updated (or renewed) access token once the current token expires.
+If OAuth 2.0 authentication is used in combination with `aws` secrets, this source requires write permissions to the secret to be able to write back the updated (or renewed) access token once the current token expires.
 
 | Option         | Required | Type   | Description                                                                                                                                                                                                                                                                                    |
 |:---------------|:---------|:-------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|

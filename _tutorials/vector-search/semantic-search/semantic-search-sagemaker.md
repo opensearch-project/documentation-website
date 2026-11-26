@@ -19,7 +19,7 @@ If using self-managed OpenSearch instead of Amazon OpenSearch Service, create a 
 
 This tutorial does not cover how to deploy a model to Amazon SageMaker. For more information about deployment, see [Real-time inference](https://docs.aws.amazon.com/sagemaker/latest/dg/realtime-endpoints.html).
 
-The easiest way to set up an embedding model in Amazon OpenSearch Service is by using [AWS CloudFormation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cfn-template.html). Alternatively, you can set up an embedding model using [the AIConnectorHelper notebook](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/tutorials/aws/AIConnectorHelper.ipynb).
+The easiest way to set up an embedding model in Amazon OpenSearch Service is by using [AWS CloudFormation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cfn-template.html). Alternatively, you can set up an embedding model using [the AIConnectorHelper notebook](https://github.com/opensearch-project/ml-commons/blob/main/docs/tutorials/aws/AIConnectorHelper.ipynb).
 {: .tip}
 
 Replace the placeholders beginning with the prefix `your_` with your own values.
@@ -27,7 +27,7 @@ Replace the placeholders beginning with the prefix `your_` with your own values.
 
 ## Model input and output requirements
 
-Ensure that the inputs for your model in Amazon SageMaker follow the format required by the [default pre-processing function]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#preprocessing-function). 
+Ensure that the inputs for your model in Amazon SageMaker follow the format required by the [default preprocessing function]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connector-input-output/#preprocessing-function). 
 
 The model input must be an array of strings:
 
@@ -35,7 +35,7 @@ The model input must be an array of strings:
 ["hello world", "how are you"]
 ```
 
-Additionally, ensure that the model output follows the format required by the [default post-processing function]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/blueprints/#post-processing-function). The model output must be an array of arrays, where each inner array corresponds to the embedding of an input string:
+Additionally, ensure that the model output follows the format required by the [default post-processing function]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connector-input-output/#post-processing-function). The model output must be an array of arrays, where each inner array corresponds to the embedding of an input string:
 
 ```json
 [
@@ -52,11 +52,11 @@ Additionally, ensure that the model output follows the format required by the [d
 ]
 ```
 
-If your model input/output is not the same as the required default, you can build your own pre-/post-processing function using a [Painless script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/exec-script/).
+If your model input/output is not the same as the required default, you can build your own pre-/post-processing function using a [Painless script]({{site.url}}{{site.baseurl}}/scripting/painless/).
 
 ### Example: Amazon Bedrock Titan embedding model
 
-For example, the Amazon Bedrock Titan embedding model ([blueprint](https://github.com/opensearch-project/ml-commons/blob/2.x/docs/remote_inference_blueprints/bedrock_connector_titan_embedding_blueprint.md#2-create-connector-for-amazon-bedrock)) input is as follows:
+For example, the Amazon Bedrock Titan embedding model ([blueprint](https://github.com/opensearch-project/ml-commons/blob/main/docs/remote_inference_blueprints/bedrock_connector_titan_embedding_blueprint.md#2-create-connector-for-amazon-bedrock)) input is as follows:
 
 ```json
 { "inputText": "your_input_text" }
@@ -68,7 +68,7 @@ OpenSearch expects the following input format:
 { "text_docs": [ "your_input_text1", "your_input_text2"] }
 ```
 
-To convert `text_docs` into `inputText`, you must define the following pre-processing function:
+To convert `text_docs` into `inputText`, you must define the following preprocessing function:
 
 ```json
 "pre_process_function": """
@@ -218,7 +218,7 @@ You'll use the `your_iam_user_arn` IAM user to assume the role in Step 3.
         {
             "Effect": "Allow",
             "Action": "es:ESHttpPost",
-            "Resource": "your_opensearch_domain_arn"
+            "Resource": "your_opensearch_domain_arn/*"
         }
     ]
 }
@@ -458,7 +458,6 @@ PUT my_index
 {
   "settings": {
     "index": {
-      "knn.space_type": "cosinesimil",
       "default_pipeline": "my_sagemaker_embedding_pipeline",
       "knn": "true"
     }
@@ -467,7 +466,8 @@ PUT my_index
     "properties": {
       "text_knn": {
         "type": "knn_vector",
-        "dimension": your_sagemake_model_embedding_dimension
+        "dimension": your_sagemaker_model_embedding_dimension,
+        "space_type": "cosinesimil"
       }
     }
   }
@@ -508,3 +508,10 @@ POST /my_index/_search
 }
 ```
 {% include copy-curl.html %}
+
+## Related documentation
+
+- [Semantic search]({{site.url}}{{site.baseurl}}/vector-search/ai-search/semantic-search/)
+- [Connectors for third-party ML platforms]({{site.url}}{{site.baseurl}}/ml-commons-plugin/remote-models/connectors/)
+- [Text embedding processor]({{site.url}}{{site.baseurl}}/ingest-pipelines/processors/text-embedding/)
+- [Neural query]({{site.url}}{{site.baseurl}}/query-dsl/specialized/neural/)

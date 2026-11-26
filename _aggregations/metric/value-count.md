@@ -67,7 +67,7 @@ The aggregation name (`number_of_values`) also serves as the key for retrieving 
 
 ### Using a script
 
-Instead of specifying a field, you can provide a script to generate values for counting. The following example uses an inline Painless script to count based on computed values:
+Instead of specifying a field, you can provide a script to generate values for counting. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/). The following example uses an inline Painless script to count based on computed values:
 
 ```json
 GET /opensearch_dashboards_sample_data_ecommerce/_search

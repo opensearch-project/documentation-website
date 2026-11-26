@@ -23,9 +23,9 @@ jobs:
           git config --global user.name "opensearch-trigger-bot[bot]"
           git config --global user.email "98922864+opensearch-trigger-bot[bot]@users.noreply.github.com"
 
-      - uses: ruby/setup-ruby@afeafc3d1ab54a631816aba4c914a0081c12ff2f # v1
-        with: 
-          ruby-version: '3.4.5'
+      - uses: ruby/setup-ruby@f9c4492e86def3e644ab32a0ef185eda5b0c20d0 # v1.342.0
+        with:
+          ruby-version: '3.4.13'
 
       - run: bundle install
 

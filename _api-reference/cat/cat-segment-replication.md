@@ -61,12 +61,13 @@ The following table lists the available query parameters. All query parameters a
 | `completed_only` | Boolean | When `true`, the response only includes the last-completed segment replication events. | `false` |
 | `detailed` | Boolean | When `true`, the response includes additional metrics for each stage of a segment replication event. | `false` |
 | `expand_wildcards` | List or String | Specifies the type of index that wildcard expressions can match. Supports comma-separated values. <br> Valid values are: <br> - `all`: Match any index, including hidden ones. <br> - `closed`: Match closed, non-hidden indexes. <br> - `hidden`: Match hidden indexes. Must be combined with `open`, `closed`, or both. <br> - `none`: Wildcard expressions are not accepted. <br> - `open`: Match open, non-hidden indexes. | N/A |
-| `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
+| `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. <br> Valid values are: `cbor`, `json`, `smile`, `text`, and `yaml`. | `text` |
 | `h` | List | A comma-separated list of column names to display. | N/A |
 | `help` | Boolean | Returns help information. | `false` |
 | `ignore_throttled` | Boolean | Whether specified concrete, expanded, or aliased indexes should be ignored when throttled. | N/A |
 | `ignore_unavailable` | Boolean | Whether the specified concrete indexes should be ignored when missing or closed. | N/A |
 | `index` | List | A comma-separated list of data streams, indexes, and aliases used to limit the request. Supports wildcards (`*`). To target all data streams and indexes, omit this parameter or use `*` or `_all`. | N/A |
+| `limit` | Integer | The maximum number of rows to return. Must be greater than 0. Applied after sorting (`s`). | N/A |
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
 | `shards` | List | A comma-separated list of shards to display. | N/A |
 | `time` | String | Specifies the time units, for example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/api-reference/units/). <br> Valid values are: `nanos`, `micros`, `ms`, `s`, `m`, `h`, and `d`. | N/A |
@@ -88,11 +89,12 @@ Parameter | Data type  | Description
 `active_only` | Boolean    | If `true`, the response only includes active segment replications. Defaults to `false`. 
 [`detailed`](#additional-detailed-response-metrics) | String     | If `true`, the response includes additional metrics for each stage of a segment replication event. Defaults to `false`.
 `shards` | String     | A comma-separated list of shards to display.
-`bytes` | Byte units | [Units]({{site.url}}{{site.baseurl}}/opensearch/units/) used to display byte size values.
+`limit` | Integer | The maximum number of rows to return. Must be greater than 0. Applied after sorting (`s`).
+`bytes` | Byte units | [Units]({{site.url}}{{site.baseurl}}/api-reference/units/) used to display byte size values.
 `format` | String     | A short version of the HTTP accept header. Valid values include `JSON` and `YAML`.  
 `h` | String     | A comma-separated list of column names to display. 
 `help` | Boolean    | If `true`, the response includes help information. Defaults to `false`.
-`time` | Time units | [Units]({{site.url}}{{site.baseurl}}/opensearch/units/) used to display time values.
+`time` | Time units | [Units]({{site.url}}{{site.baseurl}}/api-reference/units/) used to display time values.
 `v` | Boolean    | If `true`, the response includes column headings. Defaults to `false`.
 `s` | String     | Specifies to sort the results. For example, `s=shardId:desc` sorts by shardId in descending order.
 

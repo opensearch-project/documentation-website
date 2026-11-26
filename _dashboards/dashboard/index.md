@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Creating dashboards
-nav_order: 60
+nav_order: 70
 has_children: true
 redirect_from:
   - /dashboards/dashboard/
@@ -10,6 +10,9 @@ redirect_from:
 # Creating dashboards
 
 You can use the **Dashboards** application in OpenSearch Dashboards to build a dashboard, a page containing multiple panels showing different views of your data.
+
+If you're new to the Dashboards application, see [Explore the Dashboards application]({{site.url}}{{site.baseurl}}/dashboards/getting-started/explore-dashboards/) for a hands-on introduction using sample data.
+{: .tip}
 
 >This documentation uses the following terms:
 >- _OpenSearch Dashboards_: The web UI for OpenSearch.

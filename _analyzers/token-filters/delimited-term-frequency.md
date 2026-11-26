@@ -112,9 +112,9 @@ The response contains both the original token and the parsed version with the te
       "name": "keyword",
       "tokens": [
         {
-          "token": "foo|100",
+          "token": "foo^3",
           "start_offset": 0,
-          "end_offset": 7,
+          "end_offset": 5,
           "type": "word",
           "position": 0,
           "termFrequency": 1
@@ -123,15 +123,15 @@ The response contains both the original token and the parsed version with the te
     },
     "tokenfilters": [
       {
-        "name": "delimited_term_freq",
+        "name": "my_delimited_term_freq",
         "tokens": [
           {
             "token": "foo",
             "start_offset": 0,
-            "end_offset": 7,
+            "end_offset": 5,
             "type": "word",
             "position": 0,
-            "termFrequency": 100
+            "termFrequency": 3
           }
         ]
       }
@@ -142,7 +142,7 @@ The response contains both the original token and the parsed version with the te
 
 ## Combining `delimited_token_filter` with scripts
 
-You can write Painless scripts to calculate custom scores for the documents in the results.
+You can write Painless scripts to calculate custom scores for the documents in the results. For more information, see [Painless scripting language]({{site.url}}{{site.baseurl}}/scripting/painless/).
 
 First, create an index and provide the following mappings and settings:
 

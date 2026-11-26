@@ -38,9 +38,10 @@ The following table lists the available query parameters. All query parameters a
 | Parameter | Data type | Description | Default |
 | :--- | :--- | :--- | :--- |
 | `cluster_manager_timeout` | String | The amount of time allowed to establish a connection to the cluster manager node. | N/A |
-| `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. | N/A |
+| `format` | String | A short version of the `Accept` header, such as `json` or `yaml`. <br> Valid values are: `cbor`, `json`, `smile`, `text`, and `yaml`. | `text` |
 | `h` | List | A comma-separated list of column names to display. | N/A |
 | `help` | Boolean | Returns help information. | `false` |
+| `limit` | Integer | The maximum number of rows to return. Must be greater than 0. Applied after sorting (`s`). | N/A |
 | `local` | Boolean | Returns local information but does not retrieve the state from the cluster manager node. | `false` |
 | `s` | List | A comma-separated list of column names or column aliases to sort by. | N/A |
 | `v` | Boolean | Enables verbose mode, which displays column headers. | `false` |
@@ -98,7 +99,7 @@ opensearch-node1 opensearch-sql                       3.3.2.0
 
 ## Response columns
 
-The following table lists all response columns.
+The following table lists all response columns. In the `h` and `s` query parameters, specify either the column name or its alias. To return this list from your cluster, send `GET /_cat/plugins?help`.
 
 Column | Alias | Description
 :--- | :--- | :---
@@ -108,12 +109,39 @@ Column | Alias | Description
 `version` | `v` | The plugin version.
 `description` | `d` | The plugin description and details.
 
-To display specific columns, use the `h` query parameter. For example, to show only the node name, component, and version:
+To display specific columns, use the `h` query parameter. The following example request returns only the node name, component, and version columns:
 
-```bash
+```json
 GET /_cat/plugins?v&h=name,component,version
 ```
 {% include copy-curl.html %}
+
+The response contains only the requested columns:
+
+```json
+name             component                            version
+opensearch-node1 opensearch-alerting                  3.8.0.0
+opensearch-node1 opensearch-anomaly-detection         3.8.0.0
+opensearch-node1 opensearch-asynchronous-search       3.8.0.0
+...
+```
+
+The following example request uses column aliases to return the node ID, component, and plugin description:
+
+```json
+GET /_cat/plugins?v&h=id,c,d
+```
+{% include copy-curl.html %}
+
+The response contains the requested columns:
+
+```json
+id                     c                                    d
+6It0uQ1AR06IDC4nMstPQw opensearch-alerting                  Amazon OpenSearch alerting plugin
+6It0uQ1AR06IDC4nMstPQw opensearch-anomaly-detection         OpenSearch anomaly detector plugin
+6It0uQ1AR06IDC4nMstPQw opensearch-asynchronous-search       Provides support for asynchronous search
+...
+```
 
 ## Required permissions
 

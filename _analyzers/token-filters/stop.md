@@ -20,7 +20,7 @@ Parameter | Required/Optional | Data type | Description
 `stopwords` | Optional | String | Specifies either a custom array of stopwords or a [predefined stopword set for a language](#predefined-stopword-sets-by-language). Default is `_english_`.
 `stopwords_path` | Optional | String | Specifies the file path (absolute or relative to the config directory) of the file containing custom stopwords.
 `ignore_case` | Optional | Boolean | If `true`, stopwords will be matched regardless of their case. Default is `false`.
-`remove_trailing` | Optional | Boolean | If `true`, trailing stopwords will be removed during analysis. Default is `true`.
+`remove_trailing` | Optional | Boolean | If `true`, a stopword at the end of the input is removed like any other stopword. If `false`, the last token is kept if it is a stopword that is not followed by a space or other separator, while all other stopwords are removed. Set to `false` when using the filter in a [completion suggester]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/autocomplete/#completion-suggester) analyzer. For more information, see [Using the stop filter with completion suggesters](#using-the-stop-filter-with-completion-suggesters). Default is `true`.
 
 ## Example
 
@@ -109,6 +109,10 @@ The response contains the generated tokens:
   ]
 }
 ```
+
+## Using the stop filter with completion suggesters
+
+When a user types a search query, the last word is often incomplete and can match a stopword. For example, when a user types `red on`, the `on` might be the beginning of `onion`. If the analyzer for a `completion` field removes `on`, OpenSearch searches for the prefix `red` and suggests `red cabbage`, `red onion`, and `red pepper`. If you set `remove_trailing` to `false`, the `stop` filter keeps the final `on`, so the same prefix suggests only `red onion`. After the user types a space following `on`, the filter treats `on` as a complete word and removes it.
 
 ## Predefined stopword sets by language
 

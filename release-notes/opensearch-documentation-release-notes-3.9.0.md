@@ -1,0 +1,35 @@
+# OpenSearch Documentation Website 3.9.0 Release Notes
+
+The OpenSearch 3.9.0 documentation includes the following additions and updates.
+
+## New documentation for 3.9.0
+
+- Doc review of PR 13140 [#13147](https://github.com/opensearch-project/documentation-website/pull/13147)
+- Add documentation for Faiss BF16 scalar quantization [#13143](https://github.com/opensearch-project/documentation-website/pull/13143)
+- Add `half_float` documentation [#13135](https://github.com/opensearch-project/documentation-website/pull/13135)
+- Document server-side batch inference [#13128](https://github.com/opensearch-project/documentation-website/pull/13128)
+- Add documentation for dashboard collapsible sections [#13122](https://github.com/opensearch-project/documentation-website/pull/13122)
+- Add documentation for SQ 2 bit and 4bit for Vector Search [#13121](https://github.com/opensearch-project/documentation-website/pull/13121)
+- Add dynamic mapping for knn_vector fields [#13082](https://github.com/opensearch-project/documentation-website/pull/13082)
+- Revert PR 12909 [#13076](https://github.com/opensearch-project/documentation-website/pull/13076)
+- Document CAT indices system filtering for 3.9 [#13073](https://github.com/opensearch-project/documentation-website/pull/13073)
+- Graduate resource sharing docs out of experimental [#13072](https://github.com/opensearch-project/documentation-website/pull/13072)
+- Add documentation for adaptive concurrency limits [#13067](https://github.com/opensearch-project/documentation-website/pull/13067)
+- [DOC] index defaults to false on pluggable data format indexes for doc-values-backed field types [#13066](https://github.com/opensearch-project/documentation-website/pull/13066)
+- Clarify granular Security REST API permissions [#13063](https://github.com/opensearch-project/documentation-website/pull/13063)
+- Add documentation for the sparse ANN native engine [#13018](https://github.com/opensearch-project/documentation-website/pull/13018)
+- Add 'can_match' shards pruning [#12995](https://github.com/opensearch-project/documentation-website/pull/12995)
+- Document plugins.security.restapi.max_string_length setting [#12989](https://github.com/opensearch-project/documentation-website/pull/12989)
+- Add Google Cloud Vertex AI connector documentation [#12987](https://github.com/opensearch-project/documentation-website/pull/12987)
+- Add documentation for the resource-sharing Share button [#12985](https://github.com/opensearch-project/documentation-website/pull/12985)
+- Update JDK version for upcoming 3.9 release [#12981](https://github.com/opensearch-project/documentation-website/pull/12981)
+- [GRPC] Update protobuf reference links to 1.7.0 [#12980](https://github.com/opensearch-project/documentation-website/pull/12980)
+- Add documentation for CCS ignore source security roles setting [#12970](https://github.com/opensearch-project/documentation-website/pull/12970)
+- Update gRPC terms lookup for protobufs 1.7.0 (id_2/query) [#12968](https://github.com/opensearch-project/documentation-website/pull/12968)
+- [DOC] Add documentation of client certificate (mutual TLS) authentication for ML connectors [#12959](https://github.com/opensearch-project/documentation-website/pull/12959)
+- Document the Delete Task API [#12954](https://github.com/opensearch-project/documentation-website/pull/12954)
+- [DOC] Add documentation of optional custom IDs for ML resources [#12929](https://github.com/opensearch-project/documentation-website/pull/12929)
+- Document Alerts Manager AD and forecasting views [#12913](https://github.com/opensearch-project/documentation-website/pull/12913)
+- [DOC] Update the chatbot documentation based on a latest model [#12890](https://github.com/opensearch-project/documentation-website/pull/12890)
+- Document wildcard prefix matching for principal username/role WLM rules [#12864](https://github.com/opensearch-project/documentation-website/pull/12864)
+- Document existingJudgments parameter and judgment retry endpoint [#12862](https://github.com/opensearch-project/documentation-website/pull/12862)

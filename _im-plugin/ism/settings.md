@@ -2,7 +2,7 @@
 layout: default
 title: Settings
 parent: Index State Management
-nav_order: 4
+nav_order: 50
 ---
 
 # ISM settings
@@ -12,6 +12,10 @@ We don't recommend changing these settings; the defaults should work well for mo
 Index State Management (ISM) stores its configuration in the `.opendistro-ism-config` index. Don't modify this index without using the [ISM API operations]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/).
 
 All settings are available using the OpenSearch `_cluster/settings` operation. None require a restart, and all can be marked `persistent` or `transient`. To learn more about static and dynamic settings, see [Configuring OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/configuring-opensearch/index/).
+
+Because ISM settings are cluster settings, persistent ISM settings are part of the global cluster state and are included in a snapshot taken with `include_global_state` set to `true`. Transient settings are not included. ISM policies are stored in the `.opendistro-ism-config` index, not in the cluster state, so a snapshot includes them only if it includes that index. For more information, see [Global cluster state]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore/#global-cluster-state).
+
+These settings apply only to ISM jobs. The Job Scheduler plugin, which runs ISM jobs, has separate settings that apply to the scheduled jobs of all plugins. For more information, see [Scheduled job settings]({{site.url}}{{site.baseurl}}/tuning-your-cluster/scheduled-jobs/index/#scheduled-job-settings).
 
 Setting | Default | Description
 :--- | :--- | :---
@@ -26,4 +30,9 @@ Setting | Default | Description
 `plugins.index_state_management.history.max_age` | 24h | The maximum age before rolling over the audit history index.
 `plugins.index_state_management.history.rollover_check_period` | 8h | The time between rollover checks for the audit history index.
 `plugins.index_state_management.history.rollover_retention_period` | 30d | How long audit history indexes are kept.
-`plugins.index_state_management.allow_list` | All actions | List of actions that you can use.
+`plugins.index_state_management.allow_list` | `alias`, `allocation`, `close`, `convert_index_to_remote`, `delete`, `force_merge`, `index_priority`, `notification`, `open`, `read_only`, `read_write`, `replica_count`, `rollover`, `rollup`, `search_only`, `shrink`, `snapshot`, `stop_replication`, `transform` | The actions that a policy can use. Removing an action from this list makes every policy that uses it fail.
+`plugins.index_state_management.action_validation.enabled` | False | Specifies whether ISM validates an action before running it. For more information, see [ISM error prevention]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/index/).
+`plugins.index_state_management.coordinator.sweep_skip_period` | 5m | How long the coordinator waits before sweeping a managed index again after a failure.
+`plugins.index_state_management.history.number_of_shards` | 1 | The number of primary shards in the audit history index.
+`plugins.index_state_management.history.number_of_replicas` | 1 | The number of replicas of the audit history index.
+`plugins.index_state_management.snapshot.deny_list` | Empty list | The snapshot repositories that the `snapshot` action cannot write to.
