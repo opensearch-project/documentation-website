@@ -34,7 +34,7 @@ OpenSearch no longer reads the `OPENSEARCH_CRYPTO_STANDARD` environment variable
 
 If the JVM is already in approved-only mode because FIPS is configured at the JDK or operating system level, but `OPENSEARCH_FIPS_MODE` is not set, OpenSearch does not enforce its own FIPS checks.
 
-HTTP/3 is not available while Bouncy Castle FIPS runs in approved-only mode, even if `http.protocol.http3.enabled` is `true`. QUIC encrypts with the BoringSSL library bundled with the native QUIC codec rather than with a Java security provider, so it would bypass the validated module. OpenSearch then serves HTTP/1.1 and HTTP/2 only.
+HTTP/3 is not available while Bouncy Castle FIPS runs in approved-only mode. QUIC encrypts with the BoringSSL library bundled with the native QUIC codec rather than with a Java security provider, so it would bypass the validated module. With `OPENSEARCH_FIPS_MODE=true`, OpenSearch does not start if `http.protocol.http3.enabled` is `true`; set it to `false`. If the JVM runs in approved-only mode without `OPENSEARCH_FIPS_MODE`, OpenSearch serves HTTP/1.1 and HTTP/2 only.
 
 ## Security providers and the generated java.security file
 
