@@ -177,6 +177,7 @@ OpenSearch Dashboards connects to OpenSearch as `kibanaserver`. In FIPS mode, se
 
 - **SAML**: If the service provider signs authentication requests and the identity provider encrypts assertions, only the first login succeeds. The SAML library uses one RSA key for signing and decryption, and Bouncy Castle FIPS does not allow a key that has been used for decryption to sign again.
 - **Kerberos**: Kerberos uses the JDK's SunJGSS provider, which `config/fips_java.security` keeps. Use only AES encryption types in `krb5.conf` and in the keytab. RC4 and DES encryption types are not approved.
+- **PKCS#11 keys**: TLS with a private key on a PKCS#11 token (`keystore_type: PKCS11`) uses the JDK's SunJSSE provider, which `config/fips_java.security` keeps, because Bouncy Castle JSSE cannot sign with a key that stays on the token. In FIPS mode these connections use TLS 1.3 only. OpenSearch does not start if `plugins.security.ssl.http.enabled_protocols` or `plugins.security.ssl.transport.enabled_protocols` does not include `TLSv1.3`, and protocols passed to `securityadmin.sh` with `-ep` must include it as well.
 
 ## Troubleshooting FIPS
 
