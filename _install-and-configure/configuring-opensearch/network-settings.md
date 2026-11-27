@@ -149,6 +149,9 @@ OpenSearch supports the following experimental HTTP settings:
 
     The implementation relies on native libraries and uses direct NIO buffers, unlike the HTTP/1.1 and HTTP/2 transports. Take this into account when estimating native memory usage.
 
+    HTTP/3 is not available in [FIPS mode]({{site.url}}{{site.baseurl}}/security/configuration/fips/) because QUIC does not use the FIPS-validated security provider. With `OPENSEARCH_FIPS_MODE=true`, OpenSearch does not start if this setting is `true`.
+    {: .note}
+
     HTTP/3 is secure by default and is available only when SSL/TLS is enabled for HTTP transports. OpenSearch advertises HTTP/3 availability using the `Alt-Svc` header, for example:
 
     ```yaml

@@ -13,9 +13,52 @@ To achieve FIPS compliance, OpenSearch requires:
 
 - FIPS-validated cryptographic providers for all cryptographic operations (Bouncy Castle FIPS is included in OpenSearch).
 - A JVM configured to use these FIPS-validated providers.
-- A JVM using a Java version for which [BC-FJA](https://www.bouncycastle.org/download/bouncy-castle-java-fips/) is certified (for example, Java 11, 17, or 21 for OpenSearch v3.2.0+ with BC-FJA v2.1.0).
+- A JVM using a Java version for which [BC-FJA](https://www.bouncycastle.org/download/bouncy-castle-java-fips/) is certified. The validated module versions and the tested Java versions are listed on the module's [CMVP certificate](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4943). Check that the `bc-fips` JAR in the `lib` directory is one of the listed versions.
 - FIPS-compliant keystores and truststores in BCFKS or PKCS11 format.
 - Strong passwords meeting FIPS minimum requirements (112 bits or approximately 14 characters).
+
+## Enabling FIPS mode
+
+To run OpenSearch in FIPS mode, set the `OPENSEARCH_FIPS_MODE` environment variable to `true` before starting OpenSearch or any of its command line tools:
+
+```bash
+export OPENSEARCH_FIPS_MODE=true
+./bin/opensearch
+```
+{% include copy.html %}
+
+In FIPS mode, OpenSearch uses only the security providers listed in `config/fips_java.security` and runs Bouncy Castle FIPS in approved-only mode (`-Dorg.bouncycastle.fips.approved_only=true`). If the Bouncy Castle FIPS JAR files are missing from the `lib` directory, OpenSearch fails to start instead of starting without FIPS.
+
+OpenSearch no longer reads the `OPENSEARCH_CRYPTO_STANDARD` environment variable. Use `OPENSEARCH_FIPS_MODE` instead.
+{: .note}
+
+If the JVM is already in approved-only mode because FIPS is configured at the JDK or operating system level, but `OPENSEARCH_FIPS_MODE` is not set, OpenSearch does not enforce its own FIPS checks.
+
+HTTP/3 is not available while Bouncy Castle FIPS runs in approved-only mode. QUIC encrypts with the BoringSSL library bundled with the native QUIC codec rather than with a Java security provider, so it would bypass the validated module. With `OPENSEARCH_FIPS_MODE=true`, OpenSearch does not start if `http.protocol.http3.enabled` is `true`; set it to `false`. If the JVM runs in approved-only mode without `OPENSEARCH_FIPS_MODE`, OpenSearch serves HTTP/1.1 and HTTP/2 only.
+
+## Security providers and the generated java.security file
+
+OpenSearch does not register or remove security providers in code. Instead, the startup scripts generate a `java.security` file from the JDK that OpenSearch runs on and pass it to the JVM using `-Djava.security.properties==<file>`, so the generated file replaces the JDK's own file. The OpenSearch node and every command line tool use the same mechanism.
+
+The provider list depends on the mode:
+
+- **FIPS mode**: The JDK's providers are removed. The providers and the settings that differ from the JDK defaults come from `config/fips_java.security`. This file is an example: only the Bouncy Castle providers are FIPS 140-3 validated. For a compliant deployment, review the file and replace the JDK providers that it lists.
+- **Default mode**: The JDK's providers are kept, and Bouncy Castle FIPS is added after them. Keystores and truststores in BCFKS format work without FIPS mode.
+
+The startup scripts write the generated file to `config/java.security.generated`. If the `config` directory is not writable, for example because it is mounted read-only, the file is written to a directory named `opensearch-<uid>` that only the OpenSearch user can access. This directory is created in `OPENSEARCH_TMPDIR` or, if that variable is not set, in the Java temporary directory. In that case, OpenSearch prints one line explaining the reason to `stderr`. A file that already has the correct content is not rewritten, so an installation step can generate the file in advance, even if the `config` directory is read-only later.
+
+If `OPENSEARCH_JAVA_OPTS` already sets `java.security.properties`, OpenSearch does not generate a file and uses the specified one.
+
+All processes that share a `config` directory, including command line tools such as `opensearch-keystore`, must use the same JDK and the same `OPENSEARCH_FIPS_MODE` value. Otherwise, a process can start with the file that another process generated. Running processes are not affected because the JVM reads the file only at startup.
+{: .important}
+
+### Logging before startup
+
+In FIPS mode, Bouncy Castle JSSE logs every TLS handshake at the `INFO` level through `java.util.logging`. Until OpenSearch configures its logging, these messages are written to `stderr`. To route them through Log4j from the start, uncomment the following line in `config/jvm.options`:
+
+```
+-Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager
+```
 
 ## FIPS demo installer
 
@@ -164,25 +207,19 @@ org.bouncycastle.crypto.fips.FipsUnapprovedOperationError: password must be at l
 
 In FIPS mode, Bouncy Castle enforces a minimum password strength of 112 bits, which is approximately 14 characters.
 
-Because FIPS mode is already active, the `opensearch-keystore passwd` command does not accept the existing weak password. Alternatively, you can recreate the keystore as follows:
+In FIPS mode, OpenSearch cannot open the keystore, so change its password in default mode. Stop OpenSearch, and then run the following command without FIPS mode:
 
-1. List existing secrets for backup (if needed):
 ```bash
-./bin/opensearch-keystore list
+OPENSEARCH_FIPS_MODE=false ./bin/opensearch-keystore passwd
 ```
 {% include copy.html %}
 
-2. Create a new keystore with a FIPS-compliant password (at least 14 characters):
-```bash
-./bin/opensearch-keystore create --password
-```
-{% include copy.html %}
+Enter the current password and then a new password of at least 14 characters. Then start OpenSearch with `OPENSEARCH_FIPS_MODE=true` again.
 
-3. Re-add any secrets that were stored in the old keystore (if needed):
-```bash
-./bin/opensearch-keystore add <setting-name>
-```
-{% include copy.html %}
+Stop OpenSearch before you run the command, because all processes that share the `config` directory must use the same `OPENSEARCH_FIPS_MODE` value.
+{: .note}
+
+If you no longer know the current password, create a new keystore with `./bin/opensearch-keystore create --password` and add the secrets again with `./bin/opensearch-keystore add <setting-name>`.
 
 Ensure that your new password is at least 14 characters long and includes a mix of uppercase characters, lowercase characters, numbers, and special characters. For security best practices, consider using a password manager to generate and store complex passwords.
 {: .note}
