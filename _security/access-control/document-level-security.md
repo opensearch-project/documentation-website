@@ -220,6 +220,25 @@ The Security plugin evaluates DLS in one of two modes and automatically chooses 
 | Lucene-level DLS | The DLS query doesn't contain a TLQ. | Lucene-level DLS modifies Lucene queries and data structures directly. This is the most efficient mode but does not allow certain advanced constructs in DLS queries, including TLQs. |
 | Filter-level DLS | The DLS query contains a TLQ. | In this mode, OpenSearch applies DLS by modifying queries that OpenSearch receives. This allows for term-level lookup queries in DLS queries, but you can only use the `get`, `search`, `mget`, and `msearch` operations to retrieve data from the protected index. Additionally, cross-cluster searches are limited with this mode. |
 
+### Setting the DLS evaluation mode
+**Introduced 3.11**
+{: .label .label-purple }
+
+By default, the Security plugin chooses the evaluation mode for each request. To use one evaluation mode for all DLS queries, set `plugins.security.dls.mode` in `opensearch.yml`:
+
+```yml
+plugins.security.dls.mode: filter_level
+```
+{% include copy.html %}
+
+The `plugins.security.dls.mode` setting accepts the following values:
+
+- `adaptive` (default): Uses filter-level DLS for DLS queries that contain a TLQ and Lucene-level DLS for all other DLS queries.
+- `filter_level`: Uses filter-level DLS for all DLS queries.
+- `lucene_level`: Uses Lucene-level DLS for all DLS queries.
+
+Values are case insensitive. If the value is invalid, the node does not start. This is a static setting, so you must restart the node after changing it.
+
 ## DLS and multiple roles
 
 OpenSearch combines all DLS queries with the logical `OR` operator. However, when a role that uses DLS is combined with another security role that doesn't use DLS, the query results are filtered to display only documents matching the DLS from the first role. When `plugins.security.dfm_empty_overrides_all` is `true`, a role without DLS removes the DLS restriction if any of its index permissions apply to the index, even if those permissions don't include read access (for example, a role that grants only `write` or `indices:monitor/*` permissions on the index).
