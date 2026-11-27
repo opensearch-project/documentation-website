@@ -272,8 +272,15 @@ GET /products/_mapping
         "price" : {
           "type" : "float"
         },
+        "product_id" : {
+          "type" : "keyword"
+        },
         "product_name" : {
           "type" : "text"
+        },
+        "sku" : {
+          "type" : "keyword",
+          "ignore_above" : 20
         }
       }
     }
@@ -381,6 +388,9 @@ GET /products/_mapping
         "price" : {
           "type" : "float"
         },
+        "product_id" : {
+          "type" : "keyword"
+        },
         "product_name" : {
           "type" : "text",
           "fields" : {
@@ -389,6 +399,10 @@ GET /products/_mapping
               "ignore_above" : 256
             }
           }
+        },
+        "sku" : {
+          "type" : "keyword",
+          "ignore_above" : 20
         }
       }
     }
@@ -480,6 +494,9 @@ GET /products/_mapping
         },
         "price" : {
           "type" : "float"
+        },
+        "product_id" : {
+          "type" : "keyword"
         },
         "product_name" : {
           "type" : "text",
@@ -618,7 +635,32 @@ You cannot directly change the field type of a field that already contains index
 
 The following example changes the `weight` field from `integer` to `float` so that fractional values (such as `0.75` kg) can be stored accurately.
 
-First, create the new index with the updated field type:
+To follow along, add a `weight` field of type `integer` to the `products` index:
+
+```json
+PUT /products/_mapping
+{
+  "properties": {
+    "weight": {
+      "type": "integer"
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Then index two documents containing the `weight` field:
+
+```json
+POST /_bulk
+{ "index": { "_index": "products", "_id": "1" } }
+{ "product_name": "Wireless Mouse", "price": 29.99, "weight": 1 }
+{ "index": { "_index": "products", "_id": "2" } }
+{ "product_name": "Mechanical Keyboard", "price": 149.99, "weight": 2 }
+```
+{% include copy-curl.html %}
+
+Create the new index with the updated field type:
 
 <!-- spec_insert_start
 component: example_code

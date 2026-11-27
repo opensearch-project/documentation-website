@@ -44,6 +44,7 @@ The following table lists the available query parameters. All query parameters a
 | `cluster_manager_timeout` | String | The amount of time to wait for a response from the cluster manager node. For more information about supported time units, see [Common parameters]({{site.url}}{{site.baseurl}}/api-reference/units/#time-units). _(Default: `30s`)_ |
 | `flat_settings` | Boolean | Whether to return settings in the flat form, which can improve readability, especially for heavily nested settings. For example, the flat form of `"cluster": { "max_shards_per_node": 500 }` is `"cluster.max_shards_per_node": "500"`. _(Default: `false`)_ |
 | `include_defaults` | Boolean | **`GET` only.** When `true`, returns default cluster settings from the local node. _(Default: `false`)_ |
+| `local` | Boolean | **`GET` only.** Whether to return information from the local node only. When `false`, information is returned from the cluster manager node. _(Default: `false`)_ |
 | `timeout` | String | **`PUT` only.** A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts `0` without a unit and `-1` to indicate an unspecified value. _(Default: `30s`)_ |
 | `master_timeout` <br> _DEPRECATED_ | String | _(Deprecated since 2.0: To promote inclusive language, use `cluster_manager_timeout` instead.)_ A duration. Units can be `nanos`, `micros`, `ms` (milliseconds), `s` (seconds), `m` (minutes), `h` (hours) and `d` (days). Also accepts `0` without a unit and `-1` to indicate an unspecified value. |
 
@@ -248,7 +249,7 @@ The response includes a `defaults` object containing all default cluster setting
           "pa_node_stats_setting" : "1"
         }
       },
-      "no_master_block" : "metadata_write",
+      "no_cluster_manager_block" : "metadata_write",
       "persistent_tasks" : {
         "allocation" : {
           "enable" : "all",

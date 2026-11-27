@@ -22,7 +22,7 @@ Use this API in the following scenarios:
 
 When you submit a delete by query request, OpenSearch creates a scroll context of the index at the start of the operation and deletes matching documents using internal versioning (sequence numbers and primary terms). The operation performs multiple search requests sequentially to find all matching documents, then executes bulk delete requests for each batch. If a document changes between when the snapshot is taken and when the delete operation processes it, a version conflict occurs and the delete fails for that document unless you set the `conflicts` parameter to `proceed`. Successfully deleted documents are not rolled back even if later operations in the batch fail.
 
-OpenSearch retries rejected search or bulk requests up to 10 times with exponential backoff. If the maximum retry limit is reached, the operation halts and returns all failed requests in the response.
+OpenSearch retries rejected search or bulk requests up to 11 times with exponential backoff. If the maximum retry limit is reached, the operation halts and returns all failed requests in the response.
 
 **Note:** OpenSearch cannot delete documents with version `0` using this API. The internal versioning system requires that version numbers are greater than 0 in order to track and process delete operations correctly.
 {: .note}
@@ -100,11 +100,11 @@ The following table lists the available query parameters. All query parameters a
 
 ## Request body fields
 
-The request body is optional but typically includes a query to specify which documents to delete.
+The request body must contain a query that specifies which documents to delete unless you provide the query using the `q` query parameter.
 
 Field | Data type | Description
 :--- | :--- | :---
-`query` | Object | The query used to select documents for deletion. If not specified, the operation deletes all documents in the target index. For more information about query types, see [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/).
+`query` | Object | The query used to select documents for deletion. Required unless the `q` query parameter is specified. To delete all documents in the target index, use a `match_all` query. For more information about query types, see [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/).
 `slice` | Object | Manually specify slice ID and maximum slices for parallel processing. Contains `id` (integer, slice number) and `max` (integer, total number of slices). Optional.
 `max_docs` | Integer | Maximum number of documents to process. Optional.
 
@@ -114,7 +114,7 @@ Specifying the `refresh` parameter refreshes all shards involved in the delete b
 
 ## Running delete by query asynchronously
 
-To run a delete by query operation asynchronously, set the `wait_for_completion` query parameter to `false`. OpenSearch performs preflight checks, launches the request, and returns a task ID that you can use to monitor progress or cancel the operation. When running asynchronously, OpenSearch creates a record of the task as a document at `.tasks/task/${taskId}`. After the task completes, delete the task document to allow OpenSearch to reclaim the space.
+To run a delete by query operation asynchronously, set the `wait_for_completion` query parameter to `false`. OpenSearch performs preflight checks, launches the request, and returns a task ID that you can use to monitor progress or cancel the operation. When running asynchronously, OpenSearch stores a record of the task as a document in the `.tasks` index. After the task completes, delete the task record using the [Delete Task API]({{site.url}}{{site.baseurl}}/api-reference/tasks/delete-task/) to allow OpenSearch to reclaim the space.
 
 ## Waiting for active shards
 
@@ -802,7 +802,7 @@ GET _tasks?detailed=true&actions=*/delete/byquery
 The response includes the status of all running delete by query operations. To retrieve the status of a specific task, use the task ID:
 
 ```json
-GET _tasks/{task_id}
+GET _tasks/<task_id>
 ```
 {% include copy-curl.html %}
 
@@ -810,24 +810,34 @@ The response contains detailed information about the operation's progress:
 
 ```json
 {
-  "nodes": {
-    "node_id": {
-      "tasks": {
-        "task_id": {
-          "status": {
-            "total": 1000,
-            "updated": 0,
-            "created": 0,
-            "deleted": 450,
-            "batches": 5,
-            "version_conflicts": 0,
-            "noops": 0,
-            "retries": 0,
-            "throttled_millis": 0
-          }
-        }
-      }
-    }
+  "completed": false,
+  "task": {
+    "node": "6It0uQ1AR06IDC4nMstPQw",
+    "id": 25334,
+    "type": "transport",
+    "action": "indices:data/write/delete/byquery",
+    "status": {
+      "total": 90,
+      "updated": 0,
+      "created": 0,
+      "deleted": 10,
+      "batches": 1,
+      "version_conflicts": 0,
+      "noops": 0,
+      "retries": {
+        "bulk": 0,
+        "search": 0
+      },
+      "throttled_millis": 0,
+      "requests_per_second": 1.0,
+      "throttled_until_millis": 9943
+    },
+    "description": "delete-by-query [movies]",
+    "start_time_in_millis": 1795624684337,
+    "running_time_in_nanos": 93846708,
+    "cancellable": true,
+    "cancelled": false,
+    "headers": {}
   }
 }
 ```
@@ -839,7 +849,7 @@ The `total` field represents the total number of operations that the delete by q
 To change the throttling of a running delete by query operation, use the Rethrottle Task API with the task ID:
 
 ```json
-POST _delete_by_query/{task_id}/_rethrottle?requests_per_second=100
+POST _delete_by_query/<task_id>/_rethrottle?requests_per_second=100
 ```
 {% include copy-curl.html %}
 
