@@ -18,10 +18,15 @@ OpenSearch clients let you work with OpenSearch from your application code. A cl
 OpenSearch provides clients for the following programming languages and platforms: 
 
 * **Python**
+  * [OpenSearch high-level Python client]({{site.url}}{{site.baseurl}}/clients/python-high-level/)
+  * [OpenSearch low-level Python client]({{site.url}}{{site.baseurl}}/clients/python-low-level/)
+  * [OpenSearch Python gRPC transport]({{site.url}}{{site.baseurl}}/clients/python-grpc/)
+  * [`opensearch-py-ml` client]({{site.url}}{{site.baseurl}}/clients/opensearch-py-ml/)
   * [OpenSearch Python client]({{site.url}}{{site.baseurl}}/clients/python-low-level/)
   * [OpenSearch Python ML client]({{site.url}}{{site.baseurl}}/clients/opensearch-py-ml/): Analyze data in OpenSearch indexes using DataFrames and upload machine learning (ML) models to OpenSearch.
 * **Java**
   * [OpenSearch Java client]({{site.url}}{{site.baseurl}}/clients/java/)
+  * [OpenSearch Java gRPC transport]({{site.url}}{{site.baseurl}}/clients/java-grpc/)
 * **JavaScript**
   * [OpenSearch JavaScript (Node.js) client]({{site.url}}{{site.baseurl}}/clients/javascript/index/)
 * **Go**
