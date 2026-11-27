@@ -53,21 +53,21 @@ The following table lists the available query parameters. All query parameters a
 | `routing` | String | A custom routing value used to route the operation to a specific shard. See [Routing](#routing). |
 | `refresh` | Enum | Whether to refresh the affected shards after the operation. Valid values are `true` (refresh immediately), `false` (do not refresh), and `wait_for` (wait for a refresh to occur before responding). Default is `false`. See [Refresh](#refresh). |
 | `timeout` | Time | The amount of time to wait for the primary shard to become available if it is unavailable. Default is `1m`. See [Timeout](#timeout). |
-| `version` | Integer | The explicit version number for concurrency control. The document is only indexed if its current version matches this value. See [Versioning](#versioning). |
+| `version` | Integer | The explicit version number for concurrency control. Requires `version_type` set to `external` or `external_gte`. See [Versioning](#versioning). |
 | `version_type` | Enum | The version type for external versioning. Valid values are `external` (only indexes if the specified version is greater than the stored version) and `external_gte` (only indexes if the specified version is greater than or equal to the stored version). Default is `internal`. See [Versioning](#versioning). |
 | `wait_for_active_shards` | String | The number of active shard copies required before proceeding with the operation. Valid values are `all` or a positive integer up to the total number of shards. Default is `1` (only the primary shard). See [Wait for active shards](#wait-for-active-shards). |
 | `require_alias` | Boolean | Whether the target index name must be an index alias. If `true` and the target is not an alias, the request fails. Default is `false`. |
 
 ## Example requests
 
-The following example requests create a sample index document for an index named `sample_index`.
+The following example requests create a sample index document for an index named `sample-index`.
 
 
 ### Example PUT request
 
 <!-- spec_insert_start
 component: example_code
-rest: PUT /sample_index/_doc/1
+rest: PUT /sample-index/_doc/1
 body: |
 {
   "name": "Example",
@@ -76,7 +76,7 @@ body: |
 }
 -->
 {% capture step1_rest %}
-PUT /sample_index/_doc/1
+PUT /sample-index/_doc/1
 {
   "name": "Example",
   "price": 29.99,
@@ -88,7 +88,7 @@ PUT /sample_index/_doc/1
 
 
 response = client.index(
-  index = "sample_index",
+  index = "sample-index",
   id = "1",
   body =   {
     "name": "Example",
@@ -108,7 +108,7 @@ response = client.index(
 
 <!-- spec_insert_start
 component: example_code
-rest: POST /sample_index/_doc
+rest: POST /sample-index/_doc
 body: |
 {
   "name": "Another Example",
@@ -117,7 +117,7 @@ body: |
 }
 -->
 {% capture step1_rest %}
-POST /sample_index/_doc
+POST /sample-index/_doc
 {
   "name": "Another Example",
   "price": 19.99,
@@ -129,7 +129,7 @@ POST /sample_index/_doc
 
 
 response = client.index(
-  index = "sample_index",
+  index = "sample-index",
   body =   {
     "name": "Another Example",
     "price": 19.99,
@@ -311,7 +311,7 @@ For external versioning (such as maintaining version numbers in a separate datab
 
 | Version type | Description |
 | :--- | :--- |
-| `internal` | Only indexes the document if the specified version is identical to the version of the stored document. This is the default version type. |
+| `internal` | OpenSearch assigns and increments version numbers. You cannot specify the `version` parameter when using internal versioning. For optimistic concurrency control using internal versioning, use the `if_seq_no` and `if_primary_term` parameters. This is the default version type. |
 | `external` or `external_gt` | Only indexes the document if the specified version is strictly greater than the version of the stored document or if there is no existing document. The specified version is used as the new version and stored with the document. The supplied version must be a non-negative long integer. |
 | `external_gte` | Only indexes the document if the specified version is greater than or equal to the version of the stored document. If there is no existing document, the operation succeeds. The specified version is used as the new version and stored with the document. The supplied version must be a non-negative long integer. |
 

@@ -48,10 +48,10 @@ The following table lists the available query parameters. All parameters are opt
 Parameter | Data type | Description
 :--- | :--- | :---
 `refresh` | Boolean | If `true`, OpenSearch refreshes shards to make the reindex operation available to search results. Valid values are `true`, `false`, and `wait_for`, which specifies to wait for a refresh before executing the operation. Default is `false`.
-`timeout` | Time unit | How long to wait for a response from the cluster. Default is `30s`.
+`timeout` | Time unit | How long to wait for a response from the cluster. Default is `1m`.
 `wait_for_active_shards` | String | The number of active shards that must be available before OpenSearch processes the reindex request. Default is `1` (only the primary shard). Set to `all` or a positive integer. Values greater than `1` require replicas. For example, if you specify a value of `3`, the index must have two replicas distributed across two additional nodes for the operation to succeed.
 `wait_for_completion` | Boolean | If `false`, OpenSearch runs the reindex operation asynchronously without waiting for it to complete. The request returns immediately, and the task continues in the background. You can monitor its progress using the [Tasks API]({{site.url}}{{site.baseurl}}/api-reference/tasks/). Default is `true`, which means the operation runs synchronously. See [Asynchronous operations](#asynchronous-operations).
-`requests_per_second` | Integer | Specifies the request's throttling in sub-requests per second. Default is `-1`, which means no throttling. See [Controlling reindex rate](#controlling-the-reindex-rate) and [Throttling and rate control](#throttling-and-rate-control).
+`requests_per_second` | Float | Specifies the request's throttling in sub-requests per second. Default is `-1`, which means no throttling. See [Controlling reindex rate](#controlling-the-reindex-rate) and [Throttling and rate control](#throttling-and-rate-control).
 `require_alias` | Boolean | Whether the destination index must be an alias. Default is `false`.
 `scroll` | Time unit | How long to keep the search context open. Default is `5m`.
 `slices` | Integer | The number of slices for automatic slicing. OpenSearch automatically divides the reindex operation into this number of parallel subtasks. Default is `1` (no slicing). Set this parameter to `auto` for OpenSearch to automatically determine the optimal number of slices. See [Using slicing for parallel processing](#using-slicing-for-parallel-processing). 
@@ -205,8 +205,8 @@ Field | Data type | Description
 `retries.bulk` | Integer | The number of bulk operation retries attempted during the reindex operation.
 `retries.search` | Integer | The number of search operation retries attempted during the reindex operation.
 `throttled_millis` | Integer | The total time in milliseconds that the operation was throttled to comply with the `requests_per_second` setting. Higher values indicate more throttling was applied.
-`requests_per_second` | Float | The actual rate of requests executed per second during the operation. This may differ from the requested rate due to throttling adjustments and system performance.
-`throttled_until_millis` | Integer | For asynchronous operations, this indicates the next time (in milliseconds since epoch) that throttled requests will be executed. Always `0` for completed operations.
+`requests_per_second` | Float | The throttling rate applied to the operation, in sub-requests per second. A value of `-1.0` means that the operation is not throttled.
+`throttled_until_millis` | Integer | For asynchronous operations, the amount of time in milliseconds until the next throttled request is executed. Always `0` for completed operations.
 `failures` | Array | An array of failure objects describing any unrecoverable errors encountered during the operation. Each failure includes details about the error type, cause, and affected document.
 
 ## Selective reindexing
@@ -1004,7 +1004,7 @@ You can manage long-running reindex tasks using these operations:
 
 - Cancel a running reindex: `POST /_tasks/oTUltX4IQMOUUVeiohTt8A:12345/_cancel`
 - List all reindex tasks: `GET /_tasks?actions=*reindex*`
-- Task cleanup: OpenSearch automatically removes completed task documents, but you can manually delete them if needed for immediate cleanup.
+- Delete the stored result of a completed reindex: `DELETE /_tasks/oTUltX4IQMOUUVeiohTt8A:12345`. OpenSearch does not remove stored task results automatically. For more information, see [Delete Task]({{site.url}}{{site.baseurl}}/api-reference/tasks/delete-task/).
 
 ## Cross-cluster reindexing
 

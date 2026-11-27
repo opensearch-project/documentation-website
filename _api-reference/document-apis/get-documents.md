@@ -60,11 +60,68 @@ The following table lists the available query parameters. All query parameters a
 | `_source_includes` | `GET` | List or String | A comma-separated list of source fields to include in the response. See [Source filtering](#source-filtering). | N/A |
 | `preference` | `GET`, `HEAD` | String | A preference for which node or shard should handle the operation. By default, OpenSearch selects a shard replica randomly. See [Preference](#preference). | `random` |
 | `realtime` | `GET`, `HEAD` | Boolean | Whether the request is real time. If `true`, the request retrieves the most recent version of the document. If `false`, the request is near-real-time and retrieves the document based on the last refresh. See [Real-time behavior](#real-time-behavior). | `true` |
-| `refresh` | `GET`, `HEAD` | Boolean or String | Whether to refresh the affected shards before the operation to make recent changes visible. <br> Valid values are: <br> - `false`: Do not refresh the affected shards. <br> - `true`: Refresh the affected shards immediately. <br> - `wait_for`: Wait for the changes to become visible before responding. See [Refresh](#refresh). | `false` |
+| `refresh` | `GET`, `HEAD` | Boolean | Whether to refresh the affected shards before the operation to make recent changes visible. <br> Valid values are: <br> - `false`: Do not refresh the affected shards. <br> - `true`: Refresh the affected shards immediately. <br> See [Refresh](#refresh). | `false` |
 | `routing` | `GET`, `HEAD` | List or String | The routing value used to target a specific primary shard. See [Routing](#routing).| N/A |
 | `stored_fields` | `GET` | List or String | A comma-separated list of stored fields to return. If no fields are specified, no stored fields are included in the response. If this parameter is specified, the `_source` parameter defaults to `false`. | N/A |
 | `version` | `GET`, `HEAD` | Integer | The explicit version number for concurrency control. The specified version must match the current version of the document for the request to succeed. | N/A |
-| `version_type` | `GET`, `HEAD` | String | The version type for concurrency control. <br> Valid values are: <br> - `internal`: The version number is managed internally by OpenSearch. <br> - `external`: The version number must be greater than the current version. <br> - `external_gte`: The version number must be greater than or equal to the current version. | `internal` |
+| `version_type` | `GET`, `HEAD` | String | The version type for concurrency control. Valid values are `internal`, `external`, and `external_gte`. Regardless of the version type, a get request succeeds only if the specified `version` matches the current version of the document. | `internal` |
+
+## Example setup
+
+The examples on this page use a `products` index in which the `category` and `manufacturer` fields are mapped as stored fields (`"store": true`). To follow along, create the index:
+
+```json
+PUT /products
+{
+  "mappings": {
+    "properties": {
+      "name": { "type": "text" },
+      "description": { "type": "text" },
+      "price": { "type": "float" },
+      "category": { "type": "keyword", "store": true },
+      "in_stock": { "type": "boolean" },
+      "manufacturer": { "type": "keyword", "store": true },
+      "model": { "type": "keyword" },
+      "tags": { "type": "keyword" }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Add a document to the index:
+
+```json
+PUT /products/_doc/1
+{
+  "name": "Wireless Mouse",
+  "description": "Ergonomic wireless mouse with optical sensor",
+  "price": 29.99,
+  "category": "Electronics",
+  "in_stock": true,
+  "manufacturer": "TechCorp",
+  "model": "WM-2000",
+  "tags": ["wireless", "ergonomic", "optical"]
+}
+```
+{% include copy-curl.html %}
+
+Add a second document using the routing value `user1`:
+
+```json
+PUT /products/_doc/2?routing=user1
+{
+  "name": "Mechanical Keyboard",
+  "description": "RGB mechanical gaming keyboard",
+  "price": 149.99,
+  "category": "Electronics",
+  "in_stock": true,
+  "manufacturer": "GameGear",
+  "model": "MK-500",
+  "tags": ["mechanical", "rgb", "gaming"]
+}
+```
+{% include copy-curl.html %}
 
 ## Example request
 
@@ -136,7 +193,7 @@ Field | Data type | Description
 `found` | Boolean | Indicates whether the document exists. `true` if the document was found, `false` otherwise.
 `_routing` | String | The routing value used to determine which shard stores the document. Only included if a routing value was specified when the document was indexed.
 `_source` | Object | The original JSON document that was indexed. Excluded if the `_source` parameter is set to `false` or if the `stored_fields` parameter is used.
-`_fields` | Object | Contains stored field values when the `stored_fields` parameter is specified. Only returned if `stored_fields` is set and `found` is `true`. Field values are always returned as arrays. See [Retrieving stored fields](#retrieving-stored-fields).
+`fields` | Object | Contains stored field values when the `stored_fields` parameter is specified. Only returned if `stored_fields` is set and `found` is `true`. Field values are always returned as arrays. See [Retrieving stored fields](#retrieving-stored-fields).
 
 ## Source filtering
 

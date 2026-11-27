@@ -27,7 +27,7 @@ The following index API operations are available, organized by category:
 - [Index templates]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index-templates/) - Create and manage templates for automatic index configuration
 - [Index blocks and allocation]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index-blocks-allocation/) - Control index access restrictions and shard allocation
 - [Pull-based ingestion management]({{site.url}}{{site.baseurl}}/api-reference/index-apis/pull-based-ingestion-management/) - Pause, resume, and get the state of pull-based ingestion
-- [Dangling index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/dangling-index/) - Manage indexes that exist on disk but are not part of cluster state
+- [Dangling indexes]({{site.url}}{{site.baseurl}}/api-reference/index-apis/dangling-index/) - Manage indexes that exist on disk but are not part of cluster state
 
 To manage data streams, use the [Data stream APIs]({{site.url}}{{site.baseurl}}/api-reference/data-stream/).
 

@@ -49,7 +49,7 @@ The following table lists the available query parameters. All query parameters a
 | `refresh` | Boolean or String | Controls when changes made by the delete operation become visible to search. Valid values are `true` (refresh immediately), `false` (default, do not refresh), and `wait_for` (wait for a refresh before responding). See [Refresh](#refresh). |
 | `routing` | String | A custom value used to route the operation to a specific shard. Required if the document was indexed with a routing value. See [Routing](#routing). |
 | `timeout` | Time | How long to wait for the primary shard to become available. Default is `1m` (1 minute). See [Timeout](#timeout). |
-| `version` | Integer | Explicit version number for concurrency control. The specified version must match the current version of the document for the request to succeed. See [Versioning](#versioning). |
+| `version` | Integer | Explicit version number for concurrency control. Requires `version_type` set to `external` or `external_gte`. See [Versioning](#versioning). |
 | `version_type` | Enum | Specifies the version type: `internal` (default), `external`, or `external_gte`. With `external`, the version number must be greater than the current version. With `external_gte`, it must be greater than or equal. See [Versioning](#versioning). |
 | `wait_for_active_shards` | String | The number of shard copies that must be active before proceeding with the operation. Default is `1` (only the primary shard). Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). See [Wait for active shards](#wait-for-active-shards). |
 

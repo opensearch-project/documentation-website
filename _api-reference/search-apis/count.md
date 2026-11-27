@@ -283,6 +283,8 @@ When using the `terminate_after` parameter, the response includes a `terminated_
 }
 ```
 
+In this response, `count` is greater than the `terminate_after` value. For queries such as `match_all` and `term`, OpenSearch can obtain the number of matching documents from index statistics without collecting each document, so the count is exact even when `terminated_early` is `true`.
+
 ## Response body fields
 
 The Count API response contains the following fields.

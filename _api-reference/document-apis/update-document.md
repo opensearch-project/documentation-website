@@ -27,7 +27,7 @@ To use the Update Document API, the `_source` field must be enabled in your inde
 You cannot explicitly specify an ingest pipeline when calling the Update Document API. If a `default_pipeline` or `final_pipeline` is defined in your index, the following behavior applies:
 
 - **Upsert operations**: When indexing a new document, the `default_pipeline` and `final_pipeline` defined in the index are executed as specified.  
-- **Update operations**: When updating an existing document, ingest pipeline execution is not recommended because it may produce erroneous results. Support for running ingest pipelines during update operations is deprecated and will be removed in version 3.0.0. If your index has a defined ingest pipeline, the update document operation will return the following deprecation warning: 
+- **Update operations**: When updating an existing document, OpenSearch also runs the `default_pipeline` and `final_pipeline` on the updated document. Running ingest pipelines during update operations is deprecated and not recommended because it may produce erroneous results. If your index has a defined ingest pipeline, OpenSearch writes the following deprecation warning to the deprecation log:
 
 ```
 the index [sample-index1] has a default ingest pipeline or a final ingest pipeline, the support of the ingest pipelines for update operation causes unexpected result and will be removed in 3.0.0
@@ -314,7 +314,6 @@ Consider an index that contains the following document:
   }
 }
 ```
-{% include copy-curl.html %}
 
 After the upsert operation, the document's `first_name` and `last_name` fields are updated:
 
@@ -329,7 +328,6 @@ After the upsert operation, the document's `first_name` and `last_name` fields a
   }
 }
 ```
-{% include copy-curl.html %}
 
 If the document does not exist in the index, a new document is indexed with the fields specified in the `upsert` object:
 
@@ -344,7 +342,6 @@ If the document does not exist in the index, a new document is indexed with the 
   }
 }
 ```
-{% include copy-curl.html %}
 
 #### Doc as upsert
 
@@ -411,7 +408,6 @@ Consider an index that contains the following document:
   }
 }
 ```
-{% include copy-curl.html %}
 
 After the upsert operation, the document's `first_name` and `last_name` fields are updated and an `age` field is added. If the document does not exist in the index, a new document is created using the fields from the `doc` object:
 
@@ -427,7 +423,6 @@ After the upsert operation, the document's `first_name` and `last_name` fields a
   }
 }
 ```
-{% include copy-curl.html %}
 
 #### Scripted upsert
 
@@ -509,7 +504,6 @@ If the document with ID `2` does not already exist, this operation creates it us
   }
 }
 ```
-{% include copy-curl.html %}
 
 Using `scripted_upsert` gives you full control over document creation and updates when standard `doc`-based operations are not flexible enough.
 
@@ -537,18 +531,17 @@ Because the document already has these exact values, OpenSearch detects no chang
 {
   "_index": "sample-index1",
   "_id": "1",
-  "_version": 2,
+  "_version": 1,
   "result": "noop",
   "_shards": {
     "total": 0,
     "successful": 0,
     "failed": 0
   },
-  "_seq_no": 1,
+  "_seq_no": 0,
   "_primary_term": 1
 }
 ```
-{% include copy-curl.html %}
 
 Note that `_shards.total` is `0` when a no-op is detected, indicating that no shard operations were performed.
 
@@ -576,15 +569,15 @@ With `noop` detection disabled, OpenSearch reindexes the document and increments
 {
   "_index": "sample-index1",
   "_id": "1",
-  "_version": 3,
+  "_version": 2,
   "result": "updated",
   "_shards": {
     "total": 2,
-    "successful": 2,
+    "successful": 1,
     "failed": 0
   },
-  "_seq_no": 4,
-  "_primary_term": 17
+  "_seq_no": 1,
+  "_primary_term": 1
 }
 ```
 
@@ -925,19 +918,19 @@ If there's an error in your Painless script, OpenSearch returns a 400 error with
       "type": "script_exception",
       "reason": "compile error",
       "script_stack": [
-        "ctx._source.value = params.newValue",
-        "                         ^---- HERE"
+        "ctx._source.value = newValue",
+        "                    ^---- HERE"
       ],
-      "script": "ctx._source.value = params.newValue",
+      "script": "ctx._source.value = newValue",
       "lang": "painless",
       "position": {
-        "offset": 25,
+        "offset": 20,
         "start": 0,
-        "end": 34
+        "end": 28
       },
       "caused_by": {
         "type": "illegal_argument_exception",
-        "reason": "cannot resolve symbol [params.newValue]"
+        "reason": "cannot resolve symbol [newValue]"
       }
     }
   },

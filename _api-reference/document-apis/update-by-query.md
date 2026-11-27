@@ -25,7 +25,7 @@ When you submit an update by query request, OpenSearch takes a snapshot of the i
 
 All update and query failures cause the operation to abort and are returned in the `failures` array of the response. Successful updates persist even after an abort. While the first failure triggers the abort, all failures from the rejected bulk request appear in the `failures` element, so multiple failed entities may be reported.
 
-OpenSearch retries rejected search or bulk requests up to 10 times with exponential backoff. If the maximum retry limit is reached, the operation halts and returns all failed requests in the response.
+OpenSearch retries rejected search or bulk requests up to 11 times with exponential backoff. If the maximum retry limit is reached, the operation halts and returns all failed requests in the response.
 
 **Note:** OpenSearch cannot update documents with version `0` using this API. The internal versioning system requires that version numbers are greater than 0 in order to track and process update operations correctly.
 {: .note}
@@ -126,7 +126,7 @@ Operation | Description
 No operation (`noop`) | Set `ctx.op = "noop"` to skip updating a document when your script determines no changes are needed. OpenSearch reports skipped documents in the `noops` counter of the response.
 Delete (`delete`) | Set `ctx.op = "delete"` to delete a document based on script logic. OpenSearch reports deleted documents in the `deleted` counter of the response.
 
-Setting `ctx.op` to any other value causes an error. Modifying other fields in `ctx` besides `ctx._source` and `ctx.op` also causes an error.
+Setting `ctx.op` to any value other than `noop`, `delete`, or `index` (the default) causes an error. Modifying other fields in `ctx` besides `ctx._source` and `ctx.op` also causes an error.
 
 ## Refreshing shards
 
@@ -134,7 +134,7 @@ Specifying the `refresh` parameter refreshes all shards involved in the update b
 
 ## Running update by query asynchronously
 
-To run an update by query operation asynchronously, set the `wait_for_completion` query parameter to `false`. OpenSearch performs preflight checks, launches the request, and returns a task ID that you can use to monitor progress or cancel the operation. When running asynchronously, OpenSearch creates a record of the task as a document at `.tasks/task/${taskId}`. After the task completes, delete the task document to allow OpenSearch to reclaim the space.
+To run an update by query operation asynchronously, set the `wait_for_completion` query parameter to `false`. OpenSearch performs preflight checks, launches the request, and returns a task ID that you can use to monitor progress or cancel the operation. When running asynchronously, OpenSearch stores a record of the task as a document in the `.tasks` index. After the task completes, delete the task record using the [Delete Task API]({{site.url}}{{site.baseurl}}/api-reference/tasks/delete-task/) to allow OpenSearch to reclaim the space.
 
 ## Waiting for active shards
 
@@ -956,24 +956,34 @@ The response contains detailed information about the operation's progress:
 
 ```json
 {
-  "nodes": {
-    "node_id": {
-      "tasks": {
-        "task_id": {
-          "status": {
-            "total": 1000,
-            "updated": 450,
-            "created": 0,
-            "deleted": 0,
-            "batches": 5,
-            "version_conflicts": 0,
-            "noops": 0,
-            "retries": 0,
-            "throttled_millis": 0
-          }
-        }
-      }
-    }
+  "completed": false,
+  "task": {
+    "node": "6It0uQ1AR06IDC4nMstPQw",
+    "id": 23242,
+    "type": "transport",
+    "action": "indices:data/write/update/byquery",
+    "status": {
+      "total": 250,
+      "updated": 10,
+      "created": 0,
+      "deleted": 0,
+      "batches": 1,
+      "version_conflicts": 0,
+      "noops": 0,
+      "retries": {
+        "bulk": 0,
+        "search": 0
+      },
+      "throttled_millis": 0,
+      "requests_per_second": 1.0,
+      "throttled_until_millis": 9908
+    },
+    "description": "update-by-query [products]",
+    "start_time_in_millis": 1795624614305,
+    "running_time_in_nanos": 104718125,
+    "cancellable": true,
+    "cancelled": false,
+    "headers": {}
   }
 }
 ```
