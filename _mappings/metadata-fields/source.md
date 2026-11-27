@@ -215,6 +215,9 @@ For a [`text`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/text/
 To use the [`wildcard`]({{site.url}}{{site.baseurl}}/mappings/supported-field-types/wildcard/) field with a derived source, the mapping parameter [`doc_values`]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/doc-values/) must be set to `true`.
 {: .note}
 
+Because derived source reconstructs array values from doc values, the original order and duplicate values of an array may not be preserved. To preserve them for a field, use the [`derived_source_keep`]({{site.url}}{{site.baseurl}}/mappings/mapping-parameters/derived-source-keep/) mapping parameter.
+{: .note}
+
 ### Limitations
 
 Derived source does not support the following fields:
